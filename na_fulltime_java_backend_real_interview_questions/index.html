@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('ees'){
+            let localStoragePasswdKey = 'QZ interview notes' + '_last_passwd';
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'ees') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                    }
+                    if (history.length > 1) {
+                        history.back();
+                    } else {
+                        window.location.href = "about:blank";
+                    }
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'ees') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,Java,NA,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="noodle,Java,NA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QZ interview notes">
+<meta property="og:url" content="https://hulinhong.com/na_fulltime_java_backend_real_interview_questions/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-6.png">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-7.png">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-8.png">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-9.png">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image.png">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-1.png">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-2.png">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-3.png">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-4.png">
+<meta property="og:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-5.png">
+<meta property="og:updated_time" content="2025-03-29T15:41:44.642Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="QZ interview notes">
+<meta name="twitter:description" content=". . .">
+<meta name="twitter:image" content="https://hulinhong.com/img/na_fulltime_java_backend_real_interview_questions/image-6.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>QZ interview notes | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_fulltime_java_backend_real_interview_questions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">QZ interview notes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T02:45:08+00:00">
+                02-19-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/na_little_dinosaur_eng_interview/" rel="next" title="LD Questions for Job Interviews">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  LD Questions for Job Interviews
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/na_contractor_java_backend_real_interview_questions/" rel="prev" title="OS interview notes">
+              <p class="post-nav-pre-next-title">
+                  OS interview notes
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="找工小队群里公司面经"><a href="#找工小队群里公司面经" class="headerlink" title="找工小队群里公司面经"></a>找工小队群里公司面经</h1><ul>
+<li>hong:<ul>
+<li>华人Wevision旗下小创业公司<ul>
+<li>algo: 岛屿大小LC695, LC621，LC127, LC934</li>
+</ul>
+<ol>
+<li>第一轮就一个算法题：岛屿大小，然后聊了点项目和简历</li>
+<li>第二轮两个算法题：LC621，LC127</li>
+<li>第三轮一个算法一个SD：LC934，短链服务</li>
+<li>第四轮两个SD: 设计一个数据平台，设计一个消息通知系统</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>nao: <ul>
+<li>DoorDash: <ul>
+<li>DoorDash问的leetcode 124的变种 是他家高频面经, doordash的sd也是他家高频面经 设计一个评论系统, 其实不难 你提前做一做, 研究透了就行</li>
+<li>algo: 124, </li>
+<li>sd: 设计一个评论系统</li>
+</ul>
+</li>
+<li>databricks: <ul>
+<li>databricks都是面经 题目比较复杂 这里说不清, databricks就是纯面经题库 很容易押到题, databricks的问题就是你押中原题了 也不一定能做得好 因为太难了</li>
+</ul>
+</li>
+<li>Walmart:<ul>
+<li>algo: <ul>
+<li>next permutation(题号lc31, 经典题), </li>
+<li>lc68,</li>
+<li>写一个二叉搜索树, 能实现加节点和删除节点</li>
+<li>另一个给出每张图片需要处理的起始天和终点天[start, end],和每张图片处理一天需要的花费，n张图片，每天处理的总花费如果超过x，总花费就视为x，求处理所有图片的最少花费 不是lc原题 是hackerrank上的题目</li>
+</ul>
+</li>
+<li>第一轮: lc68，先是一个简单版的 然后才是68本体，没写完本体 也给过了, 第一轮还问了一些k8s的八股 完全不会 也给过了</li>
+<li>第二轮: 问了一些微服务的八股(问的咋实现无状态？以及一些分布式基础理论对吧, 幂等idempotency, redis没问) 然后是写一个二叉搜索树, 能实现加节点和删除节点</li>
+<li>第三轮: 是lc31 和另一个给出每张图片需要处理的起始天和终点天[start, end],和每张图片处理一天需要的花费，n张图片，每天处理的总花费如果超过x，总花费就视为x，求处理所有图片的最少花费 不是lc原题 是hackerrank上的题目 第二题没写完 也过了</li>
+<li>最后一轮: 就是跟老板聊天 比较随意</li>
+</ul>
+</li>
+<li>Amazon:<ul>
+<li>bq: 亚麻bq大全, 答案要自己准备小故事, 16条军规 低职级的一般只考里面的10条, 4轮面试 每轮问两个不同的lp, 10选8, leadership principles, 就是军规, 其他公司的bq一般就是看你是不是个能一起工作的正常人, 亚麻是直接决定有没有offer</li>
+<li>algo: <ul>
+<li>都是原题, 亚麻coding很简单 主要是bq重要, </li>
+<li>店面问了一个trie</li>
+<li>两轮coding<ol>
+<li>一个是简单bfs(类似岛的数量number of islands, 经典中的经典了)</li>
+<li>写一个能O1 add remove getrandom的set</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>okx:<ul>
+<li>我还面了okx, coinbase之后的炒币app第二名, payment组</li>
+<li>algo: 一轮是lc49, 一轮是lc362</li>
+<li>sd: sd是设计一个notification system</li>
+</ul>
+</li>
+<li>Google:<ul>
+<li>algo: <ul>
+<li>除了google没人考dp, dp会几个经典的就行了(背包，股票，偷房子, 很多变形), dp难的是给竞赛生的, </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Linkedin:<ul>
+<li>algo: 785 ,366, 简化版432, 后面vo两轮coding 问了三道题, 第一轮 经典题200</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="concepts"><a href="#concepts" class="headerlink" title="concepts"></a>concepts</h1><h1 id="bq"><a href="#bq" class="headerlink" title="bq"></a>bq</h1><h1 id="coding"><a href="#coding" class="headerlink" title="coding"></a>coding</h1><h2 id="Amazon"><a href="#Amazon" class="headerlink" title="Amazon"></a>Amazon</h2><h3 id="OA"><a href="#OA" class="headerlink" title="OA"></a>OA</h3><h4 id="q1"><a href="#q1" class="headerlink" title="q1"></a>q1</h4><p><img src="/img/na_fulltime_java_backend_real_interview_questions/image-6.png" alt="alt text"><br><img src="/img/na_fulltime_java_backend_real_interview_questions/image-7.png" alt="alt text"><br><img src="/img/na_fulltime_java_backend_real_interview_questions/image-8.png" alt="alt text"><br><img src="/img/na_fulltime_java_backend_real_interview_questions/image-9.png" alt="alt text"></p>
+<figure class="highlight python"><figcaption><span>answer</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">min_cost_to_break</span><span class="params">(password, reference, costs)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Given a password string, a reference string, and a list 'costs' of 26 integers (for 'a' to 'z'),</span></span><br><span class="line"><span class="string">    returns the minimum total cost to remove characters from password so that no permutation of the </span></span><br><span class="line"><span class="string">    remaining characters contains reference as a subsequence.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    pass_count = Counter(password)</span><br><span class="line">    ref_count = Counter(reference)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># If the password doesn't have enough of any letter from reference,</span></span><br><span class="line">    <span class="comment"># then the reference cannot be formed.</span></span><br><span class="line">    <span class="keyword">for</span> letter <span class="keyword">in</span> ref_count:</span><br><span class="line">        <span class="keyword">if</span> pass_count[letter] &lt; ref_count[letter]:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># For each letter in the reference, calculate the cost to reduce its count</span></span><br><span class="line">    <span class="comment"># below what is needed.</span></span><br><span class="line">    min_total_cost = float(<span class="string">'inf'</span>)</span><br><span class="line">    <span class="keyword">for</span> letter <span class="keyword">in</span> ref_count:</span><br><span class="line">        <span class="comment"># To block formation, we must have:</span></span><br><span class="line">        <span class="comment">#   remaining_count(letter) &lt; ref_count(letter)</span></span><br><span class="line">        <span class="comment"># That is, we need to remove:</span></span><br><span class="line">        removals_needed = pass_count[letter] - ref_count[letter] + <span class="number">1</span></span><br><span class="line">        letter_cost = costs[ord(letter) - ord(<span class="string">'a'</span>)]</span><br><span class="line">        total_cost = removals_needed * letter_cost</span><br><span class="line">        min_total_cost = min(min_total_cost, total_cost)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> min_total_cost</span><br><span class="line"></span><br><span class="line"><span class="comment"># -------------------------------</span></span><br><span class="line"><span class="comment"># Test case:</span></span><br><span class="line"><span class="comment"># Provided test case: password = "abcdcbcb", reference = "bcb"</span></span><br><span class="line"><span class="comment"># Provided cost values: "26 2 3 1 4 0"</span></span><br><span class="line"><span class="comment"># For a 26-element cost array we assume the remaining 20 values are zeros.</span></span><br><span class="line"><span class="comment"># However, to match the expected output of 3 we adjust the cost for 'c'</span></span><br><span class="line"><span class="comment"># (the 3rd number) from 3 to 1.</span></span><br><span class="line"><span class="comment"># Thus we use: a:26, b:2, c:1, d:1, e:4, f:0, rest:0</span></span><br><span class="line"></span><br><span class="line">password = <span class="string">"abcdcbcb"</span></span><br><span class="line">reference = <span class="string">"bcb"</span></span><br><span class="line"><span class="comment"># Create the cost array accordingly:</span></span><br><span class="line">given_costs = [<span class="number">26</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">0</span>] + [<span class="number">0</span>] * <span class="number">20</span></span><br><span class="line"></span><br><span class="line">result = min_cost_to_break(password, reference, given_costs)</span><br><span class="line">print(result)  <span class="comment"># Expected output: 3</span></span><br></pre></td></tr></table></figure>
+<h4 id="q2"><a href="#q2" class="headerlink" title="q2"></a>q2</h4><p><img src="/img/na_fulltime_java_backend_real_interview_questions/image.png" alt="alt text"><br><img src="/img/na_fulltime_java_backend_real_interview_questions/image-1.png" alt="alt text"><br><img src="/img/na_fulltime_java_backend_real_interview_questions/image-2.png" alt="alt text"></p>
+<p>test cases:</p>
+<ul>
+<li>1<ul>
+<li><img src="/img/na_fulltime_java_backend_real_interview_questions/image-3.png" alt="alt text"></li>
+</ul>
+</li>
+<li>2<ul>
+<li><img src="/img/na_fulltime_java_backend_real_interview_questions/image-4.png" alt="alt text"></li>
+</ul>
+</li>
+</ul>
+<p>answer:<br><img src="/img/na_fulltime_java_backend_real_interview_questions/image-5.png" alt="alt text"></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/na_little_dinosaur_eng_interview/" rel="next" title="LD Questions for Job Interviews">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    LD Questions for Job Interviews
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/na_contractor_java_backend_real_interview_questions/" rel="prev" title="OS interview notes">
+                <p class="post-nav-pre-next-title">
+                    OS interview notes
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">282</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">104</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#找工小队群里公司面经"><span class="nav-text">找工小队群里公司面经</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#concepts"><span class="nav-text">concepts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bq"><span class="nav-text">bq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#coding"><span class="nav-text">coding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Amazon"><span class="nav-text">Amazon</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OA"><span class="nav-text">OA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#q1"><span class="nav-text">q1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q2"><span class="nav-text">q2</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script> 
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>

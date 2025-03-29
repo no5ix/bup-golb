@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('ees'){
+            let localStoragePasswdKey = 'IT Word List' + '_last_passwd';
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'ees') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                    }
+                    if (history.length > 1) {
+                        history.back();
+                    } else {
+                        window.location.href = "about:blank";
+                    }
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'ees') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,Java,NA,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="Java Intellij /ɪn’telɪdʒeɪ/ eden /ˈiːdn/ , 伊甸园, GC 相关 serialization / ˌsɪriələˈzeɪʃn / , lization美式发音读 ləˈzeɪʃn, 英式才读 laɪˈzeɪʃn hierarchical /ˌhaɪəˈrɑːrkɪkl/ polymorphism /ˌpɑːlɪˈmɔːrˌfɪzəm session fa">
+<meta name="keywords" content="noodle,Java,NA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IT Word List">
+<meta property="og:url" content="https://hulinhong.com/na_word_list/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="Java Intellij /ɪn’telɪdʒeɪ/ eden /ˈiːdn/ , 伊甸园, GC 相关 serialization / ˌsɪriələˈzeɪʃn / , lization美式发音读 ləˈzeɪʃn, 英式才读 laɪˈzeɪʃn hierarchical /ˌhaɪəˈrɑːrkɪkl/ polymorphism /ˌpɑːlɪˈmɔːrˌfɪzəm session fa">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-03-29T15:41:44.644Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IT Word List">
+<meta name="twitter:description" content="Java Intellij /ɪn’telɪdʒeɪ/ eden /ˈiːdn/ , 伊甸园, GC 相关 serialization / ˌsɪriələˈzeɪʃn / , lization美式发音读 ləˈzeɪʃn, 英式才读 laɪˈzeɪʃn hierarchical /ˌhaɪəˈrɑːrkɪkl/ polymorphism /ˌpɑːlɪˈmɔːrˌfɪzəm session fa">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>IT Word List | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_word_list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IT Word List</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-18T21:54:08+00:00">
+                01-18-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/na_little_dinosaur_java_top_questions_notes/" rel="next" title="LD Questions notes">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  LD Questions notes
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/na_springboot_notes/" rel="prev" title="Spring Boot Notes">
+              <p class="post-nav-pre-next-title">
+                  Spring Boot Notes
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><ol>
+<li>Intellij <code>/ɪn’telɪdʒeɪ/</code></li>
+<li><strong>eden</strong> <code>/ˈiːdn/</code> , 伊甸园, GC 相关</li>
+<li>serialization <code>/ ˌsɪriələˈzeɪʃn /</code> , <code>lization</code>美式发音读 <code>ləˈzeɪʃn</code>, 英式才读 <code>laɪˈzeɪʃn</code></li>
+<li><strong>hierarchical</strong> <code>/ˌhaɪəˈrɑːrkɪkl/</code></li>
+<li><strong>polymorphism</strong> <code>/ˌpɑːlɪˈmɔːrˌfɪzəm</code></li>
+<li><strong>session facade</strong> <code>/fəˈsɑːd/</code> :  通常是指在企业级应用开发中，用于封装和管理与业务逻辑相关的一系列操作的组件或类。它充当了客户端（如用户界面、其他系统等）与底层业务逻辑和数据访问层之间的中间层，就像是一个门面，将复杂的业务操作封装起来，为客户端提供一个简单、统一的接口。</li>
+<li><strong>composite</strong> <code>/kəmˈpɑːzət/</code> adj. 合成的, 复合的</li>
+<li>Enumeration <code>/ɪˌnuːməˈreɪʃn/</code></li>
+<li>NPE: Null Pointer Exception</li>
+<li>Volatile <code>/ˈvɑːlət(ə)l/</code> adj. 易变的，动荡不定的，反复无常的；（情绪）易变的，易怒的，突然发作的；（液体或固体）易挥发的，易气化的；（计算机内存）易失的 n. 挥发物</li>
+<li><strong>Atomic</strong> <code>/əˈtɑːmɪk/</code></li>
+<li><strong>predicate</strong> <code>/ˈpredɪkət/</code> n. （语法）谓语 v. 使基于，使取决于；表明，<code>断言</code></li>
+</ol>
+<h1 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h1><ol>
+<li><strong>PostgreSQL</strong> <code>/ˈpoʊstˌɡre ˌɛs ˌkjuˈɛl/</code> 数据库管理系统，支持复杂查询,  PostgreSQL 开发者把它拼读为”post-gress-Q-L”。它也经常被简略念为”postgres”, gress原意为: 行走,  官方读法 <a href="http://www.postgresql.org/files/postgresql.mp3" target="_blank" rel="noopener">http://www.postgresql.org/files/postgresql.mp3</a></li>
+<li>Cassandra <code>/kəˈsændrə/</code> 分布式 NoSQL 数据库; n. 凶事预言家；不为人所信的预言家；卡珊德拉（希腊神话人物</li>
+<li>CosmosDB <code>/ˈkɑːzˌmoʊs ˌdiːˈbiː/</code> 微软 Azure 提供的全局分布式数据库服务, <code>cosmos</code>本意是: n. 宇宙；完整和谐的一统体系；秋英属植物</li>
+<li><strong>MongoDB Atlas</strong> <code>/ˈmɑːŋɡoʊ ˌdiːˈbiː ˈætləs/</code> MongoDB 的云数据库服务</li>
+<li><strong>Durability</strong> <code>/ˌdʊrəˈbɪləti/</code> 数据库事务的 ACID 特性之一，指持久性</li>
+<li><strong>Atomicity</strong> <code>/ˌætəˈmɪsəti/</code> 数据库事务的 ACID 特性之一，指原子性</li>
+<li>Column Group <code>/ˈkɑːləm ɡruːp/</code> 数据库列组，用于存储相关列数据</li>
+<li>Stored Procedures <code>/stɔrd prəˈsiːdʒərz/</code> 存储过程，用于数据库逻辑封装</li>
+<li>NVL <code>/ˌɛn ˌviː ˈɛl/</code> SQL 函数，用于替代 NULL 值</li>
+<li>Materialized View <code>/məˈtɪriəˌlaɪzd ˈvjuː/</code> 物化视图，存储查询结果的视图</li>
+<li><strong>Aggregate</strong> <code>/ˈæɡrɪˌɡeɪt/</code> 聚合函数，用于数据汇总计算</li>
+</ol>
+<h1 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h1><ol>
+<li>Dispatch Servlet <code>/dɪˈspætʃ ˈsɜːrvlɪt/</code> Spring MVC 的核心调度器</li>
+<li>Soap <code>/soʊp/</code> 基于 XML 的 Web 服务协议</li>
+<li>Swagger <code>/ˈswæɡər/</code> 用于生成 API 文档的工具</li>
+<li><strong>Jersey Rest</strong> <code>/ˈdʒɜrzi rɛst/</code> Java RESTful Web 服务框架</li>
+<li>Thymeleaf <code>/ˈtaɪmˌliːf/</code> 用于 Java Web 应用的模板引擎, 由两个单词组成 thyme (<code>/taɪm/</code> 百里香, 一种植物),  leaf</li>
+<li>Angular <code>/ˈæŋɡjələr/</code> JavaScript 前端框架，常与 Java 后端整合, 本意是: adj. [生物] 有角的；生硬的，笨拙的；瘦削的</li>
+<li>Asynchronous <code>/ˌeɪˈsɪŋkrənəs/</code> 异步处理机制，提高性能</li>
+<li><strong>synchronous</strong> <code>ˈsɪŋkrənəs/</code> 同步的</li>
+<li>IOC <code>/ˌaɪ ˌoʊ ˈsiː/</code> 控制反转，Spring 框架的核心概念</li>
+<li>Autowired <code>/ˈɔːtəˌwaɪrd/</code> Spring 注解，用于自动注入依赖</li>
+<li><strong>Actuator</strong> <code>/ˈæktʃuˌeɪtər/</code> Spring Boot 提供的监控工具, 原型: actuate <code>/ˈæktʃueɪt/</code> vt. 开动（机器等）；促使，驱使；激励（人等）</li>
+<li><strong>Embedded</strong> Tomcat Server <code>/ɪmˈbɛdɪd ˈtɑːmˌkæt ˈsɜːrvər/</code> 嵌入式 Tomcat，Spring Boot 默认 Web 服务器</li>
+<li><strong>Repository</strong> <code>/rɪˈpɑːzətɔːri/</code> 数据访问层接口</li>
+<li>DTO <code>/ˌdiː ˌtiː ˈoʊ/</code> 数据传输对象, Data Transfer Object</li>
+<li>Pojo <code>/ˈpoʊdʒoʊ/</code> 简单 Java 对象, Plain Ordinary Java Object</li>
+<li>Hibernate <code>/ˈhaɪbərˌneɪt/</code> Java 的 ORM 框架</li>
+<li>Composite Primary Key <code>/kəmˈpɑːzɪt ˈpraɪˌmɛri ˈkiː/</code> 复合主键</li>
+<li>Boilerplate <code>/ˈbɔɪlərˌpleɪt/</code> 模板化代码</li>
+<li><strong>Propagation</strong> <code>/ˌprɑːpəˈɡeɪʃən/</code> Spring 事务传播行为, n. （动植物等的）繁殖，增殖，；（观点、理论等的）传播；（运动、光线、声音等的）传送</li>
+<li><strong>Pessimistic</strong> Locking <code>/ˌpesɪˈmɪstɪk/ ˈlɑːkɪŋ/</code> 悲观锁</li>
+<li><strong>Optimistic</strong> Locking <code>/ˌɑːptɪˈmɪstɪk/</code> 乐观锁</li>
+<li>Pointcut <code>/ˈpɔɪntˌkʌt/</code> AOP 切入点</li>
+<li><strong>Authentication</strong> <code>/ɔːˌθɛntɪˈkeɪʃən/</code> 身份验证</li>
+<li><strong>Authorization</strong> <code>/ˌɔːθərəˈzeɪʃ(ə)n/</code> 授权</li>
+<li><strong>Symmetric</strong> <code>/sɪˈmɛtrɪk/</code> 对称的</li>
+<li><strong>Asymmetric</strong> <code>/ˌeɪsɪˈmɛtrɪk/</code> 非对称的</li>
+<li><strong>MyBatis</strong> [mai’bətɪs]，中文音译：麦-波蒂斯。MyBatis的前世是ibatis，这个词是由”internet”和”abatis”组合而成，创始人是Clinton Begin。abatis 的英文读音是：[‘æbətɪs]，其含义是：篱笆墙，这是用来保护院子的一种设施，一般都是由木头，棍子，竹子，芦苇、灌木或者石头构成，常见于我国北方农村以及欧美等地广人稀的国家，用于保护院子。从ibatis的含义可知，其目的是想当做互联网的篱笆墙，是围绕着数据库提供持久化服务的一个框架。 </li>
+<li><strong>encrypte</strong> <code>/ ɪnˈkrɪpt /</code> v. 把 … 加密</li>
+<li><strong>pagination</strong> / ˌpædʒɪˈneɪʃ(ə)n / n. 分页机制; 页码; 标记页数</li>
+<li><strong>idempotent</strong> <code>/ aɪˈdempətənt /</code> adj. 幂等的</li>
+</ol>
+<h1 id="Agile"><a href="#Agile" class="headerlink" title="Agile"></a>Agile</h1><ol>
+<li>Mockito <code>/mɑːkˈiːtoʊ/</code> 测试框架，用于模拟对象, 一种类似莫吉托的酒</li>
+<li>Selenium <code>/səˈliːniəm/</code> 自动化测试工具, n. [化学] 硒</li>
+<li><strong>Gatling</strong> <code>/ˈɡætlɪŋ/</code> 性能测试工具, n. 格林机关枪（初期的机关枪，为美国人 R.J.Gatling 所发明）</li>
+<li><strong>Regression</strong> Test <code>/rɪˈɡrɛʃən ˈtɛst/</code> 回归测试, Regression n. 后退，倒退；（思想或行为的）退化，退行；（疾病或症状的）消退；（统计）回归</li>
+<li>E2E Test <code>/iː tuː iː ˈtɛst/</code> 端到端测试</li>
+<li>Prod <code>/prɑːd/</code> 生产环境</li>
+<li>TDD <code>/tiː diː diː/</code> 测试驱动开发, test-driven development</li>
+<li>BDD <code>/biː diː diː/</code> 行为驱动开发, Behavior-driven development</li>
+<li><strong>CICD</strong> <code>/ˌsiː ˌaɪ ˌsiː ˈdiː/</code> 持续集成与持续部署, Continuous integration and continuous deployment</li>
+<li><strong>Agile</strong> <code>/ˈædʒ(ə)l/</code> 敏捷开发, 本意为: 敏捷的</li>
+<li>Retro <code>/ˈrɛtroʊ/</code> 迭代回顾, Sprint Retrospective, <code>/ˌretrəˈspektɪv/</code> adj. 回顾的，回想的；有追溯效力的，溯及既往的 n. （艺术家作品）回顾展, 而 Retro <code>/ˈretroʊ/</code> adj. 怀旧的，重新流行的 n. （服装式样等）重新流行；&lt;美，非正式&gt;回顾展</li>
+<li>Grooming <code>/ˈɡruːmɪŋ/</code> 敏捷开发中的需求梳理, n. （动物）刷洗，梳毛；梳妆；培养；（以实施性侵为目的的）儿童诱骗 v. （动物）刷洗，梳毛；梳妆；培养；（以实施性侵为目的的）儿童诱骗（groom 的现在分词）</li>
+<li>Scrum Master <code>/skrʌm ˈmæstər/</code> Scrum 项目中的管理角色, n. 扭打，混乱；并列争球 vi. 参加并列争球 vt. 抛（球）开始并列争球</li>
+<li>Story Points <code>/ˈstɔːri ˈpɔɪnts/</code> 敏捷开发中的工作量估算单位</li>
+</ol>
+<h1 id="Distributed-System"><a href="#Distributed-System" class="headerlink" title="Distributed System"></a>Distributed System</h1><ol>
+<li>Monolithic <code>/ˌmɑːnəˈlɪθɪk/</code> 单体架构, adj. 整体的；巨石的，庞大的；完全统一的 n. 单块集成电路，单片电路</li>
+<li>Eureka <code>/juˈriːkə/</code> 服务发现组件, int. （eureka）我发现了，我找到了；有了</li>
+<li>Circuit Breaker <code>/ˈsɜːrkɪt ˈbreɪkər/</code> 服务熔断器, circuit n. 电路，回路；巡回活动，巡回地；环道，环线；巡回赛；赛车道；</li>
+<li>Hystrix <code>/ˈhaɪstrɪks/</code> 服务熔断工具</li>
+<li>Zuul <code>/zuːl/</code> API 网关</li>
+<li><strong>Ribbon</strong> <code>/ˈrɪbən/</code> 客户端负载均衡工具, n. 丝带，绸带</li>
+<li>NgX <code>/ɛn ˌdʒiː ˈɛks/</code> Angular 框架工具</li>
+<li><strong>Round Robin</strong> <code>/raʊnd ˈrɑːbɪn/</code> 轮询算法</li>
+<li><strong>Replica</strong> <code>/ˈrɛplɪkə/</code> 副本, n. 复制品</li>
+<li>Replay <code>/ˌriːˈpleɪ/</code> 重放机制</li>
+<li>Fanout <code>/ˈfænˌaʊt/</code> 扇出模式, n. 扇出；展开；分列（账户</li>
+<li>Saga Pattern <code>/ˈsɑːɡə ˈpætərn/</code> 分布式事务模式, n. 萨迦（中世纪挪威或冰岛的传奇故事）；长篇小说，传奇故事；一连串事件（或经历）</li>
+<li>Orchestration <code>/ˌɔːrkɪˈstreɪʃən/</code> 服务编排, n. 管弦乐编曲；和谐的结合</li>
+<li>Docker-Compose <code>/ˈdɑːkər kəmˈpoʊz/</code> 容器编排工具, Compose v. 组成，构成；作曲；撰写（信、诗或演讲稿）；使镇静，使平静；为（照片、图像）构图；排版，排稿</li>
+<li>RDS <code>/ˌɑːr ˌdiː ˈɛs/</code> 关系型数据库服务 Relation Data System</li>
+<li>theorem <code>/ ˈθiːərəm /</code> n. [数] 定理；原理</li>
+<li>orchestrate <code>/ ˈɔːrkɪstreɪt /</code> v. 编排; 把……编成管弦乐曲；精心安排，密谋；把……协调地结合起来</li>
+</ol>
+<h1 id="Third-Party-Service"><a href="#Third-Party-Service" class="headerlink" title="Third Party Service"></a>Third Party Service</h1><ol>
+<li>Aurora <code>/əˈrɔːrə/</code> 亚马逊 RDS 提供的高性能数据库, n. 奥罗拉（女子名）；奥罗拉（曙光女神）；奥罗拉（美国城市）</li>
+<li>DynamoDB <code>/ˈdaɪnəˌmoʊ ˌdiː ˈbiː/</code> 分布式 NoSQL 数据库, Dynamo n. 发电机；精力充沛的人</li>
+<li>EC2 <code>/ˌiː ˌsiː ˈtuː/</code> 亚马逊弹性计算云</li>
+<li><strong>Inbound</strong> <code>/ˈɪnˌbaʊnd/</code> 入站流量, adj. 入境的；归本国的；回内地的</li>
+<li><strong>Outbound</strong> <code>/ˈaʊtˌbaʊnd/</code> 出站流量</li>
+<li>Elastic Beanstalk <code>/ɪˈlæstɪk ˈbiːnstɔːk/</code> AWS 应用部署服务, <code>Elastic</code> adj. 有弹性的；灵活的 n. 弹性织物，松紧带; <code>Beanstalk</code> n. 豆茎</li>
+<li><strong>Azure</strong> <code>/ˈæʒər/</code> 微软云计算平台</li>
+<li>GCP <code>/ˌdʒiː ˌsiː ˈpiː/</code> 谷歌云平台</li>
+<li>Logstash <code>/ˈlɔːɡˌstæʃ/</code> 日志收集工具, <code>stash</code> n. 藏匿处；藏匿物 vt. 存放；贮藏 vi. 存放；藏起来</li>
+<li>Kibana <code>/kɪˈbɑːnə/</code> 数据可视化工具</li>
+<li>Grafana <code>/ɡrəˈfɑːnə/</code> 监控与可视化平台</li>
+<li>ELK <code>/ˌiː ˌɛl ˈkeɪ/</code> 日志分析工具套件</li>
+<li>Apache <code>/ əˈpætʃi /</code></li>
+</ol>
+<h1 id="All"><a href="#All" class="headerlink" title="All"></a>All</h1><ol>
+<li><strong>Intellij</strong>, Eclipse, Sublime Text, Github, Git, SVN, Bitbucket</li>
+<li>Heap, metaspace, young generation, old generation, permanent generation,<strong>eden</strong>,survivor, stack</li>
+<li>garbage collection, JVM, class loader, JDK, JRE</li>
+<li>String, StringBuilder, StringBuffer, constant pool, mutable, immutable, thread safe, string tokenizer</li>
+<li>final, finally, </li>
+<li>static, static class, static method, static variable, class variable, instance variable, utils class</li>
+<li>serializable, serialVersionId, transient, <strong>serialization</strong>,externalization, deserialization, file system</li>
+<li>Inheritance, abstract class, interface, cloneable, marker interface, multiple inheirtance, diamond structure</li>
+<li><strong>hierarchical</strong>, extend, implement, super, shallow clone, deep clone</li>
+<li><strong>polymorphism</strong>, static, dynamic polymorphism, overload, override</li>
+<li>Encapsulation, package, access modifier, private, public, default, protected</li>
+<li>Design pattern, singleton, readResolve, factory, decorator, observer, subscribe</li>
+<li><strong>session facade</strong>, <strong>composite</strong></li>
+<li>Set, List, Map, TreeMap, LinkedHashMap, ConcurrentHashMap, CopyOnWriteArrayList, HashTable, Vector</li>
+<li>Queue, PriorityQueue, ConcurrentModificationException, Blocking Queue</li>
+<li>Fail fast, Fail Safe, SynchronizedMap,</li>
+<li>Iterator, <strong>Enumeration</strong></li>
+<li>Throwable, Exception, CompileException, RuntimeException, unchecked, throw, throws, SqlException, <strong>NPE</strong></li>
+<li>Thread, Thread safe, Runnable, Race Condition, Deadlock, </li>
+<li>ThreadLocal, <strong>Volatile</strong>, <strong>AtomicReference</strong>, Lock, Synchronized, Syncrhonized Block</li>
+<li>Concurrency, Executor Service, Thread pool, cached Thread pool, Runnable, Callable, Future, </li>
+<li>CompletableFuture, <strong>JoinForkPool</strong>, <strong>Work-stealing</strong></li>
+<li>Java 8, stream api, filter, map, flatmap, <strong>predicate</strong>, function, consumer, supplier, lambda expression</li>
+<li>functional interface, default method, static method, forEach, method reference</li>
+<li>collectors joining, groupingby, distinct, sorted, optional</li>
+<li>SOLID principle, Liskov, </li>
+<li>Oracle, Mysql, Microsoft SQL Server, <strong>PostgreSQL</strong>, </li>
+<li>MongoDB, <strong>canssandra</strong>, DynamoDB, <strong>CosmosDB</strong>, <strong>MongoDB Atlas</strong></li>
+<li>Table, <strong>Materialized View</strong>, subquery, query, Primary Key, Unique Key, Constraint, Clustered Index, Non-Clustered index</li>
+<li>Inner/Left/Right/Outer/Cross/Self join, Foreign Key, Union, Union All, </li>
+<li>Distinct, Group By, Having, Order By, <strong>NVL</strong>, Ascending, Descending</li>
+<li>Trigger, <strong>Stored Procedures</strong>, Cursor(光标)</li>
+<li>Partition（分割）, Column Group, Document,partition tolerance（分区容差）， CAP, ACID, consistency,, <strong>Atomicity</strong>, Isolation, <strong>Durability</strong></li>
+<li>Keyspace, lookup</li>
+<li>JDBC, Connection, Data source, statement, prepared statement, callable statement, resultset, SQL Injection, <strong>Aggregate</strong></li>
+<li>Relational database, NoSQL database, unstructured, Transactions</li>
+<li></li>
+<li>MVC, Controller, Model, View, <strong>Dispatch Servlet</strong>, Mapping Handler, View Resolver</li>
+<li>URL, URI, domain, Path variable, query parameter, c request, response, request header, request body</li>
+<li>RequestMapping, Http Methods, Patch, produces, consumes, XML, JSON, </li>
+<li>Rest, <strong>Soap</strong>, GraphQL, Postman, <strong>Swagger</strong>, CRUD, <strong>Jersey Rest</strong></li>
+<li>Rest Controller, ResponseBody, @GetMapping @Controller @PathVariable, </li>
+<li><strong>Thymeleaf</strong>, <strong>Angular</strong>, React, Vue, Bootstrap（引导程序）, CSS, HttpClient, Ajax, <strong>asynchrounous</strong></li>
+<li>content negotiation, content type, cookie, session, token, cross origin, CORS</li>
+<li>@EnableWebMvc, @Configuration @Component @Bean @ComponentScan</li>
+<li>400 Bad Request, 403 Forbidden, 500 Internal Server Error, 502 Bad Gateway, 503, 504</li>
+<li>Application Context, Bean factory, web.xml</li>
+<li><strong>IOC</strong>, Dependency Injection, @<strong>Autowired</strong>, @Primary @Qualifier, Controller/Setter/Field based</li>
+<li>Singleton, Prototype, Circular Dependency, BeanCurrentlyInCreationException</li>
+<li>Spring Initializer, <strong>Actuator</strong>, starter, <strong>embedded tomcat server</strong>, SpringBootServletInitializer </li>
+<li>@SpringBootApplication @EnableAutoConfiguration @Service @<strong>Repository</strong> @Value, environment</li>
+<li></li>
+<li>Data Access, DAO, <strong>DTO</strong>, Data source, transaction, CRUD, <strong>Pojo</strong></li>
+<li>JdbcTemplate, <strong>Hibernate</strong>, JPA, Repository, NamedParameterJDBCTemplate, NamedQuery, Proxy</li>
+<li>Session, SessionFactory, Criteria, Entity, GeneratedValue, <strong>Composite Primary Key</strong>, @Embeddeable @EmbeddedId</li>
+<li>association, @JoinColumn, MappedBy, Fetch, Lazy, Eager, Cascade, Persistence Context, Persistent, Detached, <strong>boilerplate</strong></li>
+<li>Isolation level, @Transactional, rollbackFor, <strong>Propagation</strong>, ACID, Optimistic Locking, <strong>Pessimistic Locking</strong>, </li>
+<li>Cache, 1st level cache, Query cache, CacheProvider, v, logging</li>
+<li>Naming Convention, <strong>Pagination</strong>, PagingndSortingRepository, Iterable, JpaRepository</li>
+<li></li>
+<li>Global Transaction, Read_Uncommited, Read_Comitted</li>
+<li>AOP, Aspect oriented programming, <strong>pointcut</strong>, aspect, advice, ExceptionHandler, ControllerAdvice</li>
+<li></li>
+<li><strong>authentication</strong>, <strong>authorization</strong>, customzie, WebSecurityConfiguerAdapter, HttpSecurity, antMatcher, @EnableWebSecurity, CSRF, CORS</li>
+<li>SHA256, BCrypt, SSL Certificate, Encrypted, Encryption, decrypt, Basic Authentication, UsernamePasswordAuthentication, RememberMe</li>
+<li>Encoding, Browser, Cookie, Oauth2, Single SignOn, Token, JWT, payload, <strong>symmetric</strong>, <strong>asymmetric</strong>,</li>
+<li></li>
+<li>JUnit, <strong>Mockito</strong>, PowerMock, <strong>Selenium</strong>, TestNG, Cucumber, HP Quality Center, JMeter, JProfiler, Datadog, CloudWatch, <strong>Gatling</strong>, </li>
+<li>Unit test, Functional test, <strong>E2E test</strong>, Load test, performance test, AB Test, Peer test, Automation test, <strong>Regression Test</strong>, </li>
+<li>Dev, QA, <strong>Prod</strong>, @RunWith, Spring boot test folder, @Before @After @Test, expected=.., MockMVC, Test Suite, Web Driver</li>
+<li><strong>TDD</strong>, <strong>BDD</strong>, <strong>CICD</strong>, Continues Integration, Continues Deployment, Pipeline, Jenkins, Git, Code Repo, Bamboo, Github, Bitbucket</li>
+<li><strong>Agile</strong>, Sprint, Planning, Standup meeting, <strong>Retro</strong>, <strong>Grooming</strong>, <strong>Scrum Master</strong>, Business team, Jira, Confluence, <strong>story points</strong>, Waterfall</li>
+<li></li>
+<li>MicroService, <strong>Monolithic</strong>, Architecture, Actuator, Metrics, <strong>Eureka</strong>, service registry, discovery, @EnableEurekaClient, @EnableEurekaServer</li>
+<li><strong>Circuit Breaker</strong>, <strong>Hystrix</strong>, fallback method, API Gateway, <strong>Zuul</strong>, routing, Load Balancer, <strong>Ribbon</strong>, <strong>NgX</strong>, <strong>Round Robin</strong>, Configue Server, Active Profile</li>
+<li>Async, Rest Template, Kafka, queue, concurrent, <strong>replay</strong>, RabbitMQ, ActiveMQ, Producer, Consumer, Cluster, Broker, Topic, Partition, <strong>Replica</strong>, Offset</li>
+<li>Event, Message, <strong>Fanout</strong>, Blocking queue, Zookeeper, Fault Tolerance, heartbeat, java properties, @KafkaListener</li>
+<li><strong>Saga Pattern</strong>, 2 phase commit, event based, <strong>orchestration</strong>, </li>
+<li>Docker, DockerHub, Kubernetes, K8S, <strong>docker-compose</strong>, </li>
+<li></li>
+<li>AWS, <strong>RDS</strong>, <strong>Aurora</strong>, <strong>DynamoDB</strong>, S3 bucket, <strong>EC2</strong>, virtual machine, security group, <strong>inbound</strong>, <strong>outbound</strong>, <strong>Elastic beanstalk</strong>, ECS, lambda serverless,</li>
+<li><strong>Azure</strong>, <strong>CosmosDB</strong>, <strong>GCP</strong>, </li>
+<li></li>
+<li>ElasticSearch, <strong>Logstash</strong>, <strong>Kibana</strong>, <strong>Graphana</strong>, GraphQL, <strong>ELK</strong>, </li>
+</ol>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/na_little_dinosaur_java_top_questions_notes/" rel="next" title="LD Questions notes">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    LD Questions notes
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/na_springboot_notes/" rel="prev" title="Spring Boot Notes">
+                <p class="post-nav-pre-next-title">
+                    Spring Boot Notes
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">282</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">104</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java"><span class="nav-text">Java</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Database"><span class="nav-text">Database</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Boot"><span class="nav-text">Spring Boot</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Agile"><span class="nav-text">Agile</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Distributed-System"><span class="nav-text">Distributed System</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Third-Party-Service"><span class="nav-text">Third Party Service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#All"><span class="nav-text">All</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script> 
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
