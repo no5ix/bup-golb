@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('ees'){
+            let localStoragePasswdKey = 'OS knowledge syllabus 2' + '_last_passwd';
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'ees') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                    }
+                    if (history.length > 1) {
+                        history.back();
+                    } else {
+                        window.location.href = "about:blank";
+                    }
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'ees') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,Java,NA,Syllabus,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="noodle,Java,NA,Syllabus">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS knowledge syllabus 2">
+<meta property="og:url" content="https://hulinhong.com/na_contractor_java_backend_syllabus2/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-04-16T12:06:48.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OS knowledge syllabus 2">
+<meta name="twitter:description" content=". . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>OS knowledge syllabus 2 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_contractor_java_backend_syllabus2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OS knowledge syllabus 2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-01T01:40:08+00:00">
+                03-01-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+                <a href="/tags/Syllabus/" rel="tag"><i class="fa fa-tag"></i> Syllabus</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/na_contractor_java_backend_syllabus/" rel="next" title="OS knowledge syllabus 1">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  OS knowledge syllabus 1
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/na_contractor_java_backend_syllabus3/" rel="prev" title="OS knowledge syllabus 3">
+              <p class="post-nav-pre-next-title">
+                  OS knowledge syllabus 3
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<ul>
+<li><a href="/na_contractor_java_backend_syllabus/" title="OS knowledge syllabus 1">OS knowledge syllabus 1</a></li>
+<li><a href="/na_contractor_java_backend_syllabus3/" title="OS knowledge syllabus 3">OS knowledge syllabus 3</a>
+</li>
+</ul>
+<h1 id="Session7-SQL"><a href="#Session7-SQL" class="headerlink" title="Session7-SQL"></a>Session7-SQL</h1><ul>
+<li>What is data modeling? Why do we need it? When would you need it?</li>
+<li>What is primary key? How is it different from unique key?</li>
+<li>What is normalization? Why do you need to normalize?</li>
+<li>What does data redundancy mean? Can you give an example of each?</li>
+<li>What is database integrity? Why do you need it?</li>
+<li>What are joins and explain different types of joins in detail.</li>
+<li>Explain indexes and why are they needed?</li>
+<li>If we have 1B data in our relational database and we do not want to fetch all at once. What are the ways that we can partition the data rows?</li>
+</ul>
+<h2 id="Explain-clustered-and-non-clustered-index-and-their-differences"><a href="#Explain-clustered-and-non-clustered-index-and-their-differences" class="headerlink" title="Explain clustered and non-clustered index and their differences."></a>Explain clustered and non-clustered index and their differences.</h2><h3 id="1-Clustered-Index"><a href="#1-Clustered-Index" class="headerlink" title="1. Clustered Index"></a>1. Clustered Index</h3><h4 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h4><p>A clustered index determines the physical order of data storage in a table. In other words, the rows of the table are physically arranged on disk in the order of the clustered index key. A table can have only one clustered index because there can be only one physical ordering of the data rows.</p>
+<h4 id="How-it-Works"><a href="#How-it-Works" class="headerlink" title="How it Works"></a>How it Works</h4><ul>
+<li><strong>Index Structure</strong>: The clustered index is often implemented as a B - tree data structure. The leaf nodes of the B - tree contain the actual data rows of the table, sorted according to the index key.</li>
+<li><strong>Data Retrieval</strong>: When you query data using the columns in the clustered index, the database can quickly locate the relevant rows because they are physically stored in the order of the index. For example, if you have a <code>Customers</code> table with a clustered index on the <code>CustomerID</code> column, and you query for a specific <code>CustomerID</code>, the database can efficiently navigate through the B - tree to find the corresponding row.</li>
+</ul>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Create a table with a clustered index on the ID column</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Products (</span><br><span class="line">    ProductID <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> CLUSTERED,</span><br><span class="line">    ProductName <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    Price <span class="built_in">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>In this example, the <code>ProductID</code> column is the clustered index. The rows in the <code>Products</code> table will be physically sorted by the <code>ProductID</code> value.</p>
+<h3 id="2-Non-Clustered-Index"><a href="#2-Non-Clustered-Index" class="headerlink" title="2. Non - Clustered Index"></a>2. Non - Clustered Index</h3><h4 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h4><p>A non - clustered index is a separate structure from the actual data rows. It contains a copy of the indexed columns and a pointer to the location of the corresponding data row in the table. A table can have multiple non - clustered indexes.</p>
+<h4 id="How-it-Works-1"><a href="#How-it-Works-1" class="headerlink" title="How it Works"></a>How it Works</h4><ul>
+<li><strong>Index Structure</strong>: Similar to a clustered index, a non - clustered index is also typically implemented as a B - tree. However, the leaf nodes of the non - clustered index do not contain the actual data rows but rather pointers to the data rows in the table.</li>
+<li><strong>Data Retrieval</strong>: When you query data using the columns in a non - clustered index, the database first searches the non - clustered index to find the pointers to the relevant data rows. Then it uses these pointers to access the actual data rows in the table. This additional step of accessing the data rows can make non - clustered index lookups slightly slower than clustered index lookups for large datasets.</li>
+</ul>
+<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Create a table</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Orders (</span><br><span class="line">    OrderID <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">    CustomerID <span class="built_in">INT</span>,</span><br><span class="line">    OrderDate <span class="built_in">DATE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Create a non - clustered index on the CustomerID column</span></span><br><span class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> idx_CustomerID <span class="keyword">ON</span> Orders (CustomerID);</span><br></pre></td></tr></table></figure>
+<p>In this example, the <code>idx_CustomerID</code> is a non - clustered index on the <code>CustomerID</code> column. The index stores the <code>CustomerID</code> values and pointers to the corresponding rows in the <code>Orders</code> table.</p>
+<h3 id="3-Differences-between-Clustered-and-Non-Clustered-Indexes"><a href="#3-Differences-between-Clustered-and-Non-Clustered-Indexes" class="headerlink" title="3. Differences between Clustered and Non - Clustered Indexes"></a>3. Differences between Clustered and Non - Clustered Indexes</h3><h4 id="Physical-Order-of-Data"><a href="#Physical-Order-of-Data" class="headerlink" title="Physical Order of Data"></a>Physical Order of Data</h4><ul>
+<li><strong>Clustered Index</strong>: Determines the physical order of data storage in the table. The data rows are physically sorted according to the clustered index key.</li>
+<li><strong>Non - Clustered Index</strong>: Does not affect the physical order of data in the table. It is a separate structure that points to the data rows.</li>
+</ul>
+<h4 id="Number-of-Indexes-per-Table"><a href="#Number-of-Indexes-per-Table" class="headerlink" title="Number of Indexes per Table"></a>Number of Indexes per Table</h4><ul>
+<li><strong>Clustered Index</strong>: A table can have only one clustered index because there can be only one physical ordering of the data.</li>
+<li><strong>Non - Clustered Index</strong>: A table can have multiple non - clustered indexes. You can create non - clustered indexes on different columns or combinations of columns to improve query performance for various types of queries.</li>
+</ul>
+<h4 id="Storage-Space"><a href="#Storage-Space" class="headerlink" title="Storage Space"></a>Storage Space</h4><ul>
+<li><strong>Clustered Index</strong>: Since it stores the actual data rows, it generally requires more storage space compared to a non - clustered index.</li>
+<li><strong>Non - Clustered Index</strong>: Stores only the indexed columns and pointers to the data rows, so it usually requires less storage space.</li>
+</ul>
+<h4 id="Query-Performance"><a href="#Query-Performance" class="headerlink" title="Query Performance"></a>Query Performance</h4><ul>
+<li><strong>Clustered Index</strong>: Is very efficient for range queries (e.g., retrieving all rows where the index value is between a certain range) because the data is physically sorted. It also has an advantage for queries that return a large number of rows.</li>
+<li><strong>Non - Clustered Index</strong>: Is useful for queries that filter on a small subset of data using the indexed columns. However, for queries that need to access a large number of rows, the additional step of following the pointers to the data rows can make it slower than using a clustered index.</li>
+</ul>
+<h4 id="Insert-Update-and-Delete-Operations"><a href="#Insert-Update-and-Delete-Operations" class="headerlink" title="Insert, Update, and Delete Operations"></a>Insert, Update, and Delete Operations</h4><ul>
+<li><strong>Clustered Index</strong>: Inserting, updating, or deleting rows can be more expensive because it may require re - arranging the physical order of the data on disk.</li>
+<li><strong>Non - Clustered Index</strong>: These operations are generally less expensive because they only involve updating the non - clustered index structure and the pointers, without affecting the physical order of the data. </li>
+</ul>
+<h2 id="What-are-normal-forms"><a href="#What-are-normal-forms" class="headerlink" title="What are normal forms"></a>What are normal forms</h2><p>In the context of databases, “NF” usually stands for “Normal Form”. Normal forms are used in database design to organize data in a way that reduces data redundancy, improves data integrity, and makes the database more efficient and easier to manage. Some of the commonly known normal forms are:</p>
+<ul>
+<li><strong>First Normal Form (1NF)</strong>: A relation is in 1NF if it has atomic values, meaning that each cell in the table contains only a single value and not a set of values. For example, a table where a column stores multiple phone numbers separated by commas would not be in 1NF.</li>
+<li><strong>Second Normal Form (2NF)</strong>: A relation is in 2NF if it is in 1NF and all non-key attributes are fully functionally dependent on the primary key. This means that no non-key attribute should depend only on a part of the primary key in case of a composite primary key.</li>
+<li><strong>Third Normal Form (3NF)</strong>: A relation is in 3NF if it is in 2NF and there is no transitive dependency of non-key attributes on the primary key. That is, a non-key attribute should not depend on another non-key attribute.</li>
+<li><strong>Boyce-Codd Normal Form (BCNF)</strong>: BCNF is a stronger version of 3NF. A relation is in BCNF if for every functional dependency X → Y, X is a superkey. In other words, every determinant must be a candidate key.</li>
+<li><strong>Fourth Normal Form (4NF)</strong>: A relation is in 4NF if it is in BCNF and there are no non-trivial multivalued dependencies.</li>
+</ul>
+<h3 id="1-Examples-of-Normalization"><a href="#1-Examples-of-Normalization" class="headerlink" title="1. Examples of Normalization"></a>1. Examples of Normalization</h3><h4 id="First-Normal-Form-1NF"><a href="#First-Normal-Form-1NF" class="headerlink" title="First Normal Form (1NF)"></a>First Normal Form (1NF)</h4><p><strong>Original Table (Not in 1NF)</strong>:<br>Suppose we have a <code>Students</code> table that stores information about students and their hobbies.</p>
+<table>
+<thead>
+<tr>
+<th>Student ID</th>
+<th>Student Name</th>
+<th>Hobbies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>John</td>
+<td>Reading, Painting</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Jane</td>
+<td>Singing, Dancing</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Hobbies</code> column contains multiple values separated by commas, which violates 1NF.</p>
+<p><strong>Converted to 1NF</strong>:<br>We create a new table structure.<br><strong>Students Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Student ID</th>
+<th>Student Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>John</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Jane</td>
+</tr>
+</tbody>
+</table>
+<p><strong>StudentHobbies Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Student ID</th>
+<th>Hobby</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Reading</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Painting</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Singing</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Dancing</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Second-Normal-Form-2NF"><a href="#Second-Normal-Form-2NF" class="headerlink" title="Second Normal Form (2NF)"></a>Second Normal Form (2NF)</h4><p><strong>Original Table (Violating 2NF)</strong>:<br>Consider an <code>Orders</code> table with a composite primary key (<code>Order ID</code>, <code>Product ID</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Product ID</th>
+<th>Product Name</th>
+<th>Order Quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>101</td>
+<td>Laptop</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>102</td>
+<td>Mouse</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>101</td>
+<td>Laptop</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Product Name</code> depends only on the <code>Product ID</code> (part of the composite primary key), violating 2NF.</p>
+<p><strong>Converted to 2NF</strong>:<br><strong>Products Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Product ID</th>
+<th>Product Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>Laptop</td>
+</tr>
+<tr>
+<td>102</td>
+<td>Mouse</td>
+</tr>
+</tbody>
+</table>
+<p><strong>OrderDetails Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Product ID</th>
+<th>Order Quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>101</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>102</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>101</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Third-Normal-Form-3NF"><a href="#Third-Normal-Form-3NF" class="headerlink" title="Third Normal Form (3NF)"></a>Third Normal Form (3NF)</h4><p><strong>Original Table (Violating 3NF)</strong>:<br>Let’s have an <code>Employees</code> table.</p>
+<table>
+<thead>
+<tr>
+<th>Employee ID</th>
+<th>Department ID</th>
+<th>Department Name</th>
+<th>Employee Salary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>IT</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>IT</td>
+<td>6000</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>HR</td>
+<td>4500</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Department Name</code> is transitively dependent on the <code>Employee ID</code> through the <code>Department ID</code>, violating 3NF.</p>
+<p><strong>Converted to 3NF</strong>:<br><strong>Departments Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Department ID</th>
+<th>Department Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>IT</td>
+</tr>
+<tr>
+<td>2</td>
+<td>HR</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Employees Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Employee ID</th>
+<th>Department ID</th>
+<th>Employee Salary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>6000</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>4500</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-Examples-of-Database-Integrity"><a href="#2-Examples-of-Database-Integrity" class="headerlink" title="2. Examples of Database Integrity"></a>2. Examples of Database Integrity</h3><h4 id="Entity-Integrity"><a href="#Entity-Integrity" class="headerlink" title="Entity Integrity"></a>Entity Integrity</h4><ul>
+<li><strong>Explanation</strong>: Ensures that each row in a table is uniquely identifiable, usually through a primary key.</li>
+<li><strong>Example</strong>: In a <code>Customers</code> table, the <code>Customer ID</code> is set as the primary key.<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Customers (</span><br><span class="line">    Customer <span class="keyword">ID</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">    Customer <span class="keyword">Name</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    Email <span class="built_in">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>If you try to insert a new row with an existing <code>Customer ID</code>, the database will reject the insert operation because it violates entity integrity.</p>
+<h4 id="Referential-Integrity"><a href="#Referential-Integrity" class="headerlink" title="Referential Integrity"></a>Referential Integrity</h4><ul>
+<li><strong>Explanation</strong>: Maintains the consistency between related tables. A foreign key in one table must match a primary key value in another table.</li>
+<li><strong>Example</strong>: Consider a <code>Orders</code> table and a <code>Customers</code> table. The <code>Orders</code> table has a foreign key <code>Customer ID</code> that references the <code>Customer ID</code> in the <code>Customers</code> table.<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Customers (</span><br><span class="line">    Customer <span class="keyword">ID</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">    Customer <span class="keyword">Name</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Orders (</span><br><span class="line">    <span class="keyword">Order</span> <span class="keyword">ID</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">    Customer <span class="keyword">ID</span> <span class="built_in">INT</span>,</span><br><span class="line">    <span class="keyword">Order</span> <span class="built_in">Date</span> <span class="built_in">DATE</span>,</span><br><span class="line">    FOREIGN <span class="keyword">KEY</span> (Customer <span class="keyword">ID</span>) <span class="keyword">REFERENCES</span> Customers(Customer <span class="keyword">ID</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>If you try to insert an order with a <code>Customer ID</code> that does not exist in the <code>Customers</code> table, the database will not allow it due to referential integrity.</p>
+<h4 id="Domain-Integrity"><a href="#Domain-Integrity" class="headerlink" title="Domain Integrity"></a>Domain Integrity</h4><ul>
+<li><strong>Explanation</strong>: Ensures that the data entered into a column falls within an acceptable range of values.</li>
+<li><strong>Example</strong>: In a <code>Products</code> table, the <code>Price</code> column should only accept positive values.<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Products (</span><br><span class="line">    Product <span class="keyword">ID</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">    Product <span class="keyword">Name</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    Price <span class="built_in">DECIMAL</span>(<span class="number">10</span>, <span class="number">2</span>) <span class="keyword">CHECK</span> (Price &gt; <span class="number">0</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>If you try to insert a product with a negative price, the database will reject the insert because it violates domain integrity.</p>
+<h2 id="How-do-you-represent-a-multi-valued-attribute-in-a-database"><a href="#How-do-you-represent-a-multi-valued-attribute-in-a-database" class="headerlink" title="How do you represent a multi-valued attribute in a database?"></a>How do you represent a multi-valued attribute in a database?</h2><p>A multi - valued attribute is an attribute that can have multiple values for a single entity. Here are the common ways to represent multi - valued attributes in different types of databases:</p>
+<h3 id="Relational-Databases"><a href="#Relational-Databases" class="headerlink" title="Relational Databases"></a>Relational Databases</h3><h4 id="1-Using-a-Separate-Table-Normalization-Approach"><a href="#1-Using-a-Separate-Table-Normalization-Approach" class="headerlink" title="1. Using a Separate Table (Normalization Approach)"></a>1. Using a Separate Table (Normalization Approach)</h4><p>This is the most common and recommended method in relational databases as it adheres to the principles of database normalization.</p>
+<p><strong>Steps</strong>:</p>
+<ul>
+<li><strong>Identify the Entities and Attributes</strong>: Suppose you have an <code>Employees</code> entity with a multi - valued attribute <code>Skills</code>. An employee can have multiple skills, so the <code>Skills</code> attribute is multi - valued.</li>
+<li><strong>Create a New Table</strong>: Create a new table to store the multi - valued data. This table will have a foreign key that references the primary key of the main entity table.</li>
+<li><p><strong>Define the Schema</strong>:</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Create the Employees table</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Employees (</span><br><span class="line">    employee_id <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">    employee_name <span class="built_in">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Create the Skills table</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Skills (</span><br><span class="line">    skill_id <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">    employee_id <span class="built_in">INT</span>,</span><br><span class="line">    skill_name <span class="built_in">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">    FOREIGN <span class="keyword">KEY</span> (employee_id) <span class="keyword">REFERENCES</span> Employees(employee_id)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Insert and Query Data</strong>:</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Insert an employee</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Employees (employee_name) <span class="keyword">VALUES</span> (<span class="string">'John Doe'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Insert skills for the employee</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Skills (employee_id, skill_name) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">'Java'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Skills (employee_id, skill_name) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">'Python'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Query all skills of an employee</span></span><br><span class="line"><span class="keyword">SELECT</span> skill_name</span><br><span class="line"><span class="keyword">FROM</span> Skills</span><br><span class="line"><span class="keyword">WHERE</span> employee_id = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-Using-Delimited-Lists-Denormalization-Approach"><a href="#2-Using-Delimited-Lists-Denormalization-Approach" class="headerlink" title="2. Using Delimited Lists (Denormalization Approach)"></a>2. Using Delimited Lists (Denormalization Approach)</h4><p>In some cases, for simplicity or performance reasons, you may choose to use delimited lists to represent multi - valued attributes.</p>
+<p><strong>Steps</strong>:</p>
+<ul>
+<li><p><strong>Modify the Main Table</strong>: Instead of creating a separate table, you add a single column to the main table and store multiple values separated by a delimiter (e.g., comma).</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Create the Employees table with a multi - valued attribute as a delimited list</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Employees (</span><br><span class="line">    employee_id <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">    employee_name <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    skills <span class="built_in">VARCHAR</span>(<span class="number">200</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Insert and Query Data</strong>:</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Insert an employee with skills</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Employees (employee_name, skills) <span class="keyword">VALUES</span> (<span class="string">'John Doe'</span>, <span class="string">'Java,Python'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Query employees with a specific skill</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Employees</span><br><span class="line"><span class="keyword">WHERE</span> skills <span class="keyword">LIKE</span> <span class="string">'%Java%'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>However, this approach has several drawbacks. It violates the first normal form of database normalization, making it difficult to perform data manipulation and queries, and it can lead to data integrity issues.</p>
+<h3 id="Non-Relational-Databases"><a href="#Non-Relational-Databases" class="headerlink" title="Non - Relational Databases"></a>Non - Relational Databases</h3><h4 id="1-Document-Databases-e-g-MongoDB"><a href="#1-Document-Databases-e-g-MongoDB" class="headerlink" title="1. Document Databases (e.g., MongoDB)"></a>1. Document Databases (e.g., MongoDB)</h4><p>In document databases, multi - valued attributes can be easily represented as arrays within a document.</p>
+<p><strong>Steps</strong>:</p>
+<ul>
+<li><p><strong>Define the Document Structure</strong>: Create a collection and define the document structure to include an array for the multi - valued attribute.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Insert a document in the Employees collection</span></span><br><span class="line">db.employees.insertOne(&#123;</span><br><span class="line">    employee_name: <span class="string">'John Doe'</span>,</span><br><span class="line">    skills: [<span class="string">'Java'</span>, <span class="string">'Python'</span>]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Query Data</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Query employees with a specific skill</span></span><br><span class="line">db.employees.find(&#123; <span class="attr">skills</span>: <span class="string">'Java'</span> &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-Graph-Databases-e-g-Neo4j"><a href="#2-Graph-Databases-e-g-Neo4j" class="headerlink" title="2. Graph Databases (e.g., Neo4j)"></a>2. Graph Databases (e.g., Neo4j)</h4><p>In graph databases, multi - valued attributes can be represented as relationships between nodes.</p>
+<p><strong>Steps</strong>:</p>
+<ul>
+<li><p><strong>Create Nodes and Relationships</strong>: Create nodes for the main entity and the values of the multi - valued attribute, and then create relationships between them.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Create an employee node</span><br><span class="line">CREATE (:Employee &#123;name: &apos;John Doe&apos;&#125;)</span><br><span class="line">// Create skill nodes</span><br><span class="line">CREATE (:Skill &#123;name: &apos;Java&apos;&#125;)</span><br><span class="line">CREATE (:Skill &#123;name: &apos;Python&apos;&#125;)</span><br><span class="line">// Create relationships between the employee and skills</span><br><span class="line">MATCH (e:Employee &#123;name: &apos;John Doe&apos;&#125;), (s1:Skill &#123;name: &apos;Java&apos;&#125;), (s2:Skill &#123;name: &apos;Python&apos;&#125;)</span><br><span class="line">CREATE (e)-[:HAS_SKILL]-&gt;(s1)</span><br><span class="line">CREATE (e)-[:HAS_SKILL]-&gt;(s2);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Query Data</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Query all skills of an employee</span><br><span class="line">MATCH (e:Employee &#123;name: &apos;John Doe&apos;&#125;)-[:HAS_SKILL]-&gt;(s:Skill)</span><br><span class="line">RETURN s.name;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="How-do-you-represent-a-many-to-many-relationship-in-database"><a href="#How-do-you-represent-a-many-to-many-relationship-in-database" class="headerlink" title="How do you represent a many-to-many relationship in database?"></a>How do you represent a many-to-many relationship in database?</h2><p>Here are the common ways to represent a many - to - many relationship in a database:</p>
+<h3 id="1-Using-a-Junction-Table-Associative-Table"><a href="#1-Using-a-Junction-Table-Associative-Table" class="headerlink" title="1. Using a Junction Table (Associative Table)"></a>1. Using a Junction Table (Associative Table)</h3><p>This is the most prevalent method in relational databases.</p>
+<h4 id="Step-1-Identify-the-related-tables"><a href="#Step-1-Identify-the-related-tables" class="headerlink" title="Step 1: Identify the related tables"></a>Step 1: Identify the related tables</h4><p>Suppose you have two entities that have a many - to - many relationship. For example, in a school database, “Students” and “Courses”. A student can enroll in multiple courses, and a course can have multiple students.</p>
+<h4 id="Step-2-Create-the-junction-table"><a href="#Step-2-Create-the-junction-table" class="headerlink" title="Step 2: Create the junction table"></a>Step 2: Create the junction table</h4><p>The junction table contains at least two foreign keys, each referencing the primary key of one of the related tables.</p>
+<ul>
+<li><strong>Table creation in SQL (for MySQL)</strong>:<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Create the Students table</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Students (</span><br><span class="line">    student_id <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">    student_name <span class="built_in">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Create the Courses table</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Courses (</span><br><span class="line">    course_id <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">    course_name <span class="built_in">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Create the junction table (Enrollments)</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Enrollments (</span><br><span class="line">    student_id <span class="built_in">INT</span>,</span><br><span class="line">    course_id <span class="built_in">INT</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (student_id, course_id),</span><br><span class="line">    FOREIGN <span class="keyword">KEY</span> (student_id) <span class="keyword">REFERENCES</span> Students(student_id),</span><br><span class="line">    FOREIGN <span class="keyword">KEY</span> (course_id) <span class="keyword">REFERENCES</span> Courses(course_id)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>In this example, the <code>Enrollments</code> table is the junction table. The combination of <code>student_id</code> and <code>course_id</code> forms a composite primary key, which ensures that each enrollment (a relationship between a student and a course) is unique.</p>
+<h4 id="Step-3-Insert-and-query-data"><a href="#Step-3-Insert-and-query-data" class="headerlink" title="Step 3: Insert and query data"></a>Step 3: Insert and query data</h4><ul>
+<li><p><strong>Inserting data</strong>:</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Insert a student</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Students (student_name) <span class="keyword">VALUES</span> (<span class="string">'John Doe'</span>);</span><br><span class="line"><span class="comment">-- Insert a course</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Courses (course_name) <span class="keyword">VALUES</span> (<span class="string">'Mathematics'</span>);</span><br><span class="line"><span class="comment">-- Record the enrollment</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Enrollments (student_id, course_id) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Querying data</strong>: To find all courses a student is enrolled in, or all students enrolled in a course, you can use JOIN operations.</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Find all courses John Doe is enrolled in</span></span><br><span class="line"><span class="keyword">SELECT</span> Courses.course_name</span><br><span class="line"><span class="keyword">FROM</span> Students</span><br><span class="line"><span class="keyword">JOIN</span> Enrollments <span class="keyword">ON</span> Students.student_id = Enrollments.student_id</span><br><span class="line"><span class="keyword">JOIN</span> Courses <span class="keyword">ON</span> Enrollments.course_id = Courses.course_id</span><br><span class="line"><span class="keyword">WHERE</span> Students.student_name = <span class="string">'John Doe'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-In-Non-Relational-Databases"><a href="#2-In-Non-Relational-Databases" class="headerlink" title="2. In Non - Relational Databases"></a>2. In Non - Relational Databases</h3><h4 id="Graph-Databases"><a href="#Graph-Databases" class="headerlink" title="Graph Databases"></a>Graph Databases</h4><ul>
+<li>In graph databases like Neo4j, a many - to - many relationship is represented by nodes and relationships. Each entity is a node, and the relationship between them is an edge.</li>
+<li>For example, you can create <code>Student</code> nodes and <code>Course</code> nodes. Then, you can create a <code>ENROLLED_IN</code> relationship between the <code>Student</code> and <code>Course</code> nodes.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Create a student node</span><br><span class="line">CREATE (:Student &#123;name: &apos;John Doe&apos;&#125;)</span><br><span class="line">// Create a course node</span><br><span class="line">CREATE (:Course &#123;name: &apos;Mathematics&apos;&#125;)</span><br><span class="line">// Create the enrollment relationship</span><br><span class="line">MATCH (s:Student &#123;name: &apos;John Doe&apos;&#125;), (c:Course &#123;name: &apos;Mathematics&apos;&#125;)</span><br><span class="line">CREATE (s)-[:ENROLLED_IN]-&gt;(c);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Document-Databases"><a href="#Document-Databases" class="headerlink" title="Document Databases"></a>Document Databases</h4><ul>
+<li>In document databases such as MongoDB, you can use arrays to represent many - to - many relationships in a denormalized way. For example, in the <code>students</code> collection, each student document can have an array of course IDs, and in the <code>courses</code> collection, each course document can have an array of student IDs. However, this approach can lead to data duplication and potential consistency issues.<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Insert a student document</span></span><br><span class="line">db.students.insertOne(&#123;</span><br><span class="line">    name: <span class="string">'John Doe'</span>,</span><br><span class="line">    courses: [ObjectId(<span class="string">"1234567890abcdef12345678"</span>), ObjectId(<span class="string">"234567890abcdef12345678"</span>)]</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// Insert a course document</span></span><br><span class="line">db.courses.insertOne(&#123;</span><br><span class="line">    name: <span class="string">'Mathematics'</span>,</span><br><span class="line">    students: [ObjectId(<span class="string">"abcdef1234567890abcdef12"</span>), ObjectId(<span class="string">"bcdef1234567890abcdef12"</span>)]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Session15-TRANSACTION-JPA"><a href="#Session15-TRANSACTION-JPA" class="headerlink" title="Session15-TRANSACTION JPA"></a>Session15-TRANSACTION JPA</h1><ol>
+<li>What is “Offline Transaction”?</li>
+<li>How do we usually perform Transaction Management in JDBC?</li>
+<li>What is Database Transaction?</li>
+<li>What are entity states defined in Hibernate / JPA?</li>
+<li>How can we transfer the entity between different states?</li>
+<li>What are differences between save, persist?</li>
+<li>What are differences between update, merge and saveOrUpdate?</li>
+<li>How do you use elasticSearch in your java application</li>
+</ol>
+<h2 id="1-What-is-“Offline-Transaction”"><a href="#1-What-is-“Offline-Transaction”" class="headerlink" title="1. What is “Offline Transaction”?"></a>1. What is “Offline Transaction”?</h2><p>An offline transaction in the context of databases is a set of operations on data that occur without an immediate, real - time connection to the database server. The operations are carried out on a local copy of the data, and the changes are later synchronized with the main database.</p>
+<p><strong>Example</strong>:</p>
+<ul>
+<li><strong>Mobile Banking App</strong>: A user opens a mobile banking app on their smartphone while on an airplane (no internet connection). They can view their account balance, transaction history which is stored locally. They can also initiate a new fund transfer. The app records this transfer request in a local database on the phone. Once the plane lands and the phone connects to the internet, the app synchronizes with the bank’s central database, uploading the new transfer request and downloading any new account updates.</li>
+<li><strong>Field Salesperson</strong>: A salesperson visits clients in an area with poor network coverage. Using a tablet, they access a local copy of the customer database. They add new customer details and record sales orders. Later, when they get back to an area with a network, the tablet syncs the new data with the company’s central database.</li>
+</ul>
+<h2 id="2-How-do-we-usually-perform-Transaction-Management-in-JDBC"><a href="#2-How-do-we-usually-perform-Transaction-Management-in-JDBC" class="headerlink" title="2. How do we usually perform Transaction Management in JDBC?"></a>2. How do we usually perform Transaction Management in JDBC?</h2><p>In JDBC (Java Database Connectivity), transaction management involves the following steps:</p>
+<p><strong>Step 1: Disable Auto - Commit Mode</strong><br>By default, JDBC operates in auto - commit mode where each SQL statement is treated as a separate transaction. To group multiple statements into a single transaction, we need to disable auto - commit.<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JDBCTransactionExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Connection connection = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// Establish a connection</span></span><br><span class="line">            connection = DriverManager.getConnection(<span class="string">"jdbc:mysql://localhost:3306/mydb"</span>, <span class="string">"user"</span>, <span class="string">"password"</span>);</span><br><span class="line">            <span class="comment">// Disable auto - commit</span></span><br><span class="line">            connection.setAutoCommit(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">            Statement statement = connection.createStatement();</span><br><span class="line">            <span class="comment">// Execute SQL statements</span></span><br><span class="line">            statement.executeUpdate(<span class="string">"INSERT INTO employees (name, salary) VALUES ('John', 5000)"</span>);</span><br><span class="line">            statement.executeUpdate(<span class="string">"UPDATE departments SET budget = budget - 5000 WHERE dept_name = 'IT'"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Commit the transaction</span></span><br><span class="line">            connection.commit();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// Rollback the transaction in case of an error</span></span><br><span class="line">                    connection.rollback();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    connection.close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Explanation</strong>:</p>
+<ul>
+<li><code>connection.setAutoCommit(false)</code>: Disables auto - commit mode so that statements are grouped into a single transaction.</li>
+<li><code>connection.commit()</code>: Commits all the statements in the transaction if everything goes well.</li>
+<li><code>connection.rollback()</code>: Rolls back all the statements in the transaction if an error occurs.</li>
+</ul>
+<h2 id="3-What-is-Database-Transaction"><a href="#3-What-is-Database-Transaction" class="headerlink" title="3. What is Database Transaction?"></a>3. What is Database Transaction?</h2><p>A database transaction is a sequence of one or more SQL statements that are treated as a single unit of work. It must satisfy the ACID properties:</p>
+<ul>
+<li><strong>Atomicity</strong>: Either all the statements in the transaction are executed successfully, or none of them are. For example, in a bank transfer, if you transfer money from one account to another, either both the debit from the source account and the credit to the destination account happen, or neither does.</li>
+<li><strong>Consistency</strong>: The transaction takes the database from one consistent state to another. For instance, if a rule in the database states that the total balance of all accounts should always be the same, a transaction should maintain this consistency.</li>
+<li><strong>Isolation</strong>: Transactions are isolated from each other. One transaction should not be affected by the intermediate states of other concurrent transactions. For example, if two users are trying to transfer money at the same time, their transactions should not interfere with each other.</li>
+<li><strong>Durability</strong>: Once a transaction is committed, its changes are permanent and will survive any subsequent system failures.</li>
+</ul>
+<h2 id="4-What-are-entity-states-defined-in-Hibernate-JPA"><a href="#4-What-are-entity-states-defined-in-Hibernate-JPA" class="headerlink" title="4. What are entity states defined in Hibernate / JPA?"></a>4. What are entity states defined in Hibernate / JPA?</h2><p>In Hibernate and JPA (Java Persistence API), entities can be in one of the following states:</p>
+<ul>
+<li><p><strong>Transient</strong>: An entity is transient when it is created using the <code>new</code> keyword and has not been associated with a persistence context. It has no corresponding row in the database.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Transient entity</span></span><br><span class="line">Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">employee.setName(<span class="string">"Jane"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Persistent</strong>: A persistent entity is associated with a persistence context and has a corresponding row in the database. Any changes made to a persistent entity will be automatically synchronized with the database when the transaction is committed.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">EntityManager entityManager = entityManagerFactory.createEntityManager();</span><br><span class="line">entityManager.getTransaction().begin();</span><br><span class="line">Employee employee = entityManager.find(Employee.class, <span class="number">1L</span>);</span><br><span class="line"><span class="comment">// Now the employee is in persistent state</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Detached</strong>: A detached entity was once persistent but is no longer associated with a persistence context. It still has a corresponding row in the database, but changes made to it will not be automatically synchronized.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">entityManager.getTransaction().commit();</span><br><span class="line">entityManager.close();</span><br><span class="line"><span class="comment">// Now the employee is in detached state</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Removed</strong>: An entity is in the removed state when it has been marked for deletion from the database. Once the transaction is committed, the corresponding row in the database will be deleted.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">entityManager.getTransaction().begin();</span><br><span class="line">Employee employee = entityManager.find(Employee.class, <span class="number">1L</span>);</span><br><span class="line">entityManager.remove(employee);</span><br><span class="line"><span class="comment">// Now the employee is in removed state</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="5-How-can-we-transfer-the-entity-between-different-states"><a href="#5-How-can-we-transfer-the-entity-between-different-states" class="headerlink" title="5. How can we transfer the entity between different states?"></a>5. How can we transfer the entity between different states?</h2><ul>
+<li><p><strong>Transient to Persistent</strong>: Use methods like <code>persist()</code> or <code>save()</code> in Hibernate. In JPA, you can use <code>EntityManager.persist()</code>.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">EntityManager entityManager = entityManagerFactory.createEntityManager();</span><br><span class="line">entityManager.getTransaction().begin();</span><br><span class="line">Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">employee.setName(<span class="string">"Tom"</span>);</span><br><span class="line">entityManager.persist(employee);</span><br><span class="line"><span class="comment">// Now the employee is in persistent state</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Persistent to Detached</strong>: Closing the <code>EntityManager</code> or clearing the persistence context will make a persistent entity detached.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">entityManager.getTransaction().commit();</span><br><span class="line">entityManager.close();</span><br><span class="line"><span class="comment">// The previously persistent entity is now detached</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Detached to Persistent</strong>: Use the <code>merge()</code> method in JPA.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">EntityManager newEntityManager = entityManagerFactory.createEntityManager();</span><br><span class="line">newEntityManager.getTransaction().begin();</span><br><span class="line">Employee detachedEmployee = getDetachedEmployee();</span><br><span class="line">Employee persistentEmployee = newEntityManager.merge(detachedEmployee);</span><br><span class="line"><span class="comment">// Now the entity is back in persistent state</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Persistent/Detached to Removed</strong>: Use the <code>remove()</code> method in JPA.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">entityManager.getTransaction().begin();</span><br><span class="line">Employee employee = entityManager.find(Employee.class, <span class="number">1L</span>);</span><br><span class="line">entityManager.remove(employee);</span><br><span class="line"><span class="comment">// Now the employee is in removed state</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="6-What-are-differences-between-save-persist"><a href="#6-What-are-differences-between-save-persist" class="headerlink" title="6. What are differences between save, persist?"></a>6. What are differences between save, persist?</h2><ul>
+<li><p><strong><code>save()</code> (Hibernate - specific)</strong>:</p>
+<ul>
+<li>Returns the generated identifier immediately. It can be used to insert a new entity into the database. If the entity is already persistent, it may throw an exception.<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Session session = sessionFactory.openSession();</span><br><span class="line">Transaction transaction = session.beginTransaction();</span><br><span class="line">Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">employee.setName(<span class="string">"Alice"</span>);</span><br><span class="line">Serializable id = session.save(employee);</span><br><span class="line">transaction.commit();</span><br><span class="line">session.close();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong><code>persist()</code> (JPA - standard)</strong>:</p>
+<ul>
+<li>Does not guarantee that the identifier will be assigned immediately. It is used to make a transient entity persistent. If the entity is already persistent, it will have no effect.<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">EntityManager entityManager = entityManagerFactory.createEntityManager();</span><br><span class="line">entityManager.getTransaction().begin();</span><br><span class="line">Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">employee.setName(<span class="string">"Bob"</span>);</span><br><span class="line">entityManager.persist(employee);</span><br><span class="line">entityManager.getTransaction().commit();</span><br><span class="line">entityManager.close();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-What-are-differences-between-update-merge-and-saveOrUpdate"><a href="#7-What-are-differences-between-update-merge-and-saveOrUpdate" class="headerlink" title="7. What are differences between update, merge and saveOrUpdate?"></a>7. What are differences between update, merge and saveOrUpdate?</h2><ul>
+<li><p><strong><code>update()</code> (Hibernate - specific)</strong>:</p>
+<ul>
+<li>Used to make a detached entity persistent. If the entity is already persistent, it may throw an exception. It directly updates the database row corresponding to the entity.<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Session session = sessionFactory.openSession();</span><br><span class="line">Transaction transaction = session.beginTransaction();</span><br><span class="line">Employee detachedEmployee = getDetachedEmployee();</span><br><span class="line">session.update(detachedEmployee);</span><br><span class="line">transaction.commit();</span><br><span class="line">session.close();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong><code>merge()</code> (JPA - standard)</strong>:</p>
+<ul>
+<li>Creates a copy of the detached entity, makes the copy persistent, and returns the persistent copy. The original detached entity remains detached. It can handle both transient and detached entities.<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">EntityManager entityManager = entityManagerFactory.createEntityManager();</span><br><span class="line">entityManager.getTransaction().begin();</span><br><span class="line">Employee detachedEmployee = getDetachedEmployee();</span><br><span class="line">Employee mergedEmployee = entityManager.merge(detachedEmployee);</span><br><span class="line">entityManager.getTransaction().commit();</span><br><span class="line">entityManager.close();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong><code>saveOrUpdate()</code> (Hibernate - specific)</strong>:</p>
+<ul>
+<li>Checks if the entity has an identifier. If it does not have an identifier, it acts like <code>save()</code>. If it has an identifier, it acts like <code>update()</code>.<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Session session = sessionFactory.openSession();</span><br><span class="line">Transaction transaction = session.beginTransaction();</span><br><span class="line">Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">session.saveOrUpdate(employee);</span><br><span class="line">transaction.commit();</span><br><span class="line">session.close();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-How-do-you-use-Elasticsearch-in-your-Java-application"><a href="#8-How-do-you-use-Elasticsearch-in-your-Java-application" class="headerlink" title="8. How do you use Elasticsearch in your Java application?"></a>8. How do you use Elasticsearch in your Java application?</h2><p>To use Elasticsearch in a Java application, you can follow these steps:</p>
+<p><strong>Step 1: Add Dependencies</strong><br>If you are using Maven, add the following dependencies to your <code>pom.xml</code>:<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.elasticsearch.client<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>elasticsearch-rest-high-level-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>7.17.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Step 2: Create a Client</strong><br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.http.HttpHost;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.client.RestClient;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.client.RestHighLevelClient;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ElasticsearchClientExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        RestHighLevelClient client = <span class="keyword">new</span> RestHighLevelClient(</span><br><span class="line">                RestClient.builder(<span class="keyword">new</span> HttpHost(<span class="string">"localhost"</span>, <span class="number">9200</span>, <span class="string">"http"</span>)));</span><br><span class="line">        <span class="comment">// Use the client for operations</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// Perform operations like indexing, searching, etc.</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                client.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Step 3: Index a Document</strong><br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.elasticsearch.action.index.IndexRequest;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.index.IndexResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.client.RequestOptions;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.xcontent.XContentType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ElasticsearchIndexExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        RestHighLevelClient client = <span class="keyword">new</span> RestHighLevelClient(</span><br><span class="line">                RestClient.builder(<span class="keyword">new</span> HttpHost(<span class="string">"localhost"</span>, <span class="number">9200</span>, <span class="string">"http"</span>)));</span><br><span class="line"></span><br><span class="line">        Map&lt;String, Object&gt; jsonMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        jsonMap.put(<span class="string">"title"</span>, <span class="string">"Elasticsearch Tutorial"</span>);</span><br><span class="line">        jsonMap.put(<span class="string">"content"</span>, <span class="string">"Learn how to use Elasticsearch in Java"</span>);</span><br><span class="line"></span><br><span class="line">        IndexRequest request = <span class="keyword">new</span> IndexRequest(<span class="string">"my_index"</span>)</span><br><span class="line">               .id(<span class="string">"1"</span>)</span><br><span class="line">               .source(jsonMap, XContentType.JSON);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            IndexResponse indexResponse = client.index(request, RequestOptions.DEFAULT);</span><br><span class="line">            System.out.println(indexResponse);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                client.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Step 4: Search for Documents</strong><br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.elasticsearch.action.search.SearchRequest;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.search.SearchResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.client.RequestOptions;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.index.query.QueryBuilders;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.search.builder.SearchSourceBuilder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ElasticsearchSearchExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        RestHighLevelClient client = <span class="keyword">new</span> RestHighLevelClient(</span><br><span class="line">                RestClient.builder(<span class="keyword">new</span> HttpHost(<span class="string">"localhost"</span>, <span class="number">9200</span>, <span class="string">"http"</span>)));</span><br><span class="line"></span><br><span class="line">        SearchRequest searchRequest = <span class="keyword">new</span> SearchRequest(<span class="string">"my_index"</span>);</span><br><span class="line">        SearchSourceBuilder searchSourceBuilder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        searchSourceBuilder.query(QueryBuilders.matchQuery(<span class="string">"title"</span>, <span class="string">"Elasticsearch"</span>));</span><br><span class="line">        searchRequest.source(searchSourceBuilder);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);</span><br><span class="line">            System.out.println(searchResponse);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                client.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Session17-UNIT-TEST"><a href="#Session17-UNIT-TEST" class="headerlink" title="Session17-UNIT TEST"></a>Session17-UNIT TEST</h1><ol>
+<li>Explain and name some methods that you used in JUnit.</li>
+<li>Explain and name some annotations that you used in JUnit.</li>
+<li>What is Mockito and the usage of it?</li>
+</ol>
+<h2 id="1-Commonly-Used-Methods-in-JUnit"><a href="#1-Commonly-Used-Methods-in-JUnit" class="headerlink" title="1. Commonly - Used Methods in JUnit"></a>1. Commonly - Used Methods in JUnit</h2><h3 id="assertEquals"><a href="#assertEquals" class="headerlink" title="assertEquals()"></a><code>assertEquals()</code></h3><ul>
+<li><strong>Explanation</strong>: This method is used to verify if two values are equal. It is very useful when you want to check if the result of a method call in your code under test matches the expected result.</li>
+<li><strong>Example</strong>:<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertEquals;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalculatorTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAddition</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Calculator calculator = <span class="keyword">new</span> Calculator();</span><br><span class="line">        <span class="keyword">int</span> result = calculator.add(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">        assertEquals(<span class="number">5</span>, result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="assertTrue-and-assertFalse"><a href="#assertTrue-and-assertFalse" class="headerlink" title="assertTrue() and assertFalse()"></a><code>assertTrue()</code> and <code>assertFalse()</code></h3><ul>
+<li><strong>Explanation</strong>: <code>assertTrue()</code> is used to verify if a given condition is <code>true</code>, and <code>assertFalse()</code> is used to verify if a condition is <code>false</code>. These are handy when you want to check the truth - value of a boolean expression returned by a method.</li>
+<li><strong>Example</strong>:<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertTrue;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertFalse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringUtilTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testIsEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringUtil stringUtil = <span class="keyword">new</span> StringUtil();</span><br><span class="line">        assertTrue(stringUtil.isEmpty(<span class="string">""</span>));</span><br><span class="line">        assertFalse(stringUtil.isEmpty(<span class="string">"Hello"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StringUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> str == <span class="keyword">null</span> || str.length() == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="assertNull-and-assertNotNull"><a href="#assertNull-and-assertNotNull" class="headerlink" title="assertNull() and assertNotNull()"></a><code>assertNull()</code> and <code>assertNotNull()</code></h3><ul>
+<li><strong>Explanation</strong>: <code>assertNull()</code> checks if an object reference is <code>null</code>, while <code>assertNotNull()</code> checks if an object reference is not <code>null</code>. They are useful when you need to ensure that a method returns or does not return a <code>null</code> value.</li>
+<li><strong>Example</strong>:<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertNull;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertNotNull;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObjectFactoryTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCreateObject</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ObjectFactory objectFactory = <span class="keyword">new</span> ObjectFactory();</span><br><span class="line">        Object obj = objectFactory.createObject();</span><br><span class="line">        assertNotNull(obj);</span><br><span class="line">        Object nullObj = objectFactory.createNullObject();</span><br><span class="line">        assertNull(nullObj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ObjectFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">createObject</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Object();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">createNullObject</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="2-Commonly-Used-Annotations-in-JUnit"><a href="#2-Commonly-Used-Annotations-in-JUnit" class="headerlink" title="2. Commonly - Used Annotations in JUnit"></a>2. Commonly - Used Annotations in JUnit</h2><h3 id="Test"><a href="#Test" class="headerlink" title="@Test"></a><code>@Test</code></h3><ul>
+<li><strong>Explanation</strong>: This annotation is used to mark a method as a test method. JUnit will execute all methods annotated with <code>@Test</code> when running the test class.</li>
+<li><strong>Example</strong>:<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Test logic here</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="BeforeEach"><a href="#BeforeEach" class="headerlink" title="@BeforeEach"></a><code>@BeforeEach</code></h3><ul>
+<li><strong>Explanation</strong>: Methods annotated with <code>@BeforeEach</code> are executed before each test method. This is useful for setting up the test environment, such as initializing objects or variables that are needed for each test.</li>
+<li><strong>Example</strong>:<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.BeforeEach;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeEach</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        userService = <span class="keyword">new</span> UserService();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCreateUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Use userService for testing</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Class implementation</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="AfterEach"><a href="#AfterEach" class="headerlink" title="@AfterEach"></a><code>@AfterEach</code></h3><ul>
+<li><strong>Explanation</strong>: Methods annotated with <code>@AfterEach</code> are executed after each test method. This is used for cleaning up resources, such as closing database connections or releasing memory.</li>
+<li><strong>Example</strong>:<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.AfterEach;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileServiceTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> File tempFile;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testWriteToFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        tempFile = <span class="keyword">new</span> File(<span class="string">"temp.txt"</span>);</span><br><span class="line">        FileWriter writer = <span class="keyword">new</span> FileWriter(tempFile);</span><br><span class="line">        writer.write(<span class="string">"Test data"</span>);</span><br><span class="line">        writer.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterEach</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (tempFile != <span class="keyword">null</span> &amp;&amp; tempFile.exists()) &#123;</span><br><span class="line">            tempFile.delete();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="BeforeAll-and-AfterAll"><a href="#BeforeAll-and-AfterAll" class="headerlink" title="@BeforeAll and @AfterAll"></a><code>@BeforeAll</code> and <code>@AfterAll</code></h3><ul>
+<li><strong>Explanation</strong>: <code>@BeforeAll</code> is used to annotate a static method that will be executed once before all the test methods in the class. <code>@AfterAll</code> is used to annotate a static method that will be executed once after all the test methods in the class. These are useful for performing expensive setup and cleanup operations, like starting and stopping a database server.</li>
+<li><strong>Example</strong>:<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.BeforeAll;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.AfterAll;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseServiceTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DatabaseService databaseService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeAll</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setUpAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        databaseService = <span class="keyword">new</span> DatabaseService();</span><br><span class="line">        databaseService.startDatabase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryDatabase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Test database query</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterAll</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tearDownAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        databaseService.stopDatabase();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DatabaseService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startDatabase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Start database logic</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopDatabase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Stop database logic</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-What-is-Mockito-and-its-Usage"><a href="#3-What-is-Mockito-and-its-Usage" class="headerlink" title="3. What is Mockito and its Usage"></a>3. What is Mockito and its Usage</h2><h3 id="Definition-2"><a href="#Definition-2" class="headerlink" title="Definition"></a>Definition</h3><p>Mockito is a popular open - source testing framework for Java that allows you to create mock objects. Mock objects are simulated objects that mimic the behavior of real objects in a controlled way. They are used to isolate the code under test from its dependencies, making unit tests more reliable and faster.</p>
+<h3 id="Common-Usages"><a href="#Common-Usages" class="headerlink" title="Common Usages"></a>Common Usages</h3><h4 id="Creating-Mock-Objects"><a href="#Creating-Mock-Objects" class="headerlink" title="Creating Mock Objects"></a>Creating Mock Objects</h4><ul>
+<li>You can use <code>Mockito.mock()</code> to create a mock object of a class or an interface.<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.mock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MockitoExample</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMockCreation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MyInterface myMock = mock(MyInterface.class);</span><br><span class="line">        <span class="comment">// Now myMock is a mock object of MyInterface</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Stubbing-Methods"><a href="#Stubbing-Methods" class="headerlink" title="Stubbing Methods"></a>Stubbing Methods</h4><ul>
+<li>Stubbing means defining the behavior of a method on a mock object. You can use methods like <code>when()</code> and <code>thenReturn()</code> to stub methods.<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.mock;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.when;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StubbingExample</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testStubbing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MyService myService = mock(MyService.class);</span><br><span class="line">        when(myService.getResult()).thenReturn(<span class="number">10</span>);</span><br><span class="line">        <span class="keyword">int</span> result = myService.getResult();</span><br><span class="line">        <span class="comment">// result will be 10</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getResult</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Verifying-Method-Calls"><a href="#Verifying-Method-Calls" class="headerlink" title="Verifying Method Calls"></a>Verifying Method Calls</h4><ul>
+<li>You can use <code>Mockito.verify()</code> to check if a method on a mock object has been called with specific arguments.<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.mock;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.verify;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationExample</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testVerification</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MyInterface myMock = mock(MyInterface.class);</span><br><span class="line">        myMock.doSomething();</span><br><span class="line">        verify(myMock).doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Session19-MICROSERVICE"><a href="#Session19-MICROSERVICE" class="headerlink" title="Session19-MICROSERVICE"></a>Session19-MICROSERVICE</h1><ol>
+<li>In your own word, please describe some of the advantages and disadvantages of a</li>
+<li>Monolithic Application.</li>
+<li>In your own word, please describe some of the advantages and disadvantages of a</li>
+<li>Microservice Application.</li>
+<li>What is the purpose of using Netflix Eureka?</li>
+<li>How can microservices communicate with each other?</li>
+<li>What is the purpose of using Spring API Gateway?</li>
+<li>Explain cascading failure in microservice and how to prevent it.</li>
+<li>Explain CircuitBreaker and how it works in detail.</li>
+</ol>
+<p>The following is an explanation of each question along with relevant examples:</p>
+<h2 id="Monolithic-Application"><a href="#Monolithic-Application" class="headerlink" title="Monolithic Application"></a>Monolithic Application</h2><ul>
+<li><strong>Advantages</strong><ul>
+<li><strong>Simplicity</strong>: It’s a single unit, easy to develop, test and deploy. For example, a small blog website built with a monolithic architecture can be developed quickly as all the components are in one place.</li>
+<li><strong>Ease of Data Management</strong>: All components can access the same database easily, simplifying data consistency. In a monolithic e-commerce app, the product, order and user data can be managed centrally.</li>
+<li><strong>Good for Small Projects</strong>: Ideal for small-scale applications with low complexity and clear requirements. A simple internal management system for a small company may not need the complexity of a distributed architecture.</li>
+</ul>
+</li>
+<li><strong>Disadvantages</strong><ul>
+<li><strong>Scalability Issues</strong>: As the application grows, it becomes hard to scale. If a monolithic social media app experiences a sudden traffic spike, scaling the entire application is more difficult and expensive than scaling individual components.</li>
+<li><strong>Slow Deployment</strong>: Any change requires redeploying the entire application. If you want to update a single feature in a monolithic banking app, the whole app needs to be deployed, causing potential downtime.</li>
+<li><strong>Technology Limitations</strong>: It’s hard to adopt new technologies or frameworks in a monolithic structure. For example, if you want to use a new data processing framework in a monolithic app that’s already using an old tech stack, it may require a major rewrite.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Microservice-Application"><a href="#Microservice-Application" class="headerlink" title="Microservice Application"></a>Microservice Application</h2><ul>
+<li><strong>Advantages</strong><ul>
+<li><strong>High Scalability</strong>: Each microservice can be scaled independently. In a large e-commerce platform like Amazon, the order processing, inventory management and user profile services can be scaled based on their specific load.</li>
+<li><strong>Technology Diversity</strong>: Different microservices can use different technologies based on their requirements. For example, the image processing microservice can use a different technology stack than the user authentication microservice.</li>
+<li><strong>Faster Deployment</strong>: Only the updated microservice needs to be deployed. If a new feature is added to the payment microservice of a fintech app, only that microservice is deployed, minimizing downtime.</li>
+</ul>
+</li>
+<li><strong>Disadvantages</strong><ul>
+<li><strong>Complexity in Management</strong>: Managing multiple microservices, their communication and dependencies is complex. For example, coordinating data updates across multiple microservices in a healthcare application can be challenging.</li>
+<li><strong>Data Consistency</strong>: Ensuring data consistency across multiple microservices is difficult. In a microservices-based ride-hailing app, maintaining the consistency of driver and rider data across different services can be a problem.</li>
+<li><strong>Testing Complexity</strong>: Testing the entire system becomes more complex as it involves testing multiple microservices and their interactions. Testing a microservices-based logistics app requires testing each service and how they work together.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Netflix-Eureka"><a href="#Netflix-Eureka" class="headerlink" title="Netflix Eureka"></a>Netflix Eureka</h2><ul>
+<li><strong>Purpose</strong>: It’s a service discovery tool. It allows microservices in a distributed system to register and discover each other. For example, in a microservices architecture where there are multiple user service instances and order service instances, Eureka helps the order service find the available user service instances to communicate with.</li>
+</ul>
+<h2 id="Microservices-Communication"><a href="#Microservices-Communication" class="headerlink" title="Microservices Communication"></a>Microservices Communication</h2><ul>
+<li><strong>Methods</strong>:<ul>
+<li><strong>RESTful API</strong>: Microservices can communicate via HTTP requests using RESTful APIs. For example, a product service can expose a REST API that a shopping cart service can call to get product details.</li>
+<li><strong>Message Queues</strong>: They can use message queues like RabbitMQ or Kafka. For instance, in an e-commerce system, when an order is placed, the order service can send a message to a message queue, which the inventory service listens to and updates the inventory accordingly.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Spring-API-Gateway"><a href="#Spring-API-Gateway" class="headerlink" title="Spring API Gateway"></a>Spring API Gateway</h2><ul>
+<li><strong>Purpose</strong>: It acts as a single entry point for all microservices. It provides features like request routing, authentication, rate limiting, etc. For example, in a microservices-based application, all external requests first come to the API gateway, which then routes the requests to the appropriate microservices. It can also apply authentication and authorization rules before allowing the request to reach the microservices.</li>
+</ul>
+<h2 id="Cascading-Failure-in-Microservice-and-Prevention"><a href="#Cascading-Failure-in-Microservice-and-Prevention" class="headerlink" title="Cascading Failure in Microservice and Prevention"></a>Cascading Failure in Microservice and Prevention</h2><ul>
+<li><strong>Explanation</strong>: In a microservices environment, if one microservice fails, it can cause other dependent microservices to fail, leading to a cascading effect. For example, if the user service in a social media app fails, the services that depend on it like the post service (which needs to get user information) and the comment service may also fail.</li>
+<li><strong>Prevention</strong>:<ul>
+<li><strong>Circuit Breaker</strong>: Implementing circuit breakers can prevent cascading failures. If a microservice fails to respond after a certain number of attempts, the circuit breaker trips and stops sending requests to that service, preventing other services from waiting indefinitely and potentially failing.</li>
+<li><strong>Isolation</strong>: Using techniques like thread pools and resource isolation to ensure that the failure of one microservice doesn’t exhaust the resources of other services.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Circuit-Breaker"><a href="#Circuit-Breaker" class="headerlink" title="Circuit Breaker"></a>Circuit Breaker</h2><ul>
+<li><strong>Explanation</strong>: A circuit breaker is a design pattern used to prevent cascading failures in a microservices architecture. It monitors the health of a service and if the service fails to respond or returns errors frequently, the circuit breaker trips and stops sending requests to that service for a certain period.</li>
+<li><strong>How it Works</strong>:<ul>
+<li><strong>Closed State</strong>: Initially, the circuit breaker is in the closed state and all requests are sent to the service as normal.</li>
+<li><strong>Open State</strong>: If the service fails a certain number of times within a given time period, the circuit breaker opens. In this state, all requests to the service are immediately failed without being sent to the actual service.</li>
+<li><strong>Half-Open State</strong>: After a certain period in the open state, the circuit breaker enters the half-open state. It allows a small number of requests to be sent to the service to check if it has recovered. If the requests succeed, the circuit breaker closes and normal operation resumes. If the requests fail, the circuit breaker returns to the open state.</li>
+</ul>
+</li>
+</ul>
+<h1 id="Session23-DEVOPS"><a href="#Session23-DEVOPS" class="headerlink" title="Session23-DEVOPS"></a>Session23-DEVOPS</h1><ol>
+<li>Use your own words to explain Jenkins.</li>
+<li>Can you talk about CI/CD?</li>
+<li>Git command you used in the project</li>
+<li>How do you release from the git repository</li>
+<li>How do you combine several commits together</li>
+<li>What is git cherry-pick</li>
+<li>difference between git and svn</li>
+<li><p>difference git merge and rebase</p>
+<h2 id="1-Jenkins"><a href="#1-Jenkins" class="headerlink" title="1. Jenkins"></a>1. Jenkins</h2><p>Jenkins is an open - source automation server widely used in software development. Its main purpose is to automate various stages of the software development lifecycle, such as building, testing, and deploying applications.</p>
+</li>
+</ol>
+<p><strong>How it works</strong>:<br>Jenkins has a web - based interface where you can create and configure jobs. A job in Jenkins can represent a specific task, like building a Java project or running a set of unit tests. You can define the steps of the job, including the commands to execute, the source code repositories to pull from, and the environment variables to use.</p>
+<p><strong>Example</strong>:<br>Suppose you are developing a Python web application. You can set up a Jenkins job to automatically pull the latest code from a Git repository, install the necessary Python dependencies, run unit tests, and then deploy the application to a staging server if the tests pass.</p>
+<h2 id="2-CI-CD"><a href="#2-CI-CD" class="headerlink" title="2. CI/CD"></a>2. CI/CD</h2><ul>
+<li><strong>CI (Continuous Integration)</strong>:<ul>
+<li>CI is a development practice where developers frequently integrate their code changes into a shared repository. Every time code is pushed to the repository, an automated build and test process is triggered. This helps to catch integration issues early in the development cycle.</li>
+<li>Example: In a team of developers working on a mobile app, each developer may push their code changes to the main Git repository several times a day. A CI server (like Jenkins) then automatically builds the app from the latest code and runs unit and integration tests. If any tests fail, the developers are notified immediately.</li>
+</ul>
+</li>
+<li><strong>CD (Continuous Delivery/Deployment)</strong>:<ul>
+<li>Continuous Delivery is an extension of CI. It ensures that the software can be reliably released to production at any time. After the code passes the CI tests, it is automatically prepared for deployment, but the actual deployment to production may be a manual step.</li>
+<li>Continuous Deployment takes it a step further and automatically deploys the software to production if it passes all the tests.</li>
+<li>Example: For a web - based e - commerce application, with continuous delivery, once the code passes the CI tests, it is packaged and stored in a deployment artifact repository. A release manager can then decide when to deploy it to the production servers. In continuous deployment, the application is automatically deployed to production as soon as the tests pass.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Git-commands-used-in-a-project"><a href="#3-Git-commands-used-in-a-project" class="headerlink" title="3. Git commands used in a project"></a>3. Git commands used in a project</h2><ul>
+<li><strong><code>git clone</code></strong>: Used to create a local copy of a remote Git repository.<ul>
+<li>Example: <code>git clone https://github.com/user/repo.git</code> creates a local copy of the <code>repo</code> repository hosted on GitHub.</li>
+</ul>
+</li>
+<li><strong><code>git add</code></strong>: Adds changes in the working directory to the staging area.<ul>
+<li>Example: <code>git add src/main.py</code> adds the changes made to the <code>main.py</code> file to the staging area.</li>
+</ul>
+</li>
+<li><strong><code>git commit</code></strong>: Commits the changes from the staging area to the local repository with a descriptive message.<ul>
+<li>Example: <code>git commit -m &quot;Fixed a bug in the login function&quot;</code></li>
+</ul>
+</li>
+<li><strong><code>git push</code></strong>: Pushes the committed changes from the local repository to a remote repository.<ul>
+<li>Example: <code>git push origin main</code> pushes the changes from the local <code>main</code> branch to the <code>main</code> branch of the remote repository named <code>origin</code>.</li>
+</ul>
+</li>
+<li><strong><code>git pull</code></strong>: Fetches and merges changes from a remote repository into the local repository.<ul>
+<li>Example: <code>git pull origin main</code> fetches the latest changes from the <code>main</code> branch of the <code>origin</code> remote repository and merges them into the local <code>main</code> branch.</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Releasing-from-the-Git-repository"><a href="#4-Releasing-from-the-Git-repository" class="headerlink" title="4. Releasing from the Git repository"></a>4. Releasing from the Git repository</h2><ul>
+<li><strong>Create a Release Branch (Optional)</strong>:<ul>
+<li>You can create a dedicated release branch from the main development branch (e.g., <code>main</code> or <code>master</code>). For example, <code>git checkout -b release/v1.0 main</code> creates a new release branch named <code>release/v1.0</code> from the <code>main</code> branch.</li>
+</ul>
+</li>
+<li><strong>Tag the Release</strong>:<ul>
+<li>Use the <code>git tag</code> command to mark a specific commit as a release. For example, <code>git tag v1.0</code> tags the current commit as version <code>v1.0</code>. You can then push the tags to the remote repository using <code>git push origin --tags</code>.</li>
+</ul>
+</li>
+<li><strong>Build and Deploy</strong>:<ul>
+<li>Use the tagged commit to build the application and deploy it to the appropriate environments (staging, production, etc.).</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-Combining-several-commits-together"><a href="#5-Combining-several-commits-together" class="headerlink" title="5. Combining several commits together"></a>5. Combining several commits together</h2><p>You can use the <code>git rebase -i</code> (interactive rebase) command to combine multiple commits.</p>
+<ul>
+<li><strong>Example</strong>: Suppose you have made 3 consecutive commits and want to combine them into one.<ul>
+<li>First, find the commit hash of the commit before the first commit you want to combine. Let’s say the commit hash is <code>abc123</code>.</li>
+<li>Then run <code>git rebase -i abc123</code>. This will open an editor where you can see a list of commits.</li>
+<li>Change the <code>pick</code> keyword to <code>squash</code> (or <code>s</code>) for the commits you want to combine with the previous one.</li>
+<li>Save and close the editor. Git will then combine the commits, and you can provide a new commit message for the combined commit.</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-Git-cherry-pick"><a href="#6-Git-cherry-pick" class="headerlink" title="6. Git cherry - pick"></a>6. Git cherry - pick</h2><p><code>git cherry - pick</code> is used to apply a specific commit from one branch to another.</p>
+<ul>
+<li><strong>Example</strong>: Suppose you have a <code>feature</code> branch with a commit that you want to apply to the <code>main</code> branch.<ul>
+<li>First, switch to the <code>main</code> branch: <code>git checkout main</code>.</li>
+<li>Then use <code>git cherry - pick &lt;commit - hash&gt;</code> where <code>&lt;commit - hash&gt;</code> is the hash of the commit on the <code>feature</code> branch that you want to apply. Git will then try to apply that commit to the <code>main</code> branch.</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-Difference-between-Git-and-SVN"><a href="#7-Difference-between-Git-and-SVN" class="headerlink" title="7. Difference between Git and SVN"></a>7. Difference between Git and SVN</h2><ul>
+<li><strong>Architecture</strong>:<ul>
+<li><strong>Git</strong>: It is a distributed version control system. Every developer has a complete copy of the repository, including the entire commit history. This allows developers to work offline and perform most operations locally.</li>
+<li><strong>SVN</strong>: It is a centralized version control system. There is a single central repository, and developers need to connect to it to perform operations like committing changes or getting the latest code.</li>
+</ul>
+</li>
+<li><strong>Branching and Merging</strong>:<ul>
+<li><strong>Git</strong>: Branching and merging are very fast and easy. Creating a new branch is just a matter of creating a new pointer to a commit. Merging between branches is also efficient.</li>
+<li><strong>SVN</strong>: Branching and merging can be more complex and slower. It involves copying the entire directory structure in the repository to create a branch.</li>
+</ul>
+</li>
+<li><strong>Data Integrity</strong>:<ul>
+<li><strong>Git</strong>: It uses a hash - based system to ensure data integrity. Every commit, file, and directory has a unique hash, and any change to the data will result in a different hash.</li>
+<li><strong>SVN</strong>: While it also has some mechanisms for data integrity, it is not as robust as Git’s hash - based system.</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-Difference-between-Git-merge-and-rebase"><a href="#8-Difference-between-Git-merge-and-rebase" class="headerlink" title="8. Difference between Git merge and rebase"></a>8. Difference between Git merge and rebase</h2><ul>
+<li><strong>Merge</strong>:<ul>
+<li>A <code>git merge</code> combines the changes from two or more branches into one. It creates a new “merge commit” that has two parents, one from each branch being merged.</li>
+<li>Example: If you have a <code>feature</code> branch and a <code>main</code> branch, and you want to integrate the changes from the <code>feature</code> branch into the <code>main</code> branch, you can run <code>git checkout main</code> followed by <code>git merge feature</code>. This will create a merge commit on the <code>main</code> branch.</li>
+<li>The commit history after a merge shows a more complex, branching structure.</li>
+</ul>
+</li>
+<li><strong>Rebase</strong>:<ul>
+<li>A <code>git rebase</code> moves or combines a sequence of commits to a new base commit. It takes the commits from one branch and replays them on top of another branch.</li>
+<li>Example: If you have a <code>feature</code> branch and a <code>main</code> branch, and you want to update the <code>feature</code> branch with the latest changes from the <code>main</code> branch, you can run <code>git checkout feature</code> followed by <code>git rebase main</code>. This will take the commits from the <code>feature</code> branch and replay them on top of the latest commit on the <code>main</code> branch.</li>
+<li>The commit history after a rebase is linear, which can make it easier to understand and follow. However, it can also be more complex to resolve conflicts during a rebase compared to a merge. </li>
+</ul>
+</li>
+</ul>
+<h1 id="Session25-CLOUD"><a href="#Session25-CLOUD" class="headerlink" title="Session25-CLOUD"></a>Session25-CLOUD</h1><ol>
+<li>AWS difference between parameter store and secret manager</li>
+<li>AWS where to store certificate file</li>
+<li>extra:(those we are not sure which session to put in)</li>
+<li>Use your own words to explain TDD and why use TDD.</li>
+<li>Please do some research on Redis and use your own words to explain what Redis is.</li>
+<li>Use your own words to explain what Swagger is.</li>
+<li>Please do some research on ELK and use your own words to explain what they are.</li>
+<li>Use your own words to explain Jira.</li>
+<li>What is RabbitMQ and what can it help us to achieve in a web application?What are the component of RabbitMQ?</li>
+<li>What are different types of Exchange that exist in RabbitMQ?</li>
+<li>What is Scheduler and what can it help us to achieve in a web application?</li>
+</ol>
+<h2 id="1-AWS-Difference-between-Parameter-Store-and-Secret-Manager"><a href="#1-AWS-Difference-between-Parameter-Store-and-Secret-Manager" class="headerlink" title="1. AWS: Difference between Parameter Store and Secret Manager"></a>1. AWS: Difference between Parameter Store and Secret Manager</h2><h3 id="Parameter-Store"><a href="#Parameter-Store" class="headerlink" title="Parameter Store"></a>Parameter Store</h3><ul>
+<li><strong>Explanation</strong>: AWS Systems Manager Parameter Store is a service that allows you to store configuration data such as database connection strings, API keys, and other parameters in a hierarchical structure. It’s designed for storing both plain - text and encrypted data. It helps in centralizing configuration management, making it easier to manage and update application settings across multiple environments.</li>
+<li><strong>Example</strong>: Suppose you have a microservices - based application deployed in multiple AWS regions. You can store the database connection strings for each region in the Parameter Store. For instance, a key - value pair like <code>/myapp/production/db - connection - string</code> with the actual connection string as the value. When your application starts, it can retrieve the appropriate connection string from the Parameter Store based on the environment.</li>
+</ul>
+<h3 id="Secret-Manager"><a href="#Secret-Manager" class="headerlink" title="Secret Manager"></a>Secret Manager</h3><ul>
+<li><strong>Explanation</strong>: AWS Secrets Manager is focused on securely managing secrets such as passwords, access keys, and other sensitive information. It provides features like automatic rotation of secrets, auditing, and fine - grained access control. It’s designed to reduce the risk of exposing sensitive data and simplify the process of keeping secrets up - to - date.</li>
+<li><strong>Example</strong>: Consider an application that uses an Amazon RDS database. You can store the database password in the Secrets Manager. The application can then retrieve the password securely when it needs to connect to the database. Additionally, you can set up automatic rotation of the password every 30 days, which helps in maintaining security.</li>
+</ul>
+<h2 id="2-AWS-Where-to-store-certificate-files"><a href="#2-AWS-Where-to-store-certificate-files" class="headerlink" title="2. AWS: Where to store certificate files"></a>2. AWS: Where to store certificate files</h2><ul>
+<li><strong>AWS Certificate Manager (ACM)</strong>:<ul>
+<li>ACM is the recommended service for managing SSL/TLS certificates in AWS. It provides free SSL/TLS certificates for use with AWS services such as Elastic Load Balancing, Amazon CloudFront, and API Gateway. You can easily request, renew, and manage certificates through the ACM console or API.</li>
+<li>Example: If you have a web application running behind an Elastic Load Balancer, you can request an SSL/TLS certificate from ACM and associate it with the load balancer. This enables secure communication between clients and your application.</li>
+</ul>
+</li>
+<li><strong>AWS S3</strong>:<ul>
+<li>You can also store certificate files in an Amazon S3 bucket. However, you need to ensure proper security measures such as encryption and access control. This option is useful if you need to use the certificates with non - AWS services or if you want to have more control over the storage and management of the certificates.</li>
+<li>Example: If you have an on - premise server that needs to use an SSL/TLS certificate stored in AWS, you can store the certificate in an S3 bucket and download it to the server when needed.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-TDD-Test-Driven-Development"><a href="#3-TDD-Test-Driven-Development" class="headerlink" title="3. TDD (Test - Driven Development)"></a>3. TDD (Test - Driven Development)</h2><ul>
+<li><strong>Explanation</strong>: TDD is a software development process where you write tests before writing the actual production code. The process typically follows a cycle of “Red - Green - Refactor”. First, you write a test that initially fails (Red). Then, you write the minimum amount of code to make the test pass (Green). Finally, you refactor the code to improve its design, readability, and maintainability without changing its behavior.</li>
+<li><strong>Why use TDD</strong>:<ul>
+<li><strong>Early Bug Detection</strong>: By writing tests first, you can catch bugs early in the development process, reducing the cost of fixing them later.</li>
+<li><strong>Improved Design</strong>: TDD encourages writing modular and testable code, which leads to better software design.</li>
+<li><strong>Documentation</strong>: Tests serve as living documentation for the code, making it easier for other developers to understand how the code works.</li>
+</ul>
+</li>
+<li><strong>Example</strong>: Suppose you are developing a simple calculator class with an <code>add</code> method. First, you write a test like this in Java using JUnit:<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertEquals;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalculatorTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Calculator calculator = <span class="keyword">new</span> Calculator();</span><br><span class="line">        <span class="keyword">int</span> result = calculator.add(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">        assertEquals(<span class="number">5</span>, result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>This test will initially fail because the <code>Calculator</code> class and the <code>add</code> method don’t exist yet. Then you write the minimum code to make the test pass:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Finally, you can refactor the code if needed, for example, by adding more error handling or improving the code style.</p>
+<h2 id="4-Redis"><a href="#4-Redis" class="headerlink" title="4. Redis"></a>4. Redis</h2><ul>
+<li><strong>Explanation</strong>: Redis is an open - source, in - memory data structure store that can be used as a database, cache, and message broker. It supports various data structures such as strings, hashes, lists, sets, and sorted sets. Redis is known for its high performance because it stores data in memory, which allows for very fast read and write operations. It also provides features like data persistence, replication, and clustering.</li>
+<li><strong>Example</strong>: In a web application, Redis can be used as a cache to store frequently accessed data. For example, if you have a news website, you can store the top - viewed articles in Redis. When a user requests the top - viewed articles page, the application first checks Redis. If the data is available in Redis, it can be returned immediately, reducing the load on the database.</li>
+</ul>
+<h2 id="5-Swagger"><a href="#5-Swagger" class="headerlink" title="5. Swagger"></a>5. Swagger</h2><ul>
+<li><strong>Explanation</strong>: Swagger is a set of open - source tools and frameworks for designing, building, documenting, and consuming RESTful APIs. It provides a way to describe the structure of an API using a JSON or YAML - based specification. Swagger tools can then generate interactive documentation, client libraries, and server stubs based on the API specification.</li>
+<li><strong>Example</strong>: Suppose you have a RESTful API for a book management system. You can use Swagger to define the API endpoints, request and response formats, and available operations. Swagger UI can then generate an interactive documentation page where developers can explore the API, test the endpoints, and see the expected input and output formats.</li>
+</ul>
+<h2 id="6-ELK-Elasticsearch-Logstash-Kibana"><a href="#6-ELK-Elasticsearch-Logstash-Kibana" class="headerlink" title="6. ELK (Elasticsearch, Logstash, Kibana)"></a>6. ELK (Elasticsearch, Logstash, Kibana)</h2><ul>
+<li><strong>Explanation</strong>:<ul>
+<li><strong>Elasticsearch</strong>: It is a distributed, open - source search and analytics engine. It stores data in a JSON - like format and allows for fast and flexible searching, filtering, and aggregation of data. It can handle large volumes of data and is often used for log analysis, full - text search, and real - time analytics.</li>
+<li><strong>Logstash</strong>: Logstash is a data processing pipeline that collects, filters, and transforms data from various sources (such as log files, system metrics, and application events) and sends it to a destination (such as Elasticsearch). It can perform tasks like parsing log data, enriching it with additional information, and cleaning it up.</li>
+<li><strong>Kibana</strong>: Kibana is a web - based visualization tool that works with Elasticsearch. It allows users to create visualizations, dashboards, and reports based on the data stored in Elasticsearch. It provides an intuitive interface for exploring and analyzing data.</li>
+</ul>
+</li>
+<li><strong>Example</strong>: In a large - scale web application, Logstash can collect all the application logs from different servers. It can then parse the logs, extract relevant information such as request URLs, response times, and error messages. The processed data is sent to Elasticsearch for storage. Developers and administrators can then use Kibana to create dashboards showing the application’s performance metrics, error rates, and other important information.</li>
+</ul>
+<h2 id="7-Jira"><a href="#7-Jira" class="headerlink" title="7. Jira"></a>7. Jira</h2><ul>
+<li><strong>Explanation</strong>: Jira is a popular project management and issue - tracking tool developed by Atlassian. It allows teams to plan, track, and manage projects, tasks, and bugs. Jira provides features such as customizable workflows, issue tracking, reporting, and integration with other tools. It can be used for software development projects, but also for other types of projects in different industries.</li>
+<li><strong>Example</strong>: In a software development team, Jira can be used to manage the development lifecycle of a project. Developers can create issues for new features, bugs, and tasks. The project manager can assign these issues to team members, set deadlines, and track the progress of each issue. Jira also provides reports on the project’s status, such as the number of open and closed issues, the time taken to resolve issues, and the overall project progress.</li>
+</ul>
+<h2 id="8-RabbitMQ"><a href="#8-RabbitMQ" class="headerlink" title="8. RabbitMQ"></a>8. RabbitMQ</h2><ul>
+<li><strong>Explanation</strong>: RabbitMQ is an open - source message broker software that implements the Advanced Message Queuing Protocol (AMQP). It enables applications to communicate with each other by sending and receiving messages. It acts as an intermediary between producers (applications that send messages) and consumers (applications that receive messages).</li>
+<li><strong>What it can help achieve in a web application</strong>:<ul>
+<li><strong>Decoupling</strong>: It allows different components of a web application to be decoupled. For example, in an e - commerce application, the order processing component can send messages to the inventory management component through RabbitMQ without having direct knowledge of the inventory system.</li>
+<li><strong>Asynchronous Processing</strong>: It enables asynchronous processing, which can improve the performance and scalability of the application. For instance, when a user submits a form, the application can send a message to RabbitMQ and continue processing other tasks without waiting for the form data to be fully processed.</li>
+</ul>
+</li>
+<li><strong>Components of RabbitMQ</strong>:<ul>
+<li><strong>Producer</strong>: An application that sends messages to a RabbitMQ broker.</li>
+<li><strong>Consumer</strong>: An application that receives messages from a RabbitMQ broker.</li>
+<li><strong>Queue</strong>: A buffer that stores messages until they are consumed.</li>
+<li><strong>Exchange</strong>: Routes messages to one or more queues based on rules.</li>
+<li><strong>Broker</strong>: The RabbitMQ server that manages the queues, exchanges, and message routing.</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-Different-types-of-Exchanges-in-RabbitMQ"><a href="#9-Different-types-of-Exchanges-in-RabbitMQ" class="headerlink" title="9. Different types of Exchanges in RabbitMQ"></a>9. Different types of Exchanges in RabbitMQ</h2><ul>
+<li><strong>Direct Exchange</strong>: Routes messages to queues based on the message’s routing key. Each queue is bound to the direct exchange with a specific routing key. When a message is sent to the direct exchange with a certain routing key, it is delivered to the queues that are bound with the same routing key.<ul>
+<li>Example: In a logging application, different types of logs (e.g., error logs, warning logs) can be sent to different queues using a direct exchange.</li>
+</ul>
+</li>
+<li><strong>Fanout Exchange</strong>: Routes messages to all the queues that are bound to it, regardless of the routing key. It is useful when you want to broadcast messages to multiple consumers.<ul>
+<li>Example: In a news application, when a new news article is published, a message can be sent to a fanout exchange, and all the queues (e.g., queues for different user groups) bound to the exchange will receive the message.</li>
+</ul>
+</li>
+<li><strong>Topic Exchange</strong>: Routes messages to queues based on a pattern matching of the routing key. Queues are bound to the topic exchange with a binding key that can contain wildcards (<code>*</code> for single - word matching and <code>#</code> for multi - word matching).<ul>
+<li>Example: In a financial application, messages about different stocks can be sent to a topic exchange. A queue can be bound to the exchange with a binding key like <code>stocks.#</code> to receive all messages related to stocks.</li>
+</ul>
+</li>
+<li><strong>Headers Exchange</strong>: Routes messages based on the message headers rather than the routing key. Queues are bound to the headers exchange with a set of header values. When a message is sent with specific headers, it is delivered to the queues that match the header values.</li>
+</ul>
+<h2 id="10-Scheduler"><a href="#10-Scheduler" class="headerlink" title="10. Scheduler"></a>10. Scheduler</h2><ul>
+<li><strong>Explanation</strong>: A scheduler in a web application is a component that allows you to schedule tasks to run at specific times or intervals. It can be used to perform various tasks such as running batch jobs, sending periodic notifications, and refreshing caches.</li>
+<li><strong>What it can help achieve in a web application</strong>:<ul>
+<li><strong>Automation</strong>: It automates repetitive tasks, reducing the need for manual intervention. For example, a scheduler can be used to automatically generate daily reports in a business application.</li>
+<li><strong>Resource Optimization</strong>: It can be used to schedule resource - intensive tasks during off - peak hours to optimize the use of system resources. For instance, a scheduler can be used to perform database backups at night when the application has low traffic.</li>
+</ul>
+</li>
+<li><strong>Example</strong>: In a content management system, a scheduler can be used to publish new articles at a specific time. The administrator can set a publication time for an article, and the scheduler will ensure that the article is made available to the public at the specified time. </li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+              <a href="/tags/Syllabus/" rel="tag"><i class="fa fa-tag"></i> Syllabus</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/na_contractor_java_backend_syllabus/" rel="next" title="OS knowledge syllabus 1">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    OS knowledge syllabus 1
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/na_contractor_java_backend_syllabus3/" rel="prev" title="OS knowledge syllabus 3">
+                <p class="post-nav-pre-next-title">
+                    OS knowledge syllabus 3
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">284</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">105</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Session7-SQL"><span class="nav-text">Session7-SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Explain-clustered-and-non-clustered-index-and-their-differences"><span class="nav-text">Explain clustered and non-clustered index and their differences.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Clustered-Index"><span class="nav-text">1. Clustered Index</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Definition"><span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-it-Works"><span class="nav-text">How it Works</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Non-Clustered-Index"><span class="nav-text">2. Non - Clustered Index</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Definition-1"><span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-it-Works-1"><span class="nav-text">How it Works</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-1"><span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Differences-between-Clustered-and-Non-Clustered-Indexes"><span class="nav-text">3. Differences between Clustered and Non - Clustered Indexes</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Physical-Order-of-Data"><span class="nav-text">Physical Order of Data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Number-of-Indexes-per-Table"><span class="nav-text">Number of Indexes per Table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Storage-Space"><span class="nav-text">Storage Space</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Query-Performance"><span class="nav-text">Query Performance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Insert-Update-and-Delete-Operations"><span class="nav-text">Insert, Update, and Delete Operations</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-are-normal-forms"><span class="nav-text">What are normal forms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Examples-of-Normalization"><span class="nav-text">1. Examples of Normalization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#First-Normal-Form-1NF"><span class="nav-text">First Normal Form (1NF)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Second-Normal-Form-2NF"><span class="nav-text">Second Normal Form (2NF)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Third-Normal-Form-3NF"><span class="nav-text">Third Normal Form (3NF)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Examples-of-Database-Integrity"><span class="nav-text">2. Examples of Database Integrity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Entity-Integrity"><span class="nav-text">Entity Integrity</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Referential-Integrity"><span class="nav-text">Referential Integrity</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Domain-Integrity"><span class="nav-text">Domain Integrity</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-do-you-represent-a-multi-valued-attribute-in-a-database"><span class="nav-text">How do you represent a multi-valued attribute in a database?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Relational-Databases"><span class="nav-text">Relational Databases</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Using-a-Separate-Table-Normalization-Approach"><span class="nav-text">1. Using a Separate Table (Normalization Approach)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Using-Delimited-Lists-Denormalization-Approach"><span class="nav-text">2. Using Delimited Lists (Denormalization Approach)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Non-Relational-Databases"><span class="nav-text">Non - Relational Databases</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Document-Databases-e-g-MongoDB"><span class="nav-text">1. Document Databases (e.g., MongoDB)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Graph-Databases-e-g-Neo4j"><span class="nav-text">2. Graph Databases (e.g., Neo4j)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-do-you-represent-a-many-to-many-relationship-in-database"><span class="nav-text">How do you represent a many-to-many relationship in database?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Using-a-Junction-Table-Associative-Table"><span class="nav-text">1. Using a Junction Table (Associative Table)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-1-Identify-the-related-tables"><span class="nav-text">Step 1: Identify the related tables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-2-Create-the-junction-table"><span class="nav-text">Step 2: Create the junction table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-3-Insert-and-query-data"><span class="nav-text">Step 3: Insert and query data</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-In-Non-Relational-Databases"><span class="nav-text">2. In Non - Relational Databases</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Graph-Databases"><span class="nav-text">Graph Databases</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Document-Databases"><span class="nav-text">Document Databases</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session15-TRANSACTION-JPA"><span class="nav-text">Session15-TRANSACTION JPA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-What-is-“Offline-Transaction”"><span class="nav-text">1. What is “Offline Transaction”?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-How-do-we-usually-perform-Transaction-Management-in-JDBC"><span class="nav-text">2. How do we usually perform Transaction Management in JDBC?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-What-is-Database-Transaction"><span class="nav-text">3. What is Database Transaction?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-What-are-entity-states-defined-in-Hibernate-JPA"><span class="nav-text">4. What are entity states defined in Hibernate / JPA?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-How-can-we-transfer-the-entity-between-different-states"><span class="nav-text">5. How can we transfer the entity between different states?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-What-are-differences-between-save-persist"><span class="nav-text">6. What are differences between save, persist?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-What-are-differences-between-update-merge-and-saveOrUpdate"><span class="nav-text">7. What are differences between update, merge and saveOrUpdate?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-How-do-you-use-Elasticsearch-in-your-Java-application"><span class="nav-text">8. How do you use Elasticsearch in your Java application?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session17-UNIT-TEST"><span class="nav-text">Session17-UNIT TEST</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Commonly-Used-Methods-in-JUnit"><span class="nav-text">1. Commonly - Used Methods in JUnit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#assertEquals"><span class="nav-text">assertEquals()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assertTrue-and-assertFalse"><span class="nav-text">assertTrue() and assertFalse()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assertNull-and-assertNotNull"><span class="nav-text">assertNull() and assertNotNull()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Commonly-Used-Annotations-in-JUnit"><span class="nav-text">2. Commonly - Used Annotations in JUnit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Test"><span class="nav-text">@Test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeforeEach"><span class="nav-text">@BeforeEach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AfterEach"><span class="nav-text">@AfterEach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeforeAll-and-AfterAll"><span class="nav-text">@BeforeAll and @AfterAll</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-What-is-Mockito-and-its-Usage"><span class="nav-text">3. What is Mockito and its Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Definition-2"><span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-Usages"><span class="nav-text">Common Usages</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Creating-Mock-Objects"><span class="nav-text">Creating Mock Objects</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stubbing-Methods"><span class="nav-text">Stubbing Methods</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Verifying-Method-Calls"><span class="nav-text">Verifying Method Calls</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session19-MICROSERVICE"><span class="nav-text">Session19-MICROSERVICE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Monolithic-Application"><span class="nav-text">Monolithic Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Microservice-Application"><span class="nav-text">Microservice Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netflix-Eureka"><span class="nav-text">Netflix Eureka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Microservices-Communication"><span class="nav-text">Microservices Communication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-API-Gateway"><span class="nav-text">Spring API Gateway</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cascading-Failure-in-Microservice-and-Prevention"><span class="nav-text">Cascading Failure in Microservice and Prevention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Circuit-Breaker"><span class="nav-text">Circuit Breaker</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session23-DEVOPS"><span class="nav-text">Session23-DEVOPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Jenkins"><span class="nav-text">1. Jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-CI-CD"><span class="nav-text">2. CI/CD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Git-commands-used-in-a-project"><span class="nav-text">3. Git commands used in a project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Releasing-from-the-Git-repository"><span class="nav-text">4. Releasing from the Git repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Combining-several-commits-together"><span class="nav-text">5. Combining several commits together</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Git-cherry-pick"><span class="nav-text">6. Git cherry - pick</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Difference-between-Git-and-SVN"><span class="nav-text">7. Difference between Git and SVN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Difference-between-Git-merge-and-rebase"><span class="nav-text">8. Difference between Git merge and rebase</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session25-CLOUD"><span class="nav-text">Session25-CLOUD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-AWS-Difference-between-Parameter-Store-and-Secret-Manager"><span class="nav-text">1. AWS: Difference between Parameter Store and Secret Manager</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Parameter-Store"><span class="nav-text">Parameter Store</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Secret-Manager"><span class="nav-text">Secret Manager</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-AWS-Where-to-store-certificate-files"><span class="nav-text">2. AWS: Where to store certificate files</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-TDD-Test-Driven-Development"><span class="nav-text">3. TDD (Test - Driven Development)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Redis"><span class="nav-text">4. Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Swagger"><span class="nav-text">5. Swagger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-ELK-Elasticsearch-Logstash-Kibana"><span class="nav-text">6. ELK (Elasticsearch, Logstash, Kibana)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Jira"><span class="nav-text">7. Jira</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-RabbitMQ"><span class="nav-text">8. RabbitMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Different-types-of-Exchanges-in-RabbitMQ"><span class="nav-text">9. Different types of Exchanges in RabbitMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Scheduler"><span class="nav-text">10. Scheduler</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script> 
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>

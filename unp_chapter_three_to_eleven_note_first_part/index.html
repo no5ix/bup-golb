@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '重读UNIX网络编程第三章到第十一章笔记整理(一)' + '_last_passwd';
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                    }
+                    if (history.length > 1) {
+                        history.back();
+                    } else {
+                        window.location.href = "about:blank";
+                    }
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="UNP,TLPI,APUE,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="因为第二章之后基本都是纯Socket API的内容， 第三章到第十一章的笔记整理合并到一起。  第三章 3.4 ：字节排序函数，涉及到大小端，处理网络字节序和主机字节序的转换    如何判别是大端(Big-Endian)还是小端(Little-Endian):  union TestBigOrLittle&amp;#123;	short var_short;	char array_char[2];&amp;#1">
+<meta name="keywords" content="UNP,TLPI,APUE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重读UNIX网络编程第三章到第十一章笔记整理(一)">
+<meta property="og:url" content="https://hulinhong.com/unp_chapter_three_to_eleven_note_first_part/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="因为第二章之后基本都是纯Socket API的内容， 第三章到第十一章的笔记整理合并到一起。  第三章 3.4 ：字节排序函数，涉及到大小端，处理网络字节序和主机字节序的转换    如何判别是大端(Big-Endian)还是小端(Little-Endian):  union TestBigOrLittle&amp;#123;	short var_short;	char array_char[2];&amp;#1">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://hulinhong.com/unp_chapter_three_to_eleven_note_first_part/unix3_11_1.jpg">
+<meta property="og:image" content="https://hulinhong.com/unp_chapter_three_to_eleven_note_first_part/unix3_11_2.jpg">
+<meta property="og:image" content="https://hulinhong.com/unp_chapter_three_to_eleven_note_first_part/unix3_11_4.jpg">
+<meta property="og:image" content="https://hulinhong.com/unp_chapter_three_to_eleven_note_first_part/unix3_11_3.jpg">
+<meta property="og:image" content="https://hulinhong.com/unp_chapter_three_to_eleven_note_first_part/unix3_11_5.jpg">
+<meta property="og:image" content="http://img.blog.csdn.net/20170729013634366?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://hulinhong.com/unp_chapter_three_to_eleven_note_first_part/unix3_11_6.jpg">
+<meta property="og:image" content="http://img.blog.csdn.net/20170729020522848?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170729020609873?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170729020641599?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170729020801057?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170729020828685?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170729021237265?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170729022856179?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2025-04-16T12:06:48.296Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重读UNIX网络编程第三章到第十一章笔记整理(一)">
+<meta name="twitter:description" content="因为第二章之后基本都是纯Socket API的内容， 第三章到第十一章的笔记整理合并到一起。  第三章 3.4 ：字节排序函数，涉及到大小端，处理网络字节序和主机字节序的转换    如何判别是大端(Big-Endian)还是小端(Little-Endian):  union TestBigOrLittle&amp;#123;	short var_short;	char array_char[2];&amp;#1">
+<meta name="twitter:image" content="https://hulinhong.com/unp_chapter_three_to_eleven_note_first_part/unix3_11_1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>重读UNIX网络编程第三章到第十一章笔记整理(一) | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/unp_chapter_three_to_eleven_note_first_part/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">重读UNIX网络编程第三章到第十一章笔记整理(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-02T19:01:21+00:00">
+                07-02-2017
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NP/" itemprop="url" rel="index">
+                    <span itemprop="name">NP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/UNP/" rel="tag"><i class="fa fa-tag"></i> UNP</a>
+              
+                <a href="/tags/TLPI/" rel="tag"><i class="fa fa-tag"></i> TLPI</a>
+              
+                <a href="/tags/APUE/" rel="tag"><i class="fa fa-tag"></i> APUE</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/unp_chapter_two_note/" rel="next" title="重读UNIX网络编程第二章笔记修正（结合TLPI和APUE两书的笔记整理）">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  重读UNIX网络编程第二章笔记修正（结合TLPI和APUE两书的笔记整理）
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/unp_chapter_three_to_eleven_note_second_part/" rel="prev" title="重读UNIX网络编程第三章到第十一章笔记整理(二)">
+              <p class="post-nav-pre-next-title">
+                  重读UNIX网络编程第三章到第十一章笔记整理(二)
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <blockquote>
+<p>因为第二章之后基本都是纯Socket API的内容， 第三章到第十一章的笔记整理合并到一起。</p>
+</blockquote>
+<h1 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a><strong>第三章</strong></h1><ul>
+<li><p>3.4 ：字节排序函数，涉及到大小端，处理网络字节序和主机字节序的转换</p>
+ <img src="/unp_chapter_three_to_eleven_note_first_part/unix3_11_1.jpg">
+<p> 如何判别是大端(Big-Endian)还是小端(Little-Endian):</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">union</span> TestBigOrLittle</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">short</span> var_short;</span><br><span class="line">	<span class="keyword">char</span> array_char[<span class="number">2</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	TestBigOrLittle unTestUnion;</span><br><span class="line">	unTestUnion.var_short = <span class="number">0x1234</span>;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="keyword">short</span>) == <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (unTestUnion.array_char[<span class="number">0</span>] == <span class="number">0x12</span>)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"BigEndian\n"</span>);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(unTestUnion.array_char[<span class="number">0</span>] == <span class="number">0x34</span>)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"LittleEndian\n"</span>);</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"unkonw endian\n"</span>);</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"sizeof(short) : %d \n"</span>, <span class="keyword">sizeof</span>(<span class="keyword">short</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;		</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 网际协议使用<strong>大端字节序</strong>来传送这些多字节整数, 也就是说<strong>网络字节序</strong>就是大端字节序.</p>
+ <img src="/unp_chapter_three_to_eleven_note_first_part/unix3_11_2.jpg">
+<p> 由图中我们可以知道, htons和ntohs是用于端口的字节序转换的, 而htonl和ntohl是用于32位IP地址的, 下图就是一个例子:</p>
+ <img src="/unp_chapter_three_to_eleven_note_first_part/unix3_11_4.jpg">
+</li>
+<li><p>3.6 ： 地址转换函数，它们在ASCII字符串(这是人们偏爱使用的格式)与网络字节序的二进制值(这是存放在套接字地址结构中的值)之间转换网际地址</p>
+ <img src="/unp_chapter_three_to_eleven_note_first_part/unix3_11_3.jpg">
+</li>
+</ul>
+<h1 id="第四章基本TCP套接字编程"><a href="#第四章基本TCP套接字编程" class="headerlink" title="第四章基本TCP套接字编程"></a><strong>第四章基本TCP套接字编程</strong></h1><ul>
+<li><img src="/unp_chapter_three_to_eleven_note_first_part/unix3_11_5.jpg">
+</li>
+<li><p><img src="http://img.blog.csdn.net/20170729013634366?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+</li>
+<li><p>listen函数</p>
+<p> int listen(int sockfd, int backlog);</p>
+ <img src="/unp_chapter_three_to_eleven_note_first_part/unix3_11_6.jpg">
+<p> 当来自客户的SYN到达时，TCP在未完成连接队列中创建个新项，然后响应以三路握手<br> 的第—个分节服务器的SYN响应，其中捎带对客户SYN的ACK（2.6节）。这一项．直保留在<br> 未完成连接队列中，直到三路握手的第二个分节（客户对服务器SYN的ACK）到达或者该项超<br> 时为止。（源白Berkeley的实现为这些末完成连接的项设置的超时值为75s。）如果3路握手正常<br> 完成，该项就从未完成连接队列移到已完成连接队列的队尾。当进程调用accept时（该函数在<br> 下一节讲解），己完成连接队列巾的队头项将返回给给进程，或者如果该队列为空，那么进程将被<br> 投入睡眠，直到TCP在该队列中放入一项才唤醒它。</p>
+</li>
+<li><p>4.6节: accept函数<br> accept函数用于从已完成连接队列对头返回下一个已完成连接<br> <code>int accept(int sockfd, struct sockaddr *cliaddr, socklent_t *addrlen);</code></p>
+</li>
+<li><p>4.7节: fork函数<br> fork函数的内存语义:</p>
+<ol>
+<li>共享代码段, 子指向父 : 父子进程共享同一代码段, 子进程的页表项指向父进程相同的物理内存页(即数据段/堆段/栈段的各页)</li>
+<li>写时复制(copy-on-write) : 内核会捕获所有父进程或子进程针对这些页面(即数据段/堆段/栈段的各页)的修改企图, 并为将要修改的页面创建拷贝, 将新的页面拷贝分配给遭内核捕获的进程, 从此父/子进程可以分别修改各自的页拷贝, 不再相互影响.</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>4.9节：<br> close函数， 涉及到描述符引用计数，所以多进程并发服务器才可以共享已连接套接字，因为父进程调用close函数知识把该套接字标记成已关闭并导致该套接字描述符减1。只要引用计数的值仍大于0，就不会引发tcp的四分组连接终止序列</li>
+</ul>
+<h1 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a><strong>第五章</strong></h1><ul>
+<li>5.9节：<br> 处理SIGCHLD信号， 涉及到僵死进程（子进程终止时给父进程发送了一个SIGCHLD信号，若父进程未加处理，则子进程进入僵死状态），所以要建立该信号处理函数，并在函数中调用waitpid来处理</li>
+<li>5.10节 ：<br> 使用wait或者waitpid来处理已终止的子进程，通常是使用waitpid并指定WNOHANG选项，来告知waitpid在有尚未终止的子进程在运行时不要阻塞。</li>
+</ul>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a><strong>第六章</strong></h1><ul>
+<li><p><img src="http://img.blog.csdn.net/20170729020522848?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="列表内容"></p>
+</li>
+<li><p><img src="http://img.blog.csdn.net/20170729020609873?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+</li>
+<li><p><img src="http://img.blog.csdn.net/20170729020641599?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+</li>
+<li><p><img src="http://img.blog.csdn.net/20170729020801057?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+</li>
+<li><p><img src="http://img.blog.csdn.net/20170729020828685?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+</li>
+<li><p>同步I/O操作：导致请求进程阻塞，知道I/O操作完成</p>
+</li>
+<li><p>异步I/O操作：不导致请求进程阻塞</p>
+</li>
+<li><p><img src="http://img.blog.csdn.net/20170729021237265?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+</li>
+</ul>
+<ul>
+<li>6.6节 ：<br>  shutdown函数，shutdown可以不用管引用计数就激发tcp的正常连接终止序列。当关闭连接的写这一半，对于tcp连接， 这称为<strong>半关闭（half-close）</strong><img src="http://img.blog.csdn.net/20170729022856179?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/UNP/" rel="tag"><i class="fa fa-tag"></i> UNP</a>
+            
+              <a href="/tags/TLPI/" rel="tag"><i class="fa fa-tag"></i> TLPI</a>
+            
+              <a href="/tags/APUE/" rel="tag"><i class="fa fa-tag"></i> APUE</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/unp_chapter_two_note/" rel="next" title="重读UNIX网络编程第二章笔记修正（结合TLPI和APUE两书的笔记整理）">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    重读UNIX网络编程第二章笔记修正（结合TLPI和APUE两书的笔记整理）
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/unp_chapter_three_to_eleven_note_second_part/" rel="prev" title="重读UNIX网络编程第三章到第十一章笔记整理(二)">
+                <p class="post-nav-pre-next-title">
+                    重读UNIX网络编程第三章到第十一章笔记整理(二)
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">284</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">105</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章"><span class="nav-text">第三章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章基本TCP套接字编程"><span class="nav-text">第四章基本TCP套接字编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第五章"><span class="nav-text">第五章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第六章"><span class="nav-text">第六章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script> 
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
