@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('ees'){
+            let localStoragePasswdKey = 'Twitter Clone backend notes' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'ees') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'ees') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GitHub,noodle,Java,NA,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="Twitter Clone frontend notes Project URLhttps://github.com/merikbest/twitter-spring-reactjs 正确的安装和启动方法原作者很懒, 没写清楚, 所以我来写 Installation Install maven: link Install Java: link Install Postgresql: link In">
+<meta name="keywords" content="GitHub,noodle,Java,NA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Twitter Clone backend notes">
+<meta property="og:url" content="https://hulinhong.com/twitter_clone_backend_notes/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="Twitter Clone frontend notes Project URLhttps://github.com/merikbest/twitter-spring-reactjs 正确的安装和启动方法原作者很懒, 没写清楚, 所以我来写 Installation Install maven: link Install Java: link Install Postgresql: link In">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-06-07T04:21:53.724Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Twitter Clone backend notes">
+<meta name="twitter:description" content="Twitter Clone frontend notes Project URLhttps://github.com/merikbest/twitter-spring-reactjs 正确的安装和启动方法原作者很懒, 没写清楚, 所以我来写 Installation Install maven: link Install Java: link Install Postgresql: link In">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Twitter Clone backend notes | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/twitter_clone_backend_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Twitter Clone backend notes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2025-04-15T03:05:08+00:00">
+                04-15-2025
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/GitHub/" rel="tag"><i class="fa fa-tag"></i> GitHub</a>
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/na_c2g/" rel="next" title="C2G">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  C2G
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/twitter_clone_frontend_notes/" rel="prev" title="Twitter Clone frontend notes">
+              <p class="post-nav-pre-next-title">
+                  Twitter Clone frontend notes
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <a href="/twitter_clone_frontend_notes/" title="Twitter Clone frontend notes">Twitter Clone frontend notes</a>
+<h1 id="Project-URL"><a href="#Project-URL" class="headerlink" title="Project URL"></a>Project URL</h1><p><a href="https://github.com/merikbest/twitter-spring-reactjs" target="_blank" rel="noopener">https://github.com/merikbest/twitter-spring-reactjs</a></p>
+<h1 id="正确的安装和启动方法"><a href="#正确的安装和启动方法" class="headerlink" title="正确的安装和启动方法"></a>正确的安装和启动方法</h1><p>原作者很懒, 没写清楚, 所以我来写</p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><ol>
+<li>Install maven: <a href="https://www.baeldung.com/install-maven-on-windows-linux-mac" target="_blank" rel="noopener">link</a></li>
+<li>Install Java: <a href="https://www.oracle.com/java/technologies/javase/jdk15-archive-downloads.html" target="_blank" rel="noopener">link</a></li>
+<li>Install Postgresql: <a href="https://www.postgresql.org/download/" target="_blank" rel="noopener">link</a></li>
+<li>Install Intellij IDEA Ultimate: <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">link</a></li>
+<li>Install Docker and Docker Desktop</li>
+<li>Add Lombok plugin to the Intellij IDEA: <a href="https://i.ibb.co/Gtwcw0t/6-lombok.jpg" target="_blank" rel="noopener">link</a></li>
+<li>Make sure Java 17 is selected: <a href="https://i.ibb.co/8PVGDdm/7-Java-17.png" target="_blank" rel="noopener">link</a></li>
+<li>Build the project with Maven: <a href="https://i.ibb.co/qr4w7F4/8-Maven-build.pngg" target="_blank" rel="noopener">link</a></li>
+<li>Sign up for a new AWS account: <a href="https://portal.aws.amazon.com/billing/signup#/start" target="_blank" rel="noopener">link</a></li>
+<li>Create a new AWS S3 bucket: <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html" target="_blank" rel="noopener">link</a></li>
+<li>Change access from private to public in the AWS S3 bucket</li>
+<li>Add a public access policy to the AWS S3 bucket (!!!important!!! see:<br><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-policy-language-overview.html" target="_blank" rel="noopener">doc</a>,<br><a href="https://stackoverflow.com/questions/58580042/how-to-set-public-read-only-access-on-amazon-s3-bucket#:~:text=To%20make%20objects%20publicly%20accessible%2C%20use%20a%20policy%20like%20this%3A" target="_blank" rel="noopener">github examle</a> or<br><a href="https://i.ibb.co/mSpHmyL/12-bucket.jpg" target="_blank" rel="noopener">my example</a>)</li>
+<li>Get AWS keys: <a href="https://supsystic.com/documentation/id-secret-access-key-amazon-s3/" target="_blank" rel="noopener">link</a> and add to the application.properties file: <a href="https://i.ibb.co/zHw537K/13-key.jpg" target="_blank" rel="noopener">link</a></li>
+<li>In the <a href="https://github.com/merikbest/twitter-spring-reactjs/blob/391ddc666a79057615322898ea2715f1178fdb03/config-server/src/main/resources/config/image-service.yml#L13" target="_blank" rel="noopener">image-service.yml config file</a> add bucket, access-key, secret-key properties</li>
+<li>Sign up for gmail</li>
+<li>Create google API keys: <a href="https://developers.google.com/youtube/v3/getting-started#before-you-start" target="_blank" rel="noopener">link</a></li>
+<li>Add google API key to the <a href="https://github.com/merikbest/twitter-spring-reactjs/blob/391ddc666a79057615322898ea2715f1178fdb03/config-server/src/main/resources/config/tweet-service.yml#L27" target="_blank" rel="noopener">tweet-service.yml config file</a></li>
+<li>Add gmail account and password to the <a href="https://github.com/merikbest/twitter-spring-reactjs/blob/391ddc666a79057615322898ea2715f1178fdb03/config-server/src/main/resources/config/email-service.yml#L11" target="_blank" rel="noopener">email-service.yml config file</a></li>
+<li>Go to <a href="https://myaccount.google.com/u/2/lesssecureapps" target="_blank" rel="noopener">link</a> (important) and change to: “Allow less secure apps: ON”</li>
+</ol>
+<h2 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h2><ol>
+<li>(<strong>only for the first time</strong>) run <code>docker compose up --build</code></li>
+<li>run these services on your Docker Desktop: <code>postgres</code>, <code>pgadmin</code>, <code>zipkin</code>, <code>rabbitmq</code>, <code>zookeeper</code>, <code>broker</code>(kafka) <a href="https://i.ibb.co/tCCXJLk/9-Docker-Desktop.png" target="_blank" rel="noopener">link</a></li>
+<li>(<strong>only for the first time</strong>) Open <a href="http://localhost:5050/browser/" target="_blank" rel="noopener">http://localhost:5050/browser/</a> and create DBs: <code>user</code>, <code>tweet</code>, <code>chat</code>, <code>lists</code>, <code>notification</code>, <code>tag</code>, <code>topic</code>, <code>scheduler</code>, <code>localization</code></li>
+<li>Run services in this order:<ul>
+<li>eureka-server</li>
+<li>config-server</li>
+<li>api-gateway</li>
+<li>user-service</li>
+<li>and then all other services in any order <a href="https://i.ibb.co/jRhYMd9/24-microservices-run.png" target="_blank" rel="noopener">link</a></li>
+</ul>
+</li>
+<li>Open terminal in frontend directory and run these commands step by step:<ol>
+<li><code>cd ./frontend/</code></li>
+<li><code>nvm install v16.16.0</code></li>
+<li><code>nvm alias default 16.16.0</code></li>
+<li><code>nvm use 16.16.0</code></li>
+<li><code>npm install -g npm@8.17.0</code></li>
+<li><code>node -v</code></li>
+<li><code>npm -v</code></li>
+<li><code>npm config set legacy-peer-deps true</code></li>
+<li><code>npm uninstall node-sass</code></li>
+<li><code>npm install sass</code></li>
+<li><code>rm -rf node_modules package-lock.json</code></li>
+<li><code>npm install --legacy-peer-deps</code></li>
+<li><code>npm list ajv</code></li>
+<li><code>npm install ajv@^8 ajv-keywords</code></li>
+<li><code>npm list ajv</code></li>
+</ol>
+</li>
+<li>Open terminal in frontend directory and type: <code>npm start</code>, then “<strong>Wait</strong> almost <strong>a</strong> minute <strong>for</strong> its <strong>boot-up</strong>.” 等差不多一分钟让它启动。</li>
+<li>Navigate to <a href="http://localhost:3000/home" target="_blank" rel="noopener">http://localhost:3000/home</a></li>
+</ol>
+<h2 id="To-enter-the-application-you-can-register-or-login"><a href="#To-enter-the-application-you-can-register-or-login" class="headerlink" title="To enter the application you can register or login:"></a>To enter the application you can register or login:</h2><ul>
+<li>Login: <code>user2016@gmail.com</code>  </li>
+<li>Password: <code>qwerty123</code></li>
+</ul>
+<h1 id="项目里使用了哪些SpringCloud的东西"><a href="#项目里使用了哪些SpringCloud的东西" class="headerlink" title="项目里使用了哪些SpringCloud的东西"></a>项目里使用了哪些SpringCloud的东西</h1><p>你看<code>pom.xml</code>里如果有类似于引入<code>spring-cloud</code>开头的依赖就是用到了SpringCloud的东西<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-zipkin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="1-Spring-Cloud-OpenFeign"><a href="#1-Spring-Cloud-OpenFeign" class="headerlink" title="1. Spring Cloud OpenFeign"></a>1. Spring Cloud OpenFeign</h2><p>在这个 Twitter 克隆项目里，Spring Cloud 提供了一系列组件，为构建微服务架构提供了强大的支持。结合代码片段和 <code>README.md</code> 文件，项目中涉及的 Spring Cloud 相关组件如下：</p>
+<ul>
+<li><strong>功能</strong>：Spring Cloud OpenFeign 是一个声明式的 HTTP 客户端，它使得编写 Web 服务客户端变得更加简单。通过定义接口和使用注解，就可以轻松地调用其他微服务的 RESTful API。</li>
+<li><strong>代码体现</strong>：多个服务的主类上都添加了 <code>@EnableFeignClients</code> 注解，启用了 Feign 客户端功能。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// twitter-spring-reactjs/user-service/src/main/java/com/gmail/merikbest2015/UserServiceApplication.java</span></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(UserServiceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="2-Spring-Cloud-Circuit-Breaker-Resilience4j"><a href="#2-Spring-Cloud-Circuit-Breaker-Resilience4j" class="headerlink" title="2. Spring Cloud Circuit Breaker (Resilience4j)"></a>2. Spring Cloud Circuit Breaker (Resilience4j)</h2><ul>
+<li><strong>功能</strong>：Spring Cloud Circuit Breaker 是一个抽象层，用于在微服务之间实现熔断、限流等容错机制。Resilience4j 是其中一种具体的实现，它可以帮助微服务在出现故障时快速失败，避免级联故障。</li>
+<li><strong>代码体现</strong>：在多个服务的 <code>pom.xml</code> 文件中引入了 <code>spring-cloud-starter-circuitbreaker-resilience4j</code> 依赖。<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- twitter-spring-reactjs/tag-service/pom.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-circuitbreaker-resilience4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>同时，在配置文件中配置了熔断实例的参数，例如 <code>resilience4j.circuitbreaker.instances</code>。<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># twitter-spring-reactjs/config-server/src/main/resources/config/topic-service.yml</span></span><br><span class="line"><span class="attr">resilience4j:</span></span><br><span class="line"><span class="attr">    circuitbreaker:</span></span><br><span class="line"><span class="attr">        instances:</span></span><br><span class="line"><span class="attr">            user-service:</span></span><br><span class="line"><span class="attr">                minimum-number-of-calls:</span> <span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="3-Spring-Cloud-Config"><a href="#3-Spring-Cloud-Config" class="headerlink" title="3. Spring Cloud Config"></a>3. Spring Cloud Config</h2><ul>
+<li><strong>功能</strong>：Spring Cloud Config 为微服务架构中的应用提供了集中化的外部配置支持。它允许开发者将配置文件存储在远程仓库（如 Git）中，各个微服务可以从配置服务器获取配置信息，实现配置的统一管理和动态更新。</li>
+<li><strong>代码体现</strong>：各个服务的 <code>bootstrap.yml</code> 文件中都配置了配置服务器的地址。<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># twitter-spring-reactjs/tweet-service/src/main/resources/bootstrap.yml</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">    application:</span></span><br><span class="line"><span class="attr">        name:</span> <span class="string">tweet-service</span></span><br><span class="line"><span class="attr">    cloud:</span></span><br><span class="line"><span class="attr">        config:</span></span><br><span class="line"><span class="attr">            uri:</span> <span class="attr">http://$&#123;CONFIG_SERVER_HOST:localhost&#125;:8888/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>配置服务器的主类添加了 <code>@EnableConfigServer</code> 注解，启用了配置服务器功能。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// twitter-spring-reactjs/config-server/src/main/java/com/gmail/merikbest2015/ConfigServerApplication.java</span></span><br><span class="line"><span class="meta">@EnableConfigServer</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigServerApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ConfigServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-Spring-Cloud-Netflix-Eureka"><a href="#4-Spring-Cloud-Netflix-Eureka" class="headerlink" title="4. Spring Cloud Netflix Eureka"></a>4. Spring Cloud Netflix Eureka</h2><ul>
+<li><strong>功能</strong>：Spring Cloud Netflix Eureka 是一个服务发现组件，它提供了服务注册和发现的功能。微服务可以将自己注册到 Eureka 服务器，其他微服务可以从 Eureka 服务器获取服务列表，实现服务之间的调用。</li>
+<li><strong>代码体现</strong>：Eureka 服务器的主类添加了 <code>@EnableEurekaServer</code> 注解，启用了 Eureka 服务器功能。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// twitter-spring-reactjs/eureka-server/src/main/java/com/gmail/merikbest2015/EurekaServerApplication.java</span></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaServerApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(EurekaServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>各个服务的配置文件中都配置了 Eureka 服务器的地址，并设置了是否注册和获取服务列表的参数。<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># twitter-spring-reactjs/config-server/src/main/resources/config/topic-service.yml</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line"><span class="attr">    client:</span></span><br><span class="line"><span class="attr">        service-url:</span></span><br><span class="line"><span class="attr">            defaultZone:</span> <span class="attr">http://$&#123;EUREKA_HOST:localhost&#125;:8761/eureka</span></span><br><span class="line"><span class="attr">        fetch-registry:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">        register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    instance:</span></span><br><span class="line"><span class="attr">        hostname:</span> <span class="string">$&#123;EUREKA_HOST:localhost&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="5-Spring-Cloud-Gateway"><a href="#5-Spring-Cloud-Gateway" class="headerlink" title="5. Spring Cloud Gateway"></a>5. Spring Cloud Gateway</h2><ul>
+<li><strong>功能</strong>：Spring Cloud Gateway 是一个基于 Spring WebFlux 的 API 网关，它提供了路由、过滤等功能。可以将客户端的请求路由到不同的微服务，并对请求进行预处理和后处理。</li>
+<li><strong>代码体现</strong>：API 网关服务的主类排除了数据源自动配置，并启用了 Feign 客户端。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// twitter-spring-reactjs/api-gateway/src/main/java/com/gmail/merikbest2015/ApiGatewayApplication.java</span></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span>(exclude = &#123;DataSourceAutoConfiguration.class&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApiGatewayApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ApiGatewayApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>同时，还配置了 WebSocket 相关的 Bean，以支持 WebSocket 通信。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// twitter-spring-reactjs/api-gateway/src/main/java/com/gmail/merikbest2015/configuration/WebSocketConfig.java</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSocketConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Primary</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RequestUpgradeStrategy <span class="title">requestUpgradeStrategy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TomcatRequestUpgradeStrategy();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Primary</span></span><br><span class="line">    <span class="function">WebSocketClient <span class="title">tomcatWebSocketClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TomcatWebSocketClient();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>综上所述，这个项目中使用的 Spring Cloud 组件包括 OpenFeign、Circuit Breaker、Config、Eureka 和 Gateway，它们共同构成了一个完整的微服务架构，提供了服务发现、配置管理、容错、API 网关等功能。 </p>
+<h1 id="Prometheus和Grafana和Actuator和Zipkin"><a href="#Prometheus和Grafana和Actuator和Zipkin" class="headerlink" title="Prometheus和Grafana和Actuator和Zipkin"></a>Prometheus和Grafana和Actuator和Zipkin</h1><h2 id="zipkin如何是啥-zipkin是springboot自带的吗"><a href="#zipkin如何是啥-zipkin是springboot自带的吗" class="headerlink" title="zipkin如何是啥?zipkin是springboot自带的吗?"></a>zipkin如何是啥?zipkin是springboot自带的吗?</h2><p><strong>注</strong>: 本项目twitter clone中似乎没有引入这俩依赖, 所以并没有完全接入zipkin的功能</p>
+<p>在 Spring Boot 项目中接入和使用 Zipkin 可以帮助你实现分布式系统的链路追踪，以下是详细的接入和使用步骤，结合代码库中的信息来进行说明：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>是否 Spring Boot 自带</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zipkin</td>
+<td>否</td>
+<td>独立系统，用于收集和查询链路追踪数据（如请求调用链）</td>
+</tr>
+<tr>
+<td>Spring Cloud Sleuth</td>
+<td>否（需引入）</td>
+<td>Spring 官方提供的链路追踪库，用于生成 trace/span 数据，并可发送给 Zipkin</td>
+</tr>
+<tr>
+<td>Spring Boot Actuator</td>
+<td>是（部分模块）</td>
+<td>用于监控、指标收集，不包含 Zipkin 或 Sleuth</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1. 添加依赖"></a>1. 添加依赖</h3><p>在 <code>pom.xml</code> 文件中添加 Spring Cloud Sleuth 和 Zipkin 相关的依赖，不过代码库中未展示各服务具体依赖添加情况，但一般需添加如下依赖：<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-sleuth<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-zipkin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-配置-Zipkin-服务地址"><a href="#2-配置-Zipkin-服务地址" class="headerlink" title="2. 配置 Zipkin 服务地址"></a>2. 配置 Zipkin 服务地址</h3><p>在每个 Spring Boot 服务的配置文件中，需要配置 Zipkin 的服务地址。以 <code>config-server/src/main/resources/config/lists-service.yml</code> 为例：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">    zipkin:</span></span><br><span class="line"><span class="attr">        base-url:</span> <span class="attr">http://$&#123;ZIPKIN_HOST:localhost&#125;:9411</span></span><br></pre></td></tr></table></figure></p>
+<p>上述配置指定了 Zipkin 服务的基础 URL，这里使用了环境变量 <code>${ZIPKIN_HOST}</code>，默认值为 <code>localhost</code>，端口为 <code>9411</code>。</p>
+<h3 id="3-启动-Zipkin-服务"><a href="#3-启动-Zipkin-服务" class="headerlink" title="3. 启动 Zipkin 服务"></a>3. 启动 Zipkin 服务</h3><p>在 <code>docker-compose.yml</code> 文件中可以看到 Zipkin 服务的配置：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">zipkin:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">openzipkin/zipkin</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">zipkin</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"9411:9411"</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">spring</span></span><br></pre></td></tr></table></figure></p>
+<p>使用 Docker Compose 启动该配置，即可启动 Zipkin 服务，它会监听 <code>9411</code> 端口。</p>
+<h3 id="4-服务注册与发现（可选）"><a href="#4-服务注册与发现（可选）" class="headerlink" title="4. 服务注册与发现（可选）"></a>4. 服务注册与发现（可选）</h3><p>如果项目使用了服务注册与发现机制（如 Eureka），各服务需要在配置文件中配置 Eureka 相关信息，以确保 Zipkin 能正确识别和追踪服务。以 <code>config-server/src/main/resources/config/lists-service.yml</code> 为例：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line"><span class="attr">    client:</span></span><br><span class="line"><span class="attr">        service-url:</span></span><br><span class="line"><span class="attr">            defaultZone:</span> <span class="attr">http://$&#123;EUREKA_HOST:localhost&#125;:8761/eureka</span></span><br><span class="line"><span class="attr">        fetch-registry:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">        register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    instance:</span></span><br><span class="line">   </span><br><span class="line"><span class="attr">   hostname:</span> <span class="string">$&#123;EUREKA_HOST:localhost&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="5-验证接入"><a href="#5-验证接入" class="headerlink" title="5. 验证接入"></a>5. 验证接入</h3><p>启动所有 Spring Boot 服务和 Zipkin 服务后，当服务之间进行调用时，Sleuth 会自动收集链路追踪信息，并将其发送到 Zipkin 服务。你可以通过访问 <code>http://localhost:9411</code> 打开 Zipkin 的 Web 界面，在该界面中可以查看和分析链路追踪数据。</p>
+<h3 id="6-示例代码分析"><a href="#6-示例代码分析" class="headerlink" title="6. 示例代码分析"></a>6. 示例代码分析</h3><p>在代码库的多个服务配置文件中都有 Zipkin 相关配置，如 <code>chat-service</code>、<code>user-service</code> 等，这表明这些服务都接入了 Zipkin 进行链路追踪。以下是 <code>chat-service</code> 的配置示例：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">    zipkin:</span></span><br><span class="line"><span class="attr">        base-url:</span> <span class="attr">http://$&#123;ZIPKIN_HOST:localhost&#125;:9411</span></span><br></pre></td></tr></table></figure></p>
+<p>这说明 <code>chat-service</code> 会将链路追踪数据发送到指定的 Zipkin 服务地址。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过以上步骤，你可以在 Spring Boot 项目中成功接入和使用 Zipkin 进行分布式系统的链路追踪。在实际项目中，各服务会根据配置自动收集和发送链路追踪数据，开发人员可以通过 Zipkin 的 Web 界面查看和分析这些数据，从而更好地理解系统的调用关系和性能瓶颈。 </p>
+<h2 id="用表格说明-prometheus和grafana和actuator区别"><a href="#用表格说明-prometheus和grafana和actuator区别" class="headerlink" title="用表格说明: prometheus和grafana和actuator区别"></a>用表格说明: prometheus和grafana和actuator区别</h2><table>
+<thead>
+<tr>
+<th>比较项</th>
+<th>Prometheus</th>
+<th>Grafana</th>
+<th>Actuator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>定位</strong></td>
+<td>开源的系统监控和警报工具包，专注于<strong>收集和存储</strong>时间序列数据。</td>
+<td>开源的<strong>可视化</strong>分析平台，用于将收集到的数据以直观的图表、仪表盘等形式展示出来。</td>
+<td>Spring Boot 提供的比较<strong>简单原始</strong>的监控和管理工具，用于监控和管理 Spring Boot 应用程序内部的运行状态。</td>
+</tr>
+<tr>
+<td><strong>功能</strong></td>
+<td>1. <strong>数据收集</strong>：从各种数据源（如 Actuator 暴露的端点）收集指标数据。<br>2. <strong>数据存储</strong>：将收集到的数据以时间序列的形式存储在本地磁盘。<br>3. <strong>查询语言</strong>：提供 PromQL 查询语言，用于对存储的数据进行查询和分析。<br>4. <strong>警报功能</strong>：支持设置警报规则，当指标数据满足特定条件时触发警报。</td>
+<td>1. <strong>数据可视化</strong>：支持多种数据源（如 Prometheus、InfluxDB 等），可以将数据以图表、表格、仪表盘等形式进行可视化展示。<br>2. <strong>多数据源支持</strong>：可以同时连接多个不同类型的数据源，并在同一个仪表盘上展示不同数据源的数据。<br>3. <strong>交互式仪表盘</strong>：提供丰富的交互功能，如缩放、过滤、钻取等，方便用户深入分析数据。<br>4. <strong>警报通知</strong>：支持设置警报规则，并通过多种方式（如邮件、Slack 等）发送警报通知。</td>
+<td>1. <strong>端点暴露</strong>：提供一系列的端点（Endpoints），通过 HTTP 或者 JMX 来访问应用的运行状态信息，如健康状况、内存使用情况、线程池状态等。<br>2. <strong>自定义扩展</strong>：开发者可以根据自己的需求自定义 Actuator 端点，以满足特定的监控和管理需求。</td>
+</tr>
+<tr>
+<td><strong>使用场景</strong></td>
+<td>1. 监控大规模分布式系统的性能指标，如 CPU 使用率、内存使用率、网络带宽等。<br>2. 对系统的运行状态进行实时监控和分析，及时发现潜在的问题。<br>3. 设置警报规则，当系统出现异常时及时通知相关人员。</td>
+<td>1. 将 Prometheus 收集到的数据进行可视化展示，方便用户直观地了解系统的运行状态。<br>2. 创建交互式仪表盘，用于展示不同维度的数据，帮助用户进行数据分析和决策。<br>3. 对多个数据源的数据进行整合和展示，提供统一的监控视图。</td>
+<td>1. 监控 Spring Boot 应用程序的内部状态，如健康检查、指标监控等。<br>2. 对应用程序进行管理和配置，如关闭应用、刷新配置等。<br>3. 自定义监控指标，满足特定的业务需求。</td>
+</tr>
+<tr>
+<td><strong>在代码库中的体现</strong></td>
+<td>在 <code>twitter-spring-reactjs/dashboard/prometheus.yml</code> 文件中，定义了多个服务的抓取配置，指定了抓取间隔、指标路径和目标地址，用于从各个服务的 <code>/actuator/prometheus</code> 端点收集指标数据。</td>
+<td>在 <code>twitter-spring-reactjs/docker-compose.yml</code> 文件中，定义了 Grafana 服务的配置，包括端口映射、环境变量等。同时，在 <code>twitter-spring-reactjs/dashboard/grafana/provisioning/micrometer-spring-throughput_rev2.json</code> 文件中，定义了 Grafana 的仪表盘配置，用于展示从 Prometheus 收集到的数据。</td>
+<td>在 <code>twitter-spring-reactjs/dashboard/prometheus.yml</code> 文件中，多个服务的 <code>metrics_path</code> 都设置为 <code>/actuator/prometheus</code>，表明这些服务使用了 Spring Boot Actuator 来暴露指标数据，供 Prometheus 进行采集。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Actuator已经很好-为啥还需要-Prometheus"><a href="#Actuator已经很好-为啥还需要-Prometheus" class="headerlink" title="Actuator已经很好, 为啥还需要 Prometheus?"></a>Actuator已经很好, 为啥还需要 Prometheus?</h2><p>你可以直接用 Actuator 查看指标，但它只是“原始数据源”，不是完整监控方案。</p>
+<p>用 Actuator 直接访问的缺点：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Actuator</th>
+<th>Prometheus + Grafana</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实时查看数据</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>数据持久化</td>
+<td>❌（仅返回当前快照）</td>
+<td>✅（自动存历史）</td>
+</tr>
+<tr>
+<td>图表展示</td>
+<td>❌（纯文本）</td>
+<td>✅（灵活图形化）</td>
+</tr>
+<tr>
+<td>告警设置</td>
+<td>❌</td>
+<td>✅（如 CPU 超限发通知）</td>
+</tr>
+<tr>
+<td>多服务统一管理</td>
+<td>❌（每个服务要单独访问）</td>
+<td>✅（集中式平台）</td>
+</tr>
+<tr>
+<td>数据查询/聚合</td>
+<td>❌（不支持查询）</td>
+<td>✅（支持 PromQL 查询）</td>
+</tr>
+</tbody>
+</table>
+<p>⸻</p>
+<p>结论：</p>
+<p>如果你只想调试一个服务、临时看看运行状态，Actuator 是够用的。<br>但如果你要：<br>    •    持续观察趋势<br>    •    多服务统一监控<br>    •    设置告警<br>    •    做性能优化</p>
+<p>那就必须用 Prometheus + Grafana。Actuator 是数据源，不是仪表盘或监控系统。</p>
+<p>一句话总结：</p>
+<p>Actuator 是喇叭，Prometheus + Grafana 才是耳朵 + 眼睛 + 脑子。</p>
+<h2 id="Prometheus-为啥依赖-Actuator"><a href="#Prometheus-为啥依赖-Actuator" class="headerlink" title="Prometheus 为啥依赖 Actuator?"></a>Prometheus 为啥依赖 Actuator?</h2><p>因为 Spring Boot Actuator 是官方提供的监控和管理模块，负责暴露各种运行时指标、健康检查、环境变量、线程信息等。你要通过 Grafana + Prometheus 监控 Spring Boot 应用，核心就是这些运行时指标，而这些指标就是由 Actuator 提供并暴露出来的。</p>
+<p>为什么 Prometheus 要依赖 Actuator？</p>
+<p>Prometheus 抓取的 /actuator/prometheus 接口就是 Actuator 提供的，里面包含了 Micrometer 采集到的各种系统、JVM、Spring 应用运行数据，比如：<br>    •    JVM 内存、GC、线程数<br>    •    HTTP 请求次数、耗时<br>    •    数据库连接池状态<br>    •    自定义业务指标（如果你添加了）</p>
+<p>如果你不加 spring-boot-starter-actuator，Spring Boot 就不会暴露这些信息，Prometheus 根本无从抓取。</p>
+<p>⸻</p>
+<p>核心依赖关系如下：</p>
+<p>Spring Boot 应用<br>   └── Actuator 暴露应用运行指标<br>         └── Micrometer 提供统一指标采集接口<br>               └── micrometer-registry-prometheus 把指标转成 Prometheus 能读懂的格式<br>                     └── Prometheus 抓取数据<br>                           └── Grafana 展示数据</p>
+<p>⸻</p>
+<p>结论：</p>
+<p>要想 Prometheus 能监控 Spring Boot，必须依赖 Actuator 提供 /actuator/prometheus 端点，这是数据的来源，没有 Actuator 就没有监控数据。你可以把它理解为监控系统的“数据出口”。</p>
+<h2 id="Actuactor整体如何配置里开启以及代码里如何接入"><a href="#Actuactor整体如何配置里开启以及代码里如何接入" class="headerlink" title="Actuactor整体如何配置里开启以及代码里如何接入?"></a>Actuactor整体如何配置里开启以及代码里如何接入?</h2><p>Spring Boot Actuator 是一个内建模块，用来暴露运行时的系统信息（健康检查、Bean、线程、内存、指标等），用于监控、报警、分析系统状态。要完整启用并接入，分为两步：</p>
+<p>⸻</p>
+<p>✅ 一、配置文件里开启 Actuator 功能</p>
+<ol>
+<li>引入依赖</li>
+</ol>
+<p>pom.xml 中添加（Spring Boot 2.2+ 推荐使用 spring-boot-starter-actuator）：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>⸻</p>
+<ol>
+<li>application.yml 中开启端点<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">management:</span></span><br><span class="line"><span class="attr">  endpoints:</span></span><br><span class="line"><span class="attr">    web:</span></span><br><span class="line"><span class="attr">      exposure:</span></span><br><span class="line"><span class="attr">        include:</span> <span class="string">"*"</span>   <span class="comment">## 暴露所有端点，也可以是 ["health", "info", "metrics"]</span></span><br><span class="line"><span class="attr">  endpoint:</span></span><br><span class="line"><span class="attr">    health:</span></span><br><span class="line"><span class="attr">      show-details:</span> <span class="string">always</span>  <span class="comment">## 显示详细健康信息</span></span><br><span class="line"><span class="attr">  metrics:</span></span><br><span class="line"><span class="attr">    export:</span></span><br><span class="line"><span class="attr">      prometheus:</span></span><br><span class="line"><span class="attr">        enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  server:</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">8081</span>  <span class="comment">## 可选，独立起一个 actuator 管理端口</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>⸻</p>
+<p>✅ 二、代码中接入并使用</p>
+<p>你不需要显式写任何代码来获取 actuator 功能。Spring Boot 自动装配这些端点：</p>
+<p>功能    访问路径    描述</p>
+<ul>
+<li>Health Check    /actuator/health    查看服务是否正常</li>
+<li>Info    /actuator/info    展示项目信息（需配置）</li>
+<li>Beans    /actuator/beans    所有 Spring Bean 列表</li>
+<li>Metrics    /actuator/metrics    所有可用的系统指标</li>
+<li>Prometheus    /actuator/prometheus    Prometheus 格式的监控数据</li>
+<li>Env    /actuator/env    当前系统环境变量</li>
+<li>Loggers    /actuator/loggers    动态调整日志级别</li>
+<li>Mappings    /actuator/mappings    所有请求路径和控制器映射</li>
+</ul>
+<p>🔐 如果你用了 Spring Security，还要额外开放 Actuator 的访问权限（我可以给你配置模板）。</p>
+<p>⸻</p>
+<p>✅ 四、可选：与 Prometheus + Grafana 联动</p>
+<pre><code>1.    保证 Prometheus 能访问 /actuator/prometheus
+2.    Prometheus 配置中加 target：
+</code></pre><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">- job_name:</span> <span class="string">'user-service'</span></span><br><span class="line"><span class="attr">  static_configs:</span></span><br><span class="line"><span class="attr">    - targets:</span> <span class="string">['localhost:8080']</span></span><br></pre></td></tr></table></figure>
+<pre><code>3.    Grafana 添加 Prometheus 数据源即可。
+</code></pre><p>⸻</p>
+<h2 id="Grafana本身不需要接入到springboot对吗-他只需要到网页端配置数据源就行了"><a href="#Grafana本身不需要接入到springboot对吗-他只需要到网页端配置数据源就行了" class="headerlink" title="Grafana本身不需要接入到springboot对吗? 他只需要到网页端配置数据源就行了"></a>Grafana本身不需要接入到springboot对吗? 他只需要到网页端配置数据源就行了</h2><p>是的，完全正确。Grafana 本身不需要接入 Spring Boot 应用，它只是一个可视化平台，通过配置<strong>数据源（如 Prometheus、InfluxDB、Loki 等）</strong>拉取数据并展示图表。</p>
+<p>⸻</p>
+<p>✅ 你只需做两件事：</p>
+<ol>
+<li>Spring Boot 应用负责暴露监控数据</li>
+</ol>
+<p>例如通过 Actuator 暴露：</p>
+<p><a href="http://localhost:8080/actuator/prometheus" target="_blank" rel="noopener">http://localhost:8080/actuator/prometheus</a></p>
+<ol>
+<li>Grafana 配置数据源（Prometheus）<br> •    在浏览器访问 Grafana（通常是 <a href="http://localhost:3000）" target="_blank" rel="noopener">http://localhost:3000）</a><br> •    左侧菜单 → ⚙️ Configuration → Data Sources<br> •    选择 Prometheus → 填写 URL（如 <a href="http://localhost:9090）" target="_blank" rel="noopener">http://localhost:9090）</a><br> •    点击 Save &amp; Test</li>
+</ol>
+<p>⸻</p>
+<p>🔁 之后的链路如下：</p>
+<p>Spring Boot (Actuator) –&gt; Prometheus –&gt; Grafana Dashboard</p>
+<p>Spring Boot 不需要感知 Grafana 的存在，完全解耦。只要你的 Prometheus 能抓到数据，Grafana就能展示。你也可以把多个微服务接入同一个 Prometheus，然后在 Grafana 中统一展示。</p>
+<h1 id="项目里Kafka咋用的"><a href="#项目里Kafka咋用的" class="headerlink" title="项目里Kafka咋用的"></a>项目里Kafka咋用的</h1><p>在这个 Twitter 克隆项目中，</p>
+<ul>
+<li><strong>Kafka</strong> 作为消息中间件，用于在各个微服务之间实现<strong>异步</strong>通信和解耦, </li>
+<li><strong>Feign</strong>用作微服务之间的<strong>同步</strong>通信。</li>
+</ul>
+<p>以下是 Kafka 在项目中的具体使用方式：</p>
+<h2 id="1-配置-Kafka"><a href="#1-配置-Kafka" class="headerlink" title="1. 配置 Kafka"></a>1. 配置 Kafka</h2><h3 id="1-1-生产者配置"><a href="#1-1-生产者配置" class="headerlink" title="1.1 生产者配置"></a>1.1 生产者配置</h3><p>多个服务中都有 Kafka 生产者的配置，以 <code>user-service</code> 为例，在 <code>KafkaProducerConfiguration</code> 类中：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableKafka</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KafkaProducerConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.kafka.bootstrap-servers&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String bootstrapServers;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">producerConfigs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; props = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);</span><br><span class="line">        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);</span><br><span class="line">        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);</span><br><span class="line">        <span class="keyword">return</span> props;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> KafkaTemplate&lt;String, UpdateUserEvent&gt; <span class="title">kafkaUpdateUserTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> KafkaTemplate&lt;&gt;(<span class="keyword">new</span> DefaultKafkaProducerFactory&lt;&gt;(producerConfigs()));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他 KafkaTemplate Bean 定义...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里配置了 Kafka 生产者的基本属性，如 <code>bootstrap.servers</code>、键和值的序列化器。通过创建不同的 <code>KafkaTemplate</code> Bean，可以向不同的主题发送不同类型的消息。</p>
+<p>在提供的代码中，涉及到了 Apache Kafka 相关的配置，其中 <code>bootstrap.servers</code>、键和值的序列化器以及 <code>KafkaTemplate</code> Bean 都是 Kafka 配置和使用过程中的重要概念，下面为你详细解释：</p>
+<h4 id="1-bootstrap-servers"><a href="#1-bootstrap-servers" class="headerlink" title="1. bootstrap.servers"></a>1. <code>bootstrap.servers</code></h4><p><code>bootstrap.servers</code> 是 Kafka 客户端（生产者或消费者）用于连接 Kafka 集群的初始服务器列表。客户端使用这些服务器来发现整个 Kafka 集群的元数据信息，包括所有的 broker 节点、主题分区等。在代码里，这个配置通常从 Spring 的配置文件中读取，然后用于创建 Kafka 生产者或消费者的配置。</p>
+<p>示例代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Value</span>(<span class="string">"$&#123;spring.kafka.bootstrap-servers&#125;"</span>)</span><br><span class="line"><span class="keyword">private</span> String bootstrapServers;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">producerConfigs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Object&gt; props = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);</span><br><span class="line">    <span class="comment">// 其他配置...</span></span><br><span class="line">    <span class="keyword">return</span> props;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上述代码中，<code>bootstrapServers</code> 从 <code>spring.kafka.bootstrap-servers</code> 配置项中获取，然后添加到生产者配置 <code>props</code> 中。</p>
+<h4 id="2-键和值的序列化器"><a href="#2-键和值的序列化器" class="headerlink" title="2. 键和值的序列化器"></a>2. 键和值的序列化器</h4><p>在 Kafka 中，消息是以字节形式存储和传输的。因此，在生产者将消息发送到 Kafka 之前，需要将消息的键和值序列化为字节数组；而在消费者接收到消息后，需要将字节数组反序列化为对象。这就需要使用序列化器和反序列化器。</p>
+<h5 id="序列化器"><a href="#序列化器" class="headerlink" title="序列化器"></a>序列化器</h5><ul>
+<li><strong>键序列化器（<code>KEY_SERIALIZER_CLASS_CONFIG</code>）</strong>：用于将消息的键序列化为字节数组。</li>
+<li><strong>值序列化器（<code>VALUE_SERIALIZER_CLASS_CONFIG</code>）</strong>：用于将消息的值序列化为字节数组。</li>
+</ul>
+<p>示例代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">producerConfigs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Object&gt; props = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);</span><br><span class="line">    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);</span><br><span class="line">    <span class="keyword">return</span> props;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上述代码中，键使用 <code>StringSerializer</code> 进行序列化，值使用 <code>JsonSerializer</code> 进行序列化。</p>
+<h5 id="反序列化器"><a href="#反序列化器" class="headerlink" title="反序列化器"></a>反序列化器</h5><p>在消费者端，需要使用相应的反序列化器将字节数组反序列化为对象。</p>
+<p>示例代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">consumerConfigs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Object&gt; props = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);</span><br><span class="line">    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);</span><br><span class="line">    <span class="keyword">return</span> props;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上述代码中，键使用 <code>StringDeserializer</code> 进行反序列化，值使用 <code>JsonDeserializer</code> 进行反序列化。</p>
+<h4 id="3-KafkaTemplate-Bean"><a href="#3-KafkaTemplate-Bean" class="headerlink" title="3. KafkaTemplate Bean"></a>3. <code>KafkaTemplate</code> Bean</h4><p><code>KafkaTemplate</code> 是 Spring Kafka 提供的一个高级抽象，用于简化 Kafka 生产者的使用。通过创建 <code>KafkaTemplate</code> Bean，可以方便地向 Kafka 主题发送消息。</p>
+<p>示例代码：<br><figure class="highlight java"><figcaption><span>KafkaProducerConfiguration.java</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> KafkaTemplate&lt;String, UpdateTweetCountEvent&gt; <span class="title">kafkaUpdateTweetCountTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> KafkaTemplate&lt;&gt;(<span class="keyword">new</span> DefaultKafkaProducerFactory&lt;&gt;(producerConfigs()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上述代码中，创建了一个 <code>KafkaTemplate</code> Bean，用于发送键为 <code>String</code> 类型，值为 <code>ListsNotificationEvent</code> 类型的消息。可以通过注入这个 <code>KafkaTemplate</code> Bean，在代码中使用它来发送消息：<br><figure class="highlight java"><figcaption><span>UpdateTweetCountProducer.java</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> KafkaTemplate&lt;String, UpdateTweetCountEvent&gt; kafkaTemplate;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendUpdateTweetCountEvent</span><span class="params">(Long authUserId, <span class="keyword">boolean</span> hasRetweeted)</span> </span>&#123;</span><br><span class="line">    kafkaTemplate.send(getUpdateTweetCountEvent(KafkaTopicConstants.UPDATE_USER_TWEETS_COUNT_TOPIC, authUserId, hasRetweeted));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>综上所述，<code>bootstrap.servers</code> 用于连接 Kafka 集群，键和值的序列化器用于消息的序列化和反序列化，<code>KafkaTemplate</code> Bean 用于简化 Kafka 生产者的使用。这些配置和组件共同构成了项目中 Kafka 消息传递的基础。 </p>
+<h3 id="1-2-消费者配置"><a href="#1-2-消费者配置" class="headerlink" title="1.2 消费者配置"></a>1.2 消费者配置</h3><p>以 <code>tweet-service</code> 为例，在 <code>KafkaConsumerConfiguration</code> 类中：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableKafka</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KafkaConsumerConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.kafka.bootstrap-servers&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String bootstrapServers;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.kafka.consumer.group-id&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String groupId;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">consumerConfigs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; props = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);</span><br><span class="line">        props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);</span><br><span class="line">        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);</span><br><span class="line">        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);</span><br><span class="line">        <span class="keyword">return</span> props;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ConsumerFactory&lt;String, UpdateUserEvent&gt; <span class="title">userConsumerFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DefaultKafkaConsumerFactory&lt;&gt;(</span><br><span class="line">                consumerConfigs(),</span><br><span class="line">                <span class="keyword">new</span> StringDeserializer(),</span><br><span class="line">                <span class="keyword">new</span> JsonDeserializer&lt;&gt;(UpdateUserEvent.class)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 其他 ConsumerFactory Bean 定义...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里配置了 Kafka 消费者的基本属性，如 <code>bootstrap.servers</code>、消费者组 ID、键和值的反序列化器。通过创建不同的 <code>ConsumerFactory</code> Bean，可以从不同的主题消费不同类型的消息。</p>
+<h2 id="2-发送消息（生产者）"><a href="#2-发送消息（生产者）" class="headerlink" title="2. 发送消息（生产者）"></a>2. 发送消息（生产者）</h2><p>项目中有多个生产者类，用于向 Kafka 主题发送不同类型的消息。例如，<code>PinTweetProducer</code> 类：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PinTweetProducer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> KafkaTemplate&lt;String, PinTweetEvent&gt; kafkaTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendPinTweetEvent</span><span class="params">(Long tweetId, Long authUserId)</span> </span>&#123;</span><br><span class="line">        PinTweetEvent pinTweetEvent = PinTweetEvent.builder()</span><br><span class="line">                .tweetId(tweetId)</span><br><span class="line">                .build();</span><br><span class="line">        kafkaTemplate.send(ProducerUtil.authHeaderWrapper(KafkaTopicConstants.PIN_TWEET_USER_TOPIC, pinTweetEvent, authUserId));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该类使用 <code>KafkaTemplate</code> 向 <code>PIN_TWEET_USER_TOPIC</code> 主题发送 <code>PinTweetEvent</code> 类型的消息。</p>
+<h2 id="3-接收消息（消费者）"><a href="#3-接收消息（消费者）" class="headerlink" title="3. 接收消息（消费者）"></a>3. 接收消息（消费者）</h2><p>虽然代码片段中没有展示完整的消费者监听器，但从配置文件可以推测，每个服务会根据需要创建相应的消费者监听器来处理接收到的消息。例如，在 <code>tweet-service</code> 中配置了多个 <code>ConsumerFactory</code>，可以用于创建消费者监听器来处理不同类型的事件。</p>
+<h2 id="4-主题和事件类型"><a href="#4-主题和事件类型" class="headerlink" title="4. 主题和事件类型"></a>4. 主题和事件类型</h2><p>项目中定义了多个 Kafka 主题和对应的事件类型，用于不同的业务场景。例如：</p>
+<ul>
+<li><code>KafkaTopicConstants.PIN_TWEET_USER_TOPIC</code>：用于处理固定推文的事件。</li>
+<li><code>KafkaTopicConstants.UPDATE_USER_TOPIC</code>：用于处理用户信息更新的事件。</li>
+</ul>
+<p>不同的服务根据业务需求向不同的主题发送和接收消息，实现了微服务之间的解耦和异步通信。</p>
+<h2 id="5-容器化部署"><a href="#5-容器化部署" class="headerlink" title="5. 容器化部署"></a>5. 容器化部署</h2><p>在 <code>docker-compose.yml</code> 文件中，配置了 Kafka 容器：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">broker:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">confluentinc/cp-kafka:7.0.1</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">broker</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"9092:9092"</span></span><br><span class="line"><span class="attr">    depends_on:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">zookeeper</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">        KAFKA_BROKER_ID:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">        KAFKA_ZOOKEEPER_CONNECT:</span> <span class="string">'zookeeper:2181'</span></span><br><span class="line"><span class="attr">        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:</span> <span class="attr">PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT</span></span><br><span class="line"><span class="attr">        KAFKA_ADVERTISED_LISTENERS:</span> <span class="attr">PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092</span></span><br><span class="line"><span class="attr">        KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">        KAFKA_TRANSACTION_STATE_LOG_MIN_ISR:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">        KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">spring</span></span><br></pre></td></tr></table></figure></p>
+<p>通过 Docker 容器化部署 Kafka，方便在开发和生产环境中使用。</p>
+<p>综上所述，Kafka 在项目中用于微服务之间的异步通信，通过配置生产者和消费者，不同的服务可以向不同的主题发送和接收消息，实现了系统的解耦和扩展性。 </p>
+<h1 id="RabbitMQ-和-Kafka区别"><a href="#RabbitMQ-和-Kafka区别" class="headerlink" title="RabbitMQ 和 Kafka区别"></a>RabbitMQ 和 Kafka区别</h1><p><strong>注</strong>: 项目中并没有实际用到rabbitmq, 没有相关代码, 只是docker-compose.yml里有而已</p>
+<p>在微服务架构中选择消息中间件，RabbitMQ 和 Kafka 各有优劣。以下是 RabbitMQ 相对于 Kafka 的几个核心优势，适用于一些特定的微服务场景：</p>
+<p>✅ RabbitMQ 的优势（对比 Kafka）</p>
+<p><strong>最重要的优势</strong>: 低延迟，适合实时请求处理</p>
+<ul>
+<li>•    RabbitMQ 延迟低，适合请求-响应模型或对消息实时性要求高的场景。</li>
+<li>•    Kafka 更适合吞吐优先的批量处理或数据管道场景。<br>🎯 原因分析:<ul>
+<li>•    RabbitMQ 是推模型：生产者投递后，broker 立即推送给消费者，几乎没有消费延迟。</li>
+<li>•    Kafka 是拉模型：消费者轮询 poll()，加上批处理机制，会带来一定延迟。</li>
+<li>•    Kafka 强一致性 + 持久化机制开销更大：Kafka 的写入一般需要刷盘（acks=all），而 RabbitMQ 可配置为内存优先。<br>📌 实际经验建议:</li>
+<li>•    对低延迟有极致要求（&lt;10ms） → RabbitMQ 更合适。</li>
+<li>•    对延迟不敏感但吞吐要求高（如日志处理、大规模流式处理）→ Kafka 明显更强。</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>RabbitMQ</th>
+<th>Kafka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>端到端延迟（低负载）</td>
+<td>1–5 毫秒</td>
+<td>10–100 毫秒</td>
+</tr>
+<tr>
+<td>端到端延迟（中高负载）</td>
+<td>5–20 毫秒</td>
+<td>50–200 毫秒</td>
+</tr>
+<tr>
+<td>写入延迟</td>
+<td>1–2 毫秒</td>
+<td>5–50 毫秒（取决于 acks 策略、flush 等）</td>
+</tr>
+<tr>
+<td>消费延迟</td>
+<td>实时推送（基本无延迟）</td>
+<td>拉取模式（取决于 poll 周期）</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>更强的消息路由能力（AMQP）<br> •    RabbitMQ 支持多种 Exchange 类型（Direct、Topic、Fanout、Headers），可以灵活路由消息。<br> •    Kafka 的消息路由主要依赖于 topic 和 key，灵活性较低。</p>
+</li>
+<li><p>成熟的消息确认与重试机制<br> •    RabbitMQ 支持 per-message ack、dead-letter queue（DLQ）、retry、延迟队列等，适合微服务间复杂的消息投递保障。<br> •    Kafka 虽然支持 consumer offset 和手动提交，但重试和死信处理需额外实现。</p>
+</li>
+<li><p>资源开销更低，部署简单<br> •    RabbitMQ 比 Kafka 更轻量，部署简单，适合中小型服务。<br> •    Kafka 对 ZooKeeper、磁盘 IO、网络吞吐要求更高，复杂度更高。</p>
+</li>
+<li><p>支持多种协议（AMQP、MQTT、STOMP、HTTP）<br> •    RabbitMQ 协议层灵活，可以适配各种客户端，利于异构系统集成。</p>
+</li>
+<li><p>适合命令、事件混合型系统<br> •    微服务之间不仅仅传递日志/事件，还包括任务指令（Command）；RabbitMQ 更适合这种场景。</p>
+</li>
+</ol>
+<p>🟨 使用 RabbitMQ 的典型场景<br>    •    RPC（远程过程调用）<br>    •    实时任务分发（如订单处理）<br>    •    异步事务补偿（Saga 模式）<br>    •    高可靠性消息传递（确保每条消息都处理）</p>
+<p>⚠️ 什么时候不要用 RabbitMQ？<br>    •    需要极高吞吐量（如百万级 TPS） → 用 Kafka。<br>    •    用作事件溯源（Event Sourcing）、日志聚合、大数据采集 → Kafka 更合适。<br>    •    大量消费者并行处理历史消息 → Kafka 优势明显。</p>
+<p>总结一句话：<br>RabbitMQ 适合服务间高可靠、低延迟、灵活路由的消息传递；Kafka 适合高吞吐、可持久化、大数据驱动的事件流架构。</p>
+<h1 id="Resilience4j-Feign-是啥-默认同步调用的话-不会卡死吗"><a href="#Resilience4j-Feign-是啥-默认同步调用的话-不会卡死吗" class="headerlink" title="Resilience4j? Feign 是啥? 默认同步调用的话, 不会卡死吗?"></a>Resilience4j? Feign 是啥? 默认同步调用的话, 不会卡死吗?</h1><h2 id="1-Resilience4j-是什么"><a href="#1-Resilience4j-是什么" class="headerlink" title="1. Resilience4j 是什么"></a>1. Resilience4j 是什么</h2><p>Resilience4j 是一个轻量级、易于使用的容错库，专为 Java 8 及以上版本设计，主要用于增强分布式系统中服务调用的稳定性和弹性。它提供了多种容错模式，例如断路器（Circuit Breaker）、限流（Rate Limiter）、重试（Retry）、限时器（Time Limiter）等。</p>
+<h3 id="在代码库中的体现"><a href="#在代码库中的体现" class="headerlink" title="在代码库中的体现"></a>在代码库中的体现</h3><p>在 <code>twitter - spring - reactjs</code> 项目里，多个服务的 <code>pom.xml</code> 文件都引入了 <code>spring - cloud - starter - circuitbreaker - resilience4j</code> 依赖，像 <code>notification - service/pom.xml</code>、<code>lists - service/pom.xml</code> 等，表明项目使用 Resilience4j 来实现服务调用的容错功能。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-circuitbreaker-resilience4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>同时，在多个服务的配置文件（如 <code>topic - service.yml</code>、<code>tag - service.yml</code> 等）中配置了断路器的参数，例如：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">resilience4j:</span></span><br><span class="line"><span class="attr">    circuitbreaker:</span></span><br><span class="line"><span class="attr">        instances:</span></span><br><span class="line">            <span class="string">user</span> <span class="bullet">-</span> <span class="attr">service:</span></span><br><span class="line">                <span class="string">minimum</span> <span class="bullet">-</span> <span class="string">number</span> <span class="bullet">-</span> <span class="string">of</span> <span class="bullet">-</span> <span class="attr">calls:</span> <span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="2-Feign-是什么"><a href="#2-Feign-是什么" class="headerlink" title="2. Feign 是什么"></a>2. Feign 是什么</h2><p>Feign 是一个声明式的 Web 服务客户端，由 Netflix 开发并开源。它使得编写 Web 服务客户端变得更加简单，只需创建一个接口并在接口上添加注解，Feign 就会自动创建该接口的实现类并完成 HTTP 请求的发送。</p>
+<h3 id="在代码库中的体现-1"><a href="#在代码库中的体现-1" class="headerlink" title="在代码库中的体现"></a>在代码库中的体现</h3><p>在 <code>twitter - spring - reactjs</code> 项目中，有大量使用 Feign 的示例。例如 <code>scheduler - service/src/main/java/com/gmail/merikbest2015/client/TweetClient.java</code> 文件中：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FeignClient</span>(name = FeignConstants.TWEET_SERVICE, path = PathConstants.API_V1_TWEETS, configuration = FeignConfiguration.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TweetClient</span> </span>&#123;</span><br><span class="line">    <span class="meta">@PostMapping</span>(PathConstants.USER_BATCH_JOB)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">runImportUsersBatchJob</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里定义了一个 Feign 客户端接口 <code>TweetClient</code>，用于调用 <code>tweet - service</code> 的相关接口。</p>
+<h2 id="3-默认同步调用是否会卡死"><a href="#3-默认同步调用是否会卡死" class="headerlink" title="3. 默认同步调用是否会卡死"></a>3. 默认同步调用是否会卡死</h2><p>默认情况下，Feign 是同步调用的，即客户端在发送请求后会阻塞，直到收到服务端的响应。在某些情况下，同步调用可能会导致线程阻塞，甚至出现卡死的情况，例如：</p>
+<ul>
+<li><strong>服务端响应慢</strong>：如果服务端处理请求的时间过长，客户端线程会一直等待，可能会导致线程资源耗尽，影响系统的性能。</li>
+<li><strong>服务端故障</strong>：如果服务端出现故障，无法正常响应请求，客户端线程会一直阻塞，直到超时。</li>
+</ul>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>为了避免同步调用带来的问题，可以结合使用 Resilience4j 提供的容错机制：</p>
+<ul>
+<li><p><strong>断路器（Circuit Breaker）</strong>：当服务调用失败的次数达到一定阈值时，断路器会打开，后续的请求将直接返回错误，而不是继续等待服务端的响应，避免线程长时间阻塞。例如在 <code>tag - service/src/main/java/com/gmail/merikbest2015/client/TweetClient.java</code> 中：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@CircuitBreaker</span>(name = FeignConstants.TWEET_SERVICE, fallbackMethod = <span class="string">"defaultEmptyTweetList"</span>)</span><br><span class="line"><span class="meta">@FeignClient</span>(value = FeignConstants.TWEET_SERVICE, path = PathConstants.API_V1_TWEETS, configuration = FeignConfiguration.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TweetClient</span> </span>&#123;</span><br><span class="line">    <span class="meta">@PostMapping</span>(PathConstants.IDS)</span><br><span class="line">    <span class="function">List&lt;TweetResponse&gt; <span class="title">getTweetsByIds</span><span class="params">(@RequestBody IdsRequest request)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> ArrayList&lt;TweetResponse&gt; <span class="title">defaultEmptyTweetList</span><span class="params">(Throwable throwable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>限时器（Time Limiter）</strong>：可以为每个服务调用设置一个超时时间，当调用时间超过该时间时，会抛出超时异常，避免线程无限期阻塞。</p>
+</li>
+</ul>
+<p>通过这些容错机制，可以有效提高系统的稳定性和可靠性，避免同步调用可能带来的卡死问题。 </p>
+<h1 id="Lombok-是-Entity-的替代品吗-优势如何"><a href="#Lombok-是-Entity-的替代品吗-优势如何" class="headerlink" title="Lombok 是 @Entity 的替代品吗? 优势如何?"></a>Lombok 是 @Entity 的替代品吗? 优势如何?</h1><p>Lombok 并不是 <code>@Entity</code> 的替代品，它们在 Java 开发中承担着不同的角色，下面从它们各自的功能、区别以及 Lombok 的优势等方面进行详细分析。</p>
+<h2 id="1-Entity-和-Lombok-的功能"><a href="#1-Entity-和-Lombok-的功能" class="headerlink" title="1. @Entity 和 Lombok 的功能"></a>1. <code>@Entity</code> 和 Lombok 的功能</h2><ul>
+<li><p><strong><code>@Entity</code></strong>：<code>@Entity</code> 是 JPA（Java Persistence API）中的一个注解，用于将一个 Java 类映射到数据库中的一张表。它主要用于定义实体类，使得该类可以与数据库中的表进行交互，实现数据的持久化操作。在代码库中，像 <code>twitter-spring-reactjs/tweet-service/src/main/java/com/gmail/merikbest2015/model/User.java</code> 文件里的 <code>User</code> 类就使用了 <code>@Entity</code> 注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode</span>(of = <span class="string">"id"</span>)</span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">"users"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 类的属性和方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Lombok</strong>：Lombok 是一个 Java 库，它通过注解的方式，在编译阶段自动生成 Java 类的 getter、setter、构造函数、toString 等方法，从而减少样板代码的编写。例如，上述 <code>User</code> 类中使用的 <code>@Getter</code>、<code>@Setter</code>、<code>@NoArgsConstructor</code> 等注解都是 Lombok 提供的。</p>
+</li>
+</ul>
+<h2 id="2-为什么-Lombok-不是-Entity-的替代品"><a href="#2-为什么-Lombok-不是-Entity-的替代品" class="headerlink" title="2. 为什么 Lombok 不是 @Entity 的替代品"></a>2. 为什么 Lombok 不是 <code>@Entity</code> 的替代品</h2><ul>
+<li><strong>功能侧重点不同</strong>：<code>@Entity</code> 的核心功能是建立 Java 类与数据库表之间的映射关系，侧重于数据持久化方面的操作；而 Lombok 主要是为了简化 Java 类的编写，减少重复代码，提高开发效率。</li>
+<li><strong>相互配合使用</strong>：在实际开发中，<code>@Entity</code> 和 Lombok 通常是相互配合使用的。例如，在定义实体类时，既需要使用 <code>@Entity</code> 注解将类映射到数据库表，又可以使用 Lombok 注解来自动生成一些必要的方法。</li>
+</ul>
+<h2 id="3-Lombok-的优势"><a href="#3-Lombok-的优势" class="headerlink" title="3. Lombok 的优势"></a>3. Lombok 的优势</h2><ul>
+<li><strong>减少样板代码</strong>：使用 Lombok 可以显著减少 Java 类中的样板代码。例如，在没有使用 Lombok 的情况下，需要手动编写 getter、setter、构造函数等方法：<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String fullName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Long id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFullName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> fullName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFullName</span><span class="params">(String fullName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.fullName = fullName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>而使用 Lombok 后，只需要添加相应的注解即可：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.Getter;</span><br><span class="line"><span class="keyword">import</span> lombok.Setter;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String fullName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>提高代码的可读性和可维护性</strong>：减少了大量的样板代码后，代码变得更加简洁，开发者可以更专注于业务逻辑的实现，提高了代码的可读性和可维护性。</li>
+<li><strong>降低出错概率</strong>：手动编写 getter、setter 等方法时，容易出现拼写错误或逻辑错误。使用 Lombok 自动生成这些方法可以避免这些问题，降低出错概率。</li>
+</ul>
+<p>综上所述，Lombok 和 <code>@Entity</code> 在 Java 开发中起着不同的作用，它们相互配合可以提高开发效率和代码质量。Lombok 的主要优势在于减少样板代码、提高代码的可读性和可维护性以及降低出错概率。 </p>
+<h1 id="Eureka是类似于etcd那种的第三方进程吗-如何接入-如何注册-接入了k8s还需要eureka吗"><a href="#Eureka是类似于etcd那种的第三方进程吗-如何接入-如何注册-接入了k8s还需要eureka吗" class="headerlink" title="Eureka是类似于etcd那种的第三方进程吗? 如何接入, 如何注册?接入了k8s还需要eureka吗"></a>Eureka是类似于etcd那种的第三方进程吗? 如何接入, 如何注册?接入了k8s还需要eureka吗</h1><ul>
+<li>Eureka 是 Netflix 开源的服务发现组件，在 Spring Cloud 体系中被广泛使用，用于实现服务的注册与发现。它和 etcd 不同, 他可以加个注解 <code>@EnableEurekaServer</code>就把一个springboot进程变成一个 eureka注册中心</li>
+<li>etcd 是一个go语言的分布式键值存储系统，常用于服务发现、配置管理等场景；而 Eureka 专门用于服务注册与发现。</li>
+</ul>
+<h2 id="Eureka-作为第三方进程的使用方式"><a href="#Eureka-作为第三方进程的使用方式" class="headerlink" title="Eureka 作为第三方进程的使用方式"></a>Eureka 作为第三方进程的使用方式</h2><p>在 Spring Cloud 项目里，Eureka 通常以独立服务（Eureka Server）的形式运行，就像一个单独的第三方进程。从 <code>twitter-spring-reactjs</code> 项目的配置来看，Eureka Server 是通过 Docker 容器来启动的，相关配置如下：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka-server:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">merikbest/twitter-spring-reactjs:eureka-server</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">eureka-server</span></span><br><span class="line"><span class="attr">    hostname:</span> <span class="string">eureka-server</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="attr">        EUREKA_HOST:</span> <span class="string">eureka-server</span></span><br><span class="line"><span class="attr">        ZIPKIN_HOST:</span> <span class="string">zipkin</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"8761:8761"</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">spring</span></span><br><span class="line"><span class="attr">    depends_on:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">zipkin</span></span><br></pre></td></tr></table></figure></p>
+<p>从这个配置能够看出，Eureka Server 运行在端口 8761 上。</p>
+<h2 id="接入-Eureka-Server"><a href="#接入-Eureka-Server" class="headerlink" title="接入 Eureka Server"></a>接入 Eureka Server</h2><p>要让服务接入 Eureka Server，需要在服务的配置文件里指定 Eureka Server 的地址。以 <code>tweet-service</code> 为例，其配置文件 <code>config-server/src/main/resources/config/tweet-service.yml</code> 中有如下配置：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line"><span class="attr">    client:</span></span><br><span class="line"><span class="attr">        service-url:</span></span><br><span class="line"><span class="attr">            defaultZone:</span> <span class="attr">http://$&#123;EUREKA_HOST:localhost&#125;:8761/eureka</span></span><br><span class="line"><span class="attr">        fetch-registry:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">        register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    instance:</span></span><br><span class="line"><span class="attr">        hostname:</span> <span class="string">$&#123;EUREKA_HOST:localhost&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里的 <code>defaultZone</code> 指定了 Eureka Server 的地址，<code>fetch-registry</code> 表示是否从 Eureka Server 获取服务注册信息，<code>register-with-eureka</code> 表示是否将当前服务注册到 Eureka Server。</p>
+<h2 id="注册服务到-Eureka-Server"><a href="#注册服务到-Eureka-Server" class="headerlink" title="注册服务到 Eureka Server"></a>注册服务到 Eureka Server</h2><p>要把服务注册到 Eureka Server，除了在配置文件中指定 Eureka Server 的地址之外，还需要在服务的启动类上添加相应的注解。以下是 Eureka Server 的启动类示例：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gmail.merikbest2015;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaServerApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(EurekaServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于需要注册的服务，在启动类上添加 <code>@EnableEurekaClient</code> 注解（Spring Cloud Edgware 及更高版本也可以使用 <code>@EnableDiscoveryClient</code>），同时确保配置文件中 <code>register-with-eureka</code> 为 <code>true</code>。例如，在 <code>tweet-service</code> 里添加相应注解后，服务启动时就会自动注册到 Eureka Server。</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><strong>Eureka Server</strong>：以独立服务的形式运行，通过 Docker 容器启动。</li>
+<li><strong>接入 Eureka Server</strong>：在服务的配置文件中指定 Eureka Server 的地址。</li>
+<li><strong>注册服务</strong>：在服务的启动类上添加 <code>@EnableEurekaClient</code> 注解，同时确保配置文件中 <code>register-with-eureka</code> 为 <code>true</code>。 </li>
+</ul>
+<p>接入Kubernetes（k8s）后，是否还需要Eureka取决于具体的业务场景和需求。以下是两种不同情况的分析：</p>
+<h2 id="有k8s不需要Eureka的情况"><a href="#有k8s不需要Eureka的情况" class="headerlink" title="有k8s不需要Eureka的情况"></a>有k8s不需要Eureka的情况</h2><ul>
+<li><strong>服务发现功能可由k8s替代</strong>：Kubernetes本身提供了强大的服务发现机制。通过使用Kubernetes的Service资源，服务之间可以通过服务名进行通信，Kubernetes会自动处理服务的负载均衡和端点管理。例如，在一个使用k8s部署的微服务应用中，各个服务可以通过定义的Service名称来相互访问，无需额外的服务发现组件。<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">MyApp</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">    - protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">      targetPort:</span> <span class="number">9376</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在上述配置中，其他服务可以通过<code>my-service</code>这个名称来访问对应的应用实例。</p>
+<ul>
+<li><strong>简化架构和维护成本</strong>：引入额外的组件（如Eureka）会增加系统的复杂性和维护成本。使用k8s的原生功能可以减少对第三方服务发现组件的依赖，降低系统的复杂度。例如，减少了对Eureka服务器的部署、配置和监控工作。</li>
+</ul>
+<h2 id="需要Eureka的情况"><a href="#需要Eureka的情况" class="headerlink" title="需要Eureka的情况"></a>需要Eureka的情况</h2><ul>
+<li><strong>已有基于Eureka的架构</strong>：如果项目已经基于Spring Cloud和Eureka构建了成熟的微服务架构，并且有大量的业务逻辑和配置依赖于Eureka，迁移到Kubernetes的原生服务发现机制可能需要付出较大的成本。在这种情况下，可以考虑在Kubernetes环境中继续使用Eureka。</li>
+<li><strong>跨集群或混合云场景</strong>：在跨多个Kubernetes集群或混合云环境中，Kubernetes的原生服务发现机制可能无法满足需求。Eureka可以提供跨集群和跨云环境的服务发现功能，确保不同环境中的服务可以相互发现和通信。例如，一个企业在公有云和私有云都有部署服务，使用Eureka可以方便地实现服务的统一管理和发现。</li>
+<li><strong>特定的业务需求</strong>：Eureka提供了一些Kubernetes原生服务发现机制没有的功能，如服务的自我保护机制、服务的健康检查和监控等。如果项目对这些功能有特定的需求，那么可以继续使用Eureka。</li>
+</ul>
+<p>综上所述，接入Kubernetes后是否还需要Eureka需要根据具体的业务场景、技术架构和需求来决定。在大多数情况下，如果没有特殊需求，使用Kubernetes的原生服务发现机制可以简化架构和维护成本；但在一些特定场景下，Eureka仍然可以发挥重要作用。 </p>
+<h1 id="项目里的api-gateway干啥的"><a href="#项目里的api-gateway干啥的" class="headerlink" title="项目里的api-gateway干啥的"></a>项目里的api-gateway干啥的</h1><p>在这个 Twitter 克隆项目中，API Gateway（API 网关）起着至关重要的作用，它是系统对外的统一入口，负责接收客户端的请求，并将这些请求路由到对应的微服务。以下结合代码和文档详细介绍其功能：</p>
+<h2 id="1-路由请求"><a href="#1-路由请求" class="headerlink" title="1. 路由请求"></a>1. 路由请求</h2><p>API 网关的核心功能之一是根据请求的路径将其路由到相应的微服务。在 <code>config-server/src/main/resources/config/api-gateway.yml</code> 文件中，定义了多个路由规则，例如：<br><figure class="highlight yaml"><figcaption><span>api-gateway.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  cloud:</span></span><br><span class="line"><span class="attr">    gateway:</span></span><br><span class="line"><span class="attr">      routes:</span></span><br><span class="line"><span class="attr">        - id:</span> <span class="string">topic-service</span></span><br><span class="line"><span class="attr">          uri:</span> <span class="attr">lb://topic-service</span></span><br><span class="line"><span class="attr">          predicates:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">Path=/ui/v1/topics/**</span></span><br><span class="line"><span class="attr">          filters:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">AuthFilter</span></span><br><span class="line"></span><br><span class="line"><span class="attr">        - id:</span> <span class="string">tweet-service</span></span><br><span class="line"><span class="attr">          uri:</span> <span class="attr">lb://tweet-service</span></span><br><span class="line"><span class="attr">          predicates:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">Path=/ui/v1/tweets/**,</span> <span class="string">/api/v1/tweets/**</span></span><br><span class="line"><span class="attr">          filters:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">AuthFilter</span></span><br></pre></td></tr></table></figure></p>
+<p>上述配置表明，当客户端请求路径匹配 <code>/ui/v1/topics/**</code> 时，API 网关会将请求路由到 <code>topic-service</code> 微服务；当请求路径匹配 <code>/ui/v1/tweets/**</code> 或 <code>/api/v1/tweets/**</code> 时，会将请求路由到 <code>tweet-service</code> 微服务。</p>
+<h2 id="2-服务发现与负载均衡"><a href="#2-服务发现与负载均衡" class="headerlink" title="2. 服务发现与负载均衡"></a>2. 服务发现与负载均衡</h2><p>API 网关集成了服务发现机制，配置文件末尾还配置了借助 Eureka 来查找可用的微服务实例。配置文件中关于 Eureka 的部分如下：<br><figure class="highlight yaml"><figcaption><span>api-gateway.yml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line"><span class="attr">  client:</span></span><br><span class="line"><span class="attr">    service-url:</span></span><br><span class="line"><span class="attr">      defaultZone:</span> <span class="attr">http://$&#123;EUREKA_HOST:localhost&#125;:8761/eureka</span></span><br><span class="line"><span class="attr">    fetch-registry:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  instance:</span></span><br><span class="line"><span class="attr">    hostname:</span> <span class="string">$&#123;EUREKA_HOST:localhost&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里的 <code>defaultZone</code> 指定了 Eureka Server 的地址，API 网关会从 Eureka 中获取服务注册信息，并使用 <code>lb://</code> 前缀实现负载均衡。例如 <code>uri: lb://topic-service</code> 表示将请求负载均衡到 <code>topic-service</code> 的多个实例上。</p>
+<h2 id="3-跨域资源共享（CORS）配置"><a href="#3-跨域资源共享（CORS）配置" class="headerlink" title="3. 跨域资源共享（CORS）配置"></a>3. 跨域资源共享（CORS）配置</h2><p>API 网关还负责处理跨域请求，通过全局 CORS 配置允许特定来源的请求访问 API。配置如下：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  cloud:</span></span><br><span class="line"><span class="attr">    gateway:</span></span><br><span class="line"><span class="attr">      globalcors:</span></span><br><span class="line"><span class="attr">        corsConfigurations:</span></span><br><span class="line">          <span class="string">'[/ui/v1/**]'</span><span class="string">:</span></span><br><span class="line"><span class="attr">            allowedOrigins:</span> <span class="string">"http://localhost:3000"</span></span><br><span class="line"><span class="attr">            exposedHeaders:</span> <span class="string">"page-total-count"</span></span><br><span class="line"><span class="attr">            allowedHeaders:</span> <span class="string">"*"</span></span><br><span class="line"><span class="attr">            allowedMethods:</span></span><br><span class="line"><span class="bullet">              -</span> <span class="string">GET</span></span><br><span class="line"><span class="bullet">              -</span> <span class="string">POST</span></span><br><span class="line"><span class="bullet">              -</span> <span class="string">PUT</span></span><br><span class="line"><span class="bullet">              -</span> <span class="string">DELETE</span></span><br><span class="line"><span class="bullet">              -</span> <span class="string">PATCH</span></span><br><span class="line"><span class="bullet">              -</span> <span class="string">OPTIONS</span></span><br><span class="line"><span class="bullet">              -</span> <span class="string">HEAD</span></span><br></pre></td></tr></table></figure></p>
+<p>上述配置允许来自 <code>http://localhost:3000</code> 的请求访问以 <code>/ui/v1/</code> 开头的 API，并且指定了允许的请求方法和暴露的响应头。</p>
+<h2 id="4-过滤器功能"><a href="#4-过滤器功能" class="headerlink" title="4. 过滤器功能"></a>4. 过滤器功能</h2><p>API 网关使用过滤器对请求进行预处理和后处理，例如身份验证、日志记录等。在配置文件中，多个路由规则都使用了 <code>AuthFilter</code> 进行身份验证：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">- id:</span> <span class="string">topic-service</span></span><br><span class="line"><span class="attr">  uri:</span> <span class="attr">lb://topic-service</span></span><br><span class="line"><span class="attr">  predicates:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">Path=/ui/v1/topics/**</span></span><br><span class="line"><span class="attr">  filters:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">AuthFilter</span></span><br></pre></td></tr></table></figure></p>
+<p><code>AuthFilter</code> 可以验证请求的合法性，确保只有经过授权的用户才能访问受保护的 API。</p>
+<h2 id="5-集成分布式追踪"><a href="#5-集成分布式追踪" class="headerlink" title="5. 集成分布式追踪"></a>5. 集成分布式追踪</h2><p>项目中集成了 Zipkin 进行分布式追踪，API 网关会将请求信息发送到 Zipkin 进行分析和监控。配置文件中的相关部分如下：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">zipkin:</span></span><br><span class="line"><span class="attr">  base-url:</span> <span class="attr">http://$&#123;ZIPKIN_HOST:localhost&#125;:9411</span></span><br></pre></td></tr></table></figure></p>
+<p>这里的 <code>base-url</code> 指定了 Zipkin Server 的地址，API 网关会将请求的追踪信息发送到该地址。</p>
+<p>综上所述，API 网关在项目中承担着路由请求、服务发现与负载均衡、跨域处理、过滤器功能以及分布式追踪集成等重要职责，是整个系统的关键组件。 </p>
+<h1 id="WebSocket和HTTP长链接和TCP"><a href="#WebSocket和HTTP长链接和TCP" class="headerlink" title="WebSocket和HTTP长链接和TCP"></a>WebSocket和HTTP长链接和TCP</h1><p>WebSocket 能够实现实时通信，这和它的原理以及与 TCP 长连接的关系密切相关，下面为你详细解释：</p>
+<h2 id="WebSocket-实现实时通信的原理"><a href="#WebSocket-实现实时通信的原理" class="headerlink" title="WebSocket 实现实时通信的原理"></a>WebSocket 实现实时通信的原理</h2><h3 id="1-握手阶段"><a href="#1-握手阶段" class="headerlink" title="1. 握手阶段"></a>1. 握手阶段</h3><ul>
+<li><p><strong>HTTP 升级请求</strong>：WebSocket 通信始于一个 HTTP 请求，客户端向服务器发送一个特殊的 HTTP 请求，请求中包含 <code>Upgrade: websocket</code> 和 <code>Connection: Upgrade</code> 头部字段，表明客户端希望将当前的 HTTP 连接升级为 WebSocket 连接。</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/chat</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: example.com</span><br><span class="line"><span class="attribute">Upgrade</span>: websocket</span><br><span class="line"><span class="attribute">Connection</span>: Upgrade</span><br><span class="line"><span class="attribute">Sec-WebSocket-Key</span>: dGhlIHNhbXBsZSBub25jZQ==</span><br><span class="line"><span class="attribute">Sec-WebSocket-Version</span>: 13</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>服务器响应</strong>：如果服务器支持 WebSocket，会返回一个状态码为 101 Switching Protocols 的响应，表示同意升级连接。</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">101</span> Switching Protocols</span><br><span class="line"><span class="attribute">Upgrade</span>: websocket</span><br><span class="line"><span class="attribute">Connection</span>: Upgrade</span><br><span class="line"><span class="attribute">Sec-WebSocket-Accept</span>: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>连接建立</strong>：经过这个握手过程，客户端和服务器之间的 HTTP 连接就升级为了 WebSocket 连接，后续的数据传输将在这个新的连接上进行。</p>
+</li>
+</ul>
+<h3 id="2-数据传输阶段"><a href="#2-数据传输阶段" class="headerlink" title="2. 数据传输阶段"></a>2. 数据传输阶段</h3><ul>
+<li><p><strong>全双工通信</strong>：WebSocket 连接建立后，客户端和服务器可以同时独立地发送和接收数据，这种全双工通信模式使得双方能够实时地交换信息。例如，在 Twitter 克隆项目中，当有新的推文发布、用户点赞或回复推文时，服务器可以立即将相关信息推送给客户端，客户端也可以随时向服务器发送消息，如发送新的推文。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// tweet-service 中发送推文更新消息</span></span><br><span class="line">webSocketClient.send(WebsocketConstants.TOPIC_FEED_ADD, tweet);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>帧协议</strong>：WebSocket 使用帧协议来传输数据，数据被分割成多个帧进行传输。每个帧包含一个头部和一个数据负载，头部包含了帧的类型、长度等信息。这种机制使得数据可以以较小的单元进行传输，提高了传输效率。</p>
+</li>
+</ul>
+<h3 id="3-连接关闭阶段"><a href="#3-连接关闭阶段" class="headerlink" title="3. 连接关闭阶段"></a>3. 连接关闭阶段</h3><ul>
+<li><strong>显式关闭</strong>：当通信结束时，客户端或服务器可以发送一个关闭帧来关闭连接。关闭帧包含一个状态码和可选的关闭原因。对方收到关闭帧后，会发送一个确认关闭帧，然后双方关闭连接。</li>
+</ul>
+<h2 id="WebSocket-与-TCP-长连接的关系"><a href="#WebSocket-与-TCP-长连接的关系" class="headerlink" title="WebSocket 与 TCP 长连接的关系"></a>WebSocket 与 TCP 长连接的关系</h2><h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><ul>
+<li><strong>长连接特性</strong>：WebSocket 和 TCP 长连接都保持一个持久的连接，避免了频繁建立和断开连接的开销。在长连接上，双方可以在一段时间内持续地交换数据，提高了通信效率。</li>
+<li><strong>实时通信能力</strong>：由于连接一直保持打开状态，两者都能够实现实时通信。服务器可以在有新数据时立即发送给客户端，客户端也可以及时向服务器发送请求。</li>
+</ul>
+<h3 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h3><ul>
+<li><strong>协议层次</strong>：TCP 是传输层协议，它提供了可靠的、面向连接的字节流服务，但不处理应用层的数据。WebSocket 是应用层协议，它建立在 TCP 之上，定义了一套完整的通信规范，包括握手、数据传输和关闭连接等过程。</li>
+<li><strong>兼容性</strong>：WebSocket 是基于 HTTP 协议的，它可以通过 HTTP 端口（如 80 和 443）进行通信，因此更容易穿越防火墙和代理服务器。而 TCP 长连接可能需要专门配置防火墙和代理服务器才能正常工作。</li>
+<li><strong>应用场景</strong>：TCP 长连接通常用于需要高性能和低延迟的场景，如游戏、金融交易等。WebSocket 更适合于 Web 应用，它可以在浏览器和服务器之间实现实时通信，如在线聊天、实时通知等。在 Twitter 克隆项目中，WebSocket 用于实现实时通知、在线聊天和推文实时更新等功能，使得用户能够及时获取最新的信息。</li>
+</ul>
+<p>综上所述，WebSocket 通过握手升级、全双工通信和帧协议等机制实现了实时通信，它和 TCP 长连接有相似的长连接特性，但在协议层次、兼容性和应用场景等方面存在差异。 </p>
+<h2 id="HTTP长链接与-WebSocket-的对比"><a href="#HTTP长链接与-WebSocket-的对比" class="headerlink" title="HTTP长链接与 WebSocket 的对比"></a>HTTP长链接与 WebSocket 的对比</h2><p>是的，HTTP 也有保持长连接的类型，下面为你详细介绍。</p>
+<h3 id="HTTP-长连接的概念"><a href="#HTTP-长连接的概念" class="headerlink" title="HTTP 长连接的概念"></a>HTTP 长连接的概念</h3><p>在早期的 HTTP 1.0 协议中，每次请求 - 响应完成后，连接就会关闭。如果需要进行多次请求，就需要重新建立连接，这会带来一定的开销，比如 TCP 握手和挥手的时间。为了减少这种开销，HTTP 引入了长连接机制。</p>
+<h3 id="HTTP-1-1-长连接"><a href="#HTTP-1-1-长连接" class="headerlink" title="HTTP 1.1 长连接"></a>HTTP 1.1 长连接</h3><ul>
+<li><strong>机制原理</strong>：HTTP 1.1 默认采用持久连接（长连接）。通过在请求头和响应头中添加 <code>Connection: keep - alive</code> 字段（在 HTTP 1.1 中，即使不明确指定该字段，也默认使用长连接），客户端和服务器之间可以在一次 TCP 连接上进行多次请求 - 响应交互，而不需要每次都重新建立连接。<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/example</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: example.com</span><br><span class="line"><span class="attribute">Connection</span>: keep - alive</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>服务器响应示例：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">200</span> OK</span><br><span class="line">Content - Type: text/html</span><br><span class="line"><span class="attribute">Connection</span>: keep - alive</span><br><span class="line">Content - Length: 1234</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>应用场景及局限性</strong>：这种长连接适用于需要频繁进行小数据量请求的场景，比如网页中多个资源的加载。然而，HTTP 1.1 的长连接是半双工的，同一时间只能有一方发送数据，并且存在队头阻塞问题，即如果一个请求的响应没有及时返回，后续的请求都需要等待。</li>
+</ul>
+<h3 id="HTTP-2-长连接"><a href="#HTTP-2-长连接" class="headerlink" title="HTTP 2 长连接"></a>HTTP 2 长连接</h3><ul>
+<li><strong>机制原理</strong>：HTTP 2 在 HTTP 1.1 的基础上进行了改进，它采用二进制分帧层，将请求和响应数据分割成更小的帧，并在一个 TCP 连接上以多路复用的方式并行传输。这意味着多个请求和响应可以同时在一个连接上进行，避免了队头阻塞问题。</li>
+<li><strong>应用场景及优势</strong>：在高并发的 Web 应用中，HTTP 2 的长连接能显著提高性能。例如，在加载一个包含大量图片和脚本的网页时，HTTP 2 可以更高效地并行加载这些资源，减少用户等待时间。</li>
+</ul>
+<h3 id="HTTP-3-长连接"><a href="#HTTP-3-长连接" class="headerlink" title="HTTP 3 长连接"></a>HTTP 3 长连接</h3><ul>
+<li><strong>机制原理</strong>：HTTP 3 基于 QUIC 协议，QUIC 是一种在 UDP 之上构建的新传输协议。它解决了 TCP 协议中存在的一些问题，如 TCP 握手延迟、队头阻塞等。HTTP 3 的长连接在建立连接时更快，并且可以提供更好的网络适应性。</li>
+<li><strong>应用场景及优势</strong>：对于对延迟敏感的应用，如实时视频流、在线游戏等，HTTP 3 的长连接能提供更流畅的体验。</li>
+</ul>
+<h3 id="与-WebSocket-的对比"><a href="#与-WebSocket-的对比" class="headerlink" title="与 WebSocket 的对比"></a>与 WebSocket 的对比</h3><p>虽然 HTTP 长连接可以减少连接建立的开销，但它仍然是基于<strong>请求 - 响应</strong>模型的。而 WebSocket 是<strong>全双工</strong>的，服务器可以主动向客户端推送数据，更适合实时通信场景，如在线聊天、实时通知等。在 Twitter 克隆项目中，选择 WebSocket 而非 HTTP 长连接，正是因为需要实现服务器主动向客户端推送新的推文、通知等实时信息。</p>
+<p>综上所述，HTTP 有不同版本的长连接机制，它们在不同的场景中发挥着重要作用，但在实时通信方面，WebSocket 具有更明显的优势。 </p>
+<h1 id="项目里WebSocket有啥用"><a href="#项目里WebSocket有啥用" class="headerlink" title="项目里WebSocket有啥用?"></a>项目里WebSocket有啥用?</h1><h2 id="1-实时通知"><a href="#1-实时通知" class="headerlink" title="1. 实时通知"></a>1. 实时通知</h2><p>项目支持用户在他人订阅、转推或点赞推文时收到通知。通过WebSocket，这些通知可以实时推送给用户，而无需用户手动刷新页面。<br>在<code>notification-service</code>模块的<code>NotificationHandlerServiceImpl</code>类中，当处理各种通知事件（如<code>ListsNotificationEvent</code>、<code>FollowUserNotificationEvent</code>等）时，会调用<code>WebSocketClient</code>的<code>send</code>方法将通知消息发送到对应的WebSocket主题。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// notification-service/src/main/java/com/gmail/merikbest2015/service/impl/NotificationHandlerServiceImpl.java</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleListsNotification</span><span class="params">(ListsNotificationEvent event)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    NotificationResponse response = notificationHandlerMapper.convertToNotificationListResponse(</span><br><span class="line">            notification, event.isNotificationCondition());</span><br><span class="line">    webSocketClient.send(WebsocketConstants.TOPIC_NOTIFICATIONS + response.getNotifiedUser().getId(), response);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-在线聊天功能"><a href="#2-在线聊天功能" class="headerlink" title="2. 在线聊天功能"></a>2. 在线聊天功能</h2><p>项目实现了基于WebSocket的在线聊天功能，用户可以实时收发消息。在<code>chat-service</code>模块的<code>ChatMessageController</code>类中，当用户发送消息时，会将消息通过<code>WebSocketClient</code>发送到对应的聊天主题。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// chat-service/src/main/java/com/gmail/merikbest2015/controller/ChatMessageController.java</span></span><br><span class="line"><span class="meta">@PostMapping</span>(PathConstants.ADD_MESSAGE)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ResponseEntity&lt;Void&gt; <span class="title">addMessage</span><span class="params">(@RequestBody ChatMessageRequest request)</span> </span>&#123;</span><br><span class="line">    chatMessageMapper.addMessage(request)</span><br><span class="line">            .forEach((userId, message) -&gt; webSocketClient.send(WebsocketConstants.TOPIC_CHAT + userId, message));</span><br><span class="line">    <span class="keyword">return</span> ResponseEntity.ok().build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>综上所述，WebSocket在项目中用于实现实时通知、在线聊天、推文实时更新和定时推文发布通知等功能，提升了用户体验和应用的实时性。</p>
+<h1 id="PostgresSQL和MySQL优劣势"><a href="#PostgresSQL和MySQL优劣势" class="headerlink" title="PostgresSQL和MySQL优劣势"></a>PostgresSQL和MySQL优劣势</h1><p>在当前项目中，使用了PostgreSQL作为数据库。下面以表格形式详细对比PostgreSQL和MySQL的优劣势：</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>PostgreSQL</th>
+<th>MySQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>优势</strong></td>
+<td>1. <strong>复杂查询处理能力强</strong>：支持复杂的SQL查询，包括递归查询、窗口函数等，适合处理复杂的业务逻辑。例如在处理用户关系（如关注、订阅等）和推文数据关联查询时，PostgreSQL能更好地完成复杂查询需求。<br>2. <strong>数据类型丰富</strong>：提供了更多的数据类型，如数组、JSON、XML等，方便存储和处理复杂的数据结构。在项目中可以更方便地存储用户的个性化设置等数据。<br>3. <strong>开源且社区活跃</strong>：开源免费，拥有庞大的社区支持，能及时获取相关的文档、教程和解决方案。<br>4. <strong>支持事务和并发控制</strong>：具备强大的事务处理能力和并发控制机制，确保数据的一致性和完整性，适合高并发的业务场景。<br>5. <strong>数据完整性和约束</strong>：提供了丰富的数据完整性约束，如唯一约束、外键约束等，有助于保证数据的准确性和一致性。</td>
+<td>1. <strong>性能高效</strong>：在处理简单查询和高并发读写操作时，MySQL的性能表现较为出色，能快速响应请求。<br>2. <strong>易于安装和配置</strong>：安装过程相对简单，配置选项也较为直观，适合初学者快速上手。<br>3. <strong>广泛应用和生态系统</strong>：在Web开发领域有广泛的应用，拥有丰富的第三方工具和插件，生态系统成熟。<br>4. <strong>商业支持</strong>：有官方的商业支持，适合对技术支持有较高要求的企业级应用。</td>
+</tr>
+<tr>
+<td><strong>劣势</strong></td>
+<td>1. <strong>性能开销</strong>：由于功能丰富，在处理简单查询时，可能会存在一定的性能开销。<br>2. <strong>学习成本较高</strong>：复杂的功能和丰富的数据类型导致学习曲线较陡，对于初学者来说，掌握和使用的难度较大。<br>3. <strong>配置复杂</strong>：在大规模分布式系统中，PostgreSQL的配置可能会变得复杂，需要考虑多个节点之间的集群配置、数据同步等问题。</td>
+<td>1. <strong>数据类型相对较少</strong>：相比于PostgreSQL，MySQL的数据类型相对较少，在处理一些复杂的数据结构时可能不够灵活。<br>2. <strong>复杂查询处理能力弱</strong>：在处理复杂的SQL查询时，MySQL的表现不如PostgreSQL，可能需要更多的优化和调整。<br>3. <strong>事务处理能力有限</strong>：在某些版本中，MySQL的事务处理能力相对较弱，对于一些对事务要求较高的业务场景，可能无法满足需求。</td>
+</tr>
+</tbody>
+</table>
+<p>综上所述，选择PostgreSQL还是MySQL取决于项目的具体需求。如果项目需要处理复杂的业务逻辑、存储复杂的数据结构，并且对数据完整性和事务处理有较高要求，那么PostgreSQL是一个不错的选择；如果项目更注重简单查询的性能和易于安装配置，MySQL可能更适合。在当前的Twitter克隆项目中，由于业务逻辑相对复杂，使用PostgreSQL可以更好地满足项目的需求。 </p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/GitHub/" rel="tag"><i class="fa fa-tag"></i> GitHub</a>
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/na_c2g/" rel="next" title="C2G">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    C2G
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/twitter_clone_frontend_notes/" rel="prev" title="Twitter Clone frontend notes">
+                <p class="post-nav-pre-next-title">
+                    Twitter Clone frontend notes
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">289</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Project-URL"><span class="nav-text">Project URL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正确的安装和启动方法"><span class="nav-text">正确的安装和启动方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run"><span class="nav-text">Run</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#To-enter-the-application-you-can-register-or-login"><span class="nav-text">To enter the application you can register or login:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目里使用了哪些SpringCloud的东西"><span class="nav-text">项目里使用了哪些SpringCloud的东西</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Spring-Cloud-OpenFeign"><span class="nav-text">1. Spring Cloud OpenFeign</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Spring-Cloud-Circuit-Breaker-Resilience4j"><span class="nav-text">2. Spring Cloud Circuit Breaker (Resilience4j)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Spring-Cloud-Config"><span class="nav-text">3. Spring Cloud Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Spring-Cloud-Netflix-Eureka"><span class="nav-text">4. Spring Cloud Netflix Eureka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Spring-Cloud-Gateway"><span class="nav-text">5. Spring Cloud Gateway</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Prometheus和Grafana和Actuator和Zipkin"><span class="nav-text">Prometheus和Grafana和Actuator和Zipkin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#zipkin如何是啥-zipkin是springboot自带的吗"><span class="nav-text">zipkin如何是啥?zipkin是springboot自带的吗?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-添加依赖"><span class="nav-text">1. 添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置-Zipkin-服务地址"><span class="nav-text">2. 配置 Zipkin 服务地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-启动-Zipkin-服务"><span class="nav-text">3. 启动 Zipkin 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-服务注册与发现（可选）"><span class="nav-text">4. 服务注册与发现（可选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-验证接入"><span class="nav-text">5. 验证接入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-示例代码分析"><span class="nav-text">6. 示例代码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用表格说明-prometheus和grafana和actuator区别"><span class="nav-text">用表格说明: prometheus和grafana和actuator区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Actuator已经很好-为啥还需要-Prometheus"><span class="nav-text">Actuator已经很好, 为啥还需要 Prometheus?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prometheus-为啥依赖-Actuator"><span class="nav-text">Prometheus 为啥依赖 Actuator?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Actuactor整体如何配置里开启以及代码里如何接入"><span class="nav-text">Actuactor整体如何配置里开启以及代码里如何接入?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grafana本身不需要接入到springboot对吗-他只需要到网页端配置数据源就行了"><span class="nav-text">Grafana本身不需要接入到springboot对吗? 他只需要到网页端配置数据源就行了</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目里Kafka咋用的"><span class="nav-text">项目里Kafka咋用的</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置-Kafka"><span class="nav-text">1. 配置 Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-生产者配置"><span class="nav-text">1.1 生产者配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-bootstrap-servers"><span class="nav-text">1. bootstrap.servers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-键和值的序列化器"><span class="nav-text">2. 键和值的序列化器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#序列化器"><span class="nav-text">序列化器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#反序列化器"><span class="nav-text">反序列化器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-KafkaTemplate-Bean"><span class="nav-text">3. KafkaTemplate Bean</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-消费者配置"><span class="nav-text">1.2 消费者配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-发送消息（生产者）"><span class="nav-text">2. 发送消息（生产者）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-接收消息（消费者）"><span class="nav-text">3. 接收消息（消费者）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-主题和事件类型"><span class="nav-text">4. 主题和事件类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-容器化部署"><span class="nav-text">5. 容器化部署</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RabbitMQ-和-Kafka区别"><span class="nav-text">RabbitMQ 和 Kafka区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Resilience4j-Feign-是啥-默认同步调用的话-不会卡死吗"><span class="nav-text">Resilience4j? Feign 是啥? 默认同步调用的话, 不会卡死吗?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Resilience4j-是什么"><span class="nav-text">1. Resilience4j 是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在代码库中的体现"><span class="nav-text">在代码库中的体现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Feign-是什么"><span class="nav-text">2. Feign 是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在代码库中的体现-1"><span class="nav-text">在代码库中的体现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-默认同步调用是否会卡死"><span class="nav-text">3. 默认同步调用是否会卡死</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-text">解决方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lombok-是-Entity-的替代品吗-优势如何"><span class="nav-text">Lombok 是 @Entity 的替代品吗? 优势如何?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Entity-和-Lombok-的功能"><span class="nav-text">1. @Entity 和 Lombok 的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-为什么-Lombok-不是-Entity-的替代品"><span class="nav-text">2. 为什么 Lombok 不是 @Entity 的替代品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Lombok-的优势"><span class="nav-text">3. Lombok 的优势</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Eureka是类似于etcd那种的第三方进程吗-如何接入-如何注册-接入了k8s还需要eureka吗"><span class="nav-text">Eureka是类似于etcd那种的第三方进程吗? 如何接入, 如何注册?接入了k8s还需要eureka吗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka-作为第三方进程的使用方式"><span class="nav-text">Eureka 作为第三方进程的使用方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接入-Eureka-Server"><span class="nav-text">接入 Eureka Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册服务到-Eureka-Server"><span class="nav-text">注册服务到 Eureka Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有k8s不需要Eureka的情况"><span class="nav-text">有k8s不需要Eureka的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要Eureka的情况"><span class="nav-text">需要Eureka的情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目里的api-gateway干啥的"><span class="nav-text">项目里的api-gateway干啥的</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-路由请求"><span class="nav-text">1. 路由请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-服务发现与负载均衡"><span class="nav-text">2. 服务发现与负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-跨域资源共享（CORS）配置"><span class="nav-text">3. 跨域资源共享（CORS）配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-过滤器功能"><span class="nav-text">4. 过滤器功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-集成分布式追踪"><span class="nav-text">5. 集成分布式追踪</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebSocket和HTTP长链接和TCP"><span class="nav-text">WebSocket和HTTP长链接和TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket-实现实时通信的原理"><span class="nav-text">WebSocket 实现实时通信的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-握手阶段"><span class="nav-text">1. 握手阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-数据传输阶段"><span class="nav-text">2. 数据传输阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-连接关闭阶段"><span class="nav-text">3. 连接关闭阶段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocket-与-TCP-长连接的关系"><span class="nav-text">WebSocket 与 TCP 长连接的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相同点"><span class="nav-text">相同点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同点"><span class="nav-text">不同点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP长链接与-WebSocket-的对比"><span class="nav-text">HTTP长链接与 WebSocket 的对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-长连接的概念"><span class="nav-text">HTTP 长连接的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-1-1-长连接"><span class="nav-text">HTTP 1.1 长连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-2-长连接"><span class="nav-text">HTTP 2 长连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-3-长连接"><span class="nav-text">HTTP 3 长连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与-WebSocket-的对比"><span class="nav-text">与 WebSocket 的对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目里WebSocket有啥用"><span class="nav-text">项目里WebSocket有啥用?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-实时通知"><span class="nav-text">1. 实时通知</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-在线聊天功能"><span class="nav-text">2. 在线聊天功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PostgresSQL和MySQL优劣势"><span class="nav-text">PostgresSQL和MySQL优劣势</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
