@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('mmp'){
+            let localStoragePasswdKey = 'BQ for Job Interviews' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'mmp') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'mmp') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,English,Java,NA,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="noodle,English,Java,NA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BQ for Job Interviews">
+<meta property="og:url" content="https://hulinhong.com/na_bq/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-06-15T07:35:29.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BQ for Job Interviews">
+<meta name="twitter:description" content=". . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>BQ for Job Interviews | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_bq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BQ for Job Interviews</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-18T23:51:06+00:00">
+                02-18-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+              
+                <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/na_backend_q_extra/" rel="next" title="Java backend Q extra">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Java backend Q extra
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/na_ft_real_q/" rel="prev" title="FT interview real Q">
+              <p class="post-nav-pre-next-title">
+                  FT interview real Q
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<p>LD refers to <code>Little Dinosaur</code>.</p>
+<h1 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h1><p>TimeLine: </p>
+<p>Georgia Tech Atlanta, GA,  2013 - 2017<br>Bachelor of Science in Computer Science</p>
+<p>Georgia Tech Atlanta, GA,  2020 - 2021<br>Master of Science in Computer Science</p>
+<p>Trine University Phoenix, AZ,  2024 - Present<br>Master of Science in Information Studies </p>
+<hr>
+<ul>
+<li>I graduated from Georgia Institute of Technology in 2017 and got my bachelor’s degree.<ul>
+<li>I used CPT for 1 year</li>
+<li>and OPT for 3 years.</li>
+</ul>
+</li>
+<li>Then I went to a Day1 CPT university<ul>
+<li>and used Day1 CPT for 3 years.</li>
+</ul>
+</li>
+<li>After that, I returned to Georgia Tech and got my master’s degree.<ul>
+<li>I used CPT for 1 year,</li>
+<li>and now I’m on OPT.</li>
+</ul>
+</li>
+</ul>
+<h1 id="Self-Introduction"><a href="#Self-Introduction" class="headerlink" title="Self - Introduction"></a>Self - Introduction</h1><p><strong>requirements</strong>:</p>
+<ul>
+<li>Prepare a fluent self-introduction and a detailed summary of work/project experience.</li>
+<li>Familiarize yourself thoroughly with your resume.Be ready to elaborate on your roles, achievements, and<br>technologies/tools you used.</li>
+</ul>
+<blockquote>
+<p>Hey there! I’m Leo Hu.</p>
+</blockquote>
+<p>I’ve been working as a <code>Java fullstack</code> developer for over ten years now, and I have experience building <code>scalable,high-performance backend services</code> and <code>dynamic frontend web pages</code> to solve real business problems.</p>
+<p>I’m good at <code>Java, JavaScript, Spring Boot and React</code>. I used them to create many RESTful APIs. These APIs have detailed documentation, and I used these APIs to make <strong>backend services and frontend applications communicate with each other</strong>, and also make <strong>many different micro services communicate with each other in a distributed environment</strong>.</p>
+<ul>
+<li>In backend development:<ul>
+<li>For <strong>security</strong>, I use Spring Security, OAuth2, JWT to implement authentication and authorization, to make sure<br>everything is secure.</li>
+<li>For <strong>data processing</strong>, I also work with Apache <code>/ əˈpætʃi /</code> Kafka for real-time data processing, to build<br>event-driven architectures that handle high-throughput data streams and scalable messaging systems.</li>
+<li>For <strong>database</strong>, I mainly use MySQL and MongoDB and redis, I’ve got plenty of experience with Hibernate and JPA for<br>data persistence. (I design complex schemas, optimize queries, and ensure data integrity)</li>
+<li>For <strong>cloud platforms</strong>, I worked with many AWS services. I use EC2(Elastic Compute Cloud) to deploy and manage virtual servers, ECS(Elastic Container Service亚麻自带的类似k8s的东西一般给小公司用, 还有个EKS是兼容k8s的容器编排管理服务, 大点的公司一般用EKS) to orchestrate <code>/ ˈɔːrkɪstreɪt /</code> Microservices in containers,RDS to handle relational databases, S3 to handle scalable storage,  I use CloudWatch to track performance, monitor logs, metrics, and system health.</li>
+</ul>
+</li>
+<li>In frontend development:<ul>
+<li>for state management, I use <code>Redux</code> for complicated state management, and use <code>useReducer + useContext</code> for simpler state management.</li>
+<li>for responsive UI, I use <code>Material UI</code> to provide a consistent user experience no matter what device or browser people use, they’ll have a similar experience.</li>
+<li>for testing, I use <code>Jest</code> for unit testing and <code>React Testing Library</code> for behavior driven testing.</li>
+</ul>
+</li>
+</ul>
+<h1 id="Work-Project-Summary"><a href="#Work-Project-Summary" class="headerlink" title="Work/Project Summary"></a>Work/Project Summary</h1><p><strong>requirements</strong>: Prepare 1-2 examples of past projects or jobs where you made a significant impact. Use the STAR<br>method (Situation, Task, Action, Result) to structure your responses. DO NOT READ, we can tell!</p>
+<ul>
+<li>and next let me talk about my work experience:</li>
+<li><strong>Project 1</strong>: <ul>
+<li><strong>Situation</strong>: First, let me talk about the company I’m currently working for. its name is Costco, it’s a retail and e-commerce company, <ul>
+<li><strong>I’m</strong> a senior java fullstack developer there. </li>
+<li>I was in a e-commerce <strong>team</strong>. </li>
+<li>the <strong>project</strong> was a e-commerce platform. </li>
+<li>I’m mainly responsible for developing and maintaining the core modules, like retail data processing and system integration and optimizing the performance and handling some business logic like: e-commerce platform, order system, payment system, delivery system and so on.<!-- - our **company** provides some services like: asset management, investment consulting, and financial advices.  --></li>
+<li>Because the number of transactions was growing very fast, but their old systems couldn’t keep up with new features and increasing user activity, so we needed a some stronger systems.</li>
+</ul>
+</li>
+<li><strong>Task</strong>: So I used Java/Spring Boot/kafka/redis/PostgreSQL/aws services/kubernetes to build a more scalable backend architecture and developed some microservices, <em>and use JavaScript/React to build some responsive single-page application</em>, and optimize the database-related parts and enhance security.</li>
+<li>Action(<strong>unnecessary, should skip</strong>): So I had to take some actions to finish my task. so First,(根据从处理数据一点点到部署的顺序记忆)<ul>
+<li><strong>to handle scalability</strong>, I used springboot to developed a modular microservices architecture and designed plenty of RESTful APIs. Each service handled a specific function, like user management, poll management, and          data analysis.</li>
+<li><strong>to handle security</strong>, I used Spring Security and OAuth2 for authentication and authorization.</li>
+<li><strong>to handle data processing</strong>, I used Kafka to make data analysis much faster.</li>
+<li><strong>to handle database</strong>, I used Redis caching to reduce database load and speed up responses. I also optimized database queries by adding indexes, removing redundant joins.</li>
+<li><strong>to handle storage</strong>, I integrated AWS RDS to enhance data management. , integrating third-party analysis tools.</li>
+<li><strong>to handle deployment</strong>, I used Docker and Kubernetes to handle it.</li>
+</ul>
+</li>
+<li><strong>Result(optional)</strong>: as the result, The new microservices architecture made the system more flexible and easier to maintain. and the e-commerce platform also became more scalable, and its frontend also became more efficient, beautiful and easy to use, like: the web page loading time was reduced by 30%, our API response times improved by <strong>30%</strong>, our system handled <strong>20%</strong> more daily transactions, and user engagement went up by <strong>25%</strong>.</li>
+</ul>
+</li>
+<li>Before that, And I’ve also got experience in the financial industry directly, when I was at Robinhood, I developed real-time market data pipelines, designed secure APIs for stock platform.</li>
+<li>I spent 2 years at Netflix, where I built high-throughput, low-latency backend services to support real-time content recommendation and consumer engagement across platforms. </li>
+<li>(should skip)and I spent 2 years at Adobe, I developed backend microservices using Spring Boot to support video conferencing, chat, and collaboration features. </li>
+<li>that’s pretty much what I did, I read very carefully about this job description, I think this position is a perfect match for me .</li>
+</ul>
+<h1 id="questions-about-your-resume"><a href="#questions-about-your-resume" class="headerlink" title="questions about your resume"></a>questions about your resume</h1><h2 id="Costco"><a href="#Costco" class="headerlink" title="Costco"></a>Costco</h2><h3 id="simple-q"><a href="#simple-q" class="headerlink" title="simple q"></a>simple q</h3><ul>
+<li>Costco has an office on Morena Blvd <code>/mɔːˈreɪnə ˈblʌvd/.</code> in San Diego <code>/sæn diˈeɪɡəʊ/</code>.</li>
+<li><p>SKU（Stock Keeping Unit，库存单位）是零售和供应链管理中用来唯一标识某一具体商品的编码。它通常反映了商品的属性，比如品牌、型号、颜色、尺寸等，用来区分不同的产品变体，方便库存管理、销售统计和补货决策。简单说，SKU就是产品的“身份证号”。</p>
+</li>
+<li><p>went for a extra mile for customer</p>
+</li>
+<li>tell me a time when you made a mistake(not happy with the result) what can be improved?</li>
+<li>what if the decision were made on a aspect you are not agree with? Team conflict</li>
+<li>说一次团队没用你的想法的经验，你是怎么做的?</li>
+<li>说一次你发现项目错误的经验，怎么改的</li>
+</ul>
+<hr>
+<ol>
+<li><p><strong>What kind of backend services did you build for inventory and order management?</strong><br>Sure. I developed Spring Boot microservices handling inventory updates, product availability, and order lifecycle. These services interacted with PostgreSQL and MongoDB, used Redis for caching, and communicated asynchronously via Kafka and RabbitMQ to ensure high throughput and decoupling.</p>
+</li>
+<li><p><strong>How did you use AWS in your deployment?</strong><br>We deployed backend services on AWS EC2 and used S3 for static assets. I containerized apps using Docker and managed deployments via Kubernetes. For ML pipelines, I worked with SageMaker, Glue, and Step Functions.</p>
+</li>
+<li><p><strong>Can you describe the ML integration you worked on?</strong><br>We integrated real-time pricing and demand forecasting models using SageMaker. I built Step Functions workflows that pulled data from S3 via Glue, ran inference, and triggered updates via API Gateway to our backend.</p>
+</li>
+<li><p><strong>What kind of front-end work did you do with React?</strong><br>I built internal tools like a supply chain config portal with React and Redux. The portal allowed planners to adjust inventory thresholds, vendor settings, and replenishment logic in real-time.</p>
+</li>
+<li><p><strong>How did you ensure system performance under traffic spikes?</strong><br>We monitored services using Prometheus and Grafana, cached hot data in Redis, optimized DB queries, and used circuit breakers in Spring Cloud to isolate failures. Elasticsearch helped with fast product search across millions of SKUs.</p>
+</li>
+<li><p><strong>Tell me about a challenge with checkout workflows.</strong><br>We had race conditions during concurrent order placements. I fixed it using optimistic locking in PostgreSQL and added idempotent logic to the checkout service to ensure safe retries.</p>
+</li>
+<li><p><strong>What CI/CD setup did you use?</strong><br>Jenkins pipelines handled builds, Docker image creation, tests (JUnit/Mockito), and Kubernetes deployments. We integrated with GitHub and triggered pipelines via PRs.</p>
+</li>
+<li><p><strong>How did you use Kafka and RabbitMQ?</strong><br>Kafka was used for streaming order events, enabling analytics and downstream processing. RabbitMQ helped with internal microservice coordination, like billing and shipment notifications.</p>
+</li>
+<li><p><strong>How did you implement security for APIs?</strong><br>Used Spring Security with OAuth2 and JWT. Defined role-based access control policies and token validation filters. Sensitive endpoints were behind API Gateway with audit logging.</p>
+</li>
+<li><p><strong>How did Agile practices shape your work?</strong><br>Worked in 2-week sprints, daily standups, and sprint retros. Collaborated closely with product managers, QA, and designers to deliver and iterate quickly.</p>
+</li>
+</ol>
+<h3 id="1-Developed-backend-microservices-with-Java-and-Spring-Boot-for-inventory-search-and-fulfillment"><a href="#1-Developed-backend-microservices-with-Java-and-Spring-Boot-for-inventory-search-and-fulfillment" class="headerlink" title="1. Developed backend microservices with Java and Spring Boot for inventory, search, and fulfillment"></a>1. Developed backend microservices with Java and Spring Boot for inventory, search, and fulfillment</h3><p><strong>Q1:</strong> How did you ensure low latency and high availability in your Spring Boot microservices deployed on AWS?<br><strong>A1:</strong><br>I used stateless service design with Spring Boot, auto-scaling groups behind ALBs for EC2-based services, and horizontal pod autoscaling in EKS. RDS read replicas reduced read latency. Caching hot paths and minimizing database roundtrips also helped maintain sub-100ms latencies.</p>
+<p><strong>Q2:</strong> What were the main challenges you faced in scaling order fulfillment microservices, and how did you solve them?<br><strong>A2:</strong><br>We encountered throughput bottlenecks during flash sales. I introduced idempotent processing, asynchronous event-driven queues, and optimized DB schema indexes. Additionally, we isolated critical paths using circuit breakers and deployed dedicated RDS instances for write-heavy workloads.</p>
+<hr>
+<h3 id="2-Utilized-React-to-build-dynamic-component-based-UIs-for-supply-chain-workflows"><a href="#2-Utilized-React-to-build-dynamic-component-based-UIs-for-supply-chain-workflows" class="headerlink" title="2. Utilized React to build dynamic, component-based UIs for supply chain workflows"></a>2. Utilized React to build dynamic, component-based UIs for supply chain workflows</h3><p><strong>Q1:</strong> What design principles did you follow when architecting the React UI for planners?<br><strong>A1:</strong><br>I followed separation of concerns, unidirectional data flow, and reusability. Each planner action was encapsulated into modular components. Form states were isolated with <code>useState</code>, and configurations were lifted to the context layer to share across views.</p>
+<p><strong>Q2:</strong> How did you ensure UI responsiveness and reliability under real-time updates?<br><strong>A2:</strong><br>I used debounced input handlers, optimistic UI updates, and fallback error boundaries. React Suspense helped in lazy loading configuration panels, and loading skeletons kept the UI responsive during high-latency backend calls.</p>
+<hr>
+<h3 id="3-Used-React-Hooks-Context-API-and-React-Router"><a href="#3-Used-React-Hooks-Context-API-and-React-Router" class="headerlink" title="3. Used React Hooks, Context API, and React Router"></a>3. Used React Hooks, Context API, and React Router</h3><p><strong>Q1:</strong> Why did you choose Context API over Redux for global state?<br><strong>A1:</strong><br>The global state was lightweight—mostly config metadata and routing context. Redux would’ve been overkill. Context API gave simpler integration with less boilerplate and better performance since we scoped providers narrowly to avoid unnecessary re-renders.</p>
+<p><strong>Q2:</strong> How did you handle complex navigation flows across procurement tools using React Router?<br><strong>A2:</strong><br>I implemented nested routing for tool-specific subpages and used <code>useLocation</code> with custom route guards to enforce access control. Dynamic route parameters allowed loading supplier or product-specific configs without redundant API calls.</p>
+<hr>
+<h3 id="4-Designed-messaging-queues-with-Kafka-used-RabbitMQ-for-async-communication"><a href="#4-Designed-messaging-queues-with-Kafka-used-RabbitMQ-for-async-communication" class="headerlink" title="4. Designed messaging queues with Kafka, used RabbitMQ for async communication"></a>4. Designed messaging queues with Kafka, used RabbitMQ for async communication</h3><p><strong>Q1:</strong> How did you decide when to use Kafka vs RabbitMQ?<br><strong>A1:</strong><br>Kafka was used for high-throughput, persistent event streams like order placements and inventory updates. RabbitMQ handled point-to-point messaging between tightly coupled services that required low latency, reliable delivery, and routing.</p>
+<p><strong>Q2:</strong> What fault-tolerance mechanisms did you implement for these queues?<br><strong>A2:</strong><br>Kafka used replication and consumer group balancing for resilience. For RabbitMQ, I implemented message retries with dead-letter queues, and used publisher confirms to guarantee delivery. Consumers were idempotent to prevent duplicate processing.</p>
+<hr>
+<h3 id="5-Integrated-Redux-Saga-to-manage-complex-async-workflows"><a href="#5-Integrated-Redux-Saga-to-manage-complex-async-workflows" class="headerlink" title="5. Integrated Redux-Saga to manage complex async workflows"></a>5. Integrated Redux-Saga to manage complex async workflows</h3><p><strong>Q1:</strong> Why did you choose Redux-Saga over Thunk or other middleware?<br><strong>A1:</strong><br>Saga gave better control over long-lived workflows and concurrency, like retry loops, conditional side-effects, and orchestration across multiple APIs. Its generator-based model made logic easier to test and trace compared to callback-heavy Thunk.</p>
+<p><strong>Q2:</strong> Can you describe a complex saga you implemented for supply planning?<br><strong>A2:</strong><br>One saga orchestrated the update of vendor policies across multiple tools. It fetched dependencies in parallel, handled errors with exponential backoff, and dispatched rollback actions if downstream systems failed. It improved end-to-end consistency.</p>
+<hr>
+<h3 id="6-Built-RESTful-API-endpoints-with-Node-js-for-procurement-systems"><a href="#6-Built-RESTful-API-endpoints-with-Node-js-for-procurement-systems" class="headerlink" title="6. Built RESTful API endpoints with Node.js for procurement systems"></a>6. Built RESTful API endpoints with Node.js for procurement systems</h3><p><strong>Q1:</strong> What kind of data consistency or concurrency issues did you encounter?<br><strong>A1:</strong><br>We faced race conditions during concurrent edits to procurement thresholds. I introduced versioned updates with optimistic locking in Node.js, and implemented PATCH endpoints with granular field-level diffs to minimize conflicts.</p>
+<p><strong>Q2:</strong> How did you secure these APIs for real-time access?<br><strong>A2:</strong><br>I used rate-limiting middleware, input sanitization with <code>express-validator</code>, and token-based auth via OAuth2/JWT. API Gateway enforced quotas per role, and all endpoints were behind HTTPS using ACM-issued certs.</p>
+<hr>
+<h3 id="7-Collaborated-on-ML-inference-pipelines-using-SageMaker-Glue-S3-Step-Functions"><a href="#7-Collaborated-on-ML-inference-pipelines-using-SageMaker-Glue-S3-Step-Functions" class="headerlink" title="7. Collaborated on ML inference pipelines using SageMaker, Glue, S3, Step Functions"></a>7. Collaborated on ML inference pipelines using SageMaker, Glue, S3, Step Functions</h3><p><strong>Q1:</strong> How did you deploy and scale ML models for real-time pricing?<br><strong>A1:</strong><br>Models were deployed using SageMaker endpoints with auto-scaling enabled. We wrapped them with API Gateway for REST access and integrated them into pricing microservices via AWS SDK. Inference latency stayed under 200ms with input normalization.</p>
+<p><strong>Q2:</strong> How did you handle retraining and batch inference workflows?<br><strong>A2:</strong><br>Glue ETL jobs processed sales logs into S3, triggering Step Functions to retrain and deploy models. Batch inferences ran nightly and fed downstream systems via S3 + SNS events. Model versioning was enforced using SageMaker Model Registry.</p>
+<hr>
+<h3 id="8-Built-REST-APIs-with-Spring-Security-OAuth2-and-JWT"><a href="#8-Built-REST-APIs-with-Spring-Security-OAuth2-and-JWT" class="headerlink" title="8. Built REST APIs with Spring Security, OAuth2, and JWT"></a>8. Built REST APIs with Spring Security, OAuth2, and JWT</h3><p><strong>Q1:</strong> How did you implement role-based access control in your APIs?<br><strong>A1:</strong><br>I used Spring Security’s <code>@PreAuthorize</code> annotations with roles mapped from JWT claims. Access tokens were issued via OAuth2 flow and validated using a shared public key (JWKS). Different API routes were protected with scope-level controls.</p>
+<p><strong>Q2:</strong> What were some challenges in handling token expiration and refresh?<br><strong>A2:</strong><br>Token expiry caused session drops. I implemented silent token refresh using refresh tokens stored in HTTP-only cookies, and added interceptors to retry failed requests. Tokens were short-lived to minimize risk of misuse.</p>
+<hr>
+<h3 id="9-Integrated-Redis-and-optimized-SQL-Mongo-queries"><a href="#9-Integrated-Redis-and-optimized-SQL-Mongo-queries" class="headerlink" title="9. Integrated Redis and optimized SQL/Mongo queries"></a>9. Integrated Redis and optimized SQL/Mongo queries</h3><p><strong>Q1:</strong> What kind of data did you cache in Redis, and why?<br><strong>A1:</strong><br>We cached SKU metadata, search filters, and vendor status info — all read-heavy and relatively static. Redis TTLs and LRU eviction ensured freshness. This reduced DB load during flash sales and improved P95 latency by ~30%.</p>
+<p><strong>Q2:</strong> How did you optimize SQL and MongoDB queries for peak traffic?<br><strong>A2:</strong><br>I used compound indexes and avoided full table scans by restructuring queries. For Mongo, I leveraged aggregation pipelines with <code>$project</code> and <code>$match</code> to avoid loading unnecessary data. Connection pooling and query batching helped too.</p>
+<hr>
+<h3 id="10-Used-Elasticsearch-and-circuit-breaker-patterns"><a href="#10-Used-Elasticsearch-and-circuit-breaker-patterns" class="headerlink" title="10. Used Elasticsearch and circuit breaker patterns"></a>10. Used Elasticsearch and circuit breaker patterns</h3><p><strong>Q1:</strong> How did you structure your Elasticsearch indices to support product search?<br><strong>A1:</strong><br>We used separate indices per product category for faster queries. Fields like name, description, and vendor tags were indexed with custom analyzers. Boosting and fuzzy search improved user experience on typos and partial matches.</p>
+<p><strong>Q2:</strong> How did you implement the circuit breaker pattern in your microservices?<br><strong>A2:</strong><br>I used Resilience4j with fallback methods and custom thresholds. If response time exceeded a limit or errors spiked, the breaker tripped and redirected traffic to a cache or static response. Alerts were triggered via Prometheus metrics.</p>
+<hr>
+<h3 id="11-Wrote-unit-integration-tests-and-automated-CI-CD-with-Jenkins-Docker-K8s"><a href="#11-Wrote-unit-integration-tests-and-automated-CI-CD-with-Jenkins-Docker-K8s" class="headerlink" title="11. Wrote unit/integration tests and automated CI/CD with Jenkins, Docker, K8s"></a>11. Wrote unit/integration tests and automated CI/CD with Jenkins, Docker, K8s</h3><p><strong>Q1:</strong> How did you ensure test coverage across frontend and backend codebases?<br><strong>A1:</strong><br>For backend, JUnit + Mockito covered services and controllers. Frontend used React Testing Library and Jest for component/unit testing. End-to-end flows were validated with Playwright. Coverage thresholds were enforced in CI.</p>
+<p><strong>Q2:</strong> How did you structure your CI/CD pipelines?<br><strong>A2:</strong><br>Each repo had Jenkins pipelines triggered on PR merge. Steps included linting, unit tests, Docker builds, security scans, and deployment to K8s. Canary deployments used Argo Rollouts, and rollback could be triggered via Slackbot command.</p>
+<h3 id="AI"><a href="#AI" class="headerlink" title="AI"></a>AI</h3><h4 id="What-is-ETL"><a href="#What-is-ETL" class="headerlink" title="What is ETL?"></a><strong>What is ETL?</strong></h4><p><strong>ETL</strong> stands for <strong>Extract, Transform, Load</strong>.<br>It’s a common data integration process used to move and prepare data for analytics and machine learning:</p>
+<ul>
+<li><strong>Extract</strong>: Pull data from source systems (e.g., databases, APIs, flat files).</li>
+<li><strong>Transform</strong>: Clean, filter, enrich, or aggregate data into the desired format.</li>
+<li><strong>Load</strong>: Store the transformed data into a target system, like a data warehouse or data lake.</li>
+</ul>
+<p>In the context of AWS, ETL workflows are often orchestrated using tools like Glue and Step Functions.</p>
+<hr>
+<h4 id="Amazon-SageMaker"><a href="#Amazon-SageMaker" class="headerlink" title="Amazon SageMaker"></a><strong>Amazon SageMaker</strong></h4><p>A fully managed machine learning platform that:</p>
+<ul>
+<li>Trains and tunes ML models.</li>
+<li>Hosts models for real-time or batch inference.</li>
+<li>Handles model versioning, scaling, and A/B testing.</li>
+</ul>
+<p>In projects, we use SageMaker to deploy trained models behind APIs or for batch inference jobs.</p>
+<h4 id="AWS-Glue"><a href="#AWS-Glue" class="headerlink" title="AWS Glue"></a><strong>AWS Glue</strong></h4><p>A serverless ETL service that:</p>
+<ul>
+<li>Crawls and catalogs data from S3 or databases.</li>
+<li>Runs PySpark or Python jobs to transform data at scale.</li>
+<li>Integrates with Data Catalog and Athena for querying.</li>
+</ul>
+<p>It’s used to automate and scale data preprocessing pipelines.</p>
+<h4 id="Amazon-S3-Simple-Storage-Service"><a href="#Amazon-S3-Simple-Storage-Service" class="headerlink" title="Amazon S3 (Simple Storage Service)"></a><strong>Amazon S3 (Simple Storage Service)</strong></h4><p>A durable object storage service that:</p>
+<ul>
+<li>Stores raw, processed, or intermediate data.</li>
+<li>Hosts model artifacts, training datasets, and logs.</li>
+<li>Acts as a data lake foundation in most pipelines.</li>
+</ul>
+<p>It’s the main storage layer for both data and ML artifacts.</p>
+<h4 id="AWS-Step-Functions"><a href="#AWS-Step-Functions" class="headerlink" title="AWS Step Functions"></a><strong>AWS Step Functions</strong></h4><p>A serverless orchestration service that:</p>
+<ul>
+<li>Coordinates tasks (e.g., Glue jobs, Lambda, SageMaker, etc.) into stateful workflows.</li>
+<li>Adds retry, timeout, and error handling logic to ETL and ML pipelines.</li>
+<li>Makes pipelines maintainable and scalable.</li>
+</ul>
+<p>We use it to build and visualize complex, multi-step data or ML workflows.</p>
+<h4 id="Amazon-API-Gateway"><a href="#Amazon-API-Gateway" class="headerlink" title="Amazon API Gateway"></a><strong>Amazon API Gateway</strong></h4><p>A fully managed service for creating, securing, and scaling APIs:</p>
+<ul>
+<li>Exposes REST or WebSocket endpoints to external clients.</li>
+<li>Integrates with Lambda, Step Functions, or SageMaker endpoints.</li>
+<li>Handles rate limiting, logging, and authentication.</li>
+</ul>
+<p>It’s commonly used to serve model predictions or expose backend services securely.</p>
+<hr>
+<h4 id="Q1-ML-pipeline-架构与挑战"><a href="#Q1-ML-pipeline-架构与挑战" class="headerlink" title="Q1: ML pipeline 架构与挑战"></a>Q1: ML pipeline 架构与挑战</h4><p><strong>英文问法：</strong><br><em>Can you walk me through the architecture of one of the ML inference pipelines you built with SageMaker and Step Functions? What were the challenges and how did you address them?</em></p>
+<p><strong>口语化英文回答：</strong></p>
+<ul>
+<li>Sure. At Costco’s e-commerce division, we built an <strong>end-to-end ML pipeline for dynamic pricing</strong>.<ul>
+<li>The <strong>data came from</strong> transactional logs, product metadata, and external signals like holidays or promotions. </li>
+<li>We used <strong>AWS Glue</strong> for cleaning and transforming raw data, </li>
+<li>and stored everything in <strong>S3</strong>, like training data, models, outputs. </li>
+<li><strong>SageMaker</strong> handled both training and hosting.</li>
+<li><strong>Step Functions</strong> handled connect all the steps into a pipeline,</li>
+<li>and <strong>AWS API Gateway</strong> exposed the AI model endpoint to call from other services or frontend apps.</li>
+</ul>
+</li>
+<li><strong>One key challenge</strong> was handling retraining without downtime. <ul>
+<li>We solved it by using SageMaker endpoints with traffic shifting and A/B testing to gradually roll out models. That allowed us to validate the model online before full deployment.</li>
+</ul>
+</li>
+</ul>
+<p><strong>中文大意：</strong><br>在 Costco 电商组，我们做了一个用于动态定价的端到端 ML 推理流程。数据来自交易日志、商品元数据和外部信号（比如节假日、促销）。我们用 Glue 做 ETL，每晚处理数据后存在 S3，再用 SageMaker 完成训练和批量推理，最后通过 Step Functions 串起整个流程，从数据准备到最终的 API 更新。</p>
+<p>挑战是怎么实现<strong>不停机的模型更新</strong>，我们用了 SageMaker 的 endpoint 版本控制和流量切换功能，支持 A/B 测试，能在正式上线前先观察效果。</p>
+<hr>
+<h4 id="Q2-模型版本管理与监控"><a href="#Q2-模型版本管理与监控" class="headerlink" title="Q2: 模型版本管理与监控"></a>Q2: 模型版本管理与监控</h4><p><strong>英文问法：</strong><br><em>How did you handle model versioning, deployment, and monitoring in production with SageMaker?</em></p>
+<p><strong>口语化英文回答：</strong></p>
+<ul>
+<li><strong>For versioning</strong>, We used SageMaker Model Registry for versioning. Every trained model got registered with metadata like training date, dataset version, and evaluation metrics.</li>
+<li><strong>For the deployment</strong>, we used the blue - green strategy with SageMaker endpoints. and then We will test a small dataset and then gradually replace the old version with a new version.</li>
+<li><strong>For monitoring</strong>, we integrated CloudWatch with custom metrics: response time, error rate, and prediction drift using baseline distributions. If the model started drifting, we triggered Step Functions to retrain or roll back.</li>
+</ul>
+<p><strong>中文大意：</strong><br>我们用 SageMaker 的模型注册系统管理版本，每个模型都记录了训练时间、数据集版本和评估指标。部署时采用蓝绿部署策略，先用 shadow traffic 验证模型，再逐步切换。</p>
+<p>监控方面，我们接入了 CloudWatch，打了自定义指标（响应时间、错误率、预测分布漂移）。如果模型表现异常，就用 Step Functions 启动重训练或回滚。</p>
+<hr>
+<h4 id="Q3-实时推理集成与性能"><a href="#Q3-实时推理集成与性能" class="headerlink" title="Q3: 实时推理集成与性能"></a>Q3: 实时推理集成与性能</h4><p><strong>英文问法：</strong><br><em>How did you integrate the ML models into your backend systems for real-time inference? What kind of latency and throughput were required?</em></p>
+<p><strong>口语化英文回答：</strong></p>
+<ul>
+<li>We <strong>exposed SageMaker endpoints behind API Gateway</strong> . </li>
+<li>Our backend was in Java Spring Boot, so we made <strong>async HTTP calls</strong> to those endpoints during the pricing logic execution.</li>
+<li>Typical <strong>latency</strong> was under <strong>300ms</strong> per inference, and we could handle a few hundred concurrent requests during promotion spikes.</li>
+</ul>
+<p><strong>中文大意：</strong><br>我们把 SageMaker 的 endpoint 接在 API Gateway 和 Lambda 后面，Java 的 Spring Boot 后端通过异步 HTTP 调用这些接口，嵌入到定价逻辑里。单次推理延迟控制在 300ms 以内，促销高峰时支持几百个并发。</p>
+<p>为了降低延迟，我们优化了容器，保证模型是 warm 的。同时，一些特征提前在低峰期计算，存在 DynamoDB 做缓存。</p>
+<hr>
+<h4 id="Q4-AWS-Glue-和-ETL-流程"><a href="#Q4-AWS-Glue-和-ETL-流程" class="headerlink" title="Q4: AWS Glue 和 ETL 流程"></a>Q4: AWS Glue 和 ETL 流程</h4><p><strong>英文问法：</strong><br><em>What role did AWS Glue play in your ML pipeline, and how did you manage data extraction, transformation, and loading (ETL)?</em></p>
+<p><strong>口语化英文回答：</strong></p>
+<ul>
+<li><strong>Glue was our main ETL engine</strong>. We used it to pull raw data from our S3 data lake and transactional RDS, cleaned it using PySpark jobs, and wrote it back to S3 in Parquet format. This processed data was used both for training and inference.</li>
+<li><strong>The jobs were scheduled via Glue Workflows</strong>, and we used Data Catalog for schema management, which made downstream integration very clean and consistent.</li>
+</ul>
+<p><strong>中文大意：</strong><br>Glue 是我们主要的 ETL 工具，从 S3 和 RDS 抽数据后，用 PySpark 做清洗，再以 Parquet 格式写回 S3。这些数据既用于训练也用于推理。</p>
+<p>调度用的是 Glue Workflow，Schema 用 Data Catalog 管理，方便后续流程的自动化和一致性。</p>
+<hr>
+<h4 id="Q5-与数据科学-业务协同"><a href="#Q5-与数据科学-业务协同" class="headerlink" title="Q5: 与数据科学/业务协同"></a>Q5: 与数据科学/业务协同</h4><p><strong>英文问法：</strong><br><em>How did you collaborate with data scientists and business stakeholders to align the ML models with pricing and demand forecasting goals?</em></p>
+<p><strong>口语化英文回答：</strong></p>
+<ul>
+<li>We worked in a cross-functional team.<ul>
+<li><strong>Data scientists</strong> built the models and provided artifacts like serialized model files and config files.</li>
+<li><strong>I helped wrap</strong> those into SageMaker training/inference pipelines and deployed them into staging and prod.</li>
+</ul>
+</li>
+<li><strong>On the business side</strong>, we Usually had some meetings <strong>with the business team</strong> to discuss the pricing strategy and validate the model output with the business logic.</li>
+</ul>
+<p><strong>中文大意：</strong><br>我们是跨职能团队合作的，数据科学家负责模型开发和交付 artifact（模型文件、配置），我这边负责用 SageMaker 包装流程并部署。</p>
+<p>业务方面，我们每两周和定价经理、供应链分析师开会，确认模型输出符合业务逻辑，比如毛利率、库存限制等。上线后我们也有反馈机制，根据业务表现迭代模型。</p>
+<h2 id="Robinhood"><a href="#Robinhood" class="headerlink" title="Robinhood"></a>Robinhood</h2><h3 id="simple-q-1"><a href="#simple-q-1" class="headerlink" title="simple q"></a>simple q</h3><ul>
+<li>They have a tech team in Denver <code>/ˈdenvər/</code>, Colorado <code>/ˌkɑːləˈrædoʊ; /</code></li>
+<li>I was in an <strong>online trading team</strong>. </li>
+<li>the <strong>project</strong> was a stock trading platform.</li>
+<li>We used Kafka to handle the data streams, and I focused on making sure the pipeline was <strong>low-latency and reliable</strong>, because any delay could affect trading decisions.</li>
+<li>I also helped design secure APIs for the trading platform, like for <strong>showing</strong> real-time prices, historical charts, and user portfolio data.</li>
+<li>and for a financial company, <strong>Security</strong> and <strong>stability</strong> were a big deal, so we built in access control, authentication, rate limiting, and monitoring to make sure the system ran smoothly.</li>
+</ul>
+<hr>
+<ol>
+<li><p><strong>Describe the backend architecture for real-time trading.</strong><br>I built microservices with Spring Boot for order matching, account validation, and trade execution. We used Kafka for real-time event streaming, Redis for caching, and PostgreSQL for account and trade data.</p>
+</li>
+<li><p><strong>How did you ensure low-latency trading?</strong><br>Optimized network I/O with async processing, minimized DB round trips, preloaded hot data in Redis, and horizontally scaled services behind load balancers. Target latency was sub-100ms.</p>
+</li>
+<li><p><strong>What role did GCP play in your architecture?</strong><br>We used GCP Compute Engine with autoscaling groups and load balancing. GCP’s managed services helped ensure high availability. Monitoring was done via Prometheus and Grafana.</p>
+</li>
+<li><p><strong>Describe your use of Kafka.</strong><br>Kafka streamed market quotes and user orders in real-time. I built consumers that enriched and validated events before pushing them to trade execution queues.</p>
+</li>
+<li><p><strong>What frontend work did you do with React?</strong><br>I built portfolio dashboards and order placement UIs. Used WebSockets and polling for real-time data. Focused on responsive design and performance optimization.</p>
+</li>
+<li><p><strong>How did you ensure API security?</strong><br>Built REST APIs with Spring Security, JWT for user sessions, and OAuth2 for third-party integrations. Implemented rate limiting and audit trails.</p>
+</li>
+<li><p><strong>Tell me about your database optimizations.</strong><br>We used Redis to store session and order book snapshots. Tuned PostgreSQL with indexing and query optimization for sub-10ms reads on key paths.</p>
+</li>
+<li><p><strong>How did you handle CI/CD?</strong><br>Built Jenkins pipelines for testing and deploying Dockerized microservices to Kubernetes clusters. Canary deployments ensured safe rollouts.</p>
+</li>
+<li><p><strong>How did you monitor trading system health?</strong><br>Used Prometheus and Grafana to track latency, order rejection rates, and system resource usage. Alerts were tied to financial SLA thresholds.</p>
+</li>
+<li><p><strong>How did you collaborate with other teams?</strong><br>Worked closely with compliance, product, and QA. Participated in daily trading simulations with mock orders to validate changes before release.</p>
+</li>
+</ol>
+<h3 id="1-Designed-and-developed-scalable-backend-services-using-Java-and-Spring-Boot-to-support-real-time-stock-trading"><a href="#1-Designed-and-developed-scalable-backend-services-using-Java-and-Spring-Boot-to-support-real-time-stock-trading" class="headerlink" title="1. Designed and developed scalable backend services using Java and Spring Boot to support real-time stock trading"></a><strong>1. Designed and developed scalable backend services using Java and Spring Boot to support real-time stock trading</strong></h3><p><strong>Q1: How did you ensure your Spring Boot services could handle real-time trading demands under heavy load?</strong><br>A1: I focused on asynchronous processing using <code>@Async</code> and <code>CompletableFuture</code>, implemented connection pooling with HikariCP, and tuned thread pools. I also added circuit breakers with Resilience4j to prevent cascading failures and monitored latency metrics to spot bottlenecks.</p>
+<p><strong>Q2: What design patterns did you use in your backend service architecture?</strong><br>A2: I primarily used the <strong>Strategy</strong> pattern for selecting order routing logic based on market state, and the <strong>Factory</strong> pattern to instantiate trade processors based on asset type. I also used <strong>Command</strong> to encapsulate order execution logic, making it easier to manage retries and logging.</p>
+<hr>
+<h3 id="2-Built-and-maintained-microservices-for-user-portfolio-dashboards-and-market-data-feeds-delivering-sub-second-latency"><a href="#2-Built-and-maintained-microservices-for-user-portfolio-dashboards-and-market-data-feeds-delivering-sub-second-latency" class="headerlink" title="2. Built and maintained microservices for user portfolio dashboards and market data feeds, delivering sub-second latency"></a><strong>2. Built and maintained microservices for user portfolio dashboards and market data feeds, delivering sub-second latency</strong></h3><p><strong>Q1: How did you achieve sub-second latency for millions of users?</strong><br>A1: We used Redis for caching portfolio snapshots and hot market data. Services were colocated regionally for low latency, and I optimized JSON serialization with Jackson, using streaming APIs instead of object mappers where possible.</p>
+<p><strong>Q2: How did you handle consistency between portfolio data and market feeds?</strong><br>A2: We used Kafka to decouple market data processing and portfolio updates. Consumer services applied updates with idempotent handlers and versioned writes to ensure eventual consistency without double-applying changes.</p>
+<hr>
+<h3 id="3-Implemented-React-and-Node-js-apps-for-trading-workflows-market-data-visualization-and-portfolio-tracking"><a href="#3-Implemented-React-and-Node-js-apps-for-trading-workflows-market-data-visualization-and-portfolio-tracking" class="headerlink" title="3. Implemented React and Node.js apps for trading workflows, market data visualization, and portfolio tracking"></a><strong>3. Implemented React and Node.js apps for trading workflows, market data visualization, and portfolio tracking</strong></h3><p><strong>Q1: How did you optimize the React frontend for real-time data visualization?</strong><br>A1: I used <code>React.memo</code>, <code>useCallback</code>, and WebSockets with a throttling layer to update components only when necessary. For rendering graphs, I leveraged lightweight libraries like <code>Recharts</code> with virtualized lists.</p>
+<p><strong>Q2: What challenges did you face building order placement UIs and how did you solve them?</strong><br>A2: Timing and race conditions were key concerns. I used optimistic UI updates with server-side validation fallbacks and built custom hooks to manage websocket lifecycle and synchronization of order book views.</p>
+<hr>
+<h3 id="4-Deployed-backend-services-on-GCP-Compute-Engine-leveraging-auto-scaling-and-load-balancing"><a href="#4-Deployed-backend-services-on-GCP-Compute-Engine-leveraging-auto-scaling-and-load-balancing" class="headerlink" title="4. Deployed backend services on GCP Compute Engine, leveraging auto-scaling and load balancing"></a><strong>4. Deployed backend services on GCP Compute Engine, leveraging auto-scaling and load balancing</strong></h3><p><strong>Q1: Why did you choose GCP Compute Engine over GKE or App Engine?</strong><br>A1: At the time, we needed custom low-level tuning and consistent IOPS for our trading engine VMs, which Compute Engine allowed. GKE added complexity we didn’t need yet, and App Engine had limited support for custom binaries we relied on.</p>
+<p><strong>Q2: How did you configure your services to auto-scale under high load?</strong><br>A2: We used instance templates and managed instance groups with CPU-based autoscaling policies. For stateless services, scale-out was straightforward; for stateful ones like quote caching, we used shared Redis clusters.</p>
+<hr>
+<h3 id="5-Developed-real-time-data-pipelines-using-Apache-Kafka-for-quotes-and-executions"><a href="#5-Developed-real-time-data-pipelines-using-Apache-Kafka-for-quotes-and-executions" class="headerlink" title="5. Developed real-time data pipelines using Apache Kafka for quotes and executions"></a><strong>5. Developed real-time data pipelines using Apache Kafka for quotes and executions</strong></h3><p><strong>Q1: What were the key design considerations when building your Kafka pipeline?</strong><br>A1: Latency, ordering, and fault tolerance. We used compacted topics for quote updates and partitioned topics by instrument ID for order executions. Consumers had exactly-once semantics via transactional reads and offset commits.</p>
+<p><strong>Q2: How did you handle backpressure in Kafka consumers?</strong><br>A2: We used bounded queues with flow control and applied manual offset commits only after downstream processing succeeded. In extreme load, we activated circuit breakers to shed non-essential processing.</p>
+<hr>
+<h3 id="6-Built-secure-REST-APIs-with-Spring-Security-OAuth2-and-JWT"><a href="#6-Built-secure-REST-APIs-with-Spring-Security-OAuth2-and-JWT" class="headerlink" title="6. Built secure REST APIs with Spring Security, OAuth2, and JWT"></a><strong>6. Built secure REST APIs with Spring Security, OAuth2, and JWT</strong></h3><p><strong>Q1: How did you design your API’s security model for trading-related operations?</strong><br>A1: Role-based access control via OAuth2 scopes was enforced using method-level <code>@PreAuthorize</code>. JWTs carried user claims and expiration info. For order placement, we required 2FA tokens validated against a Redis-backed OTP service.</p>
+<p><strong>Q2: How did you handle JWT expiration and refresh in real-time systems?</strong><br>A2: We used short-lived access tokens with long-lived refresh tokens. Refresh was triggered in the background using Axios interceptors in the frontend, and token revocation lists were stored in Redis to prevent misuse.</p>
+<hr>
+<h3 id="7-Optimized-PostgreSQL-and-Redis-for-fast-access-to-trading-and-market-data"><a href="#7-Optimized-PostgreSQL-and-Redis-for-fast-access-to-trading-and-market-data" class="headerlink" title="7. Optimized PostgreSQL and Redis for fast access to trading and market data"></a><strong>7. Optimized PostgreSQL and Redis for fast access to trading and market data</strong></h3><p><strong>Q1: What specific query or indexing strategies did you use for PostgreSQL?</strong><br>A1: We used partial indexes on active portfolios, GIN indexes for full-text search on tickers, and materialized views for frequently queried aggregates. We also analyzed slow queries weekly and tuned <code>work_mem</code> and <code>effective_cache_size</code>.</p>
+<p><strong>Q2: How was Redis used in your system, and what issues did you face?</strong><br>A2: Redis was used to store hot order book snapshots and user session tokens. We had to manage eviction policies carefully (using LRU) and isolate critical keys with different Redis DBs to avoid performance interference.</p>
+<hr>
+<h3 id="8-Automated-CI-CD-for-real-time-trading-services-using-Jenkins-Docker-Kubernetes"><a href="#8-Automated-CI-CD-for-real-time-trading-services-using-Jenkins-Docker-Kubernetes" class="headerlink" title="8. Automated CI/CD for real-time trading services using Jenkins, Docker, Kubernetes"></a><strong>8. Automated CI/CD for real-time trading services using Jenkins, Docker, Kubernetes</strong></h3><p><strong>Q1: What did your CI/CD pipeline look like, and how did you ensure safety?</strong><br>A1: We had multi-stage Jenkins pipelines with static checks, unit tests, integration tests, canary deployments, and health checks. Rollbacks were handled via Helm charts versioning and blue/green deployments.</p>
+<p><strong>Q2: How did you handle configuration and secrets in your pipeline?</strong><br>A2: We used Vault for secret management, injected via environment variables during deployment. Configs were templated with Helm and stored in GitOps-style repositories to keep infra reproducible.</p>
+<hr>
+<h3 id="9-Monitored-trading-system-health-with-Prometheus-and-Grafana"><a href="#9-Monitored-trading-system-health-with-Prometheus-and-Grafana" class="headerlink" title="9. Monitored trading system health with Prometheus and Grafana"></a><strong>9. Monitored trading system health with Prometheus and Grafana</strong></h3><p><strong>Q1: What key metrics did you monitor for trading system reliability?</strong><br>A1: Latency (P50, P95, P99), order rejection rates, Kafka lag, Redis hit ratio, and API error rates. Alerts were configured using Prometheus Alertmanager with Slack integrations.</p>
+<p><strong>Q2: How did you debug latency spikes during market open or earnings hours?</strong><br>A2: We used distributed tracing (OpenTelemetry) to track slow spans, correlated spikes with CPU/memory metrics, and used Grafana’s heatmaps to identify hot services. We also performed GC tuning and thread pool analysis.</p>
+<h2 id="Netflix"><a href="#Netflix" class="headerlink" title="Netflix"></a>Netflix</h2><ul>
+<li>Yeah, they’ve got an office in Midtown Manhattan <code>/mæn&#39;hæt(ə)n/</code>, New York City.</li>
+<li>I was part of the recommendation <strong>team</strong>. </li>
+<li>the <strong>project</strong> was a consumer engagement platform.</li>
+<li>Netflix was doing research to predict what users will like based on their age and their gender and some kinds of their personal information. <ul>
+<li>And we also used a large model to make these predictions. For example we use their location data subscribe information and watch history as input and then the model will decide what should be shown to the user.</li>
+</ul>
+</li>
+<li>And my job was to develop some services to handle the user data in real time. We wanted to make sure the personalized content immediately whenever a user’s actions changed.</li>
+<li>We also developed a microservices architecture to handle millions of users and tools like Kubernetes to ensure its scalability. </li>
+</ul>
+<h3 id="common-q"><a href="#common-q" class="headerlink" title="common q"></a>common q</h3><ol>
+<li><p><strong>What did you work on in the recommendation team?</strong><br>I developed backend APIs and data pipelines to support personalized content recommendations. Worked with collaborative filtering and behavior tracking models.</p>
+</li>
+<li><p><strong>How did you build scalable services?</strong><br>Used Java Spring Boot for APIs, containerized services with Docker, and deployed with Kubernetes. Ensured scalability with stateless services and async processing.</p>
+</li>
+<li><p><strong>Describe your frontend work.</strong><br>Built internal dashboards with React and Node.js to visualize recommendation performance and user engagement. Used chart libraries and custom components.</p>
+</li>
+<li><p><strong>How did you integrate Kafka?</strong><br>Kafka was used for event streaming of user behavior logs and real-time recommendation triggers. I implemented both producers (tracking) and consumers (personalization).</p>
+</li>
+<li><p><strong>How did you reduce API latency?</strong><br>Cached recommendation results in Redis and implemented fallback strategies to serve stale results during high load. This cut average latency by 35%.</p>
+</li>
+<li><p><strong>What database technologies did you use?</strong><br>Used MySQL for structured metadata, Redis for caching, and Elasticsearch for fast content search and analytics.</p>
+</li>
+<li><p><strong>How did you monitor and test your services?</strong><br>Used Jenkins for CI, unit tests with JUnit, and integration tests in staging. Prometheus and Grafana monitored error rates and latency.</p>
+</li>
+<li><p><strong>What role did S3 play?</strong><br>Used S3 to store logs and offline training data. It acted as a reliable, scalable, and cost-effective data lake.</p>
+</li>
+<li><p><strong>How did you handle authentication?</strong><br>Built OAuth2-based login and protected APIs with JWT. Roles determined access to recommendation tools and dashboards.</p>
+</li>
+<li><p><strong>Describe your cross-team collaboration.</strong><br>Worked closely with data scientists and product teams to A/B test algorithms. Regularly iterated based on engagement metrics and user feedback.</p>
+</li>
+</ol>
+<h2 id="Adobe"><a href="#Adobe" class="headerlink" title="Adobe"></a>Adobe</h2><ul>
+<li>Their main office is in San Jose <code>/sænhəu&#39;zei/</code>, California.</li>
+<li>(optional) i was remote in Adobe,</li>
+<li>I was in a Collaboration Services Team.</li>
+<li>the project was a Collaboration Platform.</li>
+<li>we developed backend microservices using Spring Boot to support video conferencing, chat, and collaboration features. <ul>
+<li>like Users can start or join scheduled <strong>video</strong> meetings with a single click, </li>
+<li>and Users can send direct messages or participate in group <strong>chats</strong> while in a meeting</li>
+<li>During a video chat, users can edit documents together at the same time using the <strong>collaboration</strong> features </li>
+</ul>
+</li>
+<li>My main responsibility was designing and building RESTful APIs to handle session management, user presence, messaging, and <strong>collaboration</strong> events.</li>
+</ul>
+<h1 id="TOP-15-behavioral-questions"><a href="#TOP-15-behavioral-questions" class="headerlink" title="TOP 15 behavioral questions"></a>TOP 15 behavioral questions</h1><h2 id="1-Why-did-you-leave-your-last-job"><a href="#1-Why-did-you-leave-your-last-job" class="headerlink" title="1. Why did you leave your last job?"></a>1. Why did you leave your last job?</h2><ul>
+<li><strong>Personal experience</strong>:<ul>
+<li>Because I wanted something more challenging and a job that fit my career plans better. I wanted to find a<br>place where I can use my skills to really make a difference.</li>
+<li>That’s why I’m really excited about this job at your company. I researched your company and your project, Your<br>company’s job description is a total match for my work experience. I can really get things done. And there’s<br>also new stuff to learn.</li>
+<li>For example, I really like Kafka.  in this new job, I’ll have the opportunity to deeply explore Kafka, so i think This new job seems super suitable for me, I’m really excited about it.</li>
+<li>and I really think I can use the stuff from my old company to help your project succeed.</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Describe-a-major-conflict-within-or-outside-your-team-and-how-you-handled-it-or-how-you-dealt-with-a-difficult-team-member"><a href="#2-Describe-a-major-conflict-within-or-outside-your-team-and-how-you-handled-it-or-how-you-dealt-with-a-difficult-team-member" class="headerlink" title="2. Describe a major conflict within or outside your team and how you handled it, or how you dealt with a difficult team member."></a>2. Describe a major conflict within or outside your team and how you handled it, or how you dealt with a difficult team member.</h2><ul>
+<li><strong>General approach</strong>: Usually, I first figure out what’s causing the issue, then have a one-on-one chat to talk<br>with the team member. We consider the goals and find a way to reach a compromise, especially when deciding on<br>different approaches.I will also try my best to understand his idea. We will discuss and keep it transparent and try to choose the best solution. <strong>It does not matter who comes up with that solution, because our goal is to make best product for customers.</strong> If we cannot really agree on each other, we will escalate to manager and let manager decides, we should all agree on the final decision.</li>
+<li><strong>Personal experience</strong>: for example, At my previous company, I remember once I disagreed with a frontend<br>developer on the API design. He wanted something simple, but I knew we needed something more scalable. And then we discussed it, his idea is easier to implement and easier to use, but it’s not scalable; however, my idea is more complicated to implement but it’s more scalable. so After discussing the issue and considering the advantages and disadvantages, we found a compromise, that is, I create a simple version that the frontend can use right away, and also supported optional parameters to let  the frontend get extra data. as the result, it worked well, and both of us were happy about it.</li>
+</ul>
+<h2 id="3-Describe-a-time-when-you-had-difficulty-completing-a-task-or-making-progress"><a href="#3-Describe-a-time-when-you-had-difficulty-completing-a-task-or-making-progress" class="headerlink" title="3. Describe a time when you had difficulty completing a task or making progress."></a>3. Describe a time when you had difficulty completing a task or making progress.</h2><ul>
+<li><strong>Personal experience</strong>: <ul>
+<li><strong>ST</strong>: I remember when I was At Costco on Black Friday, I had trouble dealing with slow database queries for our inventory system.</li>
+<li><strong>A</strong>: first I used explain to inspect those slow queries, and then I checked JOIN types and their efficiency, and then I reviewed index usage, finally I found some unoptimized joins. so I researched MySQL optimizations, and I asked for some advice from some database experts. then I created indexes on frequently joined columns, changed some LEFT JOINs to INNER JOINs .This way, we stop getting data we don’t need.. I also added Redis caching for the popular products.</li>
+<li><strong>R</strong>: As the result, the query execution time was reduced by  50%. inventory lookups became much faster.. This whole thing really helped me understand more about databases  optimization. i feel it was a great experience to me because I gained all the SQL experiences.</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-If-your-manager-asks-you-to-change-something-that-you-think-is-already-good-enough-how-would-you-handle-it"><a href="#4-If-your-manager-asks-you-to-change-something-that-you-think-is-already-good-enough-how-would-you-handle-it" class="headerlink" title="4. If your manager asks you to change something that you think is already good enough, how would you handle it?"></a>4. If your manager asks you to change something that you think is already good enough, how would you handle it?</h2><ul>
+<li><strong>General approach</strong>: Usually, I listen to my manager’s reasons and then I share my view and show some data to<br>support it. If needed, I think we could come up with a compromise …</li>
+<li><strong>Personal experience</strong>: for example, I remember once I used Memcache to do the caching. but my manager wanted to<br>switch to use Redis. So we discussed it, I thought Memcache’s data structure was pretty simple so it’s very easy to use and it fully met our needs at that time. We just needed to cache some key - value values then. But he told me that our project will become more complicated, and Redis had more features and it was more powerful to handle future changes and redis had better performance. so we ran some tests to compare their performance and we found that redis was better, and we found that Redis was also better than Memcache in many other ways. like:<ul>
+<li>for data processing, redis can handle different kinds of data, like lists, sets, and hashes. but Memcache can only deal with key - value pairs.</li>
+<li>for data persistence, redis can store data on the disk, but memcache can not.</li>
+</ul>
+</li>
+<li>so finally, we decided to use redis to handle changes in the future, because redis is way better than Memcache.</li>
+</ul>
+<h2 id="5-Why-do-you-want-to-join-our-team"><a href="#5-Why-do-you-want-to-join-our-team" class="headerlink" title="5. Why do you want to join our team?"></a>5. Why do you want to join our team?</h2><p>Same as 1.</p>
+<h2 id="6-Are-you-familiar-with-Agile-ˈaedʒ-ə-l-processes-and-Waterfall-methodology-ˌmeθəˈdɑːlədʒi"><a href="#6-Are-you-familiar-with-Agile-ˈaedʒ-ə-l-processes-and-Waterfall-methodology-ˌmeθəˈdɑːlədʒi" class="headerlink" title="6. Are you familiar with Agile / ˈædʒ(ə)l / processes and Waterfall methodology / ˌmeθəˈdɑːlədʒi /?"></a>6. Are you familiar with Agile <code>/ ˈædʒ(ə)l /</code> processes and Waterfall methodology <code>/ ˌmeθəˈdɑːlədʒi /</code>?</h2><ul>
+<li><strong>General approach</strong>: Agile works in an iterative <code>/ ˈɪtəreɪtɪv/</code> way. It breaks work into small cycles. This way,<br>you can get feedback all the time and make changes as you go. Waterfall is different. It’s sequential. That means<br>you have to follow the steps one by one.</li>
+<li><strong>Personal experience</strong>: In my experience, Agile is really good for projects that are fast - paced and need to be flexible. for example, At my previous company, we used Scrum. We had two - week sprints and daily stand - up meetings. This helped us change things fast based on what users said. But for smaller projects where everything is clearly defined, like a school project, I use Waterfall, When you have a clear plan from the beginning to the end,it’s easier to get the work done. Both methods are useful in their own ways, but I like Agile better because itcan adapt to different situations.</li>
+</ul>
+<h2 id="7-What-does-a-typical-day-look-like-for-you"><a href="#7-What-does-a-typical-day-look-like-for-you" class="headerlink" title="7. What does a typical day look like for you?"></a>7. What does a typical day look like for you?</h2><!-- - **General approach**: Usually, I start by reviewing emails and my to-do list, then spend most of the day coding, with meetings for progress updates or issue - solving. I end the day by updating my progress and planning the next day.
+- **Personal experience**: 
+    - Usually, I start with a stand-up meeting, and then I will reviewing emails and my to-do
+  list, and do some coding, debugging, and attending a code review. At the end of the day, I update my progress and
+  plan for the next day. -->
+<ul>
+<li>We follow Agile methodology, we have 2 weeks sprint. <ul>
+<li>So at <strong>beginning</strong> of each sprint, we have a planning meeting which we sit together to discuss all the tickets we need to work in in the whole sprint, and after that we have grooming meeting which is for developers to get familiar their own tickets. </li>
+<li>Then <strong>in</strong> each day, we have daily standup meeting in the morning at around 10am when we discuss our progress on each ticket and any blockers (need to wait on others work) we have. After meeting, we go back to work on our tickets and sometimes, we have meeting with business team to discuss the detailed problems, we also have design meetings for each big stories and we also have developer meetings to discuss our common issues.</li>
+<li>AT the <strong>end</strong> of each sprint, we have retrospective/retro meeting to review what we have done.</li>
+<li><strong>Percentage</strong> of daily time: 60-70% on coding including development and test cases, 10-20% on meetings, 10-20% on leading junior people or system design meeting</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-What-do-you-think-are-the-most-important-factors-for-a-successful-team"><a href="#8-What-do-you-think-are-the-most-important-factors-for-a-successful-team" class="headerlink" title="8. What do you think are the most important factors for a successful team ?"></a>8. What do you think are the most important factors for a successful team ?</h2><ul>
+<li><strong>General approach</strong>: Good communication, clear goals, trust, and a positive learning attitude are key for a team to succeed.Some points to mention:<ul>
+<li>Good team culture, nice working environment</li>
+<li>Good skills and new technologies used in the team</li>
+<li>You feel you can grow in the team, someday you may become a senior or leading some juniors</li>
+<li>You feel being important to the project, you can make contributions and be needed by others as well.</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-If-you-are-working-on-a-sprint-and-your-manager-suddenly-assigns-you-a-new-task-that-needs-to-be-finished-as-soon-as-possible-what-would-you-do"><a href="#9-If-you-are-working-on-a-sprint-and-your-manager-suddenly-assigns-you-a-new-task-that-needs-to-be-finished-as-soon-as-possible-what-would-you-do" class="headerlink" title="9. If you are working on a sprint and your manager suddenly assigns you a new task that needs to be finished as soon as possible, what would you do?"></a>9. If you are working on a sprint and your manager suddenly assigns you a new task that needs to be finished as soon as possible, what would you do?</h2><ul>
+<li><strong>General approach</strong>: This is really normal for me. First I will connect with manager to get an idea on the<br>priority <code>/ praɪˈɔːrəti /</code> of the task, and reorganize my priorities. ( in the middle say something like gotta<br>be a reason manager made the choice)</li>
+<li><strong>Personal experience</strong>: for example, I remember once I was working on a ticket to implement a new API<br>endpoint, suddenly manager assigned a new ticket for me, it’s related to the production issue, which was about<br>the delays in order processing, and the manager thought I have the ability to do that. Finally, manager is<br>really happy about how quickly I solved the issue.</li>
+</ul>
+<h2 id="10-Tell-me-something-about-yourself-that-is-not-on-your-resume"><a href="#10-Tell-me-something-about-yourself-that-is-not-on-your-resume" class="headerlink" title="10. Tell me something about yourself that is not on your resume."></a>10. Tell me something about yourself that is not on your resume.</h2><ul>
+<li><strong>Personal experience</strong>:  I like to develop some productivity tools, like shell tool, I once developed a zshell<br>plugin that can search everything very quickly with the key tab, and I once developed a chrome plugins, which can<br>show the table of content for the web pages, so we can navigate to the chapter whatever we want very quickly, it’s<br>very helpful to read the long technical articles, and I introduced these tools to my team members, which helped<br>them complete their work more efficiently and also enhanced my coding skills.</li>
+</ul>
+<h2 id="11-Tell-me-about-a-difficult-project-or-challenge-you-faced-and-how-you-handled-it"><a href="#11-Tell-me-about-a-difficult-project-or-challenge-you-faced-and-how-you-handled-it" class="headerlink" title="11. Tell me about a difficult project or challenge you faced and how you handled it."></a>11. Tell me about a difficult project or challenge you faced and how you handled it.</h2><ul>
+<li>same as 3  <!-- - **General approach**: Usually, I use the STAR method (Situation, Task, Action, Result) to explain how I overcame challenges. -->
+<!-- - **Personal experience**:
+  - **Situation**: I remember once we had to integrate a new payment system into our platform. But this system had
+    really complicated security requirements.
+  - **Task**: My job was to make sure the payment system was integrated seamlessly , and it should meet all
+    security standards.
+  - **Action**: I did a lot of research. I talked to the support team for the payment system and worked with
+    security experts to figure out the best way to integrate it. I dealt with all the tough parts of
+    authentication and encryption to keep everything safe.
+  - **Result**: Finally, I made it work, And because of it, virtual goods purchases increased by 30% as a result. -->
+</li>
+</ul>
+<h2 id="12-Share-a-time-when-you-made-a-mistake-in-a-team-setting-how-you-resolved-it-and-what-you-learned-from-the-experience"><a href="#12-Share-a-time-when-you-made-a-mistake-in-a-team-setting-how-you-resolved-it-and-what-you-learned-from-the-experience" class="headerlink" title="12. Share a time when you made a mistake in a team setting, how you resolved it, and what you learned from the experience."></a>12. Share a time when you made a mistake in a team setting, how you resolved it, and what you learned from the experience.</h2><!-- - **General approach**: Usually, I admit mistakes early, analyze the cause, fix it, and share lessons learned with the team. -->
+<ul>
+<li><strong>Personal experience</strong>:<ul>
+<li><strong>Situation</strong>: I remember once I made a mistake and let some sensitive user data show up in an API. It was a<br>security issue.</li>
+<li><strong>Task</strong>: I needed to quickly solve the problem to protect user data and make sure this kind of thing didn’t<br>happen again in the future.</li>
+<li><strong>Action</strong>: I took some actions to fix the security problem. I reproduced it in our local environment, I added checks and controls to limit data access<br>to those who could access the data. Then I held a meeting and made a presentation about this problem. and we<br>discussed how to prevent this kind of problem from happening again in the future.</li>
+<li><strong>Result</strong>: After that, I’m always careful about user data and always review my code before I push my code. our code review process became better and we added stricter security checks and more<br>reviews. </li>
+</ul>
+</li>
+</ul>
+<h2 id="13-Do-you-have-on-call-experience-and-are-you-comfortable-with-overnight-on-call-duties"><a href="#13-Do-you-have-on-call-experience-and-are-you-comfortable-with-overnight-on-call-duties" class="headerlink" title="13. Do you have on-call experience, and are you comfortable with overnight on-call duties?"></a>13. Do you have on-call experience, and are you comfortable with overnight on-call duties?</h2><!-- - **General approach**: Usually, I discuss my on - call experience or my willingness to handle stress and emergencies if I don’t have experience. -->
+<ul>
+<li><strong>Personal experience</strong>: this is very normal for me, I’m totally comfortable with overnight on-call duties. I<br>remember when I was at my REI, I was on call during busy times. and there was a problem with the database, I fixed<br>it quickly and got the service running again.</li>
+</ul>
+<h2 id="14-Do-you-know-what-pair-programming-is-and-what-are-your-thoughts-on-it"><a href="#14-Do-you-know-what-pair-programming-is-and-what-are-your-thoughts-on-it" class="headerlink" title="14. Do you know what pair programming is, and what are your thoughts on it?"></a>14. Do you know what pair programming is, and what are your thoughts on it?</h2><ul>
+<li>It’s like There are two developers and they are working together for tickets and they will share the idea to each other who is each other and they will learn something from each other.</li>
+<li>its advantages is like: <ul>
+<li>Good to learn from the leader and good for new members to get familiar with project</li>
+<li>Good to trigger new ideas, when you discuss, new ideas come out more often then you just think by yourself</li>
+</ul>
+</li>
+<li>and the disadvantage is like:<ul>
+<li>Bad: coding is very slow.</li>
+</ul>
+</li>
+<li>as for Work independent: I am experienced, so I can solve most of the tickets just by working on my own.</li>
+<li>But I also did pair programming with team members, like when we have Demo or Design meetings, or when I do knowledge transfer for some new team members, I do pair programming to help them.</li>
+</ul>
+<h2 id="15-If-you-are-mentoring-a-junior-colleague-and-they-propose-a-new-idea-to-the-team-how-would-you-handle-it"><a href="#15-If-you-are-mentoring-a-junior-colleague-and-they-propose-a-new-idea-to-the-team-how-would-you-handle-it" class="headerlink" title="15. If you are mentoring a junior colleague and they propose a new idea to the team, how would you handle it?"></a>15. If you are mentoring a junior colleague and they propose a new idea to the team, how would you handle it?</h2><ul>
+<li><strong>General approach</strong>: Usually, I listen to the idea, I think about it if it’s a good solution, and I help them<br>show it to the team.</li>
+<li><strong>Personal experience</strong>: I remember many years ago ,once I was mentoring a junior colleague ; and he came out with an idea that we should use a new API testing tool named postman to replace our old API tester,  I checked how it would work with our project, and and it’s much easier to<br>integrate into our CI/CD workflow. I encouraged them to show it to the team, and the team agreed to use the idea.as the result, it was very popular and we all like that very much</li>
+</ul>
+<h2 id="16-Describe-your-code-review-process-What-do-you-focus-on-during-a-code-review"><a href="#16-Describe-your-code-review-process-What-do-you-focus-on-during-a-code-review" class="headerlink" title="16. Describe your code review process. What do you focus on during a code review?"></a>16. Describe your code review process. What do you focus on during a code review?</h2><ul>
+<li><strong>General approach</strong>: Usually, I focus on making code easy to read, and check if it has security risk and some<br>performance problems, and make sure it follows our coding standards.<ul>
+<li>Syntax error</li>
+<li>Possible duplicate logic</li>
+<li>Method possibilities to split to reusable methods.</li>
+<li>Make sure having unit test that covers the part</li>
+<li>Check performance improvements, like try to improve the time and space complexity.</li>
+<li>Check performance, like try to use cache or eliminate duplicate database calls.</li>
+</ul>
+</li>
+<li><strong>Personal experience</strong>: For example, when I was doing a code review, I found variable names that were not clear,<br>or a security problem like some colleagues didn’t check the access permissions in their APIs, or some performance<br>issues like redundant for loops to search something. We fixed those things, and the code became better and more secure.</li>
+</ul>
+<h1 id="fulltime-job-BQs"><a href="#fulltime-job-BQs" class="headerlink" title="fulltime job BQs"></a>fulltime job BQs</h1><ul>
+<li>~ 宁可保守表达，也不要踩雷。很多时候，过于强调自己的“领导力”或“功劳”反而让 HM 产生反感。要多用“we”，少用“我一个人搞定”；强调合作，而不是独自英雄主义。</li>
+<li>~ 别一兴奋就一直说。面试是双向交流，不是演讲。说多了容易暴露短板、绕远路，反而让人觉得你控制力不足。</li>
+<li>~ 倾听，有时候比表达更关键。真正成熟的沟通，往往体现在你能否听懂对方的关注点，并围绕它精准回应。所以，当我们准备 Behavioral、HM 面 或系统设计时，不妨更多地从“对方角度”出发，理解他们在乎什么、担心什么、欣赏什么，而不是一味展示自己。</li>
+</ul>
+<p>下面是一些我碰到的面试问题：</p>
+<ul>
+<li>~ Tell me about a time you worked on a team project.</li>
+<li>~ If your boss tell you 1+1=3 and ask you to continue working on it. What would you do?</li>
+<li></li>
+<li>~ Describe a situation where you had to work with a difficult teammate.</li>
+<li>.</li>
+<li>~ How do you handle disagreements in a team?</li>
+<li>.google  и</li>
+<li>~ Give an example of how you contributed to a team’s success.</li>
+<li></li>
+<li>~ Tell me about a difficult problem you faced and how you solved it.</li>
+<li>-baidu 1point3acres</li>
+<li>~ How do you prioritize multiple tasks when deadlines are tight?</li>
+<li></li>
+<li>~ Tell me about a time you worked under significant pressure.. 1point 3 acres</li>
+<li></li>
+<li>~ Describe a time when you led a project or initiative.</li>
+<li></li>
+<li>~ How do you handle taking on responsibilities outside your job description?</li>
+<li></li>
+<li>~ What are you most proud of professionally?</li>
+<li></li>
+<li>~ Tell me about a time when you set and achieved a challenging goal.</li>
+</ul>
+<h1 id="Pilot-Training-Questions"><a href="#Pilot-Training-Questions" class="headerlink" title="Pilot Training Questions"></a>Pilot Training Questions</h1><h2 id="How-to-Answer-a-Corp-to-Corp-Vendor’s-Call"><a href="#How-to-Answer-a-Corp-to-Corp-Vendor’s-Call" class="headerlink" title="How to Answer a Corp-to-Corp Vendor’s Call?"></a>How to Answer a Corp-to-Corp Vendor’s Call?</h2><p>Vendor: May I talk with ZhangSan?</p>
+<blockquote>
+<p>You: Yes, this is ZhangSan. What can I do for you ?</p>
+</blockquote>
+<p>Vendor: Hi ZhangSan, how are you today?</p>
+<blockquote>
+<p>You: I’m good, thanks! How about you?</p>
+</blockquote>
+<p>Vendor: I’m [Name] from [Company]. Are you looking for a Java Developer/Full Stack Developer position?</p>
+<blockquote>
+<p>You: Yes! May I know if your position is a Corp to Corp (C2C) position?</p>
+</blockquote>
+<p>(If Vendor says “No, it’s W2”)</p>
+<blockquote>
+<p>You: Does your company have any Corp to Corp opportunities?<br>    •    If “No” → End the conversation: I have an employer and I’m only looking for C2C opportunities. Thanks for your time!<br>    •    If “Yes” → Continue the discussion</p>
+<p>You: Is this position remote or onsite?</p>
+</blockquote>
+<p>Vendor: It’s onsite.</p>
+<blockquote>
+<p>You: May I know the location?</p>
+</blockquote>
+<p>(If the location is your current city)</p>
+<blockquote>
+<p>You: I’m local to that area.</p>
+</blockquote>
+<p>(If relocation is needed)</p>
+<blockquote>
+<p>You: I have no problem with relocation.</p>
+</blockquote>
+<p>Vendor: What visa are you on?</p>
+<blockquote>
+<p>You: [Answer according to mock discussions]</p>
+</blockquote>
+<p>Vendor: What is your expected rate?</p>
+<blockquote>
+<p>You: The rate needs to be discussed with my employer.</p>
+</blockquote>
+<p>Vendor: Understood. I’ll send you the job description/RTR over email.</p>
+<p>(If Vendor does not mention email, you ask first)</p>
+<blockquote>
+<p>You: May I know if you have sent an email to my email ID?</p>
+</blockquote>
+<p>(If received, confirm)</p>
+<blockquote>
+<p>You: I received it. I will reply shortly. I will also provide my employer’s phone number and email ID, so please discuss the rate and send rate confirmation to them.</p>
+</blockquote>
+<p>(If not received, request it)</p>
+<blockquote>
+<p>You: Please send it over, and I will reply once I receive it. I will also provide my employer’s phone number and email ID for rate discussion.</p>
+</blockquote>
+<p>Email Follow-Up:<br>    •    If they need a Bench Sales Contact, you can provide:<br>This is my bench sales contact, Edward.<br>    •    Phone: 2017246910<br>    •    Email: jade@pilottechnologies.net</p>
+<h2 id="Leetcode"><a href="#Leetcode" class="headerlink" title="Leetcode"></a>Leetcode</h2><ul>
+<li>Arrays<ul>
+<li>Two sum: <a href="https://leetcode.com/problems/two-sum/description/" target="_blank" rel="noopener">https://leetcode.com/problems/two-sum/description/</a></li>
+<li>Contains Duplicate: <a href="https://leetcode.com/problems/contains-duplicate/description/" target="_blank" rel="noopener">https://leetcode.com/problems/contains-duplicate/description/</a></li>
+<li>Group Anagram: <a href="https://leetcode.com/problems/group-anagrams/description/" target="_blank" rel="noopener">https://leetcode.com/problems/group-anagrams/description/</a></li>
+<li>Best Time to Buy and Sell Stock: <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/" target="_blank" rel="noopener">https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/</a></li>
+<li>Top K Frequent Elements: <a href="https://leetcode.com/problems/top-k-frequent-elements/description/" target="_blank" rel="noopener">https://leetcode.com/problems/top-k-frequent-elements/description/</a></li>
+<li>Longest Consecutive Sequence: <a href="https://leetcode.com/problems/longest-consecutive-sequence/description/" target="_blank" rel="noopener">https://leetcode.com/problems/longest-consecutive-sequence/description/</a></li>
+</ul>
+</li>
+<li>Two Pointer<ul>
+<li>Valid Palindrome: <a href="https://leetcode.com/problems/valid-palindrome/description/" target="_blank" rel="noopener">https://leetcode.com/problems/valid-palindrome/description/</a></li>
+<li>3Sum: <a href="https://leetcode.com/problems/3sum/description/" target="_blank" rel="noopener">https://leetcode.com/problems/3sum/description/</a></li>
+</ul>
+</li>
+<li>Binary Search<ul>
+<li>Binary Search: <a href="https://leetcode.com/problems/binary-search/description/" target="_blank" rel="noopener">https://leetcode.com/problems/binary-search/description/</a></li>
+<li>Search in Rotated Sorted Array: <a href="https://leetcode.com/problems/search-in-rotated-sorted-array/description/" target="_blank" rel="noopener">https://leetcode.com/problems/search-in-rotated-sorted-array/description/</a></li>
+<li>Koko Eating Bananas: <a href="https://leetcode.com/problems/koko-eating-bananas/description/" target="_blank" rel="noopener">https://leetcode.com/problems/koko-eating-bananas/description/</a></li>
+</ul>
+</li>
+<li>Sliding Window<ul>
+<li>Longest Substring Without Repeating<br>Characters: <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/description/" target="_blank" rel="noopener">https://leetcode.com/problems/longest-substring-without-repeating-characters/description/</a></li>
+</ul>
+</li>
+<li>Linked List<ul>
+<li>Reverse Linked List: <a href="https://leetcode.com/problems/reverse-linked-list/description/" target="_blank" rel="noopener">https://leetcode.com/problems/reverse-linked-list/description/</a></li>
+<li>Merge Two Sorted Lists: <a href="https://leetcode.com/problems/merge-two-sorted-lists/description/" target="_blank" rel="noopener">https://leetcode.com/problems/merge-two-sorted-lists/description/</a></li>
+<li>Linked List Cycle: <a href="https://leetcode.com/problems/linked-list-cycle/description/" target="_blank" rel="noopener">https://leetcode.com/problems/linked-list-cycle/description/</a></li>
+<li>Copy List with Random Pointer: <a href="https://leetcode.com/problems/copy-list-with-random-pointer/description/" target="_blank" rel="noopener">https://leetcode.com/problems/copy-list-with-random-pointer/description/</a></li>
+</ul>
+</li>
+<li>Stack &amp; Queue<ul>
+<li>Valid Parentheses: <a href="https://leetcode.com/problems/valid-parentheses/description/" target="_blank" rel="noopener">https://leetcode.com/problems/valid-parentheses/description/</a></li>
+<li>Min Stack: <a href="https://leetcode.com/problems/min-stack/description/" target="_blank" rel="noopener">https://leetcode.com/problems/min-stack/description/</a></li>
+<li>Implement Queue using Stacks: <a href="https://leetcode.com/problems/implement-queue-using-stacks/description/" target="_blank" rel="noopener">https://leetcode.com/problems/implement-queue-using-stacks/description/</a></li>
+</ul>
+</li>
+<li>DFS &amp; BFS<ul>
+<li>Number of Islands: <a href="https://leetcode.com/problems/number-of-islands/description/" target="_blank" rel="noopener">https://leetcode.com/problems/number-of-islands/description/</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Rest-API"><a href="#Rest-API" class="headerlink" title="Rest API"></a>Rest API</h2><ul>
+<li>User Info<ul>
+<li>Given URL: <a href="https://jsonplaceholder.typicode.com/users" target="_blank" rel="noopener">https://jsonplaceholder.typicode.com/users</a></li>
+<li>You need to write a REST api to call the given URL and return a user with its “name, username, zipcode”</li>
+<li>for example, if user id is 1, you should return a JSON file with username “Bret”, email “Sincere@april.biz” and<br>zipcode “92998-3874”<ul>
+<li>HINT: use “Rest Template”</li>
+</ul>
+</li>
+<li>Result: OPEN a webbrowser and enter: <a href="http://localhost:8080/user/1" target="_blank" rel="noopener">http://localhost:8080/user/1</a> should return the correct result.</li>
+<li>Follow-up: id only 1-10, how to handle /user/11 → print in the page “Invalid ID”</li>
+<li>Solution</li>
+</ul>
+</li>
+<li>Movie<ul>
+<li><a href="https://jsonmock.hackerrank.com/api/movies/search/?Title=waterworld" target="_blank" rel="noopener">https://jsonmock.hackerrank.com/api/movies/search/?Title=waterworld</a></li>
+<li>GIVEN Above URL. Write a MVC with rest api to fetch this URL and then create new rest APIs to:<ul>
+<li>Show all movies</li>
+<li>Show all movies sort by year</li>
+<li>Fetch a particular movie based on its imdbID.</li>
+<li>Hint: have multiple pages</li>
+</ul>
+</li>
+<li>Solutions<ul>
+<li>look at this URL date, it has multiple pages, each page has 10 movies, we need to fetch all pages to get a<br>full list of movies and then filter to find the particular movie by imdbID</li>
+<li>each movie has Title, Year, imdbID three fields, we need to create a model to match them</li>
+<li>need org.json.simple to parse the json object from the given URL</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Build a POST API /greetings with below requirements<ul>
+<li>Create a POST API /greetings</li>
+<li>INPUT – json array: [{“name”:”john doe”, “work”: “engineer”}, {“name”:”jane who”, “work”: “manager”}]</li>
+<li>OUTPUT - json: {“data”: [“Hello john the engineer”, “Hello jane the manager”], “timestamp”: “$<br>{requested_timestamp}”</li>
+<li>Use postman to call the API and pass input, it should return the correct response.</li>
+</ul>
+</li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/na_backend_q_extra/" rel="next" title="Java backend Q extra">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Java backend Q extra
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/na_ft_real_q/" rel="prev" title="FT interview real Q">
+                <p class="post-nav-pre-next-title">
+                    FT interview real Q
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img width="800" height="600" loading="lazy" class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">289</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Education"><span class="nav-text">Education</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Self-Introduction"><span class="nav-text">Self - Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Work-Project-Summary"><span class="nav-text">Work/Project Summary</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#questions-about-your-resume"><span class="nav-text">questions about your resume</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Costco"><span class="nav-text">Costco</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-q"><span class="nav-text">simple q</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Developed-backend-microservices-with-Java-and-Spring-Boot-for-inventory-search-and-fulfillment"><span class="nav-text">1. Developed backend microservices with Java and Spring Boot for inventory, search, and fulfillment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Utilized-React-to-build-dynamic-component-based-UIs-for-supply-chain-workflows"><span class="nav-text">2. Utilized React to build dynamic, component-based UIs for supply chain workflows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Used-React-Hooks-Context-API-and-React-Router"><span class="nav-text">3. Used React Hooks, Context API, and React Router</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Designed-messaging-queues-with-Kafka-used-RabbitMQ-for-async-communication"><span class="nav-text">4. Designed messaging queues with Kafka, used RabbitMQ for async communication</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Integrated-Redux-Saga-to-manage-complex-async-workflows"><span class="nav-text">5. Integrated Redux-Saga to manage complex async workflows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Built-RESTful-API-endpoints-with-Node-js-for-procurement-systems"><span class="nav-text">6. Built RESTful API endpoints with Node.js for procurement systems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Collaborated-on-ML-inference-pipelines-using-SageMaker-Glue-S3-Step-Functions"><span class="nav-text">7. Collaborated on ML inference pipelines using SageMaker, Glue, S3, Step Functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Built-REST-APIs-with-Spring-Security-OAuth2-and-JWT"><span class="nav-text">8. Built REST APIs with Spring Security, OAuth2, and JWT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Integrated-Redis-and-optimized-SQL-Mongo-queries"><span class="nav-text">9. Integrated Redis and optimized SQL/Mongo queries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Used-Elasticsearch-and-circuit-breaker-patterns"><span class="nav-text">10. Used Elasticsearch and circuit breaker patterns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Wrote-unit-integration-tests-and-automated-CI-CD-with-Jenkins-Docker-K8s"><span class="nav-text">11. Wrote unit/integration tests and automated CI/CD with Jenkins, Docker, K8s</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AI"><span class="nav-text">AI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#What-is-ETL"><span class="nav-text">What is ETL?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Amazon-SageMaker"><span class="nav-text">Amazon SageMaker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AWS-Glue"><span class="nav-text">AWS Glue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Amazon-S3-Simple-Storage-Service"><span class="nav-text">Amazon S3 (Simple Storage Service)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AWS-Step-Functions"><span class="nav-text">AWS Step Functions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Amazon-API-Gateway"><span class="nav-text">Amazon API Gateway</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q1-ML-pipeline-架构与挑战"><span class="nav-text">Q1: ML pipeline 架构与挑战</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q2-模型版本管理与监控"><span class="nav-text">Q2: 模型版本管理与监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q3-实时推理集成与性能"><span class="nav-text">Q3: 实时推理集成与性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q4-AWS-Glue-和-ETL-流程"><span class="nav-text">Q4: AWS Glue 和 ETL 流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q5-与数据科学-业务协同"><span class="nav-text">Q5: 与数据科学/业务协同</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Robinhood"><span class="nav-text">Robinhood</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-q-1"><span class="nav-text">simple q</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Designed-and-developed-scalable-backend-services-using-Java-and-Spring-Boot-to-support-real-time-stock-trading"><span class="nav-text">1. Designed and developed scalable backend services using Java and Spring Boot to support real-time stock trading</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Built-and-maintained-microservices-for-user-portfolio-dashboards-and-market-data-feeds-delivering-sub-second-latency"><span class="nav-text">2. Built and maintained microservices for user portfolio dashboards and market data feeds, delivering sub-second latency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Implemented-React-and-Node-js-apps-for-trading-workflows-market-data-visualization-and-portfolio-tracking"><span class="nav-text">3. Implemented React and Node.js apps for trading workflows, market data visualization, and portfolio tracking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Deployed-backend-services-on-GCP-Compute-Engine-leveraging-auto-scaling-and-load-balancing"><span class="nav-text">4. Deployed backend services on GCP Compute Engine, leveraging auto-scaling and load balancing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Developed-real-time-data-pipelines-using-Apache-Kafka-for-quotes-and-executions"><span class="nav-text">5. Developed real-time data pipelines using Apache Kafka for quotes and executions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Built-secure-REST-APIs-with-Spring-Security-OAuth2-and-JWT"><span class="nav-text">6. Built secure REST APIs with Spring Security, OAuth2, and JWT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Optimized-PostgreSQL-and-Redis-for-fast-access-to-trading-and-market-data"><span class="nav-text">7. Optimized PostgreSQL and Redis for fast access to trading and market data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Automated-CI-CD-for-real-time-trading-services-using-Jenkins-Docker-Kubernetes"><span class="nav-text">8. Automated CI/CD for real-time trading services using Jenkins, Docker, Kubernetes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Monitored-trading-system-health-with-Prometheus-and-Grafana"><span class="nav-text">9. Monitored trading system health with Prometheus and Grafana</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netflix"><span class="nav-text">Netflix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#common-q"><span class="nav-text">common q</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adobe"><span class="nav-text">Adobe</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TOP-15-behavioral-questions"><span class="nav-text">TOP 15 behavioral questions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Why-did-you-leave-your-last-job"><span class="nav-text">1. Why did you leave your last job?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Describe-a-major-conflict-within-or-outside-your-team-and-how-you-handled-it-or-how-you-dealt-with-a-difficult-team-member"><span class="nav-text">2. Describe a major conflict within or outside your team and how you handled it, or how you dealt with a difficult team member.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Describe-a-time-when-you-had-difficulty-completing-a-task-or-making-progress"><span class="nav-text">3. Describe a time when you had difficulty completing a task or making progress.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-If-your-manager-asks-you-to-change-something-that-you-think-is-already-good-enough-how-would-you-handle-it"><span class="nav-text">4. If your manager asks you to change something that you think is already good enough, how would you handle it?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Why-do-you-want-to-join-our-team"><span class="nav-text">5. Why do you want to join our team?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Are-you-familiar-with-Agile-ˈaedʒ-ə-l-processes-and-Waterfall-methodology-ˌmeθəˈdɑːlədʒi"><span class="nav-text">6. Are you familiar with Agile / ˈædʒ(ə)l / processes and Waterfall methodology / ˌmeθəˈdɑːlədʒi /?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-What-does-a-typical-day-look-like-for-you"><span class="nav-text">7. What does a typical day look like for you?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-What-do-you-think-are-the-most-important-factors-for-a-successful-team"><span class="nav-text">8. What do you think are the most important factors for a successful team ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-If-you-are-working-on-a-sprint-and-your-manager-suddenly-assigns-you-a-new-task-that-needs-to-be-finished-as-soon-as-possible-what-would-you-do"><span class="nav-text">9. If you are working on a sprint and your manager suddenly assigns you a new task that needs to be finished as soon as possible, what would you do?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Tell-me-something-about-yourself-that-is-not-on-your-resume"><span class="nav-text">10. Tell me something about yourself that is not on your resume.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Tell-me-about-a-difficult-project-or-challenge-you-faced-and-how-you-handled-it"><span class="nav-text">11. Tell me about a difficult project or challenge you faced and how you handled it.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Share-a-time-when-you-made-a-mistake-in-a-team-setting-how-you-resolved-it-and-what-you-learned-from-the-experience"><span class="nav-text">12. Share a time when you made a mistake in a team setting, how you resolved it, and what you learned from the experience.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Do-you-have-on-call-experience-and-are-you-comfortable-with-overnight-on-call-duties"><span class="nav-text">13. Do you have on-call experience, and are you comfortable with overnight on-call duties?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Do-you-know-what-pair-programming-is-and-what-are-your-thoughts-on-it"><span class="nav-text">14. Do you know what pair programming is, and what are your thoughts on it?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-If-you-are-mentoring-a-junior-colleague-and-they-propose-a-new-idea-to-the-team-how-would-you-handle-it"><span class="nav-text">15. If you are mentoring a junior colleague and they propose a new idea to the team, how would you handle it?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-Describe-your-code-review-process-What-do-you-focus-on-during-a-code-review"><span class="nav-text">16. Describe your code review process. What do you focus on during a code review?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fulltime-job-BQs"><span class="nav-text">fulltime job BQs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pilot-Training-Questions"><span class="nav-text">Pilot Training Questions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-Answer-a-Corp-to-Corp-Vendor’s-Call"><span class="nav-text">How to Answer a Corp-to-Corp Vendor’s Call?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leetcode"><span class="nav-text">Leetcode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rest-API"><span class="nav-text">Rest API</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
