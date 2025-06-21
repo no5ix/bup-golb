@@ -1,0 +1,27 @@
+
+- "id": 451,
+    - "question": "What is micro frontend/ micro UI and how micro frontend communicate with each other",
+    - "answer": "<ol><li>micro frontend is just like microservcie in backend, it splits the frontend into multiple module based applications</li></ol><p>TO communicate</p><ol><li>Use parameter based URL to carry data</li><li>Use events, one module emit events, another module subscribe to the events</li><li>Use shared data store, like NgRx. </li></ol>",
+    - "keyword": "Angular",
+    - "frequency": 5,
+    - "top": true
+- "id": 30,
+    - "question": "Can you talk about CI/CD?",
+    - "answer": "<p>KeyPoints:</p><ol><li>CICD is continuous integration and continuous deployment. In the project, we usually use Jenkins with its pipeline scripts to implement CICD. </li><li>The script contains multiple parts. The `stages` parts list each stage and the steps inside. For example, stage one is `checkout` and steps in this stage are like using git clone to checkout the code from repository and then use maven to package it etc.  Another part of the script is `post` part which handles different result. For example, what to do when the build is success or failure, what to do when the test cases failed etc. </li><li>CICD usually starts from when the code is pushed to the target branch, and then it includes checkout and package the code, deploy the jar/war, run the test cases and send reports etc. It could cover from dev to QA/Staging environment, but usually does not cover production.</li></ol>",
+    - "keyword": "CICD",
+    - "frequency": 5,
+    - "top": true
+- "id": 235,
+    - "question": "How to use docker in the Spring Boot?",
+    - "answer": "<p>Docker is a container with flexible memory management and has dockerHub that you can upload or download images</p><p>To use with Spring boot, 1) include docker dependency 2) add a Dockerfile</p>",
+    - "keyword": "Docker",
+    - "frequency": 2,
+    - "top": true
+- "id": 298,
+    - "question": "Key Difference: Soap vs Rest",
+    - "answer": 
+        - **SOAP** is a protocol that defines a set of rules for structuring messages. It has strict standards and typically operates over HTTP but can also use other protocols like SMTP, FTP, etc.
+	    - **REST** is an architectural style that uses existing protocols (primarily HTTP) and is more flexible and lightweight. It focuses on resources and their representations.,
+    - "keyword": "Rest",
+    - "frequency": 0,
+    - "top": true
