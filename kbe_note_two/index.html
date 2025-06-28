@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'kbe服务端笔记(二)' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="KBE,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="FixedMessages：FixedMessages存储所有固定消息（有显示制定id的消息，当然，这并不表示非固定消息就没有id，也是有的，只是不是显示制定的）。    它的构造地方如下（lib/network/message_handler.cpp）：MessageHandlers::MessageHandlers():msgHandlers_(),msgID_(1),exposedMessa">
+<meta name="keywords" content="KBE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kbe服务端笔记(二)">
+<meta property="og:url" content="https://hulinhong.com/kbe_note_two/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="FixedMessages：FixedMessages存储所有固定消息（有显示制定id的消息，当然，这并不表示非固定消息就没有id，也是有的，只是不是显示制定的）。    它的构造地方如下（lib/network/message_handler.cpp）：MessageHandlers::MessageHandlers():msgHandlers_(),msgID_(1),exposedMessa">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-06-28T04:09:23.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kbe服务端笔记(二)">
+<meta name="twitter:description" content="FixedMessages：FixedMessages存储所有固定消息（有显示制定id的消息，当然，这并不表示非固定消息就没有id，也是有的，只是不是显示制定的）。    它的构造地方如下（lib/network/message_handler.cpp）：MessageHandlers::MessageHandlers():msgHandlers_(),msgID_(1),exposedMessa">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>kbe服务端笔记(二) | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/kbe_note_two/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kbe服务端笔记(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-29T23:59:38+00:00">
+                07-29-2017
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/KBE/" rel="tag"><i class="fa fa-tag"></i> KBE</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/unp_chapter_thirdteen_to_thirty_one_note_second_part/" rel="next" title="重读UNP（UNIX网络编程）13章到31章笔记整理（结合TLPI和APUE两书的笔记整理）(二)">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  重读UNP（UNIX网络编程）13章到31章笔记整理（结合TLPI和APUE两书的笔记整理）(二)
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/基于hexo的next个性化配置小技巧/" rel="prev" title="基于hexo的next个性化配置小技巧">
+              <p class="post-nav-pre-next-title">
+                  基于hexo的next个性化配置小技巧
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="FixedMessages："><a href="#FixedMessages：" class="headerlink" title="FixedMessages："></a><strong>FixedMessages：</strong></h1><p>FixedMessages存储所有固定消息（有显示制定id的消息，当然，这并不表示非固定消息就没有id，也是有的，只是不是显示制定的）。<br>    它的构造地方如下（lib/network/message_handler.cpp）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MessageHandlers::MessageHandlers():</span><br><span class="line">msgHandlers_(),</span><br><span class="line">msgID_(1),</span><br><span class="line">exposedMessages_()</span><br><span class="line">&#123;</span><br><span class="line">	g_fm = Network::FixedMessages::getSingletonPtr();</span><br><span class="line">	if(g_fm == NULL)</span><br><span class="line">		g_fm = newNetwork::FixedMessages;</span><br><span class="line"></span><br><span class="line">	Network::FixedMessages::getSingleton().loadConfig(&quot;server/messages_fixed.xml&quot;);</span><br><span class="line">	messageHandlers().push_back(this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>意即MessageHandlers构造的时候，如果它还没构造，那就构造。<br>它的初始化（配置）是由loadConfig接口来完成的，代码见上。</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="loginapp"><a href="#loginapp" class="headerlink" title="loginapp"></a><strong>loginapp</strong></h1><blockquote>
+<p>Loginapp组件主要用来处理账户登录/注册的业务</p>
+</blockquote>
+<h2 id="消息与handler映射的建立："><a href="#消息与handler映射的建立：" class="headerlink" title="消息与handler映射的建立："></a><strong>消息与handler映射的建立：</strong></h2><p>两次包含xxx_interface.h，实现声明和定义：<br>每个app组件的接口定义都在xxxapp_interface.cpp中开始，代码如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&quot;loginapp_interface.h&quot;</span><br><span class="line">#defineDEFINE_IN_INTERFACE</span><br><span class="line">#defineLOGINAPP</span><br><span class="line">#include&quot;loginapp_interface.h&quot;</span><br><span class="line"></span><br><span class="line">namespaceKBEngine&#123;</span><br><span class="line">namespaceLoginappInterface&#123;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所有的戏法都是通过包含loginapp_interface.h前后定义了DEFINE_IN_INTERFACE和LOGINAPP来完成的。第一次的包含就是各种变量，类的声明（当然也有一些类是声明类时使用类inline函数定义完成了，比如MESSAGE_ARGS0/1/2……）。<br>我们看看loginapp_interface.h中的代码：</p>
+<h2 id="消息与handlers的存储"><a href="#消息与handlers的存储" class="headerlink" title="消息与handlers的存储"></a><strong>消息与handlers的存储</strong></h2><p>首先是这一句：<br>NETWORK_INTERFACE_DECLARE_BEGIN(LoginappInterface)<br>此句展开的话声明和定义了Network::MessageHandlers messageHandlers（记住它们都在LoginappInterface命名空间内），展开宏之后的代码看起来像这样（是的，你的眼睛是好的，没有}闭合）：<br>声明：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">namespaceLoginappInterface &#123;</span><br><span class="line">extern Network::MessageHandlers messageHandlers;</span><br><span class="line">定义：</span><br><span class="line">namespaceLoginappInterface &#123;</span><br><span class="line">    Network::MessageHandlers messageHandlers;</span><br></pre></td></tr></table></figure></p>
+<h2 id="消息与handle建立映射"><a href="#消息与handle建立映射" class="headerlink" title="消息与handle建立映射"></a><strong>消息与handle建立映射</strong></h2><p>然后是这一句：<br><code>LOGINAPP_MESSAGE_DECLARE_ARGS0(importClientMessages,                            NETWORK_FIXED_MESSAGE)</code><br>此句展开的话分明声明和定义了一个importClientMessagesLoginappMessagehandler0的类，这个类继承自Network::MessageHandler，这里就是实现了handle的虚函数接口；声明和定义了importClientMessagesLoginappMessagehandler0的一个名为importClientMessages的全局变量；声明和定义了importClientMessagesArgs0的类，这个类继承自Network::MessageArgs。我们一个个地分析一下：<br>首先展开下面的宏：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LOGINAPP_MESSAGE_DECLARE_ARGS0(importClientMessages,							NETWORK_FIXED_MESSAGE)</span><br></pre></td></tr></table></figure></p>
+<p>之后是这样：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#defineLOGINAPP_MESSAGE_DECLARE_ARGS0(NAME, MSG_LENGTH)						\</span><br><span class="line">LOGINAPP_MESSAGE_HANDLER_ARGS0(NAME)										\</span><br><span class="line">NETWORK_MESSAGE_DECLARE_ARGS0(Loginapp, NAME,								\</span><br><span class="line">				NAME#LoginappMessagehandler0, MSG_LENGTH)</span><br><span class="line">展开LOGINAPP_MESSAGE_HANDLER_ARGS0(NAME)之后分别得到importClientMessagesLoginappMessagehandler0的声明和定义：</span><br><span class="line">声明：</span><br><span class="line">classimportClientMessagesLoginappMessagehandler0 : public Network::MessageHandler</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">virtualvoidhandle(Network::Channel* pChannel, KBEngine::MemoryStream&amp;s);</span><br><span class="line">&#125;;</span><br><span class="line">定义：</span><br><span class="line">voidimportClientMessagesLoginappMessagehandler0::handle(Network::Channel* pChannel, KBEngine::MemoryStream&amp;s)</span><br><span class="line">&#123;</span><br><span class="line">    KBEngine::Loginapp::getSingleton().importClientMessages(pChannel);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>（handle/handler，傻傻分不清楚。。。这里的handle是xxxApp中真正用来处理这个消息的接口，而这里的handler提供一个中间层的作用，集中处理一些通用的工作，可以将耦合减少一点）<br>上面完成了相当于是importClientMessages消息的handler的声明和定义，下面则将这个类实例化之后添加到messageHandlers：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#defineNETWORK_MESSAGE_DECLARE_ARGS0(DOMAIN, NAME, MSGHANDLER,		\</span><br><span class="line">											MSG_LENGTH)				\</span><br><span class="line">	NETWORK_MESSAGE_HANDLER(DOMAIN, NAME, MSGHANDLER, MSG_LENGTH, 0)\</span><br><span class="line">	MESSAGE_ARGS0(NAME)			</span><br><span class="line">										\</span><br></pre></td></tr></table></figure></p>
+<p>展开NETWORK_MESSAGE_HANDLER(DOMAIN, NAME, MSGHANDLER, MSG_LENGTH, 0)之后得到importClientMessages的handler类（importClientMessagesLoginappMessagehandler0）的名为importClientMessages的全局变量（不过欣慰的是他们都在各自的XXXInterface命名空间内）。<br>声明：<br><code>externconstimportClientMessagesLoginappMessagehandler0&amp;importClientMessages;</code></p>
+<p>定义：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">importClientMessagesLoginappMessagehandler0* pimportClientMessages  = static_cast&lt;importClientMessagesLoginappMessagehandler0*&gt;(messageHandlers.add(&quot;Loginapp::importClientMessages&quot;,new importClientMessagesArgs0, NETWORK_FIXED_MESSAGE, newimportClientMessagesLoginappMessagehandler0);</span><br><span class="line">constimportClientMessagesLoginappMessagehandler0&amp;importClientMessages = *pimportClientMessages;</span><br></pre></td></tr></table></figure></p>
+<p>下面的MESSAGE_ARGS0(NAME)展开后对importClientMessagesArgs0进行了声明和定义（其他它声明的时候就已经完成了全部的定义），声明的时候就是个空语句：<br>声明兼定义：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">classimportClientMessagesArgs0 : public Network::MessageArgs</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">importClientMessagesArgs0() :Network::MessageArgs() &#123;&#125;</span><br><span class="line">    ~importClientMessagesArgs0() &#123;&#125;</span><br><span class="line"></span><br><span class="line">staticvoidstaticAddToBundle(Network::Bundle&amp;s)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">staticvoidstaticAddToStream(MemoryStream&amp;s)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">virtual int32 dataSize(void)</span><br><span class="line">    &#123;</span><br><span class="line">return 0;</span><br><span class="line">    &#125;</span><br><span class="line">virtualvoidaddToStream(MemoryStream&amp;s)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">virtualvoidcreateFromStream(MemoryStream&amp;s)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>唯一需要小注意一下的就是importClientMessagesArgs0的声明（兼定义）是和importClientMessagesLoginappMessagehandler0的实例的声明和定义是错开的，因为后者实例化添加到messageHandlers的时候需要new一个importClientMessagesArgs0的实例。</p>
+<h2 id="流程的伪代码"><a href="#流程的伪代码" class="headerlink" title="流程的伪代码"></a><strong>流程的伪代码</strong></h2><pre><code>稍微整理一下之后，使用LOGINAPP_MESSAGE_HANDLER_ARGSn建立一个消息到handler的映射的代码很像是这样：
+声明：（第一次包含loginapp_interface.h产生的代码）
+</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">classimportClientMessagesLoginappMessagehandler0 : public Network::MessageHandler</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">virtualvoidhandle(Network::Channel* pChannel, KBEngine::MemoryStream&amp;s);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">externconstimportClientMessagesLoginappMessagehandler0&amp;importClientMessages;</span><br><span class="line"></span><br><span class="line">classimportClientMessagesArgs0 : public Network::MessageArgs</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">importClientMessagesArgs0() :Network::MessageArgs() &#123;&#125;</span><br><span class="line">    ~importClientMessagesArgs0() &#123;&#125;</span><br><span class="line"></span><br><span class="line">staticvoidstaticAddToBundle(Network::Bundle&amp;s)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">staticvoidstaticAddToStream(MemoryStream&amp;s)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">virtual int32 dataSize(void)</span><br><span class="line">    &#123;</span><br><span class="line">return 0;</span><br><span class="line">    &#125;</span><br><span class="line">virtualvoidaddToStream(MemoryStream&amp;s)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">virtualvoidcreateFromStream(MemoryStream&amp;s)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code>定义：（定义DEFINE_IN_INTERFACE和LOGINAPP之后第二次包含loginapp_interface.h产生的代码）
+</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">voidimportClientMessagesLoginappMessagehandler0::handle(Network::Channel* pChannel, KBEngine::MemoryStream&amp;s)</span><br><span class="line">&#123;</span><br><span class="line">    KBEngine::Loginapp::getSingleton().importClientMessages(pChannel);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">importClientMessagesLoginappMessagehandler0* pimportClientMessages </span><br><span class="line">= static_cast&lt;importClientMessagesLoginappMessagehandler0*&gt;(messageHandlers.add(&quot;Loginapp::importClientMessages&quot;,</span><br><span class="line">newimportClientMessagesArgs0,</span><br><span class="line">                                                                                  NETWORK_FIXED_MESSAGE,</span><br><span class="line">newimportClientMessagesLoginappMessagehandler0);</span><br><span class="line">constimportClientMessagesLoginappMessagehandler0&amp;importClientMessages = *pimportClientMessages;</span><br></pre></td></tr></table></figure>
+<h2 id="消息id：固定消息与非固定消息"><a href="#消息id：固定消息与非固定消息" class="headerlink" title="消息id：固定消息与非固定消息"></a><strong>消息id：固定消息与非固定消息</strong></h2><p>要接着v0.0.3的分析继续写，回过头来要看之前写的东西说实话自己都有点难以理解。。。不过出于幸运或者努力，总算是看懂了;-(，读源代码（感觉特别是C++）本来就不是件容易的事，所以读源代码一定要做好长期战斗的准备。<br>上面我们分析到了，其实一个消息，就是由这样一个宏来和它的handle建立链接的：<br>LOGINAPP_MESSAGE_DECLARE_ARGS0(importClientMessages,    NETWORK_FIXED_MESSAGE)<br>通过上面的分析，我们得知，实际上建立消息和handle映射，起到核心作用的接口是messageHandlers.add(xxx, xxxx)，所以我们跟进去看看（lib/network/message_handler.cpp）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MessageHandler* MessageHandlers::add(std::stringihName, MessageArgs* args, </span><br><span class="line">	int32msgLen, MessageHandler* msgHandler)</span><br><span class="line">&#123;</span><br><span class="line">	if(msgID_ == 1)</span><br><span class="line">	&#123;</span><br><span class="line">		//printf(&quot;\n------------------------------------------------------------------\n&quot;);</span><br><span class="line">		//printf(&quot;KBEMessage_handlers begin:\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//bool isfixedMsg = false;</span><br><span class="line"></span><br><span class="line">	FixedMessages::MSGInfo* msgInfo = FixedMessages::getSingleton().isFixed(ihName.c_str());</span><br><span class="line">	if(msgInfo == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		while(true)</span><br><span class="line">		&#123;</span><br><span class="line">			if(FixedMessages::getSingleton().isFixed(msgID_))</span><br><span class="line">			&#123;</span><br><span class="line">				msgID_++;</span><br><span class="line">				//isfixedMsg = true;</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">			&#123;</span><br><span class="line">				break;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		msgHandler-&gt;msgID = msgID_++;</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		msgHandler-&gt;msgID = msgInfo-&gt;msgid;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	msgHandler-&gt;name = ihName;					</span><br><span class="line">	msgHandler-&gt;pArgs = args;</span><br><span class="line">	msgHandler-&gt;msgLen = msgLen;	</span><br><span class="line">	msgHandler-&gt;exposed = false;</span><br><span class="line">	msgHandler-&gt;pMessageHandlers = this;</span><br><span class="line">	msgHandler-&gt;onInstall();</span><br><span class="line"></span><br><span class="line">	msgHandlers_[msgHandler-&gt;msgID] = msgHandler;</span><br><span class="line">	</span><br><span class="line">	if(msgLen == NETWORK_VARIABLE_MESSAGE)</span><br><span class="line">	&#123;</span><br><span class="line">		//printf(&quot;\tMessageHandlers::add(%d): name=%s, msgID=%d, size=Variable.\n&quot;, </span><br><span class="line">		//	(int32)msgHandlers_.size(), ihName.c_str(), msgHandler-&gt;msgID);</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		if(msgLen == 0)</span><br><span class="line">		&#123;</span><br><span class="line">			msgHandler-&gt;msgLen = args-&gt;dataSize();</span><br><span class="line"></span><br><span class="line">			if(msgHandler-&gt;type() == NETWORK_MESSAGE_TYPE_ENTITY)</span><br><span class="line">			&#123;</span><br><span class="line">				msgHandler-&gt;msgLen += sizeof(ENTITY_ID);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		//printf(&quot;\tMessageHandlers::add(%d): name=%s, msgID=%d, size=Fixed(%d).\n&quot;, </span><br><span class="line">		//		(int32)msgHandlers_.size(), ihName.c_str(), msgHandler-&gt;msgID, msgHandler-&gt;msgLen);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//if(isfixedMsg)</span><br><span class="line">	//	printf(&quot;\t\t!!!message is fixed.!!!\n&quot;);</span><br><span class="line"></span><br><span class="line">	returnmsgHandler;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>大意可以理解为，首先看看消息名称是不是一个固定消息，我们跟进去看看（lib/network/fixed_messages.cpp）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FixedMessages::MSGInfo* FixedMessages::isFixed(constchar* msgName)</span><br><span class="line">&#123;</span><br><span class="line">	MSGINFO_MAP::iteratoriter = _infomap.find(msgName);</span><br><span class="line">	if(iter != _infomap.end())</span><br><span class="line">	&#123;</span><br><span class="line">		MSGInfo* infos = &amp;iter-&gt;second;</span><br><span class="line">		returninfos;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	returnNULL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//-------------------------------------------------------------------------------------</span><br><span class="line">boolFixedMessages::isFixed(MessageIDmsgid)</span><br><span class="line">&#123;</span><br><span class="line">	MSGINFO_MAP::iteratoriter = _infomap.begin();</span><br><span class="line">	while (iter != _infomap.end())</span><br><span class="line">	&#123;</span><br><span class="line">		FixedMessages::MSGInfo&amp;infos = iter-&gt;second;</span><br><span class="line">		if(infos.msgid == msgid)</span><br><span class="line">			returntrue;</span><br><span class="line"></span><br><span class="line">		++iter;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	returnfalse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="固定消息"><a href="#固定消息" class="headerlink" title="固定消息"></a><strong>固定消息</strong></h2><p>通过通读FixedMessages（fixed_message.h/.cpp）可以看到这个_infomap是在loadConfig中建立的，这个_infomap就是所谓的固定消息（fixed message）与其id的映射表。loadConfig就是检视server/messages_fixed.xml，将其中的消息名称与其id关联建立这个映射表。我们继续接着看MessageHandlers::add接口。</p>
+<h2 id="非固定消息"><a href="#非固定消息" class="headerlink" title="非固定消息"></a><strong>非固定消息</strong></h2><p>对于isFixed为假的消息（非固定消息），则为其生成一个id（随着调用add的次序依次递增），这个id是在MessageHandlers类中唯一的，而每个组件的MessageHandlers又是处于自己的命名空间内，所以当出现某个组件的非固定消息时，则会为其生成单一组件内唯一的id（但这个id并不是所有组件内唯一的）。于是可能出现这种情况，Loginapp::xxxx与Dbmgr::yyyy都是非固定消息，但他们却有着同样的消息id，此时若有其他组件发送其中任一消息给其他组件，接受消息的组件将无法识别到底是Loginapp::xxxx或者是Dbmgr::yyyy。当然，只要我们将非固定消息发送给所属的组件，则不会有问题（上例中任何组件将Loginapp::xxxx发送给loginapp都是不会出乱子的）。</p>
+<h1 id="dbmgr"><a href="#dbmgr" class="headerlink" title="dbmgr"></a><strong>dbmgr</strong></h1><blockquote>
+<p>dbmgr组件主要负责数据库相关的事务，比如：账户登录/注册事务；账户充值</p>
+</blockquote>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/KBE/" rel="tag"><i class="fa fa-tag"></i> KBE</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/unp_chapter_thirdteen_to_thirty_one_note_second_part/" rel="next" title="重读UNP（UNIX网络编程）13章到31章笔记整理（结合TLPI和APUE两书的笔记整理）(二)">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    重读UNP（UNIX网络编程）13章到31章笔记整理（结合TLPI和APUE两书的笔记整理）(二)
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/基于hexo的next个性化配置小技巧/" rel="prev" title="基于hexo的next个性化配置小技巧">
+                <p class="post-nav-pre-next-title">
+                    基于hexo的next个性化配置小技巧
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img width="800" height="600" loading="lazy" class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">290</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FixedMessages："><span class="nav-text">FixedMessages：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#loginapp"><span class="nav-text">loginapp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息与handler映射的建立："><span class="nav-text">消息与handler映射的建立：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息与handlers的存储"><span class="nav-text">消息与handlers的存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息与handle建立映射"><span class="nav-text">消息与handle建立映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程的伪代码"><span class="nav-text">流程的伪代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息id：固定消息与非固定消息"><span class="nav-text">消息id：固定消息与非固定消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#固定消息"><span class="nav-text">固定消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非固定消息"><span class="nav-text">非固定消息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dbmgr"><span class="nav-text">dbmgr</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
