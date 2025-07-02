@@ -1,0 +1,405 @@
+/* Flashcards Styles */
+.flashcard-btn {
+  margin-left: 5px;
+  color: #b3b3b3;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.flashcard-btn:hover {
+  color: var(--text-color);
+}
+/* Styles for the modal overlay (background) */
+.flashcard-modal {
+  display: flex; /* JS will toggle display none/flex */
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.85);
+  z-index: 3000;
+  overflow-y: auto;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+/* --- Animation properties for MODAL OVERLAY (fade-in/out) --- */
+  opacity: 0;
+  visibility: hidden;
+/* Transition for opacity and visibility */
+/* visibility changes after opacity transition to prevent interaction during fade-out */
+  transition: opacity 0.25s ease-out, visibility 0s linear 0.25s;
+}
+/* When modal overlay becomes visible */
+.flashcard-modal.modal-visible {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s; /* Ensure opacity/visibility apply immediately */
+}
+/* Styles for the flashcard panel (content area) */
+.flashcard-container {
+  position: relative;
+  width: 80%;
+  height: 75%;
+  max-width: 900px;
+  min-height: 450px;
+  max-height: 90vh;
+  background-color: var(--body-bg-color);
+  border-radius: 1rem;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+/* --- Animation properties for PANEL (zoom-in/out) --- */
+  opacity: 0; /* Start transparent */
+  transform: scale(0.85); /* Start scaled down */
+/* Transition for opacity and transform */
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  word-break: break-word;
+}
+/* When the modal is visible, the container animates to its final state */
+.flashcard-modal.modal-visible .flashcard-container {
+  opacity: 1; /* Fade in */
+  transform: scale(1); /* Zoom to normal size */
+}
+.flashcard.is-sliding-no-transition {
+  transition: none !important;
+}
+.flashcard.slide-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.flashcard.slide-out-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.flashcard-front {
+  display: flex;
+  flex-direction: column; /* Changed to column to allow positioning of title and icon */
+  align-items: center;
+  justify-content: center; /* This will center the h2 title vertically */
+  text-align: center;
+  position: relative; /* Needed for absolute positioning of the hint icon */
+/* Ensure padding is still applied if it was here before, or on .flashcard-front, .flashcard- */
+}
+.flashcard-front h2 {
+  margin: 0;
+  font-size: 1.8em;
+  color: var(--bold-text-color);
+/* If you want the h2 to take up most space and hint icon at bottom,
+     you might need to adjust flex properties or use margin-bottom on h2 */
+}
+.flashcard-hint-icon {
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  font-size: 2em;
+  color: var(--text-color);
+  opacity: 0.7; /* Slightly transparent to be less obtrusive */
+  cursor: help;
+  padding: 0 2px;
+}
+.flashcard-hint-icon:hover {
+  opacity: 1;
+}
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+.flashcard.flipped .flashcard-front {
+  transform: rotateY(180deg);
+}
+.flashcard.flipped .flashcard-back {
+  transform: rotateY(0);
+}
+.card-counter-container {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: var(--text-color);
+  text-align: center;
+}
+.flashcard-jump-input {
+  width: 35px;
+  padding: 6px 8px;
+  margin-right: 8px;
+  border: 1px solid var(--table-border-color);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 12px;
+  background-color: var(--content-bg-color);
+  color: var(--text-color);
+  -moz-appearance: textfield;
+}
+.flashcard-jump-input::-webkit-outer-spin-button,
+.flashcard-jump-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#card-counter-total {
+  min-width: 40px;
+}
+/* View common styles and transitions */
+.fc-view {
+  position: absolute;
+  top: 25px;
+  bottom: 25px;
+  left: 25px;
+  right: 25px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.fc-view.view-hidden {
+  display: none !important;
+  opacity: 0;
+}
+.fc-view.view-prep-left {
+  transform: translateX(-100%);
+  opacity: 0;
+  display: flex !important;
+}
+.fc-view.view-prep-right {
+  transform: translateX(100%);
+  opacity: 0;
+  display: flex !important;
+}
+.fc-view.view-active {
+  transform: translateX(0%);
+  opacity: 1;
+  display: flex !important;
+}
+.fc-view.view-sliding-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.fc-view.view-sliding-out-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+/* H1 Selection View */
+.h1-list-ul {
+  list-style: none;
+  padding: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+#h1-selection-view .h1-list-ul {
+  margin-top: 50px;
+}
+#card-menu-view .h1-list-ul {
+  margin-top: 0px;
+}
+.cards-index {
+  font-size: 0.6em;
+  opacity: 0.6;
+}
+.h1-list-item {
+  background-color: var(--tag-cloud-a-bg-color);
+  color: var(--text-color);
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+/* border: 1px solid var(--table-border-color); */
+  font-size: 1em;
+  font-weight: 500;
+}
+.h1-list-item:hover {
+  background-color: var(--tag-cloud-a-bg-hover-color);
+}
+.flashcard-back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: var(--toc-link-color);
+  color: var(--selection-color);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.flashcard-back-btn:hover {
+  background-color: var(--link-hover-color);
+}
+.flashcard-content-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.flashcard-header-info {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 5px 0 25px 0;
+/* padding: 0 50px; */
+  padding: 0 50px 0 55px;
+  flex-wrap: wrap;
+}
+.card-counter-display {
+  font-size: 11px;
+  color: var(--text-color);
+  white-space: nowrap;
+  flex-shrink: 1;
+  margin: 0 10px;
+  opacity: 0.7;
+}
+.flashcard-front .card-counter-display {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  margin: 0; /* Override default margin if it was for flex layout */
+}
+.flashcard-current-h1-title {
+  font-size: 13px;
+  color: var(--text-color);
+  flex-shrink: 1;
+  font-weight: 500;
+  opacity: 0.8;
+}
+.flashcard {
+  width: 100%;
+  flex-grow: 1;
+  perspective: 1000px;
+  cursor: pointer;
+  position: relative;
+  min-height: 200px;
+  transition: transform 0.15s cubic-bezier(0.15, 0.8, 0.25, 1), opacity 0.15s ease;
+}
+.flashcard-front,
+.flashcard-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.7s;
+  overflow-y: auto;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  padding: 25px;
+  box-sizing: border-box;
+  background-color: var(--content-bg-color);
+  color: var(--text-color);
+}
+.flashcard-navigation {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  flex-shrink: 0;
+}
+.flashcard-nav-btn {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  text-align: center;
+  background-color: var(--toc-link-color);
+  color: var(--selection-color);
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 900;
+  transition: background-color 0.3s, transform 0.1s, border 0.3s, box-shadow 0.3s;
+  width: 40px;
+  height: 40px;
+}
+.flashcard-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.flashcard-nav-btn i {
+  font-size: 1.1em;
+}
+/* Shuffle button active state */
+.flashcard-nav-btn.shuffle-active {
+  background-color: var(--link-hover-color);
+}
+.flashcard-nav-btn.auto-read-active {
+  background-color: var(--link-hover-color);
+}
+@media (hover: hover) and (pointer: fine) {
+  .flashcard-nav-btn:hover:not(:disabled) {
+    background-color: var(--link-hover-color);
+    transform: translateY(-1px);
+  }
+  .flashcard-nav-btn.shuffle-active:hover:not(:disabled) {
+    background-color: var(--link-hover-color);
+  }
+  .flashcard-nav-btn.auto-read-active:hover:not(:disabled) {
+    background-color: var(--link-hover-color);
+  }
+}
+.flashcard-nav-btn:active:not(:disabled) {
+  background-color: var(--link-hover-color);
+  transform: translateY(-1px);
+}
+.flashcard-nav-btn.shuffle-active:active:not(:disabled) {
+  background-color: var(--link-hover-color);
+}
+.flashcard-nav-btn.auto-read-active:active:not(:disabled) {
+  background-color: var(--link-hover-color);
+}
+.close-flashcard {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  color: var(--selection-color);
+  background-color: var(--toc-link-color);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+/* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); */
+  transition: background-color 0.3s, transform 0.2s;
+  border: none;
+  outline: none;
+}
+.close-flashcard:hover {
+  background-color: #ff3547;
+  transform: scale(1.1);
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .flashcard-container {
+    width: 90%;
+    margin: 2vh;
+    max-height: 96vh;
+  }
+  .flashcard-front h2 {
+    font-size: 1.5em;
+  }
+  .h1-list-item {
+    font-size: 1em;
+    padding: 12px 15px;
+  }
+}
