@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('mmp'){
+            let localStoragePasswdKey = 'Beautiful English Sentences' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'mmp') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'mmp') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="English,Noodle,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="Approach你目前的英语基础已经相当扎实：词汇量大、听力强，目标是提升口语表达流利度，尤其是在面试、工作和生活场景中能脱口而出。你现在的关键问题是：“开口说”的输出能力还不够自如。 下面是一个针对程序员短期提升英语口语的高效实用方案，目标是2–3个月内达到“流畅表达”的状态：  明确目标场景：聚焦“口语输出”的实际场景你只需专注三个高频应用场景：  面试表达（自我介绍、项目讲解、STAR 面试">
+<meta name="keywords" content="English,Noodle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Beautiful English Sentences">
+<meta property="og:url" content="https://hulinhong.com/beautiful_english_sentences/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="Approach你目前的英语基础已经相当扎实：词汇量大、听力强，目标是提升口语表达流利度，尤其是在面试、工作和生活场景中能脱口而出。你现在的关键问题是：“开口说”的输出能力还不够自如。 下面是一个针对程序员短期提升英语口语的高效实用方案，目标是2–3个月内达到“流畅表达”的状态：  明确目标场景：聚焦“口语输出”的实际场景你只需专注三个高频应用场景：  面试表达（自我介绍、项目讲解、STAR 面试">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-07-09T06:38:46.685Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Beautiful English Sentences">
+<meta name="twitter:description" content="Approach你目前的英语基础已经相当扎实：词汇量大、听力强，目标是提升口语表达流利度，尤其是在面试、工作和生活场景中能脱口而出。你现在的关键问题是：“开口说”的输出能力还不够自如。 下面是一个针对程序员短期提升英语口语的高效实用方案，目标是2–3个月内达到“流畅表达”的状态：  明确目标场景：聚焦“口语输出”的实际场景你只需专注三个高频应用场景：  面试表达（自我介绍、项目讲解、STAR 面试">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Beautiful English Sentences | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/beautiful_english_sentences/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Beautiful English Sentences</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-19T00:33:15+00:00">
+                04-19-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+              
+                <a href="/tags/Noodle/" rel="tag"><i class="fa fa-tag"></i> Noodle</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/MySQL入门三之GroupBy/" rel="next" title="MySQL入门三之GroupBy">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  MySQL入门三之GroupBy
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/multi_thread_dev_base_concept/" rel="prev" title="多线程开发的一些基本概念">
+              <p class="post-nav-pre-next-title">
+                  多线程开发的一些基本概念
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h1><p>你目前的英语基础已经相当扎实：词汇量大、听力强，目标是<strong>提升口语表达流利度，尤其是在面试、工作和生活场景中能脱口而出</strong>。你现在的关键问题是：<strong>“开口说”的输出能力还不够自如。</strong></p>
+<p>下面是一个<strong>针对程序员短期提升英语口语的高效实用方案</strong>，目标是<strong>2–3个月内达到“流畅表达”的状态</strong>：</p>
+<hr>
+<h2 id="明确目标场景：聚焦“口语输出”的实际场景"><a href="#明确目标场景：聚焦“口语输出”的实际场景" class="headerlink" title="明确目标场景：聚焦“口语输出”的实际场景"></a>明确目标场景：聚焦“口语输出”的实际场景</h2><p>你只需专注三个高频应用场景：</p>
+<ul>
+<li><strong>面试表达</strong>（自我介绍、项目讲解、STAR 面试）</li>
+<li><strong>工作沟通</strong>（开会、提问、表达观点、技术交流）</li>
+<li><strong>生活交流</strong>（打招呼、问路、点餐、租房等）</li>
+</ul>
+<hr>
+<h2 id="每日训练任务（建议每天-60-分钟）"><a href="#每日训练任务（建议每天-60-分钟）" class="headerlink" title="每日训练任务（建议每天 60 分钟）"></a>每日训练任务（建议每天 60 分钟）</h2><h3 id="模仿输出训练法"><a href="#模仿输出训练法" class="headerlink" title="模仿输出训练法"></a>模仿输出训练法</h3><blockquote>
+<p>用 Bilibili / YouTube 视频，挑选**一小段（1–2 分钟）**你想模仿的原声材料，反复模仿，直到脱口而出。</p>
+</blockquote>
+<p>推荐材料：</p>
+<ul>
+<li>短视频场景：短视频的美国人表达观点/说故事/对话, 特别推荐B站Up主邵艾伦的<a href="https://space.bilibili.com/4029133/lists/22544?type=season" target="_blank" rel="noopener">国际尬聊系列</a> </li>
+<li>面试场景：YouTube 搜索 <code>job interview mock</code>、<code>Amazon behavioral interview</code></li>
+<li>美剧场景：《Friends》（生活场景表达最自然, 建议模仿Joy/Rachel）、《The Office》（职场表达）、《Suits》（更高级职场）</li>
+</ul>
+<p>操作步骤（Shadowing 训练法）：</p>
+<ul>
+<li>找一个B站Up主邵艾伦的国际尬聊系列视频, 挑其中3分钟出来</li>
+<li>先遮挡字幕, 看几遍看到自己不可能再听懂更多为止, 练一波自己的听力</li>
+<li><strong>然后看着字幕听一句，暂停，模仿一句</strong></li>
+<li><strong>重复3–5次</strong>，直到你能“边听边说”</li>
+<li>最后尝试<strong>关闭字幕复述一遍</strong></li>
+</ul>
+<h3 id="话题输出训练"><a href="#话题输出训练" class="headerlink" title="话题输出训练"></a>话题输出训练</h3><p>让AI给3个话题来运用<code>语块</code>练习, 比如问豆包: “给 3 个有故事的图片方便我用以下三个语块来描述也给我三个参考答案：There was this one time when…，和I’ll never forget the time when 和What happened was…”</p>
+<p>然后根据这三幅图来和豆包聊天, 并让他纠错.</p>
+<p>每天积累和复习 3–5 个“口头表达块”, 例：</p>
+<ul>
+<li>面试中表达责任：“I was responsible for… / I took the lead on…”</li>
+<li>技术场景过渡句：“We ran into a bottleneck with… / To optimize the performance, we…”</li>
+<li>表达想法：“From my perspective… / I believe it’s critical that…”</li>
+</ul>
+<p>这些“表达块”比单词更重要，是实际口语的“砖块”。</p>
+<hr>
+<h2 id="推荐辅助工具"><a href="#推荐辅助工具" class="headerlink" title="推荐辅助工具"></a>推荐辅助工具</h2><ul>
+<li><strong>AI 英语陪练</strong>：使用 豆包(最推荐豆包, 他有自带的英语练习打电话功能, 或者ChatGPT、Speak、ELSA 等工具)，与 AI 做 10 分钟模拟面试或日常对话。</li>
+<li><strong>复述练习工具</strong>：用 <a href="https://youglish.com/" target="_blank" rel="noopener">YouGlish.com</a> 查一个短语，模仿多位母语者的用法。</li>
+<li><strong>录音自检</strong>：每天录一次 1–2 分钟的口语表达（比如讲项目或讲一部美剧情节），对照母语表达做比较。</li>
+</ul>
+<hr>
+<h1 id="Plan"><a href="#Plan" class="headerlink" title="Plan"></a>Plan</h1><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>W (50min)</th>
+<th>H (120min)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>周一至周六白天</td>
+<td>读top500句10分钟 + 用3个生活类语块造句10分钟 + 和豆包打电话运用语块10分钟</td>
+<td>用3个生活类语块造句10分钟(做饭前) + 和豆包打电话运用语块20分钟(做饭时) + 算法讲解10分钟(排便时) + 读top500句10分钟(排便时) + 找美国人说话类短视频模仿20分钟(排便时)</td>
+</tr>
+<tr>
+<td>周一至周六晚上</td>
+<td>找美国人说话类短视频模仿20分钟</td>
+<td>读行为面试10分钟 + 找美国人面试视频模仿20分钟 + 用3个面试类语块造句10分钟</td>
+</tr>
+<tr>
+<td>周日</td>
+<td>用本周所学来生活对话(情景对话 + 说故事 + 表达观点)</td>
+<td>模拟面试 + 用本周所学来生活对话(情景对话 + 说故事 + 表达观点)</td>
+</tr>
+<tr>
+<td>打卡</td>
+<td>录音上传 Ximalaya + 征服梵音群打卡</td>
+<td>录音上传 Ximalaya + 征服梵音群打卡 + 录屏上传bilibili(可选)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="生活语块1-25"><a href="#生活语块1-25" class="headerlink" title="生活语块1~25"></a>生活语块1~25</h1><ol>
+<li><p><strong>There was this one time when…</strong></p>
+<ul>
+<li>I ran into my teacher at a bar.</li>
+<li>I almost missed my flight because I overslept.</li>
+<li>🎤 录音练习：用这个语块讲一个你感到惊讶的瞬间。</li>
+</ul>
+</li>
+<li><p><strong>I’ll never forget the time when…</strong></p>
+<ul>
+<li>We went hiking in the snow without proper gear.</li>
+<li>I met my favorite actor at the airport.</li>
+<li>🎤 录音练习：描述一次特别难忘的旅行经历。</li>
+</ul>
+</li>
+<li><p><strong>What happened was…</strong></p>
+<ul>
+<li>I thought today was Friday, but it was Thursday.</li>
+<li>My phone died just when I needed to call Uber.</li>
+<li>🎤 录音练习：用这个语块描述一次你出错的经历。</li>
+</ul>
+</li>
+<li><p><strong>To be honest with you…</strong></p>
+<ul>
+<li>I didn’t enjoy that movie as much as I expected.</li>
+<li>I don’t really like small talk.</li>
+<li>🎤 录音练习：表达一个你真实但不太常说的想法。</li>
+</ul>
+</li>
+<li><p><strong>The funny thing is…</strong></p>
+<ul>
+<li>I didn’t even realize I was on mute.</li>
+<li>We ended up eating dessert before dinner.</li>
+<li>🎤 录音练习：分享一个有趣的尴尬瞬间。</li>
+</ul>
+</li>
+<li><p><strong>I’m trying to figure out…</strong></p>
+<ul>
+<li>I’m trying to figure out how to fix my laptop.</li>
+<li>I’m trying to figure out where I left my keys.</li>
+<li>🎤 录音练习：描述你目前在解决的一个问题。</li>
+</ul>
+</li>
+<li><p><strong>I’m not really sure, but…</strong></p>
+<ul>
+<li>I’m not really sure, but I think the meeting is at 3 PM.</li>
+<li>I’m not really sure, but it might rain later.</li>
+<li>🎤 录音练习：用这个表达对未来的猜测。</li>
+</ul>
+</li>
+<li><p><strong>One thing I’ve noticed is that…</strong></p>
+<ul>
+<li>One thing I’ve noticed is that people are more friendly here.</li>
+<li>One thing I’ve noticed is that traffic gets worse in the evening.</li>
+<li>🎤 录音练习：描述你观察到的一个现象。</li>
+</ul>
+</li>
+<li><p><strong>It feels like…</strong></p>
+<ul>
+<li>It feels like summer is coming early this year.</li>
+<li>It feels like everyone is stressed these days.</li>
+<li>🎤 录音练习：用这个语块表达你的感受。</li>
+</ul>
+</li>
+<li><p><strong>I was just about to…</strong></p>
+<ul>
+<li>I was just about to call you.</li>
+<li>I was just about to leave the house.</li>
+<li>🎤 录音练习：讲述一个刚好发生的巧合。</li>
+</ul>
+</li>
+<li><p><strong>I guess…</strong></p>
+<ul>
+<li>I guess we can try that new restaurant tonight.</li>
+<li>I guess it’s going to be a busy week.</li>
+<li>🎤 录音练习：用“我猜”表达推测。</li>
+</ul>
+</li>
+<li><p><strong>I couldn’t believe it when…</strong></p>
+<ul>
+<li>I couldn’t believe it when I got the job offer.</li>
+<li>I couldn’t believe it when my phone broke.</li>
+<li>🎤 录音练习：分享一个让你难以置信的瞬间。</li>
+</ul>
+</li>
+<li><p><strong>Let me tell you about…</strong></p>
+<ul>
+<li>Let me tell you about the trip I took last year.</li>
+<li>Let me tell you about a funny thing that happened yesterday.</li>
+<li>🎤 录音练习：讲一个故事的开头。</li>
+</ul>
+</li>
+<li><p><strong>That reminds me of…</strong></p>
+<ul>
+<li>That reminds me of when we went camping.</li>
+<li>That reminds me of a joke I heard recently.</li>
+<li>🎤 录音练习：用它引入一个相关的话题。</li>
+</ul>
+</li>
+<li><p><strong>Have you ever… ?</strong></p>
+<ul>
+<li>Have you ever tried sushi?</li>
+<li>Have you ever been to New York?</li>
+<li>🎤 录音练习：用它提问别人经历。</li>
+</ul>
+</li>
+<li><p><strong>I’m looking forward to…</strong></p>
+<ul>
+<li>I’m looking forward to the weekend.</li>
+<li>I’m looking forward to meeting your family.</li>
+<li>🎤 录音练习：谈谈你期待的事情。</li>
+</ul>
+</li>
+<li><p><strong>It’s kind of like…</strong></p>
+<ul>
+<li>It’s kind of like a mini vacation.</li>
+<li>It’s kind of like learning a new language.</li>
+<li>🎤 录音练习：用比喻解释某事。</li>
+</ul>
+</li>
+<li><p><strong>I’d rather…</strong></p>
+<ul>
+<li>I’d rather stay home tonight.</li>
+<li>I’d rather eat something healthy.</li>
+<li>🎤 录音练习：表达偏好。</li>
+</ul>
+</li>
+<li><p><strong>You know what I mean?</strong></p>
+<ul>
+<li>That movie was so confusing, you know what I mean?</li>
+<li>I was super tired yesterday, you know what I mean?</li>
+<li>🎤 录音练习：用它确认对方理解。</li>
+</ul>
+</li>
+<li><p><strong>At the end of the day…</strong></p>
+<ul>
+<li>At the end of the day, it’s about being happy.</li>
+<li>At the end of the day, we all want the same thing.</li>
+<li>🎤 录音练习：总结一个观点。</li>
+</ul>
+</li>
+<li><p><strong>I can’t wait to…</strong></p>
+<ul>
+<li>I can’t wait to see the new Marvel movie.</li>
+<li>I can’t wait to travel again after the pandemic.</li>
+<li>🎤 录音练习：说说你最期待的一件事。</li>
+</ul>
+</li>
+<li><p><strong>It’s been a while since…</strong></p>
+<ul>
+<li>It’s been a while since I last saw you.</li>
+<li>It’s been a while since I went to the gym.</li>
+<li>🎤 录音练习：谈谈你多久没做某事了。</li>
+</ul>
+</li>
+<li><p><strong>What do you think about… ?</strong></p>
+<ul>
+<li>What do you think about the new restaurant downtown?</li>
+<li>What do you think about working from home?</li>
+<li>🎤 录音练习：用它提问别人意见。</li>
+</ul>
+</li>
+<li><p><strong>I’m not a big fan of…</strong></p>
+<ul>
+<li>I’m not a big fan of spicy food.</li>
+<li>I’m not a big fan of crowded places.</li>
+<li>🎤 录音练习：表达你的不喜欢。</li>
+</ul>
+</li>
+</ol>
+<h1 id="生活语块26-50"><a href="#生活语块26-50" class="headerlink" title="生活语块26~50"></a>生活语块26~50</h1><ol>
+<li><p><strong>That reminds me of…</strong></p>
+<ul>
+<li>That reminds me of my trip to Japan.</li>
+<li>That reminds me of a funny story.</li>
+<li>🎤 录音练习：用它引出一个相关故事。</li>
+</ul>
+</li>
+<li><p><strong>I’m used to…</strong></p>
+<ul>
+<li>I’m used to waking up early.</li>
+<li>I’m used to working late hours.</li>
+<li>🎤 录音练习：谈谈你的习惯。</li>
+</ul>
+</li>
+<li><p><strong>I’d love to…</strong></p>
+<ul>
+<li>I’d love to visit Europe someday.</li>
+<li>I’d love to learn how to play the guitar.</li>
+<li>🎤 录音练习：表达你的愿望。</li>
+</ul>
+</li>
+<li><p><strong>It depends on…</strong></p>
+<ul>
+<li>It depends on the weather.</li>
+<li>It depends on how much time I have.</li>
+<li>🎤 录音练习：用它表达条件。</li>
+</ul>
+</li>
+<li><p><strong>I’m thinking about…</strong></p>
+<ul>
+<li>I’m thinking about changing jobs.</li>
+<li>I’m thinking about going back to school.</li>
+<li>🎤 录音练习：谈谈你的计划。</li>
+</ul>
+</li>
+<li><p><strong>I’m glad that…</strong></p>
+<ul>
+<li>I’m glad that we met today.</li>
+<li>I’m glad that the meeting went well.</li>
+<li>🎤 录音练习：表达感激。</li>
+</ul>
+</li>
+<li><p><strong>Have you heard about… ?</strong></p>
+<ul>
+<li>Have you heard about the new policy?</li>
+<li>Have you heard about that viral video?</li>
+<li>🎤 录音练习：用它开启话题。</li>
+</ul>
+</li>
+<li><p><strong>I can’t believe that…</strong></p>
+<ul>
+<li>I can’t believe that we lost the game.</li>
+<li>I can’t believe that he forgot his keys again.</li>
+<li>🎤 录音练习：表达惊讶。</li>
+</ul>
+</li>
+<li><p><strong>I’m not sure if…</strong></p>
+<ul>
+<li>I’m not sure if I’ll make it on time.</li>
+<li>I’m not sure if the event is still happening.</li>
+<li>🎤 录音练习：表达不确定。</li>
+</ul>
+</li>
+<li><p><strong>It’s hard to say…</strong></p>
+<ul>
+<li>It’s hard to say what caused the delay.</li>
+<li>It’s hard to say which one is better.</li>
+<li>🎤 录音练习：用它表达难以判断。</li>
+</ul>
+</li>
+<li><p><strong>I’m looking for…</strong></p>
+<ul>
+<li>I’m looking for a new apartment.</li>
+<li>I’m looking for a good coffee shop nearby.</li>
+<li>🎤 录音练习：表达你的需求。</li>
+</ul>
+</li>
+<li><p><strong>I don’t feel like…</strong></p>
+<ul>
+<li>I don’t feel like going out tonight.</li>
+<li>I don’t feel like cooking today.</li>
+<li>🎤 录音练习：表达不想做某事。</li>
+</ul>
+</li>
+<li><p><strong>That sounds like…</strong></p>
+<ul>
+<li>That sounds like a great idea.</li>
+<li>That sounds like a lot of work.</li>
+<li>🎤 录音练习：用它回应别人的话。</li>
+</ul>
+</li>
+<li><p><strong>I’m pretty sure…</strong></p>
+<ul>
+<li>I’m pretty sure the meeting is at 10 AM.</li>
+<li>I’m pretty sure she’ll love the gift.</li>
+<li>🎤 录音练习：表达自信。</li>
+</ul>
+</li>
+<li><p><strong>It’s not my thing.</strong></p>
+<ul>
+<li>Basketball is not my thing.</li>
+<li>Horror movies are not my thing.</li>
+<li>🎤 录音练习：表达兴趣不大。</li>
+</ul>
+</li>
+<li><p><strong>I’m surprised that…</strong></p>
+<ul>
+<li>I’m surprised that he didn’t call.</li>
+<li>I’m surprised that the store is closed.</li>
+<li>🎤 录音练习：表达惊讶。</li>
+</ul>
+</li>
+<li><p><strong>I haven’t decided yet.</strong></p>
+<ul>
+<li>I haven’t decided yet where to go for vacation.</li>
+<li>I haven’t decided yet what to cook tonight.</li>
+<li>🎤 录音练习：用它谈谈你犹豫的事情。</li>
+</ul>
+</li>
+<li><p><strong>That reminds me…</strong></p>
+<ul>
+<li>That reminds me, I need to call my mom.</li>
+<li>That reminds me, we forgot to buy milk.</li>
+<li>🎤 录音练习：用它引出一个新话题。</li>
+</ul>
+</li>
+<li><p><strong>I was wondering if…</strong></p>
+<ul>
+<li>I was wondering if you could help me with this.</li>
+<li>I was wondering if the store is open today.</li>
+<li>🎤 录音练习：礼貌询问请求。</li>
+</ul>
+</li>
+<li><p><strong>I didn’t expect that…</strong></p>
+<ul>
+<li>I didn’t expect that the traffic would be so bad.</li>
+<li>I didn’t expect that she’d say yes.</li>
+<li>🎤 录音练习：表达意外。</li>
+</ul>
+</li>
+<li><p><strong>I’m feeling…</strong></p>
+<ul>
+<li>I’m feeling a bit tired today.</li>
+<li>I’m feeling really excited about the trip.</li>
+<li>🎤 录音练习：用它表达情绪。</li>
+</ul>
+</li>
+<li><p><strong>I’m thinking it might be…</strong></p>
+<ul>
+<li>I’m thinking it might be better to wait.</li>
+<li>I’m thinking it might be too late to call.</li>
+<li>🎤 录音练习：表达不确定的猜测。</li>
+</ul>
+</li>
+<li><p><strong>I could be wrong, but…</strong></p>
+<ul>
+<li>I could be wrong, but I think the meeting is tomorrow.</li>
+<li>I could be wrong, but that restaurant closed last year.</li>
+<li>🎤 录音练习：用它表达不确定。</li>
+</ul>
+</li>
+<li><p><strong>It’s hard to believe that…</strong></p>
+<ul>
+<li>It’s hard to believe that it’s already June.</li>
+<li>It’s hard to believe that she finished so quickly.</li>
+<li>🎤 录音练习：表达惊讶。</li>
+</ul>
+</li>
+<li><p><strong>I haven’t had a chance to…</strong></p>
+<ul>
+<li>I haven’t had a chance to watch that movie yet.</li>
+<li>I haven’t had a chance to meet him in person.</li>
+<li>🎤 录音练习：表达未完成的事情。</li>
+</ul>
+</li>
+<li><p><strong>I’m not feeling well.</strong></p>
+<ul>
+<li>I’m not feeling well today, so I’m staying home.</li>
+<li>I’m not feeling well after eating that.</li>
+<li>🎤 录音练习：表达身体状况。</li>
+</ul>
+</li>
+</ol>
+<h1 id="生活语块51-75"><a href="#生活语块51-75" class="headerlink" title="生活语块51~75"></a>生活语块51~75</h1><ol>
+<li><p><strong>I don’t know about you, but…</strong></p>
+<ul>
+<li>I don’t know about you, but I love spicy food.</li>
+<li>I don’t know about you, but I prefer morning workouts.</li>
+<li>🎤 录音练习：表达个人看法。</li>
+</ul>
+</li>
+<li><p><strong>It’s always been…</strong></p>
+<ul>
+<li>It’s always been my dream to travel the world.</li>
+<li>It’s always been difficult for me to learn languages.</li>
+<li>🎤 录音练习：表达长期感受。</li>
+</ul>
+</li>
+<li><p><strong>I’ve been meaning to…</strong></p>
+<ul>
+<li>I’ve been meaning to call you for a while.</li>
+<li>I’ve been meaning to clean my room this weekend.</li>
+<li>🎤 录音练习：表达计划但未完成的事。</li>
+</ul>
+</li>
+<li><p><strong>That’s a good point.</strong></p>
+<ul>
+<li>That’s a good point, I hadn’t thought of that.</li>
+<li>That’s a good point, maybe we should reconsider.</li>
+<li>🎤 录音练习：表达认同对方观点。</li>
+</ul>
+</li>
+<li><p><strong>I’m not sure how to…</strong></p>
+<ul>
+<li>I’m not sure how to fix this problem.</li>
+<li>I’m not sure how to respond to that email.</li>
+<li>🎤 录音练习：表达不确定的能力。</li>
+</ul>
+</li>
+<li><p><strong>It’s kind of difficult to…</strong></p>
+<ul>
+<li>It’s kind of difficult to find parking here.</li>
+<li>It’s kind of difficult to understand the instructions.</li>
+<li>🎤 录音练习：表达困难。</li>
+</ul>
+</li>
+<li><p><strong>I’m always up for…</strong></p>
+<ul>
+<li>I’m always up for trying new food.</li>
+<li>I’m always up for a challenge.</li>
+<li>🎤 录音练习：表达积极态度。</li>
+</ul>
+</li>
+<li><p><strong>I’ve heard that…</strong></p>
+<ul>
+<li>I’ve heard that the new cafe is really good.</li>
+<li>I’ve heard that the company is hiring.</li>
+<li>🎤 录音练习：分享听说的信息。</li>
+</ul>
+</li>
+<li><p><strong>I’m afraid that…</strong></p>
+<ul>
+<li>I’m afraid that I can’t make it to the meeting.</li>
+<li>I’m afraid that the project will be delayed.</li>
+<li>🎤 录音练习：表达担忧。</li>
+</ul>
+</li>
+<li><p><strong>I hope that…</strong></p>
+<ul>
+<li>I hope that everything goes well.</li>
+<li>I hope that we can finish on time.</li>
+<li>🎤 录音练习：表达希望。</li>
+</ul>
+</li>
+<li><p><strong>I didn’t realize that…</strong></p>
+<ul>
+<li>I didn’t realize that the store closes so early.</li>
+<li>I didn’t realize how much I enjoyed cooking.</li>
+<li>🎤 录音练习：表达你之前没意识到的事。</li>
+</ul>
+</li>
+<li><p><strong>I was hoping to…</strong></p>
+<ul>
+<li>I was hoping to get some help with my project.</li>
+<li>I was hoping to meet up this weekend.</li>
+<li>🎤 录音练习：表达你的期待。</li>
+</ul>
+</li>
+<li><p><strong>It seems like…</strong></p>
+<ul>
+<li>It seems like it’s going to rain today.</li>
+<li>It seems like everyone is busy lately.</li>
+<li>🎤 录音练习：用它表达观察。</li>
+</ul>
+</li>
+<li><p><strong>I’m trying not to…</strong></p>
+<ul>
+<li>I’m trying not to eat too much junk food.</li>
+<li>I’m trying not to stay up too late.</li>
+<li>🎤 录音练习：表达努力控制行为。</li>
+</ul>
+</li>
+<li><p><strong>I’m planning to…</strong></p>
+<ul>
+<li>I’m planning to take a trip next month.</li>
+<li>I’m planning to start a new hobby.</li>
+<li>🎤 录音练习：谈谈你的计划。</li>
+</ul>
+</li>
+<li><p><strong>I wish I could…</strong></p>
+<ul>
+<li>I wish I could speak French fluently.</li>
+<li>I wish I could travel more often.</li>
+<li>🎤 录音练习：表达愿望。</li>
+</ul>
+</li>
+<li><p><strong>It’s not worth it.</strong></p>
+<ul>
+<li>It’s not worth arguing over small things.</li>
+<li>It’s not worth buying an expensive gadget.</li>
+<li>🎤 录音练习：表达某事不值得。</li>
+</ul>
+</li>
+<li><p><strong>I’m glad you asked.</strong></p>
+<ul>
+<li>I’m glad you asked because I have some ideas.</li>
+<li>I’m glad you asked, I wanted to talk about that.</li>
+<li>🎤 录音练习：用它回应问题。</li>
+</ul>
+</li>
+<li><p><strong>I’ve been working on…</strong></p>
+<ul>
+<li>I’ve been working on improving my coding skills.</li>
+<li>I’ve been working on a personal project.</li>
+<li>🎤 录音练习：介绍你正在做的事。</li>
+</ul>
+</li>
+<li><p><strong>I’m curious about…</strong></p>
+<ul>
+<li>I’m curious about the new technology.</li>
+<li>I’m curious about how that works.</li>
+<li>🎤 录音练习：表达好奇。</li>
+</ul>
+</li>
+<li><p><strong>I don’t mind if…</strong></p>
+<ul>
+<li>I don’t mind if you take the lead.</li>
+<li>I don’t mind if we eat out tonight.</li>
+<li>🎤 录音练习：表达无所谓。</li>
+</ul>
+</li>
+<li><p><strong>I had no idea that…</strong></p>
+<ul>
+<li>I had no idea that you were coming.</li>
+<li>I had no idea that it was so difficult.</li>
+<li>🎤 录音练习：表达惊讶。</li>
+</ul>
+</li>
+<li><p><strong>It’s been a long day.</strong></p>
+<ul>
+<li>It’s been a long day at work.</li>
+<li>It’s been a long day running errands.</li>
+<li>🎤 录音练习：表达疲惫。</li>
+</ul>
+</li>
+<li><p><strong>I’d be happy to…</strong></p>
+<ul>
+<li>I’d be happy to help you with that.</li>
+<li>I’d be happy to join the meeting.</li>
+<li>🎤 录音练习：表达愿意帮忙。</li>
+</ul>
+</li>
+<li><p><strong>I’m not used to…</strong></p>
+<ul>
+<li>I’m not used to waking up early.</li>
+<li>I’m not used to spicy food.</li>
+<li>🎤 录音练习：表达不习惯。</li>
+</ul>
+</li>
+</ol>
+<h1 id="生活语块76-100"><a href="#生活语块76-100" class="headerlink" title="生活语块76~100"></a>生活语块76~100</h1><ol>
+<li><p><strong>I’m trying to get better at…</strong></p>
+<ul>
+<li>I’m trying to get better at public speaking.</li>
+<li>I’m trying to get better at time management.</li>
+<li>🎤 录音练习：谈谈提升方向。</li>
+</ul>
+</li>
+<li><p><strong>I have no problem with…</strong></p>
+<ul>
+<li>I have no problem with working overtime.</li>
+<li>I have no problem with new challenges.</li>
+<li>🎤 录音练习：表达态度。</li>
+</ul>
+</li>
+<li><p><strong>I haven’t decided whether…</strong></p>
+<ul>
+<li>I haven’t decided whether to accept the offer.</li>
+<li>I haven’t decided whether to move to a new city.</li>
+<li>🎤 录音练习：表达犹豫。</li>
+</ul>
+</li>
+<li><p><strong>I hope you don’t mind…</strong></p>
+<ul>
+<li>I hope you don’t mind if I ask a question.</li>
+<li>I hope you don’t mind me being late.</li>
+<li>🎤 录音练习：礼貌请求。</li>
+</ul>
+</li>
+<li><p><strong>It’s been great talking to you.</strong></p>
+<ul>
+<li>It’s been great talking to you. Let’s catch up soon.</li>
+<li>It’s been great talking to you. Have a good day!</li>
+<li>🎤 录音练习：用它结束对话。</li>
+</ul>
+</li>
+<li><p><strong>I can’t help but…</strong></p>
+<ul>
+<li>I can’t help but laugh when I watch that show.</li>
+<li>I can’t help but feel nervous before presentations.</li>
+<li>🎤 录音练习：表达情绪难以控制。</li>
+</ul>
+</li>
+<li><p><strong>I’ve been meaning to ask…</strong></p>
+<ul>
+<li>I’ve been meaning to ask how your project is going.</li>
+<li>I’ve been meaning to ask if you’re free this weekend.</li>
+<li>🎤 录音练习：用它礼貌发起话题。</li>
+</ul>
+</li>
+<li><p><strong>That makes sense.</strong></p>
+<ul>
+<li>That makes sense why you were late.</li>
+<li>That makes sense to choose that option.</li>
+<li>🎤 录音练习：表达理解和认同。</li>
+</ul>
+</li>
+<li><p><strong>I’m feeling under the weather.</strong></p>
+<ul>
+<li>I’m feeling under the weather today, so I’m resting.</li>
+<li>I’m feeling under the weather after the trip.</li>
+<li>🎤 录音练习：表达身体不适。</li>
+</ul>
+</li>
+<li><p><strong>I’m working on it.</strong></p>
+<ul>
+<li>I’m working on it and should finish soon.</li>
+<li>I’m working on improving my skills.</li>
+<li>🎤 录音练习：表达正在进行中的事情。</li>
+</ul>
+</li>
+<li><p><strong>I couldn’t agree more.</strong></p>
+<ul>
+<li>I couldn’t agree more with your point.</li>
+<li>I couldn’t agree more that communication is key.</li>
+<li>🎤 录音练习：强烈认同。</li>
+</ul>
+</li>
+<li><p><strong>That’s exactly what I mean.</strong></p>
+<ul>
+<li>That’s exactly what I mean about teamwork.</li>
+<li>That’s exactly what I mean regarding deadlines.</li>
+<li>🎤 录音练习：强调观点。</li>
+</ul>
+</li>
+<li><p><strong>I’ve got a lot on my plate.</strong></p>
+<ul>
+<li>I’ve got a lot on my plate with work deadlines.</li>
+<li>I’ve got a lot on my plate this week with family events.</li>
+<li>🎤 录音练习：表达工作繁忙。</li>
+</ul>
+</li>
+<li><p><strong>I’m in a bit of a rush.</strong></p>
+<ul>
+<li>I’m in a bit of a rush, can we talk later?</li>
+<li>I’m in a bit of a rush to catch the train.</li>
+<li>🎤 录音练习：表达赶时间。</li>
+</ul>
+</li>
+<li><p><strong>I can’t thank you enough.</strong></p>
+<ul>
+<li>I can’t thank you enough for your help.</li>
+<li>I can’t thank you enough for the opportunity.</li>
+<li>🎤 录音练习：表达感激。</li>
+</ul>
+</li>
+<li><p><strong>That sounds like a plan.</strong></p>
+<ul>
+<li>That sounds like a plan for the weekend.</li>
+<li>That sounds like a plan to finish the project.</li>
+<li>🎤 录音练习：表示赞同建议。</li>
+</ul>
+</li>
+<li><p><strong>I’m on my way.</strong></p>
+<ul>
+<li>I’m on my way, I’ll be there in 10 minutes.</li>
+<li>I’m on my way to the office now.</li>
+<li>🎤 录音练习：通知对方自己出发了。</li>
+</ul>
+</li>
+<li><p><strong>I was caught off guard.</strong></p>
+<ul>
+<li>I was caught off guard by the sudden question.</li>
+<li>I was caught off guard by the news.</li>
+<li>🎤 录音练习：表达措手不及。</li>
+</ul>
+</li>
+<li><p><strong>I’m feeling a bit overwhelmed.</strong></p>
+<ul>
+<li>I’m feeling a bit overwhelmed with all these tasks.</li>
+<li>I’m feeling a bit overwhelmed by the changes.</li>
+<li>🎤 录音练习：表达压力大。</li>
+</ul>
+</li>
+<li><p><strong>Let’s get back on track.</strong></p>
+<ul>
+<li>Let’s get back on track with the project timeline.</li>
+<li>Let’s get back on track after the interruption.</li>
+<li>🎤 录音练习：用它重新集中讨论。</li>
+</ul>
+</li>
+<li><p><strong>I’m happy to help.</strong></p>
+<ul>
+<li>I’m happy to help with the presentation.</li>
+<li>I’m happy to help you learn the system.</li>
+<li>🎤 录音练习：表达乐意帮助。</li>
+</ul>
+</li>
+<li><p><strong>That’s out of my hands.</strong></p>
+<ul>
+<li>That’s out of my hands, I’ll escalate it.</li>
+<li>That’s out of my hands, we need management approval.</li>
+<li>🎤 录音练习：表达无能为力。</li>
+</ul>
+</li>
+<li><p><strong>I’ll keep you posted.</strong></p>
+<ul>
+<li>I’ll keep you posted on any updates.</li>
+<li>I’ll keep you posted about the meeting time.</li>
+<li>🎤 录音练习：承诺保持沟通。</li>
+</ul>
+</li>
+<li><p><strong>I’m glad to hear that.</strong></p>
+<ul>
+<li>I’m glad to hear that you’re feeling better.</li>
+<li>I’m glad to hear that the project is progressing well.</li>
+<li>🎤 录音练习：表达听到好消息的高兴。</li>
+</ul>
+</li>
+<li><p><strong>That’s a tough question.</strong></p>
+<ul>
+<li>That’s a tough question, I need to think about it.</li>
+<li>That’s a tough question, but here’s my answer.</li>
+<li>🎤 录音练习：回答难题时用。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="工作面试语块1-25"><a href="#工作面试语块1-25" class="headerlink" title="工作面试语块1~25"></a>工作面试语块1~25</h1><ol>
+<li><p><strong>I was responsible for…</strong></p>
+<ul>
+<li>maintaining the core backend services.</li>
+<li>leading the migration from MongoDB to PostgreSQL.</li>
+<li>🎤 录音练习：用它介绍你最近的工作职责。</li>
+</ul>
+</li>
+<li><p><strong>One challenge I faced was…</strong></p>
+<ul>
+<li>scaling the system during peak hours.</li>
+<li>aligning stakeholders across two departments.</li>
+<li>🎤 录音练习：描述一次你遇到的难题。</li>
+</ul>
+</li>
+<li><p><strong>To solve that, I…</strong></p>
+<ul>
+<li>designed a batching system to reduce DB load.</li>
+<li>introduced structured logging with JSON.</li>
+<li>🎤 录音练习：讲述你如何解决问题。</li>
+</ul>
+</li>
+<li><p><strong>The result was…</strong></p>
+<ul>
+<li>a 50% improvement in performance.</li>
+<li>more reliable deployments with zero downtime.</li>
+<li>🎤 录音练习：讲述工作成果。</li>
+</ul>
+</li>
+<li><p><strong>I collaborated with…</strong></p>
+<ul>
+<li>our product manager and two frontend engineers.</li>
+<li>the data team to integrate demand forecasting.</li>
+<li>🎤 录音练习：介绍你和谁合作。</li>
+</ul>
+</li>
+<li><p><strong>I learned a lot from…</strong></p>
+<ul>
+<li>working on a complex distributed system.</li>
+<li>the feedback I got from code reviews.</li>
+<li>🎤 录音练习：说说你学到了什么。</li>
+</ul>
+</li>
+<li><p><strong>If I could do it again, I would…</strong></p>
+<ul>
+<li>improve the testing strategy.</li>
+<li>communicate earlier with the team.</li>
+<li>🎤 录音练习：分享经验教训。</li>
+</ul>
+</li>
+<li><p><strong>One example that comes to mind is…</strong></p>
+<ul>
+<li>when we reduced system downtime by 80%.</li>
+<li>when I automated the deployment process.</li>
+<li>🎤 录音练习：讲一个具体案例。</li>
+</ul>
+</li>
+<li><p><strong>What sets me apart is…</strong></p>
+<ul>
+<li>my attention to detail.</li>
+<li>my ability to stay calm under pressure.</li>
+<li>🎤 录音练习：介绍你的优势。</li>
+</ul>
+</li>
+<li><p><strong>I’m excited about this opportunity because…</strong></p>
+<ul>
+<li>it aligns with my skills and goals.</li>
+<li>I want to work with a talented team.</li>
+<li>🎤 录音练习：表达你的动机。</li>
+</ul>
+</li>
+<li><p><strong>My role involved…</strong></p>
+<ul>
+<li>designing APIs and database schemas.</li>
+<li>monitoring production systems.</li>
+<li>🎤 录音练习：描述你的工作内容。</li>
+</ul>
+</li>
+<li><p><strong>I took the initiative to…</strong></p>
+<ul>
+<li>refactor legacy code.</li>
+<li>improve deployment automation.</li>
+<li>🎤 录音练习：讲述你主动做的事情。</li>
+</ul>
+</li>
+<li><p><strong>A key metric I improved was…</strong></p>
+<ul>
+<li>reducing response time by 30%.</li>
+<li>increasing system uptime to 99.9%.</li>
+<li>🎤 录音练习：介绍工作成果的指标。</li>
+</ul>
+</li>
+<li><p><strong>I had to deal with…</strong></p>
+<ul>
+<li>tight deadlines and shifting priorities.</li>
+<li>cross-team communication challenges.</li>
+<li>🎤 录音练习：描述你面对的挑战。</li>
+</ul>
+</li>
+<li><p><strong>I’m comfortable working with…</strong></p>
+<ul>
+<li>cloud platforms like AWS and GCP.</li>
+<li>container technologies like Docker and Kubernetes.</li>
+<li>🎤 录音练习：谈谈你的技术栈。</li>
+</ul>
+</li>
+<li><p><strong>I regularly presented…</strong></p>
+<ul>
+<li>project updates to stakeholders.</li>
+<li>technical designs in team meetings.</li>
+<li>🎤 录音练习：介绍你的汇报经验。</li>
+</ul>
+</li>
+<li><p><strong>I improved processes by…</strong></p>
+<ul>
+<li>automating repetitive tasks.</li>
+<li>standardizing coding practices.</li>
+<li>🎤 录音练习：讲述你优化流程的经验。</li>
+</ul>
+</li>
+<li><p><strong>I ensured quality by…</strong></p>
+<ul>
+<li>writing unit and integration tests.</li>
+<li>conducting code reviews.</li>
+<li>🎤 录音练习：描述你的质量保障措施。</li>
+</ul>
+</li>
+<li><p><strong>I worked under pressure to…</strong></p>
+<ul>
+<li>meet tight project deadlines.</li>
+<li>quickly resolve production incidents.</li>
+<li>🎤 录音练习：讲述你在压力下的表现。</li>
+</ul>
+</li>
+<li><p><strong>I’m looking forward to…</strong></p>
+<ul>
+<li>contributing to innovative projects.</li>
+<li>growing my skills in cloud computing.</li>
+<li>🎤 录音练习：谈谈你的职业期望。</li>
+</ul>
+</li>
+<li><p><strong>My main responsibility was…</strong></p>
+<ul>
+<li>developing APIs for internal tools.</li>
+<li>managing cloud infrastructure.</li>
+<li>🎤 录音练习：用它介绍你主要职责。</li>
+</ul>
+</li>
+<li><p><strong>I successfully completed…</strong></p>
+<ul>
+<li>a migration project ahead of schedule.</li>
+<li>the rollout of a new feature for users.</li>
+<li>🎤 录音练习：描述你完成的项目。</li>
+</ul>
+</li>
+<li><p><strong>I handled…</strong></p>
+<ul>
+<li>customer support for technical issues.</li>
+<li>the deployment process for microservices.</li>
+<li>🎤 录音练习：讲述你负责的工作。</li>
+</ul>
+</li>
+<li><p><strong>One key skill I developed was…</strong></p>
+<ul>
+<li>problem-solving under pressure.</li>
+<li>efficient database querying.</li>
+<li>🎤 录音练习：谈谈你培养的技能。</li>
+</ul>
+</li>
+<li><p><strong>I took ownership of…</strong></p>
+<ul>
+<li>redesigning the payment system.</li>
+<li>automating reporting dashboards.</li>
+<li>🎤 录音练习：表达你负责的任务。</li>
+</ul>
+</li>
+</ol>
+<h1 id="工作面试语块26-50"><a href="#工作面试语块26-50" class="headerlink" title="工作面试语块26~50"></a>工作面试语块26~50</h1><ol>
+<li><p><strong>I worked closely with…</strong></p>
+<ul>
+<li>the QA team to ensure software quality.</li>
+<li>stakeholders to define requirements.</li>
+<li>🎤 录音练习：描述合作经历。</li>
+</ul>
+</li>
+<li><p><strong>A major accomplishment was…</strong></p>
+<ul>
+<li>reducing server downtime by 40%.</li>
+<li>increasing user engagement by 25%.</li>
+<li>🎤 录音练习：介绍你的成果。</li>
+</ul>
+</li>
+<li><p><strong>I used tools like…</strong></p>
+<ul>
+<li>Jenkins and Kubernetes for CI/CD.</li>
+<li>Git and JIRA for version control and tracking.</li>
+<li>🎤 录音练习：介绍你用过的工具。</li>
+</ul>
+</li>
+<li><p><strong>I participated in…</strong></p>
+<ul>
+<li>daily stand-ups and sprint planning.</li>
+<li>code reviews and pair programming.</li>
+<li>🎤 录音练习：谈谈团队协作。</li>
+</ul>
+</li>
+<li><p><strong>I focused on…</strong></p>
+<ul>
+<li>improving system reliability.</li>
+<li>optimizing application performance.</li>
+<li>🎤 录音练习：描述你工作的重点。</li>
+</ul>
+</li>
+<li><p><strong>I developed expertise in…</strong></p>
+<ul>
+<li>cloud computing and distributed systems.</li>
+<li>container orchestration and automation.</li>
+<li>🎤 录音练习：谈谈你的专业领域。</li>
+</ul>
+</li>
+<li><p><strong>I mentored junior engineers by…</strong></p>
+<ul>
+<li>conducting code reviews.</li>
+<li>organizing knowledge-sharing sessions.</li>
+<li>🎤 录音练习：介绍辅导经验。</li>
+</ul>
+</li>
+<li><p><strong>I adapted quickly to…</strong></p>
+<ul>
+<li>changing project requirements.</li>
+<li>new technologies and tools.</li>
+<li>🎤 录音练习：讲述适应能力。</li>
+</ul>
+</li>
+<li><p><strong>I improved communication by…</strong></p>
+<ul>
+<li>setting up regular sync meetings.</li>
+<li>documenting processes clearly.</li>
+<li>🎤 录音练习：描述沟通改进。</li>
+</ul>
+</li>
+<li><p><strong>I ensured compliance with…</strong></p>
+<ul>
+<li>security best practices.</li>
+<li>company policies and regulations.</li>
+<li>🎤 录音练习：谈谈合规工作。</li>
+</ul>
+</li>
+<li><p><strong>I prioritized tasks based on…</strong></p>
+<ul>
+<li>business impact and urgency.</li>
+<li>resource availability.</li>
+<li>🎤 录音练习：描述任务管理。</li>
+</ul>
+</li>
+<li><p><strong>I resolved conflicts by…</strong></p>
+<ul>
+<li>facilitating open discussions.</li>
+<li>finding common ground.</li>
+<li>🎤 录音练习：讲述冲突处理。</li>
+</ul>
+</li>
+<li><p><strong>I documented processes to…</strong></p>
+<ul>
+<li>ensure consistency and knowledge transfer.</li>
+<li>reduce onboarding time for new hires.</li>
+<li>🎤 录音练习：介绍文档工作。</li>
+</ul>
+</li>
+<li><p><strong>I monitored system performance using…</strong></p>
+<ul>
+<li>Prometheus and Grafana dashboards.</li>
+<li>custom alerting tools.</li>
+<li>🎤 录音练习：谈谈监控经验。</li>
+</ul>
+</li>
+<li><p><strong>I contributed to improving…</strong></p>
+<ul>
+<li>team workflows and efficiency.</li>
+<li>code quality and testing coverage.</li>
+<li>🎤 录音练习：描述你的贡献。</li>
+</ul>
+</li>
+<li><p><strong>I implemented…</strong></p>
+<ul>
+<li>a new feature that improved user engagement.</li>
+<li>an automation script to speed up testing.</li>
+<li>🎤 录音练习：描述你完成的技术实现。</li>
+</ul>
+</li>
+<li><p><strong>I managed a team of…</strong></p>
+<ul>
+<li>five engineers working on backend systems.</li>
+<li>three developers focusing on frontend features.</li>
+<li>🎤 录音练习：介绍你的管理经验。</li>
+</ul>
+</li>
+<li><p><strong>I improved…</strong></p>
+<ul>
+<li>system scalability by redesigning architecture.</li>
+<li>code quality through rigorous reviews.</li>
+<li>🎤 录音练习：讲述你的优化经验。</li>
+</ul>
+</li>
+<li><p><strong>I troubleshot…</strong></p>
+<ul>
+<li>critical bugs during production incidents.</li>
+<li>performance bottlenecks in the application.</li>
+<li>🎤 录音练习：描述解决问题过程。</li>
+</ul>
+</li>
+<li><p><strong>I participated in…</strong></p>
+<ul>
+<li>cross-functional meetings with product and design.</li>
+<li>agile ceremonies including sprint retrospectives.</li>
+<li>🎤 录音练习：谈谈团队协作。</li>
+</ul>
+</li>
+<li><p><strong>I wrote documentation for…</strong></p>
+<ul>
+<li>APIs to help other developers integrate.</li>
+<li>deployment processes to standardize operations.</li>
+<li>🎤 录音练习：介绍你的文档贡献。</li>
+</ul>
+</li>
+<li><p><strong>I monitored…</strong></p>
+<ul>
+<li>application health with Grafana dashboards.</li>
+<li>system logs to detect anomalies.</li>
+<li>🎤 录音练习：讲述监控经验。</li>
+</ul>
+</li>
+<li><p><strong>I automated…</strong></p>
+<ul>
+<li>build and deployment pipelines.</li>
+<li>routine testing to improve reliability.</li>
+<li>🎤 录音练习：描述自动化工作。</li>
+</ul>
+</li>
+<li><p><strong>I conducted training on…</strong></p>
+<ul>
+<li>new software tools for team members.</li>
+<li>best coding practices and standards.</li>
+<li>🎤 录音练习：介绍培训经历。</li>
+</ul>
+</li>
+<li><p><strong>I ensured that…</strong></p>
+<ul>
+<li>projects met deadlines and quality standards.</li>
+<li>security requirements were followed.</li>
+<li>🎤 录音练习：表达责任感。</li>
+</ul>
+</li>
+</ol>
+<h1 id="工作面试语块51-75"><a href="#工作面试语块51-75" class="headerlink" title="工作面试语块51~75"></a>工作面试语块51~75</h1><ol>
+<li><p><strong>I collaborated with stakeholders to…</strong></p>
+<ul>
+<li>gather requirements and prioritize features.</li>
+<li>define project scope and timelines.</li>
+<li>🎤 录音练习：讲述沟通协调。</li>
+</ul>
+</li>
+<li><p><strong>I optimized…</strong></p>
+<ul>
+<li>database queries to reduce latency.</li>
+<li>front-end code to improve user experience.</li>
+<li>🎤 录音练习：谈谈优化项目。</li>
+</ul>
+</li>
+<li><p><strong>I handled escalations when…</strong></p>
+<ul>
+<li>critical issues arose in production.</li>
+<li>clients had urgent requests.</li>
+<li>🎤 录音练习：描述危机管理。</li>
+</ul>
+</li>
+<li><p><strong>I designed…</strong></p>
+<ul>
+<li>microservices to enhance modularity.</li>
+<li>REST APIs for third-party integrations.</li>
+<li>🎤 录音练习：介绍设计经验。</li>
+</ul>
+</li>
+<li><p><strong>I balanced…</strong></p>
+<ul>
+<li>competing priorities to meet deadlines.</li>
+<li>technical debt and feature development.</li>
+<li>🎤 录音练习：谈谈项目管理。</li>
+</ul>
+</li>
+<li><p><strong>I proactively identified…</strong></p>
+<ul>
+<li>risks and created mitigation plans.</li>
+<li>performance issues before they escalated.</li>
+<li>🎤 录音练习：表达主动性。</li>
+</ul>
+</li>
+<li><p><strong>I improved deployment processes by…</strong></p>
+<ul>
+<li>implementing CI/CD pipelines.</li>
+<li>introducing automated rollback mechanisms.</li>
+<li>🎤 录音练习：描述流程改进。</li>
+</ul>
+</li>
+<li><p><strong>I worked with cross-functional teams to…</strong></p>
+<ul>
+<li>deliver end-to-end solutions.</li>
+<li>align on project goals and timelines.</li>
+<li>🎤 录音练习：讲述跨部门协作。</li>
+</ul>
+</li>
+<li><p><strong>I participated in code reviews to…</strong></p>
+<ul>
+<li>ensure code quality and standards.</li>
+<li>mentor junior developers.</li>
+<li>🎤 录音练习：谈谈代码审查。</li>
+</ul>
+</li>
+<li><p><strong>I contributed ideas that…</strong></p>
+<ul>
+<li>improved product usability.</li>
+<li>enhanced system reliability.</li>
+<li>🎤 录音练习：表达你的贡献。</li>
+</ul>
+</li>
+<li><p><strong>I analyzed…</strong></p>
+<ul>
+<li>user behavior data to improve features.</li>
+<li>system logs to identify root causes.</li>
+<li>🎤 录音练习：描述分析工作。</li>
+</ul>
+</li>
+<li><p><strong>I ensured timely delivery of…</strong></p>
+<ul>
+<li>multiple projects within budget.</li>
+<li>software releases with high quality.</li>
+<li>🎤 录音练习：讲述交付经验。</li>
+</ul>
+</li>
+<li><p><strong>I handled client communication for…</strong></p>
+<ul>
+<li>requirements gathering and feedback.</li>
+<li>issue resolution and updates.</li>
+<li>🎤 录音练习：介绍客户沟通。</li>
+</ul>
+</li>
+<li><p><strong>I contributed to technical discussions by…</strong></p>
+<ul>
+<li>proposing scalable solutions.</li>
+<li>identifying potential risks early.</li>
+<li>🎤 录音练习：谈谈技术贡献。</li>
+</ul>
+</li>
+<li><p><strong>I improved system uptime by…</strong></p>
+<ul>
+<li>implementing redundant architectures.</li>
+<li>proactive monitoring and alerting.</li>
+<li>🎤 录音练习：讲述提升可靠性。</li>
+</ul>
+</li>
+<li><p><strong>I participated in the design of…</strong></p>
+<ul>
+<li>microservices architecture.</li>
+<li>cloud-native applications.</li>
+<li>🎤 录音练习：描述设计经历。</li>
+</ul>
+</li>
+<li><p><strong>I coordinated with cross-functional teams to…</strong></p>
+<ul>
+<li>align project goals and timelines.</li>
+<li>troubleshoot and resolve issues.</li>
+<li>🎤 录音练习：讲述协调经验。</li>
+</ul>
+</li>
+<li><p><strong>I adopted agile methodologies such as…</strong></p>
+<ul>
+<li>Scrum and Kanban for project management.</li>
+<li>continuous integration for faster releases.</li>
+<li>🎤 录音练习：谈谈敏捷实践。</li>
+</ul>
+</li>
+<li><p><strong>I managed project risks by…</strong></p>
+<ul>
+<li>creating mitigation plans.</li>
+<li>regular status reporting.</li>
+<li>🎤 录音练习：表达风险管理。</li>
+</ul>
+</li>
+<li><p><strong>I created dashboards to…</strong></p>
+<ul>
+<li>visualize key performance indicators.</li>
+<li>track project progress and issues.</li>
+<li>🎤 录音练习：介绍数据可视化。</li>
+</ul>
+</li>
+<li><p><strong>I optimized workflows by…</strong></p>
+<ul>
+<li>automating manual processes.</li>
+<li>standardizing procedures.</li>
+<li>🎤 录音练习：谈谈流程优化。</li>
+</ul>
+</li>
+<li><p><strong>I collaborated remotely using…</strong></p>
+<ul>
+<li>tools like Slack and Zoom.</li>
+<li>shared documentation platforms.</li>
+<li>🎤 录音练习：描述远程协作。</li>
+</ul>
+</li>
+<li><p><strong>I designed scalable solutions for…</strong></p>
+<ul>
+<li>handling increasing user loads.</li>
+<li>processing large datasets efficiently.</li>
+<li>🎤 录音练习：介绍设计方案。</li>
+</ul>
+</li>
+<li><p><strong>I implemented security measures including…</strong></p>
+<ul>
+<li>data encryption and access controls.</li>
+<li>vulnerability assessments.</li>
+<li>🎤 录音练习：谈谈安全工作。</li>
+</ul>
+</li>
+<li><p><strong>I automated testing using…</strong></p>
+<ul>
+<li>unit and integration test frameworks.</li>
+<li>continuous testing pipelines.</li>
+<li>🎤 录音练习：描述自动化测试。</li>
+</ul>
+</li>
+</ol>
+<h1 id="工作面试语块76-100"><a href="#工作面试语块76-100" class="headerlink" title="工作面试语块76~100"></a>工作面试语块76~100</h1><ol>
+<li><p><strong>I facilitated knowledge sharing by…</strong></p>
+<ul>
+<li>organizing tech talks and workshops.</li>
+<li>creating internal wiki pages.</li>
+<li>🎤 录音练习：讲述知识分享。</li>
+</ul>
+</li>
+<li><p><strong>I monitored project budgets to…</strong></p>
+<ul>
+<li>ensure cost-effectiveness.</li>
+<li>avoid overspending.</li>
+<li>🎤 录音练习：谈谈预算管理。</li>
+</ul>
+</li>
+<li><p><strong>I participated in recruitment by…</strong></p>
+<ul>
+<li>screening candidates.</li>
+<li>conducting technical interviews.</li>
+<li>🎤 录音练习：介绍招聘经验。</li>
+</ul>
+</li>
+<li><p><strong>I improved team productivity through…</strong></p>
+<ul>
+<li>introducing better tooling.</li>
+<li>fostering collaboration culture.</li>
+<li>🎤 录音练习：讲述提升效率。</li>
+</ul>
+</li>
+<li><p><strong>I’m eager to apply my skills to…</strong></p>
+<ul>
+<li>solve challenging problems.</li>
+<li>contribute to innovative projects.</li>
+<li>🎤 录音练习：表达职业愿景。</li>
+</ul>
+</li>
+<li><p><strong>I designed and implemented…</strong></p>
+<ul>
+<li>a new feature that improved customer retention.</li>
+<li>an internal tool to automate reporting.</li>
+<li>🎤 录音练习：描述设计和实现的工作。</li>
+</ul>
+</li>
+<li><p><strong>I successfully led…</strong></p>
+<ul>
+<li>a team through a critical product launch.</li>
+<li>a migration project without downtime.</li>
+<li>🎤 录音练习：介绍领导经验。</li>
+</ul>
+</li>
+<li><p><strong>I identified bottlenecks in…</strong></p>
+<ul>
+<li>the data processing pipeline.</li>
+<li>the user authentication flow.</li>
+<li>🎤 录音练习：讲述发现瓶颈。</li>
+</ul>
+</li>
+<li><p><strong>I implemented best practices for…</strong></p>
+<ul>
+<li>code quality and maintainability.</li>
+<li>deployment and monitoring.</li>
+<li>🎤 录音练习：介绍规范实践。</li>
+</ul>
+</li>
+<li><p><strong>I resolved complex issues by…</strong></p>
+<ul>
+<li>debugging distributed systems.</li>
+<li>collaborating with cross-functional teams.</li>
+<li>🎤 录音练习：描述解决难题。</li>
+</ul>
+</li>
+<li><p><strong>I worked closely with product managers to…</strong></p>
+<ul>
+<li>define feature requirements.</li>
+<li>prioritize development tasks.</li>
+<li>🎤 录音练习：讲述与产品经理合作。</li>
+</ul>
+</li>
+<li><p><strong>I contributed to open source projects by…</strong></p>
+<ul>
+<li>fixing bugs and submitting patches.</li>
+<li>writing documentation and tests.</li>
+<li>🎤 录音练习：介绍开源贡献。</li>
+</ul>
+</li>
+<li><p><strong>I improved system reliability by…</strong></p>
+<ul>
+<li>implementing automated failover.</li>
+<li>optimizing resource allocation.</li>
+<li>🎤 录音练习：谈谈提高可靠性。</li>
+</ul>
+</li>
+<li><p><strong>I collaborated with QA teams to…</strong></p>
+<ul>
+<li>ensure thorough test coverage.</li>
+<li>identify and fix bugs early.</li>
+<li>🎤 录音练习：介绍QA协作。</li>
+</ul>
+</li>
+<li><p><strong>I maintained documentation for…</strong></p>
+<ul>
+<li>system architecture and APIs.</li>
+<li>operational procedures.</li>
+<li>🎤 录音练习：讲述文档工作。</li>
+</ul>
+</li>
+<li><p><strong>I mentored interns and new hires by…</strong></p>
+<ul>
+<li>providing onboarding sessions.</li>
+<li>offering code review feedback.</li>
+<li>🎤 录音练习：介绍辅导经历。</li>
+</ul>
+</li>
+<li><p><strong>I contributed to performance tuning by…</strong></p>
+<ul>
+<li>profiling and optimizing code.</li>
+<li>caching frequently accessed data.</li>
+<li>🎤 录音练习：谈谈性能优化。</li>
+</ul>
+</li>
+<li><p><strong>I handled multiple projects simultaneously by…</strong></p>
+<ul>
+<li>effective time management.</li>
+<li>prioritizing critical tasks.</li>
+<li>🎤 录音练习：描述多任务处理。</li>
+</ul>
+</li>
+<li><p><strong>I participated in architecture discussions to…</strong></p>
+<ul>
+<li>evaluate new technologies.</li>
+<li>design scalable systems.</li>
+<li>🎤 录音练习：讲述架构设计。</li>
+</ul>
+</li>
+<li><p><strong>I ensured security compliance through…</strong></p>
+<ul>
+<li>regular audits and testing.</li>
+<li>enforcing access controls.</li>
+<li>🎤 录音练习：介绍安全工作。</li>
+</ul>
+</li>
+<li><p><strong>I automated repetitive tasks by…</strong></p>
+<ul>
+<li>scripting deployment pipelines.</li>
+<li>developing internal tools.</li>
+<li>🎤 录音练习：谈谈自动化。</li>
+</ul>
+</li>
+<li><p><strong>I worked in an Agile environment using…</strong></p>
+<ul>
+<li>Jira for task tracking.</li>
+<li>daily stand-ups and sprint planning.</li>
+<li>🎤 录音练习：介绍敏捷实践。</li>
+</ul>
+</li>
+<li><p><strong>I resolved customer issues by…</strong></p>
+<ul>
+<li>troubleshooting and debugging.</li>
+<li>coordinating with support teams.</li>
+<li>🎤 录音练习：描述客户支持。</li>
+</ul>
+</li>
+<li><p><strong>I continuously learned new technologies such as…</strong></p>
+<ul>
+<li>Kubernetes and Docker.</li>
+<li>cloud platforms like AWS.</li>
+<li>🎤 录音练习：谈谈学习成长。</li>
+</ul>
+</li>
+<li><p><strong>I’m excited to bring my experience in…</strong></p>
+<ul>
+<li>backend development to your team.</li>
+<li>scalable system design to this role.</li>
+<li>🎤 录音练习：表达对职位的热情。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h1><h2 id="explain-code"><a href="#explain-code" class="headerlink" title="explain code"></a>explain code</h2><p><a href="https://leetcode.com/problems/top-k-frequent-words/description/" target="_blank" rel="noopener">692. Top K Frequent Words</a></p>
+<p>Given an array of strings words and an integer k, return the k most frequent strings.</p>
+<p>Return the answer sorted by the frequency from highest to lowest. Sort the words with the same frequency by their lexicographical(<code>/leksɪkəˈɡræfɪkl/</code> adj. 辞典编纂的) order.</p>
+<p>Example 1:</p>
+<ul>
+<li>Input: words = <code>[&quot;i&quot;,&quot;love&quot;,&quot;leetcode&quot;,&quot;i&quot;,&quot;love&quot;,&quot;coding&quot;]</code>, k = 2</li>
+<li>Output: <code>[&quot;i&quot;,&quot;love&quot;]</code></li>
+<li>Explanation: “i” and “love” are the two most frequent words. Note that “i” comes before “love” due to a lower alphabetical order.</li>
+</ul>
+<p>Example 2:</p>
+<ul>
+<li>Input: words = <code>[&quot;the&quot;,&quot;day&quot;,&quot;is&quot;,&quot;sunny&quot;,&quot;the&quot;,&quot;the&quot;,&quot;the&quot;,&quot;sunny&quot;,&quot;is&quot;,&quot;is&quot;]</code>, k = 4</li>
+<li>Output: <code>[&quot;the&quot;,&quot;is&quot;,&quot;sunny&quot;,&quot;day&quot;]</code></li>
+<li>Explanation: “the”, “is”, “sunny” and “day” are the four most frequent words, with the number of occurrence being 4, 3, 2 and 1 respectively.</li>
+</ul>
+<p>Summary:  </p>
+<ol>
+<li>ok, let me read the problem statement … </li>
+<li>to solve this problem,</li>
+<li>First, I use a HashMap to count the frequency of each word. </li>
+<li>Then, I use a min-heap with a fixed size of k to find the top k frequent words. the heap will store these words in an ascending frequency order, and if two words’ frequency are the same, the heap will sort them in reverse alphabetical order. </li>
+<li>Next, I’m gonna iterate through the map, and <strong>In each iteration</strong> if the current word’s frequency is larger than the top element of the heap, or if their frequency is equal, I will compare these two words with their alphabetical order, if the current word’s alphabetical order is smaller, I insert it into the heap.</li>
+<li>after processing, I convert this heap into a list, and because it’s a min-heap, I will reverse the list to get the right order.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">topKFrequent</span><span class="params">(String[] ws, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// first, we should add a null check</span></span><br><span class="line">        <span class="keyword">if</span> (words == <span class="keyword">null</span> || words.length == <span class="number">0</span> || k &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// first, let me Create a HashMap with string keys and integer values, I use it to count how many times each word appears for later calculations.</span></span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">// let's iterate through the given string array</span></span><br><span class="line">        <span class="keyword">for</span> (String w : ws) &#123;</span><br><span class="line">            <span class="comment">// and store each string as a key and its frequency as the value in the map.</span></span><br><span class="line">            map.put(w, map.getOrDefault(w, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">            <span class="comment">// This map now contains each word and its frequency</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Does that make sense so far?</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create a priority queue, which is a min-heap, </span></span><br><span class="line">        <span class="comment">// ordered first by frequency(sort it based on how many times each word appears),</span></span><br><span class="line">        <span class="comment">// and for those words with the same frequency, sort them in reverse alphabetical order.</span></span><br><span class="line">        PriorityQueue&lt;Object[]&gt; q = <span class="keyword">new</span> PriorityQueue&lt;&gt;(k, (a, b) -&gt; &#123;</span><br><span class="line">            <span class="keyword">int</span> c1 = (Integer) a[<span class="number">0</span>], c2 = (Integer) b[<span class="number">0</span>];</span><br><span class="line">            <span class="comment">// If their frequencies is not the same, sort them in an increasing/ascending frequency order</span></span><br><span class="line">            <span class="keyword">if</span> (c1 != c2) <span class="keyword">return</span> c1 - c2;</span><br><span class="line">            String s1 = (String) a[<span class="number">1</span>], s2 = (String) b[<span class="number">1</span>];</span><br><span class="line">            <span class="comment">// If frequencies are equal, sort by reverse lexicographical/alphabetical order</span></span><br><span class="line">            <span class="keyword">return</span> s2.compareTo(s1);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// so far so good ? 到目前为止还顺利吗？</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// then let's Go through each word in the map</span></span><br><span class="line">        <span class="comment">// then let's Go through the map</span></span><br><span class="line">        <span class="keyword">for</span> (String s : map.keySet()) &#123;</span><br><span class="line">            <span class="keyword">int</span> cnt = map.get(s); <span class="comment">// Get the frequency of the current word</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (q.size() &lt; k) &#123;</span><br><span class="line">                <span class="comment">// If the heap hasn't reached size k, just add the element to the PriorityQueue</span></span><br><span class="line">                q.add(<span class="keyword">new</span> Object[]&#123;cnt, s&#125;);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// let's Look at the top element of the heap (the "smallest" one)</span></span><br><span class="line">                Object[] peek = q.peek();</span><br><span class="line">                <span class="comment">// because "the peek at index zero"("peek zero" or "peek at zero") is a object, we have to cast it to an integer</span></span><br><span class="line">                <span class="keyword">if</span> (cnt &gt; (Integer) peek[<span class="number">0</span>]) &#123;</span><br><span class="line">                    <span class="comment">// If current word's frequency is higher than the smallest in heap, replace it</span></span><br><span class="line">                    q.poll(); <span class="comment">// Remove the smallest element</span></span><br><span class="line">                    q.add(<span class="keyword">new</span> Object[]&#123;cnt, s&#125;); <span class="comment">// Add the new word to the PriorityQueue</span></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cnt == (Integer) peek[<span class="number">0</span>]) &#123;</span><br><span class="line">                    <span class="comment">// If frequencies are equal, compare the words in their lexicographical order</span></span><br><span class="line">                    <span class="comment">// let's cast "the peek at index one"("peek at one" or "peek one") to a String,</span></span><br><span class="line">                    <span class="comment">// then assign it to the variable top.</span></span><br><span class="line">                    String top = (String) peek[<span class="number">1</span>];</span><br><span class="line">                    <span class="keyword">if</span> (s.compareTo(top) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="comment">// If current word comes before the top word in dictionary order, replace the top word with current word</span></span><br><span class="line">                        q.poll();</span><br><span class="line">                        q.add(<span class="keyword">new</span> Object[]&#123;cnt, s&#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// maybe we can `factor out` a method for the above block of code? **提取**出一个方法</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// let's define a array list with string values called "answer"</span></span><br><span class="line">        List&lt;String&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">// go through the priority queue and add each string to the array list</span></span><br><span class="line">        <span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">// Since it's a min-heap, we need to reverse the result later</span></span><br><span class="line">            ans.add((String) q.poll()[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// finally, let's reverse the array list to get descending frequency order, in this way, we can make the highest frequency words come first</span></span><br><span class="line">        Collections.reverse(ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// let's create a Solution object "sol"</span></span><br><span class="line">        Solution sol = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="comment">// next, define a List with string values called "result"</span></span><br><span class="line">        <span class="comment">// then we use the object 'sol' to call its topKFrequent method , and then pass a String array and a integer 4 to this method</span></span><br><span class="line">        List&lt;String&gt; res = sol.topKFrequent(<span class="keyword">new</span> String[]&#123;<span class="string">"the"</span>,<span class="string">"day"</span>,<span class="string">"is"</span>,<span class="string">"sunny"</span>,<span class="string">"the"</span>,<span class="string">"the"</span>,<span class="string">"the"</span>,<span class="string">"sunny"</span>,<span class="string">"is"</span>,<span class="string">"is"</span>&#125;, <span class="number">4</span>);</span><br><span class="line">        <span class="comment">// finally, let me print out the result array list</span></span><br><span class="line">        System.out.println(res);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// I should comment out this line, it's useless now.</span></span><br><span class="line">        Solution sol2 = <span class="keyword">new</span> Solution();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// finally, let's analyze the Time Complexity: O(nlogk)</span></span><br><span class="line">        <span class="comment">// I think the time complexity is big O of n log k, the n is number of unique words, and heap operations are big O of log k</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Space Complexity: O(n)</span></span><br><span class="line">        <span class="comment">// its space complexity is big O of n, because we define a hash map and a priority queue.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// class Pair &#123;</span></span><br><span class="line"><span class="comment">//     int frequency = 0;</span></span><br><span class="line"><span class="comment">//     String word;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//     public Pair(int freq, String w) &#123;</span></span><br><span class="line"><span class="comment">//         frequency = freq;</span></span><br><span class="line"><span class="comment">//         word = w;</span></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="complexity"><a href="#complexity" class="headerlink" title="complexity"></a>complexity</h2><table>
+<thead>
+<tr>
+<th>Time Complexity</th>
+<th>Name</th>
+<th>Growth Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O(1)</td>
+<td>Constant time</td>
+<td>Doesn’t grow with input</td>
+</tr>
+<tr>
+<td>O(log n)</td>
+<td>Logarithmic <code>/ˌlɔːɡəˈrɪðmɪk/</code> time</td>
+<td>Grows very slowly</td>
+</tr>
+<tr>
+<td>O(n)</td>
+<td>Linear time</td>
+<td>Grows directly with input</td>
+</tr>
+<tr>
+<td>O(n log n)</td>
+<td>Linearithmic time</td>
+<td>Slightly faster than linear</td>
+</tr>
+<tr>
+<td>O(n²)</td>
+<td>Quadratic <code>/kwɑːˈdrætɪk/</code> time</td>
+<td>Grows quickly (nested loops)</td>
+</tr>
+<tr>
+<td>O(2ⁿ), O(n!)</td>
+<td>Exponential <code>/ˌekspəˈnenʃl/</code> time</td>
+<td>Grows explosively — usually too slow</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>O(nlogk)</code> : Big O of n log k</li>
+<li><code>O(n²)</code> : <ul>
+<li>Big O of n squared</li>
+<li>Big O of n to the power of 2</li>
+<li>Big O of n to the second power</li>
+</ul>
+</li>
+<li><code>O(n³)</code> :<ul>
+<li>Big O of n cubed</li>
+<li>Big O of n to the power of 3</li>
+<li>Big O of n to the third power</li>
+</ul>
+</li>
+<li><code>O(2ⁿ)</code> : <ul>
+<li>Big O of 2 to the n</li>
+<li>Big O of 2 to the power of n</li>
+<li>Big O of 2 to the n power</li>
+</ul>
+</li>
+<li><code>O(n!)</code> : Big O of n factorial”</li>
+</ul>
+<h2 id="Digits"><a href="#Digits" class="headerlink" title="Digits"></a>Digits</h2><ul>
+<li><code>0.5</code> → zero point five</li>
+<li><code>-0.5</code> → “negative zero point five” or “minus zero point five”</li>
+<li><code>½</code> → “one half”</li>
+<li><code>⅓</code> → “one third”</li>
+<li><code>¼</code> → “one quarter” or “one fourth”</li>
+<li><code>¾</code> → “three quarters”</li>
+<li><code>⅔</code> → “two thirds”</li>
+<li><code>1/5</code> → “one fifth”</li>
+<li><strong>2/5</strong> → “two fifths”</li>
+<li><strong>3/5</strong> → “three fifths”</li>
+<li><strong>4/5</strong> → “four fifths”</li>
+</ul>
+<p>This style (ordinal denominator with “-th” or “-ths”) is standard for fractions where the denominator is 5 or higher (except for 2 and 4, which are commonly “half” and “quarter”).</p>
+<h2 id="标点符号"><a href="#标点符号" class="headerlink" title="标点符号"></a>标点符号</h2><h3 id="1-标点符号英文表达"><a href="#1-标点符号英文表达" class="headerlink" title="1. 标点符号英文表达"></a><strong>1. 标点符号英文表达</strong></h3><table>
+<thead>
+<tr>
+<th>中文名称</th>
+<th>英文名称</th>
+<th>符号</th>
+<th>英文示例及用法说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>冒号</strong></td>
+<td>Colon</td>
+<td>:</td>
+<td>用于引出解释、列表或引用。<br><em>Example:</em> She said: “I love coding.”</td>
+</tr>
+<tr>
+<td><strong>感叹号</strong></td>
+<td>Exclamation <code>/ˌeks.kləˈmeɪ.ʃən/</code> mark</td>
+<td>!</td>
+<td>表示强烈情感或强调。<br><em>Example:</em> What a beautiful day!</td>
+</tr>
+<tr>
+<td><strong>问号</strong></td>
+<td>Question mark</td>
+<td>?</td>
+<td>用于疑问句结尾。<br><em>Example:</em> Where are you going?</td>
+</tr>
+<tr>
+<td><strong>分号</strong></td>
+<td>Semicolon</td>
+<td>;</td>
+<td>分隔并列分句或复杂列表项。<br><em>Example:</em> I need to buy apples, bananas; and oranges.</td>
+</tr>
+<tr>
+<td><strong>逗号</strong></td>
+<td>Comma</td>
+<td>,</td>
+<td>分隔句子成分、列举项或引导从句。<br><em>Example:</em> He is tall, smart, and kind.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-关键字的英文表达"><a href="#2-关键字的英文表达" class="headerlink" title="2. 关键字的英文表达"></a><strong>2. 关键字的英文表达</strong></h3><ul>
+<li><strong>关键字</strong> 的英文是 <strong>Keyword</strong>（单数）或 <strong>Keywords</strong>（复数）。  <ul>
+<li>用法：在编程、搜索引擎优化（SEO）、写作中，指具有特定含义或功能的词。  </li>
+<li>示例：  <ul>
+<li>In Python, “if”, “for”, and “while” are keywords.（在Python中，“if”、“for”和“while”是关键字。）  </li>
+<li>Use relevant keywords in your essay to improve searchability.（在文章中使用相关关键字以提高可搜索性。）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="补充：常见符号的英文读法"><a href="#补充：常见符号的英文读法" class="headerlink" title="补充：常见符号的英文读法"></a><strong>补充：常见符号的英文读法</strong></h3><ul>
+<li><strong>@</strong>：At sign / At symbol（如邮箱地址中）<br><em>Example:</em> user.name@domain.com → “user dot name at domain dot com”  </li>
+<li><strong>#</strong>：<code>Hash</code>(In programming) / Number sign（美式英语）/ Pound sign（英式英语）<br><em>Example:</em> #topic → “hash topic” (in Python/Java) </li>
+<li><strong>$</strong>：Dollar sign  </li>
+<li><code>*</code>: asterisk</li>
+<li><strong>%</strong>：Percent sign  </li>
+<li><strong>&amp;</strong>：Ampersand(<code>/ ˈæmpərsænd /</code>)</li>
+<li><code>/</code>: slash</li>
+<li><code>-</code>: dash</li>
+<li><code>_</code>: underscore</li>
+<li><code>~</code>: tilde (<code>/ˈtɪl.də/</code>)</li>
+<li><strong>()</strong>：Parentheses  <code>/pəˈren.θə.sɪs/</code>（括号，单数为 parenthesis） <ul>
+<li><code>(</code> : left parenthesis</li>
+</ul>
+</li>
+<li><strong>[]</strong>：Brackets  / Square brackets  </li>
+<li><strong>{}</strong>：Braces / Curly brackets / Braces  </li>
+<li><code>&gt;=</code>: “greater than or equal to”</li>
+</ul>
+<h2 id="加减乘除"><a href="#加减乘除" class="headerlink" title="加减乘除"></a>加减乘除</h2><p>英文中表示加减乘除的常见词汇和表达方式如下，以具体例子说明：</p>
+<h3 id="1-加法（Addition）"><a href="#1-加法（Addition）" class="headerlink" title="1. 加法（Addition）"></a>1. 加法（Addition）</h3><ul>
+<li><strong>词汇</strong>：add（动词）、plus（介词）、addition（名词）  </li>
+<li><strong>例子</strong>：  <ul>
+<li><strong>8 + 3</strong>  <ul>
+<li>读作：<em>Eight plus three</em> 或 <em>Eight add three</em>  </li>
+<li>结果表达：<em>Eight plus three equals eleven</em>（8 + 3 = 11）。  </li>
+<li>结果表达：<em>Eight plus three is equal to eleven</em>（8 + 3 = 11）。  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-减法（Subtraction）"><a href="#2-减法（Subtraction）" class="headerlink" title="2. 减法（Subtraction）"></a>2. 减法（Subtraction）</h3><ul>
+<li><strong>词汇</strong>：subtract（动词）、minus（介词）、subtraction（名词）  </li>
+<li><strong>例子</strong>：  <ul>
+<li><strong>8 - 3</strong>  <ul>
+<li>读作：<em>Eight minus three</em> 或 <em>Three subtracted from eight</em>  </li>
+<li>结果表达：<em>Eight minus three equals five</em>（8 - 3 = 5）。  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-乘法（Multiplication）"><a href="#3-乘法（Multiplication）" class="headerlink" title="3. 乘法（Multiplication）"></a>3. 乘法（Multiplication）</h3><ul>
+<li><strong>词汇</strong>：multiply（动词）、times（介词）、multiplication（名词）  </li>
+<li><strong>例子</strong>：  <ul>
+<li><strong>8 × 3</strong>  <ul>
+<li>读作：<em>Eight times three</em> 或 <em>Eight multiplied by three</em>  </li>
+<li>结果表达：<em>Eight times three equals twenty-four</em>（8 × 3 = 24）。  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-除法（Division）"><a href="#4-除法（Division）" class="headerlink" title="4. 除法（Division）"></a>4. 除法（Division）</h3><ul>
+<li><strong>词汇</strong>：divide（动词）、divided by（介词短语）、division（名词）  </li>
+<li><strong>例子1</strong>：  <ul>
+<li><strong>8 ÷ 3</strong>  <ul>
+<li>读作：<em>Eight divided by three</em>  </li>
+<li>结果表达：  <ul>
+<li>若为整数除法：Eight divided by three is two <strong>with a remainder of two</strong>（8 ÷ 3 = 2 余 2）。  </li>
+<li>若为小数结果：Eight divided by three <strong>equals approximately</strong> two point six six six*（8 ÷ 3 ≈ 2.666）。  </li>
+<li>Eight divided by three <strong>is about</strong> 2.667. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>例子2</strong>: <ul>
+<li>8 不能被3 整除</li>
+<li><em>eight can not be evenly divided by 3</em></li>
+</ul>
+</li>
+</ul>
+<h3 id="其他常用表达"><a href="#其他常用表达" class="headerlink" title="其他常用表达"></a>其他常用表达</h3><ul>
+<li><strong>等于</strong>：equals / is equal to / is  <ul>
+<li>Eight plus three <code>equals</code> eleven（8 + 3 = 11）。  </li>
+<li>Eight plus three <code>is equal to</code> eleven（8 + 3 = 11）。 </li>
+<li>Eight plus three <code>is</code> eleven（8 + 3 = 11）。 </li>
+</ul>
+</li>
+<li><strong>总和</strong>：the sum of  <ul>
+<li>例：<em>The sum of eight and three is eleven</em>（8 + 3 = 11）。 </li>
+</ul>
+</li>
+<li><strong>总和</strong>：the difference between  <ul>
+<li>例：The difference <strong>between</strong> eight and three is five（8 - 3 = 5）。  </li>
+</ul>
+</li>
+<li><strong>乘积</strong>：the product of  <ul>
+<li>例：<em>The product of eight and three is twenty-four</em>（8 × 3 = 24）。  </li>
+</ul>
+</li>
+<li><strong>商</strong>：the quotient(<code>/ˈkwoʊʃ(ə)nt/</code>) of  <ul>
+<li>例：<em>The quotient of eight and three is approximately two point six six six</em>（8 ÷ 3 ≈ 2.666）。  </li>
+</ul>
+</li>
+</ul>
+<h2 id="真题-java代码表达式"><a href="#真题-java代码表达式" class="headerlink" title="真题-java代码表达式"></a>真题-java代码表达式</h2><ul>
+<li><code>nums[i]</code> : nums at i</li>
+<li>有个java代码表达式是这样的: <code>i *= i /= i</code> ,   英语应该怎么读?<ul>
+<li>i times-equals i divided-by-equals i</li>
+</ul>
+</li>
+<li><code>x += y -= x *= y</code><ul>
+<li>x plus equals y minus equals x times equals y.</li>
+</ul>
+</li>
+<li><code>a +-*/ b</code><ul>
+<li>we should say: Here, the plus, minus, asterisk and slash operators are used.</li>
+</ul>
+</li>
+<li><code>a === b</code><ul>
+<li>a <code>triple equals</code> b</li>
+</ul>
+</li>
+<li><code>a = b == c ? d : e</code><ul>
+<li>a equals b <code>double equals</code> c question mark d colon e</li>
+</ul>
+</li>
+<li><code>i++</code><ul>
+<li>i plus plus</li>
+</ul>
+</li>
+<li><code>&#39;5&#39; + &#39;2&#39; = &#39;52&#39;</code><ul>
+<li>We <code>concatenate</code>(<code>/kənˈkæt(ə)nˌeɪt/</code>) strings ‘5’ and ‘2’ to get ‘52’.</li>
+<li>String ‘5’ is concatenated with string ‘2’ to get ‘52’</li>
+<li>String ‘5’ <code>concatenated</code> with string ‘2’ becomes ‘52’</li>
+<li>The string ‘5’ and ‘2’ are concatenated to get ‘52’.</li>
+<li>The values ‘5’ and ‘2’ are <code>concatenated</code> into ‘52’.</li>
+</ul>
+</li>
+<li><code>i++ + ++i</code><ul>
+<li>i post-increment plus pre-increment i.</li>
+</ul>
+</li>
+<li><code>x = (y = (z = 5))</code><ul>
+<li>x equals y equals z equals five.</li>
+</ul>
+</li>
+<li><code>a &amp;= b |= c ^= d</code><ul>
+<li>a bitwise and equals b bitwise or equals c bitwise xor equals d.</li>
+</ul>
+</li>
+<li><code>i = (j = (k = (l = 0)))</code><ul>
+<li>i equals j equals k equals l equals zero.</li>
+</ul>
+</li>
+</ul>
+<h1 id="Seeing-a-doc"><a href="#Seeing-a-doc" class="headerlink" title="Seeing a doc"></a>Seeing a doc</h1><h2 id="prostatitis"><a href="#prostatitis" class="headerlink" title="prostatitis"></a>prostatitis</h2><p>I was diagnosed with chronic prostatitis <code>/ ˌprɑːstəˈtaɪtɪs /</code> before, and the antibiotic <code>/ˌæntibaɪˈɑːtɪk/</code> Ciprofloxacin worked very well for me. Now the symptoms are coming back. I’d prefer to take the same medication again, if possible, to avoid unnecessary testing.</p>
+<p>I’m peeing all the time, and I can’t hold it. It’s like that during the day and even at night when I’m trying to sleep. I’ve had this prostatitis <code>/ ˌprɑːstəˈtaɪtɪs /</code> problem in the past, and I’m pretty sure it’s acting up again. I don’t have a fever, and peeing doesn’t hurt,</p>
+<p>I had similar symptoms before, and an antibiotic <code>/ˌæntibaɪˈɑːtɪk/</code> (Ciprofloxacin环丙沙星) helped last time.</p>
+<p>Would it be possible to prescribe something like that again if you think it’s appropriate?</p>
+<ul>
+<li>How long have the symptoms lasted?<ul>
+<li>→ “About 3 days.”（大约3天）</li>
+</ul>
+</li>
+<li>Any pain when urinating?<ul>
+<li>→ “No burning pain, just urgency and frequency.”）</li>
+</ul>
+</li>
+<li>Any fever, chills, or back pain?<ul>
+<li>→ “No fever or chills.”（没有）</li>
+</ul>
+</li>
+<li>Any discharge or blood in urine?<ul>
+<li>→ “No.”（没有）</li>
+</ul>
+</li>
+<li>Any sexual activity that may be relevant?<ul>
+<li>→ “No recent sexual activity.”（最近没有）</li>
+</ul>
+</li>
+</ul>
+<h2 id="skin-issue"><a href="#skin-issue" class="headerlink" title="skin issue"></a>skin issue</h2><p>Hi, doctor. This is my thumb. I don’t know why I got this skin condition. It doesn’t hurt or itch — it’s just that the skin on the side of my thumb has become very hard. it’s been almost a year. But it seems like the hardened area is gradually getting larger. What kind of condition is this? What medication should I take?</p>
+<p>There’s no bleeding, cracking, or discharge — it just feels rough and dry.<br> I haven’t had any injuries or allergic reactions that I can recall.<br>It’s only affecting this one spot, and no other parts of my body.<br> Is there a risk that this condition could get worse or spread elsewhere?</p>
+<p><strong>Q: When did you first notice the hardening of the skin?</strong><br>A: I first noticed it about a year ago. At the time, it was just a small patch of rough skin on the side of my thumb.</p>
+<p><strong>Q: Has the appearance or texture changed over time?</strong><br>A: Yes, it has slowly become harder and slightly thicker over time. The area has also expanded a little.</p>
+<p><strong>Q: Have you been exposed to any chemicals, detergents, or frequent handwashing?</strong><br>A: Not really. I don’t work with harsh chemicals, and although I wash my hands regularly, it’s not excessive.</p>
+<p><strong>Q: Do you have a history of skin conditions or allergies?</strong><br>A: No, I’ve never had any chronic skin issues or diagnosed allergies before.</p>
+<p><strong>Q: Is there anyone in your family with similar symptoms or skin conditions?</strong><br>A: Not that I know of. No one in my immediate family has had similar problems.</p>
+<p><strong>Q: Do you work with your hands a lot or in a dry environment?</strong><br>A: I mostly work in an office setting, so I don’t use my hands for manual labor. But the environment does tend to be dry, especially in winter.</p>
+<p><strong>Q: Have you tried any treatments or over-the-counter creams?</strong><br>A: I’ve tried using moisturizing cream regularly, but it hasn’t made a noticeable difference.</p>
+<p><strong>Q: Do you have any other symptoms — such as pain, swelling, numbness, or changes in nail appearance?</strong><br>A: No, there’s no pain, swelling, or numbness, and my nail looks completely normal.</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+            
+              <a href="/tags/Noodle/" rel="tag"><i class="fa fa-tag"></i> Noodle</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/MySQL入门三之GroupBy/" rel="next" title="MySQL入门三之GroupBy">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    MySQL入门三之GroupBy
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/multi_thread_dev_base_concept/" rel="prev" title="多线程开发的一些基本概念">
+                <p class="post-nav-pre-next-title">
+                    多线程开发的一些基本概念
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img width="800" height="600" loading="lazy" class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">290</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Approach"><span class="nav-text">Approach</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#明确目标场景：聚焦“口语输出”的实际场景"><span class="nav-text">明确目标场景：聚焦“口语输出”的实际场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#每日训练任务（建议每天-60-分钟）"><span class="nav-text">每日训练任务（建议每天 60 分钟）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模仿输出训练法"><span class="nav-text">模仿输出训练法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#话题输出训练"><span class="nav-text">话题输出训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐辅助工具"><span class="nav-text">推荐辅助工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Plan"><span class="nav-text">Plan</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生活语块1-25"><span class="nav-text">生活语块1~25</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生活语块26-50"><span class="nav-text">生活语块26~50</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生活语块51-75"><span class="nav-text">生活语块51~75</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生活语块76-100"><span class="nav-text">生活语块76~100</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工作面试语块1-25"><span class="nav-text">工作面试语块1~25</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工作面试语块26-50"><span class="nav-text">工作面试语块26~50</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工作面试语块51-75"><span class="nav-text">工作面试语块51~75</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工作面试语块76-100"><span class="nav-text">工作面试语块76~100</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Coding"><span class="nav-text">Coding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#explain-code"><span class="nav-text">explain code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#complexity"><span class="nav-text">complexity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Digits"><span class="nav-text">Digits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标点符号"><span class="nav-text">标点符号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-标点符号英文表达"><span class="nav-text">1. 标点符号英文表达</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-关键字的英文表达"><span class="nav-text">2. 关键字的英文表达</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充：常见符号的英文读法"><span class="nav-text">补充：常见符号的英文读法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加减乘除"><span class="nav-text">加减乘除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-加法（Addition）"><span class="nav-text">1. 加法（Addition）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-减法（Subtraction）"><span class="nav-text">2. 减法（Subtraction）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-乘法（Multiplication）"><span class="nav-text">3. 乘法（Multiplication）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-除法（Division）"><span class="nav-text">4. 除法（Division）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他常用表达"><span class="nav-text">其他常用表达</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#真题-java代码表达式"><span class="nav-text">真题-java代码表达式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Seeing-a-doc"><span class="nav-text">Seeing a doc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#prostatitis"><span class="nav-text">prostatitis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#skin-issue"><span class="nav-text">skin issue</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

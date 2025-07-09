@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'English Misc Notes' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="English,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="原文英语杂项笔记原文 时间介词以下是常见的表示时间点的介词用法：●On：用于表示特定的某一天或日期或某一天的上中下午，如：on Monday, on July 4th , on the weekend, on Monday morning  (“On the weekend” 和 “at the weekend” 都是正确的表达方式，含义相同。然而，“at the weekend” 在英国英语中更">
+<meta name="keywords" content="English">
+<meta property="og:type" content="article">
+<meta property="og:title" content="English Misc Notes">
+<meta property="og:url" content="https://hulinhong.com/eng_misc_notes/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="原文英语杂项笔记原文 时间介词以下是常见的表示时间点的介词用法：●On：用于表示特定的某一天或日期或某一天的上中下午，如：on Monday, on July 4th , on the weekend, on Monday morning  (“On the weekend” 和 “at the weekend” 都是正确的表达方式，含义相同。然而，“at the weekend” 在英国英语中更">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://hulinhong.com/img/eng_misc_notes/image.png">
+<meta property="og:updated_time" content="2025-07-09T06:38:46.701Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="English Misc Notes">
+<meta name="twitter:description" content="原文英语杂项笔记原文 时间介词以下是常见的表示时间点的介词用法：●On：用于表示特定的某一天或日期或某一天的上中下午，如：on Monday, on July 4th , on the weekend, on Monday morning  (“On the weekend” 和 “at the weekend” 都是正确的表达方式，含义相同。然而，“at the weekend” 在英国英语中更">
+<meta name="twitter:image" content="https://hulinhong.com/img/eng_misc_notes/image.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>English Misc Notes | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/eng_misc_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">English Misc Notes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-26T21:32:21+00:00">
+                10-26-2023
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/eng_easy_english_010_daily_english_conversation_practice/" rel="next" title="Easy English - 010 - Daily English Conversation Practice">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Easy English - 010 - Daily English Conversation Practice
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/eng_friends_rachel_laundry/" rel="prev" title="老友记瑞秋洗衣S01E05">
+              <p class="post-nav-pre-next-title">
+                  老友记瑞秋洗衣S01E05
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="https://docs.qq.com/doc/DZEJDZGhOWEhhVmJM" target="_blank" rel="noopener">英语杂项笔记原文</a></p>
+<h1 id="时间介词"><a href="#时间介词" class="headerlink" title="时间介词"></a>时间介词</h1><p>以下是常见的表示时间点的介词用法：<br>●On：用于表示特定的某一天或日期或某一天的上中下午，如：on Monday, on July 4th , on the weekend, on Monday morning  (“On the weekend” 和 “at the weekend” 都是正确的表达方式，含义相同。然而，“at the weekend” 在英国英语中更常用，而“on the weekend” 在美国英语中更为常见)<br>●At：用于表示具体的某一时刻或时间，如：at 3 o’clock, at noon, at night, at midnight<br>●In：用于表示一段时间内，如：in the morning, in May, in 2022, in the evening, in the afternoon<br>●By：用于表示在某个时间之前完成某事，如：finish the task by 5 p.m.。<br>●From…to：用于表示从某一时间开始到另一时间结束，如：from Monday to Friday。<br>●Between…and：用于表示两个时间点之间的时间，如：between 4 and 6 p.m.。</p>
+<p>需要注意的是，有些时间点介词的使用是固定的，但有些情况下也需要根据具体语境进行判断</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="the-的用法-冠词的用法"><a href="#the-的用法-冠词的用法" class="headerlink" title="the 的用法(冠词的用法)"></a>the 的用法(冠词的用法)</h1><p><a href="https://www.bilibili.com/video/BV11g41157FC/?spm_id_from=333.999.0.0&amp;vd_source=8a83b38420b65ac33aa101b7754630f6" target="_blank" rel="noopener">https://www.bilibili.com/video/BV11g41157FC/?spm_id_from=333.999.0.0&amp;vd_source=8a83b38420b65ac33aa101b7754630f6</a></p>
+<p><img width="800" height="600" loading="lazy" src="/img/eng_misc_notes/image.png" alt="Alt text"></p>
+<p>英语中，有两种冠词：定冠词 “the” 和不定冠词 “a/an”。它们的语法用法如下：<br>1.定冠词 “the”：表示特定的人、事、物或一类事物中的某一个。例如：The book on the table is mine.（桌子上的那本书是我的。）或者表示已经提到或者上文中的人、事、物。例如：I bought a book yesterday. The book is very interesting.（我昨天买了一本书。这本书非常有趣。）<br>2.不定冠词 “a/an”：表示泛指或未确定的人、事、物或一类事物中的任意一个。使用 “a” 或 “an” 取决于后面的单词的发音是否以元音开头。例如：I need a pencil.（我需要一支铅笔。）或者 Can you give me an apple?（你可以给我一个苹果吗？）<br>此外，冠词还有一些特殊用法，比如表示序数（例如：the first book）、表示某个固定的时间（例如：in the morning）等，需要根据具体语境来理解。</p>
+<h1 id="疑问句式-比如-don’t-you-can-I-Do-I-之类"><a href="#疑问句式-比如-don’t-you-can-I-Do-I-之类" class="headerlink" title="疑问句式, 比如 don’t you, can I, Do I 之类"></a>疑问句式, 比如 don’t you, can I, Do I 之类</h1><p>相关链接:<br>第1个是比较初级的版本（内含笔记）<br>第 2个是比较进阶的版本- 英语疑问句语法<br>1.<a href="https://www.bilibili.com/video/BV1gG4y167y7/?spm_id_from=333.337.search-card.all.click&amp;vd_source=8a83b38420b65ac33aa101b7754630f6" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1gG4y167y7/?spm_id_from=333.337.search-card.all.click&amp;vd_source=8a83b38420b65ac33aa101b7754630f6</a><br>2.<a href="https://www.bilibili.com/video/BV1HW41117UW/?spm_id_from=333.337.search-card.all.click&amp;vd_source=8a83b38420b65ac33aa101b7754630f6" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1HW41117UW/?spm_id_from=333.337.search-card.all.click&amp;vd_source=8a83b38420b65ac33aa101b7754630f6</a></p>
+<h1 id="助动词和情态助动词"><a href="#助动词和情态助动词" class="headerlink" title="助动词和情态助动词"></a>助动词和情态助动词</h1><p>助动词是辅助主语动词的词类，常出现在英语中的动词时态、语气和语态的构成中，用来“辅助”说明、限定主要动词的意思。英语中常用的助动词包括：be, have, do, shall, will, should, would, can, could, may, might, must。下面是这些助动词的具体用法：<br>●be：用于进行时态、被动语态等的构成，表示状态、情况、存在等；<br>●have：用于完成时态、完成进行时、情态动词中的表推测，表示完成、拥有等；<br>●do：用于疑问句、否定句、强调句等句型中，表示动作的重复、强调等；<br>●shall/will：用于表示将来的时态、情态动词中的表推测，表示意愿、决心、习惯等；<br>●should/would：用于表示假设语气、情态动词中的表说服，表示建议、意愿、可能性等；<br>●can：用于表示能力、许可、请求等；<br>●could: 用于表示过去的能力，礼貌性的请求，疑问等；<br>●may：用于表示许可、可能性的情态动词；<br>●might：用于表示可能性、假设语气等情况，比 may 表示的可能性更小；<br>●must：用于表示必要性、推断等强调语气。<br>需要注意的是，助动词的具体用法还受动词时态、语气、语态等因素的影响。</p>
+<p>情态助动词 (Modal Verbs) 是指用来表达情态或语气的助动词，它们能够表示说话者对说话内容的态度或意愿，以及可能性、推测、建议、请求等。<br>英语中常用的情态助动词有以下几个：<br>1.can/could: 表示能力、允许、请求等，could 一般用于过去时和委婉语气。<br>2.may/might: 表示可能性、许可、委婉地表达请求、建议等，might 比 may 表示的可能性更小。<br>3.must: 表示推论、必要性、义务等，强调事实必须是这个样子，没有其他可能。<br>4.shall/should: 表示义务、建议、推测、意愿等，should 常用于建议和邀请，也可表示推测。<br>5.will/would: 表示将来时态、意愿、习惯、委婉地表示请求、建议等，would 表示过去的习惯、意愿等。<br>6.needn’t: 表示不需要做某事，否定意义。<br>7.ought to: 表示应该，常用于道义上的应该或者有责任的应该。<br>情态助动词的具体意义和用法取决于上下文和具体语境，有时候一个情态助动词可能还有多种不同的用法。</p>
+<h1 id="不可数名词和可数名词的各类变化规律"><a href="#不可数名词和可数名词的各类变化规律" class="headerlink" title="不可数名词和可数名词的各类变化规律"></a>不可数名词和可数名词的各类变化规律</h1><p>一些以 “o” 和 “y” 结尾的可数名词在变成复数形式时，需要根据不同的情况做出不同的变化：<br>1.”o” 结尾的可数名词通常在词尾加上 “-es”，例如：potato（土豆）→ potatoes（土豆们）、tomato（番茄）→ tomatoes（番茄们）。<br>2.以辅音字母加 “y” 结尾的可数名词，把 “y” 变成 “i”，再加上 “-es”，例如：city（城市）→ cities（城市们）、baby（婴儿）→ babies（婴儿们）。<br>3.以元音字母加 “y” 结尾的可数名词，直接在词尾加上 “-s”，例如：boy（男孩）→ boys（男孩们）、key（钥匙）→ keys（钥匙们）。<br>需要注意的是，也有一些以 “o” 和 “y” 结尾的可数名词是不规则变化的，例如：woman（女人）→ women（女人们）、man（男人）→ men（男人们）、foot（脚）→ feet（脚）等。因此，在学习和掌握这些词汇时需要注意其复数形式的规律。</p>
+<p>4.以 “f” 或 “fe” 结尾的名词，通常将 “f” 或 “fe” 变为 “v”，再加上 “-es”，例如：leaf（叶子）→ leaves（叶子们）、knife（刀）→ knives（刀们）。</p>
+<h1 id="动词ing形式变化规则"><a href="#动词ing形式变化规则" class="headerlink" title="动词ing形式变化规则"></a>动词ing形式变化规则</h1><p>1、一般情况下，在动词词尾直接加-ing，如：<br>①check（检查；核对）—checking<br>②call（叫；打电话给）—calling<br>③rain（下雨）—raining<br>2、以一个字母-e结尾的单词，去掉字母-e，再加-ing，但是双写-ee结尾的，要直接加-ing。如：<br>①move（移动；感动）—moving<br>②like（喜欢；愿意）—liking<br>③close（关闭；结束）—closing<br>3、以重读闭音节结尾，即“辅+元+辅”结尾的动词，先双写末尾的辅音字母，再加-ing。如：<br>①stop（停止，阻止）—stopping<br>②beg（乞求，乞讨）—begging<br>③drop（滴落；投下）—dropping<br>4、以-y结尾的动词直接加-ing。如：<br>①carry（携带；拿，刊登）—carrying<br>②enjoy（喜欢；享有）—enjoying<br>③dry（弄干）—drying<br>5、以-ie结尾的动词，把-ie改为-y，再加-ing。如：<br>①die（死）—dying<br>②lie（说谎；躺）—lying<br>③tie(捆，绑)—tying</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/eng_easy_english_010_daily_english_conversation_practice/" rel="next" title="Easy English - 010 - Daily English Conversation Practice">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Easy English - 010 - Daily English Conversation Practice
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/eng_friends_rachel_laundry/" rel="prev" title="老友记瑞秋洗衣S01E05">
+                <p class="post-nav-pre-next-title">
+                    老友记瑞秋洗衣S01E05
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img width="800" height="600" loading="lazy" class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">290</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原文"><span class="nav-text">原文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间介词"><span class="nav-text">时间介词</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#the-的用法-冠词的用法"><span class="nav-text">the 的用法(冠词的用法)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#疑问句式-比如-don’t-you-can-I-Do-I-之类"><span class="nav-text">疑问句式, 比如 don’t you, can I, Do I 之类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#助动词和情态助动词"><span class="nav-text">助动词和情态助动词</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不可数名词和可数名词的各类变化规律"><span class="nav-text">不可数名词和可数名词的各类变化规律</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动词ing形式变化规则"><span class="nav-text">动词ing形式变化规则</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
