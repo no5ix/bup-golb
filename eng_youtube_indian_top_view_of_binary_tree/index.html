@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'YT Top View of Binary Tree' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Algo,English,Subtitle,Youtube,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="URLhttps://www.youtube.com/watch?v=Et9OCDNvJ78 . . .">
+<meta name="keywords" content="Algo,English,Subtitle,Youtube">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YT Top View of Binary Tree">
+<meta property="og:url" content="https://hulinhong.com/eng_youtube_indian_top_view_of_binary_tree/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="URLhttps://www.youtube.com/watch?v=Et9OCDNvJ78 . . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-09-04T16:39:03.632Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YT Top View of Binary Tree">
+<meta name="twitter:description" content="URLhttps://www.youtube.com/watch?v=Et9OCDNvJ78 . . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>YT Top View of Binary Tree | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/eng_youtube_indian_top_view_of_binary_tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">YT Top View of Binary Tree</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-12-30T00:59:21+00:00">
+                12-30-2024
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+              
+                <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+              
+                <a href="/tags/Subtitle/" rel="tag"><i class="fa fa-tag"></i> Subtitle</a>
+              
+                <a href="/tags/Youtube/" rel="tag"><i class="fa fa-tag"></i> Youtube</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/eng_youtube_john_mearsheimer_and_jeffrey_sachs_all_in_summit_2024/" rel="next" title="John Mearsheimer and Jeffrey Sachs | All-In Summit 2024">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  John Mearsheimer and Jeffrey Sachs | All-In Summit 2024
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/na_az_driver_license_test_notes/" rel="prev" title="AZ driver's license test notes">
+              <p class="post-nav-pre-next-title">
+                  AZ driver's license test notes
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h1><p><a href="https://www.youtube.com/watch?v=Et9OCDNvJ78" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Et9OCDNvJ78</a></p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="Subtitle"><a href="#Subtitle" class="headerlink" title="Subtitle"></a>Subtitle</h1><p>1<br>00:00:00,000 –&gt; 00:00:01,439<br>before starting this video i’d love to<br>在开始这个视频之前，我要</p>
+<p>2<br>00:00:01,439 –&gt; 00:00:03,439<br>thank releval for sponsoring this entire<br>感谢 releval 赞助了整个</p>
+<p>3<br>00:00:03,439 –&gt; 00:00:05,120<br>tree series did you know that companies<br>树系列，你知道吗，</p>
+<p>4<br>00:00:05,120 –&gt; 00:00:07,040<br>like google apple starbucks are now<br>像谷歌、苹果、星巴克这样的公司现在正在</p>
+<p>5<br>00:00:07,040 –&gt; 00:00:08,559<br>hiring people without any degree or<br>招聘没有学位或</p>
+<p>6<br>00:00:08,559 –&gt; 00:00:10,719<br>experience why because they believe that<br>经验的人，因为他们认为</p>
+<p>7<br>00:00:10,719 –&gt; 00:00:12,559<br>skills are more important than anything<br>技能比其他任何东西都重要，</p>
+<p>8<br>00:00:12,559 –&gt; 00:00:14,719<br>else the top companies in india like the<br>顶级公司 在印度，像</p>
+<p>9<br>00:00:14,719 –&gt; 00:00:16,640<br>top startups have also started following<br>顶级创业公司也开始遵循</p>
+<p>10<br>00:00:16,640 –&gt; 00:00:18,240<br>this trend by hiring through a platform<br>这一趋势，通过一个相关的平台进行招聘，</p>
+<p>11<br>00:00:18,240 –&gt; 00:00:20,320<br>which is relevant which is backed up by<br>这个平台由</p>
+<p>12<br>00:00:20,320 –&gt; 00:00:22,240<br>an academy all you have to do is to give<br>一个学院支持，你所要做的就是参加</p>
+<p>13<br>00:00:22,240 –&gt; 00:00:24,000<br>the relevant test and based on your<br>相关的测试，并根据你的</p>
+<p>14<br>00:00:24,000 –&gt; 00:00:25,599<br>score this flat send your candidate<br>分数将你的候选人</p>
+<p>15<br>00:00:25,599 –&gt; 00:00:27,680<br>profiles to 50 plus companies which<br>资料发送给 50 多家公司，</p>
+<p>16<br>00:00:27,680 –&gt; 00:00:30,480<br>includes cred upgrade vedanta<br>包括信用升级韦丹塔</p>
+<p>17<br>00:00:30,480 –&gt; 00:00:32,238<br>and you can get selected for a job role<br>，你可以在一周内被选中担任某个职位，</p>
+<p>18<br>00:00:32,238 –&gt; 00:00:34,320<br>within a week another amazing thing</p>
+<p>19<br>00:00:34,320 –&gt; 00:00:36,559<br>about relevel is it’s absolutely free so<br>重新分级的另一个令人惊奇之处在于它是完全免费的，所以</p>
+<p>20<br>00:00:36,559 –&gt; 00:00:37,840<br>please make sure you check out the links<br>请务必查看</p>
+<p>21<br>00:00:37,840 –&gt; 00:00:41,079<br>in the description<br>描述中的链接，</p>
+<p>22<br>00:00:44,000 –&gt; 00:00:45,440<br>hey everyone welcome back to the channel<br>大家好，欢迎回到频道，</p>
+<p>23<br>00:00:45,440 –&gt; 00:00:47,280<br>i hope you guys are doing extremely well<br>我希望 你们做得非常好，</p>
+<p>24<br>00:00:47,280 –&gt; 00:00:49,120<br>so today we will be discussing the top<br>所以今天我们将讨论</p>
+<p>25<br>00:00:49,120 –&gt; 00:00:50,879<br>view of a binary tree from the freakout<br>怪异树系列中的二叉树的顶视图，</p>
+<p>26<br>00:00:50,879 –&gt; 00:00:53,360<br>tree series so assume this is the banana<br>所以假设这是</p>
+<p>27<br>00:00:53,360 –&gt; 00:00:55,600<br>tree that is given to you and i’m<br>给你的香蕉树，我</p>
+<p>28<br>00:00:55,600 –&gt; 00:00:58,399<br>looking from the topmost level and it is<br>从最顶层看，它是</p>
+<p>29<br>00:00:58,399 –&gt; 00:01:01,039<br>in 1d shape like the tree is entirely in<br>1d 形状就像树完全是</p>
+<p>30<br>00:01:01,039 –&gt; 00:01:03,840<br>1d so if i ask you what is the top view<br>1d，所以如果我问你顶部是什么</p>
+<p>31<br>00:01:03,840 –&gt; 00:01:06,240<br>of this binary tree i can say initially<br>从这个二叉树的角度来看，我可以说，最初，</p>
+<p>32<br>00:01:06,240 –&gt; 00:01:07,280<br>i will be</p>
+<p>33<br>00:01:07,280 –&gt; 00:01:09,040<br>if i just start from left to right i’ll<br>如果我从左到右开始，我</p>
+<p>34<br>00:01:09,040 –&gt; 00:01:11,439<br>be seeing 4<br>将看到 4，</p>
+<p>35<br>00:01:11,439 –&gt; 00:01:15,119<br>right after that i’ll be seeing two<br>然后我将看到 2，</p>
+<p>36<br>00:01:15,119 –&gt; 00:01:18,320<br>right after that i’ll be seeing one<br>然后我将看到 1，</p>
+<p>37<br>00:01:18,320 –&gt; 00:01:20,560<br>after that i’ll be seeing three<br>然后我将看到 看到三</p>
+<p>38<br>00:01:20,560 –&gt; 00:01:22,479<br>after that i’ll be seeing seven<br>之后，我会看到七，</p>
+<p>39<br>00:01:22,479 –&gt; 00:01:25,680<br>so i can say that the top view of this<br>所以我可以说这棵特定二叉树的顶视图</p>
+<p>40<br>00:01:25,680 –&gt; 00:01:28,880<br>particular binary tree will be 42137<br>将是42137，</p>
+<p>41<br>00:01:28,880 –&gt; 00:01:31,600<br>so i want you to deduce an algorithm<br>所以我想让你推导出一个算法，</p>
+<p>42<br>00:01:31,600 –&gt; 00:01:33,759<br>which basically gives you<br>它基本上可以</p>
+<p>43<br>00:01:33,759 –&gt; 00:01:36,000<br>gives me the top view of any given<br>给你任何给定二叉树的顶视图，</p>
+<p>44<br>00:01:36,000 –&gt; 00:01:38,000<br>binary tree</p>
+<p>45<br>00:01:38,000 –&gt; 00:01:40,720<br>so you know that in order to solve any<br>所以你 知道为了解决任何</p>
+<p>46<br>00:01:40,720 –&gt; 00:01:43,600<br>binary tree question we have to follow<br>二叉树问题，我们必须遵循</p>
+<p>47<br>00:01:43,600 –&gt; 00:01:45,360<br>traversal now either we follow the<br>遍历，现在我们要么遵循</p>
+<p>48<br>00:01:45,360 –&gt; 00:01:48,079<br>recursive traversal or we follow the<br>递归遍历，要么遵循</p>
+<p>49<br>00:01:48,079 –&gt; 00:01:50,479<br>level order traversal so over here we<br>层次遍历，所以在这里我们</p>
+<p>50<br>00:01:50,479 –&gt; 00:01:52,399<br>will be following the level order<br>将遵循层次</p>
+<p>51<br>00:01:52,399 –&gt; 00:01:55,280<br>traversal and why not recursion i’ll<br>遍历，为什么不使用递归，我</p>
+<p>52<br>00:01:55,280 –&gt; 00:01:57,840<br>come to that but afterwards<br>会谈到这一点 但是</p>
+<p>53<br>00:01:57,840 –&gt; 00:02:00,240<br>now in this level order traversal if you<br>现在在这个层次遍历中，如果你还</p>
+<p>54<br>00:02:00,240 –&gt; 00:02:02,560<br>remember the vertical order traversal<br>记得</p>
+<p>55<br>00:02:02,560 –&gt; 00:02:04,799<br>that we did uh using the line concept so<br>我们使用线概念进行的垂直顺序遍历，那么</p>
+<p>56<br>00:02:04,799 –&gt; 00:02:06,880<br>we’re going to use the line concept from<br>我们将使用</p>
+<p>57<br>00:02:06,880 –&gt; 00:02:09,360<br>vertical order traversal okay so this is<br>垂直顺序遍历中的线概念，好的，所以这是</p>
+<p>58<br>00:02:09,360 –&gt; 00:02:11,360<br>a line zero<br>一条线零，</p>
+<p>59<br>00:02:11,360 –&gt; 00:02:13,840<br>this is uh like whenever we move left we<br>就像每当我们 向左移动，我们</p>
+<p>60<br>00:02:13,840 –&gt; 00:02:16,319<br>will consider that as line minus one<br>将认为这是减去 一</p>
+<p>61<br>00:02:16,319 –&gt; 00:02:18,080<br>and if you’re moving much further left<br>，如果你向左移动得更远，</p>
+<p>62<br>00:02:18,080 –&gt; 00:02:20,000<br>that’s one more minus one that’s minus<br>那就是再减一，也就是减二，</p>
+<p>63<br>00:02:20,000 –&gt; 00:02:20,879<br>two</p>
+<p>64<br>00:02:20,879 –&gt; 00:02:23,120<br>and over here this will be plus 1 on the<br>在这里，右边就是加一，</p>
+<p>65<br>00:02:23,120 –&gt; 00:02:25,360<br>right and this will be another plus 1 on<br>右边又是加一，</p>
+<p>66<br>00:02:25,360 –&gt; 00:02:27,440<br>the right that’s plus 2. so on every<br>也就是加二。每一行都是如此</p>
+<p>67<br>00:02:27,440 –&gt; 00:02:30,000<br>line on every line whichever is the</p>
+<p>68<br>00:02:30,000 –&gt; 00:02:32,319<br>first node now on this line minus 2 the<br>现在这条线上的第一个节点减 2</p>
+<p>69<br>00:02:32,319 –&gt; 00:02:35,040<br>first node is 4 on this line minus 1 the<br>这条线上的第一个节点是 4 减 1 这条线上的</p>
+<p>70<br>00:02:35,040 –&gt; 00:02:37,519<br>first node when you uh look from top to<br>第一个节点从上往下看</p>
+<p>71<br>00:02:37,519 –&gt; 00:02:39,599<br>bottom that’s two on this line zero<br>是 2 这条线上的零是 1</p>
+<p>72<br>00:02:39,599 –&gt; 00:02:42,480<br>that’s one on this line one that’s three<br>这条线上的 1</p>
+<p>73<br>00:02:42,480 –&gt; 00:02:45,200<br>on this line two that’s seven so i can<br>这条线上的三是 2 那是七个，所以我可以</p>
+<p>74<br>00:02:45,200 –&gt; 00:02:47,280<br>say the first node<br>说</p>
+<p>75<br>00:02:47,280 –&gt; 00:02:50,879<br>in every line will be my top view that<br>每条线上的第一个节点将是我的顶视图，这就是</p>
+<p>76<br>00:02:50,879 –&gt; 00:02:53,440<br>is that is what i’ll see right so we can<br>我将看到的，所以我们</p>
+<p>77<br>00:02:53,440 –&gt; 00:02:55,760<br>actually uh create the line concept and<br>实际上可以创建线概念并</p>
+<p>78<br>00:02:55,760 –&gt; 00:02:57,200<br>solve this problem using level order<br>使用层次遍历来解决这个问题，</p>
+<p>79<br>00:02:57,200 –&gt; 00:02:58,319<br>traversal</p>
+<p>80<br>00:02:58,319 –&gt; 00:02:59,760<br>so in order to solve this problem we<br>为了解决这个问题 问题是我们</p>
+<p>81<br>00:02:59,760 –&gt; 00:03:01,200<br>will be requiring a couple of data<br>需要几个数据</p>
+<p>82<br>00:03:01,200 –&gt; 00:03:03,440<br>structures the first one is the queue<br>结构，第一个是队列，</p>
+<p>83<br>00:03:03,440 –&gt; 00:03:05,519<br>which is definitely going to store uh<br>它肯定会存储呃</p>
+<p>84<br>00:03:05,519 –&gt; 00:03:07,840<br>the initial node that is the root and<br>初始节点，也就是根节点，</p>
+<p>85<br>00:03:07,840 –&gt; 00:03:09,920<br>the initial line is zero basically i’m<br>初始行是零，基本上我</p>
+<p>86<br>00:03:09,920 –&gt; 00:03:12,080<br>considering the starting line to be zero<br>认为起始行是零</p>
+<p>87<br>00:03:12,080 –&gt; 00:03:13,760<br>and i’ll be requiring a map data<br>，我’ 将再次需要地图数据</p>
+<p>88<br>00:03:13,760 –&gt; 00:03:15,920<br>structure again please make sure that<br>结构，请确保</p>
+<p>89<br>00:03:15,920 –&gt; 00:03:18,560<br>it’s a map data structure which stores<br>这是一个映射数据结构，它存储了</p>
+<p>90<br>00:03:18,560 –&gt; 00:03:19,760<br>the line<br>行</p>
+<p>91<br>00:03:19,760 –&gt; 00:03:22,159<br>as well as the node<br>和节点，</p>
+<p>92<br>00:03:22,159 –&gt; 00:03:22,959<br>right</p>
+<p>93<br>00:03:22,959 –&gt; 00:03:24,879<br>and this is a map data structure because<br>这是一个映射数据结构，因为</p>
+<p>94<br>00:03:24,879 –&gt; 00:03:27,360<br>map stores everything in a sorted<br>映射以按键的排序方式存储所有内容，</p>
+<p>95<br>00:03:27,360 –&gt; 00:03:29,840<br>fashion of keys do not use unordered map</p>
+<p>96<br>00:03:29,840 –&gt; 00:03:31,680<br>if you’re using c plus<br>如果您使用 c plus，请不要使用无序映射，</p>
+<p>97<br>00:03:31,680 –&gt; 00:03:33,920<br>so let’s get started so initially you<br>所以让我们开始吧 你</p>
+<p>98<br>00:03:33,920 –&gt; 00:03:35,920<br>take the first node out from the queue<br>从队列中取出第一个节点，</p>
+<p>99<br>00:03:35,920 –&gt; 00:03:39,519<br>so that’s a node of value one and a line<br>所以这是一个值为 1 的节点，位于第 0 行，</p>
+<p>100<br>00:03:39,519 –&gt; 00:03:40,640<br>zero</p>
+<p>101<br>00:03:40,640 –&gt; 00:03:41,599<br>so<br>那么</p>
+<p>102<br>00:03:41,599 –&gt; 00:03:43,599<br>on line zero do we have anything on the<br>在第 0 行，我们在地图上有什么吗？</p>
+<p>103<br>00:03:43,599 –&gt; 00:03:46,720<br>map no so it’ll say 0 on line 0 the<br>没有，所以它会在第 0 行显示 0，</p>
+<p>104<br>00:03:46,720 –&gt; 00:03:49,360<br>first node that i see is 1<br>我看到的第一个节点是 1，</p>
+<p>105<br>00:03:49,360 –&gt; 00:03:50,799<br>right after that you know level order<br>对吗 之后你知道层次</p>
+<p>106<br>00:03:50,799 –&gt; 00:03:52,319<br>traversal is left<br>遍历是左到</p>
+<p>107<br>00:03:52,319 –&gt; 00:03:55,599<br>right so on the left we have a 2<br>右，所以在左边我们有2，</p>
+<p>108<br>00:03:55,599 –&gt; 00:03:57,840<br>correct so i’ll take 2 and since it’s on<br>所以我会取2，因为它在</p>
+<p>109<br>00:03:57,840 –&gt; 00:04:01,200<br>the left you will minus one on the line<br>左边，你会在线上减一，</p>
+<p>110<br>00:04:01,200 –&gt; 00:04:04,000<br>okay and on the right that’s a three so<br>好的，在右边是3，所以</p>
+<p>111<br>00:04:04,000 –&gt; 00:04:05,840<br>you’ll do a plus one on the line<br>你会 在线上做一个加一，</p>
+<p>112<br>00:04:05,840 –&gt; 00:04:09,439<br>perfect so the node one is completed<br>这样节点一就完成了，</p>
+<p>113<br>00:04:09,439 –&gt; 00:04:12,480<br>next you take two comma minus one so the<br>接下来你取两个逗号减一，这样</p>
+<p>114<br>00:04:12,480 –&gt; 00:04:14,480<br>node is two the line is<br>节点就是二，线就是</p>
+<p>115<br>00:04:14,480 –&gt; 00:04:18,000<br>minus 1. so if you have 2 comma minus 1<br>减一。所以如果你有2个逗号减1，</p>
+<p>116<br>00:04:18,000 –&gt; 00:04:19,759<br>can i see this that<br>我能看到</p>
+<p>117<br>00:04:19,759 –&gt; 00:04:21,839<br>we have a minus 1 so we do not have that<br>我们有减1吗 地图上没有这个位置，</p>
+<p>118<br>00:04:21,839 –&gt; 00:04:24,639<br>on the map so can i say the node 2 is<br>所以我可以 假设节点 2 是</p>
+<p>119<br>00:04:24,639 –&gt; 00:04:26,479<br>the first uh first</p>
+<p>120<br>00:04:26,479 –&gt; 00:04:28,080<br>node that i have seen in this line<br>这条线上我见过的第一个节点，</p>
+<p>121<br>00:04:28,080 –&gt; 00:04:31,360<br>perfect so on two do you have a left yes<br>那么在 2 上你有一个左节点，是的，</p>
+<p>122<br>00:04:31,360 –&gt; 00:04:33,280<br>that’s a four i know what will be the<br>那是 4，我知道</p>
+<p>123<br>00:04:33,280 –&gt; 00:04:35,199<br>line if the line is minus one currently<br>如果这条线目前为负一</p>
+<p>124<br>00:04:35,199 –&gt; 00:04:36,800<br>and if i’m moving left<br>，如果我正在移动，那这条线会是什么 左边</p>
+<p>125<br>00:04:36,800 –&gt; 00:04:38,639<br>it’s gonna be minus two<br>是减二</p>
+<p>126<br>00:04:38,639 –&gt; 00:04:40,479<br>and on the right i have a five<br>，右边是五，</p>
+<p>127<br>00:04:40,479 –&gt; 00:04:42,240<br>so if the line is minus one and i’m<br>所以如果这条线是减一，我</p>
+<p>128<br>00:04:42,240 –&gt; 00:04:46,160<br>moving right the line is gonna be zero<br>向右移动，这条线就是零</p>
+<p>129<br>00:04:46,160 –&gt; 00:04:47,199<br>perfect<br>完美，</p>
+<p>130<br>00:04:47,199 –&gt; 00:04:50,400<br>so that’s what we have done<br>所以这就是我们接下来要做的，</p>
+<p>131<br>00:04:50,400 –&gt; 00:04:53,040<br>next is three comma<br>就是三个逗号</p>
+<p>132<br>00:04:53,040 –&gt; 00:04:55,600<br>plus one being the line so if you have a<br>加一是这条线，所以 如果你有</p>
+<p>133<br>00:04:55,600 –&gt; 00:04:56,800<br>three<br>三，</p>
+<p>134<br>00:04:56,800 –&gt; 00:04:58,720<br>can i say plus one is the line and<br>我可以说加一是这条线，</p>
+<p>135<br>00:04:58,720 –&gt; 00:05:00,400<br>that’s the first time i’m visiting on<br>这是我第一次访问第一</p>
+<p>136<br>00:05:00,400 –&gt; 00:05:02,960<br>line one so you store whatever is there<br>行，所以你存储了这条线上的任何东西，</p>
+<p>137<br>00:05:02,960 –&gt; 00:05:04,320<br>on the line</p>
+<p>138<br>00:05:04,320 –&gt; 00:05:05,280<br>next<br>接下来</p>
+<p>139<br>00:05:05,280 –&gt; 00:05:07,120<br>do we have anything left of three do you<br>我们还有三的剩余吗，你</p>
+<p>140<br>00:05:07,120 –&gt; 00:05:09,280<br>have anything on left of three<br>在三的剩余上有什么东西吗</p>
+<p>141<br>00:05:09,280 –&gt; 00:05:11,440<br>no we do not have anything left of three<br>不，我们没有三以外的任何数，</p>
+<p>142<br>00:05:11,440 –&gt; 00:05:14,320<br>so we’re not gonna do anything<br>所以我们什么也不做，</p>
+<p>143<br>00:05:14,320 –&gt; 00:05:15,919<br>do you have anything right of three<br>你有三以外的任何数吗，</p>
+<p>144<br>00:05:15,919 –&gt; 00:05:18,080<br>indeed we have that’s seven so we’re<br>我们有七，所以我们</p>
+<p>145<br>00:05:18,080 –&gt; 00:05:19,680<br>gonna take seven and we’re gonna say<br>要取七，然后我们会说</p>
+<p>146<br>00:05:19,680 –&gt; 00:05:22,400<br>that we have this on the right so if the<br>我们在右边有这个，所以 如果这一</p>
+<p>147<br>00:05:22,400 –&gt; 00:05:24,479<br>line is one if you go right that will be<br>行是一如果你往右走那将是</p>
+<p>148<br>00:05:24,479 –&gt; 00:05:27,520<br>seven comma two so three is also done<br>七个逗号二所以三也完成了</p>
+<p>149<br>00:05:27,520 –&gt; 00:05:29,840<br>next four comma minus two do you have a<br>接下来的四个逗号 减二，你有</p>
+<p>150<br>00:05:29,840 –&gt; 00:05:32,560<br>minus two line no so minus two will take<br>减二的线吗？没有，所以减二会取</p>
+<p>151<br>00:05:32,560 –&gt; 00:05:34,560<br>the four so you have a node four with a<br>四，所以你有一个节点四和一条</p>
+<p>152<br>00:05:34,560 –&gt; 00:05:37,039<br>line minus two does four have anything<br>线减二，四在左边有什么东西</p>
+<p>153<br>00:05:37,039 –&gt; 00:05:38,960<br>on the left no does 4 have anything on<br>吗？没有，4在右边有什么东西吗？</p>
+<p>154<br>00:05:38,960 –&gt; 00:05:41,600<br>the right no so the note 4 has completed<br>没有，所以注释4已经完成</p>
+<p>155<br>00:05:41,600 –&gt; 00:05:44,240<br>next we have a 5 so let’s take 5 and a<br>接下来我们有 5，所以让我们取 5 和</p>
+<p>156<br>00:05:44,240 –&gt; 00:05:47,120<br>line 0 very important point now the note<br>0 行，非常重要的一点现在注意</p>
+<p>157<br>00:05:47,120 –&gt; 00:05:50,479<br>5 is on the line 0. so on line 0 we have<br>5 在第 0 行。所以在第 0 行我们</p>
+<p>158<br>00:05:50,479 –&gt; 00:05:52,880<br>already won that is the first scene guy<br>已经赢了，这是第一个场景，</p>
+<p>159<br>00:05:52,880 –&gt; 00:05:54,880<br>so this five will not be considered in<br>所以这 5 不会在你的地图中被考虑</p>
+<p>160<br>00:05:54,880 –&gt; 00:05:55,840<br>your map</p>
+<p>161<br>00:05:55,840 –&gt; 00:05:57,840<br>on five do you have a left yes that is<br>在五上你有一个左边是的</p>
+<p>162<br>00:05:57,840 –&gt; 00:06:00,880<br>six and what is the line number minus<br>那是六行号减</p>
+<p>163<br>00:06:00,880 –&gt; 00:06:03,840<br>one so six comma minus one<br>一所以六逗号减一</p>
+<p>164<br>00:06:03,840 –&gt; 00:06:05,600<br>perfect so that’s that’s what we have<br>完美所以这就是我们</p>
+<p>165<br>00:06:05,600 –&gt; 00:06:08,319<br>done with five next take seven comma two<br>对五所做的接下来取七逗号二</p>
+<p>166<br>00:06:08,319 –&gt; 00:06:10,800<br>so take seven comma two do you have<br>所以取七逗号二你</p>
+<p>167<br>00:06:10,800 –&gt; 00:06:13,520<br>anything on two no so that’s the first<br>对二有什么看法 不，这是你第一次</p>
+<p>168<br>00:06:13,520 –&gt; 00:06:16,160<br>time you visit someone so i visited the<br>拜访某人，所以我参观了</p>
+<p>169<br>00:06:16,160 –&gt; 00:06:18,639<br>seven hour left on a right no so seven<br>左边的七个小时，不，所以七</p>
+<p>170<br>00:06:18,639 –&gt; 00:06:20,960<br>is also done next you will have 6 comma<br>也完成了，接下来你将有 6 个逗号</p>
+<p>171<br>00:06:20,960 –&gt; 00:06:24,000<br>minus 1 6 comma minus 1 minus 1 is<br>减 1 6 个逗号减 1 减 1</p>
+<p>172<br>00:06:24,000 –&gt; 00:06:26,080<br>already there no need to consider 6<br>已经存在，无需考虑 6</p>
+<p>173<br>00:06:26,080 –&gt; 00:06:27,440<br>doesn’t have a left doesn’t have a right<br>没有 有左边 没有权利</p>
+<p>174<br>00:06:27,440 –&gt; 00:06:29,120<br>so complete it so once you have<br>所以完成它所以一旦你</p>
+<p>175<br>00:06:29,120 –&gt; 00:06:31,759<br>completed yes once you have completed<br>完成了是的一旦你完成了</p>
+<p>176<br>00:06:31,759 –&gt; 00:06:33,759<br>you can say that your map<br>你可以说你的地图</p>
+<p>177<br>00:06:33,759 –&gt; 00:06:36,720<br>yes your map stores your top view so in<br>是的你的地图存储你的顶视图所以</p>
+<p>178<br>00:06:36,720 –&gt; 00:06:38,560<br>order to get the top view from left to<br>为了从左到右获得顶视图像</p>
+<p>179<br>00:06:38,560 –&gt; 00:06:39,680<br>right like</p>
+<p>180<br>00:06:39,680 –&gt; 00:06:42,000<br>the first s4 then s2 then s1 then s3<br>第一个s4然后s2 然后 s1 然后 s3</p>
+<p>181<br>00:06:42,000 –&gt; 00:06:44,639<br>then s7 just make sure whatever is like<br>然后 s7 只需确保无论</p>
+<p>182<br>00:06:44,639 –&gt; 00:06:46,240<br>is the first element in the map the<br>是什么都是映射中的第一个元素，</p>
+<p>183<br>00:06:46,240 –&gt; 00:06:48,400<br>first element in the map will definitely<br>映射中的第一个元素肯定</p>
+<p>184<br>00:06:48,400 –&gt; 00:06:50,960<br>be minus two right so just take the<br>是负二，对吧，所以只需取</p>
+<p>185<br>00:06:50,960 –&gt; 00:06:52,720<br>value there so the first value that you<br>那里的值，所以你得到的第一个值</p>
+<p>186<br>00:06:52,720 –&gt; 00:06:54,000<br>get is<br>是</p>
+<p>187<br>00:06:54,000 –&gt; 00:06:54,960<br>four<br>四，</p>
+<p>188<br>00:06:54,960 –&gt; 00:06:57,039<br>what’s the next minus one so the first<br>下一个负数是什么 一，所以</p>
+<p>189<br>00:06:57,039 –&gt; 00:06:59,120<br>value that you will get is<br>你得到的第一个值是</p>
+<p>190<br>00:06:59,120 –&gt; 00:07:00,960<br>two next is<br>二，接下来是</p>
+<p>191<br>00:07:00,960 –&gt; 00:07:03,520<br>zero the value that you’ll get is one<br>零，你得到的值是一，</p>
+<p>192<br>00:07:03,520 –&gt; 00:07:05,840<br>next is one the value that you’ll get is<br>接下来是一，你得到的值是</p>
+<p>193<br>00:07:05,840 –&gt; 00:07:07,759<br>three next is two the value that you’ll<br>三，接下来是二，你</p>
+<p>194<br>00:07:07,759 –&gt; 00:07:08,720<br>get is<br>得到的值是</p>
+<p>195<br>00:07:08,720 –&gt; 00:07:11,280<br>seven so i can say that<br>七，所以我可以</p>
+<p>196<br>00:07:11,280 –&gt; 00:07:13,759<br>in this way you can easily get the top<br>这样说，你可以轻松地获得</p>
+<p>197<br>00:07:13,759 –&gt; 00:07:17,360<br>view of the binary pre<br>二进制预的顶视图，</p>
+<p>198<br>00:07:17,360 –&gt; 00:07:19,599<br>so as always the c plus plus code is on<br>所以一如既往，c plus plus 代码在</p>
+<p>199<br>00:07:19,599 –&gt; 00:07:21,599<br>the left and the java code is on the<br>左边，java 代码在</p>
+<p>200<br>00:07:21,599 –&gt; 00:07:23,520<br>right so what we are given is basically<br>右边，所以我们给出的基本上是</p>
+<p>201<br>00:07:23,520 –&gt; 00:07:25,680<br>the root of the binary tree so initially<br>二叉树的根，所以 首先，</p>
+<p>202<br>00:07:25,680 –&gt; 00:07:28,479<br>what we do is we take a vector of int<br>我们取一个 int 向量</p>
+<p>203<br>00:07:28,479 –&gt; 00:07:30,080<br>and this is where we’re gonna store the<br>，如果树是空的，我们将在这里存储</p>
+<p>204<br>00:07:30,080 –&gt; 00:07:31,280<br>top view<br>顶视图</p>
+<p>205<br>00:07:31,280 –&gt; 00:07:33,280<br>if the tree is empty we’re gonna return<br>我们将返回</p>
+<p>206<br>00:07:33,280 –&gt; 00:07:35,440<br>the empty vector or else we’ll declare<br>空向量，否则我们</p>
+<p>207<br>00:07:35,440 –&gt; 00:07:37,360<br>we’re gonna declare a map and a queue<br>将声明一个映射和一个</p>
+<p>208<br>00:07:37,360 –&gt; 00:07:39,120<br>which is going to store a pair so in<br>用于存储一对的队列，因此在</p>
+<p>209<br>00:07:39,120 –&gt; 00:07:41,360<br>java you can create your own pair class<br>Java 中，您可以创建自己的一对类，</p>
+<p>210<br>00:07:41,360 –&gt; 00:07:42,840<br>with root n<br>根为 n</p>
+<p>211<br>00:07:42,840 –&gt; 00:07:46,000<br>zero right after that i will enter the<br>零，之后我将 输入</p>
+<p>212<br>00:07:46,000 –&gt; 00:07:49,120<br>root and the line initially as zero<br>根和行最初为零</p>
+<p>213<br>00:07:49,120 –&gt; 00:07:50,800<br>after that i’ll keep on traversing till<br>之后，我将继续遍历，直到</p>
+<p>214<br>00:07:50,800 –&gt; 00:07:52,400<br>the q is not empty<br>q 不为空，</p>
+<p>215<br>00:07:52,400 –&gt; 00:07:55,039<br>get the topmost node and once you’ve got<br>获取最顶层节点，一旦获得</p>
+<p>216<br>00:07:55,039 –&gt; 00:07:57,039<br>the topmost node get the line number<br>最顶层节点，获取行号，</p>
+<p>217<br>00:07:57,039 –&gt; 00:07:58,800<br>once you’ve got the line number please<br>一旦获得行号，请</p>
+<p>218<br>00:07:58,800 –&gt; 00:08:01,120<br>make sure that it doesn’t exist on the<br>制作 确保它不存在于地图上，</p>
+<p>219<br>00:08:01,120 –&gt; 00:08:03,440<br>map if that line doesn’t exist<br>如果该线不存在，</p>
+<p>220<br>00:08:03,440 –&gt; 00:08:06,160<br>then you will initialize the node on<br>那么您将初始化</p>
+<p>221<br>00:08:06,160 –&gt; 00:08:07,840<br>that map because that’s the first time<br>该地图上的节点，因为这是您第一次</p>
+<p>222<br>00:08:07,840 –&gt; 00:08:10,240<br>you’re visiting any node on that line<br>访问该线上的任何节点，</p>
+<p>223<br>00:08:10,240 –&gt; 00:08:12,000<br>after that just take whatever is on the<br>之后只需获取左侧的任何内容即可 如果</p>
+<p>224<br>00:08:12,000 –&gt; 00:08:14,319<br>left take whatever is on the right<br>在右边，就把它</p>
+<p>225<br>00:08:14,319 –&gt; 00:08:16,080<br>enter into the queue with minus one if<br>放入减一队列；如果在</p>
+<p>226<br>00:08:16,080 –&gt; 00:08:18,560<br>it’s left enter it into the queue with<br>左边，就把它放入加</p>
+<p>227<br>00:08:18,560 –&gt; 00:08:20,879<br>plus one if it’s all right once you have<br>一队列；完成后，</p>
+<p>228<br>00:08:20,879 –&gt; 00:08:23,360<br>done this iterate on the map right<br>在地图上迭代，</p>
+<p>229<br>00:08:23,360 –&gt; 00:08:26,400<br>iterate on the map and make sure you<br>在地图上迭代，并确保你</p>
+<p>230<br>00:08:26,400 –&gt; 00:08:29,840<br>enter into your answer vector which was<br>输入了答案向量 它将</p>
+<p>231<br>00:08:29,840 –&gt; 00:08:32,080<br>going to store the top view and the<br>存储顶视图，</p>
+<p>232<br>00:08:32,080 –&gt; 00:08:34,159<br>value is what you will answer you will<br>值就是你将要回答的内容，你将</p>
+<p>233<br>00:08:34,159 –&gt; 00:08:36,159<br>enter into the answer vector and right<br>输入到答案向量中，</p>
+<p>234<br>00:08:36,159 –&gt; 00:08:38,719<br>after that you can return the answer<br>之后你就可以 返回正确的答案，</p>
+<p>235<br>00:08:38,719 –&gt; 00:08:40,320<br>right</p>
+<p>236<br>00:08:40,320 –&gt; 00:08:42,479<br>so what will be the time complexity guys<br>那么时间复杂度是多少呢，</p>
+<p>237<br>00:08:42,479 –&gt; 00:08:45,200<br>the time complexity will be b go of n<br>时间复杂度将是b，n</p>
+<p>238<br>00:08:45,200 –&gt; 00:08:46,959<br>and what will be the space complexity<br>，空间复杂度是多少，</p>
+<p>239<br>00:08:46,959 –&gt; 00:08:49,600<br>the space complexity will also be we go<br>空间复杂度也将是我们从</p>
+<p>240<br>00:08:49,600 –&gt; 00:08:51,440<br>off n like yeah you’re using a q and a<br>n开始，就像是的，你正在使用q和</p>
+<p>241<br>00:08:51,440 –&gt; 00:08:53,600<br>map so it’s twice of n but yes like in<br>map，所以它是 n 的两倍，但是是的，就像</p>
+<p>242<br>00:08:53,600 –&gt; 00:08:56,480<br>generalized way we can call it as b of n<br>广义上我们可以称它为 n 的 b</p>
+<p>243<br>00:08:56,480 –&gt; 00:08:59,120<br>and space complexity as b of n<br>，空间复杂度为 n 的 b</p>
+<p>244<br>00:08:59,120 –&gt; 00:09:01,760<br>standard question uh can i use the<br>标准问题呃我可以使用</p>
+<p>245<br>00:09:01,760 –&gt; 00:09:03,920<br>recursive traversal in order to solve<br>递归遍历来解决</p>
+<p>246<br>00:09:03,920 –&gt; 00:09:06,640<br>this problem the answer will be no why<br>这个问题吗答案是否定的，</p>
+<p>247<br>00:09:06,640 –&gt; 00:09:08,560<br>because just imagine if you use a<br>因为想象一下如果你 使用中</p>
+<p>248<br>00:09:08,560 –&gt; 00:09:10,640<br>inorder traversal first you’ll visit<br>序遍历，首先你会访问</p>
+<p>249<br>00:09:10,640 –&gt; 00:09:12,320<br>this then you’ll visit this then you’ll<br>这个，然后你会访问这个，然后你会</p>
+<p>250<br>00:09:12,320 –&gt; 00:09:14,240<br>visit this then you’ll visit this then<br>访问这个，然后你会访问这个，然后</p>
+<p>251<br>00:09:14,240 –&gt; 00:09:17,839<br>you’ll visit this so on this line one on<br>你会访问这个，所以在这一行第一，在</p>
+<p>252<br>00:09:17,839 –&gt; 00:09:20,399<br>this line one you’ll end up visiting<br>这一行第一，你最终会访问</p>
+<p>253<br>00:09:20,399 –&gt; 00:09:22,720<br>node six the first time<br>节点 第一次是六，</p>
+<p>254<br>00:09:22,720 –&gt; 00:09:24,240<br>whereas the<br>而</p>
+<p>255<br>00:09:24,240 –&gt; 00:09:26,080<br>3 was the first node that you should<br>3 是你应该访问的第一个节点，</p>
+<p>256<br>00:09:26,080 –&gt; 00:09:28,640<br>have visited that’s why the recursive<br>这就是为什么递归解决</p>
+<p>257<br>00:09:28,640 –&gt; 00:09:31,200<br>solution cannot work directly you have<br>方案不能直接工作，你</p>
+<p>258<br>00:09:31,200 –&gt; 00:09:33,839<br>to introduce another logic of height<br>必须引入另一个高度逻辑，</p>
+<p>259<br>00:09:33,839 –&gt; 00:09:36,000<br>also right whenever you are making sure<br>对吧，无论什么时候你都要确保</p>
+<p>260<br>00:09:36,000 –&gt; 00:09:38,720<br>that whichever node is on the line like<br>无论哪个节点都在线上，就像</p>
+<p>261<br>00:09:38,720 –&gt; 00:09:41,279<br>the guy with the least height on that uh<br>那个人一样 这条线上的最小高度</p>
+<p>262<br>00:09:41,279 –&gt; 00:09:43,440<br>on this line will be seen from the top<br>从顶视图可以看到，</p>
+<p>263<br>00:09:43,440 –&gt; 00:09:44,880<br>view so i have to introduce another<br>所以 我必须引入另一种</p>
+<p>264<br>00:09:44,880 –&gt; 00:09:47,120<br>logic of height that is why i do not<br>高度逻辑，这就是为什么我不</p>
+<p>265<br>00:09:47,120 –&gt; 00:09:49,120<br>prefer the recursive way instead i<br>喜欢递归方式，而是更</p>
+<p>266<br>00:09:49,120 –&gt; 00:09:51,839<br>prefer the level order traversal that is<br>喜欢</p>
+<p>267<br>00:09:51,839 –&gt; 00:09:53,760<br>much more intuitive and you do not have<br>更直观的层次遍历，你不必</p>
+<p>268<br>00:09:53,760 –&gt; 00:09:56,959<br>to implement any extra logic on that so<br>在此基础上实现任何额外的逻辑，所以</p>
+<p>269<br>00:09:56,959 –&gt; 00:09:58,080<br>i hope you’ve understood the entire<br>我希望你已经理解了 完整的</p>
+<p>270<br>00:09:58,080 –&gt; 00:09:59,839<br>explanation as well as the code just in<br>解释以及代码，</p>
+<p>271<br>00:09:59,839 –&gt; 00:10:01,680<br>case you did please please please make<br>以防万一，请</p>
+<p>272<br>00:10:01,680 –&gt; 00:10:03,279<br>sure you like this video because it took<br>确保你喜欢这个视频，因为</p>
+<p>273<br>00:10:03,279 –&gt; 00:10:05,519<br>a lot of efforts to make this entire<br>制作整个</p>
+<p>274<br>00:10:05,519 –&gt; 00:10:07,519<br>tree series also if you wish you can<br>树系列花费了很多精力，如果你愿意，你</p>
+<p>275<br>00:10:07,519 –&gt; 00:10:09,279</p>
+<p>definitely drop in a comment that will<br>一定可以留下评论，这</p>
+<p>276<br>00:10:09,279 –&gt; 00:10:11,519<br>keep motivating me to make such further<br>将会激励我 制作更多这样的</p>
+<p>277<br>00:10:11,519 –&gt; 00:10:13,440<br>series also if you’re new to the channel<br>系列，如果你是这个频道的新人，</p>
+<p>278<br>00:10:13,440 –&gt; 00:10:14,880<br>please do consider subscribing because<br>请考虑订阅，因为</p>
+<p>279<br>00:10:14,880 –&gt; 00:10:16,560<br>i’m going to bring in such more series<br>我将在未来推出更多这样的系列，</p>
+<p>280<br>00:10:16,560 –&gt; 00:10:18,720<br>in the upcoming future as well with this</p>
+<p>281<br>00:10:18,720 –&gt; 00:10:20,079<br>uh let’s wrap up this video let’s speed<br>嗯，让我们结束这个视频，让我们快速进入</p>
+<p>282<br>00:10:20,079 –&gt; 00:10:21,279<br>in the next lecture bye take care<br>下一个讲座，再见</p>
+<p>283<br>00:10:21,279 –&gt; 00:10:25,560<br>whenever your heart is<br>无论何时，都要小心你的心</p>
+<p>284<br>00:10:25,590 –&gt; 00:10:31,249<br>[Music]<br>[音乐]</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+            
+              <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+            
+              <a href="/tags/Subtitle/" rel="tag"><i class="fa fa-tag"></i> Subtitle</a>
+            
+              <a href="/tags/Youtube/" rel="tag"><i class="fa fa-tag"></i> Youtube</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/eng_youtube_john_mearsheimer_and_jeffrey_sachs_all_in_summit_2024/" rel="next" title="John Mearsheimer and Jeffrey Sachs | All-In Summit 2024">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    John Mearsheimer and Jeffrey Sachs | All-In Summit 2024
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/na_az_driver_license_test_notes/" rel="prev" title="AZ driver's license test notes">
+                <p class="post-nav-pre-next-title">
+                    AZ driver's license test notes
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">291</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#URL"><span class="nav-text">URL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Subtitle"><span class="nav-text">Subtitle</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
