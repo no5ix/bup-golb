@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('mmp'){
+            let localStoragePasswdKey = 'System Design syllabus' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'mmp') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'mmp') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,NA,Syllabus,SystemDesign,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="noodle,NA,Syllabus,SystemDesign">
+<meta property="og:type" content="article">
+<meta property="og:title" content="System Design syllabus">
+<meta property="og:url" content="https://hulinhong.com/na_sd_syllabus/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-09-12T07:10:12.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="System Design syllabus">
+<meta name="twitter:description" content=". . .">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>System Design syllabus | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_sd_syllabus/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">System Design syllabus</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-02T04:19:08+00:00">
+                03-02-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+                <a href="/tags/Syllabus/" rel="tag"><i class="fa fa-tag"></i> Syllabus</a>
+              
+                <a href="/tags/SystemDesign/" rel="tag"><i class="fa fa-tag"></i> SystemDesign</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/na_frontend_q_top100/" rel="next" title="JS frontend Q top 100">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  JS frontend Q top 100
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/asio_non_boost_intro/" rel="prev" title="asio none boost 浅踩坑">
+              <p class="post-nav-pre-next-title">
+                  asio none boost 浅踩坑
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="/na_sd_top100/" title="System Design Top 100">System Design Top 100</a></li>
+<li>Hello interview:<ul>
+<li>youtube: <a href="https://www.youtube.com/@hello_interview/featured" target="_blank" rel="noopener">https://www.youtube.com/@hello_interview/featured</a></li>
+<li><a href="https://www.hellointerview.com/" target="_blank" rel="noopener">https://www.hellointerview.com/</a></li>
+</ul>
+</li>
+</ul>
+<p>Java-fullstack SD: </p>
+<ul>
+<li>美国 Java 全栈开发的系统设计（System Design）面试中，常见的题目聚焦在高并发、可扩展性、数据一致性、微服务架构等核心问题。以下是最常考的系统设计题（尤其是中高级职位或全栈岗位）：</li>
+<li>Java 全栈岗位额外可能考察的系统设计内容:<ul>
+<li>前后端解耦设计（API 设计规范、接口版本管理）</li>
+<li>微服务架构设计（Spring Cloud, Netflix OSS, gRPC）</li>
+<li>前端 SSR vs CSR 的选择（React 服务端渲染）</li>
+<li>CI/CD 与 DevOps 集成（Jenkins, Docker, Kubernetes）</li>
+<li>数据一致性与 CAP 理解（尤其是 eventual consistency）</li>
+</ul>
+</li>
+</ul>
+<p>Backend SD 真题参考: </p>
+<ol>
+<li><strong>notification system</strong></li>
+<li>twitter</li>
+<li>youtube</li>
+<li><a href="https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber#1-how-do-we-handle-frequent-driver-location-updates-and-efficient-proximity-searches-on-location-data" target="_blank" rel="noopener">uber</a></li>
+<li>comment system</li>
+<li>distributed MQ</li>
+<li>distributed counter</li>
+<li>Data platform</li>
+</ol>
+<p>Frontend SD:</p>
+<ul>
+<li>写一个流水灯，支持自动500ms 切换和手动切换两种. Χ</li>
+<li>找一个csv格式的api table. 获取处理数据render成表单，支持分页，搜索</li>
+<li>React实现节流和防抖</li>
+<li>如何有关一个渲染很慢的列表，提出两种以上解决方案</li>
+<li>实现一个modal弹窗组件，支持嵌套</li>
+<li>设计一个倒计时器，设计一个数字输入框，点击确定是开始倒计时，支持停止，继续，reset功能</li>
+<li>模拟电视遥控器输入，画一个含有1-9，a-z的键盘，通过键盘上下左右控制方向，每当按下enter录入字符，将点击字符显示出来并且backspace控制删除字符。注意到达键盘边界特殊情况</li>
+<li>登录表单（输入邮箱和密码，简单验证）</li>
+<li>从API加载用户列表.</li>
+<li>大列表懒加载</li>
+<li>多步表单（Wizard）（比如注册分步骤）</li>
+</ul>
+<h1 id="Scaling-prerequisite-knowledge"><a href="#Scaling-prerequisite-knowledge" class="headerlink" title="Scaling - prerequisite knowledge"></a>Scaling - prerequisite knowledge</h1><h2 id="Single-server-setup"><a href="#Single-server-setup" class="headerlink" title="Single server setup"></a>Single server setup</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-1.png" alt="alt text"></p>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-2.png" alt="alt text"></p>
+<p><strong>Non-relational</strong> databases might be the right choice if:</p>
+<ul>
+<li>• Your application requires super-low <strong>latency</strong>.</li>
+<li>• Your data are <strong>unstructured</strong>, or you do not have any relational data.</li>
+<li>• You only need to <strong>serialize</strong> and <strong>deserialize</strong> data (JSON, XML, YAML, etc.).</li>
+<li>• You need to store a <strong>massive</strong> amount of data.</li>
+</ul>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<h2 id="Vertical-scaling-vs-horizontal-scaling"><a href="#Vertical-scaling-vs-horizontal-scaling" class="headerlink" title="Vertical scaling vs horizontal scaling"></a>Vertical scaling vs horizontal scaling</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-19.png" alt="alt text"></p>
+<ul>
+<li><strong>Vertical scaling</strong>, referred to as “<strong>scale up</strong>”<ul>
+<li>means the process of adding more power (CPU, RAM, etc.) to your servers.</li>
+<li>it comes with serious limitations:<ul>
+<li>• Vertical scaling has a hard limit. It is impossible to add unlimited CPU and memory to a single server.</li>
+<li>• Vertical scaling does not have failover and redundancy. If one server goes down, the website/app goes down with it completely.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Horizontal scaling</strong>, referred to as “<strong>scale out</strong>”<ul>
+<li>allows you to scale by adding more servers into your pool of resources.</li>
+<li>Horizontal scaling is more desirable for large scale applications due to the limitations of vertical scaling</li>
+</ul>
+</li>
+</ul>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<h2 id="Load-balancer"><a href="#Load-balancer" class="headerlink" title="Load balancer"></a>Load balancer</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-3.png" alt="alt text"></p>
+<p>after a load balancer and a second web server are added, we successfully<br>solved no failover issue and improved the availability of the web tier. Details are explained<br>below:</p>
+<ul>
+<li>• If <code>server 1</code> goes offline, all the traffic will be routed to <code>server 2</code>. This prevents the website from going offline. We will also add a new healthy web server to the server pool to balance the load.</li>
+<li>• If the website traffic grows rapidly, and two servers are not enough to handle the traffic, the load balancer can handle this problem gracefully. You only need to <strong>add more servers</strong> to the web server pool, and the load balancer automatically starts to send requests to them.</li>
+</ul>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<h2 id="Database-replication"><a href="#Database-replication" class="headerlink" title="Database replication"></a>Database replication</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-4.png" alt="alt text"></p>
+<p><strong>Advantages</strong> of database replication:</p>
+<ul>
+<li>Reliability</li>
+<li>Better performance:</li>
+<li>High availability: </li>
+</ul>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-5.png" alt="alt text"></p>
+<h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-6.png" alt="alt text"></p>
+<p>Considerations for using cache: </p>
+<ul>
+<li>• Decide when to use cache. Consider using cache when data is read frequently but modified infrequently. </li>
+<li>• Expiration policy. It is a good practice to implement an expiration policy. Once cached data is expired, it is removed from the cache. </li>
+<li>• Consistency: This involves keeping the data store and the cache in sync. Inconsistency can happen because data-modifying operations on the data store and cache are not in a single transaction.<ul>
+<li>When scaling across <strong>multiple regions</strong>, maintaining consistency between the data store and cache is <strong>challenging</strong>. For further details, refer to the paper titled “Scaling Memcache at Facebook” published by Facebook [7].</li>
+</ul>
+</li>
+<li>• Mitigating failures: A single cache server represents a potential single point of failure (<strong>SPOF</strong>), defined in Wikipedia as follows: “A single point of failure (<strong>SPOF</strong>) is a part of a system that, if it fails, will stop the entire system from working” [8]. <ul>
+<li>As a result, <strong>multiple cache servers</strong> across different data centers are recommended to avoid <strong>SPOF</strong>.</li>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-7.png" alt="alt text"></li>
+</ul>
+</li>
+<li>• Eviction Policy: Once the cache is full, any requests to add items to the cache might cause existing items to be removed. This is called cache eviction. Least-recently-used (<strong>LRU</strong>) is the most popular cache eviction policy.</li>
+</ul>
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><p>A CDN is a network of geographically dispersed servers used to deliver static content. CDN<br>servers cache static content like images, videos, CSS, JavaScript files, etc.</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-8.png" alt="alt text"></p>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-9.png" alt="alt text"></p>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-10.png" alt="alt text"></p>
+<h2 id="Stateless-web-tier"><a href="#Stateless-web-tier" class="headerlink" title="Stateless web tier"></a>Stateless web tier</h2><p>Stateful architecture:</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-11.png" alt="alt text"></p>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<p>Stateless architecture:</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-12.png" alt="alt text"></p>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-13.png" alt="alt text"></p>
+<p>we move the session data out of the web tier and store them in the persistent data store. The shared data store could be a relational database, or Memcached/Redis, NoSQL, etc. </p>
+<p>However, The <strong>NoSQL data store is chosen</strong> as it is easy to scale. </p>
+<h2 id="Data-center"><a href="#Data-center" class="headerlink" title="Data center"></a>Data center</h2><p>In normal operation, users are geoDNS-routed, also known as geo-routed, to the <strong>closest</strong> data center,</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-14.png" alt="alt text"></p>
+<p>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓</p>
+<p>In the event of any significant data center outage, we direct all traffic to a healthy data center.</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-15.png" alt="alt text"></p>
+<h2 id="Message-queue"><a href="#Message-queue" class="headerlink" title="Message queue"></a>Message queue</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-16.png" alt="alt text"></p>
+<p>To further scale our system, we need to decouple different components of the system so they<br>can be scaled independently. Messaging queue is a key strategy employed by many real-<br>world distributed systems to solve this problem.</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-17.png" alt="alt text"></p>
+<h2 id="Logging-metrics-automation"><a href="#Logging-metrics-automation" class="headerlink" title="Logging, metrics, automation"></a>Logging, metrics, automation</h2><ul>
+<li><strong>Logging</strong>: Monitoring error logs is important because it helps to identify errors and problems<br>in the system. </li>
+<li><strong>Metrics</strong>: Collecting different types of metrics help us to gain business insights and understand<br>the health status of the system. Some of the following metrics are useful:<ul>
+<li>• Host level metrics: CPU, Memory, disk I/O, etc.</li>
+<li>• Aggregated level metrics: for example, the performance of the entire database tier, cache tier, etc.</li>
+<li>• Key business metrics: daily active users, retention, revenue, etc.</li>
+</ul>
+</li>
+<li><strong>Automation</strong>: CI/CD, When a system gets big and complex, we need to build or leverage automation<br>tools to improve productivity.</li>
+</ul>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-18.png" alt="alt text"></p>
+<h2 id="Database-scaling-Sharding"><a href="#Database-scaling-Sharding" class="headerlink" title="Database scaling - Sharding"></a>Database scaling - Sharding</h2><p>sharding:</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-20.png" alt="alt text"></p>
+<p>It introduces complexities and new <strong>challenges</strong> to the system:</p>
+<ul>
+<li><strong>Resharding data</strong>: Resharding data is needed when <ul>
+<li>1) a single shard could no longer hold more data due to rapid growth.</li>
+<li>2) Certain shards might experience shard exhaustion faster than others due to uneven data distribution. </li>
+<li><strong>Consistent hashing</strong>, is a commonly used technique to solve this problem.</li>
+</ul>
+</li>
+<li><strong>Celebrity problem</strong>: This is also called a <code>hotspot</code> key problem. Excessive access to a specific shard could cause server overload.<ul>
+<li>Imagine data for Katy Perry, Justin Bieber, and Lady Gaga all end up on the same shard. For social applications, that shard will be overwhelmed with read operations. </li>
+<li>To solve this problem, we may need to <strong>allocate a shard for each celebrity</strong>. Each shard might even require further partition.</li>
+</ul>
+</li>
+<li><strong>Join and de-normalization</strong>: Once a database has been sharded across multiple servers, it is <strong>hard to perform join operations</strong> across database shards. <ul>
+<li>A common workaround is to <code>de-normalize</code>（反规范化） the database so that queries can be performed in a single table.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Denormalization（反规范化）"><a href="#Denormalization（反规范化）" class="headerlink" title="Denormalization（反规范化）"></a>Denormalization（反规范化）</h3><p><strong>Denormalization（反规范化）</strong>的操作，是指<strong>在设计数据库时有意引入冗余</strong>，以提升读取性能、减少跨表查询（特别是在分布式系统中）。常见的具体操作包括：</p>
+<p><strong>复制字段（Field Duplication）</strong><br>将某些字段从关联表复制到当前表中，避免 <code>JOIN</code>。<br>例：将用户姓名从 <code>users</code> 表复制到 <code>orders</code> 表，避免查询订单时还要 <code>JOIN users</code>。</p>
+<p><strong>合并表（Table Merging）</strong><br>将多个高度关联的表合并成一个宽表（wide table）。<br>例：将 <code>users</code> 和 <code>user_profiles</code> 合并成一个 <code>user_full_info</code> 表。</p>
+<p><strong>添加冗余数据（Redundant Data）</strong><br>存储一些计算后的字段或聚合数据。<br>例：在商品表中直接保存评论数量或平均评分，而不是每次去评论表计算。</p>
+<p><strong>嵌套结构（常用于NoSQL）</strong><br>在文档型数据库（如 MongoDB）中，直接把关联数据嵌套到一个文档中。<br>例：一个用户文档中嵌套其所有订单数据。</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-21.png" alt="alt text"></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>To conclude this chapter, we provide a summary of how we scale our system to support millions of users:</p>
+<ul>
+<li>• Keep web tier <strong>stateless</strong></li>
+<li>• Build <strong>redundancy</strong> at every tier</li>
+<li>• <strong>Cache</strong> data as much as you can</li>
+<li>• Support <strong>multiple</strong> data centers</li>
+<li>• Host static assets in <strong>CDN</strong></li>
+<li>• Scale your data tier by <strong>sharding</strong></li>
+<li>• <strong>Split</strong> tiers into individual services</li>
+<li>• <strong>Monitor</strong> your system and use <strong>automation</strong> tools</li>
+</ul>
+<h1 id="Back-of-the-envelope-Estimation"><a href="#Back-of-the-envelope-Estimation" class="headerlink" title="Back-of-the-envelope Estimation"></a>Back-of-the-envelope Estimation</h1><p>Back-of-the-envelope estimation（粗略估算）是指用非常简单、快速的方法进行大致计算，不追求精确，只为评估一个数量级或判断某个方案是否可行。</p>
+<p>这个术语来自字面意思：“在信封背面随手写下的计算”，常见于系统设计、商业分析、工程等场景</p>
+<p>面试中常见：</p>
+<blockquote>
+<p>“你设计一个视频上传服务，预估每天有多少数据写入？”</p>
+</blockquote>
+<p>你可以：</p>
+<ul>
+<li>假设每天 1 亿个用户中有 1% 上传视频</li>
+<li>每个视频平均 100MB</li>
+<li>那就是：<code>1,000,000 × 100MB</code> = 约 100TB/天</li>
+</ul>
+<p>这就是典型的 back-of-the-envelope 估算。</p>
+<p><strong>Example</strong>: Estimate Twitter <strong>QPS</strong> and <strong>storage</strong> requirements</p>
+<p>Please note the following numbers are for this exercise only as they are not real numbers from Twitter:</p>
+<p>Assumptions:</p>
+<ul>
+<li>300 million monthly active users.</li>
+<li>50% of users use Twitter daily.</li>
+<li>Users post 2 tweets per day on average.</li>
+<li>10% of tweets contain media.</li>
+<li>Data is stored for 5 years.</li>
+</ul>
+<p><strong>Answer Estimations</strong>:</p>
+<ul>
+<li>Query per second (<strong>QPS</strong>) estimate:<ul>
+<li>Daily active users (DAU) = <code>300 million * 50%</code> = 150 million</li>
+<li>Tweets QPS = <code>150 million * 2 tweets / 24 hour / 3600 seconds</code> =~ <code>3500</code></li>
+<li>Peek QPS = <code>2 * QPS</code> = ~7000</li>
+</ul>
+</li>
+<li>We will only estimate media <strong>storage</strong> here.<ul>
+<li>Average tweet size:</li>
+<li>tweet_id 64 bytes</li>
+<li>text 140 bytes</li>
+<li>media 1 MB</li>
+<li>Media storage: <code>150 million * 2 * 10% * 1 MB</code> = <code>30 TB</code> per day<ul>
+<li><code>15M * 2 * 1MB</code>= <code>30M * 1MB</code> = <code>30, 000, 000 MB</code> = <code>30 TB</code></li>
+</ul>
+</li>
+<li>5 - year media storage: <code>30 TB * 365 * 5</code> =~ <code>30 TB * 1500</code> =~ <code>55, 000 TB</code> =~<code>55 PB</code> </li>
+</ul>
+</li>
+</ul>
+<h1 id="Framework-for-SD-interview"><a href="#Framework-for-SD-interview" class="headerlink" title="Framework for SD interview"></a>Framework for SD interview</h1><p>If you are asked to <strong>design a news feed</strong> system:</p>
+<h2 id="step1-Understand-the-problem-and-establish-design-scope"><a href="#step1-Understand-the-problem-and-establish-design-scope" class="headerlink" title="step1-Understand the problem and establish design scope"></a>step1-Understand the problem and establish design scope</h2><p><strong>“Design scope”</strong> 指的是你在做系统设计时，这个设计要解决的边界、范围和目标。<br>更具体地说： <strong>Design scope</strong> = 你要设计什么、不设计什么、解决哪些问题、考虑到哪些场景。</p>
+<p>One of the most important skills as an engineer is to ask the right questions, make the proper assumptions, and gather all the information needed to build a system. </p>
+<p>So, do not be afraid to ask questions:</p>
+<ul>
+<li>Is this a mobile app? Or a web app? Or both?</li>
+<li>What are the most important features for the product?</li>
+<li>How many friends can a user have?</li>
+<li>What is the traffic volume?</li>
+</ul>
+<h2 id="step2-Propose-high-level-design-and-get-buy-in"><a href="#step2-Propose-high-level-design-and-get-buy-in" class="headerlink" title="step2-Propose high-level design and get buy-in"></a>step2-Propose high-level design and get buy-in</h2><p><strong>“buy-in”</strong> 是一个商业和产品开发中的术语，意思是：关键相关人（如团队成员、管理层、客户）对某个提议或设计的认可、支持与承诺。对方认可并决定按照这个设计推进开发，这就叫他们 <strong>give buy-in</strong></p>
+<p>we aim to develop a high-level design and reach an agreement with the interviewer on the design:</p>
+<ul>
+<li>Come up with an <strong>initial blueprint</strong> for the design. Ask for feedback. Treat your interviewer as a <strong>teammate</strong> and work together. Many good interviewers love to talk and get involved.</li>
+<li><strong>Draw</strong> box diagrams with key components on the <strong>whiteboard</strong> or paper. This might include clients (mobile/web), APIs, web servers, data stores, cache, CDN, message queue, etc.</li>
+<li>Do <strong>back-of-the-envelope calculations to evaluate</strong> if your blueprint fits the scale constraints. Think out loud. Communicate with your interviewer if back-of-the-envelope is necessary before diving into it.</li>
+</ul>
+<p>feed publishing:<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-22.png" alt="alt text"></p>
+<p>news feed building:<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-23.png" alt="alt text"></p>
+<h2 id="step3-Design-deep-dive"><a href="#step3-Design-deep-dive" class="headerlink" title="step3-Design deep dive"></a>step3-Design deep dive</h2><p>Sometimes, for a senior candidate interview, the discussion could be on the system performance characteristics, likely focusing<br>on the bottlenecks and resource estimations. In most cases, the interviewer may want you to<br><strong>dig into details</strong> of some system components.</p>
+<ul>
+<li>For URL shortener, it is interesting to dive into the hash function design that converts a long URL to a short one.</li>
+<li>For a chat system, how to reduce latency and how to support online/offline status are two interesting topics.</li>
+</ul>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-24.png" alt="alt text"></p>
+<h2 id="step4-Wrap-up"><a href="#step4-Wrap-up" class="headerlink" title="step4-Wrap up"></a>step4-Wrap up</h2><p>In this final step, the interviewer might ask you a few <strong>follow-up</strong> questions or give you the freedom to discuss other additional points. Here are a few directions to follow:</p>
+<ul>
+<li>The interviewer might want you to identify the system <strong>bottlenecks</strong> and discuss potential <strong>improvements</strong></li>
+<li><strong>Error cases</strong> (server failure, network loss, etc.) are interesting to talk about.</li>
+<li>Operation issues are worth mentioning. How do you <strong>monitor</strong> metrics and error logs? How to <strong>roll out</strong>(逐步部署并上线系统或功能，让用户可以开始使用) the system?</li>
+<li>How to handle the next <strong>scale curve</strong>(随着系统规模扩大（scale），系统资源需求、性能瓶颈或架构复杂度等的增长趋势曲线) is also an interesting topic.<ul>
+<li>For example, if your current design supports <strong>1 million</strong> users, what changes do you need to make to support <strong>10 million</strong> users?</li>
+</ul>
+</li>
+</ul>
+<h2 id="Time-allocation-on-each-step"><a href="#Time-allocation-on-each-step" class="headerlink" title="Time allocation on each step"></a>Time allocation on each step</h2><ul>
+<li><strong>Step 1</strong> Understand the problem and establish design scope: <strong>3 - 10 minutes</strong></li>
+<li><strong>Step 2</strong> Propose high-level design and get buy-in: <strong>10 - 15 minutes</strong></li>
+<li><strong>Step 3</strong> Design deep dive: <strong>10 - 25 minutes</strong></li>
+<li><strong>Step 4</strong> Wrap: <strong>3 - 5 minutes</strong></li>
+</ul>
+<hr>
+<h1 id="Layer-4-vs-Layer-7-负载均衡"><a href="#Layer-4-vs-Layer-7-负载均衡" class="headerlink" title="Layer 4 vs Layer 7 负载均衡"></a>Layer 4 vs Layer 7 负载均衡</h1><p><a href="https://www.hellointerview.com/learn/system-design/core-concepts/networking-essentials#load-balancing" target="_blank" rel="noopener">参考</a></p>
+<h2 id="Layer-4-传输层负载均衡"><a href="#Layer-4-传输层负载均衡" class="headerlink" title="Layer 4 (传输层负载均衡)"></a>Layer 4 (传输层负载均衡)</h2><ul>
+<li><strong>工作层级</strong>：TCP/UDP 层（IP 地址 + 端口）</li>
+<li><strong>原理</strong>：只看 IP、端口、协议，不看应用数据。</li>
+<li><strong>转发方式</strong>：像路由器，收到包 → 按规则转发 → 不关心里面是 HTTP、gRPC 还是 MySQL。</li>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li>转发快，性能高（开销小）</li>
+<li>支持非 HTTP 协议（如 MySQL、Redis、gRPC、WebSocket）</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li>只能做到简单的四元组（源/目标 IP+端口）转发</li>
+<li>不能基于 URL、Cookie、Header 等应用层信息做路由</li>
+</ul>
+</li>
+</ul>
+<p>👉 <strong>常见用途</strong>：数据库集群（MySQL、Redis）、gRPC、任意 TCP 服务、VoIP、游戏服务器。</p>
+<hr>
+<h2 id="Layer-7-应用层负载均衡"><a href="#Layer-7-应用层负载均衡" class="headerlink" title="Layer 7 (应用层负载均衡)"></a>Layer 7 (应用层负载均衡)</h2><ul>
+<li><strong>工作层级</strong>：应用层（HTTP/HTTPS、gRPC、SSE 等）</li>
+<li><strong>原理</strong>：能解析请求内容（URL、Host、Cookie、Header、Method…）。</li>
+<li><strong>转发方式</strong>：根据应用层信息做智能路由。</li>
+<li><p><strong>优点</strong>：</p>
+<ul>
+<li>支持基于 URL/路径/域名的路由（如 <code>/api</code> 到 A 服务，<code>/static</code> 到 B 服务）</li>
+<li>可以做 SSL 终止、HTTP 压缩、缓存</li>
+<li>支持 A/B 测试、金丝雀发布（Canary）、多版本路由</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>：</p>
+<ul>
+<li>要解析 HTTP，性能开销比 L4 大</li>
+<li>只能处理 HTTP/HTTPS、WebSocket、gRPC 这类应用层协议</li>
+</ul>
+</li>
+</ul>
+<p>👉 <strong>常见用途</strong>：Web 应用、微服务网关、API Gateway、CDN 边缘负载均衡。</p>
+<hr>
+<h2 id="总结对比"><a href="#总结对比" class="headerlink" title="总结对比"></a>总结对比</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>L4 LB</th>
+<th>L7 LB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>层级</td>
+<td>TCP/UDP</td>
+<td>HTTP/HTTPS (应用层)</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>高</td>
+<td>较低</td>
+</tr>
+<tr>
+<td>协议支持</td>
+<td>任意 TCP/UDP</td>
+<td>主要 HTTP/HTTPS, gRPC, WebSocket</td>
+</tr>
+<tr>
+<td>路由能力</td>
+<td>基于 IP/端口</td>
+<td>基于 URL/Host/Header/Cookie</td>
+</tr>
+<tr>
+<td>用途</td>
+<td>数据库、TCP 服务、游戏、VoIP</td>
+<td>Web/API 服务，微服务路由，CDN，金丝雀发布</td>
+</tr>
+</tbody>
+</table>
+<p>👉 最直白的一句话：</p>
+<ul>
+<li><strong>L4 = 快速分流（不懂内容）</strong></li>
+<li><strong>L7 = 智能分流（懂内容）</strong></li>
+<li>如果您在面试中使用 websockets，您可能希望使用 L4 负载均衡器。对于其他所有方面，第 7 层负载均衡器可能更适合</li>
+<li>第 7 层负载均衡器非常适合基于 HTTP 的流量，它将涵盖我们迄今为止讨论过的所有协议，但 Websocket 除外。</li>
+</ul>
+<hr>
+<h1 id="Redis的特殊用法"><a href="#Redis的特殊用法" class="headerlink" title="Redis的特殊用法"></a>Redis的特殊用法</h1><h2 id="Redis-for-Proximity-Search"><a href="#Redis-for-Proximity-Search" class="headerlink" title="Redis for Proximity Search"></a>Redis for Proximity Search</h2><p><a href="https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber#1-how-do-we-handle-frequent-driver-location-updates-and-efficient-proximity-searches-on-location-data" target="_blank" rel="noopener">示范实例 - Uber sd</a></p>
+<p>Redis natively supports geospatial indexes with commands like GEOADD and GEOSEARCH. The basic commands are simple:<br>Redis 原生支持使用 GEOADD 和 GEOSEARCH 等命令的地理空间索引。基本命令很简单：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GEOADD key longitude latitude member # Adds &quot;member&quot; to the index at key &quot;key&quot;</span><br><span class="line">GEOSEARCH key FROMLONLAT longitude latitude BYRADIUS radius unit # Searches the index at key &quot;key&quot; at specified position and radius</span><br></pre></td></tr></table></figure>
+<p>The search command, in this instance, runs in O(N+log(M)) time where N is the number of elements in the radius and M is the number of items inside the shape.<br>在本例中，搜索命令以 O（N+log（M）） 时间运行，其中 N 是半径中的元素数，M 是形状内的项目数。</p>
+<h2 id="Redis-for-Pub-Sub"><a href="#Redis-for-Pub-Sub" class="headerlink" title="Redis for Pub/Sub"></a>Redis for Pub/Sub</h2><p><a href="https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-live-comments#2-how-will-the-system-scale-to-support-millions-of-concurrent-viewers" target="_blank" rel="noopener">示范实例 - FB live comment sd</a></p>
+<p>Redis natively supports a publish/subscribe (Pub/Sub) messaging pattern, allowing messages to be broadcast to multiple subscribers in real time. This is useful for building chat systems, real-time notifications, or any scenario where you want to decouple message producers from consumers (more discussion on this in our Realtime Updates pattern).<br>Redis 原生支持发布/订阅 （Pub/Sub） 消息传递模式，允许将消息实时广播给多个订阅者。这对于构建聊天系统、实时通知或任何想要将消息生成者与使用者分离的场景非常有用（在我们的实时更新模式中对此进行了更多讨论）。</p>
+<blockquote>
+<p>People frequently call out limitations of Redis Pub/Sub that are no longer true, e.g. Redis pub/sub is now sharded which enables scalability which was not possible in previous versions!<br>人们经常指出 Redis Pub/Sub 的局限性不再正确，例如 Redis Pub/Sub 现在是分片的，这实现了以前版本中无法实现的可扩展性！</p>
+</blockquote>
+<p>The basic commands are straightforward:<br>基本命令很简单：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SPUBLISH channel message   # Sends a message to all subscribers of &apos;channel&apos; (the S prefix means &quot;sharded&quot;)</span><br><span class="line">SSUBSCRIBE channel        # Listens for messages on &apos;channel&apos;</span><br></pre></td></tr></table></figure>
+<p>When a client subscribes to a channel, it will receive any messages published to that channel as long as the connection remains open. This makes Pub/Sub great for ephemeral, real-time communication, but it’s important to note that messages are not persisted—if a subscriber is offline when a message is published, it will miss that message entirely.<br>当客户端订阅通道时，只要连接保持打开状态，它就会收到发布到该通道的任何消息。这使得 Pub/Sub 非常适合临时的实时通信，但请务必注意，消息不会持久化——如果订阅者在发布消息时处于离线状态，它将完全错过该消息。<br>Pub/Sub clients use a single connection to each node in the cluster (rather than a connection per channel). Generally speaking, this means that in most cases you’ll use a number of connections equal to the number of nodes in your cluster. It also means that you don’t need millions of connections even if you have millions of channels!<br>Pub/Sub 客户端使用与集群中每个节点的单个连接（而不是每个通道的连接）。一般来说，这意味着在大多数情况下，您将使用与集群中节点数相等的连接数。这也意味着即使您拥有数百万个频道，您也不需要数百万个连接！</p>
+<blockquote>
+<p>Redis Pub/Sub is simple and fast, but not durable. The delivery of messages is “at most once” which means that if a subscriber is offline when a message is published, it will miss that message entirely. If you need message persistence, delivery guarantees, or the ability to replay missed messages, consider using Redis Streams or a dedicated message broker like Kafka or RabbitMQ.<br>Redis Pub/Sub 简单快捷，但不耐用。消息的传递“最多一次”，这意味着如果订阅者在发布消息时处于离线状态，它将完全错过该消息。如果您需要消息持久性、传递保证或重放丢失消息的能力，请考虑使用 Redis Streams 或专用消息代理，例如 Kafka 或 RabbitMQ。</p>
+</blockquote>
+<p>Pub/Sub is a great fit for interview scenarios where you need to demonstrate real-time communication patterns, but be ready to discuss its limitations and when you might need a more robust solution.<br>Pub/Sub 非常适合需要演示实时通信模式的面试场景，但要准备好讨论其局限性以及何时可能需要更强大的解决方案。</p>
+<h1 id="Special-Application-Layer-Protocols"><a href="#Special-Application-Layer-Protocols" class="headerlink" title="Special Application Layer Protocols"></a>Special Application Layer Protocols</h1><ul>
+<li><a href="https://www.hellointerview.com/learn/system-design/core-concepts/networking-essentials#server-sent-events-sse-real-time-push-communication" target="_blank" rel="noopener">SSE</a><ul>
+<li><a href="https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-live-comments#1-how-can-we-ensure-comments-are-broadcasted-to-viewers-in-real-time" target="_blank" rel="noopener">实际使用示例</a></li>
+</ul>
+</li>
+<li><a href="https://www.hellointerview.com/learn/system-design/core-concepts/networking-essentials#webrtc-peer-to-peer-communication" target="_blank" rel="noopener">WebRTC</a></li>
+<li><a href="https://www.hellointerview.com/learn/system-design/core-concepts/networking-essentials#websockets-real-time-bidirectional-communication" target="_blank" rel="noopener">WebSocket</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>方向</th>
+<th>协议</th>
+<th>适合场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SSE</strong></td>
+<td>单向 (Server → Client)</td>
+<td>HTTP</td>
+<td>简单的实时推送（通知、股价、日志）</td>
+</tr>
+<tr>
+<td><strong>WebSocket</strong></td>
+<td>双向</td>
+<td>TCP</td>
+<td>聊天、消息系统、协作应用</td>
+</tr>
+<tr>
+<td><strong>WebRTC</strong></td>
+<td>双向（点对点）</td>
+<td>UDP（SRTP, SCTP）</td>
+<td>实时音视频、P2P 数据传输</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="Unique-IDs-generation"><a href="#Unique-IDs-generation" class="headerlink" title="Unique IDs generation"></a>Unique IDs generation</h1><p>Here’s a <strong>complete production-ready design for generating unique IDs</strong>, suitable for platforms like Twitter or Instagram, focused on <strong>global uniqueness, scalability, and reliability</strong> — no code, just design:</p>
+<ul>
+<li><strong>Globally unique IDs</strong></li>
+<li><strong>High throughput, high concurrency</strong></li>
+<li><strong>Horizontally scalable</strong></li>
+<li><strong>Roughly time-ordered (ascending)</strong></li>
+<li><strong>Resilient to clock issues</strong></li>
+<li><strong>Sharding-friendly</strong></li>
+</ul>
+<h2 id="ID-Structure-Based-on-Twitter-Snowflake-64-bits"><a href="#ID-Structure-Based-on-Twitter-Snowflake-64-bits" class="headerlink" title="ID Structure (Based on Twitter Snowflake - 64 bits)"></a>ID Structure (Based on Twitter Snowflake - 64 bits)</h2><p><code>| 1 bit | 41 bits Timestamp | 5 bits Datacenter ID | 5 bits Machine ID | 12 bits Sequence |</code></p>
+<p>Field Breakdown:</p>
+<ul>
+<li><strong>1 bit</strong>: Sign bit, always 0 (because <code>long</code> is signed)</li>
+<li><strong>41 bits</strong>: Timestamp in milliseconds (can support ~69 years)</li>
+<li><strong>5 bits</strong>: Datacenter ID (up to 32 data centers)</li>
+<li><strong>5 bits</strong>: Machine ID (up to 32 machines per DC)</li>
+<li><strong>12 bits</strong>: Sequence number (up to 4096 IDs per millisecond per machine)</li>
+</ul>
+<p>This ensures IDs are globally unique, roughly ordered, and can be generated independently without coordination.</p>
+<p>Assigning Datacenter and Machine IDs:</p>
+<ul>
+<li>Use a configuration service (e.g. Nacos, Consul) or service registry (e.g. ZooKeeper) to assign and manage IDs for each machine.</li>
+<li>Ensure no duplication across machines.</li>
+</ul>
+<h2 id="Handling-Clock-Skew-Time-Rollback"><a href="#Handling-Clock-Skew-Time-Rollback" class="headerlink" title="Handling Clock Skew / Time Rollback"></a>Handling Clock Skew / Time Rollback</h2><p>Primary Strategy:</p>
+<ul>
+<li>If current time &lt; last generated time:<ul>
+<li>If small offset (&lt; 5ms): wait until time catches up</li>
+<li>If large offset: log alert and fail the request</li>
+</ul>
+</li>
+</ul>
+<p>Preventative Measures:</p>
+<ul>
+<li>Disable automatic time sync (e.g., via BIOS/NTP)</li>
+<li>Use “slew” mode NTP to avoid sudden clock jumps</li>
+<li>Deploy in HA mode with <strong>backup</strong> ID generators</li>
+</ul>
+<p>Alternative ID Schemes:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Characteristics</th>
+<th>Suitable For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Snowflake-style</td>
+<td>Local generation, ordered, scalable</td>
+<td>High-scale backend systems</td>
+</tr>
+<tr>
+<td>UUID + DB check</td>
+<td>Simple but less performant</td>
+<td>Small-scale systems</td>
+</tr>
+<tr>
+<td>Leaf (Meituan)</td>
+<td>DB-segment-based allocation</td>
+<td>DB-centric systems</td>
+</tr>
+<tr>
+<td>MongoDB ObjectId</td>
+<td>Built-in time/machine info</td>
+<td>Document stores like MongoDB</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="How-to-choose-DB"><a href="#How-to-choose-DB" class="headerlink" title="How to choose DB"></a>How to choose DB</h1><p>Many candidates trip themselves up by trying to insert a comparison of relational and NoSQL databases into their answer. The reality is that these two technologies are highly overlapping and broad statements like “I need to use a relational database because I have relationships in my data” (NoSQL databases can work great for this) or “I’ve gotta use NoSQL because I need scale and performance” (relational databases, used correctly, perform and scale incredibly well) are often yellow flags that reveal inexperience.<br>许多考生试图在他们的答案中插入关系数据库和 NoSQL 数据库的比较，从而绊倒了自己。现实情况是，这两种技术是高度重叠的，并且像“我需要使用关系数据库，因为我的数据中有关系”（NoSQL 数据库可以很好地解决这个问题）或“我必须使用 NoSQL，因为我需要扩展和性能”（关系数据库，正确使用，性能和扩展非常好）通常是表明缺乏经验的黄信号。</p>
+<p>Here’s the truth: most interviewers don’t need an explicit comparison of SQL and NoSQL databases in your session and it’s a pothole you should completely avoid. Instead, talk about what you know about the database you’re using and how it will help you solve the problem at hand. If you’re asked to compare, focus on the differences in the databases you’re familiar with and how they would impact your design. So “I’m using Postgres here because its ACID properties will allow me to maintain data integrity” is a great opener.<br>事实是这样的： 大多数面试官不需要在您的会话中对 SQL 和 NoSQL 数据库进行明确比较 ，这是一个您应该完全避免的坑洼。相反，请谈谈您对正在使用的数据库的了解以及它将如何帮助您解决手头的问题。如果要求您进行比较，请关注您熟悉的数据库中的差异以及它们将如何影响您的设计。因此，“我在这里使用 Postgres，因为它的 ACID 属性将使我能够保持数据完整性”是一个很好的开场白。</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th><strong>MongoDB</strong></th>
+<th><strong>Cassandra</strong></th>
+<th><strong>DynamoDB</strong></th>
+<th><strong>PostgreSQL</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>分类</strong></td>
+<td>NoSQL → 文档型</td>
+<td>NoSQL → 宽列存储</td>
+<td>NoSQL → Key-Value/文档型</td>
+<td>关系型数据库 (RDBMS)</td>
+</tr>
+<tr>
+<td><strong>数据模型</strong></td>
+<td>JSON 文档，灵活 schema</td>
+<td>Row → 动态列（宽列），Bigtable 模型</td>
+<td>Item (JSON-like)，PK+SK</td>
+<td>固定表结构，行/列</td>
+</tr>
+<tr>
+<td><strong>扩展性</strong></td>
+<td>分片支持，强大但运维复杂</td>
+<td>水平扩展极强，去中心化无单点</td>
+<td>托管服务，自动扩展</td>
+<td>垂直扩展为主（分表/分库才水平扩展）</td>
+</tr>
+<tr>
+<td><strong>写入性能</strong></td>
+<td>高（适合文档批量写入）</td>
+<td>极高（append-only，写入为主）</td>
+<td>高（但费用高）</td>
+<td>中等（事务强，写放大大）</td>
+</tr>
+<tr>
+<td><strong>读取性能</strong></td>
+<td>灵活查询，索引丰富</td>
+<td>按主键+clustering key 快，范围查询强</td>
+<td>按 PK+SK 快，复杂查询受限</td>
+<td>强（SQL 灵活，索引丰富）</td>
+</tr>
+<tr>
+<td><strong>事务支持</strong></td>
+<td>单文档强，多文档弱</td>
+<td>弱（最终一致性，轻事务）</td>
+<td>弱（单项事务，最终一致性）</td>
+<td>强（ACID 完整支持）</td>
+</tr>
+<tr>
+<td><strong>查询能力</strong></td>
+<td>灵活（丰富的 query/filter）</td>
+<td>受限（必须围绕查询模式建表）</td>
+<td>受限（依赖 PK+SK，二级索引额外收费）</td>
+<td>最强（SQL + join + 聚合）</td>
+</tr>
+<tr>
+<td><strong>典型场景</strong></td>
+<td>CRUD 密集型应用、实时分析、JSON 数据</td>
+<td>大规模写密集场景、时序、消息流(如twitter timeline/facebook feed)</td>
+<td>用户会话表，KV 存储，简单高并发查询</td>
+<td>核心交易，后台管理，复杂分析</td>
+</tr>
+<tr>
+<td><strong>运维</strong></td>
+<td>自建集群需要经验</td>
+<td>自建复杂，需专业运维</td>
+<td>AWS 托管，最省心</td>
+<td>简单，生态成熟</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>开源免费，自托管硬件成本</td>
+<td>开源免费，自托管硬件成本</td>
+<td>高（读写按量计费，流量大极贵）</td>
+<td>开源免费，自托管便宜</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>📊 用一句话总结</p>
+<ul>
+<li><strong>DynamoDB</strong> → 云端托管 KV/文档库，适合 <strong>中高并发、模式稳定</strong> 的业务数据，但 <strong>贵</strong>。<ul>
+<li>参考文章: <a href="https://www.hellointerview.com/learn/system-design/deep-dives/dynamodb#fault-tolerance-and-availability" target="_blank" rel="noopener">https://www.hellointerview.com/learn/system-design/deep-dives/dynamodb#fault-tolerance-and-availability</a></li>
+</ul>
+</li>
+<li><strong>MongoDB</strong> → 灵活的 <strong>文档型数据库</strong>，适合中等规模数据、变化频繁的 schema。</li>
+<li><strong>Cassandra</strong> → 海量写入、<strong>时间序列/日志型系统</strong>首选，强水平扩展，但查询模式受限。</li>
+<li><strong>PostgreSQL</strong> → 经典 <strong>关系型数据库</strong>，事务、SQL 查询、聚合分析能力最强，但扩展性有限。</li>
+</ul>
+<hr>
+<p>什么时候用 MongoDB / DynamoDB？</p>
+<ul>
+<li>数据结构灵活，字段频繁变动, 需要 <strong>NoSQL 版的 MySQL</strong></li>
+<li>比如某个订单单日一亿条, 那就选 MongoDB, <strong>因为 DynamoDB很贵</strong>; 中小公司不想自己维护管理DB的单日千万级数据量可以选DynamoDB</li>
+<li>需要<strong>复杂查询或聚合</strong></li>
+<li>数据量不是超大规模分布式，或你能接受通过 Sharding 扩容</li>
+<li>需要事务或强一致性</li>
+</ul>
+<p>什么时候用 Cassandra？</p>
+<ul>
+<li>高并发、大吞吐<strong>写入</strong>, 但是读不太行</li>
+<li><strong>适合究极大量的日志类系统</strong>, 或者消息流(如twitter timeline/facebook feed)</li>
+<li>容忍最终一致性（如日志、传感器数据）</li>
+<li>需要高可用、高扩展性（跨数据中心）</li>
+<li>想避免单点故障</li>
+</ul>
+<p>简明总结：</p>
+<ul>
+<li><strong>MongoDB / DynamoDB 更像 NoSQL 版的 MySQL</strong>，开发友好，功能丰富，适合数据驱动型应用。</li>
+<li><strong>Cassandra 是写入吞吐怪兽</strong>，适合分布式、海量数据写入但查询简单的场景。</li>
+</ul>
+<p>选谁：要看你的业务<strong>写多</strong>还是<strong>读多</strong>，数据结构是否固定，是否追求强一致或高可用</p>
+<h2 id="举例说明Cassandra和DynamoDB和PostgreSQL最大的建模差别"><a href="#举例说明Cassandra和DynamoDB和PostgreSQL最大的建模差别" class="headerlink" title="举例说明Cassandra和DynamoDB和PostgreSQL最大的建模差别"></a>举例说明Cassandra和DynamoDB和PostgreSQL最大的建模差别</h2><p>比如记录用户的登录日志: </p>
+<p>📊 Cassandra（宽列模型）</p>
+<ul>
+<li><strong>一行 = 一个用户</strong></li>
+<li><strong>列 = 每次登录</strong>（clustering key = login_time），都挂在同一行下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Row(user_id=123):</span><br><span class="line">   2025-08-16T10:00 → &#123;ip: &quot;1.1.1.1&quot;, device: &quot;iPhone&quot;&#125;</span><br><span class="line">   2025-08-16T15:00 → &#123;ip: &quot;2.2.2.2&quot;, device: &quot;Mac&quot;&#125;</span><br><span class="line">   2025-08-17T09:00 → &#123;ip: &quot;3.3.3.3&quot;, device: &quot;Windows&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>👉 查询最近 N 次：天然顺序存储，直接 slice 很快。<br>👉 存储稀疏、写入 append-only，非常高效。<br>👉 缺点：数据建模必须围绕查询模式来设计（不能随便 join），否则查起来很痛苦。</p>
+<hr>
+<p>📊 PostgreSQL</p>
+<ul>
+<li><strong>一行 = 一次登录</strong></li>
+<li>表结构固定：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">user_id | login_time         | ip       | device</span><br><span class="line"><span class="comment">--------+-------------------+----------+---------</span></span><br><span class="line">123     | 2025-08-16 10:00  | 1.1.1.1  | iPhone</span><br><span class="line">123     | 2025-08-16 15:00  | 2.2.2.2  | Mac</span><br></pre></td></tr></table></figure>
+<p>👉 优点：SQL 通用，支持复杂查询。<br>👉 缺点：写多时表会无限膨胀，需要分表分区。</p>
+<hr>
+<p>📊 DynamoDB</p>
+<ul>
+<li><strong>一行 = 一次登录</strong>（和 PostgreSQL 一样）</li>
+<li>但存储是 JSON-like item，每个 item 独立：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"user_id"</span>: <span class="string">"123"</span>,</span><br><span class="line">  <span class="attr">"login_time"</span>: <span class="string">"2025-08-16T10:00"</span>,</span><br><span class="line">  <span class="attr">"ip"</span>: <span class="string">"1.1.1.1"</span>,</span><br><span class="line">  <span class="attr">"device"</span>: <span class="string">"iPhone"</span></span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"user_id"</span>: <span class="string">"123"</span>,</span><br><span class="line">  <span class="attr">"login_time"</span>: <span class="string">"2025-08-16T15:00"</span>,</span><br><span class="line">  <span class="attr">"ip"</span>: <span class="string">"2.2.2.2"</span>,</span><br><span class="line">  <span class="attr">"device"</span>: <span class="string">"Mac"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>👉 优点：按 <code>user_id + login_time</code> 查询快，水平扩展简单。<br>👉 缺点：每次写就是一次 item 插入，读写费用直接按次数算，成本高。</p>
+<hr>
+<p>📊 总结对比</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>PostgreSQL</th>
+<th>DynamoDB</th>
+<th>Cassandra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>存储模型</strong></td>
+<td>一行 = 一次登录</td>
+<td>一行 = 一次登录</td>
+<td>一行 = 一个用户，列 = 登录记录</td>
+</tr>
+<tr>
+<td><strong>扩展性</strong></td>
+<td>差，需要分表分库</td>
+<td>AWS 托管，自动扩展</td>
+<td>水平扩展强，自托管</td>
+</tr>
+<tr>
+<td><strong>查询模式</strong></td>
+<td>SQL 灵活</td>
+<td>受限于 PK+SK 设计</td>
+<td>基于 Partition Key + Clustering Key</td>
+</tr>
+<tr>
+<td><strong>写入成本</strong></td>
+<td>存储便宜</td>
+<td>每写一次都计费，贵</td>
+<td>Append 写，高效便宜</td>
+</tr>
+<tr>
+<td><strong>典型适用</strong></td>
+<td>中小规模，灵活查询</td>
+<td>中等规模，简单高并发查询</td>
+<td>大规模写入，时间序列/日志流</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>✅ 所以：</p>
+<ul>
+<li><strong>PostgreSQL / DynamoDB</strong> → 每次登录就是插入一行。</li>
+<li><strong>Cassandra</strong> → 把一个用户的一生登录都放在同一行里（只是行可以无限宽，列是动态追加的）。</li>
+</ul>
+<hr>
+<h1 id="Algorithms-to-fetch-nearby-stuff"><a href="#Algorithms-to-fetch-nearby-stuff" class="headerlink" title="Algorithms to fetch nearby stuff"></a>Algorithms to fetch nearby stuff</h1><p>this kind of algo is the key to design a efficient <code>LBS</code>(location-based service), which is to find nearby businesses for a given radius and locations.</p>
+<h2 id="Geohash"><a href="#Geohash" class="headerlink" title="Geohash"></a>Geohash</h2><p><strong>Geohash</strong> 是一种将<strong>经纬度坐标编码为字符串</strong>的空间索引方法，适用于地理位置的快速查询、排序和分片，广泛用于地图服务、LBS、数据库地理索引等场景。</p>
+<p>注: <strong>Redis 的 GEOADD 和GEOSEARCH 命令就是用的这个算法.</strong></p>
+<p><strong>I</strong>t works by reducing the two-dimensional longitude and <strong>latitude</strong> data into a one-dimensional string of letters and digits. Geohash algorithms work by recursively dividing the world into smaller and smaller grids with each additional bit.</p>
+<p>它通过将二维的经度和纬度数据简化为一个由字母和数字组成的一维字符串来实现。地理哈希算法通过随着每增加一位而递归地将世界划分为越来越小的网格来起作用。 </p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-43.png" alt="alt text"></p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-44.png" alt="alt text"></p>
+<p>Geohash 通过递归二分法对<strong>经度、纬度交错编码</strong>，然后映射为 Base32 字符串：</p>
+<ul>
+<li>经度范围：<code>[-180, 180]</code>，纬度范围：<code>[-90, 90]</code></li>
+<li>每次将经度和纬度各二分一半，判断目标坐标落在哪个半区，转为 0 或 1</li>
+<li>按照“经度一位、纬度一位”交错排列成一个二进制串</li>
+<li>每 5 位转为一个 Base32 字符</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">坐标：(39.92324, 116.3906)</span><br><span class="line">Geohash：wx4g0ec1</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>结构特性</strong>1: <strong>越长的 Geohash，表示的区域越小，精度越高</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>长度</th>
+<th>精度范围（约）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>~4.9km × 4.9km</td>
+</tr>
+<tr>
+<td>7</td>
+<td>~153m × 153m</td>
+</tr>
+<tr>
+<td>9</td>
+<td>~5m × 5m</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结构特性</strong>2: <strong>同一前缀代表相近区域</strong>（前缀匹配）：</p>
+<ul>
+<li><code>wx4g0ec1</code> 和 <code>wx4g0ec2</code> 表示两个相邻的 5 米小区域</li>
+<li>可以用字符串前缀过滤“附近”点</li>
+</ul>
+<hr>
+<p>优点:</p>
+<ul>
+<li><strong>可索引、可排序</strong>：字符串可用于数据库中的 B+ 树索引</li>
+<li><strong>易于分片与聚合</strong>：可按前缀聚合或分片（如 Redis、Elasticsearch、HBase）</li>
+<li><strong>支持模糊匹配</strong>：查找前缀为 <code>wx4g0</code> 的所有位置即可获取某区域内所有点</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li><strong>边界问题</strong>：邻近两个位置可能 Geohash 不连续（如正好在两个格子边界）<ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-45.png" alt="alt text"></li>
+</ul>
+</li>
+<li>two positions can have a long shared prefix, but they belong to different geohashes <ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-46.png" alt="alt text"></li>
+</ul>
+</li>
+<li><strong>形状问题</strong>：编码区域是矩形，与圆形范围查询不完全重合</li>
+<li><strong>赤道和极地精度不一致</strong>：因为经度划分间隔在纬度变化时变形</li>
+</ul>
+<p><strong>缺点解决方案</strong>: 扩展邻居格子，联合查询</p>
+<p>每个 Geohash 区块最多有 8 个邻居（上下左右 + 对角线）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[NW] [ N ] [NE]</span><br><span class="line">[ W] [中心] [E ]</span><br><span class="line">[SW] [ S ] [SE]</span><br></pre></td></tr></table></figure>
+<p>步骤:</p>
+<ul>
+<li>查询时，先找到目标坐标的 Geohash 编码（如 <code>wx4g0ec1</code>）</li>
+<li>再查询它的 8 个相邻格子（如 <code>wx4g0ec0</code>, <code>wx4g0ec2</code>, <code>wx4g0ebz</code> 等）</li>
+<li>将这些格子内的点一并查出</li>
+<li>最后使用<strong>精确距离计算</strong>（如 Haversine）过滤真实的“附近”结果</li>
+</ul>
+<hr>
+<p>应用场景:</p>
+<ul>
+<li><strong>附近搜索</strong>（如“3km 内找司机”）配合邻近 Geohash 块 + 精确距离过滤</li>
+<li><strong>数据分片</strong>：根据 Geohash 前缀分 Redis key、数据库表</li>
+<li><strong>空间聚合</strong>：按 Geohash 分组聚合位置热力数据</li>
+<li><strong>轨迹压缩</strong>：把轨迹坐标点压缩成 Geohash 序列，节省存储</li>
+</ul>
+<hr>
+<h2 id="Quadtree"><a href="#Quadtree" class="headerlink" title="Quadtree"></a>Quadtree</h2><p>四叉树（<strong>Quadtree</strong>）是一种针对<strong>二维空间的递归划分树结构</strong>，广泛用于地理信息系统（GIS）、游戏地图、图像压缩和空间索引等场景。它的核心是<strong>将每个区域分成四个子区域</strong>，实现<strong>高效定位与空间查询</strong>。</p>
+<p>Another popular solution is <strong>a</strong> quadtree. A quadtree is a data structure that is commonly used to partition a two <strong>-</strong> dimensional space by recursively subdividing it into four <strong>quadrants</strong> (grids) until the contents of the grids meet <strong>certain</strong> criteria. </p>
+<p>Note that <strong>quadtree</strong> is an in-memory data structure and it is not a database solution. <strong>It</strong> runs on each LBS server, and the data structure is built at server <strong>startup</strong> time.</p>
+<p>另一个流行的解决方案是<strong>一个</strong>四叉树。一个四叉树[18]是一种数据结构，通常用于通过递归地将二维空间细分为四个<strong>象限</strong>（网格），直到网格中的内容满足<strong>特定</strong>标准。</p>
+<p>请注意，<strong>四叉树</strong>是一种内存数据结构，它不是一个数据库解决方案。<strong>它</strong>在每个基于位置的服务（LBS）服务器上运行，并且数据结构是在服务器<strong>启动</strong>时构建的。 </p>
+<p>每个节点代表一个矩形区域，包含最多 4 个子节点,<br>每个子区域继续细分为 NW、NE、SW、SE 四部分，直到满足某种终止条件（如点数少于阈值或区域最小尺寸）.<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-47.png" alt="alt text"></p>
+<p><strong>T</strong>he Figure below explains the <strong>quadtree</strong> building process in more detail. The root node represents the whole world map. The root node is recursively broken down into 4 <strong>quadrants</strong> until no nodes are left with more than 100 businesses.”</p>
+<p>下面的图更详细地解释了四叉树的构建过程。根节点代表整个世界地图。根节点被递归地分解为四个象限，直到不存在包含超过100家企业的节点为止。 </p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-48.png" alt="alt text"></p>
+<p>How to get businesses with quadtree?</p>
+<ul>
+<li>Build the quadtree in memory.</li>
+<li>After the quadtree is built, start searching from the root and traverse the tree, until we find the leaf node where the search origin is. If that leaf node has 100 businesses, return the node. Otherwise, add businesses from its neighbors until enough businesses are returned.</li>
+</ul>
+<p>Real-world quadtree example:<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-49.png" alt="alt text"></p>
+<hr>
+<p>为何查找快（原理）? 空间查询（如查找某点附近的点）时，只访问<strong>与查询区域相交的节点</strong>：</p>
+<ul>
+<li>不需要遍历所有数据点（不像线性搜索）</li>
+<li>每层缩小 1/2 空间，平均查询复杂度接近 <strong>O(log N)</strong></li>
+<li>类似于“二分查找 + 空间定位”的结合体</li>
+</ul>
+<p>例如：</p>
+<ul>
+<li>你要找 1km 内的司机，只需要遍历与该范围相交的几个子节点</li>
+<li>大部分与该区域无交集的节点会被“剪枝”，不会遍历</li>
+</ul>
+<p>适用场景（尤其适合 Uber/LBS）:</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>附近资源查找</td>
+<td>查找附近车辆、充电桩、订单等，效率远高于全表扫描</td>
+</tr>
+<tr>
+<td>空间索引</td>
+<td>构建内存中位置索引树，支持动态更新和快速匹配</td>
+</tr>
+<tr>
+<td>空间负载分片</td>
+<td>用于按地理位置将数据分布到不同服务器或服务节点</td>
+</tr>
+<tr>
+<td>热区识别与聚合</td>
+<td>高密度区域可自动加深层级，便于精细化控制与调度</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Geohash对比Quadtree"><a href="#Geohash对比Quadtree" class="headerlink" title="Geohash对比Quadtree"></a>Geohash对比Quadtree</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Geohash</th>
+<th>Quadtree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>面试讲解难度</td>
+<td>简单, 推荐</td>
+<td>较难</td>
+</tr>
+<tr>
+<td>存储形式</td>
+<td>编码为字符串</td>
+<td>树状结构（每节点四个子区）</td>
+</tr>
+<tr>
+<td>查询速度</td>
+<td>快，适合范围模糊匹配,边界需手动扩展</td>
+<td>更快，适合精确空间搜索</td>
+</tr>
+<tr>
+<td>插入/删除</td>
+<td>直接更新编码，容易但不结构化</td>
+<td>快速局部更新</td>
+</tr>
+<tr>
+<td>空间结构</td>
+<td>固定网格（Base32 分段）</td>
+<td>动态划分，不均匀适应密度</td>
+</tr>
+<tr>
+<td>易部署性</td>
+<td>简单，字符串易分布式部署</td>
+<td>复杂，适合<strong>内存</strong>索引</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="Blob-Storage-workflow"><a href="#Blob-Storage-workflow" class="headerlink" title="Blob Storage workflow"></a>Blob Storage workflow</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-67.png" alt="alt text"></p>
+<p>To upload:  </p>
+<ul>
+<li>When clients want to upload a file, they request a presigned URL from the server.</li>
+<li>The server returns a presigned URL to the client, recording it in the database.</li>
+<li>The client uploads the file to the presigned URL.</li>
+<li>The blob storage triggers a notification to the server that the upload is complete and the status is updated.</li>
+</ul>
+<p>To download:  </p>
+<ul>
+<li>The client requests a specific file from the server and are returned a presigned URL.</li>
+<li>The client uses the presigned URL to download the file via the CDN, which proxies the request to the underlying blob storage.</li>
+</ul>
+<p>Features:</p>
+<ul>
+<li>Upload and Download Directly from the Client: <ul>
+<li>Blob storage services allow you to upload and download blobs directly from the client. This is useful for applications that need to store and retrieve large blobs of data, like images or videos. Familiarize yourself with presigned URLs and how they can be used to grant temporary access to a blob – either for upload or download.</li>
+</ul>
+</li>
+<li>Chunking: <ul>
+<li>When uploading large files, it’s common to use chunking to upload the file in smaller pieces. This allows you to resume an upload if it fails partway through, and it also allows you to upload the file in parallel. This is especially useful for large files, where uploading the entire file at once might take a long time. Modern blob storage services like S3 support chunking out of the box via the multipart upload API.</li>
+</ul>
+</li>
+</ul>
+<p>Examples of blob storage services: </p>
+<ul>
+<li>The most popular blob storage services are <strong>Amazon S3, Google Cloud Storage, and Azure Blob</strong>. All of these services are designed to be fast, durable, and cost effective. They also have a range of features like versioning, lifecycle policies, and access control. They are used by companies like Netflix, Airbnb, and Spotify to store large blobs of data like images, videos, and files.</li>
+<li>If you don’t have experience with them, opt for S3 as it’s the most popular and widely understood by interviewers - even non-S3 platforms often have an S3-compatible API.</li>
+</ul>
+<h1 id="Video-transcoding"><a href="#Video-transcoding" class="headerlink" title="Video transcoding"></a>Video transcoding</h1><h2 id="Directed-acyclic-graph-DAG-model"><a href="#Directed-acyclic-graph-DAG-model" class="headerlink" title="Directed acyclic graph(DAG) model"></a>Directed acyclic graph(DAG) model</h2><p>To support different video processing <strong>pipelines</strong> and maintain high <strong>parallelism</strong>, it is important to add some level of abstraction and let client programmers define what tasks to execute. </p>
+<p>For example, Facebook’s streaming video engine uses a <strong>directed acyclic graph</strong> (<code>DAG</code>) programming model, which defines tasks in <strong>stages</strong> so they can be executed sequentially or parallelly [8].</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-50.png" alt="alt text"></p>
+<p>video encodings:<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-51.png" alt="alt text"></p>
+<p>Video transcoding architecture:<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-52.png" alt="alt text"></p>
+<p>The DAG scheduler: splits a DAG graph into stages of tasks and puts them in the task queue in the resource manager.<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-53.png" alt="alt text"></p>
+<p>resource manager:<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-54.png" alt="alt text"></p>
+<hr>
+<h2 id="optimizations"><a href="#optimizations" class="headerlink" title="optimizations"></a>optimizations</h2><ul>
+<li>parallelize video uploading:<ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-56.png" alt="alt text"></li>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-57.png" alt="alt text"></li>
+</ul>
+</li>
+<li>place upload centers close to users:<ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-58.png" alt="alt text"></li>
+</ul>
+</li>
+<li>After the message queue is introduced, the encoding module does not need to <strong>wait</strong> for the output of the download module anymore. lf there are events in the message queue, the encoding module can execute those jobs in parallel:<ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-59.png" alt="alt text"></li>
+</ul>
+</li>
+<li><code>pre-signed</code> upload URL: <ul>
+<li>The client makes a HTTP request to APl servers to fetch the pre-signed URL, which gives the access permission to the object identified in the URl. The term pre-signed URL is used by uploading files to Amazon s3.</li>
+<li>Once the client gets the response, it uploads the vid using the <code>pre-signed URL</code></li>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-60.png" alt="alt text"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Payment-flow"><a href="#Payment-flow" class="headerlink" title="Payment flow"></a>Payment flow</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-62.png" alt="alt text"></p>
+<p>Pay-in flow:<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-55.png" alt="alt text"></p>
+<p>Payment Service Provider(PSP), PSP integration:<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-61.png" alt="alt text"></p>
+<p>Reconciliation(对账):<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-63.png" alt="alt text"></p>
+<p>what if a customer clicks the “pay” button quickly twice?<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-64.png" alt="alt text"></p>
+<hr>
+<h1 id="Distributed-transaction-Saga"><a href="#Distributed-transaction-Saga" class="headerlink" title="Distributed transaction - Saga"></a>Distributed transaction - Saga</h1><p>question: <strong>There is no guarantee that both updates would succeed.</strong></p>
+<p>If, for example, the wallet service node <strong>crashes</strong> after the first update has gone through but before the second update is done, it would result in an incomplete transfer, The two updates need to be in a single <strong>atomic</strong> transaction.<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-66.png" alt="alt text"></p>
+<p>Solution: Saga<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-65.png" alt="alt text"></p>
+<p>It is easier to understand this by using an example. the figure above shows the Saga workflow to transfer $1 from accountA to account C :</p>
+<ul>
+<li>The top <strong>horizontal</strong> line shows the normal order of execution. </li>
+<li>The two <strong>vertical</strong> lines show what the system should do when there is an error. </li>
+<li>When it <strong>encounters an error</strong>, the transfer operations are rolled back and the client receives an error message. </li>
+</ul>
+<p>How do we coordinate the operations? There are two ways to do it:</p>
+<ol>
+<li>Choreography(<code>/ˌkɔːriˈɑːɡrəfi/</code>, n. 编舞；舞蹈艺术；舞艺). in a microservice architecture, all the services involved in the Saga distributed transaction do their jobs by subscribing to other services’ events. So it is fully decentralized coordination.<ul>
+<li>It can become <strong>hard to manage</strong> when there are many services</li>
+</ul>
+</li>
+<li><strong>Orchestration(prefer)</strong>. A single coordinator instructs all services to do their jobs in the correct order. the <strong>coordinator</strong> is indeed a potential <strong>single point of failure (SPOF)</strong>, so how to solve it?<ul>
+<li><strong>a. Make the Coordinator Stateless + Persistent Log</strong>: Store all Saga state transitions in a <strong>durable log</strong> (e.g., relational DB, Kafka, or a durable event store). If the coordinator crashes, a new instance can pick up from the log and resume. This makes the system <strong>crash-recoverable</strong>, even with a single coordinator.</li>
+<li><strong>b. Leader Election + Replication</strong>: <em> Run <strong>multiple instances</strong> of the coordinator. Use <em>*leader election</em></em> (e.g., via <code>ZooKeeper</code>, <code>etcd</code>) to ensure only one acts at a time. Replicate Saga state to followers to enable fast failover.</li>
+</ul>
+</li>
+</ol>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+              <a href="/tags/Syllabus/" rel="tag"><i class="fa fa-tag"></i> Syllabus</a>
+            
+              <a href="/tags/SystemDesign/" rel="tag"><i class="fa fa-tag"></i> SystemDesign</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/na_frontend_q_top100/" rel="next" title="JS frontend Q top 100">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    JS frontend Q top 100
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/asio_non_boost_intro/" rel="prev" title="asio none boost 浅踩坑">
+                <p class="post-nav-pre-next-title">
+                    asio none boost 浅踩坑
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">291</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-text">References</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scaling-prerequisite-knowledge"><span class="nav-text">Scaling - prerequisite knowledge</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Single-server-setup"><span class="nav-text">Single server setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Database"><span class="nav-text">Database</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vertical-scaling-vs-horizontal-scaling"><span class="nav-text">Vertical scaling vs horizontal scaling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Load-balancer"><span class="nav-text">Load balancer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Database-replication"><span class="nav-text">Database replication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache"><span class="nav-text">Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN"><span class="nav-text">CDN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stateless-web-tier"><span class="nav-text">Stateless web tier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-center"><span class="nav-text">Data center</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Message-queue"><span class="nav-text">Message queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logging-metrics-automation"><span class="nav-text">Logging, metrics, automation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Database-scaling-Sharding"><span class="nav-text">Database scaling - Sharding</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Denormalization（反规范化）"><span class="nav-text">Denormalization（反规范化）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-text">Conclusion</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Back-of-the-envelope-Estimation"><span class="nav-text">Back-of-the-envelope Estimation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Framework-for-SD-interview"><span class="nav-text">Framework for SD interview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#step1-Understand-the-problem-and-establish-design-scope"><span class="nav-text">step1-Understand the problem and establish design scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step2-Propose-high-level-design-and-get-buy-in"><span class="nav-text">step2-Propose high-level design and get buy-in</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step3-Design-deep-dive"><span class="nav-text">step3-Design deep dive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step4-Wrap-up"><span class="nav-text">step4-Wrap up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Time-allocation-on-each-step"><span class="nav-text">Time allocation on each step</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Layer-4-vs-Layer-7-负载均衡"><span class="nav-text">Layer 4 vs Layer 7 负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Layer-4-传输层负载均衡"><span class="nav-text">Layer 4 (传输层负载均衡)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Layer-7-应用层负载均衡"><span class="nav-text">Layer 7 (应用层负载均衡)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结对比"><span class="nav-text">总结对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis的特殊用法"><span class="nav-text">Redis的特殊用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-for-Proximity-Search"><span class="nav-text">Redis for Proximity Search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-for-Pub-Sub"><span class="nav-text">Redis for Pub/Sub</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Special-Application-Layer-Protocols"><span class="nav-text">Special Application Layer Protocols</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unique-IDs-generation"><span class="nav-text">Unique IDs generation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ID-Structure-Based-on-Twitter-Snowflake-64-bits"><span class="nav-text">ID Structure (Based on Twitter Snowflake - 64 bits)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handling-Clock-Skew-Time-Rollback"><span class="nav-text">Handling Clock Skew / Time Rollback</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-choose-DB"><span class="nav-text">How to choose DB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#举例说明Cassandra和DynamoDB和PostgreSQL最大的建模差别"><span class="nav-text">举例说明Cassandra和DynamoDB和PostgreSQL最大的建模差别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Algorithms-to-fetch-nearby-stuff"><span class="nav-text">Algorithms to fetch nearby stuff</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Geohash"><span class="nav-text">Geohash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quadtree"><span class="nav-text">Quadtree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Geohash对比Quadtree"><span class="nav-text">Geohash对比Quadtree</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Blob-Storage-workflow"><span class="nav-text">Blob Storage workflow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Video-transcoding"><span class="nav-text">Video transcoding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Directed-acyclic-graph-DAG-model"><span class="nav-text">Directed acyclic graph(DAG) model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optimizations"><span class="nav-text">optimizations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Payment-flow"><span class="nav-text">Payment flow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Distributed-transaction-Saga"><span class="nav-text">Distributed transaction - Saga</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

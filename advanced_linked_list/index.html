@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '数据结构四之链表进阶' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="CPP,DataStructure,Algo,noodle,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="只谈一下单链表, 链表实在是太重要, 是前面两篇说算法博客的基础, 了解了其应用和衍生, 再去了解其本身就有动力了 存储结构typedef struct Node&amp;#123;	DataType data;	struct Node *next;&amp;#125;Node, *Node_Ptr;   链表中第一个结点的存储位置叫做头指针 头指针和头结点不同，头结点即第一个结点，头指针是指向第一个结点的指针。">
+<meta name="keywords" content="CPP,DataStructure,Algo,noodle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构四之链表进阶">
+<meta property="og:url" content="https://hulinhong.com/advanced_linked_list/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="只谈一下单链表, 链表实在是太重要, 是前面两篇说算法博客的基础, 了解了其应用和衍生, 再去了解其本身就有动力了 存储结构typedef struct Node&amp;#123;	DataType data;	struct Node *next;&amp;#125;Node, *Node_Ptr;   链表中第一个结点的存储位置叫做头指针 头指针和头结点不同，头结点即第一个结点，头指针是指向第一个结点的指针。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-09-12T07:10:12.487Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构四之链表进阶">
+<meta name="twitter:description" content="只谈一下单链表, 链表实在是太重要, 是前面两篇说算法博客的基础, 了解了其应用和衍生, 再去了解其本身就有动力了 存储结构typedef struct Node&amp;#123;	DataType data;	struct Node *next;&amp;#125;Node, *Node_Ptr;   链表中第一个结点的存储位置叫做头指针 头指针和头结点不同，头结点即第一个结点，头指针是指向第一个结点的指针。">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>数据结构四之链表进阶 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/advanced_linked_list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构四之链表进阶</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-12-22T23:19:21+00:00">
+                12-22-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/CPP/" rel="tag"><i class="fa fa-tag"></i> CPP</a>
+              
+                <a href="/tags/DataStructure/" rel="tag"><i class="fa fa-tag"></i> DataStructure</a>
+              
+                <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别/" rel="next" title="SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/why_not_recursion_and_what_is_tail_recursion/" rel="prev" title="为什么不推荐递归以及什么是尾递归">
+              <p class="post-nav-pre-next-title">
+                  为什么不推荐递归以及什么是尾递归
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p>只谈一下单链表, 链表实在是太重要, 是前面两篇说算法博客的基础, 了解了其应用和衍生, 再去了解其本身就有动力了</p>
+<h1 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">typedef struct Node</span><br><span class="line">&#123;</span><br><span class="line">	DataType data;</span><br><span class="line">	struct Node *next;</span><br><span class="line">&#125;Node, *Node_Ptr;</span><br></pre></td></tr></table></figure>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/advanced_linked_list/advanced_linked_list_1.png">
+<ul>
+<li>链表中第一个结点的存储位置叫做头指针</li>
+<li>头指针和头结点不同，头结点即第一个结点，头指针是指向第一个结点的指针。链表中可以没有头结点，但不能没有头指针。</li>
+<li>如果链表有头结点，那么头指针就是指向头结点数据域的指针。</li>
+<li>单链表也可以没有头结点</li>
+</ul>
+<p><strong>头结点的优点: </strong></p>
+<ul>
+<li>头结点是为了操作的统一与方便而设立的，放在第一个元素结点之前，其数据域一般无意义（当然有些情况下也可存放链表的长度、用做监视哨等等）。</li>
+<li>有了头结点后，对在第一个元素结点前插入结点和删除第一个结点，其操作与对其它结点的操作统一了。</li>
+</ul>
+<h2 id="有头结点和无头结点的建立链表方法头插法"><a href="#有头结点和无头结点的建立链表方法头插法" class="headerlink" title="有头结点和无头结点的建立链表方法头插法"></a>有头结点和无头结点的建立链表方法头插法</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">include &lt;stdio.h&gt;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Link</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span>  elem;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Link</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;link;</span><br><span class="line"><span class="comment">//无头结点链表的头插法实现函数</span></span><br><span class="line"><span class="function">link * <span class="title">creatLink</span><span class="params">(<span class="keyword">int</span> * arc, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">//最初状态下，头指针 H 没有任何结点，所以，插入第一个元素，就相当于是创建结点 H</span></span><br><span class="line">    link * H =(link*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(link));</span><br><span class="line">    H-&gt;elem = arc[<span class="number">0</span>];</span><br><span class="line">    H-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">//如果采用头插法插入超过 1 个元素，则可添加到第一个结点 H 之前</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i&lt;length; i++) &#123;</span><br><span class="line">        link * a = (link*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(link));</span><br><span class="line">        a-&gt;elem = arc[i];</span><br><span class="line">        <span class="comment">//插入元素时，首先将插入位置后的链表链接到新结点上</span></span><br><span class="line">        a-&gt;next = H;</span><br><span class="line">        <span class="comment">//然后再链接头指针 H</span></span><br><span class="line">        H = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> H;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//有头结点链表的头插法实现函数</span></span><br><span class="line"><span class="function">link * <span class="title">HcreatLink</span><span class="params">(<span class="keyword">int</span> * arc, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">//创建头结点 H，其链表的头指针也是 H</span></span><br><span class="line">    link * H = (link*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(link));</span><br><span class="line">    H-&gt;elem = <span class="number">0</span>;</span><br><span class="line">    H-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">//采用头插法创建链表</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;length; i++) &#123;</span><br><span class="line">        link * a = (link*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(link));</span><br><span class="line">        a-&gt;elem = arc[i];</span><br><span class="line">        <span class="comment">//首先将插入位置之后的链表链接到新结点 a 上</span></span><br><span class="line">        a-&gt;next = H-&gt;next;</span><br><span class="line">        <span class="comment">//将新结点 a 插入到头结点之后的位置</span></span><br><span class="line">        H-&gt;next = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> H;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//链表的输出函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">(link *p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (p) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, p-&gt;elem);</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">3</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;</span><br><span class="line">    <span class="comment">//采用头插法创建无头结点链表</span></span><br><span class="line">    link * H = creatLink(a, <span class="number">3</span>);</span><br><span class="line">    display(H);</span><br><span class="line">    <span class="comment">//采用头插法创建有头结点链表</span></span><br><span class="line">    link * head = HcreatLink(a, <span class="number">3</span>);</span><br><span class="line">    display(head);</span><br><span class="line">    <span class="comment">//使用完毕后，释放即可</span></span><br><span class="line">    <span class="built_in">free</span>(H);</span><br><span class="line">    <span class="built_in">free</span>(head);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">3 2 1</span><br><span class="line">0 3 2 1</span><br></pre></td></tr></table></figure></p>
+<p>提示：没有 0 的为无头结点的头插法输出结果，有 0 的为有头结点的头插法的输出结果</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="在O-1-时间删除链表结点"><a href="#在O-1-时间删除链表结点" class="headerlink" title="在O(1)时间删除链表结点"></a>在O(1)时间删除链表结点</h1><p>给定单链表的头指针和一个结点指针, 定义一个函数在 O(1)时间删除该结点.</p>
+<p>思路 : </p>
+<p>如果要遍历找到该结点的前一个结点p, 来改变结点p的下一个结点指向的这种解法肯定是O(n)时间复杂度了.<br><strong>那是不是一定需要得到被删除的结点的前一个结点呢？</strong><br>答案是否定的。我们可以很方便地得到要删除的结点的下一个结点。如果我们把下一个结点的内容复制到需要删除的结点上覆盖原有的内容，再把下一个结点删除，那是不是就相当于把当前需要删除的结点删除了？</p>
+<h1 id="找一个单链表的中间结点"><a href="#找一个单链表的中间结点" class="headerlink" title="找一个单链表的中间结点"></a>找一个单链表的中间结点</h1><p>算法思想 : </p>
+<p>(<strong>快慢指针的使用</strong>)设置两个指针，一个每次移动两个位置，一个每次移动一个位置，当第一个指针到达尾节点时，第二个指针就达到了中间节点的位置</p>
+<h1 id="判断链表中是否有环"><a href="#判断链表中是否有环" class="headerlink" title="判断链表中是否有环"></a>判断链表中是否有环</h1><p>算法思想 : </p>
+<p>(<strong>快慢指针的使用</strong>)链表中有环，其实也就是自相交. 用两个指针pslow和pfast从头开始遍历链表，pslow每次前进一个节点，pfast每次前进两个结点，若存在环，则pslow和pfast肯定会在环中相遇，若不存在，则pslow和pfast能正常到达最后一个节点</p>
+<h1 id="判断两个链表是否相交-假设两个链表均不带环"><a href="#判断两个链表是否相交-假设两个链表均不带环" class="headerlink" title="判断两个链表是否相交, 假设两个链表均不带环"></a>判断两个链表是否相交, 假设两个链表均不带环</h1><p>算法思想 : </p>
+<p>如果两个链表相交于某一节点，那么在这个相交节点之后的所有节点都是两个链表所共有的。也就是说，如果两个链表相交，那么最后一个节点肯定是共有的。先遍历第一个链表，记住最后一个节点，然后遍历第二个链表，到最后一个节点时和第一个链表的最后一个节点做比较，如果相同，则相交，否则不相交。</p>
+<h1 id="从尾到头打印链表"><a href="#从尾到头打印链表" class="headerlink" title="从尾到头打印链表"></a>从尾到头打印链表</h1><p>有两种解法 : </p>
+<ul>
+<li><strong>反转链表解法</strong> : 反转链表之后再从头到尾打印 (这样会改变原来的链表)</li>
+<li><strong>栈存储解法</strong>(比较简单, 本文不详讲了) : 用栈存储之后再逐个出栈一一打印 (这样不会改变原来的链表)</li>
+</ul>
+<h2 id="反转链表解法"><a href="#反转链表解法" class="headerlink" title="反转链表解法"></a>反转链表解法</h2><p>比如一个链表:<br>头结点-&gt;A-&gt;B-&gt;C-&gt;D-&gt;E<br>反转成为:<br>头结点-&gt;E-&gt;D-&gt;C-&gt;B-&gt;A</p>
+<h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想 :"></a>算法思想 :</h3><p>第一轮 : 头结点-&gt;A-&gt;B-&gt;C-&gt;D-&gt;E<br>第二轮 : 头结点-&gt;B-&gt;A-&gt;C-&gt;D-&gt;E<br>第三轮 : 头结点-&gt;C-&gt;B-&gt;A-&gt;D-&gt;E<br>第四轮 : 头结点-&gt;D-&gt;C-&gt;B-&gt;A-&gt;E<br>第五轮 : 头结点-&gt;E-&gt;D-&gt;C-&gt;B-&gt;A</p>
+<h3 id="算法cpp实现："><a href="#算法cpp实现：" class="headerlink" title="算法cpp实现："></a>算法cpp实现：</h3><p>手写的代码， 已经跑过了，可直接用<br>下面代码中反转函数为 ReverseList ， 且有详细注释以及总结</p>
+<figure class="highlight c++"><figcaption><span>LinkedList.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TList</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">TList</span> *<span class="title">pNext</span>;</span></span><br><span class="line">	<span class="keyword">void</span> *pData;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">TList</span> *<span class="title">LPTLIST</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AppendElem</span><span class="params">(LPTLIST *ppstHead)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReverseList</span><span class="params">(LPTLIST *ppstHead)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintList</span><span class="params">(LPTLIST *ppstHead)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DestroyList</span><span class="params">(LPTLIST *ppstHead)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>LinkedList.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"LinkedList.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cin</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AppendElem</span><span class="params">(LPTLIST *ppstHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!ppstHead)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"ppstHead is null"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!*ppstHead)</span><br><span class="line">	&#123;</span><br><span class="line">		*ppstHead = <span class="keyword">new</span> TList;</span><br><span class="line">		<span class="keyword">if</span> (!*ppstHead)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"*ppstHead malloc error"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		(*ppstHead)-&gt;pData = <span class="literal">nullptr</span>;</span><br><span class="line">		(*ppstHead)-&gt;pNext = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	LPTLIST temp_elem_ptr = *ppstHead;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"input '.' to finish"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> key_data = <span class="string">'.'</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; key_data;</span><br><span class="line">		<span class="keyword">if</span> (key_data != <span class="string">'.'</span>)</span><br><span class="line">		&#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">char</span> * temp_key_data = <span class="keyword">new</span> <span class="keyword">char</span>;</span><br><span class="line">			<span class="keyword">if</span> (!temp_key_data)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">"temp_key_data malloc error"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			*temp_key_data = key_data;</span><br><span class="line"></span><br><span class="line">			LPTLIST new_elem_ptr = <span class="keyword">new</span> TList;</span><br><span class="line">			<span class="keyword">if</span> (!new_elem_ptr)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">"new_elem malloc error"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			new_elem_ptr-&gt;pData = temp_key_data;</span><br><span class="line">			new_elem_ptr-&gt;pNext = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">			temp_elem_ptr-&gt;pNext = new_elem_ptr;</span><br><span class="line">			temp_elem_ptr = new_elem_ptr;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 将单链表反转, 要求只能扫描链表一次.</span></span><br><span class="line"><span class="comment">*@param ppstHead 指向链表首节点的指针</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ReverseList</span><span class="params">(LPTLIST *ppstHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!ppstHead)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"ppstHead is null"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!*ppstHead)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"*ppstHead is null"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 我们只用上述算法思想中第二轮来说明一下此算法, 即为 "第二轮 : 头结点-&gt;B-&gt;A-&gt;C-&gt;D-&gt;E"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// origin_first_elem_ptr指针一直指向着原来链表头指针后面的那个元素</span></span><br><span class="line">	<span class="comment">//（即原第一个元素， 这个指针的指向一直都不会变， 一直都是指向A）</span></span><br><span class="line">	LPTLIST origin_first_elem_ptr = (*ppstHead)-&gt;pNext; </span><br><span class="line"></span><br><span class="line">	LPTLIST temp_elem_ptr = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 需要两个判断, 不然当 origin_first_elem_ptr 为NULL的时候会出错, </span></span><br><span class="line">	<span class="comment">// 且 origin_first_elem_ptr -&gt;pNext为NULL的时候也没必要继续循环了</span></span><br><span class="line">	<span class="keyword">while</span> (origin_first_elem_ptr &amp;&amp; origin_first_elem_ptr-&gt;pNext)	 </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// 临时保存一下元素A后面的后面那个元素C</span></span><br><span class="line">		temp_elem_ptr = origin_first_elem_ptr-&gt;pNext-&gt;pNext;	</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 让B指向A : B-&gt;A (第1步)</span></span><br><span class="line">		origin_first_elem_ptr-&gt;pNext-&gt;pNext = (*ppstHead)-&gt;pNext;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 把目前第一个元素A替换为原第一个元素的后面那个元素B : 头结点-&gt;B (第2步)</span></span><br><span class="line">		(*ppstHead)-&gt;pNext = origin_first_elem_ptr-&gt;pNext;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 原第一个元素A的pnext指到它后面的后面那个元素C : A-&gt;C (第3步)</span></span><br><span class="line">		origin_first_elem_ptr-&gt;pNext = temp_elem_ptr;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 综上所述只需要3步, 链表反转需要两个指针， </span></span><br><span class="line">	<span class="comment">// 见上面两个指针, 一个 origin_first_elem_ptr, 一个 temp_elem_ptr</span></span><br><span class="line">	<span class="comment">// 且要注意while条件中循环的是origin_first_elem_ptr, 而非ppstHead</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintList</span><span class="params">(LPTLIST *ppstHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!ppstHead)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"ppstHead is null"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!*ppstHead)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"*ppstHead is null"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	LPTLIST temp_elem_ptr = *ppstHead;</span><br><span class="line">	<span class="keyword">while</span> (temp_elem_ptr = temp_elem_ptr-&gt;pNext)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *(<span class="keyword">char</span> *)(temp_elem_ptr-&gt;pData) &lt;&lt; <span class="string">"-&gt;"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DestroyList</span><span class="params">(LPTLIST *ppstHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!ppstHead)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"ppstHead is null"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!*ppstHead)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"*ppstHead is null"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	LPTLIST temp_elem_ptr = *ppstHead, temp_next_ptr = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (temp_elem_ptr)</span><br><span class="line">	&#123;</span><br><span class="line">		temp_next_ptr = temp_elem_ptr-&gt;pNext;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">delete</span> (<span class="keyword">char</span> *)(temp_elem_ptr-&gt;pData);</span><br><span class="line">		temp_elem_ptr-&gt;pData = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">delete</span> temp_elem_ptr;</span><br><span class="line">		temp_elem_ptr = temp_next_ptr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"DestroyList finished."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"LinkedList.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	TList *test_list = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	AppendElem(&amp;test_list);</span><br><span class="line">	PrintList(&amp;test_list);</span><br><span class="line"></span><br><span class="line">	ReverseList(&amp;test_list);</span><br><span class="line">	PrintList(&amp;test_list);</span><br><span class="line"></span><br><span class="line">	DestroyList(&amp;test_list);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<!-- 
+## 栈存储解法
+
+``` c++
+
+#include <stack>
+#include <stdio.h>
+
+using std::stack;
+
+struct ListNode
+{
+    void *pData;
+    ListNode *pNext;
+};
+
+void AppendListNode(ListNode *pHead, void *Data)
+{
+    if (!pHead)
+    {
+        return;
+    }
+    ListNode *pEndNode = NULL;
+    ListNode *pTemp = pHead;
+    while (pTemp)
+    {
+        pEndNode = pTemp;
+        pTemp = pTemp->pNext;
+    }
+    ListNode *NewListNode = new ListNode;
+    if (!NewListNode)
+    {
+        return;
+    }
+    NewListNode->pData = Data;
+    NewListNode->pNext = NULL;
+    pEndNode->pNext = NewListNode;
+}
+
+void PrintList(ListNode *pHead)
+{
+    if (!pHead)
+    {
+        return;
+    }
+    while (pHead = pHead->pNext)
+    {
+        printf( "%d ->", *(int *)(pHead->pData) );
+    }
+}
+
+void PrintListReversingly_Iteratively(ListNode *pHead)
+{
+    if (!pHead)
+    {
+        return;
+    }
+    stack<ListNode> stackListNode;
+    while (pHead = pHead->pNext)
+    {
+        stackListNode.push(*pHead);
+    }
+
+    while (!stackListNode.empty())
+    {
+        printf("%d -> ", *((int *)(stackListNode.top().pData)));
+        stackListNode.pop();
+    }
+}
+
+int main(int argc, char* argv[])
+{
+    ListNode* TestListNode = new ListNode;
+    TestListNode->pData = NULL;
+    TestListNode->pNext = NULL;
+
+    int Data1 = 5;
+    int Data2 = 6;
+    int Data3 = 7;
+
+    AppendListNode(TestListNode, &Data1);
+    AppendListNode(TestListNode, &Data2);
+    AppendListNode(TestListNode, &Data3);
+
+    PrintListReversingly_Iteratively(TestListNode);
+
+    return 0;
+}
+
+``` -->
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/CPP/" rel="tag"><i class="fa fa-tag"></i> CPP</a>
+            
+              <a href="/tags/DataStructure/" rel="tag"><i class="fa fa-tag"></i> DataStructure</a>
+            
+              <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别/" rel="next" title="SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/why_not_recursion_and_what_is_tail_recursion/" rel="prev" title="为什么不推荐递归以及什么是尾递归">
+                <p class="post-nav-pre-next-title">
+                    为什么不推荐递归以及什么是尾递归
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">291</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#存储结构"><span class="nav-text">存储结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#有头结点和无头结点的建立链表方法头插法"><span class="nav-text">有头结点和无头结点的建立链表方法头插法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在O-1-时间删除链表结点"><span class="nav-text">在O(1)时间删除链表结点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#找一个单链表的中间结点"><span class="nav-text">找一个单链表的中间结点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判断链表中是否有环"><span class="nav-text">判断链表中是否有环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判断两个链表是否相交-假设两个链表均不带环"><span class="nav-text">判断两个链表是否相交, 假设两个链表均不带环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从尾到头打印链表"><span class="nav-text">从尾到头打印链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反转链表解法"><span class="nav-text">反转链表解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法思想"><span class="nav-text">算法思想 :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法cpp实现："><span class="nav-text">算法cpp实现：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
