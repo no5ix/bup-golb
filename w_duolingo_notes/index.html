@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'W Duolingo Notes' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Duolingo,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="hexo s… 📘 单词本（难点+中等词汇） chromatic [krəˈmætɪk] adj. 彩色的；易染色的 vivacious [vɪˈveɪʃəs] adj. 活泼的；快活的；有生气的 intriguing [ɪnˈtriːɡɪŋ] adj. 引人入胜的；非常有趣的 quaint [kweɪnt] adj. 奇特有趣的；古色古香的 manifestly [ˈmænɪfestli] a">
+<meta name="keywords" content="Duolingo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="W Duolingo Notes">
+<meta property="og:url" content="https://hulinhong.com/w_duolingo_notes/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="hexo s… 📘 单词本（难点+中等词汇） chromatic [krəˈmætɪk] adj. 彩色的；易染色的 vivacious [vɪˈveɪʃəs] adj. 活泼的；快活的；有生气的 intriguing [ɪnˈtriːɡɪŋ] adj. 引人入胜的；非常有趣的 quaint [kweɪnt] adj. 奇特有趣的；古色古香的 manifestly [ˈmænɪfestli] a">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-09-20T05:28:53.702Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="W Duolingo Notes">
+<meta name="twitter:description" content="hexo s… 📘 单词本（难点+中等词汇） chromatic [krəˈmætɪk] adj. 彩色的；易染色的 vivacious [vɪˈveɪʃəs] adj. 活泼的；快活的；有生气的 intriguing [ɪnˈtriːɡɪŋ] adj. 引人入胜的；非常有趣的 quaint [kweɪnt] adj. 奇特有趣的；古色古香的 manifestly [ˈmænɪfestli] a">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>W Duolingo Notes | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/w_duolingo_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">W Duolingo Notes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-09-19T21:58:25+00:00">
+                09-19-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Duolingo/" rel="tag"><i class="fa fa-tag"></i> Duolingo</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/actor_vs_csp_mode/" rel="next" title="Actor模型 vs. CSP模型">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Actor模型 vs. CSP模型
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/mac_notes/" rel="prev" title="mac stuff">
+              <p class="post-nav-pre-next-title">
+                  mac stuff
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p>hexo s<br>…</p>
+<h1 id="📘-单词本（难点-中等词汇）"><a href="#📘-单词本（难点-中等词汇）" class="headerlink" title="📘 单词本（难点+中等词汇）"></a>📘 单词本（难点+中等词汇）</h1><ul>
+<li>chromatic [krəˈmætɪk] adj. 彩色的；易染色的</li>
+<li>vivacious [vɪˈveɪʃəs] adj. 活泼的；快活的；有生气的</li>
+<li>intriguing [ɪnˈtriːɡɪŋ] adj. 引人入胜的；非常有趣的</li>
+<li>quaint [kweɪnt] adj. 奇特有趣的；古色古香的</li>
+<li>manifestly [ˈmænɪfestli] adv. 显然地；明显地</li>
+<li>reckon [ˈrekən] v. 猜想；认为</li>
+<li>blissful [ˈblɪsf(ə)l] adj. 极乐的；幸福的</li>
+<li>discontented [ˌdɪskənˈtentɪd] adj. 不满的；不高兴的</li>
+<li>contented [kənˈtentɪd] adj. 满足的；心满意足的</li>
+<li>hysterical [hɪˈsterɪkl] adj. 歇斯底里的；情绪失控的</li>
+<li>kidnapped [ˈkɪdnæpt] v. 绑架（过去式/过去分词）</li>
+<li>personable [ˈpɜːrsənəbl] adj. 品貌兼优的；英俊潇洒的</li>
+<li>muscular [ˈmʌskjələr] adj. 肌肉发达的；强壮的</li>
+<li>winsome [ˈwɪnsəm] adj. 迷人的；可爱的</li>
+<li>affectionate [əˈfekʃənət] adj. 深情的；表达爱意的</li>
+<li>cunning [ˈkʌnɪŋ] adj. 狡猾的；灵巧的；可爱的</li>
+<li>lovable [ˈlʌvəbəl] adj. 可爱的；讨人喜欢的</li>
+<li>dark-skinned [ˌdɑːrk ˈskɪnd] adj. 深色皮肤的</li>
+<li>wholehearted [ˌhoʊlˈhɑːrtɪd] adj. 全心全意的</li>
+<li>grizzled [ˈɡrɪzld] adj. 头发斑白的</li>
+<li>tranquil [ˈtræŋkwɪl] adj. 宁静的；安静的</li>
+<li>serenity [səˈrenəti] n. 宁静；安详</li>
+<li>enchanting [ɪnˈtʃæntɪŋ] adj. 迷人的；妩媚的</li>
+<li>portrays [pɔːrˈtreɪz] v. 描绘，刻画（第三人称单数）</li>
+<li>profound [prəˈfaʊnd] adj. 深刻的；意义重大的</li>
+<li>engrossing [ɪnˈɡroʊsɪŋ] adj. 引人入胜的</li>
+<li>intricate [ˈɪntrɪkət] adj. 错综复杂的；难理解的</li>
+<li>contentious [kənˈtenʃəs] adj. 有争议的；爱争论的</li>
+<li>merits [ˈmerɪts] n. 优点，长处</li>
+<li>momentous [moʊˈmentəs] adj. 重要的；重大的</li>
+<li>manifest [ˈmænɪfest] adj. 明显的；显而易见的</li>
+<li>sentiment [ˈsentɪmənt] n. 情感；观点</li>
+<li>standpoint [ˈstændpɔɪnt] n. 立场；观点</li>
+<li>utterly [ˈʌtərli] adv. 完全地；彻底地</li>
+<li>foster [ˈfɑːstər] v. 促进；培养；adj. 寄养的</li>
+<li>encapsulate [ɪnˈkæpsjuleɪt] v. 概括；封装</li>
+<li>verdict [ˈvɜːrdɪkt] n. 裁定；定论</li>
+<li>indisputable [ˌɪndɪˈspjuːtəbəl] adj. 不容置疑的</li>
+<li>emblematic [ˌembləˈmætɪk] adj. 象征性的</li>
+<li>integral [ˈɪntɪɡrəl] adj. 必要的；完整的</li>
+<li>imperative [ɪmˈperətɪv] adj. 必要的；极重要的</li>
+<li>diametrically [ˌdaɪəˈmetrɪkli] adv. 完全地；截然不同地</li>
+<li>vitally [ˈvaɪtəli] adv. 极其；生死攸关地</li>
+<li>vantage [ˈvæntɪdʒ] n. 优势；有利位置</li>
+<li>pivotal [ˈpɪvətl] adj. 关键的；中枢的</li>
+<li>quintessential [ˌkwɪntɪˈsenʃl] adj. 典型的；精髓的</li>
+<li>fervently [ˈfɜːrvəntli] adv. 热情地；强烈地</li>
+<li>unequivocal [ˌʌnɪˈkwɪvəkl] adj. 明确的；毫不含糊的</li>
+<li>elaborate [ɪˈlæbərət] adj. 精心制作的；复杂的；v. 详述</li>
+<li>deem [diːm] v. 认为；视为</li>
+<li>advocates [ˈædvəkəts] n. 支持者；提倡者</li>
+<li>explicit [ɪkˈsplɪsɪt] adj. 明确的；清晰的</li>
+<li>eccentric [ɪkˈsentrɪk] adj. 古怪的；异常的</li>
+<li>wretched [ˈretʃɪd] adj. 可怜的；悲惨的</li>
+<li>frustrated [ˈfrʌstreɪtɪd] adj. 懊恼的；沮丧的</li>
+</ul>
+<hr>
+<h1 id="📖-IELTS-全文学习版（带词汇标注）"><a href="#📖-IELTS-全文学习版（带词汇标注）" class="headerlink" title="📖 IELTS 全文学习版（带词汇标注）"></a>📖 IELTS 全文学习版（带词汇标注）</h1><hr>
+<h2 id="1-看图写句-60s"><a href="#1-看图写句-60s" class="headerlink" title="1. 看图写句 (60s)"></a>1. 看图写句 (60s)</h2><p>不需要写太多，简单概括一下人物的外貌、动作和背景就OK。<br>记忆技巧: 用每个模板的开头字母来记, <strong>WIT</strong> (We can see / It can be manifestly seen / This chromatic image depicts)。</p>
+<hr>
+<h3 id="●总体-地点-天气"><a href="#●总体-地点-天气" class="headerlink" title="●总体 (地点 + 天气)"></a>●总体 (地点 + 天气)</h3><p>This <strong>chromatic</strong> [krəˈmætɪk adj. 彩色的] and <strong>vivacious</strong> [vɪˈveɪʃəs adj. 活泼的] image depicts a fabulous situation outdoors/indoors, in a (street / playground / the top of the mountain / studio). The weather outside is sunny/cloudy/rainy.</p>
+<hr>
+<h3 id="●人物-外貌-动作-猜测心情"><a href="#●人物-外貌-动作-猜测心情" class="headerlink" title="●人物 (外貌 + 动作 + 猜测心情)"></a>●人物 (外貌 + 动作 + 猜测心情)</h3><p>What can be seen from the photograph is that a/an [人物] is doing sth.<br>He/She has [short/long/curly + black/white/red/blonde] hair.<br>He/She is wearing a [black/white/red … + shirt/dress/skirt/hoody (/ˈhʊdi/ n. 套头衫)] with [a hat/scarf].</p>
+<p>According to their facial expression/behaviors, I <strong>reckon</strong> [ˈrekən v. 猜想] that they are pretty <strong>blissful</strong> [ˈblɪsf(ə)l adj. 极乐的；幸福的], <strong>indigent</strong> [ˈɪndɪdʒənt adj. 贫困的], or <strong>exhausted</strong> [ɪɡˈzɔːstɪd adj. 精疲力竭的].</p>
+<hr>
+<h3 id="●物体-景物-描绘"><a href="#●物体-景物-描绘" class="headerlink" title="●物体 (景物 + 描绘)"></a>●物体 (景物 + 描绘)</h3><p>Additionally, there are several delicate and gorgeous items involved there. For example, we can see a breathtaking [object], which is probably made in the 19th century.</p>
+<hr>
+<h3 id="●背景-时间-景色"><a href="#●背景-时间-景色" class="headerlink" title="●背景 (时间 + 景色)"></a>●背景 (时间 + 景色)</h3><p>Given the background that there is/isn’t sunlight, this photograph is probably taken in the daytime/noon/night.<br>In the background/foreground, we can see that the scenery is extremely fascinating, presenting a piece of <strong>enchanting</strong> [ɪnˈtʃæntɪŋ adj. 迷人的] beauty.</p>
+<hr>
+<h3 id="●总结-信息-收获"><a href="#●总结-信息-收获" class="headerlink" title="●总结 (信息 + 收获)"></a>●总结 (信息 + 收获)</h3><p>In a nutshell, this picture is not only very informative but also provides me with lots of profound [prəˈfaʊnd adj. 深刻的] information and helps me get a better understanding of this thing.</p>
+<hr>
+<h2 id="2-✍️-写作模板"><a href="#2-✍️-写作模板" class="headerlink" title="2. ✍️ 写作模板"></a>2. ✍️ 写作模板</h2><hr>
+<h3 id="●开头段"><a href="#●开头段" class="headerlink" title="●开头段"></a>●开头段</h3><p>There is no doubt that … is one of the most <strong>contentious</strong> [kənˈtenʃəs adj. 有争议的] issues nowadays.<br>People hold <strong>diametrically</strong> [ˌdaɪəˈmetrɪkli adv. 完全地；截然不同地] opposite <strong>standpoints</strong> [ˈstændpɔɪnts n. 立场].<br>From my perspective, I <strong>fervently</strong> [ˈfɜːrvəntli adv. 热情地] believe that …</p>
+<hr>
+<h3 id="●主体段-1（支持理由）"><a href="#●主体段-1（支持理由）" class="headerlink" title="●主体段 1（支持理由）"></a>●主体段 1（支持理由）</h3><p>To commence with, one of the most <strong>pivotal</strong> [ˈpɪvətl adj. 关键的] reasons why … is that …<br>This is <strong>manifestly</strong> [ˈmænɪfestli adv. 明显地] beneficial since …<br>For example, … (举例).</p>
+<hr>
+<h3 id="●主体段-2（进一步论证）"><a href="#●主体段-2（进一步论证）" class="headerlink" title="●主体段 2（进一步论证）"></a>●主体段 2（进一步论证）</h3><p>Moreover, … plays an <strong>integral</strong> [ˈɪntɪɡrəl adj. 必要的] role in fostering …<br>It is <strong>utterly</strong> [ˈʌtərli adv. 完全地] imperative [ɪmˈperətɪv adj. 必要的；极其重要的] to recognize …<br>This can be vividly <strong>encapsulated</strong> [ɪnˈkæpsjuleɪtɪd v. 概括] by …</p>
+<hr>
+<h3 id="●让步段"><a href="#●让步段" class="headerlink" title="●让步段"></a>●让步段</h3><p>Admittedly, some <strong>advocates</strong> [ˈædvəkəts n. 支持者] may argue that …<br>However, this viewpoint is <strong>indisputable</strong> [ˌɪndɪˈspjuːtəbəl adj. 不容置疑的] only to some extent.</p>
+<hr>
+<h3 id="●结尾段"><a href="#●结尾段" class="headerlink" title="●结尾段"></a>●结尾段</h3><p>In conclusion, after considering the <strong>merits</strong> [ˈmerɪts n. 优点] of both sides, I deem [diːm v. 认为] that …<br>This issue is of <strong>momentous</strong> [moʊˈmentəs adj. 重大的] significance, so governments and individuals should work together to …</p>
+<hr>
+<h2 id="3-🗣️-口语模板"><a href="#3-🗣️-口语模板" class="headerlink" title="3. 🗣️ 口语模板"></a>3. 🗣️ 口语模板</h2><hr>
+<h1 id="📖-看图演讲-90s-模板"><a href="#📖-看图演讲-90s-模板" class="headerlink" title="📖 看图演讲 (90s) 模板"></a>📖 看图演讲 (90s) 模板</h1><p>💡 <strong>记忆方法</strong>: 总人物背总 → <strong>TWAGI</strong></p>
+<ul>
+<li><strong>T</strong>otal（总体）</li>
+<li><strong>W</strong>ho（人物）</li>
+<li><strong>A</strong>rticles（物体）</li>
+<li><strong>G</strong>round（背景）</li>
+<li><strong>I</strong>n a nutshell（总结）</li>
+</ul>
+<hr>
+<h2 id="●总体-Total"><a href="#●总体-Total" class="headerlink" title="●总体 (Total)"></a>●总体 (Total)</h2><p>This picture <strong>depicts</strong> [dɪˈpɪkts v. 描绘，描述] a <strong>fabulous</strong> [ˈfæbjələs adj. 极好的，惊人的] situation outdoors/indoors, in a (street / playground / the top of the mountain / studio).<br>And the weather outside is sunny/cloudy/rainy.</p>
+<p><strong>举例</strong>:<br>This picture depicts a <strong>serene</strong> [/səˈriːn/ adj. 平静的，安详的] <strong>scene</strong>[/siːn/ n. 景色，景象] indoors, in a <strong>cozy</strong> [ˈkoʊzi adj. 舒适的，惬意的] room with a large window.</p>
+<hr>
+<h2 id="●人物-Who"><a href="#●人物-Who" class="headerlink" title="●人物 (Who)"></a>●人物 (Who)</h2><p>What can be seen from the photograph is that a/an + 人物 + who is doing sth.<br>He/She/They has/have [short/long/curly + black/white/red/blonde] hair.<br>Plus, … is/are wearing a [black/white/red/… + shirt/dress/skirt/hoody (/ˈhʊdi/ n. 套头衫；年轻小混混)] with [a hat/scarf].</p>
+<p>According to their facial expression/behaviors, I <strong>speculate</strong> [ˈspekjuleɪt v. 猜测] / <strong>reckon</strong> [ˈrekən v. 认为，猜想] that they are pretty <strong>blissful</strong> [ˈblɪsf(ə)l adj. 极乐的；幸福的], <strong>indigent</strong> [ˈɪndɪdʒənt adj. 贫困的], or <strong>exhausted</strong> [ɪɡˈzɔːstɪd adj. 精疲力竭的].</p>
+<p><strong>举例</strong>:<br>What can be seen from the photograph is that a woman is sitting next to the window.<br>She has long, curly black hair that falls <strong>gracefully</strong> [ˈɡreɪsfəli adv. 优雅地，得体地] over her shoulders.<br>She is wearing a white dress with a <strong>delicate</strong> [ˈdelɪkət adj. 柔和的，精致的] scarf <strong>wrapped</strong> [/ræpt/ v. 包，裹] gracefully around her neck.<br>According to her <strong>facial</strong> [ˈfeɪʃ(ə)l adj. 面部的] <strong>expression</strong> [ɪkˈspreʃ(ə)n n. 神情], I speculate that she is feeling peaceful/blissful and <strong>contented</strong> [kənˈtentɪd adj. 满足的].</p>
+<hr>
+<h2 id="●物体-Articles"><a href="#●物体-Articles" class="headerlink" title="●物体 (Articles)"></a>●物体 (Articles)</h2><p><strong>Additionally</strong>[əˈdɪʃənəli/另外], there are several <strong>delicate</strong> [ˈdelɪkət adj. 精美的；纤细的] and <strong>gorgeous</strong> [ˈɡɔːrdʒəs adj. 华丽的；美丽动人的] items <strong>involved</strong> [ɪnˈvɑːlvd v. 包含] there.<br>For example, we can see there is a <strong>breathtaking</strong> [ˈbreθˌteɪkɪŋ adj. 令人屏息的，惊人的] … which is probably made in the 19th century.</p>
+<p><strong>举例</strong>:<br>Additionally, there are several delicate and gorgeous items involved there.<br>For instance, we can see a breathtaking window which is probably made in the 19th century.</p>
+<hr>
+<h2 id="●背景-Ground"><a href="#●背景-Ground" class="headerlink" title="●背景 (Ground)"></a>●背景 (Ground)</h2><p>Given the background that there is/isn’t sunlight, this photograph is probably taken in the daytime/noon/night.<br>In the background/foreground, we can see that the scenery is extremely <strong>fascinating</strong> [ˈfæsɪneɪtɪŋ adj. 极有吸引力的，迷人的].</p>
+<p><strong>举例</strong>:<br>Given the background that there is plenty of sunlight streaming through the window, this photograph is probably taken in the daytime.<br>In the background/foreground, we can see that the scenery is extremely fascinating.</p>
+<hr>
+<h2 id="●总结-In-a-nutshell"><a href="#●总结-In-a-nutshell" class="headerlink" title="●总结 (In a nutshell)"></a>●总结 (In a nutshell)</h2><p>In a <strong>nutshell</strong> [ˈnʌtʃel idiom 总而言之，简而言之], this picture is not only very <strong>informative</strong> [ɪnˈfɔːrmətɪv adj. 提供有用信息的；教育性的] but also provides me with lots of <strong>profound</strong> [prəˈfaʊnd adj. 深刻的；意义深远的] information and helps me get a better understanding of this thing.</p>
+<hr>
+<h3 id="●Part-1-问答简短"><a href="#●Part-1-问答简短" class="headerlink" title="●Part 1 (问答简短)"></a>●Part 1 (问答简短)</h3><p>Q: Do you like …?<br>A: Yes, absolutely. I think it is <strong>utterly</strong> [ˈʌtərli adv. 完全地] fascinating because …</p>
+<p>Q: How often do you …?<br>A: Well, on a regular basis. I <strong>reckon</strong> [ˈrekən v. 猜想] I usually do it …</p>
+<hr>
+<h3 id="●Part-2-长答案结构"><a href="#●Part-2-长答案结构" class="headerlink" title="●Part 2 (长答案结构)"></a>●Part 2 (长答案结构)</h3><p>Describe a [person/thing/place] that …</p>
+<ul>
+<li><strong>Introduction</strong>: I’m going to talk about … which I found really <strong>intriguing</strong> [ɪnˈtriːɡɪŋ adj. 引人入胜的].</li>
+<li><strong>Description</strong>: It is a …, and it looks … (加入 winsome, tranquil, quaint 等词).</li>
+<li><strong>Experience</strong>: When I first saw it, I felt utterly <strong>blissful</strong> [ˈblɪsf(ə)l adj. 极乐的].</li>
+<li><strong>Reason</strong>: The reason why I remember it so clearly is that …</li>
+<li><strong>Conclusion</strong>: In a nutshell, it was a truly <strong>engrossing</strong> [ɪnˈɡroʊsɪŋ adj. 引人入胜的] experience.</li>
+</ul>
+<hr>
+<h3 id="●Part-3-深入讨论"><a href="#●Part-3-深入讨论" class="headerlink" title="●Part 3 (深入讨论)"></a>●Part 3 (深入讨论)</h3><p>Q: Why do you think … is important?<br>A: Well, from my <strong>standpoint</strong> [ˈstændpɔɪnt n. 立场], it is <strong>pivotal</strong> [ˈpɪvətl adj. 关键的] because …</p>
+<p>Q: Do you think people will change their attitude towards … in the future?<br>A: Definitely. People are becoming more aware of …, and this will <strong>foster</strong> [ˈfɑːstər v. 促进] a better society.</p>
+<p>Q: Some say …, do you agree?<br>A: I <strong>reckon</strong> that idea is <strong>eccentric</strong> [ɪkˈsentrɪk adj. 古怪的], because …</p>
+<hr>
+<p>Ò</p>
+<h2 id="4-📘-总结-背诵提示"><a href="#4-📘-总结-背诵提示" class="headerlink" title="4. 📘 总结 + 背诵提示"></a>4. 📘 总结 + 背诵提示</h2><ol>
+<li><strong>WIT 三句开头</strong>（We can see / It can be manifestly seen / This chromatic image depicts）。</li>
+<li><strong>情绪形容词 6 组</strong>：blissful / discontented / contented / exhausted / hysterical / affectionate。</li>
+<li><strong>写作万能逻辑</strong>：开头（争议）+ 主体 1（好处）+ 主体 2（进一步）+ 让步 + 结尾。</li>
+<li><p><strong>口语万能句型</strong>：</p>
+<ul>
+<li>I reckon …</li>
+<li>From my standpoint …</li>
+<li>It was utterly fascinating / blissful / engrossing.</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><strong>重点词汇总表（按分类）</strong> ——方便集中背</li>
+<li><strong>在原文中逐个标注</strong> ——方便你跟着模板练习</li>
+</ol>
+<hr>
+<h2 id="1⃣-重点词汇总表（精华背诵版）"><a href="#1⃣-重点词汇总表（精华背诵版）" class="headerlink" title="1⃣ 重点词汇总表（精华背诵版）"></a>1⃣ 重点词汇总表（精华背诵版）</h2><h3 id="描述图片开头（WIT-模版）"><a href="#描述图片开头（WIT-模版）" class="headerlink" title="描述图片开头（WIT 模版）"></a>描述图片开头（WIT 模版）</h3><ul>
+<li><strong>chromatic</strong> [krəˈmætɪk] adj. 彩色的；易染色的</li>
+<li><strong>vivacious</strong> [vɪˈveɪʃəs] adj. 活泼的；快活的</li>
+<li><strong>intriguing</strong> [ɪnˈtriːɡɪŋ] adj. 引人入胜的</li>
+<li><strong>quaint</strong> [kweɪnt] adj. 古色古香的；奇特有趣的</li>
+<li><strong>manifestly</strong> [ˈmænɪfestli] adv. 显然地；明白地</li>
+<li><strong>reckon</strong> [ˈrekən] v. 认为；猜测</li>
+<li><strong>blissful</strong> [ˈblɪsf(ə)l] adj. 极乐的；幸福的</li>
+<li><strong>discontented</strong> [ˌdɪskənˈtentɪd] adj. 不满的；不快的</li>
+<li><strong>contented</strong> [kənˈtentɪd] adj. 满足的；心满意足的</li>
+<li><strong>hysterical</strong> [hɪˈsterɪkl] adj. 歇斯底里的</li>
+</ul>
+<h3 id="人物描写"><a href="#人物描写" class="headerlink" title="人物描写"></a>人物描写</h3><ul>
+<li><strong>personable</strong> [ˈpɜːrsənəbl] adj. 英俊潇洒的；和蔼可亲的</li>
+<li><strong>muscular</strong> [ˈmʌskjələr] adj. 肌肉发达的；强壮的</li>
+<li><strong>winsome</strong> [ˈwɪnsəm] adj. 迷人的；可爱的</li>
+<li><strong>affectionate</strong> [əˈfekʃənət] adj. 充满深情的；有爱的</li>
+<li><strong>cunning</strong> [ˈkʌnɪŋ] adj. 狡猾的；灵巧的；可爱的</li>
+<li><strong>lovable</strong> [ˈlʌvəbl] adj. 可爱的；讨人喜欢的</li>
+<li><strong>dark-skinned</strong> [ˌdɑːrk ˈskɪnd] adj. 深肤色的</li>
+<li><strong>wholehearted</strong> [ˌhoʊlˈhɑːrtɪd] adj. 全心全意的</li>
+<li><strong>grizzled</strong> [ˈɡrɪzld] adj. 头发斑白的</li>
+<li><strong>elderly</strong> [ˈeldərli] adj. 上了年纪的</li>
+</ul>
+<h3 id="景色描写"><a href="#景色描写" class="headerlink" title="景色描写"></a>景色描写</h3><ul>
+<li><strong>tranquil</strong> [ˈtræŋkwɪl] adj. 宁静的；安静的</li>
+<li><strong>serenity</strong> [səˈrenəti] n. 宁静；安详</li>
+<li><strong>fascinating</strong> [ˈfæsɪneɪtɪŋ] adj. 极有吸引力的</li>
+<li><strong>enchanting</strong> [ɪnˈtʃæntɪŋ] adj. 迷人的；妩媚的</li>
+</ul>
+<h3 id="听力总结模版"><a href="#听力总结模版" class="headerlink" title="听力总结模版"></a>听力总结模版</h3><ul>
+<li><strong>solicit</strong> [səˈlɪsɪt] v. 请求；征求</li>
+<li><strong>endow sb. with</strong> [ɪnˈdaʊ] v. 赋予某人（能力/品质）</li>
+</ul>
+<h3 id="写作模版"><a href="#写作模版" class="headerlink" title="写作模版"></a>写作模版</h3><ul>
+<li><strong>profound</strong> [prəˈfaʊnd] adj. 深刻的；极大的</li>
+<li><strong>intriguing</strong> [ɪnˈtriːɡɪŋ] adj. 引人入胜的</li>
+<li><strong>engrossing</strong> [ɪnˈɡroʊsɪŋ] adj. 使人专注的</li>
+<li><strong>intricate</strong> [ˈɪntrɪkət] adj. 错综复杂的</li>
+<li><strong>contentious</strong> [kənˈtenʃəs] adj. 有争议的；好争论的</li>
+<li><strong>momentous</strong> [moʊˈmentəs] adj. 重大的；重要的</li>
+<li><strong>merit</strong> [ˈmerɪt] n. 优点；价值</li>
+<li><strong>foremost</strong> [ˈfɔːrmoʊst] adj. 首要的</li>
+<li><strong>manifest</strong> [ˈmænɪfest] adj. 明显的</li>
+<li><strong>sentiment</strong> [ˈsentɪmənt] n. 观点；情绪</li>
+<li><strong>standpoint</strong> [ˈstændpɔɪnt] n. 立场；观点</li>
+<li><strong>utterly</strong> [ˈʌtərli] adv. 完全地</li>
+<li><strong>concede</strong> [kənˈsiːd] v. 承认；让步</li>
+<li><strong>foster</strong> [ˈfɑːstər] v. 培养；促进</li>
+<li><strong>encapsulate</strong> [ɪnˈkæpsjuleɪt] v. 概括；简要描述</li>
+<li><strong>undoubtedly</strong> [ʌnˈdaʊtɪdli] adv. 毫无疑问地</li>
+<li><strong>verdict</strong> [ˈvɜːrdɪkt] n. 裁定；判决；意见</li>
+<li><strong>indisputable</strong> [ˌɪndɪˈspjuːtəbl] adj. 不容置疑的</li>
+<li><strong>emblematic</strong> [ˌembləˈmætɪk] adj. 象征性的</li>
+<li><strong>integral</strong> [ˈɪntɪɡrəl] adj. 必需的；整体的</li>
+<li><strong>imperative</strong> [ɪmˈperətɪv] adj. 极重要的；必要的</li>
+<li><strong>perk</strong> [pɜːrk] n. 额外福利</li>
+</ul>
+<hr>
+<p>好的 ✅ 明白啦。那我会把你提供的整份模版文章逐句逐词检查，把 <strong>重点/难点词汇</strong> 都在 <strong>原文位置</strong> 直接加上 <strong>[音标] + 中文释义</strong>。<br>因为全文很长，我会 <strong>分段分批发给你</strong>，这样不会太乱。</p>
+<p>先从 <strong>看图写句 (WIT 模版)</strong> 开始标注，做一个完整示范：</p>
+<hr>
+<h2 id="📌-看图写句-WIT"><a href="#📌-看图写句-WIT" class="headerlink" title="📌 看图写句 (WIT)"></a>📌 看图写句 (WIT)</h2><p>●第一句<br>○This <strong>chromatic</strong> [krəˈmætɪk] adj. 彩色的；易染色的 and <strong>vivacious</strong> [vɪˈveɪʃəs] adj. 活泼的；快活的；有生气的 image depicts that … . The weather outside is sunny/cloudy/rainy.<br>■举例: This chromatic and vivacious photograph depicts that a <strong>muscular</strong> [ˈmʌskjələr] adj. 肌肉发达的；强壮的 man is pushing two <strong>grizzled</strong> [ˈɡrɪzld] adj. 头发斑白的 elderly people angrily. The weather outside is sunny.</p>
+<p>○We can see in this <strong>intriguing</strong> [ɪnˈtriːɡɪŋ] adj. 引人入胜的；非常有趣的 and <strong>quaint</strong> [kweɪnt] adj. 奇特有趣的；古色古香的 picture that … .This vivacious image portrays a <strong>fabulous</strong> [ˈfæbjələs] adj. 极好的；惊人的 situation.<br>■举例: We can see in this intriguing and quaint picture that two <strong>cunning</strong> [ˈkʌnɪŋ] adj. 狡猾的；灵巧的；可爱的 boys are playing basketball with each other. This vivacious image portrays a fabulous situation.</p>
+<p>○It can be <strong>manifestly</strong> [ˈmænɪfestli] adv. 显然地；明白地 seen in this fabulous snapshot that … . I <strong>reckon</strong> [ˈrekən] v. 认为；猜想 that he/she is feeling <strong>blissful</strong> [ˈblɪsf(ə)l] adj. 极乐的；幸福的；无忧无虑的 / <strong>discontented</strong> [ˌdɪskənˈtentɪd] adj. 不满的；/ <strong>contented</strong> [kənˈtentɪd] adj. 满足的.<br>■举例: It can be manifestly seen in this fabulous snapshot that a <strong>hysterical</strong> [hɪˈsterɪkl] adj. 歇斯底里的 boy is crying in front of a wall. I reckon he is being kidnapped, because this chromatic image portrays a dangerous scene.</p>
+<hr>
+<p>●第二句强调人物状态<br>○男人: <strong>personable</strong> [ˈpɜːrsənəbl] adj. 英俊潇洒的；品貌兼优的；和蔼可亲的, <strong>muscular</strong> [ˈmʌskjələr] adj. 肌肉的；强壮的<br>○女人: <strong>winsome</strong> [ˈwɪnsəm] adj. 迷人的；可爱的；引人注目的<br>○妈妈: <strong>affectionate</strong> [əˈfekʃənət] adj. 表达爱意的；深情的<br>○小孩: <strong>cunning</strong> [ˈkʌnɪŋ] adj. 狡猾的；灵巧的；&lt;美&gt;可爱的, <strong>lovable</strong> [ˈlʌvəbl] adj. 可爱的；讨人喜欢的, <strong>hysterical</strong> [hɪˈsterɪkl] adj. 歇斯底里的<br>○黑人: <strong>dark-skinned</strong> [ˌdɑːrk ˈskɪnd] adj. 深肤色的<br>○工人: <strong>wholehearted</strong> [ˌhoʊlˈhɑːrtɪd] adj. 全心全意的<br>○老人: <strong>grizzled</strong> [ˈɡrɪzld] adj. 头发斑白的, <strong>elderly</strong> [ˈeldərli] adj. 上了年纪的</p>
+<hr>
+<p>●强调景色<br>○The weather outside is …<br>○It is <strong>tranquil</strong> [ˈtræŋkwɪl] adj. 宁静的；安详的 with <strong>serenity</strong> [səˈrenəti] n. 平静；宁静<br>○The scenery is extremely <strong>fascinating</strong> [ˈfæsɪneɪtɪŋ] adj. 极有吸引力的, presenting a piece of <strong>enchanting</strong> [ɪnˈtʃæntɪŋ] adj. 迷人的；妩媚的 beauty.<br>○This vivacious/black/white picture <strong>portrays</strong> [pɔːrˈtreɪz] v. 描绘；描写 a fabulous situation</p>
+<hr>
+<p>✅ 到这里，<strong>看图写句 (WIT 模版)</strong> 部分就完整标注完了。</p>
+<p>好嘞 ✅ 那我来帮你继续把 <strong>互动听力总结题模版 (ILT)</strong> 部分逐句标注，给所有重点/难点词汇加上 <strong>音标 + 中文释义</strong>。这样你整套模版就齐全啦。</p>
+<hr>
+<h2 id="🎧-互动听力总结题-ILT"><a href="#🎧-互动听力总结题-ILT" class="headerlink" title="🎧 互动听力总结题 (ILT)"></a>🎧 互动听力总结题 (ILT)</h2><p>●开头 (Introduction)</p>
+<ul>
+<li>From the dialogue between A and B, I learned that …</li>
+<li>There are several important points to discuss.</li>
+<li>The conversation mainly revolves around the topic of …</li>
+</ul>
+<hr>
+<p>●主体 (Main Content)</p>
+<ol>
+<li><p>Firstly, A mentioned that …</p>
+<ul>
+<li>He/She <strong>highlighted</strong> [ˈhaɪlaɪtɪd] v. 强调；突出 the importance of …</li>
+<li>He/She also <strong>expressed</strong> [ɪkˈsprest] v. 表达；陈述 his/her <strong>concern</strong> [kənˈsɜːrn] n. 担忧；关切 about …</li>
+</ul>
+</li>
+<li><p>Secondly, B responded by saying that …</p>
+<ul>
+<li>B <strong>emphasized</strong> [ˈemfəsaɪzd] v. 强调 that …</li>
+<li>He/She also <strong>proposed</strong> [prəˈpoʊzd] v. 建议；提出 a solution to deal with the issue.</li>
+</ul>
+</li>
+<li><p>Thirdly, they both agreed/disagreed on …</p>
+<ul>
+<li>They had a <strong>consensus</strong> [kənˈsensəs] n. 共识 about …</li>
+<li>Or they had a <strong>conflict</strong> [ˈkɑːnflɪkt] n. 冲突；分歧 regarding …</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>●背景/语气 (Tone &amp; Attitude)</p>
+<ul>
+<li>Judging from their tone of voice,<br>I <strong>speculate</strong> [ˈspekjəˌleɪt] v. 推测；猜想 that they were quite <strong>enthusiastic</strong> [ɪnˌθuːziˈæstɪk] adj. 热情的；积极的 /<br><strong>indifferent</strong> [ɪnˈdɪfərənt] adj. 漠不关心的 /<br><strong>frustrated</strong> [ˈfrʌstreɪtɪd] adj. 沮丧的；受挫的.</li>
+</ul>
+<hr>
+<p>●总结 (Conclusion)</p>
+<ul>
+<li>In a nutshell [ɪn ə ˈnʌtʃel] idiom 总而言之,</li>
+<li>This conversation is quite <strong>informative</strong> [ɪnˈfɔːrmətɪv] adj. 信息量大的；有教育意义的,</li>
+<li>and it gives me a <strong>profound</strong> [prəˈfaʊnd] adj. 深刻的；意义深远的 understanding of this issue.</li>
+</ul>
+<hr>
+<p>✅ 到这里，<strong>互动听力总结题模版 (ILT)</strong> 也完成了。</p>
+<p>要不要我再继续帮你整理 <strong>阅读总结模版 (RT)</strong> 的标注版本？这样三大类模版就都齐了。</p>
+<p>太好了 ✅ 那我继续帮你完成 <strong>阅读总结模版 (RT)</strong> 的逐句标注，把重点词汇都加上 <strong>音标 + 中文释义</strong>。这样你的三大类模版就完整啦。</p>
+<hr>
+<h2 id="📖-阅读总结模版-RT"><a href="#📖-阅读总结模版-RT" class="headerlink" title="📖 阅读总结模版 (RT)"></a>📖 阅读总结模版 (RT)</h2><p>●开头 (Introduction)</p>
+<ul>
+<li>From the passage/article, I learned that …</li>
+<li>The author mainly <strong>illustrates</strong> [ˈɪləˌstreɪts] v. 阐明；说明 the importance of …</li>
+<li>The text mainly <strong>focuses on</strong> [ˈfoʊkəs ɑːn] 短语：集中于；关注 …</li>
+</ul>
+<hr>
+<p>●主体 (Main Content)</p>
+<ol>
+<li><p>Firstly, the author points out that …</p>
+<ul>
+<li>He/She <strong>emphasizes</strong> [ˈemfəsaɪzɪz] v. 强调 the significance of …</li>
+<li>He/She also <strong>elaborates</strong> [ɪˈlæbəˌreɪts] v. 详细说明 on the reasons why …</li>
+</ul>
+</li>
+<li><p>Secondly, the passage provides several <strong>examples</strong> [ɪɡˈzæmpəlz] n. 例子 to <strong>support</strong> [səˈpɔːrt] v. 支持 this idea.</p>
+<ul>
+<li>For instance, …</li>
+<li>These examples <strong>demonstrate</strong> [ˈdemənˌstreɪt] v. 证明；说明 that …</li>
+</ul>
+</li>
+<li><p>Thirdly, the author <strong>contrasts</strong> [ˈkɑːnˌtræsts] v. 对比；对照 different viewpoints.</p>
+<ul>
+<li>He/She <strong>acknowledges</strong> [əkˈnɑːlɪdʒɪz] v. 承认；认可 the challenges/drawbacks.</li>
+<li>But still <strong>argues</strong> [ˈɑːrɡjuːz] v. 争论；主张 that …</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>●态度/语气 (Tone &amp; Attitude)</p>
+<ul>
+<li>Judging from the writing style, I speculate that the author’s attitude is<br><strong>optimistic</strong> [ˌɑːptɪˈmɪstɪk] adj. 乐观的 /<br><strong>pessimistic</strong> [ˌpesəˈmɪstɪk] adj. 悲观的 /<br><strong>objective</strong> [əbˈdʒektɪv] adj. 客观的 /<br><strong>critical</strong> [ˈkrɪtɪkl] adj. 批判的.</li>
+</ul>
+<hr>
+<p>●总结 (Conclusion)</p>
+<ul>
+<li>In a nutshell [ɪn ə ˈnʌtʃel] idiom 总而言之；简而言之,</li>
+<li>This passage is quite <strong>enlightening</strong> [ɪnˈlaɪtnɪŋ] adj. 启发性的；有教育意义的,</li>
+<li>and it gives me a more <strong>comprehensive</strong> [ˌkɑːmprɪˈhensɪv] adj. 全面的；综合的 understanding of this topic.</li>
+</ul>
+<hr>
+<p>✅ 这样，WIT（看图）、ILT（听力）、RT（阅读）三大类模版就全部完成标注啦。</p>
+<p>要不要我最后再帮你做一个 <strong>高频词总表</strong>（把这三大模版里的所有重点词汇按类别整理出来，方便你背诵）？</p>
+<p>好嘞 ✅ 我来把 <strong>WIT + ILT + RT 三大模版里的重点词汇</strong> 汇总成一个 <strong>高频词总表</strong>，并且按类别整理（形容词 / 动词 / 名词 / 副词 &amp; 短语），方便你快速背诵复习。</p>
+<hr>
+<h1 id="📌-高频词总表（带音标-释义）"><a href="#📌-高频词总表（带音标-释义）" class="headerlink" title="📌 高频词总表（带音标+释义）"></a>📌 高频词总表（带音标+释义）</h1><h2 id="🔹形容词-Adjectives"><a href="#🔹形容词-Adjectives" class="headerlink" title="🔹形容词 (Adjectives)"></a>🔹形容词 (Adjectives)</h2><ul>
+<li><strong>fabulous</strong> [ˈfæbjələs] 极好的，惊人的</li>
+<li><strong>serene</strong> [səˈriːn] 平静的，安详的</li>
+<li><strong>cozy</strong> [ˈkoʊzi] 舒适的，惬意的</li>
+<li><strong>blissful</strong> [ˈblɪsf(ə)l] 极乐的，无忧无虑的</li>
+<li><strong>indigent</strong> [ˈɪndɪdʒənt] 贫困的</li>
+<li><strong>exhausted</strong> [ɪɡˈzɔːstɪd] 精疲力竭的</li>
+<li><strong>delicate</strong> [ˈdelɪkət] 精美的，纤细的</li>
+<li><strong>gorgeous</strong> [ˈɡɔːrdʒəs] 华丽的，美丽动人的</li>
+<li><strong>breathtaking</strong> [ˈbreθˌteɪkɪŋ] 惊人的，令人屏息的</li>
+<li><strong>tranquil</strong> [ˈtræŋkwɪl] 宁静的，安详的</li>
+<li><strong>fascinating</strong> [ˈfæsɪneɪtɪŋ] 极有吸引力的</li>
+<li><strong>enchanting</strong> [ɪnˈtʃæntɪŋ] 迷人的</li>
+<li><strong>personable</strong> [ˈpɜːrsənəbl] 英俊潇洒的，和蔼可亲的</li>
+<li><strong>muscular</strong> [ˈmʌskjələr] 肌肉发达的，强壮的</li>
+<li><strong>winsome</strong> [ˈwɪnsəm] 迷人的，可爱的</li>
+<li><strong>affectionate</strong> [əˈfekʃənət] 充满爱意的</li>
+<li><strong>cunning</strong> [ˈkʌnɪŋ] 狡猾的 / 可爱的</li>
+<li><strong>lovable</strong> [ˈlʌvəbl] 可爱的，讨人喜欢的</li>
+<li><strong>hysterical</strong> [hɪˈsterɪkl] 歇斯底里的</li>
+<li><strong>dark-skinned</strong> [ˌdɑːrk ˈskɪnd] 深肤色的</li>
+<li><strong>wholehearted</strong> [ˌhoʊlˈhɑːrtɪd] 全心全意的</li>
+<li><strong>grizzled</strong> [ˈɡrɪzld] 头发斑白的</li>
+<li><strong>elderly</strong> [ˈeldərli] 上了年纪的</li>
+<li><strong>enthusiastic</strong> [ɪnˌθuːziˈæstɪk] 热情的</li>
+<li><strong>indifferent</strong> [ɪnˈdɪfərənt] 漠不关心的</li>
+<li><strong>frustrated</strong> [ˈfrʌstreɪtɪd] 沮丧的</li>
+<li><strong>optimistic</strong> [ˌɑːptɪˈmɪstɪk] 乐观的</li>
+<li><strong>pessimistic</strong> [ˌpesəˈmɪstɪk] 悲观的</li>
+<li><strong>objective</strong> [əbˈdʒektɪv] 客观的</li>
+<li><strong>critical</strong> [ˈkrɪtɪkl] 批判的</li>
+<li><strong>informative</strong> [ɪnˈfɔːrmətɪv] 信息量大的</li>
+<li><strong>profound</strong> [prəˈfaʊnd] 深刻的</li>
+<li><strong>enlightening</strong> [ɪnˈlaɪtnɪŋ] 启发性的</li>
+<li><strong>comprehensive</strong> [ˌkɑːmprɪˈhensɪv] 全面的</li>
+</ul>
+<hr>
+<h2 id="🔹动词-Verbs"><a href="#🔹动词-Verbs" class="headerlink" title="🔹动词 (Verbs)"></a>🔹动词 (Verbs)</h2><ul>
+<li><strong>depict</strong> [dɪˈpɪkt] 描绘，描述</li>
+<li><strong>reckon</strong> [ˈrekən] 认为，猜想</li>
+<li><strong>portray</strong> [pɔːrˈtreɪ] 描绘，刻画</li>
+<li><strong>highlight</strong> [ˈhaɪlaɪt] 强调</li>
+<li><strong>express</strong> [ɪkˈspres] 表达</li>
+<li><strong>emphasize</strong> [ˈemfəsaɪz] 强调</li>
+<li><strong>propose</strong> [prəˈpoʊz] 建议，提出</li>
+<li><strong>acknowledge</strong> [əkˈnɑːlɪdʒ] 承认，认可</li>
+<li><strong>argue</strong> [ˈɑːrɡjuː] 主张，争论</li>
+<li><strong>demonstrate</strong> [ˈdemənˌstreɪt] 说明，证明</li>
+<li><strong>illustrate</strong> [ˈɪləˌstreɪt] 阐明，说明</li>
+<li><strong>elaborate</strong> [ɪˈlæbəˌreɪt] 详细阐述</li>
+<li><strong>speculate</strong> [ˈspekjəˌleɪt] 推测，猜想</li>
+</ul>
+<hr>
+<h2 id="🔹名词-Nouns"><a href="#🔹名词-Nouns" class="headerlink" title="🔹名词 (Nouns)"></a>🔹名词 (Nouns)</h2><ul>
+<li><strong>snapshot</strong> [ˈsnæpˌʃɑːt] 快照，照片</li>
+<li><strong>serenity</strong> [səˈrenəti] 宁静，安详</li>
+<li><strong>consensus</strong> [kənˈsensəs] 共识</li>
+<li><strong>conflict</strong> [ˈkɑːnflɪkt] 冲突，分歧</li>
+<li><strong>concern</strong> [kənˈsɜːrn] 担忧</li>
+<li><strong>scenery</strong> [ˈsiːnəri] 风景</li>
+<li><strong>beauty</strong> [ˈbjuːti] 美丽，美景</li>
+</ul>
+<hr>
+<h2 id="🔹副词-amp-短语"><a href="#🔹副词-amp-短语" class="headerlink" title="🔹副词 &amp; 短语"></a>🔹副词 &amp; 短语</h2><ul>
+<li><strong>manifestly</strong> [ˈmænɪfestli] 显然地</li>
+<li><strong>in a nutshell</strong> [ɪn ə ˈnʌtʃel] 简而言之</li>
+<li><strong>focus on</strong> [ˈfoʊkəs ɑːn] 专注于；关注</li>
+</ul>
+<hr>
+<p>✅ 这样整理后，你就有一份清晰的 <strong>核心高频词库</strong>，可以反复背诵+默写。</p>
+<p>要不要我再帮你把这些词汇按 <strong>考试用途</strong>（比如：形容人、形容景、表达态度、写总结）分成 <strong>“写作万能词包”</strong>？这样考试时就可以直接套用。</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Duolingo/" rel="tag"><i class="fa fa-tag"></i> Duolingo</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/actor_vs_csp_mode/" rel="next" title="Actor模型 vs. CSP模型">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Actor模型 vs. CSP模型
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/mac_notes/" rel="prev" title="mac stuff">
+                <p class="post-nav-pre-next-title">
+                    mac stuff
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">292</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#📘-单词本（难点-中等词汇）"><span class="nav-text">📘 单词本（难点+中等词汇）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#📖-IELTS-全文学习版（带词汇标注）"><span class="nav-text">📖 IELTS 全文学习版（带词汇标注）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-看图写句-60s"><span class="nav-text">1. 看图写句 (60s)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#●总体-地点-天气"><span class="nav-text">●总体 (地点 + 天气)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●人物-外貌-动作-猜测心情"><span class="nav-text">●人物 (外貌 + 动作 + 猜测心情)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●物体-景物-描绘"><span class="nav-text">●物体 (景物 + 描绘)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●背景-时间-景色"><span class="nav-text">●背景 (时间 + 景色)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●总结-信息-收获"><span class="nav-text">●总结 (信息 + 收获)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-✍️-写作模板"><span class="nav-text">2. ✍️ 写作模板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#●开头段"><span class="nav-text">●开头段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●主体段-1（支持理由）"><span class="nav-text">●主体段 1（支持理由）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●主体段-2（进一步论证）"><span class="nav-text">●主体段 2（进一步论证）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●让步段"><span class="nav-text">●让步段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●结尾段"><span class="nav-text">●结尾段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-🗣️-口语模板"><span class="nav-text">3. 🗣️ 口语模板</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#📖-看图演讲-90s-模板"><span class="nav-text">📖 看图演讲 (90s) 模板</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#●总体-Total"><span class="nav-text">●总体 (Total)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#●人物-Who"><span class="nav-text">●人物 (Who)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#●物体-Articles"><span class="nav-text">●物体 (Articles)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#●背景-Ground"><span class="nav-text">●背景 (Ground)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#●总结-In-a-nutshell"><span class="nav-text">●总结 (In a nutshell)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#●Part-1-问答简短"><span class="nav-text">●Part 1 (问答简短)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●Part-2-长答案结构"><span class="nav-text">●Part 2 (长答案结构)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#●Part-3-深入讨论"><span class="nav-text">●Part 3 (深入讨论)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-📘-总结-背诵提示"><span class="nav-text">4. 📘 总结 + 背诵提示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1⃣-重点词汇总表（精华背诵版）"><span class="nav-text">1⃣ 重点词汇总表（精华背诵版）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述图片开头（WIT-模版）"><span class="nav-text">描述图片开头（WIT 模版）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#人物描写"><span class="nav-text">人物描写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#景色描写"><span class="nav-text">景色描写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#听力总结模版"><span class="nav-text">听力总结模版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写作模版"><span class="nav-text">写作模版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#📌-看图写句-WIT"><span class="nav-text">📌 看图写句 (WIT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎧-互动听力总结题-ILT"><span class="nav-text">🎧 互动听力总结题 (ILT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#📖-阅读总结模版-RT"><span class="nav-text">📖 阅读总结模版 (RT)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#📌-高频词总表（带音标-释义）"><span class="nav-text">📌 高频词总表（带音标+释义）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🔹形容词-Adjectives"><span class="nav-text">🔹形容词 (Adjectives)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🔹动词-Verbs"><span class="nav-text">🔹动词 (Verbs)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🔹名词-Nouns"><span class="nav-text">🔹名词 (Nouns)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🔹副词-amp-短语"><span class="nav-text">🔹副词 &amp; 短语</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
