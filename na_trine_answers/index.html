@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('mmp'){
+            let localStoragePasswdKey = 'BQ for Job Interviews' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'mmp') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'mmp') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,English,Java,NA,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="noodle,English,Java,NA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BQ for Job Interviews">
+<meta property="og:url" content="https://hulinhong.com/na_trine_answers/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-10-06T06:26:52.496Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BQ for Job Interviews">
+<meta name="twitter:description" content=". . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>BQ for Job Interviews | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_trine_answers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BQ for Job Interviews</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-18T23:51:06+00:00">
+                02-18-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+              
+                <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/na_backend_q_extra/" rel="next" title="Java backend optional Q extra">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Java backend optional Q extra
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/na_bq/" rel="prev" title="BQ for Job Interviews">
+              <p class="post-nav-pre-next-title">
+                  BQ for Job Interviews
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="Network-Management"><a href="#Network-Management" class="headerlink" title="Network Management"></a>Network Management</h1><h2 id="quiz22"><a href="#quiz22" class="headerlink" title="quiz22"></a>quiz22</h2><p>Which environmental variables are critical factors in the health of computing equipment?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A Temperature<br>C Humidity</p>
+<p>选择一个选项, 以及列出选项内容, 不要解释原因:  What is the variation in delay called?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Bandwidth variance</p>
+<p>B</p>
+<p>Jitter</p>
+<p>C</p>
+<p>Audit log</p>
+<p>D</p>
+<p>Latency</p>
+<p>B: Jitter</p>
+<p>A specific server’s baseline describes norms for factors, such as how busy its processors are and how much of the memory it uses.</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>True</p>
+<p>B</p>
+<p>False</p>
+<p>A: True</p>
+<p>Which of these are the metrics that are tracked to account for utilization in operations?</p>
+<p>Each correct answer represents a complete solution. Choose all that apply.</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Uptime</p>
+<p>B</p>
+<p>Downtime</p>
+<p>C</p>
+<p>SNMP</p>
+<p>D</p>
+<p>Syslog</p>
+<p>A: Uptime<br>B: Downtime</p>
+<p>Which of the following versions of SNMP supports plaintext authentication with community strings and uses only UDP?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>SNMPv2c</p>
+<p>B</p>
+<p>SNMPv4</p>
+<p>C</p>
+<p>SNMPv1</p>
+<p>D</p>
+<p>SNMPv3</p>
+<p>C: SNMPv1</p>
+<p>Which of these supports strong authentication with MD5 or SHA, providing confidentiality and data integrity of messages via DES or DES-256 encryption between agents and managers?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>NetFlow</p>
+<p>B</p>
+<p>SNMPv2c</p>
+<p>C</p>
+<p>SNMPv3</p>
+<p>D</p>
+<p>Syslog</p>
+<p>C: SNMPv3</p>
+<p>Which of these mathematically determines network errors?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>NetFlow</p>
+<p>B</p>
+<p>SNMP</p>
+<p>C</p>
+<p>Syslog</p>
+<p>D</p>
+<p>CRC</p>
+<p>D: CRC</p>
+<p>Which of these occurs when a segment of data fails the addition or deletion of header information?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Runt</p>
+<p>B</p>
+<p>CRC error</p>
+<p>C</p>
+<p>Encapsulation error</p>
+<p>D</p>
+<p>Giant</p>
+<p>C: Encapsulation error</p>
+<p>Which device components should not be allowed to reach full capacity?</p>
+<p>Each correct answer represents a complete solution. Choose all that apply.</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Voltage</p>
+<p>B</p>
+<p>CPU</p>
+<p>C</p>
+<p>Relay</p>
+<p>D</p>
+<p>Memory</p>
+<p>B: CPU<br>D: Memory</p>
+<p>Which of these can collect more granular information on traffic flows than SNMP is able to?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Baseline</p>
+<p>B</p>
+<p>Syslog</p>
+<p>C</p>
+<p>Uptime</p>
+<p>D</p>
+<p>NetFlow</p>
+<p>D: NetFlow</p>
+<p>Which of these is a text string containing detailed information about the event being reported?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Timestamp</p>
+<p>B</p>
+<p>Facility</p>
+<p>C</p>
+<p>Description</p>
+<p>D</p>
+<p>MNEMONIC</p>
+<p>C: Description</p>
+<p>Which of the following Syslog severity level denotes that the system is unusable?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Critical</p>
+<p>B</p>
+<p>Alert</p>
+<p>C</p>
+<p>Emergency</p>
+<p>D</p>
+<p>Error</p>
+<p>C: Emergency</p>
+<p>Which SNMP version added support for the GET BULK operations?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>SNMPv3</p>
+<p>B</p>
+<p>SNMPv2c</p>
+<p>C</p>
+<p>SNMPv2a</p>
+<p>D</p>
+<p>SNMPv1</p>
+<p>B: SNMPv2c</p>
+<p>Which of these can refer to the standard level of performance of a certain device or to the normal operating capacity for the whole network?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>SNMPv2c</p>
+<p>B</p>
+<p>Management information base</p>
+<p>C</p>
+<p>Baseline</p>
+<p>D</p>
+<p>Syslog</p>
+<p>E</p>
+<p>NetFlow</p>
+<p>C: Baseline</p>
+<p>What can be the smallest size of an Ethernet frame?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>128 bytes</p>
+<p>B</p>
+<p>64 bytes </p>
+<p>C</p>
+<p>72 bytes</p>
+<p>D</p>
+<p>256 bytes</p>
+<p>B: 64 bytes</p>
+<p>Which of these represents the bi-directional traffic flow across an Ethernet interface?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Two-way</p>
+<p>B</p>
+<p>Duplex</p>
+<p>C</p>
+<p>Symmetric</p>
+<p>D</p>
+<p>Full-duplex</p>
+<p>D: Full-duplex</p>
+<p>Which of the following statements is true about latency?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>More the latency, longer the delay, and longer the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>B</p>
+<p>Less the latency, longer the delay, and longer the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>C</p>
+<p>More the latency,shorter the delay, and longer the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>D</p>
+<p>Less the latency, longer the delay, andshorter the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>A: More the latency, longer the delay, and longer the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>Which protocol allows the users to display, sort, and even search messages, all of which makes it a great troubleshooting tool?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>NetFlow</p>
+<p>B</p>
+<p>Syslog</p>
+<p>C</p>
+<p>Kibana</p>
+<p>D</p>
+<p>SNMP</p>
+<p>B: Syslog</p>
+<p>Which of these is a system-design protocol that guarantees a certain amount of operational uptime during a given period?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>High availability</p>
+<p>B</p>
+<p>Backup systems</p>
+<p>C</p>
+<p>Hot standby</p>
+<p>D</p>
+<p>Redundancy</p>
+<p>A: High availability</p>
+<p>Which networking protocol uses OIDs and MIBs for data collection and organization of data?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Uptime</p>
+<p>B</p>
+<p>SNMP</p>
+<p>C</p>
+<p>Syslog</p>
+<p>D</p>
+<p>NetFlow</p>
+<p>B: SNMP</p>
+<h2 id="quiz23"><a href="#quiz23" class="headerlink" title="quiz23"></a>quiz23</h2><p>You install new switches in your server room and are now experiencing network instability and other issues across all servers in the rack. Which device would be used to alert you of system overheating?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Surge protector<br>B</p>
+<p>Probe<br>C</p>
+<p>Voltage event recorder<br>D</p>
+<p>Fiber light meter</p>
+<p>c: Voltage event recorder</p>
+<p>Which device would be used to measure voltage?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>OTDR</p>
+<p>B</p>
+<p>Butt set</p>
+<p>C</p>
+<p>Toner probe</p>
+<p>D</p>
+<p>Multimeter</p>
+<p>D: Multimeter</p>
+<p>Which device should be used if you need to determine whether your network meets ISO or TIA standards?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Certifiers</p>
+<p>B</p>
+<p>Nmap</p>
+<p>C</p>
+<p>Routing table</p>
+<p>D</p>
+<p>Angry IP</p>
+<p>A: Certifiers</p>
+<p>End-to-end loss across an Ethernet cable is called <strong>___</strong>.</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>interference</p>
+<p>B</p>
+<p>bad port </p>
+<p>C</p>
+<p>incorrect pinout</p>
+<p>D</p>
+<p>attenuation</p>
+<p>D: attenuation</p>
+<p>Which tool is used to attach an RJ-45 connector to Cat 5e, 6, 7, or 8 cables?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>OTDR</p>
+<p>B</p>
+<p>Spectrum analyzer</p>
+<p>C</p>
+<p>Punch-down tool</p>
+<p>D</p>
+<p>Crimper</p>
+<p>D: Crimper</p>
+<p>Which tool pushes a conductor between the sides of a V inside an IDC?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Snips</p>
+<p>B</p>
+<p>Crimper</p>
+<p>C</p>
+<p>Punch-down tool</p>
+<p>D</p>
+<p>Strippers</p>
+<p>C: Punch-down tool</p>
+<p>Which tool would the users use to both find a break in a fiber-optic connection and test the fiber connectivity on the network?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>OTDR</p>
+<p>B</p>
+<p>Butt set</p>
+<p>C</p>
+<p>Toner probe</p>
+<p>D</p>
+<p>Multimeter</p>
+<p>A: OTDR</p>
+<p>Which of these is not a function of a TDR?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Estimate cable lengths.</p>
+<p>B</p>
+<p>Find splice and connector locations and their associated loss amounts.</p>
+<p>C</p>
+<p>Display unused services.</p>
+<p>D</p>
+<p>Determine cable-impedance characteristics.</p>
+<p>E</p>
+<p>Send a signal down a cable and measure how long it takes to come back.</p>
+<p>C: Display unused services.</p>
+<p>Which device monitors incoming voltage levels and overvoltage thresholds?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Toner probe</p>
+<p>B</p>
+<p>Repeater</p>
+<p>C</p>
+<p>Surge protector</p>
+<p>D</p>
+<p>VOM</p>
+<p>C: Surge protector</p>
+<p>On which of these would a technician use a punch-down tool?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Fiber ST connector</p>
+<p>B</p>
+<p>110 blocks</p>
+<p>C</p>
+<p>CSU/DSU</p>
+<p>D</p>
+<p>RJ-45 connector</p>
+<p>B: 110 blocks</p>
+<p>Which of the following tools can test a port on a device?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Certifier</p>
+<p>B</p>
+<p>Toner probe</p>
+<p>C</p>
+<p>Butt set</p>
+<p>D</p>
+<p>Loopback plug</p>
+<p>D: Loopback plug</p>
+<p>Which of the following statements is true about a wire-map tester?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>It is a device that transmits signals through each wire in a copper fiber-optic cable to determine if it’s connected to the correct pin at the other end.</p>
+<p>B</p>
+<p>It is a device that transmits signals through each wire in a copper twisted-pair cable to determine if it’s connected to the correct pin at the same end.</p>
+<p>C</p>
+<p>It is a device that transmits signals through each wire in a copper twisted-pair cable to determine if it’s connected to the correct pin at the other end.</p>
+<p>D</p>
+<p>It is a device that transmits signals through each wire in a copper fiber-optic cable to determine if it’s connected to the correct pin at the same end.</p>
+<p>C: It is a device that transmits signals through each wire in a copper twisted-pair cable to determine if it’s connected to the correct pin at the other end.</p>
+<p>Which device will be used to locate a specific connection in an unlabeled punch-down block?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Certifier</p>
+<p>B</p>
+<p>TDR</p>
+<p>C</p>
+<p>Toner probe</p>
+<p>D</p>
+<p>VOM</p>
+<p>C: Toner probe</p>
+<p>Which software tool looks at all traffic on a network segment?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Spectrum analyzer</p>
+<p>B</p>
+<p>Packet sniffer</p>
+<p>C</p>
+<p>Time-domain reflectometer</p>
+<p>D</p>
+<p>Multimeter</p>
+<p>B: Packet sniffer</p>
+<p>What is the purpose of wire-map testers?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>To help find unused protocols and remove them from the network</p>
+<p>B</p>
+<p>To analyze protocols in software</p>
+<p>C</p>
+<p>To check the copper cable for crossed pairs only</p>
+<p>D</p>
+<p>To detect transposed wires, opens, and shorts in twisted-pair cables</p>
+<p>D: To detect transposed wires, opens, and shorts in twisted-pair cables</p>
+<p>You install new switches in your server room and are now experiencing network instability and other issues across all servers in the rack. Which device would be used to alert you of system overheating?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Surge protector</p>
+<p>B</p>
+<p>Probe</p>
+<p>C</p>
+<p>Voltage event recorder</p>
+<p>D</p>
+<p>Fiber light meter</p>
+<p>C: Voltage event recorder</p>
+<p>Which of these is a wiring error where two connections that are supposed to be connected using the two wires of a twisted-pair cable are instead connected using two wires from different pairs?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Attenuation</p>
+<p>B</p>
+<p>Split pair</p>
+<p>C</p>
+<p>Bent pin</p>
+<p>D</p>
+<p>Bad port</p>
+<p>B: Split pair</p>
+<p>Which of the following statements is true about a butt set?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>It is essentially a portable telephone that allows the users to test analog wet or dry lines and is used to remove those lines.</p>
+<p>B</p>
+<p>It is essentially a portable telephone that allows the users to test digital wet or dry lines and is used to monitor those lines.</p>
+<p>C</p>
+<p>It is essentially a portable telephone that allows the users to test digital wet or dry lines and is used to remove those lines.</p>
+<p>D</p>
+<p>It is essentially a portable telephone that allows the users to test analog wet or dry lines and is used to monitor those lines.</p>
+<p>D: It is essentially a portable telephone that allows the users to test analog wet or dry lines and is used to monitor those lines.</p>
+<p>Which of these can check the speed and condition of the signal on a cable, measure the time it takes to send a signal down the wire and back, and find the exact location of a break?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Multimeter</p>
+<p>B</p>
+<p>Event recorder</p>
+<p>C</p>
+<p>Tone generator</p>
+<p>D</p>
+<p>TDR</p>
+<p>D: TDR</p>
+<p>no bookmarked, confident, or note marked bookmark popover collapsed</p>
+<p>Question 19 :</p>
+<p>You need to create a cable that will connect your host to a wall jack connection. Which of the following tools will you use?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Multimeter</p>
+<p>B</p>
+<p>IDS/IPS</p>
+<p>C</p>
+<p>Snips</p>
+<p>D</p>
+<p>Coax cable strippers</p>
+<p>C: Snips</p>
+<p>Which tool will the users use to trace cables in multiple-pair wiring?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Toner probe</p>
+<p>B</p>
+<p>Cable stripper/snips</p>
+<p>C</p>
+<p>Cable tester</p>
+<p>D</p>
+<p>Butt set</p>
+<p>A: Toner probe</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/na_backend_q_extra/" rel="next" title="Java backend optional Q extra">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Java backend optional Q extra
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/na_bq/" rel="prev" title="BQ for Job Interviews">
+                <p class="post-nav-pre-next-title">
+                    BQ for Job Interviews
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">296</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Network-Management"><span class="nav-text">Network Management</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#quiz22"><span class="nav-text">quiz22</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#quiz23"><span class="nav-text">quiz23</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
