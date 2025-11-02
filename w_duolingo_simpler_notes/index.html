@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'W Simpler Duolingo Notes' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Duolingo,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="写作看图写句模板-60s-47s-1模板1:   This colorful (彩色的) and lively (活泼的, 有生气的) image shows (展示, 描绘) that … . The weather outside is sunny/cloudy/rainy.  👉 举例: This colorful and lively image shows that a strong">
+<meta name="keywords" content="Duolingo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="W Simpler Duolingo Notes">
+<meta property="og:url" content="https://hulinhong.com/w_duolingo_simpler_notes/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="写作看图写句模板-60s-47s-1模板1:   This colorful (彩色的) and lively (活泼的, 有生气的) image shows (展示, 描绘) that … . The weather outside is sunny/cloudy/rainy.  👉 举例: This colorful and lively image shows that a strong">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-11-02T23:01:30.425Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="W Simpler Duolingo Notes">
+<meta name="twitter:description" content="写作看图写句模板-60s-47s-1模板1:   This colorful (彩色的) and lively (活泼的, 有生气的) image shows (展示, 描绘) that … . The weather outside is sunny/cloudy/rainy.  👉 举例: This colorful and lively image shows that a strong">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>W Simpler Duolingo Notes | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/w_duolingo_simpler_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">W Simpler Duolingo Notes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-09-19T21:58:25+00:00">
+                09-19-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Duolingo/" rel="tag"><i class="fa fa-tag"></i> Duolingo</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/actor_vs_csp_mode/" rel="next" title="Actor模型 vs. CSP模型">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Actor模型 vs. CSP模型
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/w_daily_english_notes/" rel="prev" title="W daily english Notes">
+              <p class="post-nav-pre-next-title">
+                  W daily english Notes
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h1><h2 id="看图写句模板-60s-47s-1"><a href="#看图写句模板-60s-47s-1" class="headerlink" title="看图写句模板-60s-47s-1"></a>看图写句模板-60s-47s-1</h2><p>模板1: </p>
+<blockquote>
+<p>This <strong>colorful</strong> (彩色的) and <strong>lively</strong> (活泼的, 有生气的) image <strong>shows</strong> (展示, 描绘) that … . The weather outside is sunny/cloudy/rainy.</p>
+</blockquote>
+<p>👉 举例: This colorful and lively image shows that a strong man is pushing two elderly people angrily. The weather outside is sunny. </p>
+<hr>
+<p>模板2:</p>
+<blockquote>
+<p>We can see in this <strong>interesting</strong> (有趣的) and <strong>special</strong> (特别的) picture that … . This lively image <strong>shows</strong> (展示) a <strong>great</strong> (极好的) situation.</p>
+</blockquote>
+<p>👉 举例: We can see in this interesting and special picture that two <strong>playful</strong> (爱玩的, 调皮的) boys are playing basketball with each other. This lively image shows a great situation.</p>
+<p>👉 举例: We can see in this interesting and special image that two playful boys are playing basketball with each other. This lively image shows a great situation.</p>
+<hr>
+<p>模板3: </p>
+<blockquote>
+<p>It can be <strong>clearly</strong> (清楚地) seen in this great photo that … . I <strong>think</strong> (认为) he/she is feeling <strong>happy</strong> (高兴的) / <strong>unhappy</strong> (不高兴的) / <strong>satisfied</strong> (满意的).</p>
+</blockquote>
+<p>👉 举例: It can be clearly seen in this great image that a <strong>crying</strong> (正在哭的) boy is standing in front of a wall. I think he is being <strong>bullied</strong>(/ˈbʊlid/adj. 被欺负的；因害怕而屈服顺从的), because this colorful image shows a dangerous scene <em>(/siːn/场面)</em>.</p>
+<p>👉 举例: It can be clearly seen in this great image that a crying boy is standing in front of a wall. I think he is being bullied, because this colorful image shows a dangerous scene.</p>
+<hr>
+<h2 id="互动听力-总结题-75s–2"><a href="#互动听力-总结题-75s–2" class="headerlink" title="互动听力-总结题-75s–2"></a>互动听力-总结题-75s–2</h2><p>I was a student in a Political <em>(/pəˈlɪtɪk(ə)l/)</em> Science class, and I had a problem with finding more sources <em>(/ˈsɔːrsɪz/n. 来源，出处；起源，根源；发源地（source 的复数）)</em>. </p>
+<p>I asked my professor <em>(/prəˈfesər/)</em>. Afterwards <em>(后来)</em>, she gave me some advice, which was that I should look at news articles and a book on the topic.</p>
+<p><strong>举例</strong>:<br>I was a student in a Political Science class, and I had a problem with finding more sources.</p>
+<p>I asked my professor. Afterwards, she gave me some advice, which was that I should look at news articles and a book on the topic.</p>
+<h2 id="小作文5min-5’35-3"><a href="#小作文5min-5’35-3" class="headerlink" title="小作文5min-5’35-3"></a>小作文5min-5’35-3</h2><p>我保留了逻辑结构（3 段式），但换成简单自然、容易说和写的表达。</p>
+<hr>
+<p>第一段（开头段）: </p>
+<p>This topic about work schedules <em>(/ˈskedʒuːl/)</em> is quite common <em>(/ˈkɑːmən/普遍的,常见的)</em> today. Some people think it is better to have flexible hours, while others prefer a fixed <em>(/fɪkst/固定的)</em> routine <em>(/ruːˈtiːn/常规的,例行的)</em>. In my opinion, being able to choose one’s own working time is better for most people.</p>
+<p>第二段（主体段）: </p>
+<p>First, flexible working hours help people keep a better balance between work and life. They can spend more time with their families or take care of personal things.<br>Also, flexible time makes workers feel more trusted <em>(/ˈtrʌstɪd/)</em> and responsible <em>(/rɪˈspɑːnsəb(ə)l负责的/)</em>, because they can plan their own work in a way that fits <em>(/fɪts/适合)</em> their life.</p>
+<p>第三段（结尾段）: </p>
+<p>In conclusion, I believe that choosing one’s own working hours is not only a benefit <em>(/ˈbenɪfɪt/好处,益处)</em> but also a need in modern life. This kind of freedom helps both employees and companies work more happily and efficiently <em>(/ɪˈfɪʃ(ə)ntli/)</em>.</p>
+<hr>
+<p>第一段（开头段）: </p>
+<blockquote>
+<p>This topic about work schedules is quite common today. Some people think it is better to have flexible hours, while others prefer a fixed routine. In my opinion, being able to choose one’s own working time is better for most people.</p>
+</blockquote>
+<p>第二段（主体段）: </p>
+<blockquote>
+<p>First, flexible working hours help people keep a better balance between work and life. They can spend more time with their families or take care of personal things.<br>Also, flexible time makes workers feel more trusted and responsible, because they can plan their own work in a way that fits their life.</p>
+</blockquote>
+<p>第三段（结尾段）: </p>
+<blockquote>
+<p>In conclusion, I believe that choosing one’s own working hours is not only a benefit but also a need in modern life. This kind of freedom helps both employees and companies work more happily and efficiently.</p>
+</blockquote>
+<p>This topic about work schedules is quite common today. Some people think it is better to have flexible hours, while others prefer a fixed routine. In my opinion, being able to chose one’s own working time is better for most people.<br>First, flexible working hours help people keep a better balance between work and life. They can spend more time with their families or take care of personal things.<br>Also, flexible time makes workers feel more trusted and responsible, because they can plan their own work in a way that fits their life.<br>In conclusion, I believe that choosing one’s own working hours is not only a benefit but also a need in modern life. This kind of freedom helps both employees and companies work more happily and efficiently.</p>
+<hr>
+<h2 id="互动写作"><a href="#互动写作" class="headerlink" title="互动写作"></a>互动写作</h2><h3 id="第1题-5min–4"><a href="#第1题-5min–4" class="headerlink" title="第1题-5min–4"></a>第1题-5min–4</h3><blockquote>
+<p><strong>任务类型</strong>：讨论观点、解释原因、表达立场<br><strong>目标</strong>：逻辑完整、结构清晰、词汇自然、结尾总结</p>
+<p>People have different opinions about working from home. In my view, I believe that remote work is better because it brings more flexibility and comfort.<br>First, people can save time by not commuting every day. For example, they can start work earlier or spend more time with family.<br>Second, working at home helps employees feel more relaxed and productive <em>(/prəˈdʌktɪv/富有成效的)</em>. This improves work quality <em>(/ˈkwɑːləti/质量)</em>.<br>In conclusion <em>(结论,结尾)</em>, remote work is a modern and practical <em>(/ˈpræktɪk(ə)l/明智的,切实有效的)</em> choice for most people.</p>
+<p>People have different opinions about working from home. In my view, I believe that remote work is better because it brings more flexibility and comfort.<br>First, people can save time by not commuting every day. For example, they can start work earlier or spend more time with family. Second, working at home helps employees feel more relaxed and productive. This improves work quality.<br>In conclusion, remote work is a modern and practical choice for most people.</p>
+</blockquote>
+<p>People have different opinions about working from home. In my view, I believe that remote work is better because it brings more flexibility and comfort.<br>First, people can save time by not commuting every day. For example, they can start work earlier or spend more time with family.<br>Second, working at home helps employees feel more relaxed and productive. This improves work quality.<br>In conclusion, remote work is a modern and practical choice for most people.</p>
+<hr>
+<h3 id="第2题-3min–5"><a href="#第2题-3min–5" class="headerlink" title="第2题-3min–5"></a>第2题-3min–5</h3><blockquote>
+<p><strong>任务类型</strong>：简答、观点表达、快速理由说明<br><strong>目标</strong>：句型多样、简洁自然、有衔接词但不过度</p>
+</blockquote>
+<p><strong>Template:</strong></p>
+<p><strong>Structure (4 short parts)</strong><br>1️⃣ I think [your opinion].<br>2️⃣ One reason is that [reason 1].<br>3️⃣ Another reason is that [reason 2 or example].<br>4️⃣ So, in my opinion, [repeat conclusion briefly].</p>
+<p>healthy/ˈhelθi/ adj.健康的<br>health/helθ/ n.健康,医疗,卫生</p>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>I think students should have more time for sports.<br>One reason is that exercise helps them stay healthy.<br>Another reason is that it reduces stress <em>(/stres/压力)</em> from studying.<br>So, in my opinion, schools should give students more time to play sports every week.</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>I think students should have more time for sports.<br>One reason is that exercise helps them stay healthy.<br>Another reason is that it reduces stress from studying.<br>So, in my opinion, schools should give students more time to play sports every week.</p>
+</blockquote>
+<p>I think students should have more time for sports.<br>One reason is that exercise helps them stay healthy.<br>Another reason is that it reduces stress from studying.<br>So, in my opinion, schools should give students more time to play sports every week.</p>
+<p>I think students should have more time for sports.<br>One reason is that exercise helps them stay healthy.<br>Another reason is that it reduces stress from studying.<br>So, in my opinion, schools should give students more time to play sports every week.</p>
+<p>I think students should have more time for sports.<br>One reason is that exercise helps them stay healthy.<br>Another reasom is that it reduces stress from studying.<br>So, in my opinion, schools should give students more time to play sports every week.</p>
+<p>opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion opinion</p>
+<p>I think students should have more time for sports,<br>One reason is that exercise helps them stay healthy.<br>Another reason is that it reduces stress from studying.<br>So, in my opinion, schools should give students more time to play sports every week.</p>
+<p>I think students should have more time for sports.<br>One reason is that exerxise helps them stay healthy.<br>another reason is that it reduces stress from studying.<br>So, in my opinion, schools should givr students more tune to play spirts every week.</p>
+<h1 id="🎙-口语"><a href="#🎙-口语" class="headerlink" title="🎙 口语"></a>🎙 口语</h1><h2 id="🗣互动口语-35s每题-共3题"><a href="#🗣互动口语-35s每题-共3题" class="headerlink" title="🗣互动口语-35s每题(共3题)"></a>🗣互动口语-35s每题(共3题)</h2><blockquote>
+<p><strong>任务类型：简答互动题</strong>（通常问意见、经历、偏好）<br><strong>目标：自然、流畅、结构完整，2–3 句即可</strong></p>
+</blockquote>
+<h3 id="模板1–表达观点类–6"><a href="#模板1–表达观点类–6" class="headerlink" title="模板1–表达观点类–6"></a>模板1–表达观点类–6</h3><blockquote>
+<p>Well, I think [topic] is quite important.<br>One reason is that [reason 1].<br>Also, it helps people [reason 2 or benefit].<br>So personally, I believe [restate your opinion briefly].</p>
+</blockquote>
+<p>quit /kwɪt/辞职,退出<br>quite/kwaɪt/相当,非常,很<br>quiet/ˈkwaɪət/轻声的,安静的</p>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>Well, I think reading books is quite <em>(/kwaɪt/)</em> important.<br>One reason is that it improves our imagination <em>(/ɪˌmædʒɪˈneɪʃ(ə)n/想象力)</em>.<br>Also, it helps people learn how to express <em>(/ɪkˈspres/表达)</em> ideas clearly.<br>So personally, I believe reading is one of the best habits.</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>Well, I think reading books is quite important.<br>One reason is that it improves our imagination.<br>Also, it helps people learn how to express ideas clearly.<br>So personally, I believe reading is one of the best habits.</p>
+</blockquote>
+<p>Well, I think reading books is quite important.<br>One reason is that it improves our imagination.<br>Also, it helps people learn how to express ideas clearly.<br>So personally, I believe reading is one of the best habits.</p>
+<hr>
+<h3 id="模板2–讲经历类–7"><a href="#模板2–讲经历类–7" class="headerlink" title="模板2–讲经历类–7"></a>模板2–讲经历类–7</h3><blockquote>
+<p>Yes, I have experienced that before.<br>I remember when I [short story or example].<br>It made me feel [emotion].<br>From that experience, I learned that [lesson].</p>
+</blockquote>
+<p>pressure 更偏向 “外部施加的压力”，stress 更偏向 “内部感受到的压力反应”</p>
+<blockquote>
+<p>Yes, I have experienced working under pressure.<br>I remember when I had to finish a project in one day.<br>It made me feel nervous but excited.<br>From that experience, I learned how to manage time efficiently <em>(/ɪˈfɪʃ(ə)ntli/高效地)</em>.</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>Yes, I have experienced working under pressure.<br>I remember when I had to finish a project in one day.<br>It made me feel nervous but excited.<br>From that experience, I learned how to manage time efficiently.</p>
+</blockquote>
+<p>Yes, I have experienced working under pressure.<br>I remember when I had to finish a project in one day.<br>It made me feel nervous but excited.<br>From that experience, I learned how to manage time efficiently.</p>
+<hr>
+<h3 id="模板3–比较选择类–8"><a href="#模板3–比较选择类–8" class="headerlink" title="模板3–比较选择类–8"></a>模板3–比较选择类–8</h3><blockquote>
+<p>I would prefer [option A] rather than [option B].<br>The main reason is that [reason 1].<br>Another reason is that [reason 2].<br>That’s why I’d choose [option A].</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>I would prefer working in a small company rather than a big one.<br>The main reason is that small teams are more flexible.<br>Another reason is that I can learn a wider <em>(/ˈwaɪdər/更宽的,更广阔的)</em> range <em>(/reɪndʒ/界限,范围)</em> of skills.<br>That’s why I’d choose a smaller company.</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>I would prefer working in a small company rather than a big one.<br>The main reason is that small teams are more flexible.<br>Another reason is that I can learn a wider range of skills.<br>That’s why I’d choose a smaller company.</p>
+</blockquote>
+<p>I would prefer working in a small company rather than a big one.<br>The main reason is that small teams are more flexible.<br>Another reason is that I can learn a wider range of skills.<br>That’s why I’d choose a smaller company.</p>
+<hr>
+<h2 id="🖼看图演讲-90s–9"><a href="#🖼看图演讲-90s–9" class="headerlink" title="🖼看图演讲-90s–9"></a>🖼看图演讲-90s–9</h2><blockquote>
+<p><strong>目标：结构化描述 + 逻辑自然 + 语音连贯</strong></p>
+</blockquote>
+<p><strong>🧩 模板结构：4 段思路</strong><br>1️⃣ <strong>Overview</strong> – what you see<br>2️⃣ <strong>Details</strong> – who / what / where<br>3️⃣ <strong>Action</strong> – what’s happening<br>4️⃣ <strong>Opinion</strong> – your guess or feeling</p>
+<p><strong>Template:</strong></p>
+<blockquote>
+<p>In this picture, I can see [main scene].<br>There are [people/things] doing [activity]. It seems to be [place or time].<br>The person in the middle is [action or emotion]. Others are [more details].<br>I think this picture shows [theme or meaning], and it gives me a feeling of [emotion].</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>In this picture, I can see a young woman taking photos in a park.<br>There are some trees and flowers around her, and the weather looks sunny and warm.<br>The woman is holding a camera and seems very focused <em>(/ˈfoʊkəst/专注的)</em> on what she’s shooting <em>(/ˈʃuːtɪŋ/拍摄)</em>. A few people are walking in the background.<br>I think this picture shows someone enjoying nature and photography <em>(/fəˈtɑːɡrəfi/摄影 n.)</em>, and it gives me a feeling of peace and relaxation <em>(/ˌriːlækˈseɪʃ(ə)n/休闲,消遣)</em>.</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>In this picture, I can see a young woman taking photos in a park.<br>There are some trees and flowers around her, and the weather looks sunny and warm.<br>The woman is holding a camera and seems very focused on what she’s shooting. A few people are walking in the background.<br>I think this picture shows someone enjoying nature and photography, and it gives me a feeling of peace and relaxation.</p>
+</blockquote>
+<p>In this picture, I can see a young woman taking photos in a park.<br>There are some trees and flowers around her, and the weather looks sunny and warm.<br>The woman is holding a camera and seems very focused on what she’s shooting. A few people are walking in the background.<br>I think this picture shows someone enjoying nature and photography, and it gives me a feeling of peace and relaxation.</p>
+<hr>
+<h2 id="📄看题演讲-90s–10"><a href="#📄看题演讲-90s–10" class="headerlink" title="📄看题演讲-90s–10"></a>📄看题演讲-90s–10</h2><blockquote>
+<p><strong>任务类型：给一个观点题，比如 “Do you think people should work from home?”</strong></p>
+</blockquote>
+<p><strong>🧩 模板结构</strong><br>1️⃣ Introduction – 表明观点<br>2️⃣ Reason 1 + Example<br>3️⃣ Reason 2 + Example<br>4️⃣ Conclusion – 重申观点</p>
+<p><strong>Template:</strong></p>
+<blockquote>
+<p>I strongly believe that [your opinion].<br>First, [reason 1 + simple example].<br>Second, [reason 2 + example or effect].<br>Therefore, I think [repeat your stance clearly].</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>I strongly believe that people should be allowed to work from home.<br>First, it saves commuting <em>(/kəˈmjuːtɪŋ/通勤)</em> time and gives employees more flexibility <em>(/ˌfleksəˈbɪləti/灵活性)</em>.<br>Second, it helps companies reduce <em>(/rɪˈduːs/减少,降低)</em> office costs <em>(/kɔːst/费用)</em>.<br>Therefore <em>(因此)</em>, I think remote <em>(/rɪˈmoʊt/远程的)</em> work is a great choice for both employees and companies.</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>I strongly believe that people should be allowed to work from home.<br>First, it saves commuting time and gives employees more flexibility.<br>Second, it helps companies reduce office costs.<br>Therefore, I think remote work is a great choice for both employees and companies.</p>
+</blockquote>
+<p>I strongly believe that people should be allowed to work from home.<br>First, it saves commuting time and gives employees more flexibility.<br>Second, it helps companies reduce office costs.<br>Therefore, I think remote work is a great choice for both employees and companies.</p>
+<hr>
+<h2 id="🎧听题演讲-90s–11"><a href="#🎧听题演讲-90s–11" class="headerlink" title="🎧听题演讲-90s–11"></a>🎧听题演讲-90s–11</h2><blockquote>
+<p><strong>任务类型：听一段题目或情境后回答</strong><br><strong>重点：复述 + 自己观点 + 逻辑清晰</strong></p>
+</blockquote>
+<p><strong>🧩 模板结构</strong><br>1️⃣ Rephrase question<br>2️⃣ Give opinion<br>3️⃣ Give 2 reasons<br>4️⃣ Wrap up</p>
+<p><strong>Template:</strong></p>
+<blockquote>
+<p>The question is about [restate the question in your words].<br>In my opinion, [state your view].<br>One reason is that [reason 1 + short example].<br>Another reason is that [reason 2].<br>That’s why I believe [repeat conclusion briefly].</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>The question is about whether technology <em>(/tekˈnɑːlədʒi/科技)</em> makes people’s lives easier.<br>In my opinion, yes, it does.<br>One reason is that technology saves a lot of time in daily tasks(/tæsk/工作,任务,活动).<br>Another reason is that it helps us communicate <em>(/kəˈmjuːnɪkeɪt/交流,通讯)</em> instantly <em>(/ˈɪnstəntli/立刻,马上)</em>.<br>That’s why I believe technology brings more convenience <em>(/kənˈviːniəns/方便,便利)</em> than problems.</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>The question is about whether technology makes people’s lives easier.<br>In my opinion, yes, it does.<br>One reason is that technology saves a lot of time in daily tasks.<br>Another reason is that it helps us communicate instantly.<br>That’s why I believe technology brings more convenience than problems.</p>
+</blockquote>
+<p>The question is about whether technology makes people’s lives easier.<br>In my opinion, yes, it does.<br>One reason is that technology saves a lot of time in daily tasks.<br>Another reason is that it helps us communicate instantly.<br>That’s why I believe technology brings more convenience than problems.</p>
+<hr>
+<h2 id="🗓口语样本-3min–12"><a href="#🗓口语样本-3min–12" class="headerlink" title="🗓口语样本-3min–12"></a>🗓口语样本-3min–12</h2><p><strong>🧩 模板结构</strong><br>1️⃣ Introduction – 明确主题<br>2️⃣ Point 1 – 理由 + 举例<br>3️⃣ Point 2 – 理由 + 举例<br>4️⃣ Point 3 – 理由 + 举例<br>5️⃣ Conclusion – 总结观点</p>
+<p><strong>Template:</strong></p>
+<blockquote>
+<p>Today I’d like to talk about [topic].<br>First of all, [reason 1 + example].<br>Secondly, [reason 2 + example].<br>Another point is that [reason 3 + example].<br>In conclusion, I think [restate topic + final thought].</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>Today I’d like to talk about the importance of teamwork.<br>First of all, teamwork helps people share ideas and learn from each other. For example, in my          previous <em>(/ˈpriːviəs/先前的)</em> project, our group solved problems faster through discussion.<br>Secondly, teamwork improves efficiency <em>(/ɪˈfɪʃ(ə)nsi/效率)</em> because everyone has clear roles <em>(/roʊlz/角色,任务)</em> .<br>Another point is that it builds trust <em>(/trʌst/信任)</em> and motivation <em>(/ˌmoʊtɪˈveɪʃ(ə)n/积极性)</em>.<br>In conclusion, I think teamwork is essential <em>(/ɪˈsenʃ(ə)l/必不可少的)</em> for both personal growth and company success <em>(/səkˈses/成功 n.)</em>.</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p>Today I’d like to talk about the importance of teamwork.<br>First of all, teamwork helps people share ideas and learn from each other. For example, in my         previous project, our group solved problems faster through discussion.<br>Secondly, teamwork improves efficiency because everyone has clear roles.<br>Another point is that it builds trust and motivation.<br>In conclusion, I think teamwork is essential for both personal growth and company success.</p>
+</blockquote>
+<p>Today I’d like to talk about the importance of teamwork.<br>First of all, teamwork helps people share ideas and learn from each other. For example, in my            previous project, our group solved problems faster through discussion.<br>Secondly, teamwork improves efficiency because everyone has clear roles.<br>Another point is that it builds trust and motivation.<br>In conclusion, I think teamwork is essential for both personal growth and company success.</p>
+<hr>
+<h1 id="基础单词打字练习"><a href="#基础单词打字练习" class="headerlink" title="基础单词打字练习"></a>基础单词打字练习</h1><h2 id="横版模式"><a href="#横版模式" class="headerlink" title="横版模式"></a>横版模式</h2><ul>
+<li>I You he She It we they, is am Are was were. The a an this That these, Those there here be.</li>
+<li>Have do go come get, make see say want?</li>
+<li>like can will in on at to for, from with of by up.</li>
+<li>Down out over under and or but So, if because When where how what who why. </li>
+<li>No not Yes all some, any One two more very? should would could about.</li>
+</ul>
+<p>I You he She It we they, am Are was were.<br>The a an this these, Those there here be.<br>Have do go come get, make see say want?<br>Will like can in on at to for, from with of by up.<br>When down out over under and or but, if because where how what who.<br>No not Yes all some, any two more very? should would could about.<br>Also most people while quite image sunny cloudy rainy warm situation shows. question every.<br>The main reason is<br>So personally. In my opinion. One reason is that, Another reason. That’s why<br>I’d like to talk about topic<br>First of all, Secondly, Another point is that, In conclusion, I think<br>I’d. First. Second. Therefore.</p>
+<h2 id="竖版模式"><a href="#竖版模式" class="headerlink" title="竖版模式"></a>竖版模式</h2><ul>
+<li>I. </li>
+<li>You, </li>
+<li>he. </li>
+<li>She. </li>
+<li>It, </li>
+<li>we, </li>
+<li>they.</li>
+<li>is, </li>
+<li>am. </li>
+<li>Are, </li>
+<li>was, </li>
+<li>were. </li>
+<li>The, </li>
+<li>a, </li>
+<li>an.</li>
+<li>this. </li>
+<li>That, </li>
+<li>these. </li>
+<li>Those, </li>
+<li>there, </li>
+<li>here. </li>
+<li>be. </li>
+<li>Have, </li>
+<li>do, </li>
+<li>go, </li>
+<li>come, </li>
+<li>get, </li>
+<li>make, </li>
+<li>see, </li>
+<li>say, </li>
+<li>want, </li>
+<li>like, </li>
+<li>can, </li>
+<li>will.</li>
+<li>in, </li>
+<li>on, </li>
+<li>at, </li>
+<li>to, </li>
+<li>for, </li>
+<li>from, </li>
+<li>with, </li>
+<li>of, </li>
+<li>by, </li>
+<li>up, </li>
+<li>down, </li>
+<li>out, </li>
+<li>over, </li>
+<li>under.</li>
+<li>and, </li>
+<li>or, </li>
+<li>but. </li>
+<li>So, </li>
+<li>if, </li>
+<li>because. </li>
+<li>When, </li>
+<li>where, </li>
+<li>how, </li>
+<li>what, </li>
+<li>who, </li>
+<li>why.</li>
+<li>No, </li>
+<li>not. </li>
+<li>Yes, </li>
+<li>all, </li>
+<li>some, </li>
+<li>any. </li>
+<li>One, </li>
+<li>two, </li>
+<li>more, </li>
+<li>very.</li>
+<li>should</li>
+<li>would</li>
+<li>could</li>
+<li>about</li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Duolingo/" rel="tag"><i class="fa fa-tag"></i> Duolingo</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/actor_vs_csp_mode/" rel="next" title="Actor模型 vs. CSP模型">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Actor模型 vs. CSP模型
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/w_daily_english_notes/" rel="prev" title="W daily english Notes">
+                <p class="post-nav-pre-next-title">
+                    W daily english Notes
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">296</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写作"><span class="nav-text">写作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#看图写句模板-60s-47s-1"><span class="nav-text">看图写句模板-60s-47s-1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互动听力-总结题-75s–2"><span class="nav-text">互动听力-总结题-75s–2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小作文5min-5’35-3"><span class="nav-text">小作文5min-5’35-3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互动写作"><span class="nav-text">互动写作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1题-5min–4"><span class="nav-text">第1题-5min–4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2题-3min–5"><span class="nav-text">第2题-3min–5</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#🎙-口语"><span class="nav-text">🎙 口语</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#🗣互动口语-35s每题-共3题"><span class="nav-text">🗣互动口语-35s每题(共3题)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板1–表达观点类–6"><span class="nav-text">模板1–表达观点类–6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板2–讲经历类–7"><span class="nav-text">模板2–讲经历类–7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板3–比较选择类–8"><span class="nav-text">模板3–比较选择类–8</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🖼看图演讲-90s–9"><span class="nav-text">🖼看图演讲-90s–9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#📄看题演讲-90s–10"><span class="nav-text">📄看题演讲-90s–10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🎧听题演讲-90s–11"><span class="nav-text">🎧听题演讲-90s–11</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#🗓口语样本-3min–12"><span class="nav-text">🗓口语样本-3min–12</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础单词打字练习"><span class="nav-text">基础单词打字练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#横版模式"><span class="nav-text">横版模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#竖版模式"><span class="nav-text">竖版模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
