@@ -1,0 +1,2966 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🚙">
+<meta property="og:url" content="https://hulinhong.com/page/7/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚙">
+<meta name="twitter:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>🚙 - 💨 💨 💨</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/w_daily_english_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/w_daily_english_notes/" itemprop="url">W daily english Notes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-09-19T21:58:25+00:00">
+                09-19-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <p>hexo s<br>…</p>
+<hr>
+<h1 id="50-句高频超市购物英语实用清单"><a href="#50-句高频超市购物英语实用清单" class="headerlink" title="50 句高频超市购物英语实用清单"></a>50 句高频超市购物英语实用清单</h1><h2 id="A-寻找商品-Asking-for-Items"><a href="#A-寻找商品-Asking-for-Items" class="headerlink" title="A. 寻找商品 (Asking for Items)"></a>A. 寻找商品 (Asking for Items)</h2><ol>
+<li><p>Where can I find the milk/frozen shrimp?<br>(请问我在哪里可以找到牛奶/冷冻虾？)</p>
+</li>
+<li><p>What <strong>aisle</strong> (/aɪl/ 货架通道) is the frozen seafood in?<br>(冷冻海鲜在哪个通道？)</p>
+</li>
+<li><p>I’m looking for tomatoes/the <strong>produce</strong> (/ˈprɒdjuːs/ 农产品) <strong>section</strong>(/ˈsekʃ(ə)n/ 区域).<br>(我正在找西红柿/农产品区。)</p>
+</li>
+<li><p>Which aisle is the bread in?<br>(面包在哪个货架（通道）？)</p>
+</li>
+<li><p>Could you tell me where the frozen meals are?<br>(您能告诉我冷冻食品在哪里吗？)</p>
+</li>
+<li><p>Is the pasta on this shelf?<br>(意大利面在这个架子上吗？)</p>
+</li>
+<li></li>
+</ol>
+<ol>
+<li><p>Where are the spices and <strong>condiments</strong> (/ˈkɒndɪmənts/ 调味品)?<br>(香料和调味品在哪里？)</p>
+</li>
+<li><p>I need help finding the cereal.<br>(我需要帮助寻找麦片。)</p>
+</li>
+<li><p>Could you show me the way to the <strong>detergent</strong> (/dɪˈtɜːrdʒənt/ 洗涤剂)?<br>(您能带我去洗涤剂区吗？)</p>
+</li>
+</ol>
+<h2 id="B-关于商品细节-About-Products-amp-Details"><a href="#B-关于商品细节-About-Products-amp-Details" class="headerlink" title="B. 关于商品细节 (About Products &amp; Details)"></a>B. 关于商品细节 (About Products &amp; Details)</h2><ol>
+<li><p>Is this fruit ripe?<br>(这个水果熟了吗？)</p>
+</li>
+<li><p>How much does this cost per pound?<br>(这个一磅多少钱？)</p>
+</li>
+<li><p>What is the <strong>expiry</strong> (/ɪkˈspaɪəri/ 到期, 期满) date on this yogurt?<br>(这盒酸奶的保质期是多久？)</p>
+</li>
+<li><p>Is this bread freshly baked?<br>(这个面包是新鲜出炉的吗？)</p>
+</li>
+<li><p>Do you have a smaller <strong>portion</strong> (/ˈpɔːrʃn/ 一部分, 一份)?<br>(你们有小份一点的吗？)</p>
+</li>
+<li><p>Are there any items on <strong>sale</strong> (/seɪl/ 销售, 特价)?<br>(有什么商品在打折（特价）吗？)</p>
+</li>
+<li><p>Is this beef grass-fed?<br>(这个牛肉是草饲的吗？)</p>
+</li>
+<li><p>Where is the <strong>debit</strong> (/ˈdebɪt/ 借方, 扣款) card machine?<br>(借记卡机（刷卡机）在哪里？)</p>
+</li>
+<li><p>Does this contain any <strong>allergens</strong> (/ˈælərdʒənz/ 过敏原)?<br>(这个含有任何过敏原吗？)</p>
+</li>
+<li><p>Could I get a small bag of apples?<br>(我能拿一小袋苹果吗？)</p>
+</li>
+</ol>
+<h2 id="C-生鲜区-服务台-Deli-Meat-Service-Counter"><a href="#C-生鲜区-服务台-Deli-Meat-Service-Counter" class="headerlink" title="C. 生鲜区/服务台 (Deli/Meat/Service Counter)"></a>C. 生鲜区/服务台 (Deli/Meat/Service Counter)</h2><ol>
+<li>I’d like half a pound of ham, please. (请给我半磅火腿。)</li>
+<li><p>Can you slice this cheese thinly?<br>(您能把这个奶酪切薄一点吗？)</p>
+</li>
+<li><p>What’s the <strong>leanest</strong> (/ˈliːnɪst/ 最瘦的, 最精的) cut of chicken you have?<br>(你们最精（瘦）的鸡肉是哪一块？)</p>
+</li>
+<li><p>I need one pound of ground beef.<br>(我需要一磅绞肉。)</p>
+</li>
+<li><p>Can I sample this before I buy it?<br>(我买之前可以尝一下吗？)</p>
+</li>
+<li><p>Could you wrap this <strong>separately</strong> (/ˈseprətli/ 分开地, 个别地)?<br>(您可以把这个分开包起来吗？)</p>
+</li>
+<li><p>Do you have any fresh salmon today?<br>(你们今天有新鲜的鲑鱼吗？)</p>
+</li>
+<li><p>What kind of <strong>dressing</strong> (/ˈdresɪŋ/ 沙拉酱, 调料) do you recommend?<br>(您推荐哪种沙拉酱？)</p>
+</li>
+<li><p>Can I place a special <strong>order</strong> (/ˈɔːrdər/ 订单, 定制)?<br>(我可以下特殊订单（定制）吗？)</p>
+</li>
+<li><p>How long will this stay fresh?<br>(这个能保持新鲜多久？)</p>
+</li>
+</ol>
+<h2 id="D-购物车与援助-Cart-amp-Assistance"><a href="#D-购物车与援助-Cart-amp-Assistance" class="headerlink" title="D. 购物车与援助 (Cart &amp; Assistance)"></a>D. 购物车与援助 (Cart &amp; Assistance)</h2><ol>
+<li><p>Where are the shopping carts?<br>(购物车在哪里？)</p>
+</li>
+<li><p>Do you have a small basket?<br>(你们有小购物篮吗？)</p>
+</li>
+<li><p>Could you help me reach that item on the top shelf?<br>(您能帮我拿到顶层货架上的东西吗？)</p>
+</li>
+<li><p>Where is the restroom?<br>(请问洗手间在哪里？)</p>
+</li>
+<li><p>Excuse me, is there a store employee nearby?<br>(打扰一下，附近有店员吗？)</p>
+</li>
+<li><p>My cart wheel is <strong>stuck</strong> (/stʌk/ 卡住的, 动不了的).<br>(我的购物车轮子卡住了。)</p>
+</li>
+<li><p>Do you offer home <strong>delivery</strong> (/dɪˈlɪvəri/ 递送, 送货)?<br>(你们提供送货服务吗？)</p>
+</li>
+<li><p>Is there a <strong>limit</strong> (/ˈlɪmɪt/ 限制, 限额) on this item?<br>(这个商品有限购吗？)</p>
+</li>
+<li><p>Can I leave my cart here for a minute?<br>(我可以把购物车在这里放一会儿吗？)</p>
+</li>
+<li><p>Where is the customer service <strong>desk</strong> (/desk/ 服务台, 办公桌)?<br>(顾客服务台在哪里？)</p>
+</li>
+</ol>
+<h2 id="E-结账区-At-the-Checkout"><a href="#E-结账区-At-the-Checkout" class="headerlink" title="E. 结账区 (At the Checkout)"></a>E. 结账区 (At the Checkout)</h2><ol>
+<li><p>Where is the shortest line?<br>(哪条队伍（结账通道）最短？)</p>
+</li>
+<li><p>Do you take credit cards?<br>(你们收信用卡吗？)</p>
+</li>
+<li><p>Can I get cash back with this <strong>transaction</strong> (/trænˈzækʃn/ 交易)?<br>(这笔交易我可以拿现金返还（提现）吗？)</p>
+</li>
+<li><p>Could you please scan this again?<br>(您能再扫一下这个商品吗？)</p>
+</li>
+<li><p>I have a coupon for this.<br>(我有这个商品的优惠券。)</p>
+</li>
+<li><p>Please use paper bags instead of plastic.<br>(请用纸袋代替塑料袋。)</p>
+</li>
+<li><p>Could you <strong>void</strong> (/vɔɪd/ 使无效, 取消) this item? I changed my mind.<br>(您能取消这个商品吗？我改变主意了。)</p>
+</li>
+<li><p>Could I get a receipt, please?<br>(请给我一张收据。)</p>
+</li>
+<li><p>How much is the total?<br>(总共多少钱？)</p>
+</li>
+<li><p>I need to return this item.<br>(我需要退货。)</p>
+</li>
+</ol>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/w_duolingo_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/w_duolingo_notes/" itemprop="url">W Duolingo Notes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-09-19T21:58:25+00:00">
+                09-19-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <p>hexo s<br>…</p>
+<h1 id="看图写句模板-WIT-法-60s"><a href="#看图写句模板-WIT-法-60s" class="headerlink" title="看图写句模板 (WIT 法) 60s"></a>看图写句模板 (WIT 法) 60s</h1><p>不需要写太多，简单概括一下人物的外貌、动作和背景就OK，这里三个开头句轮番用就行。<br>记忆技巧: 用每个模板的开头字母来记, WIT</p>
+<h2 id="🔹第一句-开头"><a href="#🔹第一句-开头" class="headerlink" title="🔹第一句 (开头)"></a>🔹第一句 (开头)</h2><ol>
+<li><p>This <strong>chromatic</strong> (/krəˈmætɪk/ 彩色的) and <strong>vivacious</strong> (/vɪˈveɪʃəs/ 活泼的, 有生气的) image <strong>depicts</strong> (/dɪˈpɪkts/ 描绘, 描写) that … . The weather outside is sunny/cloudy/rainy.</p>
+<p>👉 举例: This chromatic and vivacious photograph depicts that a <strong>muscular</strong> (/ˈmʌskjələr/ 肌肉发达的) man is pushing two <strong>grizzled</strong> (/ˈɡrɪzld/ 头发斑白的) elderly people angrily. The weather outside is sunny.</p>
+</li>
+</ol>
+<ol>
+<li><p>We can see in this <strong>intriguing</strong> (/ɪnˈtriːɡɪŋ/ 引人入胜的, 有趣的) and <strong>quaint</strong> (/kweɪnt/ 古色古香的, 奇特的) picture that … . This vivacious image <strong>portrays</strong> (/pɔːrˈtreɪz/ 描绘, 展现) a <strong>fabulous</strong> (/ˈfæbjələs/ 极好的, 极妙的) situation.</p>
+<p>👉 举例: We can see in this intriguing and quaint picture that two <strong>cunning</strong> (/ˈkʌnɪŋ/ 狡猾的; 可爱的) boys are playing basketball with each other. This vivacious image portrays a fabulous situation.</p>
+</li>
+</ol>
+<ol>
+<li><p>It can be <strong>manifestly</strong> (/ˈmænɪfestli/ 明显地) seen in this fabulous snapshot that … . I <strong>reckon</strong> (/ˈrekən/ 认为, 估计) that he/she is feeling <strong>blissful</strong> (/ˈblɪsfl/ 幸福的, 极乐的) / <strong>discontented</strong> (/ˌdɪskənˈtentɪd/ 不满的) / <strong>contented</strong> (/kənˈtentɪd/ 满足的).</p>
+<p>👉 举例: It can be manifestly seen in this fabulous snapshot that a <strong>hysterical</strong> (/hɪˈsterɪkl/ 歇斯底里的) boy is crying in front of a wall. I reckon he is being kidnapped, because this chromatic image portrays a dangerous scene.</p>
+</li>
+</ol>
+<hr>
+<h2 id="🔹第二句-人物外貌-状态"><a href="#🔹第二句-人物外貌-状态" class="headerlink" title="🔹第二句 (人物外貌 + 状态)"></a>🔹第二句 (人物外貌 + 状态)</h2><ul>
+<li><strong>男人</strong>: personable (/ˈpɜːrsənəbl/ 品貌兼优的, 英俊的), muscular (/ˈmʌskjələr/ 肌肉发达的, 强壮的)</li>
+<li><strong>女人</strong>: winsome (/ˈwɪnsəm/ 迷人的, 可爱的)</li>
+<li><strong>妈妈</strong>: affectionate (/əˈfekʃənət/ 深情的, 有爱心的)</li>
+<li><strong>小孩</strong>: cunning (/ˈkʌnɪŋ/ 狡猾的; &lt;美&gt;可爱的), lovable (/ˈlʌvəbl/ 可爱的), hysterical (/hɪˈsterɪkl/ 歇斯底里的)</li>
+<li><strong>黑人</strong>: dark-skinned (/ˌdɑːrkˈskɪnd/ 深肤色的)</li>
+<li><strong>工人</strong>: wholehearted (/ˌhoʊlˈhɑːrtɪd/ 全心全意的)</li>
+<li><strong>老人</strong>: grizzled (/ˈɡrɪzld/ 头发斑白的), elderly (/ˈeldərli/ 上了年纪的)</li>
+</ul>
+<hr>
+<h2 id="🔹第三句-景色背景"><a href="#🔹第三句-景色背景" class="headerlink" title="🔹第三句 (景色背景)"></a>🔹第三句 (景色背景)</h2><ul>
+<li>The weather outside is …</li>
+<li>It is <strong>tranquil</strong> (/ˈtræŋkwɪl/ 宁静的, 平静的) with <strong>serenity</strong> (/səˈrenəti/ 宁静, 安详).</li>
+<li>The scenery is extremely <strong>fascinating</strong> (/ˈfæsɪneɪtɪŋ/ 极其迷人的), presenting a piece of <strong>enchanting</strong> (/ɪnˈtʃæntɪŋ/ 迷人的, 妩媚的) beauty.</li>
+<li>This <strong>vivacious</strong> / black / white picture <strong>portrays</strong> (/pɔːrˈtreɪz/ 描绘, 展现) a <strong>fabulous</strong> (/ˈfæbjələs/ 极好的) situation.</li>
+</ul>
+<hr>
+<p>👉 这样背诵时，你只要记住 <strong>WIT 三个首字母</strong>：</p>
+<ul>
+<li><strong>W = Weather + What</strong> (第一句：图像描述 + 天气)</li>
+<li><strong>I = Individual</strong> (第二句：人物外貌/动作)</li>
+<li><strong>T = Tranquil/Total scene</strong> (第三句：整体氛围/景色)</li>
+</ul>
+<hr>
+<h2 id="📘-看图写句单词本"><a href="#📘-看图写句单词本" class="headerlink" title="📘 看图写句单词本"></a>📘 看图写句单词本</h2><h3 id="🔹描述图像-开头常用词"><a href="#🔹描述图像-开头常用词" class="headerlink" title="🔹描述图像 (开头常用词)"></a>🔹描述图像 (开头常用词)</h3><ul>
+<li>chromatic /krəˈmætɪk/ adj. 彩色的</li>
+<li>vivacious /vɪˈveɪʃəs/ adj. 活泼的；有生气的</li>
+<li>depict /dɪˈpɪkt/ v. 描绘，描写</li>
+<li>intriguing /ɪnˈtriːɡɪŋ/ adj. 引人入胜的；有趣的</li>
+<li>quaint /kweɪnt/ adj. 古色古香的；奇特有趣的</li>
+<li>portray /pɔːrˈtreɪ/ v. 描绘；展现</li>
+<li>fabulous /ˈfæbjələs/ adj. 极好的；极妙的</li>
+<li>manifestly /ˈmænɪfestli/ adv. 明显地；明白地</li>
+<li>reckon /ˈrekən/ v. 认为；估计</li>
+<li>blissful /ˈblɪsfl/ adj. 幸福的；极乐的</li>
+<li>discontented /ˌdɪskənˈtentɪd/ adj. 不满的</li>
+<li>contented /kənˈtentɪd/ adj. 满足的；心满意足的</li>
+<li>snapshot /ˈsnæpʃɒt/ n. 快照，照片</li>
+</ul>
+<hr>
+<h3 id="🔹人物形容词-外貌-状态"><a href="#🔹人物形容词-外貌-状态" class="headerlink" title="🔹人物形容词 (外貌 + 状态)"></a>🔹人物形容词 (外貌 + 状态)</h3><ul>
+<li>personable /ˈpɜːrsənəbl/ adj. 英俊潇洒的；品貌兼优的</li>
+<li>muscular /ˈmʌskjələr/ adj. 肌肉发达的；强壮的</li>
+<li>winsome /ˈwɪnsəm/ adj. 迷人的；可爱的</li>
+<li>affectionate /əˈfekʃənət/ adj. 深情的；充满爱意的</li>
+<li>cunning /ˈkʌnɪŋ/ adj. 狡猾的；灵巧的；&lt;美&gt;可爱的</li>
+<li>lovable /ˈlʌvəbl/ adj. 可爱的；讨人喜欢的</li>
+<li>hysterical /hɪˈsterɪkl/ adj. 歇斯底里的；情绪失控的</li>
+<li>dark-skinned /ˌdɑːrkˈskɪnd/ adj. 深肤色的</li>
+<li>wholehearted /ˌhoʊlˈhɑːrtɪd/ adj. 全心全意的；真诚的</li>
+<li>grizzled /ˈɡrɪzld/ adj. 头发斑白的；灰白的</li>
+<li>elderly /ˈeldərli/ adj. 上了年纪的；年老的</li>
+</ul>
+<hr>
+<h3 id="🔹景色描写-环境-氛围"><a href="#🔹景色描写-环境-氛围" class="headerlink" title="🔹景色描写 (环境 + 氛围)"></a>🔹景色描写 (环境 + 氛围)</h3><ul>
+<li>tranquil /ˈtræŋkwɪl/ adj. 宁静的；平静的</li>
+<li>serenity /səˈrenəti/ n. 平静；宁静</li>
+<li>fascinating /ˈfæsɪneɪtɪŋ/ adj. 极其迷人的；吸引人的</li>
+<li>enchanting /ɪnˈtʃæntɪŋ/ adj. 迷人的；妩媚的</li>
+</ul>
+<hr>
+<h1 id="🎧-互动听力总结题-75s"><a href="#🎧-互动听力总结题-75s" class="headerlink" title="🎧 互动听力总结题 (75s)"></a>🎧 互动听力总结题 (75s)</h1><p>参考: <a href="https://zhuanlan.zhihu.com/p/632128657" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/632128657</a></p>
+<p>小tip💡前面的选择题做完之后页面会展示整个对话的文本，如果这时时间有空余可以先不点击下一步，把文本看完之后脑子里生成一个大概的总结内容</p>
+<p><strong>假设题目</strong><br>You are a student in a Political Science class and you are in the process of writing a paper on environmental policy making. You have found some sources, but you need help finding additional sources to support your argument. You go to talk to your professor during their review session to get some help.</p>
+<h2 id="📌-模板"><a href="#📌-模板" class="headerlink" title="📌 模板"></a>📌 模板</h2><p>记忆技巧: <strong>我的问题 → 他的身份 → 他的方案</strong><br>(75秒内写完, 写不完的可以删减模板, 比如下方蓝色背景的部分)</p>
+<hr>
+<p>I was a/an 「我的身份」, and I <strong>stumbled upon</strong> (/ˈstʌmbld əˌpʌn/ v. 偶然遇到，碰到) a difficulty with 「我需要咨询的问题或者想要寻求的帮助」. I <strong>solicited</strong> (/səˈlɪsɪt/ v. 请求，征求，索求) 「对方的身份」. Afterwards, he/she <strong>endowed</strong> (/ɪnˈdaʊd/ v. 赋予，给予) me with some recommendations (/ˌrekəmenˈdeɪʃnz/ n. 建议，推荐), which were that 「对方给我的建议或者解决方案」.</p>
+<hr>
+<h2 id="📌-举例"><a href="#📌-举例" class="headerlink" title="📌 举例"></a>📌 举例</h2><p>I was a student in a Political Science class, and I <strong>stumbled upon</strong> (/ˈstʌmbld əˌpʌn/ v. 偶然遇到，碰到) a difficulty with finding additional (/əˈdɪʃənl/ adj. 额外的，附加的) sources. I <strong>solicited</strong> (/səˈlɪsɪt/ v. 请求，征求，索求) my professor. Afterwards, she <strong>endowed</strong> (/ɪnˈdaʊd/ v. 赋予，给予) me with some <strong>recommendations</strong> (/ˌrekəmenˈdeɪʃnz/ n. 建议，推荐), which were that I should look at news articles and a book on the topic.</p>
+<hr>
+<ul>
+<li>stumble upon /ˈstʌmbəl əˌpʌn/ v. 偶然遇到，碰到</li>
+<li>solicit /səˈlɪsɪt/ v. 请求，征求，索求</li>
+<li>endow /ɪnˈdaʊ/ v. 赋予，给予</li>
+<li>recommendation /ˌrekəmenˈdeɪʃn/ n. 建议，推荐</li>
+<li>additional /əˈdɪʃənl/ adj. 额外的，附加的</li>
+</ul>
+<hr>
+<h1 id="小作文-5min"><a href="#小作文-5min" class="headerlink" title="小作文 5min"></a>小作文 5min</h1><p>我是废话王，基本上可以打到140字左右。没什么好说的，套模板就可以，背熟了之后会打得很快，这里每个句子都很长，大家练习的时候可以自行删减。<br>不需要斟酌观点;️想到什么就写什么，写作时间很短没有办法有太长的思考时间，千万千万不要纠结;️</p>
+<p><strong>📝 小作文模板（5min）</strong><br>记忆技巧: 三段是总分总结构, 第一段是表明总体观点, 第二段是分批举例, 第三段是再总结观点<br>关键句子首字母为: AFFATT</p>
+<p><strong>假设题目</strong><br> Some companies allow employees to choose their own working hours, while others stick to a traditional routine. What type of work schedule do you prefer, and why?</p>
+<h2 id="第一段模板"><a href="#第一段模板" class="headerlink" title="第一段模板"></a>第一段模板</h2><p>As for (就… 而言; 关于) this <strong>profound</strong> (/prəˈfaʊnd/ adj. （影响）深刻的，极大的；（感情）强烈的，深切的；（思想）深邃的，（见解）深刻的) and <strong>intriguing</strong> (/ɪnˈtruːɡɪŋ/ adj. 引人入胜的) / <strong>engrossing</strong> (/ɪnˈɡroʊsɪŋ/ adj. 引人入胜的) and <strong>intricate</strong> (/ˈɪntrɪkət/ adj. 错综复杂的；难理解的，难学会的) topic, there is an ongoing / <strong>contentious</strong> (/kənˈtenʃəs/ adj. 有争议的，引起争论的；爱争论的，好争吵的) dispute about / debate regarding (prep. 关于，至于) …<br>From my perspective, there are two <strong>momentous</strong> (/moʊˈmentəs/ adj. 重大的，重要的) factors that can explain why I do maintain the belief that …</p>
+<ul>
+<li><strong>举例</strong>:<br>As for this profound and intricate topic of work schedules, there is an ongoing debate regarding the <strong>merits</strong> (/ˈmerɪt/ n. 优点，长处；优秀品质，价值) of flexibility versus the structure of a traditional routine. From my perspective, there are two momentous factors that can explain why I do maintain the belief that the ability to choose one’s own working hours is a preferred choice.</li>
+</ul>
+<hr>
+<h2 id="第二段模板"><a href="#第二段模板" class="headerlink" title="第二段模板"></a>第二段模板</h2><p>First and foremost (adj. 最前的，最重要的), the <strong>manifest</strong> (/ˈmænɪfest/ adj. 明显的，显而易见的) <strong>sentiment</strong> (/ˈsentɪmənt/ n. 观点，看法，情绪；多愁善感，伤感情绪) that coincides with my <strong>standpoint</strong> (/ˈstændpɔɪnt/ n. 立场，观点，角度) is that …<br>Additionally, I <strong>utterly</strong> (/ˈʌtərli/ adv. 完全地，彻底地) concede that …</p>
+<ul>
+<li><strong>举例</strong>:<br>First and foremost, the manifest sentiment that coincides with my standpoint is the enhancement of work-life balance. With the flexibility to choose one’s own working hours, employees can better manage their personal responsibilities and commitments.<br>Additionally, I utterly concede that the flexibility of working hours <strong>fosters</strong> (/ˈfɑːstər/ v. 促进，培养；领养，收养 adj. 代养的，寄养的) a sense of autonomy and responsibility among employees.</li>
+</ul>
+<hr>
+<h2 id="第三段模板"><a href="#第三段模板" class="headerlink" title="第三段模板"></a>第三段模板</h2><p>To <strong>encapsulate</strong> (/ɪnˈkæpsjuleɪt/ v. 简要描述，概括；封装) my argument, undoubtedly, we can arrive at the undeniable <strong>verdict</strong> (/ˈvɜːrdɪkt/ n. 裁定，判决；定论；决定) that it is <strong>indisputable</strong> (/ˌɪndɪˈspjuːtəbəl/ adj. 不容置疑的，无可争辩的) for us to …<br>This is <strong>emblematic</strong> (/ˌembləˈmætɪk/ adj. 象征的；可当标志的), <strong>integral</strong> (/ˈɪntɪɡrəl/ adj. 必需的，必要的；作为组成部分的；完整的), momentous, and <strong>imperative</strong> (/ɪmˈperətɪv/ adj. 极重要的，必要的；命令的；祈使的).</p>
+<ul>
+<li><strong>举例</strong>:<br>To encapsulate my argument, undoubtedly, we can arrive at the undeniable verdict that the ability to choose one’s own working hours is not just a <strong>perk</strong> (/pɜːrk/ n. 津贴，额外收入) but a necessity in today’s fast-paced world. This flexibility is emblematic, integral, momentous, and imperative for both employers and employees.</li>
+</ul>
+<hr>
+<h2 id="📘-单词表清单（按词性分类）"><a href="#📘-单词表清单（按词性分类）" class="headerlink" title="📘 单词表清单（按词性分类）"></a>📘 单词表清单（按词性分类）</h2><hr>
+<h3 id="🔹-Adjectives-形容词"><a href="#🔹-Adjectives-形容词" class="headerlink" title="🔹 Adjectives (形容词)"></a>🔹 Adjectives (形容词)</h3><ul>
+<li>profound /prəˈfaʊnd/ <strong>adj.</strong> （影响）深刻的，极大的；（感情）强烈的，深切的；（思想）深邃的，（见解）深刻的</li>
+<li>intriguing /ɪnˈtriːɡɪŋ/ <strong>adj.</strong> 引人入胜的</li>
+<li>intricate /ˈɪntrɪkət/ <strong>adj.</strong> 错综复杂的；难理解的，难学会的</li>
+<li>contentious /kənˈtenʃəs/ <strong>adj.</strong> 有争议的，引起争论的；爱争论的，好争吵的</li>
+<li>momentous /moʊˈmentəs/ <strong>adj.</strong> 重大的，重要的</li>
+<li>manifest /ˈmænɪfest/ <strong>adj.</strong> 明显的，显而易见的</li>
+<li>indisputable /ˌɪndɪˈspjuːtəb(ə)l/ <strong>adj.</strong> 不容置疑的，无可争辩的</li>
+<li>emblematic /ˌembləˈmætɪk/ <strong>adj.</strong> 象征的；可当标志的</li>
+<li>integral /ˈɪntɪɡrəl/ <strong>adj.</strong> 必需的，必要的；作为组成部分的；完整的；整的，积分的</li>
+<li>imperative /ɪmˈperətɪv/ <strong>adj.</strong> 极重要的，必要的；命令的，强制的；祈使的</li>
+</ul>
+<hr>
+<h3 id="🔹-Nouns-名词"><a href="#🔹-Nouns-名词" class="headerlink" title="🔹 Nouns (名词)"></a>🔹 Nouns (名词)</h3><ul>
+<li>merit /ˈmerɪt/ <strong>n.</strong> 优秀品质，价值；优点，长处</li>
+<li>sentiment /ˈsentɪmənt/ <strong>n.</strong> 观点，看法，情绪；多愁善感，伤感情绪</li>
+<li>standpoint /ˈstændpɔɪnt/ <strong>n.</strong> 立场，观点，角度；观景点，观看位</li>
+<li>verdict /ˈvɜːrdɪkt/ <strong>n.</strong> （法庭的）裁定，判决；（权威的）评判，定论；意见，决定</li>
+<li>perk /pɜːrk/ <strong>n.</strong> （工资以外的）额外收入，津贴</li>
+</ul>
+<hr>
+<h3 id="🔹-Verbs-动词"><a href="#🔹-Verbs-动词" class="headerlink" title="🔹 Verbs (动词)"></a>🔹 Verbs (动词)</h3><ul>
+<li>coincide /ˌkoʊɪnˈsaɪd/ <strong>v.</strong> （观点或看法）一致，相符；同时发生</li>
+<li>concede /kənˈsiːd/ <strong>v.</strong> 承认（某事属实）；允许，让与；认输</li>
+<li>foster /ˈfɑːstər/ <strong>v.</strong> 促进，培养；领养，收养</li>
+</ul>
+<hr>
+<h3 id="🔹-Adverbs-副词"><a href="#🔹-Adverbs-副词" class="headerlink" title="🔹 Adverbs (副词)"></a>🔹 Adverbs (副词)</h3><ul>
+<li>utterly /ˈʌtərli/ <strong>adv.</strong> 完全地，彻底地</li>
+</ul>
+<hr>
+<h3 id="🔹-Verb-Phrase-动词短语"><a href="#🔹-Verb-Phrase-动词短语" class="headerlink" title="🔹 Verb Phrase (动词短语)"></a>🔹 Verb Phrase (动词短语)</h3><ul>
+<li>encapsulate /ɪnˈkæpsjuleɪt/ <strong>vt.</strong> 简要描述，概括；用胶囊（或囊状物）装，封装</li>
+</ul>
+<hr>
+<h1 id="互动写作-模板1-5min-适用于互动写作的第1个题"><a href="#互动写作-模板1-5min-适用于互动写作的第1个题" class="headerlink" title="互动写作-模板1 (5min, 适用于互动写作的第1个题)"></a>互动写作-模板1 (5min, 适用于互动写作的第1个题)</h1><p><strong>首字母:  OCBAFFT(蓝色背景的可酌情删减)</strong></p>
+<p>On the subject of [topic], <strong>diverse</strong> (/daɪˈvɜːrs/ adj. 多样的，不同的) individuals <strong>harbor</strong> (/ˈhɑːrbər/ v. 怀有（想法、感情）) <strong>diametrically</strong> (/ˌdaɪəˈmetrɪkli/ adv. 完全地；截然相反地) opposing viewpoints. Consequently, a heated discussion <strong>persists</strong> (/pərˈsɪst/ v. 持续存在，坚持) surrounding…</p>
+<p>Before this topic, I used to think that (题目) is of little <strong>significance</strong> (/sɪɡˈnɪfɪkəns/ n. 重要性，意义). Therefore, I haven’t thought about it seriously until I realized that it <strong>exerts</strong> (/ɪɡˈzɜːrt/ v. 施加（影响、力量）) a <strong>profound</strong> (/prəˈfaʊnd/ adj. （影响）深刻的；（思想）深邃的) impact on people’s lives.</p>
+<p>Apparently, this <strong>controversy</strong> (/ˈkɑːntrəvɜːrsi/ n. 争议，争论) about … could be <strong>vitally</strong> (/ˈvaɪtəli/ adv. 极其，紧要地) problematic.</p>
+<p>From my <strong>vantage point</strong> (/ˈvæntɪdʒ pɔɪnt/ n. 视角，有利位置), I believe that [opinion], which is supported by two <strong>pivotal</strong> (/ˈpɪvət(ə)l/ adj. 中枢的，关键的) factors. There are several <strong>quintessential</strong> (/ˌkwɪntɪˈsenʃl/ adj. 典型的，完美的；本质的) instances and reasons involved <strong>thereof</strong> (/ˌðerˈʌv/ adv. 在其中，由此).</p>
+<p>Furthermore, <strong>proponents</strong> (/prəˈpoʊnənts/ n. 支持者，建议者) <strong>fervently</strong> (/ˈfɜːrvəntli/ adv. 热心地，热诚地) assert that […]</p>
+<p>The <strong>unequivocal</strong> (/ˌʌnɪˈkwɪvək(ə)l/ adj. 明确的，不含糊的) sentiment that aligns with my position is […]</p>
+<hr>
+<h2 id="互动写作模板1词汇表"><a href="#互动写作模板1词汇表" class="headerlink" title="互动写作模板1词汇表"></a>互动写作模板1词汇表</h2><ul>
+<li><strong>diverse</strong> /daɪˈvɜːrs/ <strong>adj.</strong> 多样的，不同的</li>
+<li><strong>harbor</strong> /ˈhɑːrbər/ <strong>v.</strong> 怀有（想法、感情）</li>
+<li><strong>diametrically</strong> /ˌdaɪəˈmetrɪkli/ <strong>adv.</strong> 完全地，截然相反地</li>
+<li><strong>persist</strong> /pərˈsɪst/ <strong>v.</strong> 持续存在，坚持</li>
+<li><strong>significance</strong> /sɪɡˈnɪfɪkəns/ <strong>n.</strong> 重要性，意义</li>
+<li><strong>exert</strong> /ɪɡˈzɜːrt/ <strong>v.</strong> 施加（影响、力量）</li>
+<li><strong>profound</strong> /prəˈfaʊnd/ <strong>adj.</strong> （影响）深刻的；（思想）深邃的</li>
+<li><strong>controversy</strong> /ˈkɑːntrəvɜːrsi/ <strong>n.</strong> 争议，争论</li>
+<li><strong>vitally</strong> /ˈvaɪtəli/ <strong>adv.</strong> 极其，紧要地</li>
+<li><strong>vantage point</strong> /ˈvæntɪdʒ pɔɪnt/ <strong>n.</strong> 视角，有利位置</li>
+<li><strong>pivotal</strong> /ˈpɪvət(ə)l/ <strong>adj.</strong> 中枢的，关键的</li>
+<li><strong>quintessential</strong> /ˌkwɪntɪˈsenʃl/ <strong>adj.</strong> 典型的，完美的；本质的</li>
+<li><strong>thereof</strong> /ˌðerˈʌv/ <strong>adv.</strong> 在其中，由此</li>
+<li><strong>proponents</strong> /prəˈpoʊnənts/ <strong>n.</strong> 支持者，建议者</li>
+<li><strong>fervently</strong> /ˈfɜːrvəntli/ <strong>adv.</strong> 热心地，热诚地</li>
+<li><strong>assert</strong> /əˈsɜːrt/ <strong>v.</strong> 断言，声称</li>
+<li><strong>unequivocal</strong> /ˌʌnɪˈkwɪvək(ə)l/ <strong>adj.</strong> 明确的，不含糊的</li>
+<li><strong>equivocal</strong> /ɪˈkwɪvək(ə)l/ <strong>adj.</strong> 模棱两可的</li>
+</ul>
+<hr>
+<h1 id="互动写作模板2-3min-适用于互动写作的第2个题"><a href="#互动写作模板2-3min-适用于互动写作的第2个题" class="headerlink" title="互动写作模板2 (3min, 适用于互动写作的第2个题)"></a>互动写作模板2 (3min, 适用于互动写作的第2个题)</h1><p>首字母: AFAT</p>
+<p>About [题目], <strong>different</strong> (/ˈdɪfərənt/ adj. 不同的，有差异的) people have entirely <strong>dissimilar</strong> (/dɪˈsɪmələr/ adj. 不同的，迥异的) opinions. Hence, there is an ongoing <strong>debate</strong> (/dɪˈbeɪt/ n. 辩论，争论) about…</p>
+<p>From my perspective, <strong>elaborated</strong> (/ɪˈlæbərət/ adj. 复杂的，详尽的；v. 详细说明，详尽阐述；精心制作) by two <strong>momentous</strong> (/moʊˈmentəs/ adj. 重大的，重要的) factors, I <strong>deem</strong> (/diːm/ v. 认为，相信) that [观点].</p>
+<p>Additionally, <strong>advocates</strong> (/ˈædvəkeɪt/ v. 拥护，提倡；n. 拥护者，提倡者；辩护律师) <strong>utterly</strong> (/ˈʌtərli/ adv. 完全地，彻底地) <strong>concede</strong> (/kənˈsiːd/ v. 承认，让步) that […]</p>
+<p>The <strong>explicit</strong> (/ɪkˈsplɪsɪt/ adj. 明确的，清楚的) sentiment that <strong>coincides</strong> (/koʊˈɪnsaɪdz/ v. 与…一致；同时发生) with my <strong>standpoint</strong> (/ˈstændpɔɪnt/ n. 立场，观点) is that […]</p>
+<hr>
+<h2 id="互动写作模板2词汇表（加粗版）"><a href="#互动写作模板2词汇表（加粗版）" class="headerlink" title="互动写作模板2词汇表（加粗版）"></a>互动写作模板2词汇表（加粗版）</h2><ul>
+<li><strong>entirely</strong> /ɪnˈtaɪərli/ adv. 完全地，彻底地</li>
+<li><strong>dissimilar</strong> /dɪˈsɪmələr/ adj. 不同的，不相似的</li>
+<li><strong>ongoing</strong> /ˈɑːnˌɡoʊɪŋ/ adj. 持续的，进行中的</li>
+<li><strong>debate</strong> /dɪˈbeɪt/ n. 辩论，讨论 v. 辩论，讨论</li>
+<li><strong>elaborate</strong> /ɪˈlæbərət/ adj. 复杂的，详尽的；v. 详细说明，详尽阐述；精心制作</li>
+<li><strong>momentous</strong> /moʊˈmentəs/ adj. 重大的，重要的</li>
+<li><strong>deem</strong> /diːm/ v. 认为，相信</li>
+<li><strong>advocate</strong> /ˈædvəkeɪt/ n. 拥护者，提倡者；v. 拥护，提倡</li>
+<li><strong>utterly</strong> /ˈʌtərli/ adv. 完全地，彻底地</li>
+<li><strong>concede</strong> /kənˈsiːd/ v. 承认，让步</li>
+<li><strong>explicit</strong> /ɪkˈsplɪsɪt/ adj. 明确的，直言的</li>
+<li><strong>coincide</strong> /ˌkoʊɪnˈsaɪd/ v. 与…一致，同时发生</li>
+<li><strong>standpoint</strong> /ˈstændpɔɪnt/ n. 立场，观点，角度</li>
+</ul>
+<hr>
+<h1 id="📖-看图演讲-90s-模板"><a href="#📖-看图演讲-90s-模板" class="headerlink" title="📖 看图演讲 (90s) 模板"></a>📖 看图演讲 (90s) 模板</h1><p>💡 <strong>记忆方法</strong>: 总人物背总 → <strong>TWAGI</strong></p>
+<ul>
+<li><strong>T</strong>otal（总体）</li>
+<li><strong>W</strong>ho（人物）</li>
+<li><strong>A</strong>rticles（物体）</li>
+<li><strong>G</strong>round（背景）</li>
+<li><strong>I</strong>n a nutshell（总结）</li>
+</ul>
+<hr>
+<h2 id="●总体-Total"><a href="#●总体-Total" class="headerlink" title="●总体 (Total)"></a>●总体 (Total)</h2><p>This picture <strong>depicts</strong> [dɪˈpɪkts v. 描绘，描述] a <strong>fabulous</strong> [ˈfæbjələs adj. 极好的，惊人的] situation outdoors/indoors, in a (street / playground / the top of the mountain / studio).<br>And the weather outside is sunny/cloudy/rainy.</p>
+<p><strong>举例</strong>:<br>This picture depicts a <strong>serene</strong> [/səˈriːn/ adj. 平静的，安详的] <strong>scene</strong>[/siːn/ n. 景色，景象] indoors, in a <strong>cozy</strong> [ˈkoʊzi adj. 舒适的，惬意的] room with a large window.</p>
+<hr>
+<h2 id="●人物-Who"><a href="#●人物-Who" class="headerlink" title="●人物 (Who)"></a>●人物 (Who)</h2><p>What can be seen from the photograph is that a/an + 人物 + who is doing sth.<br>He/She/They has/have [short/long/curly + black/white/red/blonde] hair.<br>Plus, … is/are wearing a [black/white/red/… + shirt/dress/skirt/hoody (/ˈhʊdi/ n. 套头衫；年轻小混混)] with [a hat/scarf].</p>
+<p>According to their facial expression/behaviors, I <strong>speculate</strong> [ˈspekjuleɪt v. 猜测] / <strong>reckon</strong> [ˈrekən v. 认为，猜想] that they are pretty <strong>blissful</strong> [ˈblɪsf(ə)l adj. 极乐的；幸福的], <strong>indigent</strong> [ˈɪndɪdʒənt adj. 贫困的], or <strong>exhausted</strong> [ɪɡˈzɔːstɪd adj. 精疲力竭的].</p>
+<p><strong>举例</strong>:<br>What can be seen from the photograph is that a woman is sitting next to the window.<br>She has long, curly black hair that falls <strong>gracefully</strong> [ˈɡreɪsfəli adv. 优雅地，得体地] over her shoulders.<br>She is wearing a white dress with a <strong>delicate</strong> [ˈdelɪkət adj. 柔和的，精致的] scarf <strong>wrapped</strong> [/ræpt/ v. 包，裹] gracefully around her neck.</p>
+<p>According to her <strong>facial</strong> [ˈfeɪʃ(ə)l adj. 面部的] <strong>expression</strong> [ɪkˈspreʃ(ə)n n. 神情], I <strong>speculate</strong>[/ˈspekjuleɪt/ v. 猜测]. that she is feeling peaceful/blissful and <strong>contented</strong> [kənˈtentɪd adj. 满足的].</p>
+<hr>
+<h2 id="●物体-Articles"><a href="#●物体-Articles" class="headerlink" title="●物体 (Articles)"></a>●物体 (Articles)</h2><p><strong>Additionally</strong>[əˈdɪʃənəli/另外], there are several <strong>delicate</strong> [ˈdelɪkət adj. 精美的；纤细的] and <strong>gorgeous</strong> [ˈɡɔːrdʒəs adj. 华丽的；美丽动人的] items <strong>involved</strong> [ɪnˈvɑːlvd v. 包含] there.<br>For example, we can see there is a <strong>breathtaking</strong> [ˈbreθˌteɪkɪŋ adj. 令人屏息的，惊人的] … which is probably made in the 19th century.</p>
+<p><strong>举例</strong>:<br>Additionally, there are several delicate and gorgeous items involved there.<br>For instance, we can see a breathtaking window which is probably made in the 19th century.</p>
+<hr>
+<h2 id="●背景-Ground"><a href="#●背景-Ground" class="headerlink" title="●背景 (Ground)"></a>●背景 (Ground)</h2><p>Given the background that there is/isn’t sunlight, this photograph is probably taken in the daytime/noon/night.<br>In the background/foreground, we can see that the scenery is extremely <strong>fascinating</strong> [ˈfæsɪneɪtɪŋ adj. 极有吸引力的，迷人的].</p>
+<p><strong>举例</strong>:<br>Given the background that there is plenty of sunlight streaming through the window, this photograph is probably taken in the daytime.<br>In the background/foreground, we can see that the <strong>scenery</strong>[/ˈsiːnəri/ n. 风景,景色]. is <strong>extremely</strong>[/ɪkˈstriːmli/adv. 极度,非常] <strong>fascinating</strong>[/ˈfæsɪneɪtɪŋ/adj. 极有吸引力的，迷人的].</p>
+<hr>
+<h2 id="●总结-In-a-nutshell"><a href="#●总结-In-a-nutshell" class="headerlink" title="●总结 (In a nutshell)"></a>●总结 (In a nutshell)</h2><p>In a <strong>nutshell</strong> [ˈnʌtʃel idiom 总而言之，简而言之], this picture is not only very <strong>informative</strong> [ɪnˈfɔːrmətɪv adj. 提供有用信息的；教育性的] but also provides me with lots of <strong>profound</strong> [prəˈfaʊnd adj. 深刻的；意义深远的] information and helps me get a better understanding of this thing.</p>
+<hr>
+<h1 id="📌-看题演讲-90s"><a href="#📌-看题演讲-90s" class="headerlink" title="📌 看题演讲 (90s)"></a>📌 看题演讲 (90s)</h1><p><strong>记忆方法:</strong> 念题目 → 以前的想法别人做什么 → 现在的我开始做什么<br><strong>首字母:</strong> STUB</p>
+<p><strong>模板：</strong><br>Speaking of (题目的中心), I feel like I have to talk about (题目), which is popular on the internet.</p>
+<p>To be honest, before this topic, I used to think that (否定题目现象). Therefore, I didn’t know why people were keen to do that, which was the reason why I had never paid attention to this topic before. </p>
+<p>Unexpectedly, by chance, I seriously thought about it again some days ago. From that day on, I have been (doing xxx) every day. Admittedly, it sounds a little bit exaggerated (/ɪɡˈzædʒəreɪtɪd/ adj. 夸张的，夸大的) or even eccentric (/ɪkˈsentrɪk/ adj. 古怪的，异乎寻常的；不同圆心的，不正圆的), but it is the truth. </p>
+<p>Because there was one day that I didn’t do that before sleep which made me feel wretched (/ˈretʃɪd/ adj. 可怜的，悲惨的), frustrated (/ˈfrʌstreɪtɪd/ adj. 懊恼的，沮丧的), and disappointed. So it becomes necessary for me to (do xxx) regularly.</p>
+<h2 id="带注释模板"><a href="#带注释模板" class="headerlink" title="带注释模板"></a>带注释模板</h2><p>Speaking of (题目的中心), I feel like I have to talk about (题目), which is <strong>popular</strong> (/ˈpɒpjələr/ adj. 受欢迎的) on the internet.</p>
+<p>To be honest, before this topic, I used to think that (否定题目现象). Therefore, I didn’t know why people were <strong>keen</strong> (/kiːn/ adj. 热衷的，渴望的) to do that, which was the reason why I had never paid attention to this topic before.</p>
+<p>Unexpectedly, by chance, I seriously thought about it again some days ago. From that day on, I have been (doing xxx) every day. <strong>Admittedly</strong> (/ədˈmɪtɪdli/ adv. 公认地，诚然), it sounds a little bit <strong>exaggerated</strong> (/ɪɡˈzædʒəreɪtɪd/ adj. 夸张的，夸大的) or even <strong>eccentric</strong> (/ɪkˈsentrɪk/ adj. 古怪的，异乎寻常的；不同圆心的，不正圆的), but it is the truth.</p>
+<p>Because there was one day that I didn’t do that before sleep which made me feel <strong>wretched</strong> (/ˈretʃɪd/ adj. 可怜的，悲惨的), <strong>frustrated</strong> (/ˈfrʌstreɪtɪd/ adj. 懊恼的，沮丧的), and <strong>disappointed</strong> (/ˌdɪsəˈpɔɪntɪd/ adj. 失望的). So it becomes <strong>necessary</strong> (/ˈnesəsəri/ adj. 必要的) for me to (do xxx) <strong>regularly</strong> (/ˈreɡjələli/ adv. 定期地，经常地).</p>
+<h3 id="📖-生词表（B1及以上）"><a href="#📖-生词表（B1及以上）" class="headerlink" title="📖 生词表（B1及以上）"></a>📖 生词表（B1及以上）</h3><h4 id="形容词-Adjectives"><a href="#形容词-Adjectives" class="headerlink" title="形容词 (Adjectives)"></a>形容词 (Adjectives)</h4><ul>
+<li><strong>popular</strong> /ˈpɒpjələr/ adj. 受欢迎的</li>
+<li><strong>keen</strong> /kiːn/ adj. 热衷的，渴望的</li>
+<li><strong>exaggerated</strong> /ɪɡˈzædʒəreɪtɪd/ adj. 夸张的，夸大的</li>
+<li><strong>eccentric</strong> /ɪkˈsentrɪk/ adj. 古怪的，异乎寻常的；不同圆心的</li>
+<li><strong>wretched</strong> /ˈretʃɪd/ adj. 可怜的，悲惨的</li>
+<li><strong>frustrated</strong> /ˈfrʌstreɪtɪd/ adj. 懊恼的，沮丧的</li>
+<li><strong>disappointed</strong> /ˌdɪsəˈpɔɪntɪd/ adj. 失望的</li>
+<li><strong>necessary</strong> /ˈnesəseri/ adj. 必要的</li>
+</ul>
+<h4 id="副词-Adverbs"><a href="#副词-Adverbs" class="headerlink" title="副词 (Adverbs)"></a>副词 (Adverbs)</h4><ul>
+<li><strong>admittedly</strong> /ədˈmɪtɪdli/ adv. 公认地，诚然</li>
+<li><strong>regularly</strong> /ˈreɡjələli/ adv. 定期地，经常地</li>
+</ul>
+<hr>
+<h1 id="📌-听题演讲-90s"><a href="#📌-听题演讲-90s" class="headerlink" title="📌 听题演讲 (90s)"></a>📌 听题演讲 (90s)</h1><p><strong>记忆方法:</strong> 念题目 → 以前的想法 → 现在的想法 → 转变让我明白了什么的意义 → 介绍事件(念题目)<br><strong>首字母:</strong> AHTTIT</p>
+<p><strong>模板：</strong></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">About (题目), different people have entirely dissimilar opinions. Hence, there is an ongoing dispute about (题目) on the internet, which could be vitally problematic. However, I deem that …. for the following reasons and instances.</span><br><span class="line"></span><br><span class="line">To be honest, before this topic, I used to think that (题目) is of little significance. Therefore, I haven’t thought about it seriously until I realized that it exerts a profound impact on people’s lives.</span><br><span class="line"></span><br><span class="line">It provided me an opportunity to expose myself to understand the meaning of [题目], which helps me broaden my horizon. This enables me to change my point of view on certain things, thereby exerting a profound impact on cultivating my xx skills. Had it not been for this experience, I wouldn't have achieved the success I enjoy today.</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="📖-英中逐句对照"><a href="#📖-英中逐句对照" class="headerlink" title="📖 英中逐句对照"></a>📖 英中逐句对照</h2><ol>
+<li><p><strong>About (题目), different people have entirely dissimilar opinions.</strong><br>关于（题目），不同的人有完全不同的观点。</p>
+</li>
+<li><p><strong>Hence, there is an ongoing dispute about (题目) on the internet, which could be vitally problematic.</strong><br>因此，在互联网上关于（题目）一直存在争议，这可能会带来很大的问题。</p>
+</li>
+<li><p><strong>However, I deem that …. for the following reasons and instances.</strong><br>不过，我认为……，原因和例子如下。</p>
+</li>
+<li><p><strong>To be honest, before this topic, I used to think that (题目) is of little significance.</strong><br>老实说，在接触这个话题之前，我曾认为（题目）并不重要。</p>
+</li>
+<li><p><strong>Therefore, I haven’t thought about it seriously until I realized that it exerts a profound impact on people’s lives.</strong><br>因此，我从未认真考虑过这个问题，直到我意识到它对人们的生活有深远的影响。</p>
+</li>
+<li><p><strong>It provided me an opportunity to expose myself to understand the meaning of [题目], which helps me broaden my horizon.</strong><br>它给了我一个机会去接触并理解（题目）的意义，这帮助我拓宽了视野。</p>
+</li>
+<li><p><strong>This enables me to change my point of view on certain things, thereby exerting a profound impact on cultivating my xx skills.</strong><br>这使我能够改变自己对某些事情的看法，从而对培养我的 xx 技能产生深远的影响。</p>
+</li>
+<li><p><strong>Had it not been for this experience, I wouldn’t have achieved the success I enjoy today.</strong><br>如果没有这段经历，我也不可能取得今天享有的成功。</p>
+</li>
+</ol>
+<hr>
+<h2 id="带注释模板-1"><a href="#带注释模板-1" class="headerlink" title="带注释模板"></a>带注释模板</h2><p>About (题目), different people have <strong>entirely</strong> (/ɪnˈtaɪərli/adv. 完全地，完整地；仅仅，只)<strong>dissimilar</strong> (/dɪˈsɪmələr/ adj. 不同的，不相似的) opinions. Hence, there is an ongoing <strong>dispute</strong> (/dɪˈspjuːt/ n. 争论，纠纷) about (题目) on the internet, which could be <strong>vitally</strong> (/ˈvaɪtəli/ adv. 极其，非常) <strong>problematic</strong> (/ˌprɒbləˈmætɪk/ adj. 成问题的，棘手的). However, I <strong>deem</strong> (/diːm/ v. 认为，视作) that …. for the following reasons and instances.</p>
+<p>To be honest, before this topic, I used to think that (题目) is of little <strong>significance</strong> (/sɪɡˈnɪfɪkəns/ n. 重要性，意义). Therefore, I haven’t thought about it seriously until I realized that it <strong>exerts</strong> (/ɪɡˈzɜːts/ v. 施加，产生) a <strong>profound</strong> (/prəˈfaʊnd/ adj. 深刻的，意义深远的) <strong>impact</strong> (/ˈɪmpækt/ n. 影响，冲击) on people’s lives.</p>
+<p>It provided me an opportunity to <strong>expose</strong> (/ɪkˈspəʊz/ v. 接触，暴露) myself to understand the meaning of [题目], which helps me <strong>broaden</strong> (/ˈbrɔːdn/ v. 扩大，拓宽) my <strong>horizon</strong> (/həˈraɪzn/ n. 视野，眼界). This <strong>enables</strong>(/ɪˈneɪb(ə)l/v. 使能够，使可能；激活，启动；准许，授权) me to change my point of view on certain things, thereby <strong>exerting</strong> a <strong>profound</strong> impact on <strong>cultivating</strong> (/ˈkʌltɪveɪtɪŋ/ v. 培养，培育) my xx skills. Had it not been for this experience, I wouldn’t have achieved the success I <strong>enjoy</strong> (/ɪnˈdʒɔɪ/ v. 享有) today.</p>
+<h3 id="📖-生词表（B1及以上）-1"><a href="#📖-生词表（B1及以上）-1" class="headerlink" title="📖 生词表（B1及以上）"></a>📖 生词表（B1及以上）</h3><h4 id="形容词-Adjectives-1"><a href="#形容词-Adjectives-1" class="headerlink" title="形容词 (Adjectives)"></a>形容词 (Adjectives)</h4><ul>
+<li><strong>dissimilar</strong> /dɪˈsɪmələr/ adj. 不同的，不相似的</li>
+<li><strong>problematic</strong> /ˌprɒbləˈmætɪk/ adj. 成问题的，棘手的</li>
+<li><strong>significant</strong> /sɪɡˈnɪfɪkənt/ adj. 重要的，有意义的</li>
+<li><strong>profound</strong> /prəˈfaʊnd/ adj. 深刻的，意义深远的</li>
+</ul>
+<h4 id="名词-Nouns"><a href="#名词-Nouns" class="headerlink" title="名词 (Nouns)"></a>名词 (Nouns)</h4><ul>
+<li><strong>dispute</strong> /dɪˈspjuːt/ n. 争论，纠纷</li>
+<li><strong>significance</strong> /sɪɡˈnɪfɪkəns/ n. 重要性，意义</li>
+<li><strong>impact</strong> /ˈɪmpækt/ n. 影响，冲击</li>
+<li><strong>horizon</strong> /həˈraɪzn/ n. 视野，眼界</li>
+</ul>
+<h4 id="动词-Verbs"><a href="#动词-Verbs" class="headerlink" title="动词 (Verbs)"></a>动词 (Verbs)</h4><ul>
+<li><strong>deem</strong> /diːm/ v. 认为，视作</li>
+<li><strong>exert</strong> /ɪɡˈzɜːt/ v. 施加，运用</li>
+<li><strong>expose</strong> /ɪkˈspəʊz/ v. 接触，使暴露</li>
+<li><strong>broaden</strong> /ˈbrɔːdn/ v. 扩大，拓宽</li>
+<li><strong>cultivate</strong> /ˈkʌltɪveɪt/ v. 培养，培育</li>
+<li><strong>enjoy</strong> /ɪnˈdʒɔɪ/ v. 享有，拥有</li>
+</ul>
+<h4 id="副词-Adverbs-1"><a href="#副词-Adverbs-1" class="headerlink" title="副词 (Adverbs)"></a>副词 (Adverbs)</h4><ul>
+<li><strong>vitally</strong> /ˈvaɪtəli/ adv. 极其，非常</li>
+</ul>
+<hr>
+<h1 id="📌-口语样本-3min"><a href="#📌-口语样本-3min" class="headerlink" title="📌 口语样本 (3min)"></a>📌 口语样本 (3min)</h1><p><strong>记忆方法:</strong> 念题目 → 以前的想法 → 现在的想法 → 转变让我明白了什么的意义 → 介绍事件(念题目)<br><strong>首字母:</strong> IBUIT</p>
+<p><strong>假设题目:</strong> <em>Discuss a recent upsetting experience.</em></p>
+<p><strong>模板：</strong></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">I’d like to talk about [题目], which is such a fantastic/terrible topic.  </span><br><span class="line"><span class="bullet">- </span>举例: I'd like to talk about a recent upsetting experience, which is such a terrible topic.</span><br><span class="line"></span><br><span class="line">Before this topic, I used to think that … That was why I had never paid my attention to this topic before.  </span><br><span class="line"><span class="bullet">- </span>举例: Before this incident, I used to think that our friendship was invincible, unbreakable. That was why I had never paid my attention to this topic before.</span><br><span class="line"></span><br><span class="line">Unexpectedly, I seriously thought about it again several months ago, which changed my mind. Nowadays, a considerable amount of people are beginning to believe that … is significant. It provided me an opportunity to expose myself to understand the meaning of … and changed my point of view on certain things that help me expand my horizon.  </span><br><span class="line"><span class="bullet">- </span>举例: Unexpectedly, I received the news of my friend's passing a few months ago, which changed my mind. Nowadays, a considerable amount of people are beginning to believe that a valuable life is significant. It provided me an opportunity to expose myself to understand the meaning of life and changed my point of view on certain things that help me expand my horizon.</span><br><span class="line"></span><br><span class="line">Therefore, that’s why I’m very glad to introduce it to you. If you have some free time, you should think about it twice. I guess you will get something unexpected.  </span><br><span class="line"><span class="bullet">- </span>举例: Therefore, that's why I'm sharing this upsetting experience with you. If you have some free time, you can try it. I guess you will get something unexpected.</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="带注释模板-2"><a href="#带注释模板-2" class="headerlink" title="带注释模板"></a>带注释模板</h2><p>I’d like to talk about [题目], which is such a <strong>fantastic</strong> (/fænˈtæstɪk/ adj. 极好的，奇妙的)/<strong>terrible</strong> (/ˈterəbl/ adj. 糟糕的，极差的) topic.</p>
+<ul>
+<li>举例: I’d like to talk about a recent upsetting experience, which is such a terrible topic.</li>
+</ul>
+<p>Before this topic, I used to think that … That was why I had never paid my attention to this topic before.</p>
+<ul>
+<li>举例: Before this incident (/ˈɪnsɪdənt/ n. 事件), I used to think that our friendship was <strong>invincible</strong> (/ɪnˈvɪnsəbl/ adj. 不可战胜的) and <strong>unbreakable</strong> (/ʌnˈbreɪkəbl/ adj. 不可破坏的). That was why I had never paid my attention to this topic before.</li>
+</ul>
+<p>Unexpectedly (/ʌnɪkˈspektɪdli/ adv. 出乎意料地), I seriously thought about it again several months ago, which changed my mind. Nowadays, a <strong>considerable</strong> (/kənˈsɪdərəbl/ adj. 相当多的) amount of people are beginning to believe that … is <strong>significant</strong> (/sɪɡˈnɪfɪkənt/ adj. 重要的，有意义的). It provided me an opportunity to <strong>expose</strong> (/ɪkˈspəʊz/ v. 接触，使暴露) myself to understand the meaning of … and changed my point of view on certain things that help me <strong>expand</strong> (/ɪkˈspænd/ v. 扩展，扩大) my <strong>horizon</strong> (/həˈraɪzn/ n. 视野，眼界).</p>
+<ul>
+<li>举例: Unexpectedly, I received the news of my friend’s passing a few months ago, which changed my mind. Nowadays, a <strong>considerable</strong>(/kənˈsɪdərəb(ə)l/adj. 相当大的，相当重要的；) amount of people are beginning to believe that a valuable life is <strong>significant</strong>(/sɪɡˈnɪfɪkənt/adj. 显著的，相当数量的；重要的，意义重大的； 别有含义的，意味深长的). It provided me an opportunity to expose myself to understand the meaning of life and changed my point of view on certain things that help me expand my horizon.</li>
+</ul>
+<p>Therefore, that’s why I’m very glad to introduce it to you. If you have some free time, you should think about it twice. I guess you will get something unexpected.</p>
+<ul>
+<li>举例: Therefore, that’s why I’m sharing this upsetting experience with you. If you have some free time, you can try it. I guess you will get something unexpected.</li>
+</ul>
+<h3 id="📖-生词表（B1及以上）-2"><a href="#📖-生词表（B1及以上）-2" class="headerlink" title="📖 生词表（B1及以上）"></a>📖 生词表（B1及以上）</h3><h4 id="形容词-Adjectives-2"><a href="#形容词-Adjectives-2" class="headerlink" title="形容词 (Adjectives)"></a>形容词 (Adjectives)</h4><ul>
+<li><strong>fantastic</strong> /fænˈtæstɪk/ adj. 极好的，奇妙的</li>
+<li><strong>terrible</strong> /ˈterəbl/ adj. 糟糕的，极差的</li>
+<li><strong>invincible</strong> /ɪnˈvɪnsəbl/ adj. 不可战胜的</li>
+<li><strong>unbreakable</strong> /ʌnˈbreɪkəbl/ adj. 不可破坏的</li>
+<li><strong>considerable</strong> /kənˈsɪdərəbl/ adj. 相当多的，可观的</li>
+<li><strong>significant</strong> /sɡˈnɪfɪkənt/ adj. 重要的，有意义的</li>
+</ul>
+<h4 id="名词-Nouns-1"><a href="#名词-Nouns-1" class="headerlink" title="名词 (Nouns)"></a>名词 (Nouns)</h4><ul>
+<li><strong>incident</strong> /ˈɪnsɪdənt/ n. 事件</li>
+<li><strong>horizon</strong> /həˈraɪzn/ n. 视野，眼界</li>
+</ul>
+<h4 id="动词-Verbs-1"><a href="#动词-Verbs-1" class="headerlink" title="动词 (Verbs)"></a>动词 (Verbs)</h4><ul>
+<li><strong>expose</strong> /ɪkˈspəʊz/ v. 接触，使暴露</li>
+<li><strong>expand</strong> /ɪkˈspænd/ v. 扩展，扩大</li>
+</ul>
+<h4 id="副词-Adverbs-2"><a href="#副词-Adverbs-2" class="headerlink" title="副词 (Adverbs)"></a>副词 (Adverbs)</h4><ul>
+<li><strong>unexpectedly</strong> /ʌnɪkˈspektɪdli/ adv. 出乎意料地</li>
+</ul>
+<hr>
+<h1 id="重点词汇总表（精华背诵版）"><a href="#重点词汇总表（精华背诵版）" class="headerlink" title="重点词汇总表（精华背诵版）"></a>重点词汇总表（精华背诵版）</h1><h2 id="描述图片开头（WIT-模版）"><a href="#描述图片开头（WIT-模版）" class="headerlink" title="描述图片开头（WIT 模版）"></a>描述图片开头（WIT 模版）</h2><ul>
+<li><strong>chromatic</strong> [krəˈmætɪk] adj. 彩色的；易染色的</li>
+<li><strong>vivacious</strong> [vɪˈveɪʃəs] adj. 活泼的；快活的</li>
+<li><strong>intriguing</strong> [ɪnˈtriːɡɪŋ] adj. 引人入胜的</li>
+<li><strong>quaint</strong> [kweɪnt] adj. 古色古香的；奇特有趣的</li>
+<li><strong>manifestly</strong> [ˈmænɪfestli] adv. 显然地；明白地</li>
+<li><strong>reckon</strong> [ˈrekən] v. 认为；猜测</li>
+<li><strong>blissful</strong> [ˈblɪsf(ə)l] adj. 极乐的；幸福的</li>
+<li><strong>discontented</strong> [ˌdɪskənˈtentɪd] adj. 不满的；不快的</li>
+<li><strong>contented</strong> [kənˈtentɪd] adj. 满足的；心满意足的</li>
+<li><strong>hysterical</strong> [hɪˈsterɪkl] adj. 歇斯底里的</li>
+</ul>
+<h2 id="人物描写"><a href="#人物描写" class="headerlink" title="人物描写"></a>人物描写</h2><ul>
+<li><strong>personable</strong> [ˈpɜːrsənəbl] adj. 英俊潇洒的；和蔼可亲的</li>
+<li><strong>muscular</strong> [ˈmʌskjələr] adj. 肌肉发达的；强壮的</li>
+<li><strong>winsome</strong> [ˈwɪnsəm] adj. 迷人的；可爱的</li>
+<li><strong>affectionate</strong> [əˈfekʃənət] adj. 充满深情的；有爱的</li>
+<li><strong>cunning</strong> [ˈkʌnɪŋ] adj. 狡猾的；灵巧的；可爱的</li>
+<li><strong>lovable</strong> [ˈlʌvəbl] adj. 可爱的；讨人喜欢的</li>
+<li><strong>dark-skinned</strong> [ˌdɑːrk ˈskɪnd] adj. 深肤色的</li>
+<li><strong>wholehearted</strong> [ˌhoʊlˈhɑːrtɪd] adj. 全心全意的</li>
+<li><strong>grizzled</strong> [ˈɡrɪzld] adj. 头发斑白的</li>
+<li><strong>elderly</strong> [ˈeldərli] adj. 上了年纪的</li>
+</ul>
+<h2 id="景色描写"><a href="#景色描写" class="headerlink" title="景色描写"></a>景色描写</h2><ul>
+<li><strong>tranquil</strong> [ˈtræŋkwɪl] adj. 宁静的；安静的</li>
+<li><strong>serenity</strong> [səˈrenəti] n. 宁静；安详</li>
+<li><strong>fascinating</strong> [ˈfæsɪneɪtɪŋ] adj. 极有吸引力的</li>
+<li><strong>enchanting</strong> [ɪnˈtʃæntɪŋ] adj. 迷人的；妩媚的</li>
+</ul>
+<h2 id="听力总结模版"><a href="#听力总结模版" class="headerlink" title="听力总结模版"></a>听力总结模版</h2><ul>
+<li><strong>solicit</strong> [səˈlɪsɪt] v. 请求；征求</li>
+<li><strong>endow sb. with</strong> [ɪnˈdaʊ] v. 赋予某人（能力/品质）</li>
+</ul>
+<h2 id="写作模版"><a href="#写作模版" class="headerlink" title="写作模版"></a>写作模版</h2><ul>
+<li><strong>profound</strong> [prəˈfaʊnd] adj. 深刻的；极大的</li>
+<li><strong>intriguing</strong> [ɪnˈtriːɡɪŋ] adj. 引人入胜的</li>
+<li><strong>engrossing</strong> [ɪnˈɡroʊsɪŋ] adj. 使人专注的</li>
+<li><strong>intricate</strong> [ˈɪntrɪkət] adj. 错综复杂的</li>
+<li><strong>contentious</strong> [kənˈtenʃəs] adj. 有争议的；好争论的</li>
+<li><strong>momentous</strong> [moʊˈmentəs] adj. 重大的；重要的</li>
+<li><strong>merit</strong> [ˈmerɪt] n. 优点；价值</li>
+<li><strong>foremost</strong> [ˈfɔːrmoʊst] adj. 首要的</li>
+<li><strong>manifest</strong> [ˈmænɪfest] adj. 明显的</li>
+<li><strong>sentiment</strong> [ˈsentɪmənt] n. 观点；情绪</li>
+<li><strong>standpoint</strong> [ˈstændpɔɪnt] n. 立场；观点</li>
+<li><strong>utterly</strong> [ˈʌtərli] adv. 完全地</li>
+<li><strong>concede</strong> [kənˈsiːd] v. 承认；让步</li>
+<li><strong>foster</strong> [ˈfɑːstər] v. 培养；促进</li>
+<li><strong>encapsulate</strong> [ɪnˈkæpsjuleɪt] v. 概括；简要描述</li>
+<li><strong>undoubtedly</strong> [ʌnˈdaʊtɪdli] adv. 毫无疑问地</li>
+<li><strong>verdict</strong> [ˈvɜːrdɪkt] n. 裁定；判决；意见</li>
+<li><strong>indisputable</strong> [ˌɪndɪˈspjuːtəbl] adj. 不容置疑的</li>
+<li><strong>emblematic</strong> [ˌembləˈmætɪk] adj. 象征性的</li>
+<li><strong>integral</strong> [ˈɪntɪɡrəl] adj. 必需的；整体的</li>
+<li><strong>imperative</strong> [ɪmˈperətɪv] adj. 极重要的；必要的</li>
+<li><strong>perk</strong> [pɜːrk] n. 额外福利</li>
+</ul>
+<hr>
+<h2 id="📌-看图写句-WIT"><a href="#📌-看图写句-WIT" class="headerlink" title="📌 看图写句 (WIT)"></a>📌 看图写句 (WIT)</h2><p>●第一句<br>○This <strong>chromatic</strong> [krəˈmætɪk] adj. 彩色的；易染色的 and <strong>vivacious</strong> [vɪˈveɪʃəs] adj. 活泼的；快活的；有生气的 image depicts that … . The weather outside is sunny/cloudy/rainy.<br>■举例: This chromatic and vivacious photograph depicts that a <strong>muscular</strong> [ˈmʌskjələr] adj. 肌肉发达的；强壮的 man is pushing two <strong>grizzled</strong> [ˈɡrɪzld] adj. 头发斑白的 elderly people angrily. The weather outside is sunny.</p>
+<p>○We can see in this <strong>intriguing</strong> [ɪnˈtriːɡɪŋ] adj. 引人入胜的；非常有趣的 and <strong>quaint</strong> [kweɪnt] adj. 奇特有趣的；古色古香的 picture that … .This vivacious image portrays a <strong>fabulous</strong> [ˈfæbjələs] adj. 极好的；惊人的 situation.<br>■举例: We can see in this intriguing and quaint picture that two <strong>cunning</strong> [ˈkʌnɪŋ] adj. 狡猾的；灵巧的；可爱的 boys are playing basketball with each other. This vivacious image portrays a fabulous situation.</p>
+<p>○It can be <strong>manifestly</strong> [ˈmænɪfestli] adv. 显然地；明白地 seen in this fabulous snapshot that … . I <strong>reckon</strong> [ˈrekən] v. 认为；猜想 that he/she is feeling <strong>blissful</strong> [ˈblɪsf(ə)l] adj. 极乐的；幸福的；无忧无虑的 / <strong>discontented</strong> [ˌdɪskənˈtentɪd] adj. 不满的；/ <strong>contented</strong> [kənˈtentɪd] adj. 满足的.<br>■举例: It can be manifestly seen in this fabulous snapshot that a <strong>hysterical</strong> [hɪˈsterɪkl] adj. 歇斯底里的 boy is crying in front of a wall. I reckon he is being kidnapped, because this chromatic image portrays a dangerous scene.</p>
+<hr>
+<p>●第二句强调人物状态<br>○男人: <strong>personable</strong> [ˈpɜːrsənəbl] adj. 英俊潇洒的；品貌兼优的；和蔼可亲的, <strong>muscular</strong> [ˈmʌskjələr] adj. 肌肉的；强壮的<br>○女人: <strong>winsome</strong> [ˈwɪnsəm] adj. 迷人的；可爱的；引人注目的<br>○妈妈: <strong>affectionate</strong> [əˈfekʃənət] adj. 表达爱意的；深情的<br>○小孩: <strong>cunning</strong> [ˈkʌnɪŋ] adj. 狡猾的；灵巧的；&lt;美&gt;可爱的, <strong>lovable</strong> [ˈlʌvəbl] adj. 可爱的；讨人喜欢的, <strong>hysterical</strong> [hɪˈsterɪkl] adj. 歇斯底里的<br>○黑人: <strong>dark-skinned</strong> [ˌdɑːrk ˈskɪnd] adj. 深肤色的<br>○工人: <strong>wholehearted</strong> [ˌhoʊlˈhɑːrtɪd] adj. 全心全意的<br>○老人: <strong>grizzled</strong> [ˈɡrɪzld] adj. 头发斑白的, <strong>elderly</strong> [ˈeldərli] adj. 上了年纪的</p>
+<hr>
+<p>●强调景色<br>○The weather outside is …<br>○It is <strong>tranquil</strong> [ˈtræŋkwɪl] adj. 宁静的；安详的 with <strong>serenity</strong> [səˈrenəti] n. 平静；宁静<br>○The scenery is extremely <strong>fascinating</strong> [ˈfæsɪneɪtɪŋ] adj. 极有吸引力的, presenting a piece of <strong>enchanting</strong> [ɪnˈtʃæntɪŋ] adj. 迷人的；妩媚的 beauty.<br>○This vivacious/black/white picture <strong>portrays</strong> [pɔːrˈtreɪz] v. 描绘；描写 a fabulous situation</p>
+<hr>
+<h2 id="🎧-互动听力总结题-ILT"><a href="#🎧-互动听力总结题-ILT" class="headerlink" title="🎧 互动听力总结题 (ILT)"></a>🎧 互动听力总结题 (ILT)</h2><p>●开头 (Introduction)</p>
+<ul>
+<li>From the dialogue between A and B, I learned that …</li>
+<li>There are several important points to discuss.</li>
+<li>The conversation mainly revolves around the topic of …</li>
+</ul>
+<hr>
+<p>●主体 (Main Content)</p>
+<ol>
+<li><p>Firstly, A mentioned that …</p>
+<ul>
+<li>He/She <strong>highlighted</strong> [ˈhaɪlaɪtɪd] v. 强调；突出 the importance of …</li>
+<li>He/She also <strong>expressed</strong> [ɪkˈsprest] v. 表达；陈述 his/her <strong>concern</strong> [kənˈsɜːrn] n. 担忧；关切 about …</li>
+</ul>
+</li>
+<li><p>Secondly, B responded by saying that …</p>
+<ul>
+<li>B <strong>emphasized</strong> [ˈemfəsaɪzd] v. 强调 that …</li>
+<li>He/She also <strong>proposed</strong> [prəˈpoʊzd] v. 建议；提出 a solution to deal with the issue.</li>
+</ul>
+</li>
+<li><p>Thirdly, they both agreed/disagreed on …</p>
+<ul>
+<li>They had a <strong>consensus</strong> [kənˈsensəs] n. 共识 about …</li>
+<li>Or they had a <strong>conflict</strong> [ˈkɑːnflɪkt] n. 冲突；分歧 regarding …</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>●背景/语气 (Tone &amp; Attitude)</p>
+<ul>
+<li>Judging from their tone of voice,<br>I <strong>speculate</strong> [ˈspekjəˌleɪt] v. 推测；猜想 that they were quite <strong>enthusiastic</strong> [ɪnˌθuːziˈæstɪk] adj. 热情的；积极的 /<br><strong>indifferent</strong> [ɪnˈdɪfərənt] adj. 漠不关心的 /<br><strong>frustrated</strong> [ˈfrʌstreɪtɪd] adj. 沮丧的；受挫的.</li>
+</ul>
+<hr>
+<p>●总结 (Conclusion)</p>
+<ul>
+<li>In a nutshell [ɪn ə ˈnʌtʃel] idiom 总而言之,</li>
+<li>This conversation is quite <strong>informative</strong> [ɪnˈfɔːrmətɪv] adj. 信息量大的；有教育意义的,</li>
+<li>and it gives me a <strong>profound</strong> [prəˈfaʊnd] adj. 深刻的；意义深远的 understanding of this issue.</li>
+</ul>
+<hr>
+<h2 id="📖-阅读总结模版-RT"><a href="#📖-阅读总结模版-RT" class="headerlink" title="📖 阅读总结模版 (RT)"></a>📖 阅读总结模版 (RT)</h2><p>●开头 (Introduction)</p>
+<ul>
+<li>From the passage/article, I learned that …</li>
+<li>The author mainly <strong>illustrates</strong> [ˈɪləˌstreɪts] v. 阐明；说明 the importance of …</li>
+<li>The text mainly <strong>focuses on</strong> [ˈfoʊkəs ɑːn] 短语：集中于；关注 …</li>
+</ul>
+<hr>
+<p>●主体 (Main Content)</p>
+<ol>
+<li><p>Firstly, the author points out that …</p>
+<ul>
+<li>He/She <strong>emphasizes</strong> [ˈemfəsaɪzɪz] v. 强调 the significance of …</li>
+<li>He/She also <strong>elaborates</strong> [ɪˈlæbəˌreɪts] v. 详细说明 on the reasons why …</li>
+</ul>
+</li>
+<li><p>Secondly, the passage provides several <strong>examples</strong> [ɪɡˈzæmpəlz] n. 例子 to <strong>support</strong> [səˈpɔːrt] v. 支持 this idea.</p>
+<ul>
+<li>For instance, …</li>
+<li>These examples <strong>demonstrate</strong> [ˈdemənˌstreɪt] v. 证明；说明 that …</li>
+</ul>
+</li>
+<li><p>Thirdly, the author <strong>contrasts</strong> [ˈkɑːnˌtræsts] v. 对比；对照 different viewpoints.</p>
+<ul>
+<li>He/She <strong>acknowledges</strong> [əkˈnɑːlɪdʒɪz] v. 承认；认可 the challenges/drawbacks.</li>
+<li>But still <strong>argues</strong> [ˈɑːrɡjuːz] v. 争论；主张 that …</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>●态度/语气 (Tone &amp; Attitude)</p>
+<ul>
+<li>Judging from the writing style, I speculate that the author’s attitude is<br><strong>optimistic</strong> [ˌɑːptɪˈmɪstɪk] adj. 乐观的 /<br><strong>pessimistic</strong> [ˌpesəˈmɪstɪk] adj. 悲观的 /<br><strong>objective</strong> [əbˈdʒektɪv] adj. 客观的 /<br><strong>critical</strong> [ˈkrɪtɪkl] adj. 批判的.</li>
+</ul>
+<hr>
+<p>●总结 (Conclusion)</p>
+<ul>
+<li>In a nutshell [ɪn ə ˈnʌtʃel] idiom 总而言之；简而言之,</li>
+<li>This passage is quite <strong>enlightening</strong> [ɪnˈlaɪtnɪŋ] adj. 启发性的；有教育意义的,</li>
+<li>and it gives me a more <strong>comprehensive</strong> [ˌkɑːmprɪˈhensɪv] adj. 全面的；综合的 understanding of this topic.</li>
+</ul>
+<hr>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/actor_vs_csp_mode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/actor_vs_csp_mode/" itemprop="url">Actor模型 vs. CSP模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-07-21T02:53:55+00:00">
+                07-21-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>Akka/Erlang 的 actor 模型与 Go 语言的协程 Goroutine 与通道 Channel 代表的 CSP(Communicating Sequential Processes) 模型有什么区别呢？</p>
+<p>首先这两者都是并发模型的解决方案，我们看看 Actor 和 Channel 这两个方案的不同：</p>
+<h1 id="Actor-模型"><a href="#Actor-模型" class="headerlink" title="Actor 模型"></a>Actor 模型</h1><p>在 Actor 模型中，主角是 Actor，类似一种 worker，Actor 彼此之间直接发送消息，不需要经过什么中介，消息是异步发送和处理的：</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/actor_vs_csp_mode/actors_mode.png" alt></p>
+<p>Actor 模型描述了一组为了避免并发编程的常见问题的公理:</p>
+<ol>
+<li>所有 Actor 状态是 Actor 本地的，外部无法访问。  </li>
+<li>Actor 必须只有通过消息传递进行通信。　　  </li>
+<li>一个 Actor 可以响应消息: 推出新 Actor, 改变其内部状态, 或将消息发送到一个或多个其他参与者。  </li>
+<li>Actor 可能会堵塞自己, 但 Actor 不应该堵塞它运行的线程。</li>
+</ol>
+<p>更多可见 <a href="http://www.jdon.com/actors.html" target="_blank" rel="noopener">Actor 模型专题</a></p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/self_cultivation_etcd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/self_cultivation_etcd/" itemprop="url">服务器开发自我修养专栏-etcd与raft要点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-05-17T19:08:06+00:00">
+                05-17-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Self-cultivation/" itemprop="url" rel="index">
+                    <span itemprop="name">Self-cultivation</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h1><ul>
+<li>etcd 参考 <a href="https://wingsxdu.com/post/database/etcd/#gsc.tab=0" target="_blank" rel="noopener">https://wingsxdu.com/post/database/etcd/#gsc.tab=0</a></li>
+<li>raft 参考 <a href="https://www.jianshu.com/p/5aed73b288f7" target="_blank" rel="noopener">https://www.jianshu.com/p/5aed73b288f7</a></li>
+<li><p>重点参考 <a href="https://segmentfault.com/a/1190000022248118" target="_blank" rel="noopener">https://segmentfault.com/a/1190000022248118</a></p>
+</li>
+<li><p>etcd 是一个 Go 语言编写的分布式、高可用的<strong>强一致性</strong>键值存储系统，用于提供可靠的分布式键值(key-value)存储、配置共享和服务发现等功能。 etcd可以用于存储关键数据和实现分布式调度，它在现代化的集群运行中能够起到关键性的作用。</p>
+</li>
+<li><p>Raft用于保证分布式数据的一致性。<a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener">动画演示Raft</a></p>
+</li>
+</ul>
+<h2 id="Raft选主过程"><a href="#Raft选主过程" class="headerlink" title="Raft选主过程"></a>Raft选主过程</h2><video width="100%" controls="controls"><br><source src="/img/noodle_plan/etcd/leader_election.webm" type="video/mp4"><br></video>
+
+<p><a href="http://thesecretlivesofdata.com/raft/#election" target="_blank" rel="noopener">动画演示Raft选主</a><br>前提知识:  </p>
+<ul>
+<li>Election timeout选举周期: The election timeout is the amount of time a follower waits until becoming a candidate.</li>
+<li>heartbeat timeout心跳时间间隔</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/python_reload_func_closure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/python_reload_func_closure/" itemprop="url">python的reload对于func_closure的处理踩坑</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-05-08T17:55:26+00:00">
+                05-08-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>带着问题学习动力是较强的, 直接上例子</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/self_cultivation_redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/self_cultivation_redis/" itemprop="url">服务器开发自我修养专栏-Redis实现原理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-04-20T19:08:06+00:00">
+                04-20-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Self-cultivation/" itemprop="url" rel="index">
+                    <span itemprop="name">Self-cultivation</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="redis-数据结构有哪些？分别怎么实现的？"><a href="#redis-数据结构有哪些？分别怎么实现的？" class="headerlink" title="redis 数据结构有哪些？分别怎么实现的？"></a>redis 数据结构有哪些？分别怎么实现的？</h2><ul>
+<li>String: <ul>
+<li>全是整数的时候用<code>整数编码int</code></li>
+<li>当有字符串的时候用<code>简单动态字符串sds</code>编码</li>
+</ul>
+</li>
+<li>HashTable: <ul>
+<li>元素比较少或者元素比较短的时候用<code>压缩表ziplist</code>(key1|val1|key2|val2|…这样存储), </li>
+<li>其他时候就用<code>字典ht</code></li>
+</ul>
+</li>
+<li>Set: <ul>
+<li>元素全是整数的时候用<code>整数集合</code>编码(一种特殊的编码, 会使用各种规则来利用位空间, 来节省内存), </li>
+<li>其他时候用<code>字典ht</code>编码(键为Set的元素, 值都为Null)</li>
+</ul>
+</li>
+<li>List: <ul>
+<li>元素比较少或者元素比较短的时候用<code>压缩表ziplist</code>,</li>
+<li>其他时候就用<code>双端列表LinkedList</code>编码</li>
+</ul>
+</li>
+<li>ZSet: <ul>
+<li>参考 <a href="http://redisbook.com/preview/object/sorted_set.html" target="_blank" rel="noopener">http://redisbook.com/preview/object/sorted_set.html</a></li>
+<li>参考 <a href="https://redisbook.readthedocs.io/en/latest/datatype/sorted_set.html" target="_blank" rel="noopener">https://redisbook.readthedocs.io/en/latest/datatype/sorted_set.html</a></li>
+<li>元素比较少或者元素比较短的时候用<code>压缩表ziplist</code>(member1|score1|member2|score2|…, 按照score从小到大排列), </li>
+<li>其他时候就用<code>跳跃表SkipList编码</code>, 这个编码里包含一个字典结构和一个跳表结构, 但这两种数据结构都会通过指针来共享相同元素的成员和分值， 所以同时使用跳跃表和字典来保存集合元素不会产生任何重复成员或者分值， 也不会因此而浪费额外的内存:  <ul>
+<li>字典用于快速查找, 如<code>ZScore</code>查询member成员的 score 值, 或者快速确定是否有某个member</li>
+<li>跳表用于<code>zrank</code>/<code>zrange</code>等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="zset各种问题"><a href="#zset各种问题" class="headerlink" title="zset各种问题"></a>zset各种问题</h2><h3 id="为什么zset用跳表不用红黑树"><a href="#为什么zset用跳表不用红黑树" class="headerlink" title="为什么zset用跳表不用红黑树"></a>为什么zset用跳表不用红黑树</h3><p>现在我们看看，对于这个问题，Redis的作者 @antirez 是怎么说的：</p>
+<p>There are a few reasons:</p>
+<ul>
+<li>They are not very memory intensive. It’s up to you basically. Changing parameters about the probability of a node to have a given number of levels will make then less memory intensive than btrees.</li>
+<li>A sorted set is often target of many ZRANGE or ZREVRANGE operations, that is, traversing the skip list as a linked list. With this operation the cache locality of skip lists is at least as good as with other kind of balanced trees.</li>
+<li>They are simpler to implement, debug, and so forth. For instance thanks to the skip list simplicity I received a patch (already in Redis master) with augmented skip lists implementing ZRANK in O(log(N)). It required little changes to the code.</li>
+</ul>
+<p>可参考:  本博客文章<a href="/algo_newbie/#跳表">跳表</a><br>总结:<br><!-- * 在做范围查找的时候，平衡树比skiplist操作要复杂。在平衡树上，我们找到指定范围的小值之后，还需要以中序遍历的顺序继续寻找其它不超过大值的节点。如果不对平衡树进行一定的改造，这里的中序遍历并不容易实现。而在skiplist上进行范围查找就非常简单，只需要在找到小值之后，对第1层链表进行若干步的遍历就可以实现。 --></p>
+<ul>
+<li>平衡树的插入和删除操作可能引发子树的调整，逻辑复杂，而skiplist的插入和删除只需要修改相邻节点的指针，操作简单又快速。</li>
+<li>从内存占用上来说，skiplist比平衡树更灵活一些。一般来说，平衡树每个节点包含2个指针（分别指向左右子树），而skiplist每个节点包含的指针数目平均为1/(1-p)，具体取决于参数p的大小。如果像Redis里的实现一样，取p=1/4，那么平均每个节点包含1.33个指针，比平衡树更有优势。</li>
+<li>从算法实现难度上来比较，skiplist比平衡树要简单得多。</li>
+</ul>
+<h3 id="zset是怎么支持查询排名的"><a href="#zset是怎么支持查询排名的" class="headerlink" title="zset是怎么支持查询排名的"></a>zset是怎么支持查询排名的</h3><p><a href="/algo_newbie/#跳表怎么支持查询排名的">跳表怎么支持查询排名的</a></p>
+<h3 id="延时队列用redis怎么做"><a href="#延时队列用redis怎么做" class="headerlink" title="延时队列用redis怎么做"></a>延时队列用redis怎么做</h3><p>用zset，拿时间戳作为score，消息内容作为key调用zadd来生产消息，消费者轮询zset用zrangebyscore指令获取N秒之前的数据轮询进行处理。</p>
+<h3 id="ZSET做排行榜时要实现分数相同时按时间顺序排序怎么实现"><a href="#ZSET做排行榜时要实现分数相同时按时间顺序排序怎么实现" class="headerlink" title="ZSET做排行榜时要实现分数相同时按时间顺序排序怎么实现"></a>ZSET做排行榜时要实现分数相同时按时间顺序排序怎么实现</h3><p>说了一个将 score 拆成高 32 位和低 32 位，高 32 位存分数，低 32 位存时间的方法。</p>
+<h2 id="哈希表渐进式rehash"><a href="#哈希表渐进式rehash" class="headerlink" title="哈希表渐进式rehash"></a>哈希表渐进式rehash</h2><ul>
+<li><p>当以下条件中的任意一个被满足时， 程序会自动开始对哈希表执行扩展操作：  </p>
+<ul>
+<li>服务器目前没有在执行 BGSAVE 命令或者 BGREWRITEAOF 命令， 并且哈希表的负载因子大于等于 1 ；</li>
+<li><p>服务器目前正在执行 BGSAVE 命令或者 BGREWRITEAOF 命令， 并且哈希表的负载因子大于等于 5 ；</p>
+<p>根据 BGSAVE 命令或 BGREWRITEAOF 命令是否正在执行， 服务器执行扩展操作所需的负载因子并不相同， 这是因为在执行 BGSAVE 命令或 BGREWRITEAOF 命令的过程中， Redis 需要创建当前服务器进程的子进程， 所以在子进程存在期间， 服务器会提高执行扩展操作所需的负载因子， 从而尽可能地避免在子进程存在期间进行哈希表扩展操作， 这可以避免不必要的内存写入操作， 最大限度地节约内存。</p>
+</li>
+</ul>
+</li>
+<li>另一方面， 当哈希表的负载因子小于 0.1 时， 程序自动开始对哈希表执行收缩操作。</li>
+</ul>
+<p>以下是哈希表渐进式 rehash 的详细步骤：  </p>
+<ol>
+<li>为 <code>ht[1]</code> 分配空间， 让字典同时持有 <code>ht[0]</code> 和 <code>ht[1]</code> 两个哈希表。</li>
+<li>在字典中维持一个索引计数器变量 rehashidx ， 并将它的值设置为 0 ， 表示 rehash 工作正式开始。</li>
+<li>在 rehash 进行期间， 每次对字典执行删除、查找或者更新操作时， 程序除了执行指定的操作以外， 还会顺带将 <code>ht[0]</code> 哈希表在 rehashidx 索引上的所有键值对 rehash 到 <code>ht[1]</code> ， 当 rehash 工作完成之后， 程序将 rehashidx 属性的值增一。</li>
+<li>随着字典操作的不断执行， 最终在某个时间点上， <code>ht[0]</code> 的所有键值对都会被 rehash 至 <code>ht[1]</code> ， 这时程序将 rehashidx 属性的值设为 -1 ， 表示 rehash 操作已完成。</li>
+</ol>
+<p>渐进式 rehash 的好处在于它采取分而治之的方式， 将 rehash 键值对所需的计算工作均滩到对字典的每个添加、删除、查找和更新操作上， 从而避免了集中式 rehash 而带来的庞大计算量。</p>
+<p>因为在进行渐进式 rehash 的过程中， 字典会同时使用 <code>ht[0]</code> 和 <code>ht[1]</code> 两个哈希表， 所以在渐进式 rehash 进行期间， 字典的删除（delete）、查找（find）、更新（update）等操作会在两个哈希表上进行： 比如说， 要在字典里面查找一个键的话， 程序会先在 <code>ht[0]</code> 里面进行查找， 如果没找到的话， 就会继续到 <code>ht[1]</code> 里面进行查找， 诸如此类。</p>
+<p>另外， 在渐进式 rehash 执行期间， 新添加到字典的键值对一律会被保存到 <code>ht[1]</code> 里面， 而 <code>ht[0]</code> 则不再进行任何添加操作： 这一措施保证了 <code>ht[0]</code> 包含的键值对数量会只减不增， 并随着 rehash 操作的执行而最终变成空表。</p>
+<h2 id="redis-持久化有哪几种方式，怎么选？"><a href="#redis-持久化有哪几种方式，怎么选？" class="headerlink" title="redis 持久化有哪几种方式，怎么选？"></a>redis 持久化有哪几种方式，怎么选？</h2><ul>
+<li>混合持久化<ul>
+<li>原因: 重启 Redis 时，我们很少使用 rdb 来恢复内存状态，因为会丢失大量数据。如果使用 AOF 日志重放，性能则相对 rdb 来说要慢很多，这样在 Redis 实例很大的情况下，启动的时候需要花费很长的时间。</li>
+<li>原理: 混合持久化同样也是通过bgrewriteaof完成的，不同的是当开启混合持久化时，fork出的子进程先将共享的内存副本全量的以RDB方式写入aof文件，然后在将aof_rewrite_buf重写缓冲区的增量命令以AOF方式写入到文件，写入完成后通知主进程更新统计信息，并将新的含有RDB格式和AOF格式的AOF文件替换旧的的AOF文件。</li>
+<li>简单的说：新的AOF文件前半段是RDB格式的全量数据后半段是AOF格式的增量数据，</li>
+</ul>
+</li>
+<li>rdb<ul>
+<li>优势: <ul>
+<li>RDB文件紧凑，全量备份，非常适合用于进行备份和灾难恢复。</li>
+<li>生成RDB文件的时候，redis主进程会fork()一个子进程来处理所有保存工作，主进程不需要进行任何磁盘IO操作。</li>
+<li>RDB 在恢复大数据集时的速度比 AOF 的恢复速度要快。</li>
+</ul>
+</li>
+<li>劣势:<ul>
+<li>当进行快照持久化时，会开启一个子进程专门负责快照持久化，子进程会拥有父进程的内存数据，父进程修改内存子进程不会反应出来，所以在快照持久化期间修改的数据不会被保存，可能丢失数据。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>aof<ul>
+<li>优势: <ul>
+<li>AOF可以更好的保护数据不丢失，一般AOF会每隔1秒，通过一个<strong>后台刷盘线程</strong>执行一次fsync操作(这种一秒刷盘一次的策略, 可能会造成<strong>追加阻塞</strong>: 当硬盘资源繁忙时，即主线程发现距离上次fsync时间超过2秒, 为了数据安全性, 主线程会阻塞直到后台刷盘线程执行fsync操作完成)，保证最多丢失1秒钟的数据。所以这也是redis重启优先加载aof的理由</li>
+<li>AOF日志文件没有任何磁盘寻址的开销，写入性能非常高，文件不容易破损。</li>
+<li>AOF日志文件即使过大的时候，出现后台重写操作，也不会影响客户端的读写。</li>
+<li>AOF日志文件的命令通过可读的方式进行记录，这个特性非常适合做灾难性的误删除的紧急恢复。比如某人不小心用flushall命令清空了所有数据，只要这个时候后台rewrite还没有发生，那么就可以立即拷贝AOF文件，将最后一条flushall命令给删了，然后再将该AOF文件放回去，就可以通过恢复机制，自动恢复所有数据</li>
+</ul>
+</li>
+<li>劣势:<ul>
+<li>对于同一份数据来说，AOF日志文件通常比RDB数据快照文件更大</li>
+<li>AOF开启后，支持的写QPS会比RDB支持的写QPS低，因为AOF一般会配置成每秒fsync一次日志文件，当然，每秒一次fsync，性能也还是很高的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="bgsave流程说一下"><a href="#bgsave流程说一下" class="headerlink" title="bgsave流程说一下"></a>bgsave流程说一下</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/noodle_plan/redis/bgsave.png" alt></p>
+<p>子进程创建RDB文件, 根据父进程内存生成临时快照文件, 完成后对原有RDB文件进行<a href="#如何做rdb和aof的原子替换的">原子替换</a>. 然后子进程发送信号给父进程表示完成</p>
+<h3 id="aof流程说一下以及aof追加阻塞是啥"><a href="#aof流程说一下以及aof追加阻塞是啥" class="headerlink" title="aof流程说一下以及aof追加阻塞是啥"></a>aof流程说一下以及aof追加阻塞是啥</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/noodle_plan/redis/aof.png" alt></p>
+<p>追加阻塞: </p>
+<p>AOF可以更好的保护数据不丢失，一般AOF会每隔1秒，通过一个后台刷盘线程执行一次fsync操作(这种一秒刷盘一次的策略, 可能会造成追加阻塞: 当硬盘资源繁忙时，即主线程发现距离上次fsync时间超过2秒, 为了数据安全性, 主线程会阻塞直到后台刷盘线程执行fsync操作完成)，保证最多丢失1秒钟的数据。</p>
+<h3 id="AOF重写的实现"><a href="#AOF重写的实现" class="headerlink" title="AOF重写的实现"></a>AOF重写的实现</h3><ul>
+<li><strong>所谓的“重写”其实是一个有歧义的词语, AOF重写并不需要对原有AOF文件进行任何的读取，写入，分析等操作，这个功能是通过读取服务器当前的数据库状态来实现的。</strong></li>
+<li>如当前列表键list在数据库中的值就为<code>[&quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;]</code>。要使用尽量少的命令来记录list键的状态，最简单的方式不是去读取和分析现有AOF文件的内容，，而是直接读取list键在数据库中的当前值，然后用一条<code>RPUSH list &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot;</code>代替前面的6条命令</li>
+</ul>
+<p>AOF 重写程序可以很好地完成创建一个新 AOF 文件的任务， 但是， 在执行这个程序的时候， 调用者线程会被阻塞。很明显， 作为一种辅佐性的维护手段， Redis 不希望 AOF 重写造成服务器无法处理请求， 所以 Redis 决定将 AOF 重写程序放到（后台）子进程里执行， 这样处理的最大好处是：  </p>
+<ul>
+<li>子进程进行 AOF 重写期间，主进程可以继续处理命令请求。</li>
+<li>子进程带有主进程的数据副本，使用子进程而不是线程，可以在避免锁的情况下，保证数据的安全性。</li>
+</ul>
+<p>不过， 使用子进程也有一个问题需要解决： 因为子进程在进行 AOF 重写期间， 主进程还需要继续处理命令， 而新的命令可能对现有的数据进行修改， 这会让当前数据库的数据和重写后的 AOF 文件中的数据不一致。为了解决这个问题， <strong>Redis 增加了一个 AOF 重写缓存， 这个缓存在 fork 出子进程之后开始启用， Redis 主进程在接到新的写命令之后， 除了会将这个写命令的协议内容追加到现有的 AOF 文件之外， 还会追加到这个重写缓存中</strong>, 换言之， 当子进程在执行 AOF 重写时， 主进程需要执行以下三个工作：  </p>
+<ol>
+<li>处理命令请求。</li>
+<li>将写命令追加到现有的 AOF 文件中。</li>
+<li>将写命令追加到 AOF 重写缓存中。</li>
+</ol>
+<p>当子进程完成 AOF 重写之后， 它会向父进程发送一个完成信号， 父进程在接到完成信号之后， 会调用一个信号处理函数， 并完成以下工作：  </p>
+<ol>
+<li>将 AOF 重写缓存中的内容全部写入到新 AOF 文件中。</li>
+<li>对新的 AOF 文件进行改名<code>rename</code>，覆盖原有的 AOF 文件。这就是aof的<a href="#如何做rdb和aof的原子替换的">原子替换</a>.</li>
+</ol>
+<p>在整个 AOF 后台重写过程中， 只有最后的写入缓存和改名操作会造成主进程阻塞， 在其他时候， AOF 后台重写都不会对主进程造成阻塞， 这将 AOF 重写对性能造成的影响降到了最低。以上就是 AOF 后台重写， 也即是 BGREWRITEAOF 命令的工作原理。</p>
+<h3 id="如何做rdb和aof的原子替换的"><a href="#如何做rdb和aof的原子替换的" class="headerlink" title="如何做rdb和aof的原子替换的"></a>如何做rdb和aof的原子替换的</h3><p>比如想要将temp文件原子替换origin文件, 则直接<code>rename</code> tmp文件到origin文件即可实现.<br><code>rename</code>通过来说, 直接修改 file system metadata, 如inode信息. <strong>在posix标准里, <code>rename</code>实现是原子的</strong>, 即:  </p>
+<ul>
+<li><code>rename</code>成功, 原文件名 指向 temp 文件; 原文件内容被删除.</li>
+<li><code>rename</code>失败, 原文件名 仍指向原来的文件内容.</li>
+</ul>
+<h2 id="redis-主从同步是怎样的过程？"><a href="#redis-主从同步是怎样的过程？" class="headerlink" title="redis 主从同步是怎样的过程？"></a>redis 主从同步是怎样的过程？</h2><ol>
+<li>从redis发出sync要求</li>
+<li>主redis开始bgsave(并且一边开启指令buffer来存储bgsave过程中的写指令们记为<code>cmd</code>)</li>
+<li>主redis把bgsave生成的rdb发给从redis</li>
+<li>把<code>cmd</code>发送给从redis</li>
+<li>从服务器完成对快照的载入，开始接收命令请求，并执行来自主服务器缓冲区的写命令</li>
+</ol>
+<p>总结:<br>主从刚刚连接的时候，进行全量同步；全量同步结束后，进行增量同步。当然，如果有需要，slave 在任何时候都可以发起全量同步。redis 策略是，无论如何，首先会尝试进行增量同步，如不成功，要求从机进行全量同步。</p>
+<h2 id="redis-key-的过期策略"><a href="#redis-key-的过期策略" class="headerlink" title="redis key 的过期策略"></a>redis key 的过期策略</h2><p>Redis键的过期策略，是有定期删除+惰性删除两种。</p>
+<ul>
+<li>定期好理解，默认100ms就 随机 抽一些设置了过期时间的key，去检查是否过期，过期了就删了。</li>
+<li>惰性删除，查询时再判断是否过期，过期就删除键不返回值。</li>
+</ul>
+<h2 id="内存淘汰机制"><a href="#内存淘汰机制" class="headerlink" title="内存淘汰机制"></a>内存淘汰机制</h2><p>当新增数据发现内存达到限制时，Redis触发内存淘汰机制。</p>
+<ul>
+<li>lru</li>
+<li>lfu(least frequency used, redis 4新增)</li>
+<li>random</li>
+<li>ttl</li>
+</ul>
+<h3 id="redis的LRU算法说一下"><a href="#redis的LRU算法说一下" class="headerlink" title="redis的LRU算法说一下"></a>redis的LRU算法说一下</h3><ul>
+<li><strong>普通的LRU算法</strong>:<br>  <strong>一般是用哈希表+双向链表来实现的</strong>:<br>  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/noodle_plan/redis/lru_cache_algo.jpg" alt><br>  基于 HashMap 和 双向链表实现 LRU 的整体的设计思路是，可以使用 HashMap 存储 key，这样可以做到 save 和 get key的时间都是 O(1)，而 HashMap 的 Value 指向双向链表实现的 LRU 的 Node 节点. 其核心操作的步骤是:  <ul>
+<li>save(key, value):<br>首先在 HashMap 找到 Key 对应的节点，如果节点存在，更新节点的值，并把这个节点移动队头。如果不存在，需要构造新的节点，并且尝试把节点塞到队头，如果LRU空间不足，则通过 tail 淘汰掉队尾的节点，同时在 HashMap 中移除 Key。</li>
+<li>get(key):<br>通过 HashMap 找到 LRU 链表节点，因为根据LRU 原理，这个节点是最新访问的，所以要把节点插入到队头，然后返回缓存的值。</li>
+</ul>
+</li>
+<li><strong>Redis的LRU实现</strong>:<ul>
+<li>如果按照HashMap和双向链表实现，需要额外的存储存放 next 和 prev 指针，牺牲比较大的存储空间，显然是不划算的。所以Redis采用了一个近似的做法，就是定时每隔一段时间就随机取出若干个key，然后按照访问时间排序后，淘汰掉最不经常使用的.  </li>
+<li>Redis 3.0之后又改善了算法的性能，会提供一个待淘汰候选key的pool，里面默认有16个key，按照空闲时间排好序。更新时从Redis键空间随机选择N个key，分别计算它们的空闲时间 idle，key只会在pool不满或者空闲时间大于pool里最小的时，才会进入pool，然后从pool中选择空闲时间最大的key淘汰掉。</li>
+</ul>
+</li>
+</ul>
+<h2 id="redis哨兵"><a href="#redis哨兵" class="headerlink" title="redis哨兵"></a>redis哨兵</h2><ul>
+<li>Redis Sentinel是Redis的高可用实现方案：故障发现、故障自动转移、配置中心 客户端通知。 </li>
+<li>Redis Sentinel从Redis 2.8版本开始才正式生产可用，之前版本生产不可用。 </li>
+<li>尽可能在不同物理机上部署Redis Sentinel所有节点。 </li>
+<li><strong>Redis Sentinel中的Sentinel节点个数应该为大于等于3且最好为奇数。</strong></li>
+<li>Redis Sentinel中的数据节点与普通数据节点没有区别。</li>
+<li><strong>哨兵是一个配置提供者，而不是代理。在引入哨兵之后，客户端会先连接哨兵，再获取到主节点之后，客户端会和主节点直接通信。如果发生了故障转移，哨兵会通知到客户端。所以这也需要客户端的实现对哨兵的显式支持。</strong> </li>
+<li>Redis Sentinel通过三个定时任务实现了Sentinel节点对于主节点、从节点、其余 Sentinel节点的监控。</li>
+<li><strong>Redis Sentinel在对节点做失败判定时分为主观下线和客观下线。</strong></li>
+<li>Redis Sentinel实现读写分离高可用可以依赖Sentinel节点的消息通知，获取Redis 数据节点的状态变化。 </li>
+</ul>
+<p>用文字描述一下故障切换（failover）的过程:</p>
+<ul>
+<li>假设主服务器宕机，哨兵1先检测到这个结果，系统并不会马上进行failover过程，仅仅是哨兵1主观的认为主服务器不可用，这个现象成为<strong>主观下线</strong>。</li>
+<li>当后面的哨兵也检测到主服务器不可用，并且数量达到一定值时，就对这个主节点故障达成一致, 这个过程称为<strong>客观下线</strong>。</li>
+<li>这样对于客户端而言，一切都是透明的。然后通过<strong>raft算法</strong>从哨兵中选出一个哨兵来执行<strong>故障转移</strong></li>
+</ul>
+<h2 id="redis集群"><a href="#redis集群" class="headerlink" title="redis集群"></a>redis集群</h2><p>redis集群是一个由多个主从节点群组成的分布式服务器群，它具有复制、高可用和分片特性。Redis集群不需要sentinel哨兵也能完成节点移除和故障转移的功能。需要将每个节点设置成集群模式，这种集群模式没有中心节点，可水平扩展，据官方文档称可以线性扩展到上万个节点(官方推荐不超过1000个节点)。redis集群的性能和高可用性均优于之前版本的哨兵模式，且集群配置非常简单。<br>集群模式有以下几个特点：</p>
+<ul>
+<li>由多个Redis服务器组成的分布式网络服务集群；</li>
+<li>集群之中有多个Master主节点，每一个主节点都可读可写；</li>
+<li>节点之间会互相通信，两两相连, 采用gossip协议来通信；</li>
+<li>Redis集群无中心节点。</li>
+<li>集群的伸缩本质是: 槽数据在节点中的移动</li>
+</ul>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>在哨兵模式中，仍然只有一个Master节点。当并发写请求较大时，哨兵模式并不能缓解写压力。 我们知道只有主节点才具有写能力，那如果在一个集群中，能够配置多个主节点，缓解写压力，redis-cluster集群模式能达到此类要求。</p>
+<p>在Redis-Cluster集群中，可以给每一个主节点添加从节点，主节点和从节点直接遵循主从模型的特性。<br>当用户需要处理更多读请求的时候，添加从节点开启read-only来读写分离可以扩展系统的读性能。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>Redis 集群不支持那些需要同时处理多个键的 Redis 命令， 因为执行这些命令需要在多个 Redis 节点之间移动数据， 并且在高负载的情况下， 这些命令将降低 Redis 集群的性能， 并导致不可预测的行为。</li>
+<li>不能用redis事务机制(不过就算不用redis集群一般也不推荐用redis的事务, 毕竟假事务无法回滚嘛, 比如multi之后那些在 EXEC 命令执行之后所产生的错误， 并没有对它们进行特别处理： 即使事务中有某个/某些命令在执行时产生了错误， 事务中的其他命令仍然会继续执行。)。因为一个事务中有涉及到多个key操作的时候，这多个key不一定都存储在同一个redis-server上。</li>
+</ul>
+<h3 id="故障转移"><a href="#故障转移" class="headerlink" title="故障转移"></a>故障转移</h3><p>Redis集群的主节点内置了类似Redis Sentinel的节点故障检测和自动故障转移功能，当集群中的某个主节点下线时，集群中的其他在线主节点会注意到这一点，并对已下线的主节点进行故障转移。<br>集群进行故障转移的方法和Redis Sentinel进行故障转移的方法基本一样(也有<code>主观下线</code>和<code>客观下线</code>)，不同的是，在集群里面，故障转移的过程是:</p>
+<ol>
+<li>在集群内广播选举消息</li>
+<li>集群中其他在线的持有槽的主节点投票到故障主节点的从节点们</li>
+<li>被选出来的从节点变成主节点</li>
+</ol>
+<p>所以集群不必另外使用Redis Sentinel。</p>
+<h3 id="集群分片策略"><a href="#集群分片策略" class="headerlink" title="集群分片策略"></a>集群分片策略</h3><p>常见的集群分片算法有：</p>
+<ul>
+<li>一般哈希算法</li>
+<li>一致性哈希算法</li>
+<li>Hash Slot算法</li>
+</ul>
+<p>Redis采用的是Hash Slot</p>
+<h4 id="一般哈希算法"><a href="#一般哈希算法" class="headerlink" title="一般哈希算法"></a>一般哈希算法</h4><p>计算方式：hash(key)%N<br>缺点：如果增加一个redis，映射公式变成了 hash(key)%(N+1)<br>​     如果一个redis宕机了，映射公式变成了 hash(key)%(N-1)<br>​     在以上两种情况下，几乎所有的缓存都失效了。</p>
+<h4 id="一致性哈希算法"><a href="#一致性哈希算法" class="headerlink" title="一致性哈希算法"></a>一致性哈希算法</h4><p>先构造出一个长度为2^32整数环，根据节点名称的hash值（分布在[0,2^32-1]）放到这个环上。现在要存放资源，根据资源的Key的Hash值（也是分布在[0,2^32-1]），在环上顺时针的找到离它最近的一个节点，就建立了资源和节点的映射关系。</p>
+<ul>
+<li>优点：一个节点宕机时，上面的数据转移到顺时针的下一个节点中，新增一个节点时，也只需要将部分数据迁移到这个节点中，对其他节点的影响很小</li>
+<li>缺点：由于数据在环上分布不均，可能存在某个节点存储的数据比较多，那么当他宕机的时候，会导致大量数据涌入下一个节点中，把另一个节点打挂了，然后所有节点都挂了</li>
+<li>改进：引进了虚拟节点的概念，想象在这个环上有很多“虚拟节点”，数据的存储是沿着环的顺时针方向找一个虚拟节点，每个虚拟节点都会关联到一个真实节点</li>
+</ul>
+<h4 id="HashSlot算法"><a href="#HashSlot算法" class="headerlink" title="HashSlot算法"></a>HashSlot算法</h4><p>Redis采用的是Hash Slot分片算法，用来计算key存储位置的。集群将整个数据库分为16384个槽位slot，所有key-value数据都存储在这些slot中的某一个上。一个slot槽位可以存放多个数据，key的槽位计算公式为：slot_number=CRC16(key)%16384，其中CRC16为16位的循环冗余校验和函数。<br><strong>客户端可能会挑选任意一个redis实例去发送命令，每个redis实例接收到命令，都会计算key对应的hash slot，如果在本地就在本地处理，否则返回moved给客户端，让客户端进行重定向到对应的节点执行命令(实现得好一点的smart客户端会缓存键-slot-节点的映射关系来获得性能提升).</strong></p>
+<p><strong>那为什么是16384个槽呢?</strong></p>
+<p>ps:CRC16算法产生的hash值有16bit，该算法可以产生2^16-=65536个值。换句话说，值是分布在0~65535之间。那作者在做mod运算的时候，为什么不mod65536，而选择mod16384？<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fantirez%2Fredis%2Fissues%2F2576" target="_blank" rel="noopener">作者解答</a></p>
+<p>在redis节点发送心跳包时需要把所有的槽放到这个心跳包里，以便让节点知道当前集群信息，16384=16k，在发送心跳包时使用char进行bitmap压缩后是<code>2k（2 * 8 (8 bit) * 1024(1k) = 2K）</code>，也就是说使用2k的空间创建了16k的槽数。</p>
+<p>虽然使用CRC16算法最多可以分配65535（2^16-1）个槽位，65535=65k，压缩后就是<code>8k（8 * 8 (8 bit) * 1024(1k) = 8K）</code>，也就是说需要需要8k的心跳包，作者认为这样做不太值得；并且一般情况下一个redis集群不会有超过1000个master节点，所以16k的槽位是个比较合适的选择。</p>
+<h2 id="Cache和DB如何一致"><a href="#Cache和DB如何一致" class="headerlink" title="Cache和DB如何一致"></a>Cache和DB如何一致</h2><p>详细的请参考: <a href="https://segmentfault.com/a/1190000015804406" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015804406</a><br>本博客也有一份: <a href="/cache_db_consistency/" title="Cache和DB一致性">Cache和DB一致性</a></p>
+<p>总结:</p>
+<ul>
+<li>使用<code>cache aside pattern</code><ul>
+<li>对于读请求<br>  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/cache_db_consistency/cache_db_consistency_9.png" alt title="读请求"><br>  先读 cache，再读 db<br>  如果，cache hit，则直接返回数据<br>  如果，cache miss，则访问 db，并将数据 set 回缓存</li>
+<li>对于写请求<br>  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/cache_db_consistency/cache_db_consistency_1.png" alt title="写请求"><br>  先操作数据库，再淘汰缓存（淘汰缓存，而不是更新缓存, 如果更新缓存，在并发写时，可能出现数据不一致。）</li>
+</ul>
+</li>
+<li>Cache Aside Pattern 方案存在什么问题？<ul>
+<li><strong>问题1</strong>: 如果先写数据库，再淘汰缓存，在原子性被破坏时：<ol>
+<li>修改数据库成功了</li>
+<li>淘汰缓存失败了<br>导致，数据库与缓存的数据不一致。</li>
+</ol>
+<ul>
+<li>如何解决问题1?<ul>
+<li>在淘汰缓存的时候，如果失败，则重试一定的次数。如果失败一定次数还不行，那就是其他原因了。比如说 redis 故障、内网出了问题。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>问题2</strong>: 主从同步延迟导致的缓存和数据不一致问题<ul>
+<li>问题: 发生写请求后（不管是先操作 DB，还是先淘汰 Cache），在主从数据库同步完成之前，如果有读请求，都可能发生读 Cache Miss，读从库把旧数据存入缓存的情况。此时怎么办呢？</li>
+<li>解决思路: 在主从时延的时间段内，读取修改过的数据的话，强制读主，并且更新缓存，这样子缓存内的数据就是最新。在主从时延过后，这部分数据继续读从库，从而继续利用从库提高读取能力。</li>
+<li>具体解决方案: <ul>
+<li>写请求发生的时候: 将哪个库，哪个表，哪个主键三个信息拼装一个 key 设置到 cache 里，这条记录的超时时间，设置为 “主从同步时延”, PS：key 的格式为 “db:table:PK”，假设主从延时为 1s，这个 key 的 cache 超时时间也为 1s。</li>
+<li>当读请求发生时：这是要读哪个库，哪个表，哪个主键的数据呢，也将这三个信息拼装一个 key，到 cache 里去查询，如果，<ul>
+<li>（1）cache 里有这个 key，说明 1s 内刚发生过写请求，数据库主从同步可能还没有完成，此时就应该去主库查询。并且把主库的数据 set 到缓存中，防止下一次 cache miss。</li>
+<li>（2）cache 里没有这个 key，说明最近没有发生过写请求，此时就可以去从库查询</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="缓存雪崩是啥-咋处理"><a href="#缓存雪崩是啥-咋处理" class="headerlink" title="缓存雪崩是啥?咋处理?"></a>缓存雪崩是啥?咋处理?</h2><p>是指<strong>大面积的缓存失效，打崩了DB.</strong></p>
+<p>如果缓存挂掉，所有的请求会压到数据库，如果未提前做容量预估，可能会把数据库压垮（在缓存恢复之前，数据库可能一直都起不来），导致系统整体不可服务。<br>又或者打个比方, 如果所有首页的Key失效时间都是12小时，中午12点刷新的，我零点有个秒杀活动大量用户涌入，假设当时每秒 6000 个请求，本来缓存在可以扛住每秒 5000 个请求，但是缓存当时所有的Key都失效了。此时 1 秒 6000 个请求全部落数据库，数据库必然扛不住.</p>
+<p>处理方案: </p>
+<ul>
+<li>key随机过期</li>
+<li>key永不过期, 比如开个单独线程去定时更新缓存</li>
+<li>高可用, 如果Redis是集群部署，将热点数据均匀分布在不同的Redis库中也能避免全部失效的问题</li>
+<li>隔离服务, 限流降级</li>
+</ul>
+<h2 id="缓存穿透是啥-咋处理"><a href="#缓存穿透是啥-咋处理" class="headerlink" title="缓存穿透是啥?咋处理?"></a>缓存穿透是啥?咋处理?</h2><p>是指<strong>缓存和数据库中都没有的数据，而用户不断发起请求，严重会击垮数据库</strong> </p>
+<p>我们数据库的 id 都是1开始自增上去的，如发起为id值为 -1 的数据或 id 为特别大不存在的数据。这时的用户很可能是攻击者，攻击会导致数据库压力过大，严重会击垮数据库。</p>
+<p>处理方案:</p>
+<ul>
+<li>缓存穿透我会在接口层增加校验，比如用户鉴权校验，参数做校验，不合法的参数直接代码Return，比如：id 做基础校验，id &lt;=0的直接拦截等。</li>
+<li>布隆过滤器, 把存在的key提前存放好在布隆过滤器中, 当查询的时候快速判断出你这个Key是否在数据库中存在, 不存在则直接return</li>
+</ul>
+<h2 id="缓存击穿是啥-咋处理"><a href="#缓存击穿是啥-咋处理" class="headerlink" title="缓存击穿是啥?咋处理?"></a>缓存击穿是啥?咋处理?</h2><p>是指<strong>持续的大并发的访问一个热点数据, 当这个Key在失效的瞬间，持续的大并发就穿破缓存，直接请求数据库</strong></p>
+<p>这个跟缓存雪崩有点像，但是又有一点不一样，缓存雪崩是因为大面积的缓存失效，打崩了DB，而缓存击穿不同的是缓存击穿是指一个Key非常<strong>热点</strong>，在不停的扛着大并发，大并发集中对这一个点进行访问，当这个Key在失效的瞬间，持续的大并发就穿破缓存，直接请求数据库，就像在一个完好无损的桶上凿开了一个洞。</p>
+<p>处理方案:</p>
+<ul>
+<li>key永不过期, 比如开个单独线程去定时更新缓存</li>
+<li>互斥锁, 在key失效的瞬间, 只允许一个查询操作的线程A去查询数据库并重建缓存并上互斥锁, 其他的查询操作线程全部等待线程A操作完了再从缓存里取数据</li>
+</ul>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/self_cultivation_encoding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/self_cultivation_encoding/" itemprop="url">服务器开发自我修养专栏-编码知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-04-18T19:08:06+00:00">
+                04-18-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Self-cultivation/" itemprop="url" rel="index">
+                    <span itemprop="name">Self-cultivation</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="编码知识"><a href="#编码知识" class="headerlink" title="编码知识"></a>编码知识</h1><h2 id="Base64-的原理？编码后比编码前是大了还是小了。"><a href="#Base64-的原理？编码后比编码前是大了还是小了。" class="headerlink" title="Base64 的原理？编码后比编码前是大了还是小了。"></a>Base64 的原理？编码后比编码前是大了还是小了。</h2><p>结论:</p>
+<p>大了. 因为Base64 编码本质上是一种将二进制数据转成文本数据的方案。<strong>对于非二进制数据，是先将其转换成二进制形式，然后每连续 6 比特（2 的 6 次方 = 64）计算其十进制值，根据该值在上面的索引表中找到对应的字符，最终得到一个文本字符串。</strong>也就是说, 每 3 个原始字符编码成 4 个字符，如果原始字符串长度不能被 3 整除，那怎么办？使用 0 值来补充原始字符串。</p>
+<h3 id="base64的原理"><a href="#base64的原理" class="headerlink" title="base64的原理"></a>base64的原理</h3><p>Base64 编码之所以称为 Base64，是因为其使用 64 个字符来对任意数据进行编码，同理有 Base32、Base16 编码。标准 Base64 编码使用的 64 个字符为：<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/noodle_plan/http/XHFMRvxfez4OVtr.jpg" alt></p>
+<p>这 64 个字符是各种字符编码（比如 ASCII 编码）所使用字符的子集，基本，并且可打印。唯一有点特殊的是最后两个字符，因对最后两个字符的选择不同，Base64 编码又有很多变种，比如 Base64 URL 编码。</p>
+<p>Base64 编码本质上是一种将二进制数据转成文本数据的方案。对于非二进制数据，是先将其转换成二进制形式，然后每连续 6 比特（2 的 6 次方 = 64）计算其十进制值，根据该值在上面的索引表中找到对应的字符，最终得到一个文本字符串。</p>
+<p>假设我们要对 <code>Hello!</code> 进行 Base64 编码，按照 ASCII 表，其转换过程如下图所示：<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/noodle_plan/http/tJnClQsjc4WMGhB.jpg" alt></p>
+<p>可知 <code>Hello!</code> 的 Base64 编码结果为 <code>SGVsbG8h</code> ，原始字符串长度为 6 个字符，编码后长度为 8 个字符，每 3 个原始字符经 Base64 编码成 4 个字符，编码前后长度比 4/3，这个长度比很重要 - 比原始字符串长度短，则需要使用更大的编码字符集，这并不我们想要的；长度比越大，则需要传输越多的字符，传输时间越长。Base64 应用广泛的原因是在字符集大小与长度比之间取得一个较好的平衡，适用于各种场景。</p>
+<p>是不是觉得 Base64 编码原理很简单？</p>
+<p>但这里需要注意一个点：Base64 编码是每 3 个原始字符编码成 4 个字符，如果原始字符串长度不能被 3 整除，那怎么办？使用 0 值来补充原始字符串。</p>
+<p>以 <code>Hello!!</code> 为例，其转换过程为：<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/noodle_plan/http/5URB8nVis9ljwYe.jpg" alt></p>
+<p><em>注：图表中蓝色背景的二进制 0 值是额外补充的。</em></p>
+<p><code>Hello!!</code> Base64 编码的结果为 <code>SGVsbG8hIQAA</code> 。最后 2 个零值只是为了 Base64 编码而补充的，在原始字符中并没有对应的字符，那么 Base64 编码结果中的最后两个字符 <code>AA</code> 实际不带有效信息，所以需要特殊处理，以免解码错误。</p>
+<p>标准 Base64 编码通常用 <code>=</code> 字符来替换最后的 <code>A</code>，即编码结果为 <code>SGVsbG8hIQ==</code>。因为 <code>=</code> 字符并不在 Base64 编码索引表中，其意义在于结束符号，在 Base64 解码时遇到 <code>=</code> 时即可知道一个 Base64 编码字符串结束。</p>
+<p>如果 Base64 编码字符串不会相互拼接再传输，那么最后的 <code>=</code> 也可以省略，解码时如果发现 Base64 编码字符串长度不能被 4 整除，则先补充 <code>=</code> 字符，再解码即可。</p>
+<p>解码是对编码的逆向操作，但注意一点：<strong>对于最后的两个 <code>=</code> 字符，转换成两个 <code>A</code> 字符，再转成对应的两个 6 比特二进制 0 值，接着转成原始字符之前，需要将最后的两个 6 比特二进制 0 值丢弃，因为它们实际上不携带有效信息</strong>。</p>
+<h2 id="utf8编码和unicode字符集"><a href="#utf8编码和unicode字符集" class="headerlink" title="utf8编码和unicode字符集"></a>utf8编码和unicode字符集</h2><p>总结:  </p>
+<ul>
+<li>unicode是个字符集, 只是一个符号对应表, 它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储</li>
+<li>utf8是unicode符号具体的编码方式, 规定了该怎么存储</li>
+</ul>
+<p>说到utf8，就不得不说一下unicode了。  Unicode是一个很大的集合，每一个unicode对应一个符号，不管是中文的汉字，英文字符，日文，韩文等等。现在的规模可以容纳100多万个符号。每个符号的编码都不一样，比如，U+0639表示阿拉伯字母 Ain，U+0041表示英语的大写字母A，U+4E25表示汉字“严”。具体的符号对应表，可以查询unicode.org，或者专门的汉字对应表。</p>
+<p><strong>需要注意的是，Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。</strong></p>
+<p>比如，汉字“严”的unicode是十六进制数4E25，转换成二进制数足足有15位（100111000100101），也就是说这个符号的表示至少需要2个字节。表示其他更大的符号，可能需要3个字节或者4个字节，甚至更多。</p>
+<p>这里就有两个严重的问题，第一个问题是：如何才能区别unicode和ascii？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是：我们已经知道，英文字母只用一个字节表示就够了，如果unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。</p>
+<p>它们造成的结果是：</p>
+<p>1）出现了unicode的多种存储方式，也就是说有许多种不同的二进制格式，可以用来表示unicode。</p>
+<p>2）unicode在很长一段时间内无法推广，直到互联网的出现。</p>
+<h3 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h3><p>互联网的普及，强烈要求出现一种统一的编码方式。UTF-8就是在互联网上使用最广的一种unicode的实现方式。其他实现方式还包括UTF-16和UTF-32，不过在互联网上基本不用。重复一遍，这里的关系是，UTF-8是Unicode的实现方式之一。</p>
+<p>UTF-8最大的一个特点，就是它是一种变长的编码方式。它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。</p>
+<p>UTF-8的编码规则很简单，只有二条：</p>
+<ul>
+<li><p>1）对于单字节的符号，字节的第一位（字节的最高位）设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。</p>
+</li>
+<li><p>2）对于n字节的符号（n&gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。</p>
+</li>
+</ul>
+<p>下表总结了编码规则，字母x表示可用编码的位。</p>
+<p>Unicode符号范围 UTF-8编码方式(十六进制) | （二进制）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">—————+———————————————————————</span><br><span class="line">0000 0000-0000 007F | 0xxxxxxx</span><br><span class="line">0000 0080-0000 07FF | 110xxxxx 10xxxxxx</span><br><span class="line">0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx</span><br><span class="line">0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</span><br></pre></td></tr></table></figure></p>
+<p>下面，还是以汉字“严”为例，演示如何实现UTF-8编码：<br>已知“严”的unicode是4E25（100111000100101），根据上表，可以发现4E25处在第三行的范围内（0000 0800-0000 FFFF），因此“严”的UTF-8编码需要三个字节，即格式是“1110xxxx 10xxxxxx 10xxxxxx”。然后，从“严”的最后一个二进制位开始，依次从后向前填入格式中的x，多出的位补0。这样就得到了，“严”的UTF-8编码是“11100100 10111000 10100101”，转换成十六进制就是E4B8A5。</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/cpp_func_traits_intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/cpp_func_traits_intro/" itemprop="url">rpclib源码阅读笔记之浅谈cpp func traits</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-04-18T01:59:01+00:00">
+                04-18-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://light-city.club/2019/10/07/traits/#!" target="_blank" rel="noopener">原文出处</a></p>
+<hr>
+<h2 id="0-导语"><a href="#0-导语" class="headerlink" title="0. 导语"></a><strong>0. 导语</strong></h2><p>大家好，我是光城，欢迎关注公众号：<strong>guangcity</strong>。在 STL 编程中，容器和算法是独立设计的，即数据结构和算法是独立设计的，连接容器和算法的桥梁就是迭代器了，迭代器使其独立设计成为可能。如下图所示：</p>
+<p>上图给出了 STL 的目标就是要把数据和算法分开，分别对其进行设计，之后通过一种名为 iterator 的东西，把这二者再粘接到一起。</p>
+<p>设计模式中，关于 iterator 的描述为：<strong>一种能够顺序访问容器中每个元素的方法，使用该方法不能暴露容器内部的表达方式。而类型萃取技术就是为了要解决和 iterator 有关的问题的。</strong></p>
+<p>它将范型算法 (find, count, find_if) 用于某个容器中, 最重要的是要给算法提供一个访问容器元素的工具，iterator 就扮演着这个重要的角色。</p>
+<p>而在算法中我们可能会定义简单的中间变量或者设定算法的返回变量类型，这时候需要知道迭代器所指元素的类型是什么，但是由于没有 typeof 这类判断类型的函数, 我们无法直接获取，那该如何是好？本文就来具体阐述。</p>
+<p>对于迭代器来说就是一种智能指针，因此，它也就拥有了一般指针的所有特点——能够对其进行 * 和 -&gt; 操作。但是在遍历容器的时候，不可避免的要对遍历的容器内部有所了解，所以，干脆把迭代器的开发工作交给容器的设计者好了，如此以来，所有实现细节反而得以封装起来不被使用者看到，这正是为什么每一种 STL 容器都提供有专属迭代器的缘故。</p>
+<p>而 Traits 在<code>bits/stl_iterator_base_types.h</code>中：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;_Tp*&gt;</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">ptrdiff_t</span> difference_type;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::value_type value_type;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::pointer pointer;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::reference reference;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::iterator_category iterator_category;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>看的一脸懵逼吧，没事，看完本节，入门 STL，哈哈~</p>
+<h2 id="1-template-参数推导"><a href="#1-template-参数推导" class="headerlink" title="1.template 参数推导"></a><strong>1.template 参数推导</strong></h2><p>首先，在算法中运用迭代器时，很可能会用到<strong>其相应型别（associated type）</strong>（迭代器所指之物的型别）。假设算法中有必要声明一个变量，以 “迭代器所指对象的型别” 为型别，该<strong>怎么办呢？</strong></p>
+<p><strong>解决方法是：利用 function template 的参数推导机制。</strong></p>
+<p>例如：</p>
+<p>如果 T 是某个指向特定对象的指针，那么在 func 中需要指针所指向对象的型别的时候，怎么办呢？这个还比较容易，模板的参数推导机制可以完成任务，</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span></span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">func</span>(<span class="title">I</span> <span class="title">iter</span>) &#123;</span></span><br><span class="line">    func_impl(iter, *iter); <span class="comment">// 传入iter和iter所指的值，class自动推导</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过模板的推导机制，我们轻而易举的或得了指针所指向的对象的类型。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">func_impl</span>(<span class="title">I</span> <span class="title">iter</span>, <span class="title">T</span> <span class="title">t</span>) &#123;</span></span><br><span class="line">        T tmp; <span class="comment">// 这里就是迭代器所指物的类别</span></span><br><span class="line">        <span class="comment">// ... 功能实现</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    func(&amp;i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是，<strong>函数的 “template 参数推导机制” 推导的只是参数，无法推导函数的返回值类型。万一需要推导函数的传回值，就无能为力了</strong>。因此，我们引出下面的方法。</p>
+<h2 id="2-声明内嵌型别"><a href="#2-声明内嵌型别" class="headerlink" title="2. 声明内嵌型别"></a><strong>2. 声明内嵌型别</strong></h2><p><strong>迭代器所指对象的型别，称之为迭代器的 value type。</strong></p>
+<p>尽管在 func_impl 中我们可以把 T 作为函数的返回值，但是问题是用户需要调用的是 func。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">T</span> <span class="title">func_impl</span>(<span class="title">I</span> <span class="title">iter</span>, <span class="title">T</span> <span class="title">t</span>) &#123;</span></span><br><span class="line">        T tmp; <span class="comment">// 这里就是迭代器所指物的类别</span></span><br><span class="line">        <span class="comment">// ... 功能实现</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class">(*<span class="title">T</span>) <span class="title">func</span>(<span class="title">T</span> <span class="title">t</span>) &#123;</span> <span class="comment">// !!!Wrong code</span></span><br><span class="line">    <span class="keyword">return</span> func_impl(t, *t); <span class="comment">// forward the task to func_impl</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i  =<span class="number">10</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;func(&amp;i)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// !!! Can’t pass compile</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果去编译上述代码，编译失败！</p>
+<p>这个问题解决起来也不难，声明内嵌型别似乎是个好主意，这样我们就可以直接获取。只要做一个 iterator，然后在定义的时候为其指向的对象类型制定一个别名，就好了，像下面这样：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">MyIter</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type; <span class="comment">// 内嵌型别声明</span></span><br><span class="line">    T* ptr;</span><br><span class="line">    MyIter(T* p = <span class="number">0</span>) : ptr(p) &#123;&#125;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*() <span class="keyword">const</span> &#123; <span class="keyword">return</span> *ptr; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typename</span> <span class="title">I</span>:</span>:value_type</span><br><span class="line">func(I ite) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"class version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    MyIter&lt;<span class="keyword">int</span>&gt; ite(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">8</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; func(ite);    <span class="comment">// 输出8</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很漂亮的解决方案，看上去一切都很完美。但是，实际上还是有问题，因为 func 如果是一个泛型算法，那么它也绝对要接受一个原生指针作为迭代器，但是显然，你无法让下面的代码编译通过：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">5</span>);</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;func(p)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
+<p>我们的 func 无法支持原生指针，这显然是不能接受的。此时，template partial specialization 就派上了用场。</p>
+<h2 id="3-救世主-Traits"><a href="#3-救世主-Traits" class="headerlink" title="3. 救世主 Traits"></a><strong>3. 救世主 Traits</strong></h2><p>前面也提到了，如果直接使用<code>typename I::value_type</code>，算法就无法接收原生指针，因为原生指针根本就没有 value_type 这个内嵌类型。</p>
+<p>因此，我们还需要加入一个中间层对其进行判断，看它是不是原生指针，注意，这就是 traits 技法的妙处所在。</p>
+<p>如果我们只使用上面的做法，也就是内嵌 value_type，那么对于没有 value_type 的指针，我们只能对其进行偏特化，这种偏特化是针对可调用函数 func 的偏特化，假如 func 有 100 万行行代码，那么就会造成极大的视觉污染。</p>
+<p><strong>（1）函数偏特化</strong></p>
+<p>函数偏特化：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">MyIter</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type; <span class="comment">// 内嵌型别声明</span></span><br><span class="line">    T* ptr;</span><br><span class="line">    MyIter(T* p = <span class="number">0</span>) : ptr(p) &#123;&#125;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*() <span class="keyword">const</span> &#123; <span class="keyword">return</span> *ptr; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typename</span> <span class="title">I</span>:</span>:value_type</span><br><span class="line">func(I ite) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"class version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">I</span></span></span><br><span class="line"><span class="class"><span class="title">func</span>(<span class="title">I</span>* <span class="title">ite</span>) &#123;</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"pointer version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">I</span> <span class="title">func</span>(<span class="title">const</span> <span class="title">I</span>* <span class="title">ite</span>) &#123;</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"const pointer version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    MyIter&lt;<span class="keyword">int</span>&gt; ite(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">8</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; func(ite)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">52</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;func(p)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> k = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;func(&amp;k)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class version</span><br><span class="line">8</span><br><span class="line">pointer version</span><br><span class="line">52</span><br><span class="line">const pointer version</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p><strong>（2）加入中间层</strong></p>
+<p>在 STL 中 Traits 是什么呢？看下图：</p>
+<p>利用一个中间层<code>iterator_traits</code>固定了<code>func</code>的形式，使得重复的代码大量减少，唯一要做的就是稍稍特化一下 iterator_tartis 使其支持 pointer 和 const pointer:)</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">MyIter</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type; <span class="comment">// 内嵌型别声明</span></span><br><span class="line">    T* ptr;</span><br><span class="line">    MyIter(T* p = <span class="number">0</span>) : ptr(p) &#123;&#125;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*() <span class="keyword">const</span> &#123; <span class="keyword">return</span> *ptr; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// class type</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> T::value_type value_type;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 偏特化1</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;T*&gt; &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 偏特化2</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;const T*&gt; &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typename</span> <span class="title">iterator_traits</span>&lt;I&gt;:</span>:value_type</span><br><span class="line"><span class="comment">// 首先询问iterator_traits&lt;I&gt;::value_type,如果传递的I为指针,则进入特化版本,iterator_traits直接回答;如果传递进来的I为class type,就去询问T::value_type.</span></span><br><span class="line">func(I ite) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"normal version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    MyIter&lt;<span class="keyword">int</span>&gt; ite(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">8</span>));</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; func(ite)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">52</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;func(p)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> k = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;func(&amp;k)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述的过程是首先询问<code>iterator_traits&lt;I&gt;::value_type</code>，如果传递的 I 为指针, 则进入特化版本,<code>iterator_traits</code>直接回答<code>T</code>; 如果传递进来的<code>I</code>为<code>class type</code>, 就去询问<code>T::value_type</code>.</p>
+<p>上述的通俗解释为算法 (func) 问 iterator_traits(我)，但是 iterator_traits(我)发现手上是指针的时候，就由我来替它回答。如果是 class type，iterator_traits(我)就继续问(他 —T::value_type)。</p>
+<p><strong>总结：通过定义内嵌类型，我们获得了知晓 iterator 所指元素类型的方法，通过 traits 技法，我们将函数模板对于原生指针和自定义 iterator 的定义都统一起来，我们使用 traits 技法主要是为了解决原生指针和自定义 iterator 之间的不同所造成的代码冗余，这就是 traits 技法的妙处所在。</strong></p>
+<p>学习书籍：</p>
+<blockquote>
+<p>侯捷《 STL 源码剖析》  </p>
+</blockquote>
+<p>学习文章：</p>
+<blockquote>
+<p><a href="https://link.zhihu.com/?target=https%3A//juejin.im/post/5b1a43fb51882513bf1795c6" target="_blank" rel="noopener">https://juejin.im/post/5b1a43fb51882513bf1795c6</a><br><a href="https://link.zhihu.com/?target=https%3A//www.cnblogs.com/mangoyuan/p/6446046.html" target="_blank" rel="noopener">https://www.cnblogs.com/mangoyuan/p/6446046.html</a><br><a href="https://link.zhihu.com/?target=http%3A//www.cppblog.com/nacci/archive/2005/11/03/911.aspx" target="_blank" rel="noopener">http://www.cppblog.com/nacci/archive/2005/11/03/911.aspx</a>  </p>
+</blockquote>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">297</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
