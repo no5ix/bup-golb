@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'Linux常用运维命令(df和free和top)笔记整理(三)' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Command,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="df df命令用于显示磁盘分区上的可使用的磁盘空间。默认显示单位为KB。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。   -a或–all：包含全部的文件系统； –block-size=&amp;lt;区块大小&amp;gt;：以指定的区块大小来显示区块数目； -h或–human-readable：以可读性较高的方式来显示信息； -H或–si：与-h参数相同，但在计算时是以1000 Byte">
+<meta name="keywords" content="Command">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux常用运维命令(df和free和top)笔记整理(三)">
+<meta property="og:url" content="https://hulinhong.com/linux_command_df_free_top/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="df df命令用于显示磁盘分区上的可使用的磁盘空间。默认显示单位为KB。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。   -a或–all：包含全部的文件系统； –block-size=&amp;lt;区块大小&amp;gt;：以指定的区块大小来显示区块数目； -h或–human-readable：以可读性较高的方式来显示信息； -H或–si：与-h参数相同，但在计算时是以1000 Byte">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux常用运维命令(df和free和top)笔记整理(三)">
+<meta name="twitter:description" content="df df命令用于显示磁盘分区上的可使用的磁盘空间。默认显示单位为KB。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。   -a或–all：包含全部的文件系统； –block-size=&amp;lt;区块大小&amp;gt;：以指定的区块大小来显示区块数目； -h或–human-readable：以可读性较高的方式来显示信息； -H或–si：与-h参数相同，但在计算时是以1000 Byte">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Linux常用运维命令(df和free和top)笔记整理(三) | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/linux_command_df_free_top/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux常用运维命令(df和free和top)笔记整理(三)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-11T12:16:56+00:00">
+                03-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Command/" rel="tag"><i class="fa fa-tag"></i> Command</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/linux_command_netstat_lsof/" rel="next" title="Linux常用运维命令(netstat和lsof)笔记整理(二)">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Linux常用运维命令(netstat和lsof)笔记整理(二)
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linux_directory_permission/" rel="prev" title="linux一些不要想当然的事(一)之目录权限">
+              <p class="post-nav-pre-next-title">
+                  linux一些不要想当然的事(一)之目录权限
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="df"><a href="#df" class="headerlink" title="df"></a><strong>df</strong></h1><blockquote>
+<p>df命令用于显示磁盘分区上的可使用的磁盘空间。默认显示单位为KB。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。</p>
+</blockquote>
+<ul>
+<li>-a或–all：包含全部的文件系统；</li>
+<li>–block-size=&lt;区块大小&gt;：以指定的区块大小来显示区块数目；</li>
+<li>-h或–human-readable：以可读性较高的方式来显示信息；</li>
+<li>-H或–si：与-h参数相同，但在计算时是以1000 Bytes为换算单位而非1024 Bytes；</li>
+<li>-i或–inodes：显示inode的信息；</li>
+<li>-k或–kilobytes：指定区块大小为1024字节；</li>
+<li>-l或–local：仅显示本地端的文件系统；</li>
+<li>-m或–megabytes：指定区块大小为1048576字节；</li>
+<li>–no-sync：在取得磁盘使用信息前，不要执行sync指令，此为预设值；</li>
+<li>-P或–portability：使用POSIX的输出格式；</li>
+<li>–sync：在取得磁盘使用信息前，先执行sync指令；</li>
+<li>-t&lt;文件系统类型&gt;或–type=&lt;文件系统类型&gt;：仅显示指定文件系统类型的磁盘信息；</li>
+<li>-T或–print-type：显示文件系统的类型；</li>
+<li>-x&lt;文件系统类型&gt;或–exclude-type=&lt;文件系统类型&gt;：不要显示指定文件系统类型的磁盘信息；</li>
+<li>–help：显示帮助；</li>
+<li>–version：显示版本信息</li>
+</ul>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h2 id="df常用用法：df-h"><a href="#df常用用法：df-h" class="headerlink" title="df常用用法：df -h"></a><em>df常用用法：df -h</em></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">b@b-VirtualBox:~$ df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">udev            990M  4.0K  990M   1% /dev</span><br><span class="line">tmpfs           201M  968K  200M   1% /run</span><br><span class="line">/dev/sda1       8.8G  4.1G  4.3G  49% /</span><br><span class="line">none            4.0K     0  4.0K   0% /sys/fs/cgroup</span><br><span class="line">none            5.0M     0  5.0M   0% /run/lock</span><br><span class="line">none           1001M   76K 1001M   1% /run/shm</span><br><span class="line">none            100M   36K  100M   1% /run/user</span><br><span class="line">/dev/sr0         57M   57M     0 100% /media/b/VBOXADDITIONS_5.1.22_115126</span><br></pre></td></tr></table></figure>
+<h1 id="free"><a href="#free" class="headerlink" title="free"></a><strong>free</strong></h1><blockquote>
+<p>free命令可以显示当前系统未使用的和已使用的内存数目，还可以显示被内核使用的内存缓冲区。</p>
+</blockquote>
+<h2 id="free常用用法：free-m或者free-g"><a href="#free常用用法：free-m或者free-g" class="headerlink" title="free常用用法：free -m或者free -g"></a><em>free常用用法：free -m或者free -g</em></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">b@b-VirtualBox:~$ free -m</span><br><span class="line">             total       used       free     shared    buffers     cached</span><br><span class="line">Mem:          2000       1231        768          9         72        456</span><br><span class="line">-/+ buffers/cache:        702       1297</span><br><span class="line">Swap:         1021          0       1021</span><br></pre></td></tr></table></figure>
+<h1 id="top"><a href="#top" class="headerlink" title="top"></a>top</h1><ul>
+<li>PID：进程的ID</li>
+<li>USER：进程所有者</li>
+<li>PR：进程的优先级别，越小越优先被执行</li>
+<li>NInice：值</li>
+<li>VIRT：进程占用的虚拟内存</li>
+<li>RES：进程占用的物理内存</li>
+<li>SHR：进程使用的共享内存</li>
+<li>S：进程的状态。S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负数</li>
+<li>%CPU：进程占用CPU的使用率</li>
+<li>%MEM：进程使用的物理内存和总内存的百分比</li>
+<li>TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。</li>
+<li>COMMAND：进程启动命令名称</li>
+</ul>
+<p>另 :</p>
+<ul>
+<li>1：使用 ps -ef|grep xxx 命令查找需要查看的进程，xxx是进程名字</li>
+<li>2：top -p pid 查看程序的情况 </li>
+<li>3：ps -aux | grep process_name</li>
+<li>4：cat /proc/pid/status<br>这里会打印出当前进程详细的情况，其中，内存是 VmRSS。<br>( 注：pid是要替换成一个id数字的。)</li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Command/" rel="tag"><i class="fa fa-tag"></i> Command</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/linux_command_netstat_lsof/" rel="next" title="Linux常用运维命令(netstat和lsof)笔记整理(二)">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Linux常用运维命令(netstat和lsof)笔记整理(二)
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/linux_directory_permission/" rel="prev" title="linux一些不要想当然的事(一)之目录权限">
+                <p class="post-nav-pre-next-title">
+                    linux一些不要想当然的事(一)之目录权限
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#df"><span class="nav-text">df</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#df常用用法：df-h"><span class="nav-text">df常用用法：df -h</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#free"><span class="nav-text">free</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#free常用用法：free-m或者free-g"><span class="nav-text">free常用用法：free -m或者free -g</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#top"><span class="nav-text">top</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

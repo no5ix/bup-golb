@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'GCC的分支预测优化__builtin_expect' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="CPP,Linux,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="1. 为什么需要分支预测优化 将流水线引入cpu，可以提高cpu的效率。更简单的说，让cpu可以预先取出下一条指令，可以提供cpu的效率。如下图所示：    取指令 执行指令 输出结果      取指令 执行    可见，cpu流水钱可以减少cpu等待取指令的耗时，从而提高cpu的效率。如果存在跳转指令，那么预先取出的指令就无用了。cpu在执行当前指令时，从内存中取出了当前指令的下一条指令。执行完">
+<meta name="keywords" content="CPP,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GCC的分支预测优化__builtin_expect">
+<meta property="og:url" content="https://hulinhong.com/linux_gcc_builtin_expect/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="1. 为什么需要分支预测优化 将流水线引入cpu，可以提高cpu的效率。更简单的说，让cpu可以预先取出下一条指令，可以提供cpu的效率。如下图所示：    取指令 执行指令 输出结果      取指令 执行    可见，cpu流水钱可以减少cpu等待取指令的耗时，从而提高cpu的效率。如果存在跳转指令，那么预先取出的指令就无用了。cpu在执行当前指令时，从内存中取出了当前指令的下一条指令。执行完">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GCC的分支预测优化__builtin_expect">
+<meta name="twitter:description" content="1. 为什么需要分支预测优化 将流水线引入cpu，可以提高cpu的效率。更简单的说，让cpu可以预先取出下一条指令，可以提供cpu的效率。如下图所示：    取指令 执行指令 输出结果      取指令 执行    可见，cpu流水钱可以减少cpu等待取指令的耗时，从而提高cpu的效率。如果存在跳转指令，那么预先取出的指令就无用了。cpu在执行当前指令时，从内存中取出了当前指令的下一条指令。执行完">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>GCC的分支预测优化__builtin_expect | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/linux_gcc_builtin_expect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GCC的分支预测优化__builtin_expect</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-11T12:26:26+00:00">
+                04-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/CPP/" rel="tag"><i class="fa fa-tag"></i> CPP</a>
+              
+                <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/linux_directory_permission/" rel="next" title="linux一些不要想当然的事(一)之目录权限">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  linux一些不要想当然的事(一)之目录权限
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linux_gcc_atomic/" rel="prev" title="GCC的原子操作函数">
+              <p class="post-nav-pre-next-title">
+                  GCC的原子操作函数
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="1-为什么需要分支预测优化"><a href="#1-为什么需要分支预测优化" class="headerlink" title="1. 为什么需要分支预测优化"></a>1. 为什么需要分支预测优化</h1><p> 将流水线引入cpu，可以提高cpu的效率。更简单的说，让cpu可以预先取出下一条指令，可以提供cpu的效率。如下图所示：</p>
+<table>
+<thead>
+<tr>
+<th>取指令</th>
+<th>执行指令</th>
+<th>输出结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>取指令</td>
+<td>执行</td>
+</tr>
+</tbody>
+</table>
+<p>可见，cpu流水钱可以减少cpu等待取指令的耗时，从而提高cpu的效率。<br>如果存在跳转指令，那么预先取出的指令就无用了。cpu在执行当前指令时，从内存中取出了当前指令的下一条指令。执行完当前指令后，cpu发现不是要执行下一条指令,而是执行offset偏移处的指令。cpu只能重新从内存中取出offset偏移处的指令。因此，跳转指令会降低流水线的效率，也就是降低cpu的效率。</p>
+<p>综上，在写程序时应该尽量避免跳转语句。那么如何避免跳转语句呢？答案就是使用__builtin_expect。</p>
+<p>这个指令是gcc引入的，作用是”允许程序员将最有可能执行的分支告诉编译器”。</p>
+<p>这个指令的写法为：<strong>builtin_expect(EXP, N)。意思是：EXP==N的概率很大。一般的使用方法是将</strong>builtin_expect指令封装为LIKELY和UNLIKELY宏。这两个宏的写法如下。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIKELY(x) __builtin_expect(!!(x), 1) <span class="comment">//x很可能为真</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UNLIKELY(x) __builtin_expect(!!(x), 0) <span class="comment">//x很可能为假</span></span></span><br></pre></td></tr></table></figure>
+<p>在很多源码如Linux内核、Glib等,我们都能看到likely()和unlikely()这两个宏,通常这两个宏定义是下面这样的形式。<br>可以看出这2个宏都是使用函数 <strong>builtin_expect()实现的, </strong>builtin_expect()函数是GCC的一个内建函数(build-in function).</p>
+<h1 id="2-函数声明"><a href="#2-函数声明" class="headerlink" title="2. 函数声明"></a>2. 函数声明</h1><p>函数__builtin_expect()是GCC v2.96版本引入的, 其声明如下:</p>
+<p><code>long __builtin_expect(long exp, long c);</code></p>
+<h2 id="2-1-功能描述"><a href="#2-1-功能描述" class="headerlink" title="2.1. 功能描述"></a>2.1. 功能描述</h2><p>由于大部分程序员在分支预测方面做得很糟糕，所以GCC 提供了这个内建函数来帮助程序员处理分支预测.</p>
+<p>你期望 exp 表达式的值等于常量 c, 看 c 的值, 如果 c 的值为0(即期望的函数返回值), 那么 执行 if 分支的的可能性小, 否则执行 else 分支的可能性小(函数的返回值等于第一个参数 exp).</p>
+<p>GCC在编译过程中，会将可能性更大的代码紧跟着前面的代码，从而减少指令跳转带来的性能上的下降, 达到优化程序的目的.</p>
+<p>通常，你也许会更喜欢使用 gcc 的一个参数 ‘-fprofile-arcs’ 来收集程序运行的关于执行流程和分支走向的实际反馈信息,但是对于很多程序来说,数据是很难收集的。</p>
+<h2 id="2-2-参数详解"><a href="#2-2-参数详解" class="headerlink" title="2.2. 参数详解"></a>2.2. 参数详解</h2><ul>
+<li><p>exp<br>  exp 为一个整型表达式, 例如: (ptr != NULL)</p>
+</li>
+<li><p>c<br>  c 必须是一个编译期常量, 不能使用变量</p>
+</li>
+</ul>
+<h2 id="2-3-返回值"><a href="#2-3-返回值" class="headerlink" title="2.3. 返回值"></a>2.3. 返回值</h2><p>　　返回值等于 第一个参数 exp</p>
+<h2 id="2-4-使用方法"><a href="#2-4-使用方法" class="headerlink" title="2.4. 使用方法"></a>2.4. 使用方法</h2><p>与关键字if一起使用.首先要明确一点就是 if (value) 等价于 if (__builtin_expert(value, x)), 与x的值无关.</p>
+<p>例子如下:</p>
+<p>例子1 : 期望 x == 0, 所以执行func()的可能性小</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (__builtin_expect(x, <span class="number">0</span>))</span><br><span class="line">&#123;</span><br><span class="line">    func();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">　　<span class="comment">//do someting</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例子2 : 期望 ptr !=NULL这个条件成立(1), 所以执行func()的可能性小</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (__builtin_expect(ptr != <span class="literal">NULL</span>, <span class="number">1</span>))</span><br><span class="line">&#123;　　</span><br><span class="line">　　<span class="comment">//do something</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">　　func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例子3 : 引言中的likely()和unlikely()宏</p>
+<p>首先,看第一个参数!!(x), 他的作用是把(x)转变成”布尔值”, 无论(x)的值是多少 !(x)得到的是true或false, !!(x)就得到了原值的”布尔值”</p>
+<p>使用 likely() ，执行 if 后面的语句 的机会更大，使用 unlikely()，执行 else 后面的语句的机会更大。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> likely(x)    __builtin_expect(!!(x), 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> unlikely(x)  __builtin_expect(!!(x), 0)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">char</span> *argv[], <span class="keyword">int</span> argc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> a;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* Get the value from somewhere GCC can't optimize */</span></span><br><span class="line">   a = atoi (argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (unlikely (a == <span class="number">2</span>))</span><br><span class="line">　 &#123;</span><br><span class="line">      a++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">　 &#123;</span><br><span class="line">　　  a--;</span><br><span class="line">　 &#125;</span><br><span class="line">   <span class="built_in">printf</span> (<span class="string">"%d\n"</span>, a);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-RATIONALE-原理"><a href="#3-RATIONALE-原理" class="headerlink" title="3. RATIONALE(原理)"></a>3. RATIONALE(原理)</h1><p>if else 句型编译后, 一个分支的汇编代码紧随前面的代码,而另一个分支的汇编代码需要使用JMP指令才能访问到.</p>
+<p>很明显通过JMP访问需要更多的时间, 在复杂的程序中,有很多的if else句型,又或者是一个有if else句型的库函数,每秒钟被调用几万次,</p>
+<p>通常程序员在分支预测方面做得很糟糕, 编译器又不能精准的预测每一个分支,这时JMP产生的时间浪费就会很大,</p>
+<p>函数 <code>__builtin_expert()</code> 就是用来解决这个问题的.</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/CPP/" rel="tag"><i class="fa fa-tag"></i> CPP</a>
+            
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/linux_directory_permission/" rel="next" title="linux一些不要想当然的事(一)之目录权限">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    linux一些不要想当然的事(一)之目录权限
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/linux_gcc_atomic/" rel="prev" title="GCC的原子操作函数">
+                <p class="post-nav-pre-next-title">
+                    GCC的原子操作函数
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-为什么需要分支预测优化"><span class="nav-text">1. 为什么需要分支预测优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-函数声明"><span class="nav-text">2. 函数声明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-功能描述"><span class="nav-text">2.1. 功能描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-参数详解"><span class="nav-text">2.2. 参数详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-返回值"><span class="nav-text">2.3. 返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-使用方法"><span class="nav-text">2.4. 使用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-RATIONALE-原理"><span class="nav-text">3. RATIONALE(原理)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

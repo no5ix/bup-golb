@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'C/S游戏架构中延迟补偿的设计和优化方法' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Valve,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="自我总结注 : V社这篇文章相当有价值, 所以会有尽可能详细的注解以及对原译文各种翻译纰漏的修正. 广义的延迟补偿主要包括两个方面 :  A 如何显示目标 a. 对于本玩家自己 客户端预表现(本文翻译为”客户端预测”) : 比如对于玩家移动的预测, 可以把服务器确认过的movement信息作为开始, 然后使用自己本地的movement input来进行预表现, 服务器跟客户端共享同一套move代码">
+<meta name="keywords" content="Valve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;S游戏架构中延迟补偿的设计和优化方法">
+<meta property="og:url" content="https://hulinhong.com/latency_compensating_methods_in_client_server_in_game_protocol_design_and_optimization/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="自我总结注 : V社这篇文章相当有价值, 所以会有尽可能详细的注解以及对原译文各种翻译纰漏的修正. 广义的延迟补偿主要包括两个方面 :  A 如何显示目标 a. 对于本玩家自己 客户端预表现(本文翻译为”客户端预测”) : 比如对于玩家移动的预测, 可以把服务器确认过的movement信息作为开始, 然后使用自己本地的movement input来进行预表现, 服务器跟客户端共享同一套move代码">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C&#x2F;S游戏架构中延迟补偿的设计和优化方法">
+<meta name="twitter:description" content="自我总结注 : V社这篇文章相当有价值, 所以会有尽可能详细的注解以及对原译文各种翻译纰漏的修正. 广义的延迟补偿主要包括两个方面 :  A 如何显示目标 a. 对于本玩家自己 客户端预表现(本文翻译为”客户端预测”) : 比如对于玩家移动的预测, 可以把服务器确认过的movement信息作为开始, 然后使用自己本地的movement input来进行预表现, 服务器跟客户端共享同一套move代码">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>C/S游戏架构中延迟补偿的设计和优化方法 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/latency_compensating_methods_in_client_server_in_game_protocol_design_and_optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C/S游戏架构中延迟补偿的设计和优化方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-06T20:37:38+00:00">
+                01-06-2016
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GS/" itemprop="url" rel="index">
+                    <span itemprop="name">GS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Valve/" rel="tag"><i class="fa fa-tag"></i> Valve</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/cplusplus_confused_points_two/" rel="next" title="C++很基础的易混淆点二">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  C++很基础的易混淆点二
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Source引擎多人游戏网络设计/" rel="prev" title="Source引擎多人游戏网络设计">
+              <p class="post-nav-pre-next-title">
+                  Source引擎多人游戏网络设计
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="自我总结"><a href="#自我总结" class="headerlink" title="自我总结"></a>自我总结</h1><p>注 : V社这篇文章相当有价值, 所以会有尽可能详细的注解以及对原译文各种翻译纰漏的修正.</p>
+<p>广义的延迟补偿主要包括两个方面 :</p>
+<ul>
+<li><strong>A 如何显示目标</strong><ul>
+<li><strong>a. 对于本玩家自己</strong><ul>
+<li><strong>客户端预表现</strong>(本文翻译为”客户端预测”) : 比如对于玩家移动的预测, 可以把服务器确认过的movement信息作为开始, 然后使用自己本地的movement input来进行预表现, 服务器跟客户端共享同一套move代码, 当服务器的确认信息过来之后就直接使用服务器发过来的from state进行修正并以from state为基础执行之后的预测.</li>
+</ul>
+</li>
+<li><strong>b. 对于其他玩家</strong><ul>
+<li><strong>i. 外推法</strong> : 即航位推测法, 外推法把其它玩家/物体看作一个点，这个点开始的位置、方向、速度已知，沿着自己的弹道向前移动。因此，假设延时是100ms，最新的协议通知客户端这个玩家奔跑速度是500单位每秒，方向垂直于玩家视线，客户端就可以假设事实上这个玩家当前实际的位置已经向前移动了50个单位。客户端可以在这个外推的位置渲染这个玩家. 这个方法不适用于FPS游戏, 因为大部分FPS游戏采用非现实的玩家系统，玩家可以随时转弯，可以在任意角度作用不现实的加速度，因此外推法得到的结果经常是错误地</li>
+<li><strong>ii. 内推法</strong> : 即影子跟随法, 这种方法是用延时来换取平滑, 客户端物体实际移动位置总是滞后一段时间。举个例子，如果服务器每秒同步10次世界信息，客户端渲染的时候会有100ms滞后。这样，每一帧渲染的时候，我们通过最新收到的位置信息和前100ms的位置信息（或者上一帧渲染位置）进行差值得到结果.<ul>
+<li><strong>如果一个更新包没有收到，有2种处理方法</strong> : <ul>
+<li>用上面介绍的外推法（有可能产生较大误差）；</li>
+<li>保持玩家位于当前位置直到收到下一个更新包(会导致玩家移动顿挫)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>B. 延迟补偿</strong>, 步骤如下 : </p>
+<ol>
+<li>为玩家计算一个相当精确的延迟时间</li>
+<li>对每个玩家，从服务器历史信息中找一个已发送给这个玩家并且这个玩家已收到的的world update, 这个world update是在这个玩家将要执行这个movement command之前的world update</li>
+<li>对于每一个玩家，将其从上述的world update处拉回到这个玩家生成此user command的更新时间中执行用户命令。这个回退时间需要考虑到命令执行的时候的网络延时和插值量</li>
+<li>执行玩家命令（包括武器开火等。）</li>
+<li>将所有移动的、错位的玩家移动到他们当前正确位置</li>
+</ol>
+</li>
+</ul>
+<h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="https://developer.valvesoftware.com/wiki/Latency_Compensating_Methods_in_Client/Server_In-game_Protocol_Design_and_Optimization" target="_blank" rel="noopener">原文出处</a></p>
+<p>原文标题 : <strong>Latency Compensating Methods in Client/Server In-game Protocol Design and Optimization</strong></p>
+<hr>
+<div id="toc" class="toc" style="display:none"><br>    <div id="toctitle"><br>        <h2 id="Contents">Contents</h2><br>    </div><br>    <ul><br>        <li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li><br>        <li class="toclevel-1 tocsection-2"><a href="#Basic_Architecture_of_a_Client_.2F_Server_Game"><span class="tocnumber">2</span> <span class="toctext">Basic Architecture of a Client / Server Game</span></a></li><br>        <li class="toclevel-1 tocsection-3"><a href="#Contents_of_the_User_Input_messages"><span class="tocnumber">3</span> <span class="toctext">Contents of the User Input messages</span></a></li><br>        <li class="toclevel-1 tocsection-4"><a href="#Client_Side_Prediction"><span class="tocnumber">4</span> <span class="toctext">Client Side Prediction</span></a></li><br>        <li class="toclevel-1 tocsection-5"><a href="#Client-Side_Prediction_of_Weapon_Firing"><span class="tocnumber">5</span> <span class="toctext">Client-Side Prediction of Weapon Firing</span></a></li><br>        <li class="toclevel-1 tocsection-6"><a href="#Umm.2C_This_is_a_Lot_of_Work"><span class="tocnumber">6</span> <span class="toctext">Umm, This is a Lot of Work</span></a></li><br>        <li class="toclevel-1 tocsection-7"><a href="#Display_of_Targets"><span class="tocnumber">7</span> <span class="toctext">Display of Targets</span></a></li><br>        <li class="toclevel-1 tocsection-8"><a href="#Lag_Compensation"><span class="tocnumber">8</span> <span class="toctext">Lag Compensation</span></a></li><br>        <li class="toclevel-1 tocsection-9"><a href="#Game_Design_Implications_of_Lag_Compensation"><span class="tocnumber">9</span> <span class="toctext">Game Design Implications of Lag Compensation</span></a></li><br>        <li class="toclevel-1 tocsection-10"><a href="#Conclusion"><span class="tocnumber">10</span> <span class="toctext">Conclusion</span></a></li><br>        <li class="toclevel-1 tocsection-11"><a href="#Footnotes"><span class="tocnumber">11</span> <span class="toctext">Footnotes</span></a></li><br>    </ul><br></div>
+
+<p></p><h2 id="Overview">Overview</h2><p></p>
+<p>Dsigning first-person action games for Internet play is a challenging process. Having robust on-line gameplay in your action title, however, is becoming essential to the success and longevity of the title. In addition, the PC space is well known for requiring developers to support a wide variety of customer setups. Often, customers are running on less than state-of-the-art hardware. The same holds true for their network connections.<br></p><p>While broadband has been held out as a panacea for all of the current woes of on-line gaming, broadband is not a simple solution allowing developers to ignore the implications of latency and other network factors in game designs. It will be some time before broadband truly becomes adopted in the United States, and much longer before it can be assumed to exist for your clients in the rest of the world. In addition, there are a lot of poor broadband solutions, where users may occasionally have high bandwidth, but more often than not also have significant latency and packet loss in their connections.<br></p><p>Your game must behave well in this world. This discussion will give you a sense of some of the tradeoffs required to deliver a cutting-edge action experience on the Internet. The discussion will provide some background on how client / server architectures work in many on-line action games. In addition, the discussion will show how predictive modeling can be used to mask the effects of latency. Finally, the discussion will describe a specific mechanism, lag compensation, for allowing the game to compensate for connection quality.<br></p>
+
+<p><strong>. . .</strong><a id="more"></a></p>
+<p></p><h2 id="Basic_Architecture_of_a_Client_.2F_Server_Game">Basic Architecture of a Client / Server Game</h2><p></p>
+<p>Most action games played on the net today are modified client / server games. Games such as Half-Life, including its mods such as Counter-Strike and Team Fortress Classic, operate on such a system, as do games based on the Quake3 engine and the Unreal Tournament engine. In these games, there is a single, authoritative server that is responsible for running the main game logic. To this are connected one or more “dumb” clients. These clients, initially, were nothing more than a way for the user input to be sampled and forwarded to the server for execution. The server would execute the input commands, move around other objects, and then send back to the client a list of objects to render. Of course, the real world system has more components to it, but the simplified breakdown is useful for thinking about prediction and lag compensation.<br></p><p>With this in mind, the typical client / server game engine architecture generally looks like this:<br></p><p><br><br></p>
+
+
+<p><br><br>For this discussion, all of the messaging and coordination needed to start up the connection between client and server is omitted. The client’s frame loop looks something like the following:<br></p><br><ol><br><li>Sample clock to find start time<br></li><br><li>Sample user input (mouse, keyboard, joystick)<br></li><br><li>Package up and send movement command using simulation time<br></li><br><li>Read any packets from the server from the network system<br></li><br><li>Use packets to determine visible objects and their state<br></li><br><li>Render Scene<br></li><br><li>Sample clock to find end time<br></li><br><li>End time minus start time is the simulation time for the next frame<br></li><br></ol><br><p>Each time the client makes a full pass through this loop, the “frametime” is used for determining how much simulation is needed on the next frame. If your framerate is totally constant then frametime will be a correct measure. Otherwise, the frametimes will be incorrect, but there isn’t really a solution to this (unless you could deterministically figure out exactly how long it was going to take to run the next frame loop iteration before running it…).<br></p><p>The server has a somewhat similar loop:<br></p><br><ol><br><li>Sample clock to find start time<br></li><br><li>Read client user input messages from network<br></li><br><li>Execute client user input messages<br></li><br><li>Simulate server-controlled objects using simulation time from last full pass<br></li><br><li>For each connected client, package up visible objects/world state and send to client<br></li><br><li>Sample clock to find end time<br></li><br><li>End time minus start time is the simulation time for the next frame<br></li><br></ol><br><p>In this model, non-player objects run purely on the server, while player objects drive their movements based on incoming packets. Of course, this is not the only possible way to accomplish this task, but it does make sense.<br></p><br><h2 id="Contents_of_the_User_Input_messages">Contents of the User Input messages</h2><br><p>In Half-Life engine games, the user input message format is quite simple and is encapsulated in a data structure containing just a few essential fields:<br></p><br><div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">typedef</span> <span class="kw4">struct</span> usercmd_s<br><span class="br0">&#123;</span><br>    <span class="co1">// Interpolation time on client</span><br>    <span class="kw4">short</span>        lerp_msec<span class="sy4">;</span><br>    <span class="co1">// Duration in ms of command</span><br>    byte        msec<span class="sy4">;</span><br>    <span class="co1">// Command view angles.</span><br>    vec3_t    viewangles<span class="sy4">;</span><br>    <span class="co1">// intended velocities</span><br>    <span class="co1">// Forward velocity.</span><br>    <span class="kw4">float</span>        forwardmove<span class="sy4">;</span><br>    <span class="co1">// Sideways velocity.</span><br>    <span class="kw4">float</span>        sidemove<span class="sy4">;</span><br>    <span class="co1">// Upward velocity.</span><br>    <span class="kw4">float</span>        upmove<span class="sy4">;</span><br>    <span class="co1">// Attack buttons</span><br>    <span class="kw4">unsigned</span> <span class="kw4">short</span> buttons<span class="sy4">;</span><br>    <span class="co1">//</span><br>    <span class="co1">// Additional fields omitted…</span><br>    <span class="co1">//</span><br><span class="br0">&#125;</span> usercmd_t<span class="sy4">;</span></pre></div></div><br><p>The critical fields here are the msec, viewangles, forward, side, and upmove, and buttons fields. The msec field corresponds to the number of milliseconds of simulation that the command corresponds to (it’s the frametime). The viewangles field is a vector representing the direction the player was looking during the frame. The forward, side, and upmove fields are the impulses determined by examining the keyboard, mouse, and joystick to see if any movement keys were held down. Finally, the buttons field is just a bit field with one or more bits set for each button that is being held down.<br></p><p>Using the above data structures and client / server architecture, the core of the simulation is as follows. First, the client creates and sends a user command to the server. The server then executes the user command and sends updated positions of everything back to client. Finally, the client renders the scene with all of these objects. This core, though quite simple, does not react well under real world situations, where users can experience significant amounts of latency in their Internet connections. The main problem is that the client truly is “dumb” and all it does is the simple task of sampling movement inputs and waiting for the server to tell it the results. If the client has 500 milliseconds of latency in its connection to the server, then it will take 500 milliseconds for any client actions to be acknowledged by the server and for the results to be perceptible on the client. While this round trip delay may be acceptable on a Local Area Network (LAN), it is not acceptable on the Internet.<br></p><br><h2 id="Client_Side_Prediction">Client Side Prediction</h2><br><p>One method for ameliorating this problem is to perform the client’s movement locally and just assume, temporarily, that the server will accept and acknowledge the client commands directly. This method is labeled as client-side prediction.<br></p><p>Client-side prediction of movements requires us to let go of the “dumb” or minimal client principle. That’s not to say that the client is fully in control of its simulation, as in a peer-to-peer game with no central server. There still is an authoritative server running the simulation just as noted above. Having an authoritative server means that even if the client simulates different results than the server, the server’s results will eventually correct the client’s incorrect simulation. Because of the latency in the connection, the correction might not occur until a full round trip’s worth of time has passed. The downside is that this can cause a very perceptible shift in the player’s position due to the fixing up of the prediction error that occurred in the past.<br></p><p>To implement client-side prediction of movement, the following general procedure is used. As before, client inputs are sampled and a user command is generated. Also as before, this user command is sent off to the server. However, each user command (and the exact time it was generated) is stored on the client. The prediction algorithm uses these stored commands.<br></p><p>For prediction, the last acknowledged movement from the server is used as a starting point. The acknowledgement indicates which user command was last acted upon by the server and also tells us the exact position (and other state data) of the player after that movement command was simulated on the server. The last acknowledged command will be somewhere in the past if there is any lag in the connection. For instance, if the client is running at 50 frames per second (fps) and has 100 milliseconds of latency (roundtrip), then the client will have stored up five user commands ahead of the last one acknowledged by the server. These five user commands are simulated on the client as a part of client-side prediction. Assuming full prediction<sup id="fnote1"><a href="#Footnotes">1</a></sup>, the client will want to start with the latest data from the server, and then run the five user commands through “similar logic” to what the server uses for simulation of client movement. Running these commands should produce an accurate final state on the client (final player position is most important) that can be used to determine from what position to render the scene during the current frame.<br></p><p>In Half-Life, minimizing discrepancies between client and server in the prediction logic is accomplished by sharing the identical movement code for players in both the server-side game code and the client-side game code. These are the routines in the <code>pm_shared/</code> (which stands for “player movement shared”) folder of the <a rel="noopener" class="external text" href="http://download.cnet.com/downloads/0-10045-100-3422497.html" target="_blank">HL SDK</a>. The input to the shared routines is encapsulated by the user command and a “from” player state. The output is the new player state after issuing the user command. The general algorithm on the client is as follows:<br></p><br><pre>“from state” &lt;- state after last user command acknowledged by the server;<br><br>“command” &lt;- first command after last user command acknowledged by server;<br><br>while (true)<br>{<br>    run “command” on “from state” to generate “to state”;<br>    if (this was the most up to date “command”)<br>        break;<br><br>    “from state” = “to state”;<br>    “command” = next “command”;<br>};<br></pre><br><p>The origin and other state info in the final “to state” is the prediction result and is used for rendering the scene that frame. The portion where the command is run is simply the portion where all of the player state data is copied into the shared data structure, the user command is processed (by executing the common code in the pm_shared routines in Half-Life’s case), and the resulting data is copied back out to the “to state”.<br></p><p>There are a few important caveats to this system. First, you’ll notice that, depending upon the client’s latency and how fast the client is generating user commands (i.e., the client’s framerate), the client will most often end up running the same commands over and over again until they are finally acknowledged by the server and dropped from the list (a sliding window in Half-Life’s case) of commands yet to be acknowledged. The first consideration is how to handle any sound effects and visual effects that are created in the shared code. Because commands can be run over and over again, it’s important not to create footstep sounds, etc. multiple times as the old commands are re-run to update the predicted position. In addition, it’s important for the server not to send the client effects that are already being predicted on the client. However, the client still must re-run the old commands or else there will be no way for the server to correct any erroneous prediction by the client. The solution to this problem is easy: the client just marks those commands which have not been predicted yet on the client and only plays effects if the user command is being run for the first time on the client.<br></p><p>The other caveat is with respect to state data that exists solely on the client and is not part of the authoritative update data from the server. If you don’t have any of this type of data, then you can simply use the last acknowledged state from the server as a starting point, and run the prediction user commands “in-place” on that data to arrive at a final state (which includes your position for rendering). In this case, you don’t need to keep all of the intermediate results along the route for predicting from the last acknowledged state to the current time. However, if you are doing any logic totally client side (this logic could include functionality such as determining where the eye position is when you are in the process of crouching—and it’s not really totally client side since the server still simulates this data also) that affects fields that are not replicated from the server to the client by the networking layer handling the player’s state info, then you will need to store the intermediate results of prediction. This can be done with a sliding window, where the “from state” is at the start and then each time you run a user command through prediction, you fill in the next state in the window. When the server finally acknowledges receiving one or more commands that had been predicted, it is a simple matter of looking up which state the server is acknowledging and copying over the data that is totally client side to the new starting or “from state”.<br></p><p>So far, the above procedure describes how to accomplish client side prediction of movements. This system is similar to the system used in <a href="/wiki/QuakeWorld" title="QuakeWorld">QuakeWorld</a><sup id="fnote2"><a href="#Footnotes">2</a></sup>.<br></p><br><h2 id="Client-Side_Prediction_of_Weapon_Firing">Client-Side Prediction of Weapon Firing</h2><br><p>Layering prediction of the firing effects of weapons onto the above system is straightforward. Additional state information is needed for the local player on the client, of course, including which weapons are being held, which one is active, and how much ammo each of these weapons has remaining. With this information, the firing logic can be layered on top of the movement logic because, once again, the state of the firing buttons is included in the user command data structure that is shared between the client and the server. Of course, this can get complicated if the actual weapon logic is different between client and server. In Half-Life, we chose to avoid this complication by moving the implementation of a weapon’s firing logic into “shared code” just like the player movement code. All of the variables that contribute to determining weapon state (e.g., ammo, when the next firing of the weapon can occur, what weapon animation is playing, etc.), are then part of the authoritative server state and are replicated to the client-side so there, they can be used for prediction of weapon state.<br></p><p>Predicting weapon firing on the client will likely lead to the decision also to predict weapon switching, deployment, and holstering. In this fashion, the user feels that the game is 100% responsive to his or her movement and weapon activation activities. This goes a long way toward reducing the feeling of latency that many players have come to endure with today’s Internet-enabled action experiences.<br></p><br><h2 id="Umm.2C_This_is_a_Lot_of_Work">Umm, This is a Lot of Work</h2><br><p>Replicating the necessary fields to the client and handling all of the intermediate state is a fair amount of work. At this point, you may be asking, why not eliminate all of the server stuff and just have the client report where s/he is after each movement? In other words, why not ditch the server stuff and just run the movement and weapons purely on the client-side? Then, the client would just send results to the server along the lines of, “I’m now at position x and, by the way, I just shot player 2 in the head.” This is fine if you can trust the client. This is how a lot of the military simulation systems work (i.e., they are a closed system and they trust all of the clients). This is how peer-to-peer games generally work. For Half-Life, this mechanism is unworkable because of realistic concerns about cheating. If we encapsulated absolute state data in this fashion, we’d raise the motivation to hack the client even higher than it already is<sup id="fnote3"><a href="#Footnotes">3</a></sup>. For our games, this risk is too high and we fall back to requiring an authoritative server.<br></p><p>A system where movements and weapon effects are predicted client-side is a very workable system. For instance, this is the system that the Quake3 engine supports. One of the problems with this system is that you still have to have a feel for your latency to determine how to lead your targets (for instant hit weapons). In other words, although you get to hear the weapons firing immediately, and your position is totally up-to-date, the results of your shots are still subject to latency. For example, if you are aiming at a player running perpendicular to your view and you have 100 milliseconds of latency and the player is running at 500 units per second, then you’ll need to aim 50 units in front of the target to hit the target with an instant hit weapon. The greater the latency, the greater the lead targeting needed. Getting a “feel” for your latency is difficult. Quake3 attempted to mitigate this by playing a brief tone whenever you received confirmation of your hits. That way, you could figure out how far to lead by firing your weapons in rapid succession and adjusting your leading amount until you started to hear a steady stream of tones. Obviously, with sufficient latency and an opponent who is actively dodging, it is quite difficult to get enough feedback to focus in on the opponent in a consistent fashion. If your latency is fluctuating, it can be even harder.<br></p><br><h2 id="Display_of_Targets">Display of Targets</h2><br><p>Another important aspect influencing how a user perceives the responsiveness of the world is the mechanism for determining, on the client, where to render the other players. The two most basic mechanisms for determining where to display objects are extrapolation and interpolation<sup id="fnote4"><a href="#Footnotes">4</a></sup>.<br></p><p>For extrapolation, the other player/object is simulated forward in time from the last known spot, direction, and velocity in more or less a ballistic manner. Thus, if you are 100 milliseconds lagged, and the last update you received was that (as above) the other player was running 500 units per second perpendicular to your view, then the client could assume that in “real time” the player has moved 50 units straight ahead from that last known position. The client could then just draw the player at that extrapolated position and the local player could still more or less aim right at the other player.<br></p><p>The biggest drawback of using extrapolation is that player’s movements are not very ballistic, but instead are very non-deterministic and subject to high jerk<sup id="fnote5"><a href="#Footnotes">5</a></sup>. Layer on top of this the unrealistic player physics models that most FPS games use, where player’s can turn instantaneously and apply unrealistic forces to create huge accelerations at arbitrary angles and you’ll see that the extrapolation is quite often incorrect. The developer can mitigate the error by limiting the extrapolation time to a reasonable value (QuakeWorld, for instance, limited extrapolation to 100 milliseconds). This limitation helps because, once the true player position is finally received, there will be a limited amount of corrective warping. In a world where most players still have greater than 150 milliseconds of latency, the player must still lead other players in order to hit them. If those players are “warping” to new spots because of extrapolation errors, then the gameplay suffers nonetheless.<br></p><p>The other method for determining where to display objects and players is interpolation. Interpolation can be viewed as always moving objects somewhat in the past with respect to the last valid position received for the object. For instance, if the server is sending 10 updates per second (exactly) of the world state, then we might impose 100 milliseconds of interpolation delay in our rendering. Then, as we render frames, we interpolate the position of the object between the last updated position and the position one update before that (alternatively, the last render position) over that 100 milliseconds. As the object just gets to the last updated position, we receive a new update from the server (since 10 updates per second means that the updates come in every 100 milliseconds) we can start moving toward this new position over the next 100 milliseconds.<br></p><p>If one of the update packets fails to arrive, then there are two choices: We can start extrapolating the player position as noted above (with the large potential errors noted) or we can simply have the player rest at the position in the last update until a new update arrives (causing the player’s movement to stutter).<br></p><p>The general algorithm for this type of interpolation is as follows:<br></p><br><ol><br><li>Each update contains the server time stamp for when it was generated<sup id="fnote6"><a href="#Footnotes">6</a></sup><br></li><br><li>From the current client time, the client computes a target time by subtracting the interpolation time delta (100 ms)<br></li><br><li>If the target time is in between the timestamp of the last update and the one before that, then those timestamps determine what fraction of the time gap has passed.<br></li><br><li>This fraction is used to interpolate any values (e.g., position and angles).<br></li><br></ol><br><p>In essence, you can think of interpolation, in the above example, as buffering an additional 100 milliseconds of data on the client. The other players, therefore, are drawn where they were at a point in the past that is equal to your exact latency plus the amount of time over which you are interpolating. To deal with the occasional dropped packet, we could set the interpolation time as 200 milliseconds instead of 100 milliseconds. This would (again assuming 10 updates per second from the server) allow us to entirely miss one update and still have the player interpolating toward a valid position, often moving through this interpolation without a hitch. Of course, interpolating for more time is a tradeoff, because it is trading additional latency (making the interpolated player harder to hit) for visual smoothness.<br></p><p>In addition, the above type of interpolation (where the client tracks only the last two updates and is always moving directly toward the most recent update) requires a fixed time interval between server updates. The method also suffers from visual quality issues that are difficult to resolve. The visual quality issue is as follows. Imagine that the object being interpolated is a bouncing ball (which actually accurately describes some of our players). At the extremes, the ball is either high in the air or hitting the pavement. However, on average, the ball is somewhere in between. If we only interpolate to the last position, it is very likely that this position is not on the ground or at the high point. The bounciness of the ball is “flattened” out and it never seems to hit the ground. This is a classical sampling problem and can be alleviated by sampling the world state more frequently. However, we are still quite likely never actually to have an interpolation target state be at the ground or at the high point and this will still flatten out the positions.<br></p><p>In addition, because different users have different connections, forcing updates to occur at a lockstep like 10 updates per second is forcing a lowest common denominator on users unnecessarily. In Half-Life, we allow the user to ask for as many updates per second as he or she wants (within limit). Thus, a user with a fast connection could receive 50 updates per second if the user wanted. By default, Half-Life sends 20 updates per second to each player the Half-Life client interpolates players (and many other objects) over a period of 100 milliseconds.<sup id="fnote7"><a href="#Footnotes">7</a></sup><br></p><p>To avoid the flattening of the bouncing ball problem, we employ a different algorithm for interpolation. In this method, we keep a more complete “position history” for each object that might be interpolated.<br></p><p>The position history is the timestamp and origin and angles (and could include any other data we want to interpolate) for the object. Each update we receive from the server creates a new position history entry, including timestamp and origin/angles for that timestamp. To interpolate, we compute the target time as above, but then we search backward through the history of positions looking for a pair of updates that straddle the target time. We then use these to interpolate and compute the final position for that frame. This allows us to smoothly follow the curve that completely includes all of our sample points. If we are running at a higher framerate than the incoming update rate, we are almost assured of smoothly moving through the sample points, thereby minimizing (but not eliminating, of course, since the pure sampling rate of the world updates is the limiting factor) the flattening problem described above.<br></p><p>The only consideration we have to layer on top of either interpolation scheme is some way to determine that an object has been forcibly teleported, rather than just moving really quickly. Otherwise we might “smoothly” move the object over great distances, causing the object to look like it’s traveling way too fast. We can either set a flag in the update that says, “don’t interpolate” or “clear out the position history,” or we can determine if the distance between the origin and one update and another is too big, and thereby presumed to be a teleportation/warp. In that case, the solution is probably to just move the object to the latest know position and start interpolating from there.<br></p><br><h2 id="Lag_Compensation">Lag Compensation</h2><br><p>Understanding interpolation is important in designing for lag compensation because interpolation is another type of latency in a user’s experience. To the extent that a player is looking at other objects that have been interpolated, then the amount of interpolation must be taken into consideration in computing, on the server, whether the player’s aim was true.<br></p><p>Lag compensation is a method of normalizing server-side the state of the world for each player as that player’s user commands are executed. You can think of lag compensation as taking a step back in time, on the server, and looking at the state of the world at the exact instant that the user performed some action. The algorithm works as follows:<br></p><br><ol><br><li>Before executing a player’s current user command, the server:<br><ol><br><li>Computes a fairly accurate latency for the player<br></li><br><li>Searches the server history (for the current player) for the world update that was sent to the player and received by the player just before the player would have issued the movement command<br></li><br><li>From that update (and the one following it based on the exact target time being used), for each player in the update, move the other players backwards in time to exactly where they were when the current player’s user command was created. This moving backwards must account for both connection latency and the interpolation amount<sup id="fnote8"><a href="#Footnotes">8</a></sup> the client was using that frame.<br></li><br></ol><br></li><br><li>Allow the user command to execute (including any weapon firing commands, etc., that will run ray casts against all of the other players in their “old” positions).<br></li><br><li>Move all of the moved/time-warped players back to their correct/current positions<br></li><br></ol><br><p>Note that in the step where we move the player backwards in time, this might actually require forcing additional state info backwards, too (for instance, whether the player was alive or dead or whether the player was ducking). The end result of lag compensation is that each local client is able to directly aim at other players without having to worry about leading his or her target in order to score a hit. Of course, this behavior is a game design tradeoff.<br></p><br><h2 id="Game_Design_Implications_of_Lag_Compensation">Game Design Implications of Lag Compensation</h2><br><p>The introduction of lag compensation allows for each player to run on his or her own clock with no apparent latency. In this respect, it is important to understand that certain paradoxes or inconsistencies can occur. Of course, the old system with the authoritative server and “dumb” or simple clients had it’s own paradoxes. In the end, making this tradeoff is a game design decision. For Half-Life, we believe deciding in favor of lag compensation was a justified game design decision.<br></p><p>The first problem of the old system was that you had to lead your target by some amount that was related to your latency to the server. Aiming directly at another player and pressing the fire button was almost assured to miss that player. The inconsistency here is that aiming is just not realistic and that the player controls have non-predictable responsiveness.<br></p><p>With lag compensation, the inconsistencies are different. For most players, all they have to do is acquire some aiming skill and they can become proficient (you still have to be able to aim). Lag compensation allows the player to aim directly at his or her target and press the fire button (for instant hit weapons<sup id="fnote9"><a href="#Footnotes">9</a></sup>). The inconsistencies that sometimes occur, however, are from the points of view of the players being fired upon.<br></p><p>For instance, if a highly lagged player shoots at a less lagged player and scores a hit, it can appear to the less lagged player that the lagged player has somehow “shot around a corner”<sup id="fnote10"><a href="#Footnotes">10</a></sup>. In this case, the lower lag player may have darted around a corner. But the lagged player is seeing everything in the past. To the lagged player, s/he has a direct line of sight to the other player. The player lines up the crosshairs and presses the fire button. In the meantime, the low lag player has run around a corner and maybe even crouched behind a crate. If the high lag player is sufficiently lagged, say 500 milliseconds or so, this scenario is quite possible. Then, when the lagged player’s user command arrives at the server, the hiding player is transported backward in time and is hit. This is the extreme case, and in this case, the low ping player says that s/he was shot from around the corner. However, from the lagged player’s point of view, they lined up their crosshairs on the other player and fired a direct hit. From a game design point of view, the decision for us was easy: let each individual player have completely responsive interaction with the world and his or her weapons.<br></p><p>In addition, the inconsistency described above is much less pronounced in normal combat situations. For first-person shooters, there are two more typical cases. First, consider two players running straight at each other pressing the fire button. In this case, it’s quite likely that lag compensation will just move the other player backwards along the same line as his or her movement. The person being shot will be looking straight at his attacker and no “bullets bending around corners” feeling will be present.<br></p><p>The next example is two players, one aiming at the other while the other dashes in front perpendicular to the first player. In this case, the paradox is minimized for a wholly different reason. The player who is dashing across the line of sight of the shooter probably has (in first-person shooters at least) a field of view of 90 degrees or less. In essence, the runner can’t see where the other player is aiming. Therefore, getting shot isn’t going to be surprising or feel wrong (you get what you deserve for running around in the open like a maniac). Of course, if you have a tank game, or a game where the player can run one direction, and look another, then this scenario is less clear-cut, since you might see the other player aiming in a slightly incorrect direction.<br></p><br><h2 id="Conclusion">Conclusion</h2><br><p>Lag compensation is a tool to ameliorate the effects of latency on today’s action games. The decision of whether to implement such a system rests with the game designer since the decision directly changes the feel of the game. For Half-Life, Team Fortress and Counter Strike, the benefits of lag compensation easily outweighed the inconsistencies noted above.<br></p><br><h2 id="Footnotes">Footnotes</h2><br><ol><br><li> In the Half-Life engine, it is possible to ask the client-side prediction algorithm to account for some, but not all, of the latency in performing prediction. The user could control the amount of prediction by changing the value of the “pushlatency” console variable to the engine. This variable is a negative number indicating the maximum number of milliseconds of prediction to perform. If the number is greater (in the negative) than the user’s current latency, then full prediction up to the current time occurs. In this case, the user feels zero latency in his or her movements.  Based upon some erroneous superstition in the community, many users insisted that setting pushlatency to minus one-half of the current average latency was the proper setting. Of course, this would still leave the player’s movements lagged (often described as if you are moving around on ice skates) by half of the user’s latency. All of this confusion has brought us to the conclusion that full prediction should occur all of the time and that the pushlatency variable should be removed from the Half-Life engine. <a href="#fnote1">(Return)</a><br></li><br><li> <a rel="noopener" class="external free" href="http://www.quakeforge.net/files/q1source.zip" target="_blank">http://www.quakeforge.net/files/q1source.zip</a> <a href="#fnote2">(Return)</a><br></li><br><li> A discussion of cheating and what developers can do to deter it is beyond the scope of this paper. <a href="#fnote3">(Return)</a><br></li><br><li> Though hybrids and corrective methods are also possible. <a href="#fnote4">(Return)</a><br></li><br><li> “Jerk” is a measure of how fast accelerative forces are changing. <a href="#fnote5">(Return)</a><br></li><br><li> It is assumed in this paper that the client clock is directly synchronized to the server clock modulo the latency of the connection. In other words, the server sends the client, in each update, the value of the server’s clock and the client adopts that value as its clock. Thus, the server and client clocks will always be matched, with the client running the same timing somewhat in the past (the amount in the past is equal to the client’s current latency). Smoothing out discrepancies in the client clock can be solved in various ways. <a href="#fnote6">(Return)</a><br></li><br><li> The time spacing of these updates is not necessarily fixed. The reason why is that during high activity periods of the game (especially for users with lower bandwidth connections), it’s quite possible that the game will want to send you more data than your connection can accommodate. If we were on a fixed update interval, then you might have to wait an entire additional interval before the next packet would be sent to the client. However, this doesn’t match available bandwidth effectively. Instead, the server, after sending every packet to a player, determines when the next packet can be sent. This is a function of the user’s bandwidth or “rate” setting and the number of updates requested per second. If the user asks for 20 updates per second, then it will be at least 50 milliseconds before the next update packet can be sent. If the bandwidth choke is active (and the server is sufficiently high framerate), it could be 61, etc., milliseconds before the next packet gets sent.  Thus, Half-Life packets can be somewhat arbitrarily spaced. The simple move to latest goal interpolation schemes don’t behave as well (think of the old anchor point for movement as being variable) under these conditions as the position history interpolation method (described below). <a href="#fnote7">(Return)</a><br></li><br><li> Which Half-Life encodes in the lerp_msec field of the usercmd_t structure described previously. <a href="#fnote8">(Return)</a><br></li><br><li> For weapons that fire projectiles, lag compensation is more problematic. For instance, if the projectile lives autonomously on the server, then what time space should the projectile live in? Does every other player need to be “moved backward” every time the projectile is ready to be simulated and moved by the server? If so, how far backward in time should the other players be moved? These are interesting questions to consider. In Half-Life, we avoided them; we simply don’t lag compensate projectile objects (that’s not to say that we don’t predict the sound of you firing the projectile on the client, just that the actual projectile is not lag compensated in any way).  <a href="#fnote9">(Return)</a><br></li><br><li> This is the phrase our user community has adopted to describe this inconsistency. <a href="#fnote10">(Return)</a><br></li><br></ol><br><br><br><h1 id="中英对照">中英对照</h1><br><br><a href="http://blog.csdn.net/buck84/article/details/8235159" target="_blank" rel="noopener">译文出处</a><br><br><br><span style="font-size:18px">Overview<br><br></span><p></p><br><h2 id="综述">综述</h2><br><br><br>Designing first-person action games for Internet play is a challenging process. Having robust on-line gameplay in your action title, however, is becoming essential to the success and longevity of the title. In addition, the PC space is well known for requiring<br> developers to support a wide variety of customer setups. Often, customers are running on less than state-of-the-art hardware. The same holds true for their network connections.<br><p></p><br><p><strong>第一人称角色网络游戏的设计是一项很有挑战性的工作。网络环境下的健壮性，是动作游戏能否成功的一个重要因素。另外，PC上面的开发者需要考虑到玩家层次不齐的机器配置以及网络状况，很多用户的硬件配置跟网络跟当前最好的配置跟网络有一定差距。</strong></p><br><p><br><br>While broadband has been held out as a panacea for all of the current woes of on-line gaming, broadband is not a simple solution allowing developers to ignore the implications of latency and other network factors in game designs. It will be some time before<br> broadband truly becomes adopted the United States, and much longer before it can be assumed to exist for your clients in the rest of the world. In addition, there are a lot of poor broadband solutions, where users may occasionally have high bandwidth, but<br> more often than not also have significant latency and packet loss in their connections.</p><br><p><strong>宽带网络的出现有利于在线游戏开发，但是开发者还是需要考虑网络延迟和其它网络特性。而且宽带网络在美国被广泛采用还需要一段时间，在世界上其它国家可能需要更长的一段时间。另外，很多宽带网络质量很差，用户虽然偶尔能够享受到高带宽，但更多的时候他们不得不面对高延迟和高丢包率。</strong><br><br></p><br><p><br><br>Your game must behave well in this world. This discussion will give you a sense of some of the tradeoffs required to deliver a cutting-edge action experience on the Internet. The discussion will provide some background on how client / server architectures work<br> in many on-line action games. In addition, the discussion will show how predictive modeling can be used to mask the effects of latency. Finally, the discussion will describe a specific mechanism, lag compensation, for allowing the game to compensate for connection<br> quality.</p><br><p><strong>我们应该提供给玩家良好的游戏。本篇文章讨论了如何提供给玩家顶尖的操作体验；介绍了很多在线动作游戏中采用的C/S架构背景。此外，我们还讨论了如何通过一个预测模型来掩饰延迟带来的影响。文章的最后描述了一个叫做延迟补偿的机制，弥补了因为网络质量不好带来的负面影响</strong><br><br></p><br><p><br><br><span style="font-size:18px">Basic Architecture of a Client / Server Game</span></p><br><h2 id="C/S游戏的基本架构">C/S游戏的基本架构</h2><br><p><br><br><br><br>Most action games played on the net today are modified client / server games. Games such as Half-Life, including its mods such as Counter-Strike and Team Fortress Classic, operate on such a system, as do games based on the Quake3 engine and the Unreal Tournament<br> engine. In these games, there is a single, authoritative server that is responsible for running the main game logic. To this are connected one or more &quot;dumb&quot; clients. These clients, initially, were nothing more than a way for the user input to be sampled and<br> forwarded to the server for execution. The server would execute the input commands, move around other objects, and then send back to the client a list of objects to render. Of course, the real world system has more components to it, but the simplified breakdown<br> is useful for thinking about prediction and lag compensation.</p><br><p><strong>网络上可玩的大部分动作游戏都是C/S结构游戏基础上修改完成的，比如半条命以及其修改版反恐精英、军团要塞，以及一些基于quake3引擎和虚幻引擎的游戏。这类游戏都有一个用来执行游戏逻辑的服务器以及连接到这个服务器的多个客户端。客户端仅仅是用来接收玩家的操作并发给服务器，服务器对这些操作作出响应，移动玩家周围物体，并将游戏世界的信息发给客户端显示出来。当然世界的游戏系统有更多组件，我们这样简化有利于分析预测和延迟补偿。</strong><br><br>With this in mind, the typical client / server game engine architecture generally looks like this:</p><br><p><strong>基于这种考虑，典型的C/S游戏引擎通常看起来是这样的</strong><br><br><br><br>For this discussion, all of the messaging and coordination needed to start up the connection between client and server is omitted. The client’s frame loop looks something like the following:</p><br><p><strong>为了便于讨论，我们假定客户端跟服务器之间已经建立连接；客户端的每一帧循环如下：</strong><br><br>1.Sample clock to find start time</p><br><p><strong>1.获取帧开始时间</strong></p><br><p>2.Sample user input (mouse, keyboard, joystick)</p><br><p><strong>2.采集用户输入</strong><br><br>3.Package up and send movement command using simulation time</p><br><p><strong>3.根据模拟时间将移动命令打包发送给服务器</strong><br><br>4.Read any packets from the server from the network system</p><br><p><strong>4.获取处理服务器传过来的数据包</strong><br><br>5.Use packets to determine visible objects and their state</p><br><p><strong>5.根据服务器数据包的内容决定可见物体及其状态</strong><br><br>6.Render Scene</p><br><p><strong>6.渲染场景</strong><br><br>7.Sample clock to find end time</p><br><p><strong>7.获取帧结束时间</strong><br><br>8.End time minus start time is the simulation time for the next frame</p><br><p><strong>8.结束时间减去开始时间就是下一帧的模拟时间</strong><br><br>Each time the client makes a full pass through this loop, the &quot;frametime&quot; is used for determining how much simulation is needed on the next frame. If your framerate is totally constant then frametime will be a correct measure. Otherwise, the frametimes will<br> be incorrect, but there isn’t really a solution to this (unless you could deterministically figure out exactly how long it was going to take to run the next frame loop iteration before running it…).</p><br><p><strong>客户端每完成一个帧循环，就用“frametime”来决定下一帧需要多少时间，如果帧率恒定，“frametime”就是准确的，否则就没办法获得准确的“frametime”（因为在每一帧开始之前你不可能知道这一帧需要多长时间）</strong><br><br></p><br><p><br><br>The server has a somewhat similar loop:</p><br><p><strong>服务器的循环大同小异：</strong><br><br>1.Sample clock to find start time<br><br><span style="font-weight:bold">1.获取帧开始时间</span><br><br>2.Read client user input messages from network</p><br><p><strong>2.读取客户端发过来的操作信息</strong><br><br>3.Execute client user input messages</p><br><p><strong>3.根据客户端操作执行逻辑运算</strong><br><br>4.Simulate server-controlled objects using simulation time from last full pass</p><br><p><strong>4.采用上一个循环得到的模拟时间来模拟服务器控制的物体移动状态</strong><br><br>5.For each connected client, package up visible objects/world state and send to client</p><br><p><strong>5.对每一个连接的客户端，发送打包相应的物体/世界状态</strong><br><br>6.Sample clock to find end time</p><br><p><span style="font-weight:bold">6.获取帧结束时间</span><br><br>7.End time minus start time is the simulation time for the next frame</p><br><p><span style="font-weight:bold">7.结束时间减去开始时间就是下一帧的模拟时间</span><br><br>In this model, non-player objects run purely on the server, while player objects drive their movements based on incoming packets. Of course, this is not the only possible way to accomplish this task, but it does make sense.</p><br><p><strong>在这个模型中，非玩家物体完全由服务器控制其状态，每个玩家根据服务器发过来的数据包控制自己的移动。这是一种很自然的方法，当然还有其它的方法也可以完成这个功能。</strong></p><br><p><strong><br><br></strong></p><br><p><strong><br><br></strong>Contents of the User Input messages</p><br><p></p><br><h2 id="用户消息的内容">用户消息的内容</h2><br>In Half-Life engine games, the user input message format is quite simple and is encapsulated in a data structure containing just a few essential fields:<br><p></p><br><p><strong>基于half-life引擎的游戏用户消息都很简单，只需要封装在一个包含几个关键成员的结构中：</strong></p><br><p>typedef struct usercmd_s<br><br>{<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>// Interpolation time on client<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>short<span style="white-space:pre"></span>lerp_msec; &nbsp;&nbsp;<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>// Duration in ms of command<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>byte<span style="white-space:pre"></span>msec; &nbsp; &nbsp; &nbsp;<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>// Command view angles.<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>vec3_t<span style="white-space:pre"></span>viewangles; &nbsp;&nbsp;<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>// intended velocities<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>// Forward velocity.<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>float<span style="white-space:pre"></span>forwardmove; &nbsp;<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>// Sideways velocity.<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>float<span style="white-space:pre"></span>sidemove; &nbsp; &nbsp;<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>// Upward velocity.<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>float<span style="white-space:pre"></span>upmove; &nbsp;&nbsp;<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>// Attack buttons<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>unsigned short buttons;&nbsp;<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>//<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>// Additional fields omitted…<br><br><span style="white-space:pre"></span><span style="white-space:pre"></span>//<br><br>} usercmd_t;<br><br>The critical fields here are the msec, viewangles, forward, side, and upmove, and buttons fields. The msec field corresponds to the number of milliseconds of simulation that the command corresponds to (it’s the frametime). The viewangles field is a vector representing<br> the direction the player was looking during the frame. The forward, side, and upmove fields are the impulses determined by examining the keyboard, mouse, and joystick to see if any movement keys were held down. Finally, the buttons field is just a bit field<br> with one or more bits set for each button that is being held down.</p><br><p><strong>结构中最关键的变量时msec,viewangles,forward,side,upmove和buttons。msec表示这个命令执行对应的毫秒数（也就是上面提到的“frametime”）。viewangles是一个三维向量，表示玩家的朝向。forward,side和upmove表示玩家是否通过键盘、鼠标或控制杆控制移动。最后，buttons这个字段包含一个或多个比特，标志玩家是否按着某些按键。</strong></p><br><p><strong><br><br></strong>Using the above data structures and client / server architecture, the core of the simulation is as follows. First, the client creates and sends a user command to the server. The server then executes the user command and sends updated positions of everything<br> back to client. Finally, the client renders the scene with all of these objects. This core, though quite simple, does not react well under real world situations, where users can experience significant amounts of latency in their Internet connections. The main<br> problem is that the client truly is &quot;dumb&quot; and all it does is the simple task of sampling movement inputs and waiting for the server to tell it the results. If the client has 500 milliseconds of latency in its connection to the server, then it will take 500<br> milliseconds for any client actions to be acknowledged by the server and for the results to be perceptible on the client. While this round trip delay may be acceptable on a Local Area Network (LAN), it is not acceptable on the Internet.</p><br><p><strong>基于C/S架构的游戏采用以上数据结构运行如下：客户端创建命令并发送到服务器，服务器响应这些命令并把更新了的世界和物体位置信息发回客户端，客户端收到以后进行渲染。这种方式非常简单，但是在实际应用中效果差强人意，用户会感觉到网络连接带来的明显延迟。这主要是由于客户端完全没有逻辑操作，发出消息以后就等待服务器响应。如果客户端跟服务器有500ms的延迟，客户端执行了操作到看到操作的结果就需要500ms，这种延迟在局域网通常可以接受（因为通常延迟比较小），但在因特网上是没法接受的</strong></p><br><p><br><br>Client Side Prediction</p><br><p></p><br><h2 id="客户端预测">客户端预测</h2><br><br><br>One method for ameliorating this problem is to perform the client’s movement locally and just assume, temporarily, that the server will accept and acknowledge the client commands directly. This method is labeled as client-side prediction.<br><p></p><br><p><strong>有一种方法可以改善这种情况：客户端本地即时执行移动操作，假定服务器即时通知客户端可以执行操作，这种方法可以称为客户端预测。</strong></p><br><p><strong><br><br></strong>Client-side prediction of movements requires us to let go of the &quot;dumb&quot; or minimal client principle. That’s not to say that the client is fully in control of its simulation, as in a peer-to-peer game with no central server. There still is an authoritative<br> server running the simulation just as noted above. Having an authoritative server means that even if the client simulates different results than the server, the server’s results will eventually correct the client’s incorrect simulation. Because of the latency<br> in the connection, the correction might not occur until a full round trip’s worth of time has passed. The downside is that this can cause a very perceptible shift in the player’s position due to the fixing up of the prediction error that occurred in the past.</p><br><p><strong>采用客户端运动预测以后，客户端就不再是一个“小型客户端”，不再单单响应服务器命令；但也不是说客户端可以像没有中央服务器的p2p游戏完全自治。服务器仍然在运行并保证在客户端跟服务器运行结果不一致的情况下纠正客户端错误的模拟。由于网络延迟，修正在一个网络传输周期以后才会执行，这个时候纠正信息通常已经过期，这样会导致明显的位置漂移，因为客户端收到的修正信息是过去某个时间的。</strong></p><br><p><br><br>To implement client-side prediction of movement, the following general procedure is used. As before, client inputs are sampled and a user command is generated. Also as before, this user command is sent off to the server. However, each user command (and the<br> exact time it was generated) is stored on the client. The prediction algorithm uses these stored commands.</p><br><p><span style="font-weight:bold">为了使客户端运动预测有效，我们采用以下方法：还是客户端采样并生成命令发送到服务器，但是每个包含生成时间的命令在客户端本地存起来并在预测算法中使用。</span><br><br>For prediction, the last acknowledged movement from the server is used as a starting point. The acknowledgement indicates which user command was last acted upon by the server and also tells us the exact position (and other state data) of the player after that<br> movement command was simulated on the server. The last acknowledged command will be somewhere in the past if there is any lag in the connection. For instance, if the client is running at 50 frames per second (fps) and has 100 milliseconds of latency (roundtrip),<br> then the client will have stored up five user commands ahead of the last one acknowledged by the server. These five user commands are simulated on the client as a part of client-side prediction. Assuming full prediction[1], the client will want to start with<br> the latest data from the server, and then run the five user commands through &quot;similar logic&quot; to what the server uses for simulation of client movement. Running these commands should produce an accurate final state on the client (final player position is most<br> important) that can be used to determine from what position to render the scene during the current frame.</p><br><p><strong>预测的过程中，我们把服务器确认的移动信息作为开始，这样客户端就可以确定服务器执行上次命令以后游戏中玩家的准确信息（比如位置）。如果网络有延迟，这个确认命令也会有一定延迟。假设客户端运行帧率为50fps，网络延时为100ms，这样在客户端收到服务器的确认命令的时候，本地命令队列中已经有5条信息，这5条信息被用来执行客户端预测。假设执行完全预测【1】客户端在收到来自服务器的最新信息后，就开始按照与服务器相同的逻辑执行本地消息队列中的5个命令。这些命令执行以后得到当前状态（最重要的是玩家最后的位置），然后根据玩家的状态信息渲染当前帧。</strong><br><br>In Half-Life, minimizing discrepancies between client and server in the prediction logic is accomplished by sharing the identical movement code for players in both the server-side game code and the client-side game code. These are the routines in the pm_shared/<br> (which stands for &quot;player movement shared&quot;) folder of the HL SDK. The input to the shared routines is encapsulated by the user command and a &quot;from&quot; player state. The output is the new player state after issuing the user command. The general algorithm on the<br> client is as follows:</p><br><p><strong>在半条命这个游戏中，客户端跟服务器采用相同的代码来计算移动，这样可以减小客户端预测跟服务器之间的误差。这些代码位于HLSDK中的pm_shared/（意思是“player movement shared”）。这段代码的输入是玩家操作和客户端的初始状态，输出是玩家操作以后的状态。客户端算法大致如下：</strong></p>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">“from state” &lt;- state after last user command acknowledged by the server;</span><br><span class="line"></span><br><span class="line">“command” &lt;- first command after last user command acknowledged by server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">    run “command” on “from state” to generate “to state”;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> was the most up to date “command”)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    “from state” = “to state”;</span><br><span class="line">    “command” = next “command”;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">“初始状态” &lt;- 上一条已被服务器确认过的玩家command之后的state</span><br><span class="line"><span class="string">"命令"</span> &lt;- 上一条已被服务器确认过的玩家command之后的command</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">	以<span class="string">"from state"</span> 为基础执行<span class="string">"command"</span>得到 <span class="string">"to state"</span>;</span><br><span class="line">	<span class="keyword">if</span> (这是最新的 <span class="string">"command"</span>)</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	<span class="string">"from state"</span> = <span class="string">"to state"</span>;</span><br><span class="line">	<span class="string">"command"</span> = next <span class="string">"command"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The origin and other state info in the final &quot;to state&quot; is the prediction result and is used for rendering the scene that frame. The portion where the command is run is simply the portion where all of the player state data is copied into the shared data<br> structure, the user command is processed (by executing the common code in the pm_shared routines in Half-Life’s case), and the resulting data is copied back out to the &quot;to state&quot;.</p><br><p><strong>玩家的初始状态和预测结果用来渲染场景。命令的执行过程就是：将玩家状态复制到共享数据结构中，执行玩家操作（执行hlsdk中pm_shared中的共用代码），然后将结果复制到目标状态（to state）</strong></p><br><p>There are a few important caveats to this system. First, you’ll notice that, depending upon the client’s latency and how fast the client is generating user commands (i.e., the client’s framerate), the client will most often end up running the same commands<br> over and over again until they are finally acknowledged by the server and dropped from the list (a sliding window in Half-Life’s case) of commands yet to be acknowledged. The first consideration is how to handle any sound effects and visual effects that are<br> created in the shared code. Because commands can be run over and over again, it’s important not to create footstep sounds, etc. multiple times as the old commands are re-run to update the predicted position. In addition, it’s important for the server not to<br> send the client effects that are already being predicted on the client. However, the client still must re-run the old commands or else there will be no way for the server to correct any erroneous prediction by the client. The solution to this problem is easy:<br> the client just marks those commands which have not been predicted yet on the client and only plays effects if the user command is being run for the first time on the client.</p><br><p><strong>这个系统中有几个需要注意的地方，首先，由于网络延迟，客户端又在不停地以一定速度（客户端帧率）生成命令，一个命令通常会被客户端反复执行，直到得到服务器的确认以后才将其从命令列表中删除（这就是半条命中的滑动窗口）。首先要考虑的是如何处理共享代码中生成的声效和动画效果。因为命令可能会被多次执行，预测位置的过程被多次执行的时候要注意避免重声等不正确的效果。另外，服务器也要避免客户端意见预测的效果。然而，客户端必须重新运行旧的命令，否则就没法根据服务器来纠正客户端的预测错误。解决方法很简单：客户端将没有执行的客户端命令进行标记，如果这些命令在客户端第一次执行，则播放相应的效果。</strong><br><br>The other caveat is with respect to state data that exists solely on the client and is not part of the authoritative update data from the server. If you don’t have any of this type of data, then you can simply use the last acknowledged state from the server<br> as a starting point, and run the prediction user commands &quot;quot;in-place&quot; on that data to arrive at a final state (which includes your position for rendering). In this case, you don’t need to keep all of the intermediate results along the route for predicting from<br> the last acknowledged state to the current time. However, if you are doing any logic totally client side (this logic could include functionality such as determining where the eye position is when you are in the process of crouching—and it’s not really totally<br> client side since the server still simulates this data also) that affects fields that are not replicated from the server to the client by the networking layer handling the player’s state info, then you will need to store the intermediate results of prediction.<br> This can be done with a sliding window, where the &quot;from state&quot; is at the start and then each time you run a user command through prediction, you fill in the next state in the window. When the server finally acknowledges receiving one or more commands that<br> had been predicted, it is a simple matter of looking up which state the server is acknowledging and copying over the data that is totally client side to the new starting or &quot;from state&quot;.</p><br><p><strong>另外需要注意的是服务器不处理，只有客户端才有的一些数据；如果没有这种类型的数据，我们可以如上面所述，以服务器第一条消息作为起点进行预测得到下一帧状态（包括用来渲染的位置信息）。然而，如果有些逻辑是纯客户端的，服务器不会处理（比如玩家蹲下来&#30524;睛的位置-然而这也不是纯客户端信息，因为服务器也会处理这个数据），这种情况下我们需要将预测的中间结果存起来。可以用一个滑动窗口完成这项工作，其中“开始状态”是开始，以后每次执行一个玩家命令预测完成后，填写窗口中的下一个状态；当服务器通知某个命令被接受并执行以后，从窗口中查找服务器处理的是哪条命令并将相应的数据传到下一个帧的“起始状态”</strong><br><br>So far, the above procedure describes how to accomplish client side prediction of movements. This system is similar to the system used in QuakeWorld2.</p><br><p><strong>到此为止，我们描述了客户端的运动预测。quakeworld2中采用了这种类型的预测</strong></p><br><p><br><br><span style="font-size:18px">Client-Side Prediction of Weapon Firing</span></p><br><p></p><br><h2 id="开火过程中的客户端预测">开火过程中的客户端预测</h2><br><br><br>Layering prediction of the firing effects of weapons onto the above system is straightforward. Additional state information is needed for the local player on the client, of course, including which weapons are being held, which one is active, and how much ammo<br> each of these weapons has remaining. With this information, the firing logic can be layered on top of the movement logic because, once again, the state of the firing buttons is included in the user command data structure that is shared between the client and<br> the server. Of course, this can get complicated if the actual weapon logic is different between client and server. In Half-Life, we chose to avoid this complication by moving the implementation of a weapon’s firing logic into &quot;shared code&quot; just like the player<br> movement code. All of the variables that contribute to determining weapon state (e.g., ammo, when the next firing of the weapon can occur, what weapon animation is playing, etc.), are then part of the authoritative server state and are replicated to the client<br> so that they can be used on the client for prediction of weapon state there.<br><p></p><br><p><strong>上面描述的系统可以很自然地用于武器开火效果预测。客户端玩家需要记录一些状态，比如身上有哪些武器，正在使用的是哪一个，每把武器都还剩多少弹药。有了这些信息，开火逻辑可以建立在运动逻辑上面，只需要在客户端和服务器使用的命令里面加上玩家开火的按键信息。在半条命中，为了简单，武器开火逻辑代码也跟运动代码一样也作为“共享代码”。所有会影响到武器状态的变量，比如弹药、下次可开火时间、正在播放那个武器动画，都作为服务器的状态，这些状态会通知给客户端用来预测武器状态。</strong><br><br>Predicting weapon firing on the client will likely lead to the decision also to predict weapon switching, deployment, and holstering. In this fashion, the user feels that the game is 100% responsive to his or her movement and weapon activation activities. This<br> goes a long way toward reducing the feeling of latency that many players have come to endure with today’s Internet-enabled action experiences.</p><br><p><strong>客户端武器开火预测包括预测武器切换、部署、手枪皮套。这样，玩家会感觉游戏中的移动和武器状态100%受他控制。这在减小网络延迟给玩家带来的不爽上面迈出了一大步。</strong></p><br><p><strong><br><br></strong><span style="font-size:18px">Umm, This is a Lot of Work</span></p><br><p></p><br><h2 id="一些工作">一些工作</h2><br><br><br>Replicating the necessary fields to the client and handling all of the intermediate state is a fair amount of work. At this point, you may be asking, why not eliminate all of the server stuff and just have the client report where s/he is after each movement?<br> In other words, why not ditch the server stuff and just run the movement and weapons purely on the client-side? Then, the client would just send results to the server along the lines of, &quot;I’m now at position x and, by the way, I just shot player 2 in the head.&quot;<br> This is fine if you can trust the client. This is how a lot of the military simulation systems work (i.e., they are a closed system and they trust all of the clients). This is how peer-to-peer games generally work. For Half-Life, this mechanism is unworkable<br> because of realistic concerns about cheating. If we encapsulated absolute state data in this fashion, we’d raise the motivation to hack the client even higher than it already is3. For our games, this risk is too high and we fall back to requiring an authoritative<br> server.<br><p></p><br><p><strong>服务器需要将必要的字段发给客户端，并且处理很多中间状态，有人可能有这样的疑问，为什么不把服务器逻辑取消，让客户端广播自己的位置，也就是将所有的移动、开火逻辑放在客户端。这样，客户端就会给服务器发送类&#20284;这样的结果报告：“我在X位置，我爆了玩家2的脑袋”。如果客户端可信的话，这样做是可以的，很多军方仿真系统就是这样做的（他们是一个封闭系统，所有客户端都可信）。点对点的游戏也是这么做的。对于半条命来说不可以这样做，因为客户端可能“欺骗”服务器。如果我们以这种方法封装状态数据，就会诱导玩家破解客户端【3】。对于我们的游戏来说这样做风险太大，我们还是选择采用服务器模式来做校验。</strong><br><br>A system where movements and weapon effects are predicted client-side is a very workable system. For instance, this is the system that the Quake3 engine supports. One of the problems with this system is that you still have to have a feel for your latency to<br> determine how to lead your targets (for instant hit weapons). In other words, although you get to hear the weapons firing immediately, and your position is totally up-to-date, the results of your shots are still subject to latency. For example, if you are<br> aiming at a player running perpendicular to your view and you have 100 milliseconds of latency and the player is running at 500 units per second, then you’ll need to aim 50 units in front of the target to hit the target with an instant hit weapon. The greater<br> the latency, the greater the lead targeting needed. Getting a &quot;feel&quot; for your latency is difficult. Quake3 attempted to mitigate this by playing a brief tone whenever you received confirmation of your hits. That way, you could figure out how far to lead by<br> firing your weapons in rapid succession and adjusting your leading amount until you started to hear a steady stream of tones. Obviously, with sufficient latency and an opponent who is actively dodging, it is quite difficult to get enough feedback to focus<br> in on the opponent in a consistent fashion. If your latency is fluctuating, it can be even harder.</p><br><p><strong>客户端进行运动和武器效果预测是非常可行的。例如quake3就支持这样的预测。这个系统需要注意一点，在判断目标的时候需要考虑到延迟（比如即时射击武器）。换句话说，虽然你看到自己用<strong>即时</strong>武器进行了射击，你自己的位置也是最新的，射击结果仍然跟延迟有关。例如，如果你射击一个玩家，这个玩家沿与你实现垂直的方向奔跑，假设你客户端延迟为100ms，玩家奔跑速度是500单位每秒，这样你需要瞄准玩家前方50单位才能准确击中。延迟越大，就需要更大的提前量。靠感觉弥补延迟太困难了。为了减轻这种效果，quake3对你的射击播放一个短音来进行确定。这样，玩家可以算出快速发射武器的时候需要多大的提前量，同时调整提前量直到听到稳定的音调串。如果延迟比较大，而你的对手又在不断躲避，就很难获得足够的反馈判断。如果延迟也不断变化，就更难了。</strong></p><br><p><span style="font-size:18px">Display of Targets<br><br></span></p><br><h2 id="目标的显示">目标的显示</h2><br><br><br>Another important aspect influencing how a user perceives the responsiveness of the world is the mechanism for determining, on the client, where to render the other players. The two most basic mechanisms for determining where to display objects are extrapolation<br> and interpolation[4].<br><p></p><br><p><strong>影响玩家游戏体验的另一个重要方面是客户端如何渲染其它玩家。两种基本的判断机制是：外推法和内插法【4】</strong><br><br>For extrapolation, the other player/object is simulated forward in time from the last known spot, direction, and velocity in more or less a ballistic manner. Thus, if you are 100 milliseconds lagged, and the last update you received was that (as above) the<br> other player was running 500 units per second perpendicular to your view, then the client could assume that in &quot;real time&quot; the player has moved 50 units straight ahead from that last known position. The client could then just draw the player at that extrapolated<br> position and the local player could still more or less aim right at the other player.</p><br><p><strong>外推法把其它玩家/物体看作一个点，这个点开始的位置、方向、速度已知，沿着自己的弹道向前移动。因此，假设延时是100ms，最新的协议通知客户端这个玩家奔跑速度是500单位每秒，方向垂直于玩家视线，客户端就可以假设事实上这个玩家当前实际的位置已经向前移动了50个单位。客户端可以在这个外推的位置渲染这个玩家，这样本地玩家就差不多可以正确瞄准。</strong></p><br><p><br><br>The biggest drawback of using extrapolation is that player’s movements are not very ballistic, but instead are very non-deterministic and subject to high jerk[5]. Layer on top of this the unrealistic player physics models that most FPS games use, where player’s<br> can turn instantaneously and apply unrealistic forces to create huge accelerations at arbitrary angles and you’ll see that the extrapolation is quite often incorrect. The developer can mitigate the error by limiting the extrapolation time to a reasonable value<br> (QuakeWorld, for instance, limited extrapolation to 100 milliseconds). This limitation helps because, once the true player position is finally received, there will be a limited amount of corrective warping. In a world where most players still have greater<br> than 150 milliseconds of latency, the player must still lead other players in order to hit them. If those players are &quot;warping&quot; to new spots because of extrapolation errors, then the gameplay suffers nonetheless.</p><br><p><strong>外推法的最大缺点是玩家的移动并不是完全弹道的，而是不确定的并且高&quot;jerk&quot;【5】。大部分FPS游戏采用非现实的玩家系统，玩家可以随时转弯，可以在任意角度作用不现实的加速度，因此外推法得到的结果经常是错误地。开发者可以通过限制外推时间来减轻外推误差（比如quake限制不能超过100ms）。这种限制使得在客户端收到玩家正确位置以后，纠错不至于太大。当前大部分玩家的网络延迟高于150ms，玩家必须对游戏中的其他玩家进行外推以便正确击中。如果别的玩家因为外推错误，被服务器拉回，游戏体验将非常差。</strong></p><br><p>The other method for determining where to display objects and players is interpolation. Interpolation can be viewed as always moving objects somewhat in the past with respect to the last valid position received for the object. For instance, if the server<br> is sending 10 updates per second (exactly) of the world state, then we might impose 100 milliseconds of interpolation delay in our rendering. Then, as we render frames, we interpolate the position of the object between the last updated position and the position<br> one update before that (alternatively, the last render position) over that 100 milliseconds. As the object just gets to the last updated position, we receive a new update from the server (since 10 updates per second means that the updates come in every 100<br> milliseconds) we can start moving toward this new position over the next 100 milliseconds.</p><br><p><strong>另一种方法叫插&#20540;法。插&#20540;法可以这样理解：客户端物体实际移动位置总是滞后一段时间。举个例子，如果服务器每秒同步10次世界信息，客户端渲染的时候会有100ms滞后。这样，每一帧渲染的时候，我们通过最新收到的位置信息和前100ms的位置信息（或者上一帧渲染位置）进行差&#20540;得到结果。我们每收到一个物体位置的更新信息，（每秒10个更新意味着每100ms收到一个更新）接下来的100ms我们就可以朝这个新的位置移动。</strong></p><br><p><br><br>If one of the update packets fails to arrive, then there are two choices: We can start extrapolating the player position as noted above (with the large potential errors noted) or we can simply have the player rest at the position in the last update until a<br> new update arrives (causing the player’s movement to stutter).</p><br><p><strong>如果一个更新包没有收到，有2种处理方法：第一、用上面介绍的外推法（有可能产生较大误差）；第二、保持玩家位于当前位置直到收到下一个更新包（会导致玩家移动顿挫）</strong><br><br>The general algorithm for this type of interpolation is as follows:</p><br><p><strong>内插法的大致过程如下：</strong><br><br>1.Each update contains the server time stamp for when it was generated[6]</p><br><p><strong>1.每个更新包包含生成的服务器时间戳【6】</strong><br><br>2.From the current client time, the client computes a target time by subtracting the interpolation time delta (100 ms)</p><br><p><strong>2.根据客户端当前时间，客户端通过减去时间差（100ms）计算 一个目标时间</strong><br><br>3.If the target time is in between the timestamp of the last update and the one before that, then those timestamps determine what fraction of the time gap has passed.</p><br><p><strong>3.如果计算得到的目标时间在上一个更新时间和上上个更新时间之间，这些时间戳可以决定目标时间在过去的时间间隙中的情况</strong><br><br>4.This fraction is used to interpolate any values (e.g., position and angles).</p><br><p><strong>4.目标时间情况用来通过插&#20540;计算结果（如位置、角度）</strong><br><br>In essence, you can think of interpolation, in the above example, as buffering an additional 100 milliseconds of data on the client. The other players, therefore, are drawn where they were at a point in the past that is equal to your exact latency plus the<br> amount of time over which you are interpolating. To deal with the occasional dropped packet, we could set the interpolation time as 200 milliseconds instead of 100 milliseconds. This would (again assuming 10 updates per second from the server) allow us to<br> entirely miss one update and still have the player interpolating toward a valid position, often moving through this interpolation without a hitch. Of course, interpolating for more time is a tradeoff, because it is trading additional latency (making the interpolated<br> player harder to hit) for visual smoothness.</p><br><p><strong>上面提到的插&#20540;法，本质上是客户端缓存了接下来100ms的数据。对于每一个周围的玩家，他们都位于过去某个时间的位置，根据每一个具体的时间点进行插&#20540;。如果偶尔发生丢包，我们就将插&#20540;时间延长到200ms。这样我们就可以忽略一次更新（假设同步频率还是10次每秒），玩家还可以移动到合理的目标位置，这样进行插&#20540;通常不会有什么问题。当然，插&#20540;多少时间需要权衡，因为这种方法是用延时（玩家更难击中）来换取平滑。</strong><br><br>In addition, the above type of interpolation (where the client tracks only the last two updates and is always moving directly toward the most recent update) requires a fixed time interval between server updates. The method also suffers from visual quality issues<br> that are difficult to resolve. The visual quality issue is as follows. Imagine that the object being interpolated is a bouncing ball (which actually accurately describes some of our players). At the extremes, the ball is either high in the air or hitting the<br> pavement. However, on average, the ball is somewhere in between. If we only interpolate to the last position, it is very likely that this position is not on the ground or at the high point. The bounciness of the ball is &quot;flattened&quot; out and it never seems to<br> hit the ground. This is a classical sampling problem and can be alleviated by sampling the world state more frequently. However, we are still quite likely never actually to have an interpolation target state be at the ground or at the high point and this will<br> still flatten out the positions.</p><br><p><strong>另外，上述插&#20540;方法（客户端通过2个更新信息插&#20540;并且朝最新更新位置移动）需要服务器更新信息间隔固定。对于所谓的“视觉效果因素”，这种方式很难处理，“视觉效果因素”是这样的：假设我们插&#20540;的物体是弹球（这种模型可以准确描述某些玩家）。极端情况下，球或者在空中，或者正在碰地板。然而，通常情况下球在这两种状态之间。如果我们只插&#20540;上一个位置，这个位置可能既不在地面上，也不是最高点，这样，弹球弹的效果就被平滑掉了，好像永远没有弹到地面一样。这是一个经典问题，增加采样率可以减轻这种影响，但是仍然有可能我们采样不到球在地面的点跟最高点，这些点会给平滑掉。</strong><br><br>In addition, because different users have different connections, forcing updates to occur at a lockstep like 10 updates per second is forcing a lowest common denominator on users unnecessarily. In Half-Life, we allow the user to ask for as many updates per<br> second as he or she wants (within limit). Thus, a user with a fast connection could receive 50 updates per second if the user wanted. By default, Half-Life sends 20 updates per second to each player the Half-Life client interpolates players (and many other<br> objects) over a period of 100 milliseconds.[7]</p><br><p><strong>另外，不同用户网络状况不同，强迫每个用户都以固定速度更新（比如每秒10次）效果不是很好，在半条命中，用户每秒可以请求任意数量的更新包（没有限制）。这样，高速网络用户可以每秒更新50次，只要用户愿意。半条命的默认设置是每秒每个用户（以及游戏中其它物体）发送20次更新，以100ms为时间窗口进行插&#20540;。【7】</strong></p><br><p>To avoid the flattening of the bouncing ball problem, we employ a different algorithm for interpolation. In this method, we keep a more complete &quot;position history&quot; for each object that might be interpolated.</p><br><p><strong>为了避免“反弹球&quot;平滑问题，我们在插&#20540;的过程中采用了一个不同的算法，这种算法中我们对每一个可能插&#20540;的物体记录了一个完整的“历史位置”信息。</strong><br><br>The position history is the timestamp and origin and angles (and could include any other data we want to interpolate) for the object. Each update we receive from the server creates a new position history entry, including timestamp and origin/angles for that<br> timestamp. To interpolate, we compute the target time as above, but then we search backward through the history of positions looking for a pair of updates that straddle the target time. We then use these to interpolate and compute the final position for that<br> frame. This allows us to smoothly follow the curve that completely includes all of our sample points. If we are running at a higher framerate than the incoming update rate, we are almost assured of smoothly moving through the sample points, thereby minimizing<br> (but not eliminating, of course, since the pure sampling rate of the world updates is the limiting factor) the flattening problem described above.</p><br><p><strong>历史位置信息记录了物体的时间戳、远点、角度（以及其它我们需要插&#20540;计算的数据）。我们每收到一个服务器的更新，我们就创建一条包含时间戳的记录，其中包含原始位置、角度信息。在插&#20540;过程中，我们用上面的方法计算目标时间，然后搜索位置历史信息，找到包含目标时间的记录区间。然后用找到的信息插&#20540;计算当前帧的位置。这样我们就可以平滑跟踪到包含所有采样点的曲线。如果客户端帧率比服务器更新频率大，我们就可以将采样点平滑处理，减小上面提到的平滑处理带来的问题（当然没法避免，因为采用频率限制，而世界本身是连续的）。</strong><br><br>The only consideration we have to layer on top of either interpolation scheme is some way to determine that an object has been forcibly teleported, rather than just moving really quickly. Otherwise we might &quot;smoothly&quot; move the object over great distances, causing<br> the object to look like it’s traveling way too fast. We can either set a flag in the update that says, &quot;don’t interpolate&quot; or &quot;clear out the position history,&quot; or we can determine if the distance between the origin and one update and another is too big, and<br> thereby presumed to be a teleportation/warp. In that case, the solution is probably to just move the object to the latest know position and start interpolating from there.</p><br><p><strong>需要注意的是，上面提到的插&#20540;方法使用的时候，物体有时候会被服务器拉回，而不是快速移动。当然我们也可以平滑地将物体移动一段较长的距离，这样看起来物体移动很快。更新的过程中我们可以设一个标志表示不插&#20540;或清除历史记录，或者如果起始点与目标点距离过长，我们就认为数据不正常。这种情况我们就将物体直接拉过去。并以这个位置为起始点进行插&#20540;。</strong><br><br><span style="font-size:18px">Lag Compensation<br><br></span></p><br><h2 id="延迟补偿">延迟补偿</h2><br>Understanding interpolation is important in designing for lag compensation because interpolation is another type of latency in a user’s experience. To the extent that a player is looking at other objects that have been interpolated, then the amount of interpolation<br> must be taken into consideration in computing, on the server, whether the player’s aim was true.<br><p></p><br><p><strong>插&#20540;也会带来延迟，所以考虑延迟补偿的过程中需要理解插&#20540;过程。玩家看到的别的物体是经过插&#20540;计算出来的，所以插&#20540;过程中需要考虑在服务器上玩家的目标是否正确。</strong><br><br>Lag compensation is a method of normalizing server-side the state of the world for each player as that player’s user commands are executed. You can think of lag compensation as taking a step back in time, on the server, and looking at the state of the world<br> at the exact instant that the user performed some action. The algorithm works as follows:</p><br><p><strong>延迟补偿是服务器执行的一种策略，当服务器收到客户端命令并执行的过程中，根据客户端的具体情况进行归一。延迟补偿可以看做服务器处理用户命令的时候回退一段时间，退到客户端发送命令时候的准确时间。算法流程如下：</strong><br><br>1.Before executing a player’s current user command, the server:</p><br><p><strong>1.服务器执行客户端命令之前执行以下操作：</strong><br><br>&nbsp; &nbsp; 1.Computes a fairly accurate latency for the player</p><br><p><strong>&nbsp; &nbsp; 1.为玩家计算一个相当精确的延迟时间</strong><br><br>&nbsp; &nbsp; 2.Searches the server history (for the current player) for the world update that was sent to the player and received by the player just before the player would have issued the movement command</p><br><p>&nbsp; &nbsp;&nbsp;<strong>2.对每个玩家，从服务器历史信息中找一个已发送给这个玩家并且这个玩家已收到的的world update, 这个world update是在这个玩家将要执行这个movement command之前的world update</strong><br><br>&nbsp; &nbsp; 3.From that update (and the one following it based on the exact target time being used), for each player in the update, move the other players backwards in time to &nbsp;<span style="white-space:pre"></span>exactly &nbsp;where they were when the current player’s<br> user command was created. This moving backwards must account for both connection latency and<span style="white-space:pre"></span>the&nbsp;<span style="white-space:pre"></span>interpolation amount[8] the client was using that frame.</p><br><p><strong>&nbsp; &nbsp; 3. 对于每一个玩家，将其从上述的world update处拉回到这个玩家生成此user command的更新时间中执行用户命令。这个回退时间需要考虑到命令执行的时候的网络延时和插&#20540;量【8】</strong><br><br>2.Allow the user command to execute (including any weapon firing commands, etc., that will run ray casts against all of the other players in their &quot;old&quot; positions).</p><br><p><strong>2.执行玩家命令（包括武器开火等。）</strong><br><br>3.Move all of the moved/time-warped players back to their correct/current positions</p><br><p><strong>3.将所有移动的、错位的玩家移动到他们当前正确位置。</strong></p><br><p><br><br>Note that in the step where we move the player backwards in time, this might actually require forcing additional state info backwards, too (for instance, whether the player was alive or dead or whether the player was ducking). The end result of lag compensation<br> is that each local client is able to directly aim at other players without having to worry about leading his or her target in order to score a hit. Of course, this behavior is a game design tradeoff.</p><br><p><strong>注意：我们把时间往后推算的时候，需要考虑那个时候玩家的状态，比如玩家是或者还是已经已经死掉，玩家是否处于躲避状态。执行运动补偿以后，玩家就可以直接瞄准目标进行设计，而不需要计算一个提前量。当然，这种方案是游戏中的权衡设计。</strong></p><br><p><br><br><span style="font-size:18px">Game Design Implications of Lag Compensation<br><br></span></p><br><h2 id="游戏涉及中延迟补偿的使用">游戏涉及中延迟补偿的使用</h2><br>The introduction of lag compensation allows for each player to run on his or her own clock with no apparent latency. In this respect, it is important to understand that certain paradoxes or inconsistencies can occur. Of course, the old system with the authoritative<br> server and &quot;dumb&quot; or simple clients had it’s own paradoxes. In the end, making this tradeoff is a game design decision. For Half-Life, we believe deciding in favor of lag compensation was a justified game design decision.<br><p></p><br><p><strong>采用延迟补偿以后，每个玩家游戏的过程中感觉不到明显延迟。在这里需要理解可能会产生一些矛盾和不一致。当然，验证服务器和无逻辑的客户端老系统也会有自相矛盾的情况。最后，这个这种事游戏设计决定的。对于半条命，我们相信采用延迟补偿是正确的游戏决定。</strong><br><br>The first problem of the old system was that you had to lead your target by some amount that was related to your latency to the server. Aiming directly at another player and pressing the fire button was almost assured to miss that player. The inconsistency<br> here is that aiming is just not realistic and that the player controls have non-predictable responsiveness.</p><br><p><strong>老系统的一个问题是，由于网络延迟，目标需要有一个提前量。瞄准敌人进行射击几乎总是不能击中。这种不一致导致射击很不真实，响应也不可控制。<br><br></strong>With lag compensation, the inconsistencies are different. For most players, all they have to do is acquire some aiming skill and they can become proficient (you still have to be able to aim). Lag compensation allows the player to aim directly at his<br> or her target and press the fire button (for instant hit weapons[9]). The inconsistencies that sometimes occur, however, are from the points of view of the players being fired upon.</p><br><p><strong>采用延迟补偿以后带来的是另一种形式的不一致。对于大部分玩家，他们只需要专注于得到更多的射击技能来武装他们（当然他们也是需要瞄准的）。延时补偿使得玩家只需要直接瞄准他的目标并按下开火按钮即可（对于即时击中武器【9】）。不一致也时有发生，但是是在击中以后。</strong><br><br>For instance, if a highly lagged player shoots at a less lagged player and scores a hit, it can appear to the less lagged player that the lagged player has somehow &quot;shot around a corner&quot;10. In this case, the lower lag player may have darted around a corner.<br> But the lagged player is seeing everything in the past. To the lagged player, s/he has a direct line of sight to the other player. The player lines up the crosshairs and presses the fire button. In the meantime, the low lag player has run around a corner and<br> maybe even crouched behind a crate. If the high lag player is sufficiently lagged, say 500 milliseconds or so, this scenario is quite possible. Then, when the lagged player’s user command arrives at the server, the hiding player is transported backward in<br> time and is hit. This is the extreme case, and in this case, the low ping player says that s/he was shot from around the corner. However, from the lagged player’s point of view, they lined up their crosshairs on the other player and fired a direct hit. From<br> a game design point of view, the decision for us was easy: let each individual player have completely responsive interaction with the world and his or her weapons.</p><br><p><strong>例如，如果一个延时比较大的玩家击中一个延时比较小的玩家并且得到一分，低延时的玩家会感觉高延时玩家“在角落里被击中”【10】。这种情况下，低延迟玩家可能已经从角落里冲出，而高延时玩家看到的是过去的信息。每一个有延迟的玩家都有一个朝向别的玩家的直的视线，直的视线指向一个瞄准点然后开火。这个时候，低延时的玩家可能已经跑到角落里并且蹲在一个箱子后面，如果高延迟玩家延迟比较大，比如500ms，这是经常发生的；这样当高延时玩家的命令传到服务器的时候，已经隐藏起来的玩家需要取一个历史位置并计算是否击中，在这种极端情况下，低延时玩家会觉得他再角落里被击中了。然而，对于高延时玩家来说，他是正对着别的玩家开火的。从游戏设计的角度来讲，我们需要这样决定：让每个玩家即时与世界交互并开火。</strong><br><br>In addition, the inconsistency described above is much less pronounced in normal combat situations. For first-person shooters, there are two more typical cases. First, consider two players running straight at each other pressing the fire button. In this case,<br> it’s quite likely that lag compensation will just move the other player backwards along the same line as his or her movement. The person being shot will be looking straight at his attacker and no &quot;bullets bending around corners&quot; feeling will be present.</p><br><p><strong>此外，在正常战斗中，上面提到的不一致并不明显。对于第一人称射击游戏，有两种典型情况。第一、考虑两个玩家直线跑向对方并且开火；这种情况下，延时补偿只会把玩家在移动直线上往后拉。被击中的玩家看他的射击者在前方，这样就不会有“子弹拐到角落里”的情况发生。</strong><br><br>The next example is two players, one aiming at the other while the other dashes in front perpendicular to the first player. In this case, the paradox is minimized for a wholly different reason. The player who is dashing across the line of sight of the shooter<br> probably has (in first-person shooters at least) a field of view of 90 degrees or less. In essence, the runner can’t see where the other player is aiming. Therefore, getting shot isn’t going to be surprising or feel wrong (you get what you deserve for running<br> around in the open like a maniac). Of course, if you have a tank game, or a game where the player can run one direction, and look another, then this scenario is less clear-cut, since you might see the other player aiming in a slightly incorrect direction.</p><br><p><strong>第二种情况是两个玩家中的一个射击，另外一个玩家在垂直于第一个玩家视线的方向冲锋。这种情况下的解决问题的原理与刚才不同。刚才提到的冲锋的玩家视野差不多是90°（至少第一人称射击游戏是这样），因此，这个玩家看不到正在射击他的那个人。因此他被击中也不会感觉奇怪或者错误（谁让你在空旷区域狂奔呢，活该）。当然，如果你开发的是一个坦克游戏，或者在你的游戏中玩家朝一个方向跑的时候可以看到别的方向，错误可能就会比较明显，你可能发现玩家设计方向不对。</strong><br><br><span style="font-size:18px">Conclusion<br><br></span></p><br><h2 id="总结">总结</h2><br><br><br>Lag compensation is a tool to ameliorate the effects of latency on today’s action games. The decision of whether to implement such a system rests with the game designer since the decision directly changes the feel of the game. For Half-Life, Team Fortress and<br> Counter Strike, the benefits of lag compensation easily outweighed the inconsistencies noted above.<br><p></p><br><p><strong>延迟补偿是当前动作游戏改善延迟影响的一种方法。是否采用这种方法取决于游戏设计者，因为如何设计直接影响到游戏的体验。对于把那条命、军团要塞、cs这样的游戏，延迟补偿所带来的效果提升显著大于其带来的错误。</strong></p><br><p><br><br>Footnotes</p><br><p></p><br><h2 id="脚注">脚注</h2><br><br><br>[1]In the Half-Life engine, it is possible to ask the client-side prediction algorithm to account for some, but not all, of the latency in performing prediction. The user could control the amount of prediction by changing the value of the &quot;pushlatency&quot; console<br> variable to the engine. This variable is a negative number indicating the maximum number of milliseconds of prediction to perform. If the number is greater (in the negative) than the user’s current latency, then full prediction up to the current time occurs.<br> In this case, the user feels zero latency in his or her movements. Based upon some erroneous superstition in the community, many users insisted that setting pushlatency to minus one-half of the current average latency was the proper setting. Of course, this<br> would still leave the player’s movements lagged (often described as if you are moving around on ice skates) by half of the user’s latency. All of this confusion has brought us to the conclusion that full prediction should occur all of the time and that the<br> pushlatency variable should be removed from the Half-Life engine.&nbsp;<br><p></p><br><p><strong>【1】在半条命引擎中，预测的过程中允许一定的延迟，但不能容忍实际网络延迟这么大的延迟。通过调整参数，我们可以控制预测过程中的延迟，这个参数pushlatency是一个负数，以毫秒为单位表示预测过程中的延迟。如果这个&#20540;大于（绝对&#20540;）实际网络延迟，这时预测就是完全的预测（译注：客户端服务器完全同步）。这种情况下玩家感觉不到任何延迟。实际应用中，一些人错误地认为参数pushlatency应该设为实际网络延迟的一半，这种情况下玩家移动仍然有网络延迟一半的延迟（感觉类&#20284;于冰面移动）。基于这个原因，实际应用总应该总是采用完全预测，pushlatency这个变量应该从半条命引擎中移除</strong><br><br>[2]<a href="http://www.quakeforge.net/files/q1source.zip" target="_blank" rel="noopener">http://www.quakeforge.net/files/q1source.zip</a> (Return)<br><br>[3]A discussion of cheating and what developers can do to deter it is beyond the scope of this paper. (Return)</p><br><p><strong>【3】关于作弊和反作弊的问题超出了本篇文章讨论的范围</strong><br><br>[4]Though hybrids and corrective methods are also possible. (Return)</p><br><p><strong>【4】虽然混合纠正方法也可以使用</strong><br><br>[5]&quot;Jerk&quot; is a measure of how fast accelerative forces are changing. (Return)</p><br><p><strong>【5】“jerk”用来度量使玩家改变加速度的作用的快慢</strong><br><br>[6]It is assumed in this paper that the client clock is directly synchronized to the server clock modulo the latency of the connection. In other words, the server sends the client, in each update, the value of the server’s clock and the client adopts that value<br> as its clock. Thus, the server and client clocks will always be matched, with the client running the same timing somewhat in the past (the amount in the past is equal to the client’s current latency). Smoothing out discrepancies in the client clock can be<br> solved in various ways. (Return)</p><br><p><strong>【6】本文假设计算连接延时的时候客户端与服务器完全同步，也就是说，每次更新的时候客户端收到服务器发过来的时间被直接当做客户端的时间使用。这样，客户端跟服务器完全匹配，只是客户端稍微晚一点（晚多少取决于延时多少）。平滑客户端时钟差&#20540;可以有很多方法。</strong><br><br>[7]The time spacing of these updates is not necessarily fixed. The reason why is that during high activity periods of the game (especially for users with lower bandwidth connections), it’s quite possible that the game will want to send you more data than your<br> connection can accommodate. If we were on a fixed update interval, then you might have to wait an entire additional interval before the next packet would be sent to the client. However, this doesn’t match available bandwidth effectively. Instead, the server,<br> after sending every packet to a player, determines when the next packet can be sent. This is a function of the user’s bandwidth or &quot;rate&quot; setting and the number of updates requested per second. If the user asks for 20 updates per second, then it will be at<br> least 50 milliseconds before the next update packet can be sent. If the bandwidth choke is active (and the server is sufficiently high framerate), it could be 61, etc., milliseconds before the next packet gets sent. Thus, Half-Life packets can be somewhat<br> arbitrarily spaced. The simple move to latest goal interpolation schemes don’t behave as well (think of the old anchor point for movement as being variable) under these conditions as the position history interpolation method (described below). (Return)</p><br><p><strong>【7】更新时间间隔没必要是固定的。因为对于剧烈运动的游戏，如果带宽不够，很有可能客户端发过来的数据超过了处理能力。如果采用固定更新间隔，在发完一个更新包以后就需要等待一个固定更新周期时间以后再发下一个包。这种逻辑不能很好地使用带宽。因此，服务器发给每个客户端数据包以后，应该自己决定下一个包什么时候发，决定的依据是用户的带宽、用户设置的每秒更新频率。如果用户要求更新20次每秒，那么需要等待50ms以后下个更新包才能发送。如果激活了带宽限制（而服务器帧率又足够高），我们可能就需要等待比如61ms（或其他&#20540;）以后发送下一个更新包。因此，半条命游戏数据包发送间隔是随机的。基于服务器的这种情况，将启动点作为一个变量，移动到最新目标点进行插&#20540;这种方法效果欠佳。</strong><br><br>[8]Which Half-Life encodes in the lerp_msec field of the usercmd_t structure described previously. (Return)</p><br><p><strong>【8】半条命代码中usercmd_t结构中变量lerp_msec前面描述过。</strong><br><br>[9]For weapons that fire projectiles, lag compensation is more problematic. For instance, if the projectile lives autonomously on the server, then what time space should the projectile live in? Does every other player need to be &quot;moved backward&quot; every time<br> the projectile is ready to be simulated and moved by the server? If so, how far backward in time should the other players be moved? These are interesting questions to consider. In Half-Life, we avoided them; we simply don’t lag compensate projectile objects<br> (that’s not to say that we don’t predict the sound of you firing the projectile on the client, just that the actual projectile is not lag compensated in any way). (Return)</p><br><p><strong>【9】对于发射导弹的武器，延迟补偿有更多需要解决的问题。假如<span style="font-weight:bold">导弹是由服务器处理的，那么导弹应该位于哪个时间区间？每次导弹准备发射的时候，是否需要把每个玩家往后拉一段时间的？如果是这样，那么需要往后拉多少？这些问题是需要考虑的。在半条命中，为了避免这种问题，我们对导弹不进行延迟补偿（这并不意味着客户端不进行声音预测，只是实际的导弹不进行延迟补偿）。</span></strong><br><br>[10]This is the phrase our user community has adopted to describe this inconsistency. (Return)<br><br></p><br><p><strong>【10】用户社区通常采用这种情况来描述不一致性。</strong></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Valve/" rel="tag"><i class="fa fa-tag"></i> Valve</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/cplusplus_confused_points_two/" rel="next" title="C++很基础的易混淆点二">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    C++很基础的易混淆点二
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/Source引擎多人游戏网络设计/" rel="prev" title="Source引擎多人游戏网络设计">
+                <p class="post-nav-pre-next-title">
+                    Source引擎多人游戏网络设计
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自我总结"><span class="nav-text">自我总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原文"><span class="nav-text">原文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Contents"><span class="nav-text">Contents</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic_Architecture_of_a_Client_.2F_Server_Game"><span class="nav-text">Basic Architecture of a Client / Server Game</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Contents_of_the_User_Input_messages"><span class="nav-text">Contents of the User Input messages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client_Side_Prediction"><span class="nav-text">Client Side Prediction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-Side_Prediction_of_Weapon_Firing"><span class="nav-text">Client-Side Prediction of Weapon Firing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Umm.2C_This_is_a_Lot_of_Work"><span class="nav-text">Umm, This is a Lot of Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Display_of_Targets"><span class="nav-text">Display of Targets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lag_Compensation"><span class="nav-text">Lag Compensation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Game_Design_Implications_of_Lag_Compensation"><span class="nav-text">Game Design Implications of Lag Compensation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Footnotes"><span class="nav-text">Footnotes</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中英对照"><span class="nav-text">中英对照</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#综述"><span class="nav-text">综述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C/S游戏的基本架构"><span class="nav-text">C/S游戏的基本架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户消息的内容"><span class="nav-text">用户消息的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端预测"><span class="nav-text">客户端预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开火过程中的客户端预测"><span class="nav-text">开火过程中的客户端预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些工作"><span class="nav-text">一些工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标的显示"><span class="nav-text">目标的显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延迟补偿"><span class="nav-text">延迟补偿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#游戏涉及中延迟补偿的使用"><span class="nav-text">游戏涉及中延迟补偿的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚注"><span class="nav-text">脚注</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

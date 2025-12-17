@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '对象模型之内存对齐基础' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,ObjectModel,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="本文不讨论类的虚函数, 请参考 C++对象模型之虚函数讲解 内存对齐规则首先我们明确内存对齐规则 我们设  A = #pragma pack()指定的数 B = 这个数据成员的自身长度 C = 结构(或联合)中最大数据成员长度 在解释内存对齐的作用前，先来看下内存对齐的规则： 1.  对于结构的各个成员，第一个成员位于偏移为0的位置，以后每个数据成员的偏移量必须是 min( A，B ) 的倍数。">
+<meta name="keywords" content="noodle,ObjectModel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象模型之内存对齐基础">
+<meta property="og:url" content="https://hulinhong.com/sizeof_struct/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="本文不讨论类的虚函数, 请参考 C++对象模型之虚函数讲解 内存对齐规则首先我们明确内存对齐规则 我们设  A = #pragma pack()指定的数 B = 这个数据成员的自身长度 C = 结构(或联合)中最大数据成员长度 在解释内存对齐的作用前，先来看下内存对齐的规则： 1.  对于结构的各个成员，第一个成员位于偏移为0的位置，以后每个数据成员的偏移量必须是 min( A，B ) 的倍数。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对象模型之内存对齐基础">
+<meta name="twitter:description" content="本文不讨论类的虚函数, 请参考 C++对象模型之虚函数讲解 内存对齐规则首先我们明确内存对齐规则 我们设  A = #pragma pack()指定的数 B = 这个数据成员的自身长度 C = 结构(或联合)中最大数据成员长度 在解释内存对齐的作用前，先来看下内存对齐的规则： 1.  对于结构的各个成员，第一个成员位于偏移为0的位置，以后每个数据成员的偏移量必须是 min( A，B ) 的倍数。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>对象模型之内存对齐基础 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/sizeof_struct/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对象模型之内存对齐基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-12T23:30:01+00:00">
+                04-12-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/ObjectModel/" rel="tag"><i class="fa fa-tag"></i> ObjectModel</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/smart_pointer_note/" rel="next" title="智能指针笔记">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  智能指针笔记
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/MySQL入门三之GroupBy/" rel="prev" title="MySQL入门三之GroupBy">
+              <p class="post-nav-pre-next-title">
+                  MySQL入门三之GroupBy
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p>本文不讨论类的虚函数, 请参考 <a href="/cpp_object_model_conclusion/" title="C++对象模型之虚函数讲解">C++对象模型之虚函数讲解</a></p>
+<h1 id="内存对齐规则"><a href="#内存对齐规则" class="headerlink" title="内存对齐规则"></a>内存对齐规则</h1><p>首先我们明确内存对齐规则</p>
+<p>我们设 </p>
+<pre><code>A = #pragma pack()指定的数
+B = 这个数据成员的自身长度
+C = 结构(或联合)中最大数据成员长度
+</code></pre><p>在解释内存对齐的作用前，先来看下内存对齐的规则：</p>
+<p>1.  <strong>对于结构的各个成员</strong>，第一个成员位于偏移为0的位置，<br>以后每个数据成员的偏移量必须是 <code>min( A，B )</code> 的倍数。</p>
+<p>2.  <strong>在数据成员完成各自对齐之后</strong>，结构(或联合)本身也要进行对齐，对齐将按照 <code>min( A, C)</code> 进行。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p><strong>32位</strong>机器上, 下列代码的sizeof(a)的值是多少?</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(2)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">union</span> U</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span> buff[<span class="number">13</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    &#125;u;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">char</span>* (*f)(<span class="keyword">void</span>*);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">enum</span>&#123; red, green, blue &#125; color;</span><br><span class="line">&#125;a;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br></pre></td></tr></table></figure>
+<h2 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h2><p>答案是sizeof(a)的值为22.</p>
+<ul>
+<li>void foo() { } ，typedef char* (f)(void);不占字节，</li>
+<li>枚举占4个字节，</li>
+<li>union按最大的变量所占字节算，占14个字节，</li>
+<li>int占4个字节，</li>
+</ul>
+<p>4+14+4=22。</p>
+<p>如果把#pragma pack(2)改为 #pragma pack(4)， sizeof(a)的值就为 24。</p>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>分为三部分来解析:</p>
+<ul>
+<li><a href="#枚举所占内存计算方法">枚举所占内存计算方法</a></li>
+<li><a href="#pragma-pack用法">#pragma pack用法</a></li>
+<li><a href="#共用体-union-所占内存计算方法">共用体(union)所占内存计算方法</a></li>
+</ul>
+<h3 id="枚举所占内存计算方法"><a href="#枚举所占内存计算方法" class="headerlink" title="枚举所占内存计算方法"></a>枚举所占内存计算方法</h3><p>枚举变量，由枚举类型定义的变量。枚举变量的大小，即枚举类型所占内存的大小。</p>
+<p>由于枚举变量的赋值，一次只能存放枚举结构中的某个常数。</p>
+<p>所以枚举变量的大小，实质是常数所占内存空间的大小（常数为int类型，当前主流的编译器中一般是32位机器和64位机器中int型都是4个字节），枚举类型所占内存大小也是这样。</p>
+<h3 id="pragma-pack用法"><a href="#pragma-pack用法" class="headerlink" title="#pragma pack用法"></a>#pragma pack用法</h3><p><code>#pragma pack(a)</code>规定的对齐长度（a可选值为1，2，4，8，16），实际使用的规则是：<br>结构，联合，或者类的数据成员，第一个放在偏移为0的地方，以后每个数据成员的对齐，按照#pragma pack指定的数值和这个数据成员自身长度中，比较小的那个进行。<br>也就是说，当#pragma pack的值等于或超过所有数据成员长度的时候，这个值的大小将不产生任何效果。<br>而结构整体的对齐，则按照结构体中最大的数据成员 和 #pragma pack指定值 之间，较小的那个进行。<br>而 <code>#pragma pack()</code> 表示恢复默认的内存对齐（与<code>#pragma pack(a)</code>指令配对使用）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(4)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestB</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> aa; <span class="comment">//第一个成员，放在[0,3]偏移的位置，</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> a; <span class="comment">//第二个成员，自身长为1，#pragma pack(4),取小值，也就是1，所以这个成员按一字节对齐，放在偏移[4]的位置。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">short</span> b; <span class="comment">//第三个成员，自身长2，#pragma pack(4)，取2，按2字节对齐，所以放在偏移[6,7]的位置。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> c; <span class="comment">//第四个，自身长为1，放在[8]的位置。</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br></pre></td></tr></table></figure>
+<p>这个类实际占据的内存空间是9字节<br>类之间的对齐，是按照类内部最大的成员的长度，和#pragma pack规定的值之中较小的一个对齐的。<br>所以这个例子中，类之间对齐的长度是min(sizeof(int),4)，也就是4。<br>9按照4字节圆整的结果是12，所以sizeof(TestB)是12。</p>
+<p>如果<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(2)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestB</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> aa; <span class="comment">//第一个成员，放在[0,3]偏移的位置，</span></span><br><span class="line">    <span class="keyword">char</span> a; <span class="comment">//第二个成员，自身长为1，#pragma pack(2),取小值，也就是1，所以这个成员按一字节对齐，放在偏移[4]的位置。</span></span><br><span class="line">    <span class="keyword">short</span> b; <span class="comment">//第三个成员，自身长2，#pragma pack(2)，取2，按2字节对齐，所以放在偏移[6,7]的位置。</span></span><br><span class="line">    <span class="keyword">char</span> c; <span class="comment">//第四个，自身长为1，放在[8]的位置。</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看出，上面的位置完全没有变化，只是类之间改为按2字节对齐，9按2圆整的结果是10。<br>所以 sizeof(TestB)是10。</p>
+<p>现在去掉第一个成员变量为如下代码：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(4)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestC</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　　<span class="keyword">char</span> a;<span class="comment">//第一个成员，放在[0]偏移的位置，</span></span><br><span class="line">　　<span class="keyword">short</span> b;<span class="comment">//第二个成员，自身长2，#pragma pack(4)，取2，按2字节对齐，所以放在偏移[2,3]的位置。</span></span><br><span class="line">　　<span class="keyword">char</span> c;<span class="comment">//第三个，自身长为1，放在[4]的位置。</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br></pre></td></tr></table></figure></p>
+<p>整个类的大小是5字节，按照min(sizeof(short),4)字节对齐，也就是2字节对齐，结果是6，所以sizeof(TestC)是6。</p>
+<h3 id="共用体-union-所占内存计算方法"><a href="#共用体-union-所占内存计算方法" class="headerlink" title="共用体(union)所占内存计算方法"></a>共用体(union)所占内存计算方法</h3><p>共用体又名”联合体”, 英文名为union.</p>
+<p>当多个数据需要共享内存或者多个数据每次只取其一时，可以利用联合体(union)。在C Programming Language 一书中对于联合体是这么描述的：</p>
+<ul>
+<li>联合体是一个结构；</li>
+<li>它的所有成员相对于基地址的偏移量都为0；</li>
+<li>此结构空间要大到足够容纳最”宽”的成员；</li>
+<li>其对齐方式要适合其中所有的成员；</li>
+</ul>
+<p>下面解释这四条描述：</p>
+<p>由于联合体中的所有成员是共享一段内存的，因此每个成员的存放首地址相对于于联合体变量的基地址的偏移量为0，即所有成员的首地址都是一样的。为了使得所有成员能够共享一段内存，因此该空间必须足够容纳这些成员中最宽的成员。对于这句“对齐方式要适合其中所有的成员”是指其必须符合所有成员的自身对齐方式。</p>
+<p>下面举例说明：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union U</span><br><span class="line">&#123;</span><br><span class="line">    char s[9];</span><br><span class="line">    int n;</span><br><span class="line">    double d;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>s占9字节，n占4字节，d占8字节，因此其至少需9字节的空间。然而其实际大小并不是9，用运算符sizeof测试其大小为16.这是因为这里存在字节对齐的问题，9既不能被4整除，也不能被8整除。</p>
+<p>因此补充字节到16，这样就符合所有成员的自身对齐了。从这里可以看出联合体所占的空间不仅取决于最宽成员，还跟所有成员有关系，即其大小必须满足两个条件：</p>
+<ul>
+<li>大小足够容纳最宽的成员；</li>
+<li>大小能被其包含的所有基本数据类型的大小所整除。</li>
+</ul>
+<h3 id="若问题为-pragma-pack-4-的情况"><a href="#若问题为-pragma-pack-4-的情况" class="headerlink" title="若问题为#pragma pack(4)的情况"></a>若问题为#pragma pack(4)的情况</h3><ul>
+<li>void foo() { } ，typedef char* (f)(void);不占字节，</li>
+<li>枚举占4个字节，</li>
+<li>union按最大的变量buff[13]所占字节算为13, 在#pragma pack(2)的情况, 得补齐1个字节变为14才能被2整除, 而#pragma pack(4)的情况得补齐3个字节, 总占16个字节，才可以被4整除,</li>
+<li>int占4个字节</li>
+</ul>
+<p>所以#pragma pack(4)的情况, sizeof(A)为4+16+4=24。</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>注意有陷阱, 32位环境下</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">pragma</span> pack(2)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test_class</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">float</span> i;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">union</span> test_union</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> bb;</span><br><span class="line">		<span class="keyword">char</span> aa[<span class="number">13</span>];</span><br><span class="line">		<span class="keyword">short</span> cc;</span><br><span class="line">	&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">enum</span> test_enum</span><br><span class="line">	&#123;</span><br><span class="line">		monday,</span><br><span class="line">		tuesday,</span><br><span class="line">		sunday</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">testFunc</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">char</span> xmly;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">pragma</span> pack()</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(test_class) : "</span> &lt;&lt; <span class="keyword">sizeof</span>(test_class) &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请问打印结果?</p>
+<p><code>sizeof(test_class) : 6</code></p>
+<p>为什么呢?<br>注意看共用体 test_union 和枚举 test_enum其实并没有声明变量, 如果写成<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">pragma</span> pack(2)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test_class</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">float</span> i;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">union</span> test_union</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> bb;</span><br><span class="line">		<span class="keyword">char</span> aa[<span class="number">13</span>];</span><br><span class="line">		<span class="keyword">short</span> cc;</span><br><span class="line">	&#125;uVar;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">enum</span> test_enum</span><br><span class="line">	&#123;</span><br><span class="line">		monday,</span><br><span class="line">		tuesday,</span><br><span class="line">		sunday</span><br><span class="line">	&#125;eVar;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">testFunc</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> xmly;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta"># <span class="meta-keyword">pragma</span> pack()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> enum_x </span><br><span class="line">&#123; </span><br><span class="line">	x1=<span class="number">5</span>, </span><br><span class="line">	x2, </span><br><span class="line">	x3, </span><br><span class="line">	x4, </span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">enum</span> enum_x x=x3; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(test_class) : "</span> &lt;&lt; <span class="keyword">sizeof</span>(test_class) &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"x : "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	test_class::test_enum i;</span><br><span class="line">	i = test_class::monday;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"i : "</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	test_class test_obj;</span><br><span class="line">	test_obj.eVar = test_class::sunday;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; test_obj.monday &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; test_class::sunday &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打印结果就为 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sizeof(test_class) : 24</span><br><span class="line">x : 7</span><br><span class="line">i : 0</span><br><span class="line">0</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/ObjectModel/" rel="tag"><i class="fa fa-tag"></i> ObjectModel</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/smart_pointer_note/" rel="next" title="智能指针笔记">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    智能指针笔记
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/MySQL入门三之GroupBy/" rel="prev" title="MySQL入门三之GroupBy">
+                <p class="post-nav-pre-next-title">
+                    MySQL入门三之GroupBy
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内存对齐规则"><span class="nav-text">内存对齐规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#答案"><span class="nav-text">答案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析"><span class="nav-text">解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举所占内存计算方法"><span class="nav-text">枚举所占内存计算方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pragma-pack用法"><span class="nav-text">#pragma pack用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共用体-union-所占内存计算方法"><span class="nav-text">共用体(union)所占内存计算方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#若问题为-pragma-pack-4-的情况"><span class="nav-text">若问题为#pragma pack(4)的情况</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习"><span class="nav-text">练习</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

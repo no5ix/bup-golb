@@ -1,0 +1,2473 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🚙">
+<meta property="og:url" content="https://hulinhong.com/page/31/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚙">
+<meta name="twitter:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>🚙 - 💨 💨 💨</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/PHP的超级全局变量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/PHP的超级全局变量/" itemprop="url">PHP的超级全局变量小结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-13T19:29:22+00:00">
+                07-13-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="PHP-超级全局变量概绍"><a href="#PHP-超级全局变量概绍" class="headerlink" title="PHP 超级全局变量概绍"></a>PHP 超级全局变量概绍</h1><blockquote>
+<p>PHP中预定义了几个超级全局变量（superglobals） ，</p>
+</blockquote>
+<p>这意味着它们在一个脚本的全部作用域中都可用。</p>
+<p> 你不需要特别说明，就可以在函数及类中使用。</p>
+<p>PHP 超级全局变量列表:</p>
+<ul>
+<li>$GLOBALS</li>
+<li>$_SERVER</li>
+<li>$_REQUEST</li>
+<li>$_POST</li>
+<li>$_GET</li>
+<li>$_FILES</li>
+<li>$_ENV</li>
+<li>$_COOKIE</li>
+<li>$_SESSION</li>
+</ul>
+<h1 id="GLOBALS"><a href="#GLOBALS" class="headerlink" title="$GLOBALS"></a>$GLOBALS</h1><p>$GLOBALS 是PHP的一个超级全局变量组，</p>
+<p>在一个PHP脚本的全部作用域中都可以访问。</p>
+<p>$GLOBALS 是一个包含了全部变量的全局组合数组。变量的名字就是数组的键。</p>
+<p>以下实例介绍了如何使用超级全局变量 $GLOBALS:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">$x = 75; </span><br><span class="line">$y = 25;</span><br><span class="line"> </span><br><span class="line">function addition() </span><br><span class="line">&#123; </span><br><span class="line">$GLOBALS[&apos;z&apos;] = $GLOBALS[&apos;x&apos;] + $GLOBALS[&apos;y&apos;]; </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">addition(); </span><br><span class="line">echo $z; </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上实例中 z 是一个$GLOBALS数组中的超级全局变量，<br>该变量同样可以在函数外访问。</p>
+</blockquote>
+<h1 id="SERVER"><a href="#SERVER" class="headerlink" title="$_SERVER"></a>$_SERVER</h1><p>$_SERVER 是一个包含了诸如头信息(header)、路径(path)、以及脚本位置(script locations)等等信息的数组。</p>
+<p>这个数组中的项目由 Web 服务器创建。</p>
+<p>不能保证每个服务器都提供全部项目；服务器可能会忽略一些，或</p>
+<p>者提供一些没有在这里列举出来的项目。</p>
+<p>以下实例中展示了如何使用$_SERVER中的元素:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">echo $_SERVER[&apos;PHP_SELF&apos;];</span><br><span class="line">echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">echo $_SERVER[&apos;SERVER_NAME&apos;];</span><br><span class="line">echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">echo $_SERVER[&apos;HTTP_HOST&apos;];</span><br><span class="line">echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">echo $_SERVER[&apos;HTTP_REFERER&apos;];</span><br><span class="line">echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">echo $_SERVER[&apos;HTTP_USER_AGENT&apos;];</span><br><span class="line">echo &quot;&lt;br&gt;&quot;;</span><br><span class="line">echo $_SERVER[&apos;SCRIPT_NAME&apos;];</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="REQUEST"><a href="#REQUEST" class="headerlink" title="$_REQUEST"></a>$_REQUEST</h1><p>PHP $_REQUEST 用于收集HTML表单提交的数据。</p>
+<p>以下实例显示了一个输入字段（input）及提交按钮(submit)的表单(form)。</p>
+<p> 当用户通过点击 “Submit” 按钮提交表单数据时, </p>
+<p> 表单数据将发送至<form>标签中 action 属性中指定的脚本文件。</form></p>
+<p> 在这个实例中，我们指定文件来处理表单数据。</p>
+<p> 如果你希望其他的PHP文件来处理该数据，你可以修改该指定的脚本文件名。</p>
+<p> 然后，我们可以使用超级全局变量 $_REQUEST 来收集表单中的 input 字段数据:</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;form method=&quot;post&quot; action=&quot;&lt;?php echo $_SERVER[&apos;PHP_SELF&apos;];?&gt;&quot;&gt;</span><br><span class="line">Name: &lt;input type=&quot;text&quot; name=&quot;fname&quot;&gt;</span><br><span class="line">&lt;input type=&quot;submit&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php </span><br><span class="line">$name = $_REQUEST[&apos;fname&apos;]; </span><br><span class="line">echo $name; </span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="POST"><a href="#POST" class="headerlink" title="$_POST"></a>$_POST</h1><p>PHP $_POST 被广泛应用于收集表单数据，</p>
+<p>在HTML form标签的指定该属性：”method=”post”。</p>
+<p>以下实例显示了一个输入字段（input）及提交按钮(submit)的表单(form)。</p>
+<p>当用户通过点击 “Submit” 按钮提交表单数据时, </p>
+<p>表单数据将发送至<form>标签中 action 属性中指定的脚本文件。 </form></p>
+<p>在这个实例中，我们指定文件来处理表单数据。</p>
+<p>如果你希望其他的PHP文件来处理该数据，你可以修改该指定的脚本文件名。</p>
+<p>然后，我们可以使用超级全局变量 $_POST 来收集表单中的 input 字段数据:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;form method=&quot;post&quot; action=&quot;&lt;?php echo $_SERVER[&apos;PHP_SELF&apos;];?&gt;&quot;&gt;</span><br><span class="line">Name: &lt;input type=&quot;text&quot; name=&quot;fname&quot;&gt;</span><br><span class="line">&lt;input type=&quot;submit&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php </span><br><span class="line">$name = $_POST[&apos;fname&apos;]; </span><br><span class="line">echo $name; </span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="GET"><a href="#GET" class="headerlink" title="$_GET"></a>$_GET</h1><p>PHP $_GET 同样被广泛应用于收集表单数据，</p>
+<p>在HTML form标签的指定该属性：”method=”get”。</p>
+<p>$_GET 也可以收集URL中发送的数据。</p>
+<p>假定我们有一个包含参数的超链接HTML页面：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;a href=&quot;test_get.php?subject=PHP&amp;web=runoob.com&quot;&gt;Test $GET&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>当用户点击链接 “Test $GET”, 参数 “subject” 和 “web” 将发送至”test_get.php”,</p>
+<p>你可以在 “test_get.php” 文件中使用 $_GET 变量来获取这些数据。</p>
+<p>以下实例显示了 “test_get.php” 文件的代码:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php </span><br><span class="line">echo &quot;Study &quot; . $_GET[&apos;subject&apos;] . &quot; at &quot; . $_GET[&apos;web&apos;];</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="REQUEST、-POST、-GET的区别和联系小结"><a href="#REQUEST、-POST、-GET的区别和联系小结" class="headerlink" title="$_REQUEST、$_POST、$_GET的区别和联系小结"></a>$_REQUEST、$_POST、$_GET的区别和联系小结</h1><h2 id="1-REQUEST"><a href="#1-REQUEST" class="headerlink" title="1. $_REQUEST"></a>1. $_REQUEST</h2><p>php中$_REQUEST可以获取以POST方法和GET方法提交的数据，但是速度比较慢 </p>
+<h2 id="2-GET"><a href="#2-GET" class="headerlink" title="2. $_GET"></a>2. $_GET</h2><p>用来获取由浏览器通过GET方法提交的数据。GET方法他是通过把参数数据加在提交表单的action属性所指的URL中，值和表单内每个字段一一对应，然后在URL中可以看到，但是有如下缺点： </p>
+<ul>
+<li><ol>
+<li>安全性不好，在URL中可以看得到 </li>
+</ol>
+</li>
+<li><ol>
+<li>传送数据量较小，不能大于2KB。 </li>
+</ol>
+</li>
+</ul>
+<h2 id="3-POST"><a href="#3-POST" class="headerlink" title="3. $_POST"></a>3. $_POST</h2><p>用来获取由浏览器通过POST方法提交的数据。POST方法他是通过HTTP POST机制，将表单的各个字段放置在HTTP HEADER内一起传送到action属性所指的URL地址中，用户看不到这个过程。他提交的大小一般来说不受限制，但是具体根据服务器的不同，还是略有不同。相对于_GET方式安全性略高 </p>
+<h2 id="4-REQUEST、-POST、-GET-的区别和联系"><a href="#4-REQUEST、-POST、-GET-的区别和联系" class="headerlink" title="4. $_REQUEST、$_POST、$_GET 的区别和联系"></a>4. $_REQUEST、$_POST、$_GET 的区别和联系</h2><p>$_REQUEST[“参数”]具用$_POST[“参数”] $_GET[“参数”]的功能,但是$_REQUEST[“参数”]比较慢。通过post和get方法提交的所有数据都可以通过$_REQUEST数组[“参数”]获得</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/redis_hiredis_install_tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/redis_hiredis_install_tutorial/" itemprop="url">redis和hiredis安装教程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-11T09:29:22+00:00">
+                07-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index">
+                    <span itemprop="name">DB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <p>在ubuntu上</p>
+<p>redis安装 :  <code>sudo apt-get install redis-server</code></p>
+<p>hiredis安装 : 先到 <a href="https://github.com/redis/hiredis" target="_blank" rel="noopener">https://github.com/redis/hiredis</a> 下载 hiredis , 然后 </p>
+<pre><code>sudo make
+sudo make install
+sudo ldconfig
+</code></pre>
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/python和lua数据类型的比较/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/python和lua数据类型的比较/" itemprop="url">python和lua数据类型的比较</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-11T09:29:22+00:00">
+                07-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="Python比较特殊的数据类型："><a href="#Python比较特殊的数据类型：" class="headerlink" title="Python比较特殊的数据类型："></a>Python比较特殊的数据类型：</h1><h2 id="List"><a href="#List" class="headerlink" title="List  []"></a>List  []</h2><p>例如 :<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">list = [ &apos;runoob&apos;, 786 , 2.23, &apos;john&apos;, 70.2 ]</span><br><span class="line">tinylist = [123, &apos;john&apos;]</span><br><span class="line"> </span><br><span class="line">print list               # 输出完整列表</span><br><span class="line">print list[0]            # 输出列表的第一个元素</span><br><span class="line">print list[1:3]          # 输出第二个至第三个的元素 </span><br><span class="line">print list[2:]           # 输出从第三个开始至列表末尾的所有元素</span><br><span class="line">print tinylist * 2       # 输出列表两次</span><br><span class="line">print list + tinylist    # 打印组合的列表</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[&apos;runoob&apos;, 786, 2.23, &apos;john&apos;, 70.2]</span><br><span class="line">runoob</span><br><span class="line">[786, 2.23]</span><br><span class="line">[2.23, &apos;john&apos;, 70.2]</span><br><span class="line">[123, &apos;john&apos;, 123, &apos;john&apos;]</span><br><span class="line">[&apos;runoob&apos;, 786, 2.23, &apos;john&apos;, 70.2, 123, &apos;john&apos;]</span><br></pre></td></tr></table></figure></p>
+<h2 id="Tuple（元祖）-相当于只读列表，不可以二次赋值"><a href="#Tuple（元祖）-相当于只读列表，不可以二次赋值" class="headerlink" title="Tuple（元祖）(),相当于只读列表，不可以二次赋值"></a>Tuple（元祖）(),相当于只读列表，不可以二次赋值</h2><p><code>tuple = ( &#39;runoob&#39;, 786 , 2.23, &#39;john&#39;, 70.2 )</code>, 除了元祖用()而list用[], 而且元祖只是可读的, 其他的跟list一毛一样</p>
+<h2 id="dictionary（字典）-，key值对"><a href="#dictionary（字典）-，key值对" class="headerlink" title="dictionary（字典）{}，key值对"></a>dictionary（字典）{}，key值对</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">dict = &#123;&#125;</span><br><span class="line">dict[&apos;one&apos;] = &quot;This is one&quot;</span><br><span class="line">dict[2] = &quot;This is two&quot;</span><br><span class="line"> </span><br><span class="line">tinydict = &#123;&apos;name&apos;: &apos;john&apos;,&apos;code&apos;:6734, &apos;dept&apos;: &apos;sales&apos;&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">print dict[&apos;one&apos;]          # 输出键为&apos;one&apos; 的值</span><br><span class="line">print dict[2]              # 输出键为 2 的值</span><br><span class="line">print tinydict             # 输出完整的字典</span><br><span class="line">print tinydict.keys()      # 输出所有键</span><br><span class="line">print tinydict.values()    # 输出所有值</span><br></pre></td></tr></table></figure>
+<p>输出结果为:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">This is one</span><br><span class="line">This is two</span><br><span class="line">&#123;&apos;dept&apos;: &apos;sales&apos;, &apos;code&apos;: 6734, &apos;name&apos;: &apos;john&apos;&#125;</span><br><span class="line">[&apos;dept&apos;, &apos;code&apos;, &apos;name&apos;]</span><br><span class="line">[&apos;sales&apos;, 6734, &apos;john&apos;]</span><br></pre></td></tr></table></figure></p>
+<h1 id="lua比较特殊的数据类型"><a href="#lua比较特殊的数据类型" class="headerlink" title="lua比较特殊的数据类型"></a>lua比较特殊的数据类型</h1><h2 id="lua变量"><a href="#lua变量" class="headerlink" title="lua变量"></a>lua变量</h2><blockquote>
+<p>变量在使用前，必须在代码中进行声明，即创建该变量。</p>
+</blockquote>
+<p>编译程序执行代码之前编译器需要知道如何给语句变量开辟存储区，用于存储变量的值。</p>
+<p>Lua 变量有三种类型：全局变量、局部变量、表中的域。</p>
+<blockquote>
+<p>Lua 中的变量全是全局变量，那怕是语句块或是函数里，除非用 local 显式声明为局部变量。</p>
+</blockquote>
+<p>局部变量的作用域为从声明位置开始到所在语句块结束。</p>
+<p>变量的默认值均为 nil。</p>
+<figure class="highlight plain"><figcaption><span>test.lua 文件脚本</span></figcaption><table><tr><td class="code"><pre><span class="line">a = 5               -- 全局变量</span><br><span class="line">local b = 5         -- 局部变量</span><br><span class="line"></span><br><span class="line">function joke()</span><br><span class="line">    c = 5           -- 全局变量</span><br><span class="line">    local d = 6     -- 局部变量</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">joke()</span><br><span class="line">print(c,d)          --&gt; 5 nil</span><br><span class="line"></span><br><span class="line">do </span><br><span class="line">    local a = 6     -- 局部变量</span><br><span class="line">    b = 6           -- 全局变量</span><br><span class="line">    print(a,b);     --&gt; 6 6</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(a,b)      --&gt; 5 6</span><br></pre></td></tr></table></figure>
+<p>执行以上实例输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lua test.lua </span><br><span class="line">5	nil</span><br><span class="line">6	6</span><br><span class="line">5	6</span><br></pre></td></tr></table></figure>
+<h2 id="lua的特有的东西table（表）"><a href="#lua的特有的东西table（表）" class="headerlink" title="lua的特有的东西table（表）"></a>lua的特有的东西table（表）</h2><p>在 Lua 里，table 的创建是通过”构造表达式”来完成，</p>
+<p>最简单构造表达式是{}，用来创建一个空表。</p>
+<p>也可以在表里添加一些数据，直接初始化表:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- 创建一个空的 table</span><br><span class="line">local tbl1 = &#123;&#125;</span><br><span class="line"> </span><br><span class="line">-- 直接初始表</span><br><span class="line">local tbl2 = &#123;&quot;apple&quot;, &quot;pear&quot;, &quot;orange&quot;, &quot;grape&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Lua 中的表（table）其实是一个”关联数组”（associative arrays），数组的索引可以是数字或者是字符串。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- table_test.lua 脚本文件</span><br><span class="line">a = &#123;&#125;</span><br><span class="line">a[&quot;key&quot;] = &quot;value&quot;</span><br><span class="line">key = 10</span><br><span class="line">a[key] = 22</span><br><span class="line">a[key] = a[key] + 11</span><br><span class="line">for k, v in pairs(a) do</span><br><span class="line">    print(k .. &quot; : &quot; .. v)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>脚本执行结果为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lua table_test.lua </span><br><span class="line">key : value</span><br><span class="line">10 : 33</span><br></pre></td></tr></table></figure></p>
+<p>不同于其他语言的数组把 0 作为数组的初始索引，在 Lua 里表的默认初始索引一般以 1 开始。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- table_test2.lua 脚本文件</span><br><span class="line">local tbl = &#123;&quot;apple&quot;, &quot;pear&quot;, &quot;orange&quot;, &quot;grape&quot;&#125;</span><br><span class="line">for key, val in pairs(tbl) do</span><br><span class="line">    print(&quot;Key&quot;, key)</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<p>脚本执行结果为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lua table_test2.lua </span><br><span class="line">Key	1</span><br><span class="line">Key	2</span><br><span class="line">Key	3</span><br><span class="line">Key	4</span><br></pre></td></tr></table></figure></p>
+<p>table 不会固定长度大小，有新数据添加时 table 长度会自动增长，没初始的 table 都是 nil。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- table_test3.lua 脚本文件</span><br><span class="line">a3 = &#123;&#125;</span><br><span class="line">for i = 1, 10 do</span><br><span class="line">    a3[i] = i</span><br><span class="line">end</span><br><span class="line">a3[&quot;key&quot;] = &quot;val&quot;</span><br><span class="line">print(a3[&quot;key&quot;])</span><br><span class="line">print(a3[&quot;none&quot;])</span><br></pre></td></tr></table></figure></p>
+<p>脚本执行结果为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lua table_test3.lua </span><br><span class="line">val</span><br><span class="line">nil</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/redis概要之数据类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/redis概要之数据类型/" itemprop="url">redis概要之数据类型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-11T09:29:22+00:00">
+                07-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index">
+                    <span itemprop="name">DB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="Redis简介要义"><a href="#Redis简介要义" class="headerlink" title="Redis简介要义"></a>Redis简介要义</h1><ul>
+<li><p>Redis运行在内存中但是可以持久化到磁盘, 重启的时候可以再次加载进行使用</p>
+</li>
+<li><p>Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行</p>
+</li>
+<li><p>Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作</p>
+</li>
+<li><p>Redis支持数据的备份，即master-slave模式的数据备份</p>
+</li>
+</ul>
+<h1 id="Redis数据类型"><a href="#Redis数据类型" class="headerlink" title="Redis数据类型"></a>Redis数据类型</h1><p>Redis的数据类型很重要, 这是他做很多事情的基础, 不理解的话很难用好</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/epoll扼要总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/epoll扼要总结/" itemprop="url">epoll扼要总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-22T21:56:12+00:00">
+                06-22-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="epoll-编程接口"><a href="#epoll-编程接口" class="headerlink" title="epoll 编程接口"></a>epoll 编程接口</h1><p>epoll API是Linux系统专有的，在2.6版中新增。</p>
+<p>epoll API的核心数据结构称作epoll实例，它和一个打开的文件描述符相关联。这个文件<br>描述符不是用来做I/O操作的，相反，它是内核数据结构的句柄，这些内核数据结构实现了两<br>个目的。</p>
+<ul>
+<li>记录了在进程中声明过的感兴趣的文件描述符列表-<strong>interest list（兴趣列表）</strong>。</li>
+<li>维护了处于I/O就绪态的文件描述符列表-<strong>ready list（就绪列表）</strong>。</li>
+</ul>
+<p>ready list中的成员是interest list的子集。</p>
+<p>对于由epoll检查的每一个文件描述符，我们可以指定一个位掩码来表示我们感兴趣的事<br>件。这些位掩码同poll()所使用的位掩码有着紧密的关联。</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/socket可读可写条件与非阻塞connect或accept浅析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/socket可读可写条件与非阻塞connect或accept浅析/" itemprop="url">socket可读可写条件与非阻塞connect或accept浅析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-22T21:56:12+00:00">
+                06-22-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NP/" itemprop="url" rel="index">
+                    <span itemprop="name">NP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="socket可读的条件"><a href="#socket可读的条件" class="headerlink" title="socket可读的条件:"></a>socket可读的条件:</h1><ul>
+<li>socket的接收缓冲区中的数据字节大于等于该socket的接收缓冲区低水位标记的当前大小。对这样的socket的读操作将不阻塞并返回一个大于0的值(也就是返回准备好读入的数据)。我们可以用SO_RCVLOWAT这个socket选项来设置该socket的低水位标记。对于TCP和UDP的socket而言，其缺省值为1.</li>
+<li>该连接的读这一半关闭(也就是接收了FIN的TCP连接)。对这样的socket的读操作将不阻塞并返回0</li>
+<li><strong>给监听套接字准备好新连接</strong></li>
+<li>有一个socket有异常错误条件待处理.对于这样的socket的读操作将不会阻塞,并且返回一个错误(-1),errno则设置成明确的错误条件.这些待处理的错误也可通过指定socket选项SO_ERROR调用getsockopt来取得并清除;</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/top500_english_life_sentences/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/top500_english_life_sentences/" itemprop="url">Top 500 English sentences for daily life</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-21T01:37:15+00:00">
+                06-21-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="问候与寒暄"><a href="#问候与寒暄" class="headerlink" title="问候与寒暄"></a>问候与寒暄</h1><ol>
+<li>How are you doing? 你最近怎么样?</li>
+<li>I’m so glad to meet you. 我很高兴见到你。</li>
+<li><strong>How are you doing today?</strong> 你今天过得咋样?</li>
+<li>How’s it going? 最近过得怎么样?</li>
+</ol>
+<h1 id="提供与寻求帮助"><a href="#提供与寻求帮助" class="headerlink" title="提供与寻求帮助"></a>提供与寻求帮助</h1><ol>
+<li><strong>How can I help you?</strong> 我能帮你什么吗?(接到陌生电话第一句可以说这个)</li>
+<li>Could you help me, please? 你能帮我一下吗?</li>
+<li>Could you help me with this? 你能帮我一下这个吗?</li>
+<li>Do you need any help? 你需要帮助吗?</li>
+<li>Can I help you? 我能帮你吗?</li>
+<li>Is there anything I can do for you? 我能为你做点什么吗? </li>
+</ol>
+<h1 id="表达观点与回应"><a href="#表达观点与回应" class="headerlink" title="表达观点与回应"></a>表达观点与回应</h1><ol>
+<li>What do you think? 你觉得怎么样?</li>
+<li>What do you think about it? 你咋看这件事?</li>
+<li>I totally agree with you. 我完全同意你。</li>
+<li>I couldn’t agree more. 我完全同意。</li>
+<li>I don’t think so. 我不这么认为。</li>
+<li>That’s exactly what I was thinking. 这正是我所想的。</li>
+<li>You’ve got a point. 你说得有道理。</li>
+<li><strong>It doesn’t make sense</strong>. 这说不通。</li>
+<li><strong>Does it make sense?</strong> 这个说得通有道理吗?</li>
+<li>I’m not sure about that. 我不太确定。</li>
+<li>I have no idea. 我完全不知道。</li>
+<li><strong>I’m not in the mood</strong>. 我没心情。</li>
+<li>That sounds great. 听起来很棒。</li>
+<li><strong>It’s not a big deal</strong>. 这没什么大不了的。</li>
+<li>It’s not my cup of tea. 那不是我的兴趣所在。</li>
+<li>It’s none of your business. 这不关你的事。</li>
+<li><strong>Don’t take it personally</strong>. 别往心里去。</li>
+<li>Don’t take it seriously. 别太当真。</li>
+<li>Better late than never. 迟到总比不到好。</li>
+</ol>
+<h1 id="请求重复、解释与放慢语速"><a href="#请求重复、解释与放慢语速" class="headerlink" title="请求重复、解释与放慢语速"></a>请求重复、解释与放慢语速</h1><ol>
+<li><strong>Could you repeat that, please?</strong> 你能再重复一遍吗?</li>
+<li>Could you please repeat that? 你可以再说一遍吗?</li>
+<li>Could you please repeat that more slowly? 你能再慢点重复一遍吗?</li>
+<li><strong>Sorry, I didn’t catch that</strong>. 抱歉，我没听清。</li>
+<li>I’m sorry, I didn’t catch your name. 很抱歉，我没听清你的名字。</li>
+<li>I’m afraid I don’t understand. 恐怕我不明白。</li>
+<li>Could you explain that to me? 你能跟我解释一下吗?</li>
+<li><strong>Could you speak a bit slower, please?</strong> 你可以说慢一点吗?</li>
+<li>Could you speak more slowly? 你能说得慢一点吗?</li>
+<li>Could you speak a little slower? 你能说慢得一点吗?</li>
+</ol>
+<h1 id="询问个人信息"><a href="#询问个人信息" class="headerlink" title="询问个人信息"></a>询问个人信息</h1><ol>
+<li><strong>Where are you from?</strong> 你来自哪里?</li>
+<li><strong>What do you do in your free time?</strong> 你空闲时间做什么?</li>
+<li><strong>Do you speak English?</strong> 你会说英语吗? (不说 can u speak eng)</li>
+<li>What’s your favorite food? 你最喜欢的食物是什么?</li>
+<li>What’s your favorite movie? 你最喜欢的电影是什么?</li>
+<li>Do you have any hobbies? 你有什么爱好吗?</li>
+<li><strong>How long have you been living here?</strong> 你在这里住了多久了?</li>
+<li>What’s your favorite type of music? 你最喜欢哪种类型的音乐?</li>
+<li>Do you have any dietary restrictions? 你有什么饮食限制吗?</li>
+</ol>
+<h1 id="问路与询问地点相关信息"><a href="#问路与询问地点相关信息" class="headerlink" title="问路与询问地点相关信息"></a>问路与询问地点相关信息</h1><ol>
+<li><strong>Excuse me, where is the restroom?</strong> 请问洗手间在哪里?</li>
+<li>Could you tell me where the restroom is? 你能告诉我卫生间在哪里吗?</li>
+<li><strong>Can you tell me where the nearest station is?</strong> 你能告诉我最近的车站在哪里吗?</li>
+<li>Could you tell me the way to the airport? 你能告诉我去机场的路吗?</li>
+<li>How do I get to the airport? 我怎么去机场?</li>
+<li>How do I get to the train station? 我怎么去火车站?</li>
+<li>How do I get to the main square? 怎么去主广场?</li>
+<li>How can I get to the nearest subway station? 最近的地铁站怎么走?</li>
+<li>Where is the nearest ATM? 最近的取款机在哪里?</li>
+<li>Where is the nearest train station? 最近的火车站在哪里?</li>
+<li><strong>Where is the nearest subway station?</strong> 最近的地铁站在哪里?</li>
+<li>Is there a hospital nearby? 附近有医院吗?</li>
+<li><strong>Is there a supermarket nearby?</strong> 这里附近有超市吗?</li>
+<li>Is there a place to park nearby? 附近有停车的地方吗?</li>
+<li>Is there a place to exchange money nearby? 附近有兑换货币的地方吗?</li>
+<li>Are there any beaches nearby? 附近有沙滩吗?</li>
+<li>Are there any vegetarian restaurants around? 附近有素食餐厅吗?</li>
+<li>Is there a good place for hiking nearby? 附近有适合徒步的地方吗?</li>
+<li>Is there a good place for shopping? 你知道购物的好地方吗?</li>
+<li>Where can I find a pharmacy? 你知道哪里可以找到药店吗?</li>
+<li>Where can I find a good coffee shop? 哪里可以找到不错的咖啡馆?</li>
+<li>Where can I find a public restroom? 哪里有公共厕所?</li>
+<li>Where can I rent a car? 哪里可以租车?</li>
+<li>Where can I buy a SIM card for my phone? 哪里可以买到手机的SIM卡?</li>
+<li>I’m looking for a coffee shop. 我在找一家咖啡店。</li>
+<li>I’m lost. 我迷路了。</li>
+<li>I’m trying to find… 我在试图找…… (可根据情境补充具体地点)</li>
+</ol>
+<h1 id="时间相关询问"><a href="#时间相关询问" class="headerlink" title="时间相关询问"></a>时间相关询问</h1><ol>
+<li><strong>What time is it now?</strong> 现在几点了?</li>
+<li>What time is it? 现在几点?</li>
+<li>What time does the meeting start? 会议几点开始?</li>
+<li><strong>What time does the store close?</strong> 这家店几点关门?</li>
+<li>What time do we need to leave? 我们需要几点离开?</li>
+<li>What time do you usually have dinner? 你通常什么时候吃晚饭?</li>
+<li>What time is check - out? 退房时间是几点?</li>
+<li>What time does the last bus leave? 最后一班公交车几点发车?</li>
+<li>How long will it take? 需要多久?</li>
+<li><strong>How long will it take to get there?</strong> 到那里需要多长时间?</li>
+</ol>
+<h1 id="购物、餐饮与消费相关"><a href="#购物、餐饮与消费相关" class="headerlink" title="购物、餐饮与消费相关"></a>购物、餐饮与消费相关</h1><ol>
+<li><strong>How much is this?</strong> 这个多少钱?</li>
+<li>How much does it cost? 这个多少钱?</li>
+<li>How much does it cost for one night? 一晚多少钱?</li>
+<li>How much does it cost to get in? 入场费是多少?</li>
+<li>Could I get the bill, please? 我可以结账了吗?</li>
+<li><strong>Can I have the check, please?</strong> 可以请给我账单吗?</li>
+<li><strong>I’d like to have this, please.</strong> 我想要这个。</li>
+<li><strong>I’d like a table for two, please.</strong> 我想要一张两人桌，谢谢。</li>
+<li><strong>I’d like to book a table for two.</strong> 我想订一个两个人的桌子。</li>
+<li>I’d like to book a room for two nights. 我想订一个房间住两晚。</li>
+<li>Do you take credit cards? 你们接受信用卡吗?</li>
+<li>Do you accept credit cards here? 这里接受信用卡吗?</li>
+<li><strong>Can I pay in cash?</strong> 我可以用现金支付吗?</li>
+<li><strong>Can I pay by credit card?</strong> 我可以刷卡吗?</li>
+<li>Can I pay in installments? 我可以分期付款吗?</li>
+<li>Do you have any special discounts? 你们有特别折扣吗?</li>
+<li>Is it possible to get a discount? 可以打折吗?</li>
+<li><strong>What would you like to drink?</strong> 你想喝点啥?</li>
+<li>Can I have a cup of coffee, please? 我可以来杯咖啡吗?</li>
+<li>Can I have a glass of water, please? 请给我一杯水好吗?</li>
+<li>Do you have any vegetarian options? 你们有素食选择吗?</li>
+<li>What’s the best thing on the menu? 菜单上最好的菜是什么?</li>
+<li>Could you recommend a good restaurant? 你能推荐一家好的餐厅吗?</li>
+<li>Could you recommend a good restaurant around here? 你能推荐一个附近不错的餐厅吗?</li>
+<li>Could you recommend a good hotel around here? 你能推荐一家附近不错的酒店吗?</li>
+<li>Could you recommend a good book for me? 你能给我推荐一本好书吗?</li>
+<li>Could you recommend something? 你能推荐点什么吗?</li>
+<li>What do you recommend? 你推荐什么?</li>
+<li>Could you recommend some local dishes? 你能推荐些当地的菜吗?</li>
+<li>Could you recommend a local dish to try? 你能推荐一个当地菜品吗?</li>
+<li>I’d love to try the local food. 我很想尝试当地的食物。</li>
+<li><strong>Can I get this to - go?</strong> 我可以打包这个吗?</li>
+<li>Can you pack this to go? 你能把这个打包吗?</li>
+<li><strong>I’ll have the same thing as them</strong>. 我点跟他们一样的。</li>
+<li>I’m just browsing, thanks. 我只是随便看看，谢谢。</li>
+<li>I’m just looking, thanks. 我只是随便看看，谢谢。</li>
+<li>Do you have this in a different color? 你们有其他颜色的吗?</li>
+<li>Can I try this on? 我可以试穿一下吗?</li>
+<li>Can I have a copy of the receipt? 我可以要一份收据吗?</li>
+<li><strong>Can you give me a receipt for this?</strong> 你可以给我这个的收据吗?</li>
+<li>That’s a rip - off. 这简直是抢钱。</li>
+<li>That’s too expensive. 太贵了。</li>
+</ol>
+<h1 id="旅游与活动相关"><a href="#旅游与活动相关" class="headerlink" title="旅游与活动相关"></a>旅游与活动相关</h1><ol>
+<li>Can you recommend a good place to visit? 你能推荐个好玩的地方吗?</li>
+<li>Could you suggest some places to visit? 你可以推荐一些值得去的地方吗?</li>
+<li>What are the main attractions in this area? 这一带的主要景点是什么?</li>
+<li>Do you have any brochures or maps? 你们有宣传册或地图吗?</li>
+<li>Do you have any brochures about local attractions? 你有关于当地景点的宣传册吗?</li>
+<li>Are there any events happening this week? 这周有活动吗?</li>
+<li>Do you offer guided tours? 你们提供导游服务吗?</li>
+<li>Can I take photos here? 我能在这里拍照吗?</li>
+<li>Is it safe to walk around at night? 晚上在这里走安全吗?</li>
+<li><strong>What’s the temperature like today?</strong> 今天的温度怎么样?</li>
+<li><strong>What’s the weather like today?</strong> 今天天气怎么样?</li>
+<li><strong>What’s the weather forecast for tomorrow?</strong> 明天的天气预报是什么?</li>
+<li>I’m interested in learning more about your culture. 我对了解你的文化很感兴趣。</li>
+<li>Could you tell me more about your culture? 你能多告诉我一些关于你们文化的事情吗?</li>
+<li>Can I make an international call here? 我可以在这里打国际电话吗?</li>
+<li><strong>Do you have Wi - Fi here?</strong> 这里有无线网络吗?</li>
+<li><strong>What’s your Wi - Fi password?</strong> 你们的Wi - Fi密码是什么?</li>
+<li>How do I connect to the Wi - Fi here? 我该如何连接这里的Wi - Fi?</li>
+<li>Can I leave my luggage here? 我可以把行李寄存在这里吗?</li>
+<li><strong>What are the opening hours?</strong> 营业时间是几点到几点?</li>
+</ol>
+<h1 id="日常交流其他表达"><a href="#日常交流其他表达" class="headerlink" title="日常交流其他表达"></a>日常交流其他表达</h1><p>注: 都很重要, 就不加粗了</p>
+<ol>
+<li>Let me think about it. 让我想一想。</li>
+<li>Let’s take a break. 我们休息一下吧。</li>
+<li>Let’s keep in touch. 我们保持联系吧。</li>
+<li>I’m running late. 我快要迟到了。</li>
+<li>I’m on my way. 我正在路上。</li>
+<li>I’ll be back in a minute. 我马上回来。</li>
+<li>I’ll be right back. 我马上回来。</li>
+<li>I’ll take care of it. 我会处理的。</li>
+<li>I’ll get back to you. 我会回复你的。</li>
+<li>I’ll give it a shot. 我试试看。</li>
+<li>I’ll cross that bridge when I come to it. 到时候再说。</li>
+<li>I’ll keep that in mind. 我会记住的。</li>
+<li>I’m looking forward to it. 我很期待。</li>
+<li>I’m looking forward to meeting you. 我很期待见到你。</li>
+<li>I’m looking forward to working with you. 我很期待和你合作。</li>
+<li>I’m proud of you. 我为你感到骄傲。</li>
+<li>Congratulations! 恭喜!</li>
+<li>You did a great job! 你干得很好!</li>
+<li>You’re a lifesaver. 你真是我的救星。</li>
+<li>That’s very kind of you. 你真是太好了。</li>
+<li>Thank you for your help! 感谢你的帮助!</li>
+<li>Thanks for your help, I really appreciate it. 谢谢你的帮助，我真的很感激。</li>
+<li>You’re welcome. 不客气。</li>
+<li>Don’t mention it. 别客气。</li>
+<li>It’s my pleasure. 这是我的荣幸。</li>
+<li>Sorry, I’m late. 很抱歉我迟到了。</li>
+<li>I’m sorry to bother you. 很抱歉打扰你。</li>
+<li>I’m sorry to interrupt. 很抱歉打断了。</li>
+<li>Sorry for the inconvenience. 抱歉造成不便。</li>
+<li>Sorry for the trouble. 抱歉添麻烦了。</li>
+<li>I’m sorry, I didn’t mean to. 抱歉，我不是故意的。</li>
+<li>It doesn’t matter. 没关系。</li>
+<li>That’s not a problem. 那不是问题。</li>
+<li>Don’t worry about it. 别担心。</li>
+<li>Please don’t worry about it. 不要担心这件事。</li>
+<li>Take it easy. 别紧张，放轻松。</li>
+<li>Relax. 放松。</li>
+<li>Don’t lose your temper. 别发脾气。</li>
+<li>Don’t make a scene. 别闹了。</li>
+<li>Don’t push me. 别逼我。</li>
+<li>Don’t beat around the bush. 别拐弯抹角。</li>
+<li>Don’t jump to conclusions. 别急着下结论。</li>
+<li>Don’t judge a book by its cover. 别以貌取人。</li>
+<li>Don’t judge too quickly. 别太快下结论。</li>
+<li>Don’t cry over spilled milk. 覆水难收。</li>
+<li>Don’t put all your eggs in one basket. 别把所有鸡蛋放在一个篮子里。</li>
+<li>Don’t put the cart before the horse. 本末倒置。</li>
+<li>Don’t bite off more than you can chew. 不要贪多嚼不烂。</li>
+<li>Don’t burn bridges. 不要断了后路。</li>
+<li>Don’t cry wolf. 别发假警报。</li>
+<li>Let’s call it a day. 今天就到这里吧。</li>
+<li>Let’s get started. 我们开始吧。</li>
+<li>Let’s make a move. 我们行动吧。</li>
+<li>Let’s grab some coffee. 我们去喝杯咖啡吧。</li>
+<li>Let’s grab a bite. 一起吃点东西吧。</li>
+<li>Let’s split the bill. 我们分摊账单吧，我们AA吧。</li>
+<li>Let’s go the extra mile. 我们再加把劲。</li>
+<li>Let me sleep on it. 让我再想想。</li>
+<li>Let me explain. 让我解释一下。</li>
+<li>Time flies! 时光飞逝。</li>
+<li>Time heals all wounds. 时间会治愈一切。</li>
+<li>Time will tell. 时间会证明一切。</li>
+<li>Actions speak louder than words. 行动胜于言语。</li>
+<li>Practice makes perfect. 熟能生巧。</li>
+<li>Better safe than sorry. 宁可小心也不要后悔。</li>
+<li>It’s better to be safe than sorry. 小心为上。</li>
+<li>You can’t have your cake and eat it too. 鱼与熊掌不可兼得。</li>
+<li>It’s not rocket science. 这没那么复杂。</li>
+<li>It’s a piece of cake. 小菜一碟。</li>
+<li>It’s a long story. 说来话长。</li>
+<li>It’s a storm in a teacup. 小题大做。</li>
+<li>It’s the tip of the iceberg. 这是冰山一角。</li>
+<li>It’s a win-win situation. 双赢的局面。</li>
+<li>It’s a blessing in disguise. 因祸得福。</li>
+<li>It’s not the end of the world. 这不是世界末日。</li>
+<li>It’s water under the bridge. 过去的事就算了。</li>
+<li>It’s now or never. 机不可失。</li>
+<li>You’ve gone too far. 你太过分了。</li>
+<li>You nailed it! 你搞定了。</li>
+<li>You’ve made my day. 你让我今天非常开心。</li>
+<li>You’re as cool as a cucumber. 你真沉着冷静。</li>
+<li>I’m all ears. 我洗耳恭听。</li>
+<li>I’m all set. 我都准备好了。</li>
+<li>I’m good at multitasking. 我擅长同时处理多项任务。</li>
+<li>I’m over the moon. 我开心极了。</li>
+<li>I’m feeling blue. 我有点忧郁。</li>
+<li>I’m feeling under the weather. 我感觉不太舒服。</li>
+<li>I’m sick and tired of it. 我厌倦了。</li>
+<li>I’m broke. 我没钱了。</li>
+<li>I’m in a hurry. 我赶时间。</li>
+<li>I’m in hot water. 我有麻烦了。</li>
+<li>I’m behind schedule. 我进度落后了。</li>
+<li>I’m on the fence. 我还没决定。</li>
+<li>I’m starving. 我快饿死了。</li>
+<li>That’s ridiculous. 那太荒谬了。</li>
+<li>That’s a no-brainer. 这还用想吗。</li>
+<li>That’s the last straw. 这是最后一根稻草。</li>
+<li>That’s food for thought. 值得深思。</li>
+<li>Count me in. 算我一个。</li>
+<li>Cross your fingers. 祝你好运。</li>
+<li>Keep your fingers crossed. 祝你好运。</li>
+<li>Keep up the good work. 继续保持好表现。</li>
+<li>Keep your chin up. 打起精神。</li>
+<li>Break a leg! 祝你好运。</li>
+<li>Don’t blow it. 别搞砸了。</li>
+<li>Don’t hold your breath. 别抱太大希望。</li>
+<li>Don’t put off till tomorrow what you can do today. 今日事今日毕。</li>
+<li>I’ll take your word for it. 我相信你说的。</li>
+<li>I can manage it. 我能应付。</li>
+<li>I can’t wait! 我等不及了！</li>
+<li>I can’t hear you clearly. 我听不清楚你说的。</li>
+<li>I forgot to bring my wallet. 我忘了带钱包。</li>
+<li>I’m afraid I can’t make it. 我恐怕做不到。</li>
+<li>I’m afraid I can’t help you. 我恐怕帮不了你。</li>
+<li>Can I borrow your pen? 我能借你的笔吗？</li>
+<li>Could you lend me a pen? 你能借我一支笔吗？</li>
+<li>Can I have an extra blanket, please? 我可以要一条额外的毯子吗？</li>
+<li>Can I have extra towels, please? 我可以要多一些毛巾吗？</li>
+<li>Do you offer laundry services here? 这里提供洗衣服务吗？</li>
+<li>Could you pass me the salt, please? 你能递给我盐吗？</li>
+<li>How do you spell that? 这个怎么拼写？</li>
+<li>What’s the emergency contact number here? 这里的紧急联系电话是多少？</li>
+<li>What’s the emergency number here? 这里的紧急联系电话是多少？</li>
+<li>Do you have any plans for the weekend? 你周末有什么计划吗？</li>
+<li>Let’s catch up later. 我们稍后聊。</li>
+<li>Are you kidding me? 你在开玩笑吧。</li>
+<li>You’ve got to be kidding me. 你一定是在开玩笑。</li>
+<li>Can I get a refund? 我可以退款吗？</li>
+<li>Could I have a refill, please? 我可以再加点吗？</li>
+<li>Is tipping customary here? 在这里小费是习惯吗？</li>
+<li>Where can I exchange currency? 我在哪里可以兑换货币？</li>
+<li>What’s the exchange rate today? 今天的汇率是多少？</li>
+<li>I’d like to exchange some currency. 我想兑换一些货币。</li>
+<li>Do I need a reservation? 我需要预订吗？</li>
+<li>Can I reserve a table for tonight? 我可以预定今晚的餐桌吗？</li>
+<li>Do I need a ticket to enter this place? 进入这个地方需要票吗？</li>
+<li>Can I use your phone to make a local call? 我可以用你的电话打个本地电话吗？</li>
+<li>Can I get a guide to explain the history here? 我可以找一个导游来讲解这里的历史吗？</li>
+<li>Could you take a picture for me? 你可以帮我拍张照片吗？</li>
+<li>Could you write it down for me? 你能帮我写下来吗？</li>
+<li>Could you write that down for me? 你能帮我写下来吗？</li>
+<li>Please feel free to contact me. 请随时联系我。</li>
+<li>Do you mind if I join you? 你介意我加入吗？</li>
+<li>Do you mind if I sit here? 你介意我坐在这吗？</li>
+<li>This is not what I expected. 这不是我期待的。</li>
+<li>Let me know if you need anything. 如果你需要什么，请告诉我。</li>
+<li>I have nothing to do with it. 这与我无关。</li>
+<li>It’s my turn. 轮到我了。</li>
+<li>What’s the plan? 计划是什么？</li>
+<li>What’s the next step? 下一步是什么？</li>
+<li>It’s up to you. 这由你决定，这取决于你。</li>
+<li>That’s up to you. 这取决于你。</li>
+<li>The ball is in your court. 轮到你行动了。</li>
+<li>It’s up in the air. 还不确定。</li>
+<li>Stay tuned. 敬请关注。</li>
+<li>I’m just joking. 我只是开玩笑。</li>
+<li>Don’t judge a person by appearance. 不要以貌取人。</li>
+</ol>
+<h1 id="英语俗语谚语"><a href="#英语俗语谚语" class="headerlink" title="英语俗语谚语"></a>英语俗语谚语</h1><p>注: 都很重要, 就不加粗了</p>
+<ol>
+<li>All roads lead to Rome. 条条大路通罗马。</li>
+<li>An apple a day keeps the doctor away. 一天一苹果，医生远离我。</li>
+<li>Out of sight, out of mind. 眼不见，心不烦。</li>
+<li>Don’t put all your eggs in one basket. 别把所有的鸡蛋放在一个篮子里（不要孤注一掷）。</li>
+<li>Easy come, easy go. 来得容易去得快。</li>
+<li>Knowledge is power. 知识就是力量。</li>
+</ol>
+<hr>
+<h2 id="2-Don’t-let-the-cat-out-of-the-bag"><a href="#2-Don’t-let-the-cat-out-of-the-bag" class="headerlink" title="2. Don’t let the cat out of the bag"></a>2. Don’t let the cat out of the bag</h2><p><strong>意思</strong>：别泄露秘密。<br><strong>比喻用法</strong>：指不小心提前说出本该保密的事情。<br><strong>由来</strong>：</p>
+<ul>
+<li>起源于中世纪欧洲市场，有个说法是有人用装在袋子里的猫来冒充猪，买家若提前看袋子就识破了骗局，“猫就从袋子里出来了”。</li>
+</ul>
+<hr>
+<h2 id="3-Let’s-play-it-by-ear"><a href="#3-Let’s-play-it-by-ear" class="headerlink" title="3. Let’s play it by ear"></a>3. Let’s play it by ear</h2><p><strong>意思</strong>：我们到时候看情况再决定。<br><strong>比喻用法</strong>：不提前计划，临场应对。<br><strong>由来</strong>：</p>
+<ul>
+<li>原指音乐中“凭耳朵弹奏”，即不看乐谱、即兴发挥。</li>
+<li>引申为处理事情时不设定严格计划，根据实际情况灵活应对。</li>
+</ul>
+<hr>
+<h2 id="4-Let’s-turn-over-a-new-leaf"><a href="#4-Let’s-turn-over-a-new-leaf" class="headerlink" title="4. Let’s turn over a new leaf"></a>4. Let’s turn over a new leaf</h2><p><strong>意思</strong>：让我们重新开始 / 改过自新。<br><strong>比喻用法</strong>：做出积极改变，开始新生活或改正错误。<br><strong>由来</strong>：</p>
+<ul>
+<li>“Leaf” 原指书页，“翻一页”意味着翻过旧的、开始新的篇章。</li>
+</ul>
+<hr>
+<h2 id="5-Let’s-cut-to-the-chase"><a href="#5-Let’s-cut-to-the-chase" class="headerlink" title="5. Let’s cut to the chase"></a>5. Let’s cut to the chase</h2><p><strong>意思</strong>：我们直接进入重点吧。<br><strong>比喻用法</strong>：不要废话，直接讲最重要的部分。<br><strong>由来</strong>：</p>
+<ul>
+<li>源自早期电影术语，特别是西部片中，观众最期待的是“追车场景”（chase scenes），所以跳过无聊对话直接进入高潮场面。</li>
+</ul>
+<hr>
+<h2 id="6-You’re-barking-up-the-wrong-tree"><a href="#6-You’re-barking-up-the-wrong-tree" class="headerlink" title="6. You’re barking up the wrong tree"></a>6. You’re barking up the wrong tree</h2><p><strong>意思</strong>：你搞错对象了 / 找错地方了。<br><strong>比喻用法</strong>：在错误的方向上努力或责怪了错的人。<br><strong>由来</strong>：</p>
+<ul>
+<li>来源于狩猎场景，狗对着没有猎物的树狂吠，误以为猎物藏在那里。</li>
+</ul>
+<hr>
+<h2 id="7-You’re-pulling-my-leg"><a href="#7-You’re-pulling-my-leg" class="headerlink" title="7. You’re pulling my leg"></a>7. You’re pulling my leg</h2><p><strong>意思</strong>：你在逗我 / 开我玩笑吧。<br><strong>比喻用法</strong>：用于质疑对方说的话太离谱，可能是在开玩笑。<br><strong>由来</strong>：</p>
+<ul>
+<li>有多种说法，其中一种认为它起源于街头小偷作案时拉拽他人腿部以转移注意力。</li>
+</ul>
+<hr>
+<h2 id="8-I’m-on-cloud-nine"><a href="#8-I’m-on-cloud-nine" class="headerlink" title="8. I’m on cloud nine"></a>8. I’m on cloud nine</h2><p><strong>意思</strong>：我高兴极了 / 我欣喜若狂。<br><strong>比喻用法</strong>：描述极度开心或满足的情绪。<br><strong>由来</strong>：</p>
+<ul>
+<li>“Cloud nine” 代表最顶层的云，比喻达到最高层次的快乐。其来源可能与气象分级有关（如气象局曾用第九类云指高积云）。</li>
+</ul>
+<hr>
+<h2 id="9-That’s-the-icing-on-the-cake"><a href="#9-That’s-the-icing-on-the-cake" class="headerlink" title="9. That’s the icing on the cake"></a>9. That’s the icing on the cake</h2><p><strong>意思</strong>：这真是锦上添花。<br><strong>比喻用法</strong>：事情本已很好，又额外加上一点更好的结果。<br><strong>由来</strong>：</p>
+<ul>
+<li>原指蛋糕上本已好吃的糖霜（icing），比喻已有好事上的“附加好处”。</li>
+</ul>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/const_mutable_volatile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/const_mutable_volatile/" itemprop="url">const和volatile和mutable讲解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-24T17:56:12+00:00">
+                05-24-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="const关键字"><a href="#const关键字" class="headerlink" title="const关键字"></a>const关键字</h1><p>const 是比较常见的关键字, 也是非常好的预防错误的手段.</p>
+<h2 id="const-修饰普通变量和指针"><a href="#const-修饰普通变量和指针" class="headerlink" title="const 修饰普通变量和指针"></a><u><strong>const</strong> <strong>修饰普通变量和指针</strong></u></h2><p>const 修饰变量，一般有两种写法：</p>
+<pre><code>const TYPE value;
+
+TYPE const value;
+</code></pre><p>这两种写法在本质上是一样的。它的含义是：const 修饰的类型为 TYPE 的变量 value 是不可变的。对于一个非指针的类型 TYPE，无论怎么写，都是一个含义，即 value 值不可变。 例如：</p>
+<pre><code>const int nValue；    //nValue 是 const
+
+int const nValue；    //nValue 是 const
+</code></pre><p>. . .
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/32/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

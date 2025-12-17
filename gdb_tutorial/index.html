@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'GDB基础教程' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GDB,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="GDB 操作提示在编译可执行文件时需要给 gcc 加上 “-g” 选项，这样它才会为生成的可执行文件加入额外的调试信息。不要使用编译器的优化选项，比如： “-O”，”-O2”。因为编译器会为了优化而改变程序流程，那样不利于调试。在 GDB 中执行 shell 命令可以使用：shell commandGDB 命令可以使用 TAB 键来补全。按两次 TAB 键可以看到所有可能的匹配。GDB 命令缩写：">
+<meta name="keywords" content="GDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GDB基础教程">
+<meta property="og:url" content="https://hulinhong.com/gdb_tutorial/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="GDB 操作提示在编译可执行文件时需要给 gcc 加上 “-g” 选项，这样它才会为生成的可执行文件加入额外的调试信息。不要使用编译器的优化选项，比如： “-O”，”-O2”。因为编译器会为了优化而改变程序流程，那样不利于调试。在 GDB 中执行 shell 命令可以使用：shell commandGDB 命令可以使用 TAB 键来补全。按两次 TAB 键可以看到所有可能的匹配。GDB 命令缩写：">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.648Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GDB基础教程">
+<meta name="twitter:description" content="GDB 操作提示在编译可执行文件时需要给 gcc 加上 “-g” 选项，这样它才会为生成的可执行文件加入额外的调试信息。不要使用编译器的优化选项，比如： “-O”，”-O2”。因为编译器会为了优化而改变程序流程，那样不利于调试。在 GDB 中执行 shell 命令可以使用：shell commandGDB 命令可以使用 TAB 键来补全。按两次 TAB 键可以看到所有可能的匹配。GDB 命令缩写：">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>GDB基础教程 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/gdb_tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GDB基础教程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-02T12:18:54+00:00">
+                02-02-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/GDB/" rel="tag"><i class="fa fa-tag"></i> GDB</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/singleton_pattern/" rel="next" title="单例模式的析构问题和线程安全问题">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  单例模式的析构问题和线程安全问题
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/lua_special_part/" rel="prev" title="Lua特别之处笔记">
+              <p class="post-nav-pre-next-title">
+                  Lua特别之处笔记
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="GDB-操作提示"><a href="#GDB-操作提示" class="headerlink" title="GDB 操作提示"></a>GDB 操作提示</h1><p>在编译可执行文件时需要给 gcc 加上 “-g” 选项，这样它才会为生成的可执行文件加入额外的调试信息。<br>不要使用编译器的优化选项，比如： “-O”，”-O2”。因为编译器会为了优化而改变程序流程，那样不利于调试。<br>在 GDB 中执行 shell 命令可以使用：shell command<br>GDB 命令可以使用 TAB 键来补全。按两次 TAB 键可以看到所有可能的匹配。<br>GDB 命令缩写：例如 info bre 中的 bre 相当于 breakpoints。</p>
+<h1 id="启动GDB"><a href="#启动GDB" class="headerlink" title="启动GDB"></a>启动GDB</h1><ul>
+<li>gdb executable</li>
+<li>gdb -e executable -c core-file</li>
+<li>gdb executable -pid process-id （使用ps相关命令可以查看进程的 pid）</li>
+</ul>
+<h1 id="GDB常用命令"><a href="#GDB常用命令" class="headerlink" title="GDB常用命令"></a>GDB常用命令</h1><ul>
+<li>help                        列出 gdb 帮助信息。</li>
+<li>info+subcommand , 比如 :<ul>
+<li>info breakpoints    : 列出断点。</li>
+<li>info watchpoints    : 列出观察点。</li>
+<li>info threads        : 列出当前的线程。</li>
+<li>info locals        : 列出Local variables of current stack frame</li>
+<li></li>
+</ul>
+</li>
+<li>step(简写一个s也可)         进入下一行代码的执行，会进入函数内部。</li>
+<li>next(简写一个n也可)         执行下一行代码。但不会进入函数内部。</li>
+<li>finish                     跳出当前代码（之前跳入调试）</li>
+<li>continue(c)                继续执行直到下一个断点或观察点。</li>
+<li>b                          断点</li>
+<li>kill                        停止程序执行。</li>
+<li>quit(q)                    退出 GDB调试器</li>
+<li>run(r)                    从头开始执行程序，也允许进行重定向。</li>
+<li>print(p) variable            打印指定变量的值。<ul>
+<li>p variable</li>
+<li>p file::variable</li>
+<li>p ‘file’::variables</li>
+<li></li>
+</ul>
+</li>
+<li>backtrace(简写bt), 显示函数调用栈<ul>
+<li>bt :                        显示所有函数调用栈</li>
+<li>bt n :             显示程序的调用栈信息，只显示栈顶n桢(frame)</li>
+<li>bt -n :             显示程序的调用栈信息，只显示栈底部n桢(frame)</li>
+<li>set backtrace limit n :     设置bt显示的最大桢层数</li>
+<li>where 和 info stack ：        都是bt的别名，功能一样</li>
+</ul>
+</li>
+</ul>
+<h1 id="细说断点"><a href="#细说断点" class="headerlink" title="细说断点"></a>细说断点</h1><p>给 test.c 的第10行设置一个断点 : </p>
+<pre><code>b test.c:10 
+</code></pre><h2 id="断点删除"><a href="#断点删除" class="headerlink" title="断点删除"></a>断点删除</h2><p>断点的删除与断点的设置同样的重要。删除断点的命令有两个:</p>
+<ul>
+<li><a href="#delete">delete</a></li>
+<li><a href="#clear">clear</a></li>
+</ul>
+<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>用法：delete [breakpoints num] [range…]<br>delete可删除单个断点，也可删除一个断点的集合，这个集合用连续的断点号来描述。<br>例如：</p>
+<pre><code>delete 5
+delete 1-10
+</code></pre><h3 id="clear"><a href="#clear" class="headerlink" title="clear"></a>clear</h3><p>用法:</p>
+<ul>
+<li>clear 删除所选定的环境中所有的断点</li>
+<li>clear location location描述具体的断点。</li>
+</ul>
+<p>clear 删除断点是基于行的，不是把所有的断点都删除。<br>例如：</p>
+<pre><code>clear list_insert         //删除函数的所有断点
+clear list.c:list_delet   //删除文件：函数的所有断点
+clear 12                  //删除行号的所有断点
+clear list.c:12           //删除文件：行号的所有断点
+</code></pre><h2 id="断点的使能和禁止"><a href="#断点的使能和禁止" class="headerlink" title="断点的使能和禁止"></a>断点的使能和禁止</h2><p>对断点的控制除了建立和删除外，还可以通过使能和禁止来控制，后一种方法更灵活。</p>
+<p>断点的四种使能操作：</p>
+<ul>
+<li>enable [breakpoints] [range…] 完全使能</li>
+<li>enable                //激活所有断点</li>
+<li>enable 4            //激活4断点</li>
+<li>enable 5-6            //激活5～6断点</li>
+<li>disable [breakpoints] [range…] 禁止</li>
+<li>enable once [breakpoints] [range…] 使能一次，触发后禁止</li>
+<li>enable delete [breakpoints] [range…]使能一次，触发后删除</li>
+</ul>
+<p>用法举例：</p>
+<pre><code>diable                //禁止所有断点
+disble 2            //禁止第二个断点
+disable 1-5            //禁止第1到第5个断点
+</code></pre><h1 id="GDB帮助"><a href="#GDB帮助" class="headerlink" title="GDB帮助"></a>GDB帮助</h1><p>GDB的命令很多, 有些用得少的命令记不住的话, 可以在进入GDB之后敲 “help”, 然后再敲 “help + command_class”,<br>比如 :</p>
+<p><strong>(gdb) help</strong><br>List of classes of commands:</p>
+<p>aliases – Aliases of other commands<br>breakpoints – Making program stop at certain points<br>data – Examining data<br>files – Specifying and examining files<br>internals – Maintenance commands<br>obscure – Obscure features<br>running – Running the program<br>stack – Examining the stack<br>status – Status inquiries<br>support – Support facilities<br>tracepoints – Tracing of program execution without stopping the program<br>user-defined – User-defined commands</p>
+<p>Type “help” followed by a class name for a list of commands in that class.<br>Type “help all” for the list of all commands.<br>Type “help” followed by command name for full documentation.<br>Type “apropos word” to search for commands related to “word”.<br>Command name abbreviations are allowed if unambiguous.</p>
+<p><strong>(gdb) help running </strong><br>Running the program.</p>
+<p>List of commands:</p>
+<p>advance – Continue the program up to the given location (same form as args for break command)<br>attach – Attach to a process or file outside of GDB<br>continue – Continue program being debugged<br>detach – Detach a process or file previously attached<br>detach checkpoint – Detach from a checkpoint (experimental)<br>detach inferiors – Detach from inferior ID (or list of IDS)<br>disconnect – Disconnect from a target<br>finish – Execute until selected stack frame returns<br>handle – Specify how to handle signals<br>inferior – Use this command to switch between inferiors<br>interrupt – Interrupt the execution of the debugged program<br>jump – Continue program being debugged at specified line or address<br>kill – Kill execution of program being debugged<br>kill inferiors – Kill inferior ID (or list of IDs)<br>next – Step program<br>nexti – Step one instruction<br>reverse-continue – Continue program being debugged but run it in reverse<br>reverse-finish – Execute backward until just before selected stack frame is called<br>reverse-next – Step program backward<br>reverse-nexti – Step backward one instruction<br>reverse-step – Step program backward until it reaches the beginning of another source line<br>reverse-stepi – Step backward exactly one instruction<br>run – Start debugged program<br>…</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/GDB/" rel="tag"><i class="fa fa-tag"></i> GDB</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/singleton_pattern/" rel="next" title="单例模式的析构问题和线程安全问题">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    单例模式的析构问题和线程安全问题
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/lua_special_part/" rel="prev" title="Lua特别之处笔记">
+                <p class="post-nav-pre-next-title">
+                    Lua特别之处笔记
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GDB-操作提示"><span class="nav-text">GDB 操作提示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动GDB"><span class="nav-text">启动GDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GDB常用命令"><span class="nav-text">GDB常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#细说断点"><span class="nav-text">细说断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#断点删除"><span class="nav-text">断点删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#delete"><span class="nav-text">delete</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clear"><span class="nav-text">clear</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断点的使能和禁止"><span class="nav-text">断点的使能和禁止</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GDB帮助"><span class="nav-text">GDB帮助</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

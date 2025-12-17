@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'Lua特别之处笔记' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Lua,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="2.2 Booleans两个取值 false 和 true。但要注意 Lua 中所有的值都可以作为条件。在控制结构的条件中除了 false 和 nil 为假，其他值都为真。所以 Lua 认为 0 和空串都是真。 2.5 table我们用一个疑问来引入table的介绍 传的是值还是引用?lua的函数调用传的是值还是引用? . . .">
+<meta name="keywords" content="Lua">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua特别之处笔记">
+<meta property="og:url" content="https://hulinhong.com/lua_special_part/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="2.2 Booleans两个取值 false 和 true。但要注意 Lua 中所有的值都可以作为条件。在控制结构的条件中除了 false 和 nil 为假，其他值都为真。所以 Lua 认为 0 和空串都是真。 2.5 table我们用一个疑问来引入table的介绍 传的是值还是引用?lua的函数调用传的是值还是引用? . . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lua特别之处笔记">
+<meta name="twitter:description" content="2.2 Booleans两个取值 false 和 true。但要注意 Lua 中所有的值都可以作为条件。在控制结构的条件中除了 false 和 nil 为假，其他值都为真。所以 Lua 认为 0 和空串都是真。 2.5 table我们用一个疑问来引入table的介绍 传的是值还是引用?lua的函数调用传的是值还是引用? . . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Lua特别之处笔记 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/lua_special_part/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Lua特别之处笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-03T18:12:15+00:00">
+                02-03-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/gdb_tutorial/" rel="next" title="GDB基础教程">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  GDB基础教程
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/条件编译指令之if和ifdef和ifdefined之间的区别/" rel="prev" title="条件编译指令之#if和#ifdef和#if defined之间的区别">
+              <p class="post-nav-pre-next-title">
+                  条件编译指令之#if和#ifdef和#if defined之间的区别
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="2-2-Booleans"><a href="#2-2-Booleans" class="headerlink" title="2.2 Booleans"></a>2.2 Booleans</h1><p>两个取值 false 和 true。但要注意 Lua 中所有的值都可以作为条件。在控制结构的条<br>件中除了 false 和 nil 为假，其他值都为真。所以 Lua 认为 0 和空串都是真。</p>
+<h1 id="2-5-table"><a href="#2-5-table" class="headerlink" title="2.5 table"></a>2.5 table</h1><p>我们用一个疑问来引入table的介绍</p>
+<h2 id="传的是值还是引用"><a href="#传的是值还是引用" class="headerlink" title="传的是值还是引用?"></a>传的是值还是引用?</h2><p>lua的函数调用传的是值还是引用?</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">tTableForTest = &#123;&#125;</span><br><span class="line"></span><br><span class="line">tTableForTest[<span class="number">1</span>] = <span class="number">9</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testTable</span><span class="params">(tTable)</span></span></span><br><span class="line">    tTable[<span class="number">1</span>] = <span class="number">11</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"tTableForTest[1]"</span>..<span class="string">" : "</span>..tTableForTest[<span class="number">1</span>])</span><br><span class="line">testTable(tTableForTest)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"tTableForTest[1]"</span>..<span class="string">" : "</span>..tTableForTest[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\n==================\n"</span>)</span><br><span class="line"></span><br><span class="line">nNumberForTest = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TestNumber</span><span class="params">( nNumber )</span></span></span><br><span class="line">    nNumber = <span class="number">99</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"nNumberForTest"</span>..<span class="string">" : "</span>..nNumberForTest)</span><br><span class="line">TestNumber(nNumberForTest)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"nNumberForTest"</span>..<span class="string">" : "</span>..nNumberForTest)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\n==================\n"</span>)</span><br><span class="line"></span><br><span class="line">nStringForTest = <span class="string">"hi"</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TestNumber</span><span class="params">( nString )</span></span></span><br><span class="line">    nString = <span class="string">"hello"</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"nStringForTest"</span>..<span class="string">" : "</span>..nStringForTest)</span><br><span class="line">TestNumber(nStringForTest)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"nStringForTest"</span>..<span class="string">" : "</span>..nStringForTest)</span><br></pre></td></tr></table></figure>
+<h3 id="打印结果"><a href="#打印结果" class="headerlink" title="打印结果"></a>打印结果</h3><pre><code>tTableForTest[1] : 9
+tTableForTest[1] : 11
+
+==================
+
+nNumberForTest : 1
+nNumberForTest : 1
+
+==================
+
+nStringForTest : hi
+nStringForTest : hi
+</code></pre><h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><ul>
+<li>table传引用</li>
+<li>number传值</li>
+<li>string传值</li>
+</ul>
+<h2 id="为什么lua中table会不一样"><a href="#为什么lua中table会不一样" class="headerlink" title="为什么lua中table会不一样"></a>为什么lua中table会不一样</h2><p>在Lua中, table 既不是值也不是变量而是对象.</p>
+<p>程序仅持有一个对他们的引用, Lua不会暗中产生table的副本或创建新的table.</p>
+<p>事实上, table的创建是通过构造表达式完成的, 最简单的构造表达式就是{}</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">a = &#123;&#125;</span><br><span class="line">k = <span class="string">"x"</span></span><br><span class="line">a[k] = <span class="number">10</span></span><br><span class="line">a[<span class="number">20</span>] = <span class="string">"great"</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="string">"x"</span>])   <span class="comment">--&gt; 10</span></span><br><span class="line"></span><br><span class="line">k = <span class="number">20</span></span><br><span class="line"><span class="built_in">print</span>(a[k])     <span class="comment">--&gt; "great"</span></span><br><span class="line">a[<span class="string">"x"</span>] = a[<span class="string">"x"</span>] + <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="string">"x"</span>])   <span class="comment">--&gt; 11</span></span><br><span class="line"></span><br><span class="line">b = a           <span class="comment">-- b与a引用了同一个table</span></span><br><span class="line"><span class="built_in">print</span>(b[<span class="string">"x"</span>])   <span class="comment">--&gt; 10</span></span><br><span class="line">b[<span class="string">"x"</span>] = <span class="number">20</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="string">"x"</span>])   <span class="comment">--&gt; 20</span></span><br><span class="line"></span><br><span class="line">a = <span class="literal">nil</span>         <span class="comment">-- 现在只有b还在引用table</span></span><br><span class="line">b = <span class="literal">nil</span>         <span class="comment">-- 再也没有对table的引用了</span></span><br></pre></td></tr></table></figure>
+<p>当一个程序再也没有对一个table的引用时, Lua的垃圾收集器最终会删除该table, 并<br>复用它的内存.</p>
+<h2 id="a-x-和a-x是不同的"><a href="#a-x-和a-x是不同的" class="headerlink" title="a[x]和a.x是不同的"></a>a[x]和a.x是不同的</h2><p><code>a.x</code>表示<code>a[&quot;x&quot;]</code> , 表示以字符串<code>&quot;x&quot;</code>来索引table</p>
+<p><code>a[x]</code> 是以变量x的值来索引table</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">a = &#123;&#125;</span><br><span class="line">x = <span class="string">"y"</span></span><br><span class="line">a[x] = <span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(a[x])     <span class="comment">--&gt; 表示a["y"], 即 10</span></span><br><span class="line"><span class="built_in">print</span>(a.x)      <span class="comment">--&gt; 表示a["x"], 没有定义这个, 所以是 nil</span></span><br><span class="line"><span class="built_in">print</span>(a.y)      <span class="comment">--&gt; 表示a["y"], 即 10</span></span><br></pre></td></tr></table></figure>
+<h2 id="用table作为数组时"><a href="#用table作为数组时" class="headerlink" title="用table作为数组时"></a>用table作为数组时</h2><p>就Lua的习惯而言, 数组通常以1作为索引的起始值, 并且还有不少lua机制依赖于这个惯例, 大多数lua内置的函数都假设数组起始于索引1, 这跟c语言以0为起始是不同的.</p>
+<p>Lua5.1以上, 可以使用 <code>#</code> 来返回一个数组或者线性表的最后一个索引值或者其大小.</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 打印所有的行</span></span><br><span class="line"><span class="keyword">for</span> i=<span class="number">1</span>, #a <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(a[i])</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/gdb_tutorial/" rel="next" title="GDB基础教程">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    GDB基础教程
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/条件编译指令之if和ifdef和ifdefined之间的区别/" rel="prev" title="条件编译指令之#if和#ifdef和#if defined之间的区别">
+                <p class="post-nav-pre-next-title">
+                    条件编译指令之#if和#ifdef和#if defined之间的区别
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-Booleans"><span class="nav-text">2.2 Booleans</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-5-table"><span class="nav-text">2.5 table</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传的是值还是引用"><span class="nav-text">传的是值还是引用?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试代码"><span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打印结果"><span class="nav-text">打印结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么lua中table会不一样"><span class="nav-text">为什么lua中table会不一样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-x-和a-x是不同的"><span class="nav-text">a[x]和a.x是不同的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用table作为数组时"><span class="nav-text">用table作为数组时</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

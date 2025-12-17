@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '游戏网络开发三之基于UDP的虚拟连接' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GafferOnGames,UDP,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="原文原文出处 Introduction Hi, I&amp;rsquo;m Glenn Fiedler and welcome to Networking for Game Programmers.In the previous article we sent and received packets over UDP. Since UDP is connectionless, one UDP socke">
+<meta name="keywords" content="GafferOnGames,UDP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="游戏网络开发三之基于UDP的虚拟连接">
+<meta property="og:url" content="https://hulinhong.com/virtual_connection_over_udp/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="原文原文出处 Introduction Hi, I&amp;rsquo;m Glenn Fiedler and welcome to Networking for Game Programmers.In the previous article we sent and received packets over UDP. Since UDP is connectionless, one UDP socke">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.684Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="游戏网络开发三之基于UDP的虚拟连接">
+<meta name="twitter:description" content="原文原文出处 Introduction Hi, I&amp;rsquo;m Glenn Fiedler and welcome to Networking for Game Programmers.In the previous article we sent and received packets over UDP. Since UDP is connectionless, one UDP socke">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>游戏网络开发三之基于UDP的虚拟连接 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/virtual_connection_over_udp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">游戏网络开发三之基于UDP的虚拟连接</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-16T22:20:34+00:00">
+                11-16-2016
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GS/" itemprop="url" rel="index">
+                    <span itemprop="name">GS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/GafferOnGames/" rel="tag"><i class="fa fa-tag"></i> GafferOnGames</a>
+              
+                <a href="/tags/UDP/" rel="tag"><i class="fa fa-tag"></i> UDP</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/游戏网络开发二之数据的发送与接收/" rel="next" title="游戏网络开发二之数据的发送与接收">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  游戏网络开发二之数据的发送与接收
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/游戏网络开发四之基于UDP的可靠性与排序和避免拥堵/" rel="prev" title="游戏网络开发四之基于UDP的可靠性与排序和避免拥堵">
+              <p class="post-nav-pre-next-title">
+                  游戏网络开发四之基于UDP的可靠性与排序和避免拥堵
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="https://gafferongames.com/post/virtual_connection_over_udp/" target="_blank" rel="noopener">原文出处</a></p>
+<p></p><h2 id="introduction">Introduction</h2><p></p>
+<p>Hi, I&rsquo;m <a href="https://gafferongames.com/about" target="_blank" rel="noopener">Glenn Fiedler</a> and welcome to <a href="https://gafferongames.com/categories/game-networking/" target="_blank" rel="noopener"><strong>Networking for Game Programmers</strong></a>.</p><br><p>In the <a href="https://gafferongames.com/post/sending_and_receiving_packets" target="_blank" rel="noopener">previous article</a> we sent and received packets over UDP. Since UDP is connectionless, one UDP socket can be used to exchange packets with any number of different computers. In multiplayer games however, we usually only want to exchange packets between a small set of connected computers.</p><br><p>As the first step towards a general connection system, we&rsquo;ll start with the simplest case possible: creating a virtual connection between two computers on top of UDP.</p><br><p>But first, we&rsquo;re going to dig in a bit deeper about how the Internet really works!</p><br><h2 id="the-internet-u-not-u-a-series-of-tubes">The Internet <u>NOT</u> a series of tubes</h2><br><p>In 2006, Senator Ted Stevens made internet history with his <a href="https://en.wikipedia.org/wiki/Series_of_tubes" target="_blank" rel="noopener">famous speech</a> on the net neutrality act:</p><br><blockquote>“The internet is not something that you just dump something on. It’s not a big truck. It’s a series of tubes”</blockquote><br><p>When I first started using the Internet, I was just like Ted. Sitting in the computer lab in University of Sydney in 1995, I was &ldquo;surfing the web&rdquo; with this new thing called Netscape Navigator, and I had absolutely no idea what was going on.</p><br><p>You see, I thought each time you connected to a website there was some actual connection going on, like a telephone line. I wondered, how much does it cost each time I connect to a new website? 30 cents? A dollar? Was somebody from the university going to tap me on the shoulder and ask me to pay the long distance charges? :)</p><br><p>Of course, this all seems silly now.</p><br><p>There is no switchboard somewhere that directly connects you via a physical phone line to the other computer you want to talk to, let alone a series of pneumatic tubes like Sen. Stevens would have you believe.</p><br><h2 id="no-direct-connections">No Direct Connections</h2><br><p>Instead your data is sent over Internet Protocol (IP) via packets that hop from computer to computer.</p><br><p>A packet may pass through several computers before it reaches its destination. You cannot know the exact set of computers in advance, as it changes dynamically depending on how the network decides to route packets. You could even send two packets A and B to the same address, and they may take different routes.</p><br><p>On unix-like systems can inspect the route that packets take by calling &ldquo;traceroute&rdquo; and passing in a destination hostname or IP address.</p><br><p>On windows, replace &ldquo;traceroute&rdquo; with &ldquo;tracert&rdquo; to get it to work.</p><br><p>Try it with a few websites like this:</p><br><pre>    traceroute slashdot.org<br>    traceroute amazon.com<br>    traceroute google.com<br>    traceroute bbc.co.uk<br>    traceroute news.com.au<br></pre><br><p>Take a look and you should be able to convince yourself pretty quickly that there is no direct connection.</p><br><h2 id="how-packets-get-delivered">How Packets Get Delivered</h2><br><p>In the <a href="https://gafferongames.com/post/udp_vs_tcp/" target="_blank" rel="noopener">first article</a>, I presented a simple analogy for packet delivery, describing it as somewhat like a note being passed from person to person across a crowded room.</p><br><p>While this analogy gets the basic idea across, it is much too simple. The Internet is <u>not</u> a flat network of computers, it is a network of networks. And of course, we don&rsquo;t just need to pass letters around a small room, we need to be able to send them anywhere in the world.</p><br><p>It should be pretty clear then that the best analogy is the postal service!</p><br><p>When you want to send a letter to somebody you put your letter in the mailbox and you trust that it will be delivered correctly. It&rsquo;s not really relevant to you <i>how</i> it gets there, as long as it does. Somebody has to physically deliver your letter to its destination of course, so how is this done?</p><br><p>Well first off, the postman sure as hell doesn&rsquo;t take your letter and deliver it personally! It seems that the postal service is not a series of tubes either. Instead, the postman takes your letter to the local post office for processing.</p><br><p>If the letter is addressed locally then the post office just sends it back out, and another postman delivers it directly. But, if the address is is non-local then it gets interesting! The local post office is not able to deliver the letter directly, so it passes it &ldquo;up&rdquo; to the next level of hierarchy, perhaps to a regional post office which services cities nearby, or maybe to a mail center at an airport, if the address is far away. Ideally, the actual transport of the letter would be done using a <u>big truck</u>.</p><br><p>Lets be complicated and assume the letter is sent from Los Angeles to Sydney, Australia. The local post office receives the letter and given that it is addressed internationally, sends it directly to a mail center at LAX. The letter is processed again according to address, and gets routed on the next flight to Sydney.</p><br><p>The plane lands at Sydney airport where an <i>entirely different postal system</i> takes over. Now the whole process starts operating in reverse. The letter travels &ldquo;down&rdquo; the hierarchy, from the general, to the specific. From the mail hub at Sydney Airport it gets sent out to a regional center, the regional center delivers it to the local post office, and eventually the letter is hand delivered by a mailman with a funny accent. Crikey! :)</p><br><p>Just like post offices determine how to deliver letters via their address, networks deliver packets according to their IP address. The low-level details of this delivery and the actual routing of packets from network to network is actually quite complex, but the basic idea is that each router is just another computer, with a routing table describing where packets matching sets of addresses should go, as well as a default gateway address describing where to pass packets for which there is no matching entry in the table. It is routing tables, and the physical connections they represent that define the network of networks that is the Internet.</p><br><p>The job of configuring these routing tables is up to network administrators, not programmers like us. But if you want to read more about it, then this article from <a href="https://arstechnica.com/guides/other/peering-and-transit.ars" target="_blank" rel="noopener">ars technica</a> provides some fascinating insight into how networks exchange packets between each other via peering and transit relationships. You can also read more details about <a href="http://www.faqs.org/docs/linux_network/x-087-2-issues.routing.html" target="_blank" rel="noopener">routing tables</a> in this linux faq, and about the <a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol" target="_blank" rel="noopener">border gateway protocol</a> on wikipedia, which automatically discovers how to route packets between networks, making the internet a truly distributed system capable of dynamically routing around broken connectivity.</p><br><h2 id="virtual-connections">Virtual Connections</h2><br><p>Now back to connections.</p><br><p>If you have used TCP sockets then you know that they sure <i>look</i> like a connection, but since TCP is implemented on top of IP, and IP is just packets hopping from computer to computer, it follows that TCP&rsquo;s concept of connection must be a <i>virtual connection.</i></p><br><p>If TCP can create a virtual connection over IP, it follows that we can do the same over UDP.</p><br><p>Lets define our virtual connection as two computers exchanging UDP packets at some fixed rate like 10 packets per-second. As long as the packets are flowing, we consider the two computers to be virtually connected.</p><br><p>Our connection has two sides:</p><br><ul><br><li>One computer sits there and <i>listens</i> for another computer to connect to it. We’ll call this computer the <u>server</u>.</li><br><li>Another computer <i>connects</i> to a server by specifying an IP address and port. We’ll call this computer the <u>client</u>.</li><br></ul><br><p>In our case, we only allow one client to connect to the server at any time. We&rsquo;ll generalize our connection system to support multiple simultaneous connections in a later article. Also, we assume that the IP address of the server is on a fixed IP address that the client may directly connect to.</p><br><h2 id="protocol-id">Protocol ID</h2><br><p>Since UDP is connectionless our UDP socket can receive packets sent from any computer.</p><br><p>We&rsquo;d like to narrow this down so that the server only receives packets sent from the client, and the client only receives packets sent from the server. We can&rsquo;t just filter out packets by address, because the server doesn&rsquo;t know the address of the client in advance. So instead, we prefix each UDP packet with small header containing a 32 bit protocol id as follows:</p><br><pre>    [uint protocol id]<br>    <i>(packet data…)</i><br></pre><br><p>The protocol id is just some unique number representing our game protocol. Any packet that arrives from our UDP socket first has its first four bytes inspected. If they don&rsquo;t match our protocol id, then the packet is ignored. If the protocol id does match, we strip out the first four bytes of the packet and deliver the rest as payload.</p><br><p>You just choose some number that is reasonably unique, perhaps a hash of the name of your game and the protocol version number. But really you can use anything. The whole point is that from the point of view of our connection based protocol, packets with different protocol ids are ignored.</p><br><h2 id="detecting-connection">Detecting Connection</h2><br><p>Now we need a way to detect connection.</p><br><p>Sure we could do some complex handshaking involving multiple UDP packets sent back and forth. Perhaps a client &ldquo;request connection&rdquo; packet is sent to the server, to which the server responds with a &ldquo;connection accepted&rdquo; sent back to the client, or maybe an &ldquo;i&rsquo;m busy&rdquo; packet if a client tries to connect to server which already has a connected client.</p><br><p>Or&hellip; we could just setup our server to take the first packet it receives with the correct protocol id, and consider a connection to be established.</p><br><p>The client just starts sending packets to the server assuming connection, when the server receives the first packet from the client, it takes note of the IP address and port of the client, and starts sending packets back.</p><br><p>The client already knows the address and port of the server, since it was specified on connect. So when the client receives packets, it filters out any that don&rsquo;t come from the server address. Similarly, once the server receives the first packet from the client, it gets the address and port of the client from &ldquo;recvfrom&rdquo;, so it is able to ignore any packets that don&rsquo;t come from the client address.</p><br><p>We can get away with this shortcut because we only have two computers involved in the connection. In later articles, we&rsquo;ll extend our connection system to support more than two computers in a client/server or peer-to-peer topology, and at this point we&rsquo;ll upgrade our connection negotiation to something more robust.</p><br><p>But for now, why make things more complicated than they need to be?</p><br><h2 id="detecting-disconnection">Detecting Disconnection</h2><br><p>How do we detect disconnection?</p><br><p>Well if a connection is defined as receiving packets, we can define disconnection as <i>not</i> receiving packets.</p><br><p>To detect when we are not receiving packets, we keep track of the number of seconds since we last received a packet from the other side of the connection. We do this on both sides.</p><br><p>Each time we receive a packet from the other side, we reset our accumulator to 0.0, each update we increase the accumulator by the amount of time that has passed.</p><br><p>If this accumulator exceeds some value like 10 seconds, the connection &ldquo;times out&rdquo; and we disconnect.</p><br><p>This also gracefully handles the case of a second client trying to connect to a server that has already made a connection with another client. Since the server is already connected it ignores packets coming from any address other than the connected client, so the second client receives no packets in response to the packets it sends, so the second client times out and disconnects.</p><br><h2 id="conclusion">Conclusion</h2><br><p>And that&rsquo;s all it takes to setup a virtual connection: some way to establish connection, filtering for packets not involved in the connection, and timeouts to detect disconnection.</p><br><p>Our connection is as real as any TCP connection, and the steady stream of UDP packets it provides is a suitable starting point for a multiplayer action game.</p><br><p>Now that you have your virtual connection over UDP, you can easily setup a client/server relationship for a two player multiplayer game without TCP.</p>
+
+<h1 id="译文"><a href="#译文" class="headerlink" title="译文"></a>译文</h1><p><a href="http://gad.qq.com/program/translateview/7161829" target="_blank" rel="noopener">译文出处</a></p>
+<div class="WordSection1"><p class="MsoNormal"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">译者：张华栋<span>(wcby) </span>审校：崔国军（飞扬<span>971</span>）</span> </span></p><p class="MsoNormal" align="left" style="line-height: 20.25pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family: 微软雅黑; color: rgb(51, 51, 51); font-size: 12pt;"> </span></p><p class="MsoTitle" align="left"><span style="font-family:微软雅黑;"><span style="border: 1pt none windowtext; padding: 0cm;"><span style="font-size:large;"><br><h2 id="序言">序言</h2><br></span></span> </span></p><p class="MsoNormal" align="left" style="line-height: 18pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">大家好，我是<span>Glenn Fiedler</span>，欢迎阅读《<a rel="noopener" href="http://gafferongames.com/networking-for-game-programmers/" target="_blank">针对游戏程序员的网络知识</a>》系列教程的第三篇文章。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在之前的文章中，我向你展示了如何使用<span>UDP</span>协议来发送和接收数据包。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">由于<span>UDP</span>协议是无连接的传输层协议，一个<span>UDP</span>套接字可以用来与任意数目的不同电脑进行数据包交换。但是在多人在线网络游戏中，我们通常只需要在一小部分互相连接的计算机之间交换数据包。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span><br></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">作为实现通用连接系统的第一步，我们将从最简单的可能情况开始：创建两台电脑之间构建于<span>UDP</span>协议之上的虚拟连接。</span><span style="color: rgb(34, 34, 34);"> </span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">但是首先，我们将对互联网到底是如何工作的进行一点深度挖掘！</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoTitle" align="left"><span style="font-family:微软雅黑;"><span style="border: 1pt none windowtext; padding: 0cm;"><br><h2 id="互联网不是一连串的管子">互联网不是一连串的管子</h2><br></span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在<span>2006</span>年，参议院特德<span>·</span>史蒂文斯<span>(Ted Stevens) </span>用他关于互联网中立（<span>netneutrality</span>）法案的著名演讲创造了互联网的历史：</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">”</span><span style="font-size: 12pt; color: rgb(34, 34, 34);">互联网不是那种你随便丢点什么东西进去就能运行的东西。它不是一个大卡车。它是一连串的管子<span>“</span></span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">当我第一次开始使用互联网的时候，我也像<span>Ted</span>一样无知。那是<span>1995</span>年，我坐在悉尼大学的计算机实验室里，在用一种叫做<span>Netscape</span>的网络浏览器（最早最热门的网页浏览工具）“在网上冲浪（<span>surfing the web</span>）“，那个时候我对发生了什么根本一无所知。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);"> </span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">你看那个时候，我觉得每次连到一个网站上就一定有某个真实存在的连接在帮我们传递信息，就像电话线一样。那时候我在想，当我每次连到一个新的网站上需要花费多少钱<span>? 30</span>美分吗<span>?</span>一美元吗<span>? </span>会有大学里的某个人过来拍拍我的肩膀让我付长途通信的费用么？</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">当然，现在回头看那时候一切的想法都非常的愚蠢。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">并没有在某个地方存在一个物理交换机用物理电话线将你和你希望通话的某个电脑直接连起来。更不用说像参议院史蒂文斯想让你相信的那样存在一串气压输送管。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span class="Char1"><br><h2 id="没有直接的连接">没有直接的连接</h2><br></span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">相反你的数据是基于<span>IP</span>协议<span>(</span></span><span style="color: rgb(34, 34, 34);">InternetProtocol</span><span style="font-size: 12pt; color: rgb(34, 34, 34);">)</span><span style="font-size: 12pt; color: rgb(34, 34, 34);">通过在电脑到电脑之间发送数据包来传递信息的</span><b><span style="font-size: 13.5pt; color: rgb(43, 43, 43); background: rgb(248, 248, 248);">。</span></b> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">一个数据包可能在到达它的目的地之前要经过几个电脑。你没有办法提前知道数据包会经过具体哪些电脑，因为它会依赖当前网络的情况对数据包进行路由来动态的改变路径。甚至有可能给同一个地址发送<span>A</span>和<span>B</span>两个数据包，这两个数据包都采用不同的路由。这就是为什么<span>UDP</span>协议不能保证数据包的到达顺序。（其实这么说稍微容易有点引起误解，<span>TCP</span>协议是能保证数据包的到达顺序的，但是他也是基于<span>IP</span>协议进行数据包的发送，并且往同一个地址发送的两个数据包也有可能采用完全不同的路由，这主要是因为<span>TCP</span>在自己这一层做了一些控制而<span>UDP</span>没有，所以导致<span>TCP</span>协议可以保证数据包的有序性，而<span>UDP</span>协议不能，当然这种保证需要付出性能方面的代价）。</span><span style="color: rgb(34, 34, 34);"><br></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">在类<span>unix</span>的系统中可以通过调用<span>“traceroute”</span>函数并传递一个目的地主机名或<span>IP</span>地址来检查数据包的路由。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在<span>Windows</span>系统中，可以用<span>“tracert”</span>代替<span>“traceroute”</span>，其他不变，就能检查数据包的路由了。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">像下面这样用一些网址来尝试下这种方法：</span> </span></p><div style="border:solid #F0F0F0 1.0pt;border-left:solid #E0E0E0 2.25pt;padding:0cm 0cm 0cm 0cm;background:whitesmoke"><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline; border: none; padding: 0cm; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);">   traceroute slashdot.org</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline; border: none; padding: 0cm; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);">   traceroute amazon.com</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline; border: none; padding: 0cm; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);">   traceroute google.com</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline; border: none; padding: 0cm; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);">   traceroute bbc.co.uk</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline; border: none; padding: 0cm; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);">   traceroute news.com.au</span> </span></p></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">运行下看下输出结果，你应该很快就能说服你自己确实连接到了网站上，但是并没有一个直接的连接。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoTitle" align="left"><span style="font-family:微软雅黑;"><span style="border: 1pt none windowtext; padding: 0cm;"><br><h2 id="数据包是如何传递到目的地的？">数据包是如何传递到目的地的？</h2><br></span><span style="color: rgb(34, 34, 34);"><br></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">在<a rel="noopener" href="http://gafferongames.com/networking-for-game-programmers/udp-vs-tcp/" target="_blank">第一篇文章</a>中，我对数据包传递到目的地这个事情做了一个简单的类比，把这个过程描述的有点像在一个拥挤的房间内一个人接着一个人的把便条传递下去。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">虽然这个类比的基本思想还是表达出来了，但是它有点过于简单了。互联网并不是电脑组成的一个平面的网络，实际上它是网络的网络。当然，我们不只是要在一个小房间里面传递信件，我们要做的事能够把信息传递到全世界。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);"><br></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">这就应该很清楚了，数据包传递到目的地的最好的类比是邮政服务<span>!</span></span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">当你想给某人写信的时候，你会把你的信件放到邮箱里并且你相信它将正确的传递到目的地。这封信件具体是怎么到达目的地的和你并不是十分相关，尽管它是否正确到达会对你有影响。当然会有某个人在物理上帮你把信件传递到目的地，所以这是怎么做的呢<span>?</span></span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">首先，邮递员肯定不需要自己去把你的信件送到目的地！看起来邮政服务也不是一串管子。相反，邮递员是把你的信件带到当地的邮政部门进行处理。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">如果这封信件是发送给本地的，那么邮政部门就会把这封信件发送回来，另外一个邮递员会直接投递这封信件。但是，如果这封信件不是发送给本地的，那么这个处理过程就有意思了！当地的邮政部门不能直接投递这封信件，所以这封信件会被向上传递到层次结构的上一层，这个上一层也许是地区级的邮政部门它会负责服务附近的几个城市，如果要投递的地址非常远的话，这个上一层也许是位于机场的一个邮件中心。理想情况下，信件的实际运输将通过一个大卡车来完成。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">让我们通过一个例子来把上面说的过程具体的走一遍，假设有一封信件要从洛杉矶发送到澳大利亚的悉尼。当地的邮政部门收到信件以后考虑到这封信件是一封跨国投递的信件，所以会直接把它发送到位于洛杉矶机场的邮件中心。在那里，这封信件会再次根据它的地址进行处理，并被安排通过下一个到悉尼的航班投递到悉尼去。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">当飞机降落到悉尼机场以后，一个完全不同的邮政系统会负责接管这封信件。现在整个过程开始逆向操作。这封信件会沿着层次结构向下传递，从大的管理部门到具体的投递区域。这封信件会从悉尼机场的邮件中心被送往一个地区级的中心，然后地区级的中心会把这封信件投递到当地的邮政部门，最终这封信件会是由一个操着有趣的本地口音的邮政人员用手投递到真正的目的地的。哎呀<span>! !</span></span><span style="color: rgb(34, 34, 34);"> </span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);"> </span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">就像邮局是通过信件的地址来决定这些信件是该如何投递的一样，网络也是根据这些数据包的<span>IP</span>地址来决定它们是该如何传递的。投递机制的底层细节以及数据包从网络到网络的实际路由其实都是相当复杂的，但是基本的想法都是一样的，就是每个路由器都只是另外一台计算机，它会携带一张路由表用来描述如果数据包的<span>IP</span>地址匹配了这张表上的某个地址集，那么这个数据包该如何传递，这张表还会记载着默认的网关地址，如果数据包的<span>IP</span>地址和这张路由表上的一个地址都匹配不上，那么这个数据包该传递到默认的网关地址那里。其实是路由表以及它们代表的物理连接定义了网络的网络，也就是互联网（互联网也被称为万维网）。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span><a rel="nofollow" href="http://baike.baidu.com/view/1706.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>因特网</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">于<span>1969</span>年诞生于</span><span><a rel="nofollow" href="http://baike.baidu.com/view/2398.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>美国</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">。最初名为<span>“</span></span><span><a rel="nofollow" href="http://baike.baidu.com/view/108095.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>阿帕网</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">”</span><span style="font-size: 12pt; color: rgb(34, 34, 34);">（<span>ARPAnet</span>）是一个军用研究系统，后来又成为连接大学及高等院校计算机的学术系统，则已</span><span><a rel="nofollow" href="http://baike.baidu.com/view/141536.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>发展</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">成为一个覆盖五大洲<span>150</span>多个国家的开放型全球</span><span><a rel="nofollow" href="http://baike.baidu.com/view/541460.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>计算机网络系统</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">，拥有许多服务商。普通电脑用户只需要一台个人计算机用电话线通过</span><span><a rel="nofollow" href="http://baike.baidu.com/view/1074.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>调制解调器</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">和</span><span><a rel="nofollow" href="http://baike.baidu.com/view/1706.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>因特网</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">服务商连接，便可进入因特网。但</span><span><a rel="nofollow" href="http://baike.baidu.com/view/1706.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>因特网</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">并不是全球唯一的</span><span><a rel="nofollow" href="http://baike.baidu.com/view/380232.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>互联网络</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">。例如在</span><span><a rel="nofollow" href="http://baike.baidu.com/view/3622.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>欧洲</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">，跨国的</span><span><a rel="nofollow" href="http://baike.baidu.com/view/380232.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>互联网络</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">就有<span>“</span>欧盟网<span>”</span>（<span>Euronet</span>），<span>“</span>欧洲学术与研究网<span>”</span>（<span>EARN</span>），<span>“</span>欧洲信息网<span>”</span>（<span>EIN</span>），在美国还有<span>“</span>国际学术网<span>”</span>（</span><span><a rel="nofollow" href="http://baike.baidu.com/view/370280.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;">BITNET</span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">），世界范围的还有<span>“</span>飞多网<span>”</span>（全球性的</span><span><a rel="nofollow" href="http://baike.baidu.com/view/66.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;">BBS</span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">系统）等。但这些网络其实根本就不需要知道，感谢<span>IP</span>协议的帮助，只要知道他们是可以互联互通的就可以。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这些路由表的配置工作是由网络管理员完成的，而不是由像我们这样的程序员来做。但是如果你想要了解这方面的更多内容，</span><span style="color: rgb(34, 34, 34);"> </span><span style="color: rgb(34, 34, 34);">那么来自</span><span><a rel="noopener" href="http://arstechnica.com/guides/other/peering-and-transit.ars" target="_blank"><span style="color: rgb(221, 51, 51);">ars technica</span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">的这篇文章将提供网络是如何在端与端之间互联来交换数据包以及传输关系方面一些非常有趣的见解。你还可以通过<span>linux</span>常见问题中路由表（</span><span><a rel="noopener" href="http://www.faqs.org/docs/linux_network/x-087-2-issues.routing.html" target="_blank"><span style="color: rgb(221, 51, 51);">routing tables</span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">）方面的文章以及维基百科上面的边界网关协议（</span><span><a rel="noopener" href="http://en.wikipedia.org/wiki/Border_Gateway_Protocol" target="_blank"><span style="color: rgb(221, 51, 51);">border gateway protocol</span></a></span><span style="color: rgb(34, 34, 34);"> </span><span style="font-size: 12pt; color: rgb(34, 34, 34);">）的解释来获得更多的细节。边界网关协议是用来自动发现如何在网络之间路由数据包的协议，有了它才真正的让互联网成为一个分布式系统，能够在不稳定的连接里面进行动态的路由。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">边界网关协议（<span>BGP</span>）是运行于<span> TCP </span>上的一种</span><span><a rel="nofollow" href="http://baike.baidu.com/view/2663.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>自治系统</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">的</span><span><a rel="nofollow" href="http://baike.baidu.com/view/7031.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>路由协议</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">。<span> BGP </span>是唯一一个用来处理像因特网大小的网络的协议，也是唯一能够妥善处理好不相关</span><span><a rel="nofollow" href="http://baike.baidu.com/view/4303246.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>路由域</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">间的多路连接的协议。<span> BGP </span>构建在<span> EGP </span>的经验之上。<span> BGP </span>系统的主要功能是和其他的<span> BGP </span>系统交换网络可达信息。网络可达信息包括列出的</span><span><a rel="nofollow" href="http://baike.baidu.com/view/2663.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>自治系统</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">（<span>AS</span>）的信息。这些信息有效地构造了<span> AS </span>互联的拓朴图并由此清除了</span><span><a rel="nofollow" href="http://baike.baidu.com/view/2098835.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>路由环路</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">，同时在<span> AS </span>级别上可实施策略决策。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><br><h2 id="虚拟的连接">虚拟的连接</h2><br></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">现在让我们回到连接本身。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">如果你已经使用过<span>TCP</span>套接字，那么你会知道它们看起来真的像是一个连接，但是由于<span>TCP</span>协议是在<span>IP</span>协议之上实现的，而<span>IP</span>协议是通过在计算机之间进行跳转来传递数据包的，所以<span>TCP</span>的连接仍然是一个虚拟连接。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">如果<span>TCP</span>协议可以基于<span>IP</span>协议建立虚拟连接，那么我们在<span>UDP</span>协议上所做的一切都可以应用于<span>TCP</span>协议上。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">让我们给虚拟连接下个定义：两个计算机之间以某个固定频率比如说每秒<span>10</span>个数据包来交换<span>UDP</span>的数据包。只要数据包仍然在传输，我们就认为这两台计算机之间存在一个虚拟连接。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我们的连接有两侧：</span> </span></p><ul type="disc"><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-family:微软雅黑;"><span style="font-size: 12pt;">一个计算机坐在那儿侦听是否有另一台计算机连接到它。我们称负责监听的这台计算机为服务器（<span>server</span>）。</span> </span></li><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-family:微软雅黑;"><span style="font-size: 12pt;">另一台计算机会通过一个指定的<span>IP</span>地址和端口连接到一个服务器。我们称主动连接的这台电脑为客户端（<span>client</span>）。</span> </span></li></ul><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在我们的场景里，我们只允许一个客户端在任意的时候连接到服务器。我们将在下一篇文章里面拓展我们的连接系统以支持多个客户端的同时连接。此外，我们假定服务器的<span>IP</span>地址是一个固定的<span>IP</span>地址，客户端可以随时直接连接上来。我们将在后面的文章里面介绍匹配（<span>matchmaking</span>）和<span>NAT</span>打穿（<span>NATpunch-through</span>）。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoTitle" align="left"><span style="font-family:微软雅黑;"><br><h2 id="协议ID">协议ID</h2><br></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">由于<span>UDP</span>协议是无连接的传输层协议，所以我们的<span>UDP</span>套接字可以接受来自任何电脑的数据包。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我们想要缩小接收数据包的范围，以便我们的服务器只接收那些从我们的客户端发送出来的数据包，并且我们的客户端只接收那些从我们的服务端发送出来的数据包。我们不能只通过地址来过滤我们的数据包，因为服务器没有办法提前知道客户端的地址。所以，我们会在每一个<span>UDP</span>数据包前面加上一个包含<span>32</span>位协议<span>id</span>的头<span>,</span>如下所示<span>:</span></span> </span></p><div style="border:solid #F0F0F0 1.0pt;border-left:solid #E0E0E0 2.25pt;padding:0cm 0cm 0cm 0cm;background:whitesmoke"><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline; border: none; padding: 0cm; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);">   [uint protocol id]</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline; border: none; padding: 0cm; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);">    <i><span style="border:none windowtext 1.0pt;padding:0cm">(packet data…)</span></i></span> </span></p></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">协议<span>ID</span>只是一些独特的代表我们的游戏协议的数字。我们的<span>UDP</span>套接字收到的任意数据包首先都要检查数据包的首四位。如果它们和我们的协议<span>ID</span>不匹配的话，这个数据包就会被忽略。如果它们和我们的协议<span>ID</span>匹配的话，我们会剔除数据包的第一个四个字节并把剩下的部分发给我们的系统进行处理。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">你只要选择一些非常独特的数字就可以了，这些数字可以是你的游戏名字和协议版本号的散列值。不过说真的，你可以使用任何东西。这种做法的重点是把我们的连接视为基于协议进行通信的连接，如果协议<span>ID</span>不同，那么这样的数据包将被丢弃掉。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><br><h2 id="检测连接">检测连接</h2><br></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">现在我们需要一个方法来检测连接。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">当然我们可以实现一些复杂的握手协议，牵扯到多个<span>UDP</span>数据包来回传递。比如说客户端发送一个<span>”</span>请求连接（<span>request connection</span>）<span>“</span>的数据包给服务器，当服务器收到这个数据包的时候会回应一个<span>”</span>连接接受（<span>connection accepted</span>）<span>“</span>的数据包给客户端，或者如果这个服务器已经有超过一个连接的客户端以后，会回复一个“我很忙（<span>i’m busy</span>）<span>”</span>的数据包给客户端。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);"> </span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">或者。。我们可以设置我们的服务器，让它以它收到的第一个数据包的协议<span>ID</span>作为正确的协议<span>ID</span>，并在收到第一个数据包的时候就认为连接已经建立起来了。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">客户端只是开始给服务器发送数据包，当服务器收到客户端发过来的第一个数据包的时候，它会记录下客户端的<span>IP</span>地址和端口号，然后开始给客户端回包。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">客户端已经知道了服务器的地址和端口，因为这些信息是在连接的时候指定的。所以当客户端收到数据包的时候，它会过滤掉任何不是来自于服务器地址的数据包。同样的，一旦服务器收到客户端的第一个数据包，它就会从<span>“recvfrom”</span>函数里面得到客户端的地址和端口号，所以它也可以忽略任何不是发自客户端地址的数据包。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我们可以通过一个捷径来避开这个问题，因为我们的系统只有两台计算机会建立连接。在后面的文章里，我们将拓展我们的连接系统来支持超过两台计算机参与客户端<span>/</span>服务器或者端对端（<span>peer-to-peer</span>，<span>p2p</span>）网络模型，并且在那个时候我们会升级我们的连接协议方式来让它变得更加健壮。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">但是现在，为什么我们要让事情变得超出需求的复杂度呢？（作者的意思是因为我们现在不需要解决这个问题，因为我们的场景是面对只有两台计算机的情况，所以我们可以先放过这个问题。）</span> </span></p><p class="MsoTitle" align="left"><span style="font-family:微软雅黑;"><span style="border: 1pt none windowtext; padding: 0cm;"><br></span></span></p><p class="MsoTitle" align="left"><span style="font-family:微软雅黑;"><span style="border: 1pt none windowtext; padding: 0cm;"><br></span></span></p><p class="MsoTitle" align="left"><span style="font-family:微软雅黑;"><span style="border: 1pt none windowtext; padding: 0cm;"><br><h2 id="检测断线的情况">检测断线的情况</h2><br></span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我们该如何检测断线（<span>disconnection</span>）的情况？</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">那么，如果一个连接被定义为接收数据包，我们可以定义断线为收不到数据包。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">为了检测什么时候开始我们收不到数据包，我们要记录上一次我们从连接的另外一侧收到数据包到现在过去了多少秒，我们在连接的两侧都做了这个事情。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">每次我们从连接的另外一端收到数据包的时候，我们都会重置我们的计数器为<span>0.0</span>，每一次更新的时候我们都会把这次更新到上一次更新逝去的时间量加到计数器上。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">如果计数器的值超过某一个值，比如说<span>10</span>秒，那么我们就认定这个连接“超时<span>”</span>了并且我们会断开连接。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这也可以很优雅的处理当服务器已经与一个客户端建立连接以后，有第二个客户端试图与服务器建立连接的情况。因为服务器已经建立了连接，它会忽略掉不是来自连接的客户端地址发出来的数据包，所以第二个客户端在发出了数据包以后得不到任何回应，这样它就会判断连接超时并断开连接。</span> </span></p><br><h2 id="总结">总结</h2><br><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">而这一切都需要设置一个虚拟连接：用某种方法建立一个连接，过滤掉那些不是来自这个连接的数据包，并且如果发现连接超时就断开连接。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我们的连接就跟任何<span>TCP</span>连接一样真实，并且<span>UDP</span>数据包构成的稳定数据流为多人在线动作网络游戏提供了一个很好的起点。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我们还获得了一些互联网是如何路由数据包的见解。举个例子来说，我们现在知道<span>UDP</span>数据包有时候会在到达的时候是乱序的原因是因为它们在<span>IP</span>层传输的时候采用不同的路由！看下互联网的地图，你会不会对你的数据包能够到达正确的目的点感到非常的神奇？如果你想对这个问题进行更加深入的了解，维基百科上的这篇文章<span>(<a rel="noopener" href="https://en.wikipedia.org/wiki/Internet_backbone" target="_blank">Internet backbone</a>)</span>是一个很好的起点。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">现在，既然你已经有了一个基于<span>UDP</span>协议的虚拟连接，你可以轻松的在两个玩家的多人在线游戏里面设置一个客户端<span>/</span>服务器关系而不需要使用<span>TCP</span>协议。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">你可以在这篇文章的示例源代码（</span><span><a rel="noopener" href="http://netgame.googlecode.com/files/VirtualConnectionOverUDP.zip" target="_blank"><span style="color: rgb(221, 51, 51);">examplesource code</span></a></span><span class="apple-converted-space"><span style="color: rgb(34, 34, 34);"> </span></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">）找到一个具体实现。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这是一个简单的客户端<span>/</span>服务器程序，每秒交换<span>30</span>个数据包。你可以在任意你喜欢的机器上运行这个服务器，只要给它提供一个公共的<span>IP</span>地址就可以了，需要公共<span>IP</span>地址的原因是我们目前还不支持<span>NAT</span>打穿</span><span style="color: rgb(34, 34, 34);">（</span><span><a rel="noopener" href="http://www.jenkinssoftware.com/raknet/manual/natpunchthrough.html" target="_blank"><span style="color: rgb(221, 51, 51);">NAT punch-through</span></a></span><span style="color: rgb(34, 34, 34);"> </span><span style="color: rgb(34, 34, 34);">）。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">NAT</span><span style="font-size: 12pt; color: rgb(34, 34, 34);">穿越（<span>NATtraversal</span>）涉及<span>TCP/IP</span>网络中的一个常见问题，即在处于使用了<span>NAT</span>设备的私有<span>TCP/IP</span>网络中的</span><span><a rel="nofollow" href="http://baike.baidu.com/view/23880.htm" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;"><span>主机</span></span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">之间建立连接的问题。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">像这样来运行客户端：</span> </span></p><div style="border:solid #F0F0F0 1.0pt;border-left:solid #E0E0E0 2.25pt;padding:0cm 0cm 0cm 0cm;background:whitesmoke"><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline; border: none; padding: 0cm; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);">   ./Client 205.10.40.50</span> </span></p></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">它会尝试连接到你在命令行输入的地址。如果你不输入地址的话，默认情况下它会连接到<span>127.0.0.1</span>。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">当一个客户端已经与服务器建立连接的时候，你可以尝试用另外一个客户端来连接这个服务器，你会注意到这次连接的尝试失败了。这么设计是故意的。因为到目前为止，一次只允许一个客户端连接上服务器。 </span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">你也可以在客户端和服务器连接的状态下尝试停止客户端或者服务器，你会注意到<span>10</span>秒以后连接的另外一侧会判断连接超时并断开连接。当客户端超时的时候它会退到<span>shell</span>窗口，但是服务器会退到监听状态为下一次的连接做好准备。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">预告下接下来的一篇文章的题目<span>:</span>《基于<span>UDP</span>的可靠、有序和拥塞避免的传输》，欢迎继续阅读。</span> </span></p><p class="MsoNormal"><span style="font-family:微软雅黑;"><b><u><span style="color: rgb(34, 34, 34); border: 1pt none windowtext; padding: 0cm;"><span style="text-decoration: none"> </span></span></u></b> </span></p><p class="MsoNormal" align="left" style="line-height: 18pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">如果你喜欢这篇文章的话，请考虑对我做一个小小的捐赠。捐款会鼓励我写更多的文章<span>!</span>（原文作者在原文的地址上提供了一个捐赠网址，有兴趣的读者可以在文章开始的地方找到原文地址进行捐赠）</span> </span></p><p class="MsoNormal" align="left" style="line-height: 18pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 18pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 18pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">【版权声明】</span> </span></p><p class="MsoNormal"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">原文作者未做权利声明，视为共享知识产权进入公共领域，自动获得授权。</span></span><span style="font-size:9.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;;color:#333333"> </span></p><p class="MsoNormal" align="left" style="text-indent: 24pt;"><span style="font-family:&quot;Lucida Sans Unicode&quot;,&quot;sans-serif&quot;;color:#222222"> </span></p></div>                    <br>                
+
+
+
+<h1 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h1><p>因 Gaffer On Games 的源码原下载地址失效, 所以特地补上.</p>
+<p><a href="https://github.com/no5ix/ReliableUDP" target="_blank" rel="noopener">请点击</a></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/GafferOnGames/" rel="tag"><i class="fa fa-tag"></i> GafferOnGames</a>
+            
+              <a href="/tags/UDP/" rel="tag"><i class="fa fa-tag"></i> UDP</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/游戏网络开发二之数据的发送与接收/" rel="next" title="游戏网络开发二之数据的发送与接收">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    游戏网络开发二之数据的发送与接收
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/游戏网络开发四之基于UDP的可靠性与排序和避免拥堵/" rel="prev" title="游戏网络开发四之基于UDP的可靠性与排序和避免拥堵">
+                <p class="post-nav-pre-next-title">
+                    游戏网络开发四之基于UDP的可靠性与排序和避免拥堵
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原文"><span class="nav-text">原文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-internet-u-not-u-a-series-of-tubes"><span class="nav-text">The Internet NOT a series of tubes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#no-direct-connections"><span class="nav-text">No Direct Connections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-packets-get-delivered"><span class="nav-text">How Packets Get Delivered</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#virtual-connections"><span class="nav-text">Virtual Connections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protocol-id"><span class="nav-text">Protocol ID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#detecting-connection"><span class="nav-text">Detecting Connection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#detecting-disconnection"><span class="nav-text">Detecting Disconnection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-text">Conclusion</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#译文"><span class="nav-text">译文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#序言"><span class="nav-text">序言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互联网不是一连串的管子"><span class="nav-text">互联网不是一连串的管子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#没有直接的连接"><span class="nav-text">没有直接的连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据包是如何传递到目的地的？"><span class="nav-text">数据包是如何传递到目的地的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟的连接"><span class="nav-text">虚拟的连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协议ID"><span class="nav-text">协议ID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测连接"><span class="nav-text">检测连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测断线的情况"><span class="nav-text">检测断线的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码下载"><span class="nav-text">源码下载</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

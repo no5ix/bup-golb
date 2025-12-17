@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'python和lua数据类型的比较' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Python,Lua,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="Python比较特殊的数据类型：List  []例如 :#!/usr/bin/python# -*- coding: UTF-8 -*- list = [ &amp;apos;runoob&amp;apos;, 786 , 2.23, &amp;apos;john&amp;apos;, 70.2 ]tinylist = [123, &amp;apos;john&amp;apos;] print list               # 输出完整">
+<meta name="keywords" content="Python,Lua">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python和lua数据类型的比较">
+<meta property="og:url" content="https://hulinhong.com/python和lua数据类型的比较/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="Python比较特殊的数据类型：List  []例如 :#!/usr/bin/python# -*- coding: UTF-8 -*- list = [ &amp;apos;runoob&amp;apos;, 786 , 2.23, &amp;apos;john&amp;apos;, 70.2 ]tinylist = [123, &amp;apos;john&amp;apos;] print list               # 输出完整">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python和lua数据类型的比较">
+<meta name="twitter:description" content="Python比较特殊的数据类型：List  []例如 :#!/usr/bin/python# -*- coding: UTF-8 -*- list = [ &amp;apos;runoob&amp;apos;, 786 , 2.23, &amp;apos;john&amp;apos;, 70.2 ]tinylist = [123, &amp;apos;john&amp;apos;] print list               # 输出完整">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>python和lua数据类型的比较 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/python和lua数据类型的比较/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python和lua数据类型的比较</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-11T09:29:22+00:00">
+                07-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              
+                <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/redis_hiredis_install_tutorial/" rel="next" title="redis和hiredis安装教程">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  redis和hiredis安装教程
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/PHP的超级全局变量/" rel="prev" title="PHP的超级全局变量小结">
+              <p class="post-nav-pre-next-title">
+                  PHP的超级全局变量小结
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="Python比较特殊的数据类型："><a href="#Python比较特殊的数据类型：" class="headerlink" title="Python比较特殊的数据类型："></a>Python比较特殊的数据类型：</h1><h2 id="List"><a href="#List" class="headerlink" title="List  []"></a>List  []</h2><p>例如 :<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">list = [ &apos;runoob&apos;, 786 , 2.23, &apos;john&apos;, 70.2 ]</span><br><span class="line">tinylist = [123, &apos;john&apos;]</span><br><span class="line"> </span><br><span class="line">print list               # 输出完整列表</span><br><span class="line">print list[0]            # 输出列表的第一个元素</span><br><span class="line">print list[1:3]          # 输出第二个至第三个的元素 </span><br><span class="line">print list[2:]           # 输出从第三个开始至列表末尾的所有元素</span><br><span class="line">print tinylist * 2       # 输出列表两次</span><br><span class="line">print list + tinylist    # 打印组合的列表</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[&apos;runoob&apos;, 786, 2.23, &apos;john&apos;, 70.2]</span><br><span class="line">runoob</span><br><span class="line">[786, 2.23]</span><br><span class="line">[2.23, &apos;john&apos;, 70.2]</span><br><span class="line">[123, &apos;john&apos;, 123, &apos;john&apos;]</span><br><span class="line">[&apos;runoob&apos;, 786, 2.23, &apos;john&apos;, 70.2, 123, &apos;john&apos;]</span><br></pre></td></tr></table></figure></p>
+<h2 id="Tuple（元祖）-相当于只读列表，不可以二次赋值"><a href="#Tuple（元祖）-相当于只读列表，不可以二次赋值" class="headerlink" title="Tuple（元祖）(),相当于只读列表，不可以二次赋值"></a>Tuple（元祖）(),相当于只读列表，不可以二次赋值</h2><p><code>tuple = ( &#39;runoob&#39;, 786 , 2.23, &#39;john&#39;, 70.2 )</code>, 除了元祖用()而list用[], 而且元祖只是可读的, 其他的跟list一毛一样</p>
+<h2 id="dictionary（字典）-，key值对"><a href="#dictionary（字典）-，key值对" class="headerlink" title="dictionary（字典）{}，key值对"></a>dictionary（字典）{}，key值对</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">dict = &#123;&#125;</span><br><span class="line">dict[&apos;one&apos;] = &quot;This is one&quot;</span><br><span class="line">dict[2] = &quot;This is two&quot;</span><br><span class="line"> </span><br><span class="line">tinydict = &#123;&apos;name&apos;: &apos;john&apos;,&apos;code&apos;:6734, &apos;dept&apos;: &apos;sales&apos;&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">print dict[&apos;one&apos;]          # 输出键为&apos;one&apos; 的值</span><br><span class="line">print dict[2]              # 输出键为 2 的值</span><br><span class="line">print tinydict             # 输出完整的字典</span><br><span class="line">print tinydict.keys()      # 输出所有键</span><br><span class="line">print tinydict.values()    # 输出所有值</span><br></pre></td></tr></table></figure>
+<p>输出结果为:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">This is one</span><br><span class="line">This is two</span><br><span class="line">&#123;&apos;dept&apos;: &apos;sales&apos;, &apos;code&apos;: 6734, &apos;name&apos;: &apos;john&apos;&#125;</span><br><span class="line">[&apos;dept&apos;, &apos;code&apos;, &apos;name&apos;]</span><br><span class="line">[&apos;sales&apos;, 6734, &apos;john&apos;]</span><br></pre></td></tr></table></figure></p>
+<h1 id="lua比较特殊的数据类型"><a href="#lua比较特殊的数据类型" class="headerlink" title="lua比较特殊的数据类型"></a>lua比较特殊的数据类型</h1><h2 id="lua变量"><a href="#lua变量" class="headerlink" title="lua变量"></a>lua变量</h2><blockquote>
+<p>变量在使用前，必须在代码中进行声明，即创建该变量。</p>
+</blockquote>
+<p>编译程序执行代码之前编译器需要知道如何给语句变量开辟存储区，用于存储变量的值。</p>
+<p>Lua 变量有三种类型：全局变量、局部变量、表中的域。</p>
+<blockquote>
+<p>Lua 中的变量全是全局变量，那怕是语句块或是函数里，除非用 local 显式声明为局部变量。</p>
+</blockquote>
+<p>局部变量的作用域为从声明位置开始到所在语句块结束。</p>
+<p>变量的默认值均为 nil。</p>
+<figure class="highlight plain"><figcaption><span>test.lua 文件脚本</span></figcaption><table><tr><td class="code"><pre><span class="line">a = 5               -- 全局变量</span><br><span class="line">local b = 5         -- 局部变量</span><br><span class="line"></span><br><span class="line">function joke()</span><br><span class="line">    c = 5           -- 全局变量</span><br><span class="line">    local d = 6     -- 局部变量</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">joke()</span><br><span class="line">print(c,d)          --&gt; 5 nil</span><br><span class="line"></span><br><span class="line">do </span><br><span class="line">    local a = 6     -- 局部变量</span><br><span class="line">    b = 6           -- 全局变量</span><br><span class="line">    print(a,b);     --&gt; 6 6</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">print(a,b)      --&gt; 5 6</span><br></pre></td></tr></table></figure>
+<p>执行以上实例输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lua test.lua </span><br><span class="line">5	nil</span><br><span class="line">6	6</span><br><span class="line">5	6</span><br></pre></td></tr></table></figure>
+<h2 id="lua的特有的东西table（表）"><a href="#lua的特有的东西table（表）" class="headerlink" title="lua的特有的东西table（表）"></a>lua的特有的东西table（表）</h2><p>在 Lua 里，table 的创建是通过”构造表达式”来完成，</p>
+<p>最简单构造表达式是{}，用来创建一个空表。</p>
+<p>也可以在表里添加一些数据，直接初始化表:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- 创建一个空的 table</span><br><span class="line">local tbl1 = &#123;&#125;</span><br><span class="line"> </span><br><span class="line">-- 直接初始表</span><br><span class="line">local tbl2 = &#123;&quot;apple&quot;, &quot;pear&quot;, &quot;orange&quot;, &quot;grape&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Lua 中的表（table）其实是一个”关联数组”（associative arrays），数组的索引可以是数字或者是字符串。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- table_test.lua 脚本文件</span><br><span class="line">a = &#123;&#125;</span><br><span class="line">a[&quot;key&quot;] = &quot;value&quot;</span><br><span class="line">key = 10</span><br><span class="line">a[key] = 22</span><br><span class="line">a[key] = a[key] + 11</span><br><span class="line">for k, v in pairs(a) do</span><br><span class="line">    print(k .. &quot; : &quot; .. v)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>脚本执行结果为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lua table_test.lua </span><br><span class="line">key : value</span><br><span class="line">10 : 33</span><br></pre></td></tr></table></figure></p>
+<p>不同于其他语言的数组把 0 作为数组的初始索引，在 Lua 里表的默认初始索引一般以 1 开始。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- table_test2.lua 脚本文件</span><br><span class="line">local tbl = &#123;&quot;apple&quot;, &quot;pear&quot;, &quot;orange&quot;, &quot;grape&quot;&#125;</span><br><span class="line">for key, val in pairs(tbl) do</span><br><span class="line">    print(&quot;Key&quot;, key)</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<p>脚本执行结果为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lua table_test2.lua </span><br><span class="line">Key	1</span><br><span class="line">Key	2</span><br><span class="line">Key	3</span><br><span class="line">Key	4</span><br></pre></td></tr></table></figure></p>
+<p>table 不会固定长度大小，有新数据添加时 table 长度会自动增长，没初始的 table 都是 nil。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- table_test3.lua 脚本文件</span><br><span class="line">a3 = &#123;&#125;</span><br><span class="line">for i = 1, 10 do</span><br><span class="line">    a3[i] = i</span><br><span class="line">end</span><br><span class="line">a3[&quot;key&quot;] = &quot;val&quot;</span><br><span class="line">print(a3[&quot;key&quot;])</span><br><span class="line">print(a3[&quot;none&quot;])</span><br></pre></td></tr></table></figure></p>
+<p>脚本执行结果为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lua table_test3.lua </span><br><span class="line">val</span><br><span class="line">nil</span><br></pre></td></tr></table></figure></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+            
+              <a href="/tags/Lua/" rel="tag"><i class="fa fa-tag"></i> Lua</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/redis_hiredis_install_tutorial/" rel="next" title="redis和hiredis安装教程">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    redis和hiredis安装教程
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/PHP的超级全局变量/" rel="prev" title="PHP的超级全局变量小结">
+                <p class="post-nav-pre-next-title">
+                    PHP的超级全局变量小结
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python比较特殊的数据类型："><span class="nav-text">Python比较特殊的数据类型：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-text">List  []</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tuple（元祖）-相当于只读列表，不可以二次赋值"><span class="nav-text">Tuple（元祖）(),相当于只读列表，不可以二次赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dictionary（字典）-，key值对"><span class="nav-text">dictionary（字典）{}，key值对</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lua比较特殊的数据类型"><span class="nav-text">lua比较特殊的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lua变量"><span class="nav-text">lua变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lua的特有的东西table（表）"><span class="nav-text">lua的特有的东西table（表）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

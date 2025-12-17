@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '排序算法三之谈一谈快排优化和二分查找' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Algo,Sort,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="快速排序与归并排序一样， 快排也是用了分治的思想。 特别注意 : 快排的核心模块是Partition, 而Partition的复杂度为O(N). 你可以想象一个两副牌然后随意取出一张牌pivot，其他的所有牌都跟这张pivot牌比较，  大的放右边那一摞A，小的放左边B。接着再从左边这一摞B再随意取出一张牌pivot，其他的所有牌都跟这张pivot牌比较，  大的放右边那一摞，小的放左边，递归下去">
+<meta name="keywords" content="Algo,Sort">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序算法三之谈一谈快排优化和二分查找">
+<meta property="og:url" content="https://hulinhong.com/quick_sort_and_binary_search/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="快速排序与归并排序一样， 快排也是用了分治的思想。 特别注意 : 快排的核心模块是Partition, 而Partition的复杂度为O(N). 你可以想象一个两副牌然后随意取出一张牌pivot，其他的所有牌都跟这张pivot牌比较，  大的放右边那一摞A，小的放左边B。接着再从左边这一摞B再随意取出一张牌pivot，其他的所有牌都跟这张pivot牌比较，  大的放右边那一摞，小的放左边，递归下去">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.671Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="排序算法三之谈一谈快排优化和二分查找">
+<meta name="twitter:description" content="快速排序与归并排序一样， 快排也是用了分治的思想。 特别注意 : 快排的核心模块是Partition, 而Partition的复杂度为O(N). 你可以想象一个两副牌然后随意取出一张牌pivot，其他的所有牌都跟这张pivot牌比较，  大的放右边那一摞A，小的放左边B。接着再从左边这一摞B再随意取出一张牌pivot，其他的所有牌都跟这张pivot牌比较，  大的放右边那一摞，小的放左边，递归下去">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>排序算法三之谈一谈快排优化和二分查找 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/quick_sort_and_binary_search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">排序算法三之谈一谈快排优化和二分查找</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-22T12:18:54+00:00">
+                08-22-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+              
+                <a href="/tags/Sort/" rel="tag"><i class="fa fa-tag"></i> Sort</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/bubble_insert_merge_bucket_sort/" rel="next" title="排序算法二之谈一谈冒泡插入归并桶排序">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  排序算法二之谈一谈冒泡插入归并桶排序
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/heap_sort/" rel="prev" title="排序算法四之谈一谈堆排序">
+              <p class="post-nav-pre-next-title">
+                  排序算法四之谈一谈堆排序
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>与归并排序一样， 快排也是用了分治的思想。</p>
+<p><strong>特别注意</strong> : 快排的核心模块是Partition, 而Partition的复杂度为O(N).</p>
+<p><strong>你可以想象一个两副牌然后随意取出一张牌pivot，其他的所有牌都跟这张pivot牌比较，</strong> </p>
+<p>大的放右边那一摞A，小的放左边B。<br>接着再从左边这一摞B再随意取出一张牌pivot，其他的所有牌都跟这张pivot牌比较， </p>
+<p>大的放右边那一摞，小的放左边，递归下去。<br>A也重复上述步骤递归。</p>
+<p>递归结束之后， 左边的都比右边的小， 而且是有序的。</p>
+<h2 id="效率很差的情况"><a href="#效率很差的情况" class="headerlink" title="效率很差的情况"></a>效率很差的情况</h2><p>对于分治算法，当每次划分时，算法若都能分成两个等长的子序列时，那么分治算法效率会达到最大。也就是说，基准的选择是很重要的。选择基准的方式决定了两个分割后两个子序列的长度，进而对整个算法的效率产生决定性影响<br>所以当如果一个有序递增序列, 每次选基准都选最后一个, 那肯定效率很差了啊</p>
+<h2 id="算法导论的快排C-实现版本"><a href="#算法导论的快排C-实现版本" class="headerlink" title="算法导论的快排C++实现版本"></a>算法导论的快排C++实现版本</h2><!-- ![](/img/algo_newbie/quick_sort_1.png) -->
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/algo_newbie/quick_sort_partition_anim.gif" alt title="partition过程动画演示"></p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<p>这个c++实现版本主要用于说明算法思想, 而对于代码鲁棒性有太多关注,<br>下面有个我自己手写的<a href="#命名清晰版本">命名清晰版本</a>会比较多的关注鲁棒性以及易读性</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">    temp = *a;</span><br><span class="line">    *a = *b;</span><br><span class="line">    *b = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span> *<span class="built_in">array</span>, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, pivot = <span class="number">0</span>;</span><br><span class="line">    pivot = <span class="built_in">array</span>[r];</span><br><span class="line">    i = p<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(j=p; j&lt;=r<span class="number">-1</span>; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">array</span>[j] &lt;= pivot)</span><br><span class="line">        &#123;</span><br><span class="line">	        i++;</span><br><span class="line">            swap(&amp;<span class="built_in">array</span>[i], &amp;<span class="built_in">array</span>[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    swap(&amp;<span class="built_in">array</span>[i+<span class="number">1</span>], &amp;<span class="built_in">array</span>[r]);</span><br><span class="line">    <span class="keyword">return</span> i+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">通常，我们可以向一个算法中加入随机化成分，以便对于所有输入，</span></span><br><span class="line"><span class="comment">它均能获得较好的平均情况性能。将这种方法用于快速排序时，</span></span><br><span class="line"><span class="comment">不是始终采用A[r]作为主元，而是从子数组A[p..r]中随机选择一个元素，</span></span><br><span class="line"><span class="comment">即将A[r]与从A[p..r]中随机选出的一个元素交换。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">rand_patition</span><span class="params">(<span class="keyword">int</span>  test_arr[], <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">	srand(<span class="keyword">static_cast</span>&lt;<span class="keyword">unsigned</span>&gt;(time(<span class="literal">nullptr</span>)));</span><br><span class="line">	<span class="keyword">int</span> rand_index = (rand() % (r - p) ) + p + <span class="number">1</span>;</span><br><span class="line">	swap(&amp;test_arr[rand_index], &amp;test_arr[r]);</span><br><span class="line">	<span class="keyword">return</span> partition(test_arr, p, r);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> *<span class="built_in">array</span>, <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> q = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/*if(p &lt; r)</span></span><br><span class="line"><span class="comment">    &#123;</span></span><br><span class="line"><span class="comment">        q = rand_patition(array, p, r);</span></span><br><span class="line"><span class="comment">        quick_sort(array, p, q-1);</span></span><br><span class="line"><span class="comment">        quick_sort(array, q+1, r);</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以上的注释部分可以写成尾递归的方式来优化</span></span><br><span class="line">    <span class="keyword">while</span> (p &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        q = rand_patition(<span class="built_in">array</span>, p, r);</span><br><span class="line">        quick_sort(<span class="built_in">array</span>, p, q<span class="number">-1</span>);</span><br><span class="line">        p = q + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<!-- ## 命名清晰的递归版本
+
+自己手写的, 已测试. 写得略啰嗦, 但只是希望能一目了然吧.
+
+
+
+<figure class="highlight c++"><figcaption><span>QuickSort.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoQuickSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> start_index, <span class="keyword">int</span> end_index)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> start_index, <span class="keyword">int</span> end_index)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">unsigned</span> N&gt;</span><br><span class="line">void QuickSort(int(&amp;arr)[N], int start_index, int end_index)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (!arr</span><br><span class="line">		|| start_index &lt; <span class="number">0</span></span><br><span class="line">		|| end_index &lt; <span class="number">0</span></span><br><span class="line">		|| end_index &lt;= start_index</span><br><span class="line">		|| end_index &gt;= <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(<span class="keyword">int</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	DoQuickSort(arr, start_index, end_index);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>QuickSort.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"QuickSort.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoQuickSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> start_index, <span class="keyword">int</span> end_index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> partition_index = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (start_index &lt; end_index)</span><br><span class="line">	&#123;</span><br><span class="line">		partition_index = partition(arr, start_index, end_index);</span><br><span class="line">		DoQuickSort(arr, start_index, partition_index - <span class="number">1</span>);</span><br><span class="line">		DoQuickSort(arr, partition_index + <span class="number">1</span>, end_index);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> start_index, <span class="keyword">int</span> end_index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> partition_index = start_index - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = start_index; i &lt; end_index; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (arr[i] &lt; arr[end_index])</span><br><span class="line">		&#123;</span><br><span class="line">			swap(arr[++partition_index], arr[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	swap(arr[++partition_index], arr[end_index]);</span><br><span class="line">	<span class="keyword">return</span> partition_index;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"QuickSort.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> test_arr[] = &#123; <span class="number">4</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">1</span> &#125;;</span><br><span class="line">	QuickSort(test_arr, <span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : test_arr)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">``` --&gt;</span><br><span class="line"></span><br><span class="line">## 快排的非递归版本</span><br><span class="line"></span><br><span class="line">我们知道快递排序大部分的版本都是递归的方式来实现的：通过Pritation来实现划分，并递归实现前后的划分。</span><br><span class="line"></span><br><span class="line">因为我们大部分看到的都是递归方式来实现快速排序。并没有关注非递归的方式。</span><br><span class="line"></span><br><span class="line">但是仔细想想也是可以做的，因为递归的本质是栈，因此我们非递归实现的过程中，借助栈来保存中间变量就可以实现非递归了。</span><br><span class="line"></span><br><span class="line">在这里中间变量也就是通过Pritation函数划分之后分成左右两部分的首尾指针，只需要保存这两部分的首尾指针即可。</span><br><span class="line"></span><br><span class="line">``` c++</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort_NonRecursion</span><span class="params">( <span class="keyword">int</span> *arr, <span class="keyword">int</span> startIndex, <span class="keyword">int</span> endIndex )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( !arr )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; tempStack;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//（注意保存顺序）先将初始状态的左右Index压栈</span></span><br><span class="line">	tempStack.push( endIndex );<span class="comment">//先存尾Index</span></span><br><span class="line">	tempStack.push( startIndex );<span class="comment">//再存首Index</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> tempStartIndex = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tempEndIndex = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tempPartitionIndex = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> ( !tempStack.empty() )</span><br><span class="line">	&#123;</span><br><span class="line">		tempStartIndex = tempStack.top();</span><br><span class="line">		tempStack.pop();</span><br><span class="line">		tempEndIndex = tempStack.top();</span><br><span class="line">		tempStack.pop();</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ( tempStartIndex &lt; tempEndIndex )</span><br><span class="line">		&#123;</span><br><span class="line">			tempPartitionIndex = Partition( arr, tempStartIndex, tempEndIndex );</span><br><span class="line">			&#123; <span class="comment">// 块1</span></span><br><span class="line">				tempStack.push( tempPartitionIndex - <span class="number">1</span> );</span><br><span class="line">				tempStack.push( tempStartIndex );</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 块1 和 块2 调换顺序也可以</span></span><br><span class="line"></span><br><span class="line">			&#123; <span class="comment">// 块2</span></span><br><span class="line">				tempStack.push( tempEndIndex );</span><br><span class="line">				tempStack.push( tempPartitionIndex + <span class="number">1</span> );</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以看出，保存中间变量的时候需要注意保存的顺序，因为栈是后进先出的方式。</p>
+<h2 id="快速排序的优化"><a href="#快速排序的优化" class="headerlink" title="快速排序的优化"></a>快速排序的优化</h2><p>优化方式有一部分已经在上面的代码里体现比如： 尾递归优化、随机选取枢轴（pivot），</p>
+<p>主要的优化方案有 ：</p>
+<ul>
+<li>聚集相等元素</li>
+<li>三数取中(选择分区的第一个、中间、最后一个元素的中值作为枢轴)</li>
+<li>当待排序序列的长度分割到一定大小后，使用插入排序</li>
+<li>多线程</li>
+<li>随机选取枢轴（pivot）</li>
+<li>尾递归化</li>
+</ul>
+<p>具体方案查看<a href="http://blog.csdn.net/insistgogo/article/details/7785038">这篇博客</a></p>
+<p><strong>快速排序思想的应用</strong></p>
+<p><strong>问题</strong> : 查找数组中第k大的数字<br><strong>算法思想</strong> :<br>有两种思路思路： </p>
+<ul>
+<li>直接从大到小排序，排好序后，第k大的数就是arr[k-1]。 </li>
+<li>只需找到第k大的数，不必把所有的数排好序。我们借助快速排序中partition过程，一般情况下，在把所有数都排好序前，就可以找到第k大的数。我们依据的逻辑是，经过一次partition后，数组被pivot分成左右两部分：S左、S右。当S左的元素个数|S左|等于k-1时，pivot即是所找的数；当|S左|小于k-1，所找的数位于S右中；当|S左|&gt;k-1，所找的数位于S左中。显然，后两种情况都会使搜索空间缩小。</li>
+</ul>
+<h1 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a><strong>二分查找</strong></h1><p>二分查找也叫”折半查找”</p>
+<p><strong>二分查找的复杂度计算方法：</strong></p>
+<p>时间复杂度可以视为while循环的次数。<br>总共有n个元素，<br>渐渐跟下去就是n,n/2,n/4,….n/2^k（接下来操作元素的剩余个数），其中k就是循环的次数<br>由于你n/2^k取整后&gt;=1（接下来操作元素的剩余个数至少为一个）<br>即令n/2^k=1<br>可得k=log2n,（是以2为底，n的对数）<br>所以时间复杂度可以表示O(h)=O(log2n)</p>
+<h2 id="递归版本："><a href="#递归版本：" class="headerlink" title="递归版本："></a>递归版本：</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BinarySearch_Recursion</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> key, <span class="keyword">int</span> startIndex, <span class="keyword">int</span> endIndex)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!arr || startIndex &lt; <span class="number">0</span> || endIndex &lt; <span class="number">0</span> )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (startIndex &lt;= endIndex)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> mid = (startIndex + endIndex) / <span class="number">2</span>;</span><br><span class="line">	</span><br><span class="line">		<span class="keyword">if</span> (key &lt; arr[mid])</span><br><span class="line">		&#123;</span><br><span class="line">			BinarySearch(arr, key, startIndex, mid - <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (key &gt; arr[mid])</span><br><span class="line">		&#123;</span><br><span class="line">			BinarySearch(arr, key, mid + <span class="number">1</span>, endIndex);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="迭代版本："><a href="#迭代版本：" class="headerlink" title="迭代版本："></a>迭代版本：</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BinarySearch_Iteration</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> key, <span class="keyword">int</span> startIndex, <span class="keyword">int</span> endIndex)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!arr || startIndex &lt; <span class="number">0</span> || endIndex &lt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (startIndex &lt;= endIndex )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> mid = (startIndex + endIndex) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span> (key == arr[mid])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (key &lt; arr[mid])</span><br><span class="line">		&#123;</span><br><span class="line">			endIndex = mid <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			startIndex = mid + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+-->
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+            
+              <a href="/tags/Sort/" rel="tag"><i class="fa fa-tag"></i> Sort</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/bubble_insert_merge_bucket_sort/" rel="next" title="排序算法二之谈一谈冒泡插入归并桶排序">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    排序算法二之谈一谈冒泡插入归并桶排序
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/heap_sort/" rel="prev" title="排序算法四之谈一谈堆排序">
+                <p class="post-nav-pre-next-title">
+                    排序算法四之谈一谈堆排序
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#效率很差的情况"><span class="nav-text">效率很差的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法导论的快排C-实现版本"><span class="nav-text">算法导论的快排C++实现版本</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

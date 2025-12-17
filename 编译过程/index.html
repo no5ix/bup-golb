@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '编译过程' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Compile,Make,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="通常我们使用gcc来生成可执行程序，命令为：gcc hello.c，默认生成可执行文件a.out其实编译（包括链接）的命令：gcc hello.c 可分解为如下4个大的步骤：预处理(Preprocessing)编译(Compilation)汇编(Assembly)链接(Linking)预处理1.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 预处理(Preproceess">
+<meta name="keywords" content="Compile,Make">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译过程">
+<meta property="og:url" content="https://hulinhong.com/编译过程/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="通常我们使用gcc来生成可执行程序，命令为：gcc hello.c，默认生成可执行文件a.out其实编译（包括链接）的命令：gcc hello.c 可分解为如下4个大的步骤：预处理(Preprocessing)编译(Compilation)汇编(Assembly)链接(Linking)预处理1.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 预处理(Preproceess">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.690Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编译过程">
+<meta name="twitter:description" content="通常我们使用gcc来生成可执行程序，命令为：gcc hello.c，默认生成可执行文件a.out其实编译（包括链接）的命令：gcc hello.c 可分解为如下4个大的步骤：预处理(Preprocessing)编译(Compilation)汇编(Assembly)链接(Linking)预处理1.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 预处理(Preproceess">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>编译过程 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/编译过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">编译过程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-07T17:24:19+00:00">
+                05-07-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Compile/" rel="tag"><i class="fa fa-tag"></i> Compile</a>
+              
+                <a href="/tags/Make/" rel="tag"><i class="fa fa-tag"></i> Make</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/valgrind_tutorial/" rel="next" title="关于Valgrind所报的4种内存丢失">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  关于Valgrind所报的4种内存丢失
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/关系型数据库与NoSQL的爱恨情仇/" rel="prev" title="关系型数据库与NoSQL的爱恨情仇">
+              <p class="post-nav-pre-next-title">
+                  关系型数据库与NoSQL的爱恨情仇
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>通常我们使用gcc来生成可执行程序，命令为：gcc hello.c，默认生成可执行文件a.out</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>其实编译（包括链接）的命令：gcc hello.c 可分解为如下4个大的步骤：</p><br><ul><br><ul><br><li><strong>预处理</strong>(Preprocessing)</li><li><strong>编译</strong>(Compilation)</li><li><strong>汇编</strong>(Assembly)</li><li><strong>链接</strong>(Linking)</li></ul><br></ul><br><br><br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://smilejay.com/wp-content/uploads/2012/01/gcc_compilation_stages.jpg" alt="gcc_compilation"><br><br><br><h1 id="预处理">预处理</h1><br><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 预处理(Preproceessing)</strong></p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>预处理的过程主要处理包括以下过程：</strong></p><br><ul><br><li>将所有的#define删除，并且<strong>展开所有的宏定义</strong></li><li><strong>处理</strong>所有的<strong>条件预编译指令</strong>，比如#if #ifdef #elif #else #endif等</li><li><strong>处理#include</strong><span>&nbsp;</span>预编译指令，将被包含的文件插入到该预编译指令的位置。</li><li><strong>删除所有注释<span>&nbsp;</span></strong>“//”和”/<em> </em>/”.</li><li><strong>添加行号和文件标识</strong>，以便编译时产生调试用的行号及编译错误警告行号。</li><li>保留所有的<strong>#pragma编译器指令</strong>，因为编译器需要使用它们</li></ul><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>通常使用以下命令来进行预处理：</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>gcc -E hello.c -o hello.i</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>参数<strong>-E</strong>表示只进行预处理 或者也可以使用以下指令完成预处理过程</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>cpp hello.c &gt; hello.i &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/<em> &nbsp;cpp – The C Preprocessor&nbsp; </em>/</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>直接cat hello.i 你就可以看到预处理后的代码</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p>
+
+
+<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 编译(Compilation)</strong></p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>编译过程就是把预处理完的文件进行一系列的词法分析，语法分析，语义分析及优化后生成相应的汇编代码。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>$gcc –S hello.i –o hello.s</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>或者</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>$ /usr/lib/gcc/i486-linux-gnu/4.4/cc1 hello.c</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>注：现在版本的GCC把预处理和编译两个步骤合成一个步骤，用cc1工具来完成。gcc其实是后台程序的一些包装，根据不同参数去调用其他的实际处理程序，比如：预编译编译程序cc1、汇编器as、连接器ld</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>可以看到编译后的汇编代码(hello.s)如下：</p>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> .file   &quot;hello.c&quot;</span><br><span class="line">    .section    .rodata</span><br><span class="line">.LC0:</span><br><span class="line">    .string &quot;Hello, world.&quot;</span><br><span class="line">    .text</span><br><span class="line">.globl main</span><br><span class="line">    .type   main, @function</span><br><span class="line">main:</span><br><span class="line">    pushl   %ebp</span><br><span class="line">    movl    %esp, %ebp</span><br><span class="line">    andl    $-16, %esp</span><br><span class="line">    subl    $16, %esp</span><br><span class="line">    movl    $.LC0, (%esp)</span><br><span class="line">    call    puts</span><br><span class="line">    movl    $0, %eax</span><br><span class="line">    leave</span><br><span class="line">    ret</span><br><span class="line">    .size   main, .-main</span><br><span class="line">    .ident  &quot;GCC: (Ubuntu 4.4.3-4ubuntu5) 4.4.3&quot;</span><br><span class="line">    .section    .note.GNU-stack,&quot;&quot;,@progbits</span><br></pre></td></tr></table></figure>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p>
+
+<h1 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h1><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 汇编(Assembly)</strong></p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>汇编器是将汇编代码转变成机器可以执行的命令，每一个汇编语句几乎都对应一条机器指令。汇编相对于编译过程比较简单，根据汇编指令和机器指令的对照表一一翻译即可。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>$ gcc –c hello.c –o hello.o</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>或者</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>$ as hello.s –o hello.co</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>由于hello.o的内容为机器码，不能以普通文本形式的查看（vi 打开看到的是乱码）。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p>
+
+<h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><strong>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 链接(Linking)</strong></p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>通过调用链接器ld来链接程序运行需要的一大堆目标文件，以及所依赖的其它库文件，最后生成可执行文件。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>ld -static crt1.o crti.o crtbeginT.o hello.o -start-group -lgcc -lgcc_eh -lc-end-group crtend.o crtn.o (省略了文件的路径名)。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p>
+
+<h1 id="编译器和链接器具体做了什么"><a href="#编译器和链接器具体做了什么" class="headerlink" title="编译器和链接器具体做了什么"></a>编译器和链接器具体做了什么</h1><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>helloworld的大体编译和链接过程就是这样了，那么编译器和链接器到底做了什么呢？</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>编译过程可分为6步：</strong></p>
+
+<ul>
+<li>词法分析：扫描器（Scanner）将源代的字符序列分割成一系列的记号（Token）。lex工具可实现词法扫描。</li>
+<li>语法分析：语法分析器将记号（Token）产生语法树（Syntax Tree）。yacc工具可实现语法分析(yacc: Yet Another Compiler Compiler)。</li>
+<li>语义分析：静态语义（在编译器可以确定的语义）、动态语义（只能在运行期才能确定的语义）。</li>
+<li>源代码优化：源代码优化器(Source Code Optimizer)，将整个语法书转化为中间代码（Intermediate Code）（中间代码是与目标机器和运行环境无关的）。中间代码使得编译器被分为前端和后端。编译器前端负责产生机器无关的中间代码；编译器后端将中间代码转化为目标机器代码。</li>
+<li>目标代码生成：代码生成器(Code Generator).</li>
+<li>目标代码优化：目标代码优化器(Target Code Optimizer)。</li>
+</ul>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>链接的主要内容是把各个模块之间相互引用的部分处理好，使得各个模块之间能够正确地衔接。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>链接的主要过程包括：地址和空间分配（Address and Storage Allocation），符号决议（Symbol Resolution），重定位（Relocation）等。</p>
+
+<h1 id="链接分为静态链接和动态链接"><a href="#链接分为静态链接和动态链接" class="headerlink" title="链接分为静态链接和动态链接"></a>链接分为静态链接和动态链接</h1><ol>
+<li><p>静态链接是指在编译阶段直接把静态库加入到可执行文件中去，这样可执行文件会比较大。</p>
+</li>
+<li><p>动态链接则是指链接阶段仅仅只加入一些描述信息，而程序执行时再从系统中把相应动态库加载到内存中去。</p>
+</li>
+</ol>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>静态链接的大致过程如下图所示：</p>
+
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://smilejay.com/wp-content/uploads/2012/01/linking.jpg" alt="static_linking"></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Compile/" rel="tag"><i class="fa fa-tag"></i> Compile</a>
+            
+              <a href="/tags/Make/" rel="tag"><i class="fa fa-tag"></i> Make</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/valgrind_tutorial/" rel="next" title="关于Valgrind所报的4种内存丢失">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    关于Valgrind所报的4种内存丢失
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/关系型数据库与NoSQL的爱恨情仇/" rel="prev" title="关系型数据库与NoSQL的爱恨情仇">
+                <p class="post-nav-pre-next-title">
+                    关系型数据库与NoSQL的爱恨情仇
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#预处理"><span class="nav-text">预处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译"><span class="nav-text">编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编"><span class="nav-text">汇编</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接"><span class="nav-text">链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器和链接器具体做了什么"><span class="nav-text">编译器和链接器具体做了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接分为静态链接和动态链接"><span class="nav-text">链接分为静态链接和动态链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

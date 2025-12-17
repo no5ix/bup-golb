@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '数据结构二之二叉树的遍历和交换左右孩子' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="DataStructure,Algo,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="二叉树的二叉链式存储方案的代码表示： typedef struct BinTreeNode&amp;#123;	BinTreeNode( char Data ) : data_( Data ), left_( nullptr ), right_( nullptr ) &amp;#123;&amp;#125;	char data_;	struct BinTreeNode *left_, *right_;&amp;#125;btn,">
+<meta name="keywords" content="DataStructure,Algo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构二之二叉树的遍历和交换左右孩子">
+<meta property="og:url" content="https://hulinhong.com/binary_tree_traverse_and_swap/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="二叉树的二叉链式存储方案的代码表示： typedef struct BinTreeNode&amp;#123;	BinTreeNode( char Data ) : data_( Data ), left_( nullptr ), right_( nullptr ) &amp;#123;&amp;#125;	char data_;	struct BinTreeNode *left_, *right_;&amp;#125;btn,">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构二之二叉树的遍历和交换左右孩子">
+<meta name="twitter:description" content="二叉树的二叉链式存储方案的代码表示： typedef struct BinTreeNode&amp;#123;	BinTreeNode( char Data ) : data_( Data ), left_( nullptr ), right_( nullptr ) &amp;#123;&amp;#125;	char data_;	struct BinTreeNode *left_, *right_;&amp;#125;btn,">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>数据结构二之二叉树的遍历和交换左右孩子 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/binary_tree_traverse_and_swap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构二之二叉树的遍历和交换左右孩子</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-23T12:11:22+00:00">
+                09-23-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/DataStructure/" rel="tag"><i class="fa fa-tag"></i> DataStructure</a>
+              
+                <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/binary_tree_create_and_destroy/" rel="next" title="数据结构一之二叉树的创建和销毁">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  数据结构一之二叉树的创建和销毁
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/binary_search_tree_insert_delete_search/" rel="prev" title="数据结构三之二叉搜索树的增删查">
+              <p class="post-nav-pre-next-title">
+                  数据结构三之二叉搜索树的增删查
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p>二叉树的二叉链式存储方案的代码表示：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BinTreeNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	BinTreeNode( <span class="keyword">char</span> Data ) : data_( Data ), left_( <span class="literal">nullptr</span> ), right_( <span class="literal">nullptr</span> ) &#123;&#125;</span><br><span class="line">	<span class="keyword">char</span> data_;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">BinTreeNode</span> *<span class="title">left_</span>, *<span class="title">right_</span>;</span></span><br><span class="line">&#125;btn, *btnp;</span><br></pre></td></tr></table></figure>
+<h1 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h1><p><strong>. . .</strong><a id="more"></a> </p>
+<h2 id="二叉树的广度优先遍历"><a href="#二叉树的广度优先遍历" class="headerlink" title="二叉树的广度优先遍历"></a>二叉树的广度优先遍历</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/algo_newbie/binary_tree/BreadthFirstTraverse1.png" alt></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BreadthFirstTraverse</span><span class="params">( btnp bTreeNode )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( !bTreeNode )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">queue</span>&lt;btnp&gt; tempQueue;</span><br><span class="line">	tempQueue.push( bTreeNode );</span><br><span class="line">	<span class="keyword">while</span> ( !tempQueue.empty() )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; tempQueue.front()-&gt;data_ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">if</span> ( tempQueue.front()-&gt;left_ )</span><br><span class="line">		&#123;</span><br><span class="line">			tempQueue.push( tempQueue.front()-&gt;left_ );</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> ( tempQueue.front()-&gt;right_ )</span><br><span class="line">		&#123;</span><br><span class="line">			tempQueue.push( tempQueue.front()-&gt;right_ );</span><br><span class="line">		&#125;</span><br><span class="line">		tempQueue.pop();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="深度优先的递归式遍历"><a href="#深度优先的递归式遍历" class="headerlink" title="深度优先的递归式遍历"></a>深度优先的递归式遍历</h2><p>递归式遍历的代码实现非常简洁, 但生产环境一般不允许递归, 因为怕栈溢出.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BinaryTreeNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">void</span> *data;</span><br><span class="line">	BinaryTreeNode *LeftNode;</span><br><span class="line">	BinaryTreeNode *RightNode;</span><br><span class="line">&#125;BTN, *BTNP;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse_Recursion</span><span class="params">(BTNP btnp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (btnp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *(<span class="keyword">char</span> *)btnp-&gt;data &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		PreOrderTraverse_Recursion(btnp-&gt;LeftNode);</span><br><span class="line">		PreOrderTraverse_Recursion(btnp-&gt;RightNode);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse_Recursion</span><span class="params">(BTNP btnp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (btnp)</span><br><span class="line">	&#123;</span><br><span class="line">		PreOrderTraverse_Recursion(btnp-&gt;LeftNode);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *(<span class="keyword">char</span> *)btnp-&gt;data &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		PreOrderTraverse_Recursion(btnp-&gt;RightNode);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse_Recursion</span><span class="params">(BTNP btnp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (btnp)</span><br><span class="line">	&#123;</span><br><span class="line">		PreOrderTraverse_Recursion(btnp-&gt;LeftNode);</span><br><span class="line">		PreOrderTraverse_Recursion(btnp-&gt;RightNode);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; *(<span class="keyword">char</span> *)btnp-&gt;data &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="深度优先的迭代式遍历"><a href="#深度优先的迭代式遍历" class="headerlink" title="深度优先的迭代式遍历"></a>深度优先的迭代式遍历</h2><p>递归的本质就是出栈入栈, 所以我们用栈来模拟递归, 写出以下三种迭代式遍历</p>
+<p>迭代的二叉树三种遍历方式其实思想是<strong>统一</strong>的 : </p>
+<p>都是从左子树的各个结点依次入栈, 当左边已经走到头了, 就开始走右边, 在适当的条件就出栈, 只是每个遍历方式的出栈条件不一样而已, 或者是打印结点的时机不同而已.</p>
+<h3 id="迭代式先序遍历代码实现"><a href="#迭代式先序遍历代码实现" class="headerlink" title="迭代式先序遍历代码实现"></a>迭代式先序遍历代码实现</h3><p>用<strong>栈(Stack)</strong>的思路来处理问题。</p>
+<p>前序遍历的顺序为根-左-右，具体算法为：</p>
+<ul>
+<li>把根节点 push 到栈中</li>
+<li>循环检测栈是否为空，若不空，则取出栈顶元素，保存其值</li>
+<li>看其右子节点是否存在，若存在则 push 到栈中(因为前序遍历的顺序为根-左-右, 而stack是先进后出的, 所以要先push右子节点)</li>
+<li>看其左子节点，若存在，则 push 到栈中。</li>
+</ul>
+<p>这个cpp版本没有本文下面的<a href="#遍历测试代码go版">go版</a>写得好, 那个更容易理解<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverseNonRecursion</span><span class="params">( btnp bTreeNode )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( !bTreeNode )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stack</span>&lt;btnp&gt; tempStack;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> ( !tempStack.empty() || bTreeNode )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span> ( bTreeNode )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; bTreeNode-&gt;data_ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			tempStack.push( bTreeNode );</span><br><span class="line">			bTreeNode = bTreeNode-&gt;left_;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ( !tempStack.empty() )</span><br><span class="line">		&#123;</span><br><span class="line">			bTreeNode = tempStack.top()-&gt;right_;</span><br><span class="line">			tempStack.pop();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="迭代式中序遍历代码实现"><a href="#迭代式中序遍历代码实现" class="headerlink" title="迭代式中序遍历代码实现"></a>迭代式中序遍历代码实现</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverseNonRecursion</span><span class="params">( btnp bTreeNode )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( !bTreeNode )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stack</span>&lt;btnp&gt; tempStack;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> ( !tempStack.empty() || bTreeNode )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span> ( bTreeNode )</span><br><span class="line">		&#123;</span><br><span class="line">			tempStack.push( bTreeNode );</span><br><span class="line">			bTreeNode = bTreeNode-&gt;left_;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ( !tempStack.empty() )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; tempStack.top()-&gt;data_ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			bTreeNode = tempStack.top()-&gt;right_;</span><br><span class="line">			tempStack.pop();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="迭代式后序遍历代码实现"><a href="#迭代式后序遍历代码实现" class="headerlink" title="迭代式后序遍历代码实现"></a>迭代式后序遍历代码实现</h3><p>后序遍历的出栈条件有点不一样, 因为后序是先左后右再中的, 比如某个结点p要出栈, 需要遍历完了p的所有右子树之后才能出栈, 而不能第一次就出栈, 所以专门构造了一个结构体<code>PostOrderBT</code>来记录他是否是第一次出栈 (<code>PostOrderBT</code>结构体里有个 <code>isFirstTime_</code> 的数据来记录)</p>
+<p><strong>所以我们代码中的思路就是 : </strong><br>把每个将要入栈的结点的 <code>isFirstTime_</code> 标志都置为 true , 当第一次遍历到结点p的时候, 不使p出栈, 但使p的 <code>isFirstTime_</code> 标志变为 false, 然后 “<code>bTreeNode</code> = 栈顶-&gt;右孩子” 开始遍历他的右子树. 当p的右子树都遍历完了之后(也就是p的右子树都依次出栈了之后)又会遍历到p自己, 不过这一次他的 <code>isFirstTime_</code> 标志已经为 false 了, 我们通过这个标志知道不是第一次遍历到p了, 所以这时我们使p出栈( 此时p的右子树都已经遍历完了, 所以不用像之前一样再 “<code>bTreeNode</code> = 栈顶-&gt;右孩子” 了 )</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverseNonRecursion</span><span class="params">( btnp bTreeNode )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( !bTreeNode )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">PostOrderBTreeNode</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">		PostOrderBTreeNode( btnp OriginBT, <span class="keyword">bool</span> IsFirstTime )</span><br><span class="line">			: bt_( OriginBT ), isFirstTime_( IsFirstTime ) &#123;&#125;</span><br><span class="line">		btnp bt_;</span><br><span class="line">		<span class="keyword">bool</span> isFirstTime_;</span><br><span class="line">	&#125;pobtn, *pobtnp;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stack</span>&lt;pobtn&gt; tempStack;</span><br><span class="line">	<span class="keyword">while</span> ( !tempStack.empty() || bTreeNode )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span> ( bTreeNode )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="function">pobtn <span class="title">np</span><span class="params">( bTreeNode, <span class="literal">true</span> )</span></span>;</span><br><span class="line">			tempStack.push( np );</span><br><span class="line">			bTreeNode = bTreeNode-&gt;left_;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ( !tempStack.empty() )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> ( tempStack.top().isFirstTime_ )</span><br><span class="line">			&#123;</span><br><span class="line">				tempStack.top().isFirstTime_ = <span class="literal">false</span>;</span><br><span class="line">				bTreeNode = tempStack.top().bt_-&gt;right_;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; tempStack.top().bt_-&gt;data_ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">				tempStack.pop();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="遍历测试代码"><a href="#遍历测试代码" class="headerlink" title="遍历测试代码"></a>遍历测试代码</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/algo_newbie/binary_tree/binary_tree_traverse_and_swap_1.png" alt></p>
+<p>如上图得到的相应的三种<strong>深度优先遍历</strong>的序列分别为 ： </p>
+<ul>
+<li><strong>先(根)序遍历</strong> ： ABCDEGF</li>
+<li><strong>中(根)序遍历</strong> ： CBEGDFA</li>
+<li><strong>后(根)序遍历</strong> ： CGEFDBA</li>
+</ul>
+<p>而得到的<strong>广度优先遍历</strong>的序列为 : ABCDEFG</p>
+<h4 id="遍历测试代码CPP版"><a href="#遍历测试代码CPP版" class="headerlink" title="遍历测试代码CPP版"></a>遍历测试代码CPP版</h4><p>参照上图构建如下二叉树 : </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">stack</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">queue</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	btn testbt = btn( <span class="string">'A'</span> );</span><br><span class="line">	<span class="keyword">auto</span> testB = btn( <span class="string">'B'</span> );</span><br><span class="line">	<span class="keyword">auto</span> testC = btn( <span class="string">'C'</span> );</span><br><span class="line">	<span class="keyword">auto</span> testD = btn( <span class="string">'D'</span> );</span><br><span class="line">	<span class="keyword">auto</span> testE = btn( <span class="string">'E'</span> );</span><br><span class="line">	<span class="keyword">auto</span> testG = btn( <span class="string">'G'</span> );</span><br><span class="line">	<span class="keyword">auto</span> testF = btn( <span class="string">'F'</span> );</span><br><span class="line"></span><br><span class="line">	testbt.left_ = &amp;testB;</span><br><span class="line">	testbt.left_-&gt;left_ = &amp;testC;</span><br><span class="line">	testbt.left_-&gt;right_ = &amp;testD;</span><br><span class="line">	testbt.left_-&gt;right_-&gt;left_ = &amp;testE;</span><br><span class="line">	testbt.left_-&gt;right_-&gt;left_-&gt;right_ = &amp;testG;</span><br><span class="line">	testbt.left_-&gt;right_-&gt;right_ = &amp;testF;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"BreadthFirstTraverse : \n"</span>;</span><br><span class="line">	BreadthFirstTraverse( &amp;testbt );</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"PreOrderTraverseNonRecursion : \n"</span>;</span><br><span class="line">	PreOrderTraverseNonRecursion( &amp;testbt );</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"InOrderTraverseNonRecursion : \n"</span>;</span><br><span class="line">	InOrderTraverseNonRecursion( &amp;testbt );</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"PostOrderTraverseNonRecursion : \n"</span>;</span><br><span class="line">	PostOrderTraverseNonRecursion( &amp;testbt );</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="遍历测试代码GO版"><a href="#遍历测试代码GO版" class="headerlink" title="遍历测试代码GO版"></a>遍历测试代码GO版</h4><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	testPreorderTraversal()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TreeNode <span class="keyword">struct</span> &#123;</span><br><span class="line">	Left  *TreeNode</span><br><span class="line">	Right *TreeNode</span><br><span class="line">	Val   <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">preorderTraversal</span><span class="params">(root *TreeNode)</span> []<span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> root == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">//当树为空树时，直接返回一个空list</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	result := <span class="built_in">make</span>([]<span class="keyword">string</span>, <span class="number">0</span>)</span><br><span class="line">	<span class="comment">//非递归前序遍历，需要借助栈</span></span><br><span class="line">	stack := <span class="built_in">make</span>([]*TreeNode, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//第一步是将根节点压入栈中</span></span><br><span class="line">	stack = <span class="built_in">append</span>(stack, root)</span><br><span class="line">	<span class="comment">// 当栈不为空时，出栈的元素插入list尾部。</span></span><br><span class="line">	<span class="comment">// 当它的孩子不为空时，将孩子压入栈，一定是先压右孩子再压左孩子</span></span><br><span class="line">	<span class="comment">// 因为前序遍历的顺序为根-左-右, 而stack是先进后出的, 所以要先push右子节点</span></span><br><span class="line">	<span class="keyword">for</span> <span class="built_in">len</span>(stack) != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="comment">//此处的root只是一个变量的复用</span></span><br><span class="line">		root = stack[<span class="built_in">len</span>(stack)<span class="number">-1</span>]</span><br><span class="line">		stack = stack[:<span class="built_in">len</span>(stack)<span class="number">-1</span>]</span><br><span class="line">		result = <span class="built_in">append</span>(result, root.Val)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> root.Right != <span class="literal">nil</span> &#123;</span><br><span class="line">			stack = <span class="built_in">append</span>(stack, root.Right)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> root.Left != <span class="literal">nil</span> &#123;</span><br><span class="line">			stack = <span class="built_in">append</span>(stack, root.Left)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testBinaryTreeTraversal</span><span class="params">()</span></span> &#123;</span><br><span class="line">	testbtA := <span class="built_in">new</span>(TreeNode)</span><br><span class="line">	testbtA.Val = <span class="string">"A"</span></span><br><span class="line">	testbtB := <span class="built_in">new</span>(TreeNode)</span><br><span class="line">	testbtB.Val = <span class="string">"B"</span></span><br><span class="line">	testbtC := <span class="built_in">new</span>(TreeNode)</span><br><span class="line">	testbtC.Val = <span class="string">"C"</span></span><br><span class="line">	testbtD := <span class="built_in">new</span>(TreeNode)</span><br><span class="line">	testbtD.Val = <span class="string">"D"</span></span><br><span class="line">	testbtE := <span class="built_in">new</span>(TreeNode)</span><br><span class="line">	testbtE.Val = <span class="string">"E"</span></span><br><span class="line">	testbtF := <span class="built_in">new</span>(TreeNode)</span><br><span class="line">	testbtF.Val = <span class="string">"F"</span></span><br><span class="line">	testbtG := <span class="built_in">new</span>(TreeNode)</span><br><span class="line">	testbtG.Val = <span class="string">"G"</span></span><br><span class="line"></span><br><span class="line">	testbtA.Left = testbtB</span><br><span class="line">	testbtA.Left.Left = testbtC</span><br><span class="line"></span><br><span class="line">	testbtA.Left.Right = testbtD</span><br><span class="line">	testbtA.Left.Right.Left = testbtE</span><br><span class="line">	testbtA.Left.Right.Left.Right = testbtG</span><br><span class="line">	testbtA.Left.Right.Right = testbtF</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 标准答案:</span></span><br><span class="line">	<span class="comment">// 	先(根)序遍历 ： ABCDEGF</span></span><br><span class="line">	<span class="comment">// 中(根)序遍历 ： CBEGDFA</span></span><br><span class="line">	<span class="comment">// 后(根)序遍历 ： CGEFDBA</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(preorderTraversal(testbtA))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="深度优先的迭代式遍历之总结"><a href="#深度优先的迭代式遍历之总结" class="headerlink" title="深度优先的迭代式遍历之总结"></a>深度优先的迭代式遍历之总结</h3><p>请仔细看完上述代码再看总结, 才更有体会.</p>
+<ul>
+<li><strong>出栈条件的不同:</strong><ul>
+<li>前序遍历的出栈条件都是左边走到头了就让栈顶元素出栈</li>
+<li>中序遍历同上</li>
+<li>后序遍历的出栈条件是遍历到同一个栈顶元素第二次要出栈的时候才让他出栈</li>
+</ul>
+</li>
+<li><strong>打印结点时机的不同:</strong><ul>
+<li>前序遍历的打印结点时机是入栈时就打印</li>
+<li>中序遍历的打印结点时机是第一次出栈时就打印</li>
+<li>中序遍历的打印结点时机是第二次出栈时就打印</li>
+</ul>
+</li>
+</ul>
+<h1 id="交换所有左右孩子"><a href="#交换所有左右孩子" class="headerlink" title="交换所有左右孩子"></a>交换所有左右孩子</h1><h2 id="非递归方式Swap"><a href="#非递归方式Swap" class="headerlink" title="非递归方式Swap"></a>非递归方式Swap</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SwapBT</span><span class="params">( btnp bTreeNode )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!bTreeNode)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stack</span>&lt;btnp&gt; tempStack;</span><br><span class="line">	tempStack.push( bTreeNode );</span><br><span class="line"></span><br><span class="line">	btnp tempForTop = <span class="literal">nullptr</span>;</span><br><span class="line">	btnp tempForSwap = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> ( !tempStack.empty() )</span><br><span class="line">	&#123;</span><br><span class="line">		tempForTop = tempStack.top();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// swap</span></span><br><span class="line">		tempForSwap = tempForTop-&gt;left_;</span><br><span class="line">		tempForTop-&gt;left_ = tempForTop-&gt;right_;</span><br><span class="line">		tempForTop-&gt;right_ = tempForSwap;</span><br><span class="line"></span><br><span class="line">		tempStack.pop();</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ( tempForTop-&gt;left_ )</span><br><span class="line">		&#123;</span><br><span class="line">			tempStack.push( tempForTop-&gt;left_ );</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> ( tempForTop-&gt;right_ )</span><br><span class="line">		&#123;</span><br><span class="line">			tempStack.push( tempForTop-&gt;right_ );</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="递归方式Swap"><a href="#递归方式Swap" class="headerlink" title="递归方式Swap"></a>递归方式Swap</h2><p>交换左右孩子用递归很容易做到</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SwapBinaryTree</span><span class="params">(BTNP btnp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (btnp)</span><br><span class="line">	&#123;</span><br><span class="line">		BTNP tempBTNP = btnp-&gt;LeftNode;</span><br><span class="line">		btnp-&gt;LeftNode = btnp-&gt;RightNode;</span><br><span class="line">		btnp-&gt;RightNode = tempBTNP;</span><br><span class="line"></span><br><span class="line">		SwapBinaryTree(btnp-&gt;LeftNode);</span><br><span class="line">		SwapBinaryTree(btnp-&gt;RightNode);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/DataStructure/" rel="tag"><i class="fa fa-tag"></i> DataStructure</a>
+            
+              <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/binary_tree_create_and_destroy/" rel="next" title="数据结构一之二叉树的创建和销毁">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    数据结构一之二叉树的创建和销毁
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/binary_search_tree_insert_delete_search/" rel="prev" title="数据结构三之二叉搜索树的增删查">
+                <p class="post-nav-pre-next-title">
+                    数据结构三之二叉搜索树的增删查
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树的遍历"><span class="nav-text">二叉树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树的广度优先遍历"><span class="nav-text">二叉树的广度优先遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度优先的递归式遍历"><span class="nav-text">深度优先的递归式遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度优先的迭代式遍历"><span class="nav-text">深度优先的迭代式遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代式先序遍历代码实现"><span class="nav-text">迭代式先序遍历代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代式中序遍历代码实现"><span class="nav-text">迭代式中序遍历代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代式后序遍历代码实现"><span class="nav-text">迭代式后序遍历代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历测试代码"><span class="nav-text">遍历测试代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#遍历测试代码CPP版"><span class="nav-text">遍历测试代码CPP版</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遍历测试代码GO版"><span class="nav-text">遍历测试代码GO版</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度优先的迭代式遍历之总结"><span class="nav-text">深度优先的迭代式遍历之总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交换所有左右孩子"><span class="nav-text">交换所有左右孩子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归方式Swap"><span class="nav-text">非递归方式Swap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归方式Swap"><span class="nav-text">递归方式Swap</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

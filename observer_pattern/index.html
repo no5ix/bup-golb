@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '观察者模式' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="DesignPattern,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="概述一些面向对象的编程方式，提供了一种构建对象间复杂网络互连的能力。当对象们连接在一起时，它们就可以相互提供服务和信息。 通常来说，当某个对象的状态发生改变时，你仍然需要对象之间能互相通信。但是出于各种原因，你也许并不愿意因为代码环境的改变而对代码做大的修改。也许，你只想根据你的具体应用环境而改进通信代码。或者，你只想简单的重新构造通信代码来避免类和类之间的相互依赖与相互从属。 问题当一个对象的">
+<meta name="keywords" content="DesignPattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观察者模式">
+<meta property="og:url" content="https://hulinhong.com/observer_pattern/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="概述一些面向对象的编程方式，提供了一种构建对象间复杂网络互连的能力。当对象们连接在一起时，它们就可以相互提供服务和信息。 通常来说，当某个对象的状态发生改变时，你仍然需要对象之间能互相通信。但是出于各种原因，你也许并不愿意因为代码环境的改变而对代码做大的修改。也许，你只想根据你的具体应用环境而改进通信代码。或者，你只想简单的重新构造通信代码来避免类和类之间的相互依赖与相互从属。 问题当一个对象的">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.667Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="观察者模式">
+<meta name="twitter:description" content="概述一些面向对象的编程方式，提供了一种构建对象间复杂网络互连的能力。当对象们连接在一起时，它们就可以相互提供服务和信息。 通常来说，当某个对象的状态发生改变时，你仍然需要对象之间能互相通信。但是出于各种原因，你也许并不愿意因为代码环境的改变而对代码做大的修改。也许，你只想根据你的具体应用环境而改进通信代码。或者，你只想简单的重新构造通信代码来避免类和类之间的相互依赖与相互从属。 问题当一个对象的">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>观察者模式 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/observer_pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">观察者模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-01-07T12:18:54+00:00">
+                01-07-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/DesignPattern/" rel="tag"><i class="fa fa-tag"></i> DesignPattern</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/factory_pattern/" rel="next" title="工厂模式">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  工厂模式
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/distributed_system_design_note_three/" rel="prev" title="分布式系统设计概要笔记-三">
+              <p class="post-nav-pre-next-title">
+                  分布式系统设计概要笔记-三
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <!-- <p><span style="font-size:16px; color:#000099"><strong>本文因原文作者版权声明未经同意不得转载, 故此文于本博客中无法公开</strong></span></p> -->
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>一些面向对象的编程方式，提供了一种构建对象间复杂网络互连的能力。当对象们连接在一起时，它们就可以相互提供服务和信息。</p>
+<p>通常来说，当某个对象的状态发生改变时，你仍然需要对象之间能互相通信。但是出于各种原因，你也许并不愿意因为代码环境的改变而对代码做大的修改。也许，你只想根据你的具体应用环境而改进通信代码。或者，你只想简单的重新构造通信代码来避免类和类之间的相互依赖与相互从属。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>当一个对象的状态发生改变时，你如何通知其他对象？是否需要一个动态方案――一个就像允许脚本的执行一样，允许自由连接的方案？</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p><strong>观察者模式</strong> ：定义对象间的一种一对多的依赖关系, 当一个对象的状态发生改变时, 所有依赖于它的对象都得到通知并被自动更新。</p>
+<p><strong>观察者模式</strong>允许一个对象关注其他对象的状态，并且，<strong>观察者模式</strong>还为被观测者提供了一种观测结构，或者说是一个主体和一个客体。主体，也就是被观测者，可以用来联系所有的观测它的观测者。客体，也就是观测者，用来接受主体状态的改变 观测就是一个可被观测的类（也就是主题）与一个或多个观测它的类（也就是客体）的协作。不论什么时候，当被观测对象的状态变化时，所有注册过的观测者都会得到通知。</p>
+<p><strong>观察者模式</strong>将被观测者（主体）从观测者（客体）种分离出来。这样，每个观测者都可以根据主体的变化分别采取各自的操作。（<strong>观察者模式</strong>和 Publish/Subscribe 模式一样，也是一种有效描述对象间相互作用的模式。）<strong>观察者模式</strong>灵活而且功能强大。对于被观测者来说，那些查询哪些类需要自己的状态信息和每次使用那些状态信息的额外资源开销已经不存在了。另外，一个观测者可以在任何合适的时候进行注册和取消注册。你也可以定义多个具体的观测类，以便在实际应用中执行不同的操作。</p>
+<p>将一个系统分割成一系列相互协作的类有一个常见的副作用：需要维护相关对象间的一致性。我们不希望为了维持一致性而使各类紧密耦合，因为这样降低了它们的可重用性。</p>
+<h1 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h1><p>在以下任一情况下可以使用<strong>观察者模式</strong>:</p>
+<ul>
+<li>当一个抽象模型有两个方面, 其中一个方面依赖于另一方面。将这二者封装在独立的对象中以使它们可以各自独立地改变和复用。</li>
+<li>当对一个对象的改变需要同时改变其它对象 , 而不知道具体有多少对象有待改变。</li>
+<li>当一个对象必须通知其它对象，而它又不能假定其它对象是谁。换言之 , 你不希望这些对象是紧密耦合的。</li>
+</ul>
+<h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h1><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/observer_pattern/observer_pattern_1.jpg">
+<h1 id="模式的组成"><a href="#模式的组成" class="headerlink" title="模式的组成"></a>模式的组成</h1><p><strong>观察者模式</strong>包含如下角色：</p>
+<ul>
+<li>目标（Subject）: 目标知道它的观察者。可以有任意多个观察者观察同一个目标。 提供注册和删除观察者对象的接口。</li>
+<li>具体目标（ConcreteSubject）:  将有关状态存入各 ConcreteObserver 对象。</li>
+<li>观察者 (Observer):  为那些在目标发生改变时需获得通知的对象定义一个更新接口。当它的状态发生改变时, 向它的各个观察者发出通知。</li>
+<li>具体观察者 (ConcreteObserver):   维护一个指向 ConcreteSubject 对象的引用。存储有关状态，这些状态应与目标的状态保持一致。实现 O b s e r v e r 的更新接口以使自身状态与目标的状态保持一致。</li>
+</ul>
+<h1 id="观察者模式的优缺点"><a href="#观察者模式的优缺点" class="headerlink" title="观察者模式的优缺点"></a>观察者模式的优缺点</h1><p>Observer 模式允许你独立的改变目标和观察者。你可以单独复用目标对象而无需同时复用其观察者, 反之亦然。它也使你可以在不改动目标和其他的观察者的前提下增加观察者。</p>
+<p>下面是观察者模式其它一些<strong>优点</strong> :</p>
+<ul>
+<li>观察者模式可以实现表示层和数据逻辑层的分离, 并定义了稳定的消息更新传递机制，抽象了更新接口，使得可以有各种各样不同的表示层作为具体观察者角色。</li>
+<li>在观察目标和观察者之间建立一个抽象的耦合 ：<br>一个目标所知道的仅仅是它有一系列观察者 , 每个都符合抽象的 Observer 类的简单接口。目标不知道任何一个观察者属于哪一个具体的类。这样目标和观察者之间的耦合是抽象的和最小的。因为目标和观察者不是紧密耦合的, 它们可以属于一个系统中的不同抽象层次。一个处于较低层次的目标对象可与一个处于较高层次的观察者通信并通知它 , 这样就保持了系统层次的完整。如果目标和观察者混在一块 , 那么得到的对象要么横贯两个层次 (违反了层次性), 要么必须放在这两层的某一层中 (这可能会损害层次抽象)。</li>
+<li>支持广播通信 : 不像通常的请求, 目标发送的通知不需指定它的接收者。通知被自动广播给所有已向该目标对象登记的有关对象。目标对象并不关心到底有多少对象对自己感兴趣 ; 它唯一的责任就是通知它的各观察者。这给了你在任何时刻增加和删除观察者的自由。处理还是忽略一个通知取决于观察者。</li>
+<li>观察者模式符合 “开闭原则” 的要求。</li>
+</ul>
+<p>观察者模式的<strong>缺点</strong> :</p>
+<ul>
+<li>如果一个观察目标对象有很多直接和间接的观察者的话，将所有的观察者都通知到会花费很多时间。</li>
+<li>如果在观察者和观察目标之间有循环依赖的话，观察目标会触发它们之间进行循环调用，可能导致系统崩溃。</li>
+<li>观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。</li>
+<li>意外的更新 因为一个观察者并不知道其它观察者的存在 , 它可能对改变目标的最终代价一无所知。在目标上一个看似无害的的操作可能会引起一系列对观察者以及依赖于这些观察者的那些对象的更新。此外 , 如果依赖准则的定义或维护不当，常常会引起错误的更新 , 这种错误通常很难捕捉。</li>
+</ul>
+<p>简单的更新协议不提供具体细节说明目标中什么被改变了 , 这就使得上述问题更加严重。如果没有其他协议帮助观察者发现什么发生了改变，它们可能会被迫尽力减少改变。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>在 php 的 SPL 支持观察者模式，SPL 提供了 SplSubject 和 SplObserver 接口。</p>
+<p>SplSubject 接口提供了 attach()、detach()、notify() 三个方法。而 SplObserver 接口则提供了 update() 方法。</p>
+<p>SplSubject 派生类维护了一个状态，当状态发生变化时 - 比如属性变化等，就会调用 notify() 方法，这时，之前在 attach() 方法中注册的所有 SplObserver 实例的 update() 方法就会被调用。接口定义如下：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 这一模式的概念是 SplSubject 类维护了一个特定状态，当这个状态发生变化时，它就会调用 notify() 方法。 </span></span><br><span class="line"><span class="comment">* 调用 notify() 方法时，所有之前使用 attach() 方法注册的 SplObserver 实例的 update 方法都会被调用。 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*/</span>  </span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">SplSubject</span></span>&#123;  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">attach</span><span class="params">(SplObserver $observer)</span></span>;<span class="comment">// 注册观察者  </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">detach</span><span class="params">(SplObserver $observer)</span></span>;<span class="comment">// 释放观察者  </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">notify</span><span class="params">()</span></span>;<span class="comment">// 通知所有注册的观察者  </span></span><br><span class="line">&#125;  </span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">SplObserver</span></span>&#123;  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">(SplSubject $subject)</span></span>;<span class="comment">// 观察者进行更新状态  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现代码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 具体目标 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*/</span>  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteSubject</span> <span class="keyword">implements</span> <span class="title">SplSubject</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">private</span> $observers, $value;  </span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;observers = <span class="keyword">array</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">attach</span><span class="params">(SplObserver $observer)</span> </span>&#123; <span class="comment">// 注册观察者  </span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;observers[] = $observer;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">detach</span><span class="params">(SplObserver $observer)</span> </span>&#123; <span class="comment">// 释放观察者  </span></span><br><span class="line">        <span class="keyword">if</span>($idx = array_search($observer,<span class="keyword">$this</span>-&gt;observers,<span class="keyword">true</span>)) &#123;  </span><br><span class="line">        <span class="keyword">unset</span>(<span class="keyword">$this</span>-&gt;observers[$idx]);  </span><br><span class="line">    &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">notify</span><span class="params">()</span> </span>&#123; <span class="comment">// 通知所有观察者  </span></span><br><span class="line">        <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;observers as $observer) &#123;  </span><br><span class="line">        $observer-&gt;update(<span class="keyword">$this</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setValue</span><span class="params">($value)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;value = $value;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;notify();  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;value;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 具体观察者 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*/</span>  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver1</span> <span class="keyword">implements</span> <span class="title">SplObserver</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">(SplSubject $subject)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'ConcreteObserver1  value is'</span>,$subject-&gt;getValue(), <span class="string">'&lt;br&gt;'</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 具体观察者 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*/</span>  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver2</span> <span class="keyword">implements</span> <span class="title">SplObserver</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">(SplSubject $subject)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'ConcreteObserver2 value is'</span>, $subject-&gt;getValue(), <span class="string">'&lt;br&gt;'</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">$subject = <span class="keyword">new</span> ConcreteSubject();  </span><br><span class="line">$observer1 = <span class="keyword">new</span> ConcreteObserver1();  </span><br><span class="line">$observer2 = <span class="keyword">new</span> ConcreteObserver2();  </span><br><span class="line">$subject-&gt;attach($observer1);  </span><br><span class="line">$subject-&gt;attach($observer2);  </span><br><span class="line">$subject-&gt;setValue(<span class="number">5</span>);  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们扩展上面的例子，根据目标状态而更新不同的观察者：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>    </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 具体目标  </span></span><br><span class="line"><span class="comment">*  </span></span><br><span class="line"><span class="comment">*/</span>    </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteSubject</span> <span class="keyword">implements</span> <span class="title">SplSubject</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> $observers, $_state;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;observers = <span class="keyword">array</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">    *  注册观察者   </span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> SplObserver $observer </span></span><br><span class="line"><span class="comment">    */</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">attach</span><span class="params">(SplObserver $observer)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;observers[] = $observer;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">    *  // 释放观察者   </span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> SplObserver $observer </span></span><br><span class="line"><span class="comment">    */</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">detach</span><span class="params">(SplObserver $observer)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>($idx = array_search($observer,<span class="keyword">$this</span>-&gt;observers,<span class="keyword">true</span>)) &#123;  </span><br><span class="line">            <span class="keyword">unset</span>(<span class="keyword">$this</span>-&gt;observers[$idx]);  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">    * 通知所有观察者   </span></span><br><span class="line"><span class="comment">    *  </span></span><br><span class="line"><span class="comment">    */</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">notify</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="comment">/** </span></span><br><span class="line"><span class="comment">        * 只要状态改变，就通知观察者 </span></span><br><span class="line"><span class="comment">        */</span>  </span><br><span class="line">        <span class="keyword">foreach</span>(<span class="keyword">$this</span>-&gt;observers as $observer) &#123;  </span><br><span class="line">            <span class="keyword">if</span> ($observer-&gt;getState() == <span class="keyword">$this</span>-&gt;_state) &#123;  </span><br><span class="line">                $observer-&gt;update(<span class="keyword">$this</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">    * 设置状态 </span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> unknown_type $state </span></span><br><span class="line"><span class="comment">    */</span>  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setState</span><span class="params">($state)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;_state = $state;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;notify();  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getState</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_state;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 抽象观摩者 </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*/</span>  </span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">observer</span></span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> $_state;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($state)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;_state = $state;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">setState</span><span class="params">($state)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;_state = $state;  </span><br><span class="line">        <span class="keyword">$this</span>-&gt;notify();  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getState</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_state;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 具体观察者 1 </span></span><br><span class="line"><span class="comment">*  </span></span><br><span class="line"><span class="comment">*/</span>    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver1</span> <span class="keyword">extends</span> <span class="title">observer</span>  <span class="keyword">implements</span> <span class="title">SplObserver</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($state)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">parent</span>::__construct($state);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">(SplSubject $subject)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'ConcreteObserver1  state is'</span>,$subject-&gt;getState(), <span class="string">'&lt;br&gt;'</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 具体观察者 2 </span></span><br><span class="line"><span class="comment">*  </span></span><br><span class="line"><span class="comment">*/</span>    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver2</span> <span class="keyword">extends</span> <span class="title">observer</span>   <span class="keyword">implements</span> <span class="title">SplObserver</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($state)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">parent</span>::__construct($state);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">(SplSubject $subject)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'ConcreteObserver2 state is'</span>, $subject-&gt;getState(), <span class="string">'&lt;br&gt;'</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* 具体观察者 3 </span></span><br><span class="line"><span class="comment">*  </span></span><br><span class="line"><span class="comment">*/</span>    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver3</span> <span class="keyword">extends</span> <span class="title">observer</span>   <span class="keyword">implements</span> <span class="title">SplObserver</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($state)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">parent</span>::__construct($state);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">(SplSubject $subject)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'ConcreteObserver3 state is'</span>, $subject-&gt;getState(), <span class="string">'&lt;br&gt;'</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">$subject = <span class="keyword">new</span> ConcreteSubject();  </span><br><span class="line">$observer1 = <span class="keyword">new</span> ConcreteObserver1(<span class="number">1</span>);  </span><br><span class="line">$observer2 = <span class="keyword">new</span> ConcreteObserver2(<span class="number">1</span>);  </span><br><span class="line">$observer3 = <span class="keyword">new</span> ConcreteObserver3(<span class="number">2</span>);  </span><br><span class="line">$subject-&gt;attach($observer1);  </span><br><span class="line">$subject-&gt;attach($observer2);  </span><br><span class="line">$subject-&gt;attach($observer3);  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">'Subject state is 1'</span>, <span class="string">'&lt;br&gt;'</span>;  </span><br><span class="line">$subject-&gt;setState(<span class="number">1</span>);  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">'Subject state is 2'</span>, <span class="string">'&lt;br&gt;'</span>;  </span><br><span class="line">$subject-&gt;setState(<span class="number">2</span>);  </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="与其他相关模式"><a href="#与其他相关模式" class="headerlink" title="与其他相关模式"></a>与其他相关模式</h1><ul>
+<li>终结者模式 Mediator: 通过封装复杂的更新语义 , ChangeManager 充当目标和观察者之间的中介者。</li>
+<li>单例模式 Singleton: ChangeManager 可使用 Singleton 模式来保证它是唯一的并且是可全局访问<br>的。</li>
+</ul>
+<h1 id="总结与分析"><a href="#总结与分析" class="headerlink" title="总结与分析"></a>总结与分析</h1><p>通过 Observer 模式，把一对多对象之间的通知依赖关系的变得更为松散，大大地提高了程序的可维护性和可扩展性，也很好的符合了开放 - 封闭原则。</p>
+<!-- 
+# 参考
+
+[原文地址](http://blog.csdn.net/hguisu/article/details/7556625)
+ -->
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/DesignPattern/" rel="tag"><i class="fa fa-tag"></i> DesignPattern</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/factory_pattern/" rel="next" title="工厂模式">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    工厂模式
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/distributed_system_design_note_three/" rel="prev" title="分布式系统设计概要笔记-三">
+                <p class="post-nav-pre-next-title">
+                    分布式系统设计概要笔记-三
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适用性"><span class="nav-text">适用性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构"><span class="nav-text">结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模式的组成"><span class="nav-text">模式的组成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#观察者模式的优缺点"><span class="nav-text">观察者模式的优缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#与其他相关模式"><span class="nav-text">与其他相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结与分析"><span class="nav-text">总结与分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

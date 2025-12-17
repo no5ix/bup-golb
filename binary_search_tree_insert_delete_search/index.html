@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '数据结构三之二叉搜索树的增删查' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="DataStructure,Algo,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="有了二叉树的基础, 我们继续学习二叉搜索树. 二叉搜索树的定义二叉查找树(Binary Search Tree, 简称”BST”), 又名”二叉搜索树”或”二叉排序树”:它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。  . . .">
+<meta name="keywords" content="DataStructure,Algo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构三之二叉搜索树的增删查">
+<meta property="og:url" content="https://hulinhong.com/binary_search_tree_insert_delete_search/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="有了二叉树的基础, 我们继续学习二叉搜索树. 二叉搜索树的定义二叉查找树(Binary Search Tree, 简称”BST”), 又名”二叉搜索树”或”二叉排序树”:它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。  . . .">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.622Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构三之二叉搜索树的增删查">
+<meta name="twitter:description" content="有了二叉树的基础, 我们继续学习二叉搜索树. 二叉搜索树的定义二叉查找树(Binary Search Tree, 简称”BST”), 又名”二叉搜索树”或”二叉排序树”:它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。  . . .">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>数据结构三之二叉搜索树的增删查 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/binary_search_tree_insert_delete_search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构三之二叉搜索树的增删查</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-24T19:17:32+00:00">
+                09-24-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/DataStructure/" rel="tag"><i class="fa fa-tag"></i> DataStructure</a>
+              
+                <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/binary_tree_traverse_and_swap/" rel="next" title="数据结构二之二叉树的遍历和交换左右孩子">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  数据结构二之二叉树的遍历和交换左右孩子
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/deque_queue_stack_comparison/" rel="prev" title="STL之队列和双端队列和栈的比较">
+              <p class="post-nav-pre-next-title">
+                  STL之队列和双端队列和栈的比较
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p>有了二叉树的基础, 我们继续学习二叉搜索树.</p>
+<h1 id="二叉搜索树的定义"><a href="#二叉搜索树的定义" class="headerlink" title="二叉搜索树的定义"></a>二叉搜索树的定义</h1><p><strong>二叉查找树(Binary Search Tree, 简称”BST”), 又名”二叉搜索树”或”二叉排序树”:</strong><br>它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。</p>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/binary_search_tree_insert_delete_search/BinarySearchTree.png">
+<p><strong>. . .</strong><a id="more"></a></p>
+<p><strong>注 : </strong><br>我们本文中二叉树的二叉链式存储方案的代码表示为<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BinaryTreeNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">void</span> *data;</span><br><span class="line">	BinaryTreeNode *LeftNode;</span><br><span class="line">	BinaryTreeNode *RightNode;</span><br><span class="line">&#125;BTN, *BTNP;</span><br></pre></td></tr></table></figure></p>
+<h1 id="二叉搜索树的查询"><a href="#二叉搜索树的查询" class="headerlink" title="二叉搜索树的查询"></a>二叉搜索树的查询</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">BTNP <span class="title">SearchBST</span><span class="params">(BTNP btnp, <span class="keyword">char</span> key_data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (btnp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> ( key_data &lt; (*(<span class="keyword">char</span> *)(btnp-&gt;data)) )</span><br><span class="line">		&#123;</span><br><span class="line">			btnp = btnp-&gt;LeftNode;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> ( key_data &gt;(*(<span class="keyword">char</span> *)(btnp-&gt;data)) )</span><br><span class="line">		&#123;</span><br><span class="line">			btnp = btnp-&gt;RightNode;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"found"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">return</span> btnp;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"not found"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="二叉搜索树的插入"><a href="#二叉搜索树的插入" class="headerlink" title="二叉搜索树的插入"></a>二叉搜索树的插入</h1><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/binary_search_tree_insert_delete_search/BinarySearchTreeInsert1.png">
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertBST</span><span class="params">(BTNP &amp;btnp, <span class="keyword">char</span> key_data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> * temp_key_data = <span class="keyword">new</span> <span class="keyword">char</span>;</span><br><span class="line">	*temp_key_data = key_data;</span><br><span class="line"></span><br><span class="line">	BTNP new_btnp = <span class="keyword">new</span> BTN;</span><br><span class="line">	new_btnp-&gt;data = temp_key_data;</span><br><span class="line">	new_btnp-&gt;LeftNode = <span class="literal">nullptr</span>;</span><br><span class="line">	new_btnp-&gt;RightNode = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!btnp)</span><br><span class="line">	&#123;</span><br><span class="line">		btnp = new_btnp;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	BTNP temp_btnp = btnp;</span><br><span class="line">	BTNP parent_btnp = <span class="literal">nullptr</span>;</span><br><span class="line">	<span class="keyword">bool</span> is_left = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">while</span> (temp_btnp)</span><br><span class="line">	&#123;</span><br><span class="line">		parent_btnp = temp_btnp;</span><br><span class="line">		<span class="keyword">if</span> (key_data &lt; (*(<span class="keyword">char</span> *)(temp_btnp-&gt;data)))</span><br><span class="line">		&#123;</span><br><span class="line">			temp_btnp = temp_btnp-&gt;LeftNode;</span><br><span class="line">			is_left = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (key_data &gt; (*(<span class="keyword">char</span> *)(temp_btnp-&gt;data)))</span><br><span class="line">		&#123;</span><br><span class="line">			temp_btnp = temp_btnp-&gt;RightNode;</span><br><span class="line">			is_left = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"already has a same key_data"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (is_left == <span class="literal">true</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		parent_btnp-&gt;LeftNode = new_btnp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		parent_btnp-&gt;RightNode = new_btnp;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="二叉搜索树之删除某个结点"><a href="#二叉搜索树之删除某个结点" class="headerlink" title="二叉搜索树之删除某个结点"></a>二叉搜索树之删除某个结点</h1><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/binary_search_tree_insert_delete_search/BinarySearchTreeDelete1.png">
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/binary_search_tree_insert_delete_search/BinarySearchTreeDelete2.png">
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteBinaraySearchTree</span><span class="params">(BTNP &amp;btnp, <span class="keyword">char</span> key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 第一步 : 查找是否有这个key</span></span><br><span class="line">	BTNP parentBTNP = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">bool</span> isLeft = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	BTNP tempBNTP = btnp;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (tempBNTP)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (*(<span class="keyword">char</span>*)tempBNTP-&gt;data &gt; key)</span><br><span class="line">		&#123;</span><br><span class="line">			parentBTNP = tempBNTP;</span><br><span class="line">			tempBNTP = tempBNTP-&gt;LeftNode;</span><br><span class="line">			isLeft = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (*(<span class="keyword">char</span>*)tempBNTP-&gt;data &lt; key)</span><br><span class="line">		&#123;</span><br><span class="line">			parentBTNP = tempBNTP;</span><br><span class="line">			tempBNTP = tempBNTP-&gt;RightNode;</span><br><span class="line">			isLeft = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!tempBNTP)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"not found this key!!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"found this key!!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 第二步 : 我们得处里key结点没有父结点的情况</span></span><br><span class="line">	<span class="keyword">if</span> (!parentBTNP)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> (<span class="keyword">char</span> *)btnp-&gt;data;</span><br><span class="line">		btnp-&gt;data = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">delete</span> btnp;</span><br><span class="line">		btnp = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"test"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// 第三步 : 我们得处里key结点有父结点的4种情况</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 情况1</span></span><br><span class="line">		<span class="keyword">if</span> (tempBNTP-&gt;LeftNode == <span class="literal">NULL</span> &amp;&amp; tempBNTP-&gt;RightNode == <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (isLeft)</span><br><span class="line">			&#123;</span><br><span class="line">				parentBTNP-&gt;LeftNode = <span class="literal">NULL</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				parentBTNP-&gt;RightNode = <span class="literal">NULL</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 情况2</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (tempBNTP-&gt;LeftNode == <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (isLeft)</span><br><span class="line">			&#123;</span><br><span class="line">				parentBTNP-&gt;LeftNode = tempBNTP-&gt;RightNode;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				parentBTNP-&gt;RightNode = tempBNTP-&gt;RightNode;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 情况3</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (tempBNTP-&gt;RightNode == <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (isLeft)</span><br><span class="line">			&#123;</span><br><span class="line">				parentBTNP-&gt;LeftNode = tempBNTP-&gt;LeftNode;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				parentBTNP-&gt;RightNode = tempBNTP-&gt;LeftNode;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 情况4</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (tempBNTP-&gt;LeftNode != <span class="literal">NULL</span> &amp;&amp; tempBNTP-&gt;RightNode != <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// 情况4比较复杂, 我们得找到key结点的后继</span></span><br><span class="line">			<span class="comment">// (后继 : 一个结点x的后继是大于x.key的最小关键字的结点)</span></span><br><span class="line">			<span class="comment">// 因为情况4中的key结点左孩子和右孩子都不为空, </span></span><br><span class="line">			<span class="comment">// 所以key结点的后继 successorBTNP 肯定位于key结点的右子树中,</span></span><br><span class="line">			<span class="comment">// 且 successorBTNP 没有左孩子( 不然 successorBTNP 的左孩子就是key结点的后继了嘛)</span></span><br><span class="line">			BTNP tempTempBNTP = tempBNTP-&gt;RightNode;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// key结点的后继</span></span><br><span class="line">			BTNP successorBTNP = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// key结点的后继的父结点</span></span><br><span class="line">			BTNP successorParentBTNP = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">while</span> (tempTempBNTP)</span><br><span class="line">			&#123;</span><br><span class="line">				successorBTNP = tempTempBNTP;</span><br><span class="line">				<span class="keyword">if</span> (tempTempBNTP &amp;&amp; tempTempBNTP-&gt;LeftNode &amp;&amp; tempTempBNTP-&gt;LeftNode-&gt;LeftNode == <span class="literal">NULL</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					successorParentBTNP = tempTempBNTP;</span><br><span class="line">				&#125;</span><br><span class="line">				tempTempBNTP = tempTempBNTP-&gt;LeftNode;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 情况4又分两种情况, 如下 : </span></span><br><span class="line">			<span class="comment">// 第一种情况 A 是 successorBTNP 是 key 的右孩子;</span></span><br><span class="line">			<span class="comment">// 第二种情况 B 是 successorBTNP 在 key 的右子树中, 但并不是 successorBTNP 本身并不是 key 的右孩子</span></span><br><span class="line"></span><br><span class="line">			<span class="comment">// 情况 A : </span></span><br><span class="line">			<span class="keyword">if</span> (successorBTNP == tempBNTP-&gt;RightNode)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">// 用 key 结点的后继 successorBTNP 来替代 key 结点</span></span><br><span class="line">				<span class="keyword">if</span> (isLeft)</span><br><span class="line">				&#123;</span><br><span class="line">					parentBTNP-&gt;LeftNode = successorBTNP;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					parentBTNP-&gt;RightNode = successorBTNP;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// 情况 B :</span></span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">// 如果 successorBTNP 有右子树, 则用 successorBTNP 的右子树 代替 原来 successorBTNP 的位置.</span></span><br><span class="line">				<span class="keyword">if</span> (successorBTNP-&gt;RightNode)</span><br><span class="line">				&#123;</span><br><span class="line">					successorParentBTNP-&gt;LeftNode = successorBTNP-&gt;RightNode;</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// 用 key 结点的后继 successorBTNP 的data来替换 key 结点的data</span></span><br><span class="line">				<span class="keyword">char</span> * tempChar = <span class="keyword">new</span> <span class="keyword">char</span>;</span><br><span class="line">				*tempChar = *(<span class="keyword">char</span> *)successorBTNP-&gt;data;</span><br><span class="line">				tempBNTP-&gt;data = tempChar;</span><br><span class="line">				tempBNTP = successorBTNP;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// 下面注释的这块代码可以用上面这两4行代替</span></span><br><span class="line">				<span class="comment">// if (isLeft)</span></span><br><span class="line">				<span class="comment">// &#123;</span></span><br><span class="line">				<span class="comment">// 	parentBTNP-&gt;LeftNode = successorBTNP;</span></span><br><span class="line">				<span class="comment">// 	successorBTNP-&gt;RightNode = tempBNTP-&gt;RightNode;</span></span><br><span class="line">				<span class="comment">// 	successorBTNP-&gt;LeftNode = tempBNTP-&gt;LeftNode;</span></span><br><span class="line">				<span class="comment">// &#125;</span></span><br><span class="line">				<span class="comment">// else</span></span><br><span class="line">				<span class="comment">// &#123;</span></span><br><span class="line">				<span class="comment">// 	parentBTNP-&gt;RightNode = successorBTNP;</span></span><br><span class="line">				<span class="comment">// 	successorBTNP-&gt;RightNode = tempBNTP-&gt;RightNode;</span></span><br><span class="line">				<span class="comment">// 	successorBTNP-&gt;LeftNode = tempBNTP-&gt;LeftNode;</span></span><br><span class="line">				<span class="comment">// &#125;</span></span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 记得释放 key 结点</span></span><br><span class="line">		<span class="keyword">delete</span> (<span class="keyword">char</span> *)tempBNTP-&gt;data;</span><br><span class="line">		tempBNTP-&gt;data = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">delete</span> tempBNTP;</span><br><span class="line">		tempBNTP = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="二叉搜索树之找最低公共祖先"><a href="#二叉搜索树之找最低公共祖先" class="headerlink" title="二叉搜索树之找最低公共祖先"></a>二叉搜索树之找最低公共祖先</h1><p>给定二叉搜索树（BST）中两节点，找出他们的最低公共祖先(LeastCommonAncestors, 简称LCA)。</p>
+<p>例如对于本文第一张图的LCA为 : </p>
+<ul>
+<li>LCA(4， 14)=8; </li>
+<li>LCA(8， 10)=8.</li>
+</ul>
+<p><strong>思路:</strong></p>
+<p>利用BST的性质, 假设n1,n2都在BST中，并且n1 &lt; n2。则有 :  </p>
+<ul>
+<li>在遍历过程中，遇到的第一个值介于n1和n2之间的节点n，也即n1 =&lt; n &lt;= n2, 就是n1和n2的LCA。 </li>
+<li>在遍历过程中，如果节点的值比n1和n2都大，那么LCA在节点的左子树。 </li>
+<li>在遍历过程中，如果节点的值比n1和n2都小，那么LCA在节点的右子树。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LeastCommonAncestorsBinaraySearchTree</span><span class="params">(BTNP btnp, <span class="keyword">char</span> key1, <span class="keyword">char</span> key2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!btnp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"the BST is null"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (key1 == key2)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"key1 == key2, so this is not a BST"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!SearchBinarySearchTree(btnp, key1))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"key1 not found"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!SearchBinarySearchTree(btnp, key2))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"key2 not found"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (btnp)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">char</span> curChar = *(<span class="keyword">char</span> *)(btnp-&gt;data);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (curChar &lt; key1 &amp;&amp; curChar &lt; key2)</span><br><span class="line">		&#123;</span><br><span class="line">			btnp = btnp-&gt;RightNode;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (curChar &gt; key1 &amp;&amp; curChar &gt; key2)</span><br><span class="line">		&#123;</span><br><span class="line">			btnp = btnp-&gt;LeftNode;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> </span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"LeastCommonAncestors is "</span> &lt;&lt; curChar &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>&lt;&lt; 算法导论 &gt;&gt;</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/DataStructure/" rel="tag"><i class="fa fa-tag"></i> DataStructure</a>
+            
+              <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/binary_tree_traverse_and_swap/" rel="next" title="数据结构二之二叉树的遍历和交换左右孩子">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    数据结构二之二叉树的遍历和交换左右孩子
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/deque_queue_stack_comparison/" rel="prev" title="STL之队列和双端队列和栈的比较">
+                <p class="post-nav-pre-next-title">
+                    STL之队列和双端队列和栈的比较
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉搜索树的定义"><span class="nav-text">二叉搜索树的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉搜索树的查询"><span class="nav-text">二叉搜索树的查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉搜索树的插入"><span class="nav-text">二叉搜索树的插入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉搜索树之删除某个结点"><span class="nav-text">二叉搜索树之删除某个结点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉搜索树之找最低公共祖先"><span class="nav-text">二叉搜索树之找最低公共祖先</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

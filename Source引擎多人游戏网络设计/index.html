@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'Source引擎多人游戏网络设计' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Valve,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="原文原文出处 原文标题 : Source Multiplayer Networking  Multiplayer games based on the Source Engine use a Client-Server networking architecture. Usually a server is a dedicated host that runs the game and is au">
+<meta name="keywords" content="Valve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Source引擎多人游戏网络设计">
+<meta property="og:url" content="https://hulinhong.com/Source引擎多人游戏网络设计/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="原文原文出处 原文标题 : Source Multiplayer Networking  Multiplayer games based on the Source Engine use a Client-Server networking architecture. Usually a server is a dedicated host that runs the game and is au">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.615Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Source引擎多人游戏网络设计">
+<meta name="twitter:description" content="原文原文出处 原文标题 : Source Multiplayer Networking  Multiplayer games based on the Source Engine use a Client-Server networking architecture. Usually a server is a dedicated host that runs the game and is au">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Source引擎多人游戏网络设计 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/Source引擎多人游戏网络设计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Source引擎多人游戏网络设计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-06T20:37:38+00:00">
+                01-06-2016
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GS/" itemprop="url" rel="index">
+                    <span itemprop="name">GS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Valve/" rel="tag"><i class="fa fa-tag"></i> Valve</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/latency_compensating_methods_in_client_server_in_game_protocol_design_and_optimization/" rel="next" title="C/S游戏架构中延迟补偿的设计和优化方法">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  C/S游戏架构中延迟补偿的设计和优化方法
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/template_in_cpp_file/" rel="prev" title="模板能放cpp文件里吗之为什么">
+              <p class="post-nav-pre-next-title">
+                  模板能放cpp文件里吗之为什么
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking" target="_blank" rel="noopener">原文出处</a></p>
+<p>原文标题 : <strong>Source Multiplayer Networking</strong></p>
+<hr>
+<p>Multiplayer games based on the <a href="/wiki/Source_Engine" title="Source Engine" class="mw-redirect">Source Engine</a> use a <a href="http://en.wikipedia.org/wiki/Client-server" class="extiw" title="wikipedia:Client-server" target="_blank" rel="noopener">Client-Server</a> networking architecture. Usually a server is a dedicated host that runs the game and is authoritative about world simulation, game rules, and player input processing. A client is a player’s computer connected to a game server. The client and server communicate with each other by sending small data packets at a high frequency (usually 20 to 30 packets per second). A client receives the current world state from the server and generates video and audio output based on these updates. The client also samples data from input devices (keyboard, mouse, microphone, etc.) and sends these input samples back to the server for further processing. Clients only communicate with the game server and not between each other (like in a peer-to-peer application). In contrast with a single player game, a multiplayer game has to deal with a variety of new problems caused by packet-based communication.<br></p><p>Network bandwidth is limited, so the server can’t send a new update packet to all clients for every single world change. Instead, the server takes snapshots of the current world state at a constant rate and broadcasts these snapshots to the clients. Network packets take a certain amount of time to travel between the client and the server (i.e. half the ping time). This means that the client time is always a little bit behind the server time. Furthermore, client input packets are also delayed on their way back, so the server is processing temporally delayed user commands. In addition, each client has a different network delay which varies over time due to other background traffic and the client’s framerate. These time differences between server and client causes logical problems, becoming worse with increasing network latencies. In fast-paced action games, even a delay of a few milliseconds can cause a laggy gameplay feeling and make it hard to hit other players or interact with moving objects. Besides bandwidth limitations and network latencies, information can get lost due to network packet loss.<br></p>
+
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/Source引擎多人游戏网络设计/source_multiplayer_networking_img_1.gif">
+<p>To cope with the issues introduced by network communication, the Source engine server employs techniques such as data compression and lag compensation which are invisible to the client. The client then performs prediction and interpolation to further improve the experience.<br></p><br><h2 id="Basic_networking">Basic networking</h2><br><p>The server simulates the game in discrete time steps called ticks. By default, the timestep is 15ms, so 66.666… ticks per second are simulated, but mods can specify their own <a href="/wiki/Tickrate" title="Tickrate" class="mw-redirect">tickrate</a>. During each tick, the server processes incoming user commands, runs a physical simulation step, checks the game rules, and updates all object states. After simulating a tick, the server decides if any client needs a world update and takes a snapshot of the current world state if necessary. A higher tickrate increases the simulation precision, but also requires more CPU power and available bandwidth on both server and client. The server admin may override the default tickrate with the <code>-tickrate</code> command line parameter, though tickrate changes done this way are not recommended because the mod may not work as designed if its tickrate is changed.<br></p><br><div title="Information" style="margin:0.4em 1em 0.5em;"><strong style="display:table-cell;text-align:right;white-space:nowrap;padding-right:0.3em;">Note:</strong><span style="display:table-cell;">The <code>-tickrate</code> command line parameter is not available on CSS, DoD S, TF2, L4D and L4D2 because changing tickrate causes server timing issues. The tickrate is set to 66 in CSS, DoD S and TF2, and 30 in L4D and L4D2.</span></div><br><p>Clients usually have only a limited amount of available bandwidth. In the worst case, players with a modem connection can’t receive more than 5 to 7 KB/sec. If the server tried to send them updates with a higher data rate, packet loss would be unavoidable. Therefore, the client has to tell the server its incoming bandwidth capacity by setting the console variable <code>rate</code> (in bytes/second). This is the most important network variable for clients and it has to be set correctly for an optimal gameplay experience. The client can request a certain snapshot rate by changing <code>cl_updaterate</code> (default 20), but the server will never send more updates than simulated ticks or exceed the requested client <code>rate</code> limit. Server admins can limit data rate values requested by clients with <code>sv_minrate</code> and <code>sv_maxrate</code> (both in bytes/second). Also the snapshot rate can be restricted with <code>sv_minupdaterate</code> and <code>sv_maxupdaterate</code> (both in snapshots/second).<br></p><p>The client creates <i>user commands</i> from sampling input devices with the same tick rate that the server is running with. A user command is basically a snapshot of the current keyboard and mouse state. But instead of sending a new packet to the server for each user command, the client sends command packets at a certain rate of packets per second (usually 30). This means two or more user commands are transmitted within the same packet. Clients can increase the command rate with <code>cl_cmdrate</code>. This will increase responsiveness but requires more outgoing bandwidth, too.<br></p><p>Game data is compressed using <i>delta compression</i> to reduce network load. That means the server doesn’t send a full world snapshot each time, but rather only changes (a delta snapshot) that happened since the last acknowledged update. With each packet sent between the client and server, acknowledge numbers are attached to keep track of their data flow. Usually full (non-delta) snapshots are only sent when a game starts or a client suffers from heavy packet loss for a couple of seconds. Clients can request a full snapshot manually with the <code>cl_fullupdate</code> command.<br></p><p>Responsiveness, or the time between user input and its visible feedback in the game world, are determined by lots of factors, including the server/client CPU load, simulation tickrate, data rate and snapshot update settings, but mostly by the network packet traveling time. The time between the client sending a user command, the server responding to it, and the client receiving the server’s response is called the <i>latency</i> or <i>ping</i> (or round trip time). Low latency is a significant advantage when playing a multiplayer online game. Techniques like prediction and lag compensation try to minimize that advantage and allow a fair game for players with slower connections. Tweaking networking setting can help to gain a better experience if the necessary bandwidth and CPU power is available. We recommend keeping the default settings, since improper changes may cause more negative side effects than actual benefits.<br></p><br><h2 id="Servers_that_Support_Tickrate">Servers that Support Tickrate</h2><br><p>The tickrate can be altered by using the <code>-tickrate</code> parameter<br></p><br><ul><br><li>Counter Strike: Global Offensive<br></li><br><li>Half-Life 2: Deathmatch<br></li><br></ul><br><p><br><br>The following servers tickrate cannot be altered as changing this causes server timing issues.<br></p><p><br><br>Tickrate 66<br></p><br><ul><br><li>Counter Strike: Source<br></li><br><li>Day of Defeat: Source<br></li><br><li>Team Fortress 2<br></li><br></ul><br><p>Tickrate 30<br></p><br><ul><br><li>Left 4 Dead<br></li><br><li>Left 4 Dead 2<br></li><br></ul><br><h2 id="Entity_interpolation">Entity interpolation</h2><br><p>By default, the client receives about 20 snapshot per second. If the objects (entities) in the world were only rendered at the positions received by the server, moving objects and animation would look choppy and jittery. Dropped packets would also cause noticeable glitches. The trick to solve this problem is to go back in time for rendering, so positions and animations can be continuously interpolated between two recently received snapshots. With 20 snapshots per second, a new update arrives about every 50 milliseconds. If the client render time is shifted back by 50 milliseconds, entities can be always interpolated between the last received snapshot and the snapshot before that.<br></p><p>Source defaults to an interpolation period (‘lerp’) of 100-milliseconds (<code>cl_interp 0.1</code>); this way, even if one snapshot is lost, there are always two valid snapshots to interpolate between. Take a look at the following figure showing the arrival times of incoming world snapshots:<br></p>
+
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/Source引擎多人游戏网络设计/source_multiplayer_networking_img_2.gif">
+<p>The last snapshot received on the client was at tick 344 or 10.30 seconds. The client time continues to increase based on this snapshot and the client frame rate. If a new video frame is rendered, the rendering time is the current client time 10.32 minus the view interpolation delay of 0.1 seconds. This would be 10.22 in our example and all entities and their animations are interpolated using the correct fraction between snapshot 340 and 342.<br></p><p>Since we have an interpolation delay of 100 milliseconds, the interpolation would even work if snapshot 342 were missing due to packet loss. Then the interpolation could use snapshots 340 and 344. If more than one snapshot in a row is dropped, interpolation can’t work perfectly because it runs out of snapshots in the history buffer. In that case the renderer uses extrapolation (<code>cl_extrapolate 1</code>) and tries a simple linear extrapolation of entities based on their known history so far. The extrapolation is done only for 0.25 seconds of packet loss (<code>cl_extrapolate_amount</code>), since the prediction errors would become too big after that.<br></p><p><b>Entity interpolation causes a constant view “lag” of 100 milliseconds by default (<code>cl_interp 0.1</code>), even if you’re playing on a listenserver</b> (server and client on the same machine). This doesn’t mean you have to lead your aiming when shooting at other players since the server-side lag compensation knows about client entity interpolation and corrects this error.<br></p><br><div style="margin:0.4em 1em 0.5em;"><strong style="display:table-cell;text-align:right;white-space:nowrap;padding-right:0.3em;">Tip:</strong><span style="display:table-cell;">More recent Source games have the <code>cl_interp_ratio</code> cvar. With this you can easily and safely decrease the interpolation period by setting <code>cl_interp</code> to 0, then increasing the value of <code>cl_updaterate</code> (the useful limit of which depends on server tickrate). You can check your final lerp with <code>net_graph 1</code>.</span></div><br><div title="Information" style="margin:0.4em 1em 0.5em;"><strong style="display:table-cell;text-align:right;white-space:nowrap;padding-right:0.3em;">Note:</strong><span style="display:table-cell;">If you turn on <code>sv_showhitboxes</code> (not available in Source 2009) you will see player hitboxes drawn in server time, meaning they are ahead of the rendered player model by the lerp period. This is perfectly normal!</span></div><br><h2 id="Input_prediction">Input prediction</h2><br><p>Lets assume a player has a network latency of 150 milliseconds and starts to move forward. The information that the <code>+FORWARD</code> key is pressed is stored in a user command and send to the server. There the user command is processed by the movement code and the player’s character is moved forward in the game world. This world state change is transmitted to all clients with the next snapshot update. So the player would see his own change of movement with a 150 milliseconds delay after he started walking. This delay applies to all players actions like movement, shooting weapons, etc. and becomes worse with higher latencies.<br></p><p>A delay between player input and corresponding visual feedback creates a strange, unnatural feeling and makes it hard to move or aim precisely. Client-side input prediction (<code>cl_predict 1</code>) is a way to remove this delay and let the player’s actions feel more instant. Instead of waiting for the server to update your own position, the local client just predicts the results of its own user commands. Therefore, the client runs exactly the same code and rules the server will use to process the user commands. After the prediction is finished, the local player will move instantly to the new location while the server still sees him at the old place.<br></p><p>After 150 milliseconds, the client will receive the server snapshot that contains the changes based on the user command he predicted earlier. Then the client compares the server position with his predicted position. If they are different, a prediction error has occurred. This indicates that the client didn’t have the correct information about other entities and the environment when it processed the user command. Then the client has to correct its own position, since the server has final authority over client-side prediction. If <code>cl_showerror 1</code> is turned on, clients can see when prediction errors happen. Prediction error correction can be quite noticeable and may cause the client’s view to jump erratically. By gradually correcting this error over a short amount of time (<code>cl_smoothtime</code>), errors can be smoothly corrected. Prediction error smoothing can be turned off with <code>cl_smooth 0</code>.<br></p><p>Prediction is only possible for the local player and entities affected only by him, since prediction works by using the client’s keypresses to make a “best guess” of where the player will end up. Predicting other players would require literally predicting the future with no data, since there’s no way to instantaneously get keypresses from them.<br></p><br><h2 id="Lag_compensation">Lag compensation</h2><br><dl><br><dd><i>All source code for lag compensation and view interpolation is available in the Source SDK. See<br><br><br> for implementation details.</i><br></dd><br></dl><br><p>Let’s say a player shoots at a target at client time 10.5. The firing information is packed into a user command and sent to the server. While the packet is on its way through the network, the server continues to simulate the world, and the target might have moved to a different position. The user command arrives at server time 10.6 and the server wouldn’t detect the hit, even though the player has aimed exactly at the target. This error is corrected by the server-side lag compensation.<br></p><p>The lag compensation system keeps a history of all recent player positions for one second. If a user command is executed, the server estimates at what time the command was created as follows:<br></p><p><br><br>    <strong>Command Execution Time</strong> = <strong>Current Server Time</strong> - <strong>Packet Latency</strong> - <strong>Client View</strong> <a href="/wiki/Interpolation" title="Interpolation"><strong>Interpolation</strong></a><br><br></p><p>Then the server moves all other players - <i>only</i> players - back to where they were at the command execution time. The user command is executed and the hit is detected correctly. After the user command has been processed, the players revert to their original positions.<br></p><br><div title="Information" style="margin:0.4em 1em 0.5em;"><strong style="display:table-cell;text-align:right;white-space:nowrap;padding-right:0.3em;">Note:</strong><span style="display:table-cell;">Since entity interpolation is included in the equation, failing to have it on can cause undesired results.</span></div><br><p>On a listen server you can enable <code>sv_showimpacts 1</code> to see the different server and client hitboxes:<br></p>
+
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/Source引擎多人游戏网络设计/source_multiplayer_networking_img_3.jpg">
+<p>This screenshot was taken on a listen server with 200 milliseconds of lag (using <code>net_fakelag</code>), right after the server confirmed the hit. The red hitbox shows the target position on the client where it was 100ms + interp period ago. Since then, the target continued to move to the left while the user command was travelling to the server. After the user command arrived, the server restored the target position (blue hitbox) based on the estimated command execution time. The server traces the shot and confirms the hit (the client sees blood effects).<br></p><p>Client and server hitboxes don’t exactly match because of small precision errors in time measurement. Even a small difference of a few milliseconds can cause an error of several inches for fast-moving objects. Multiplayer hit detection is not pixel perfect and has known precision limitations based on the tickrate and the speed of moving objects.<br></p><p>The question arises, why is hit detection so complicated on the server? Doing the back tracking of player positions and dealing with precision errors while hit detection could be done client-side way easier and with pixel precision. The client would just tell the server with a “hit” message what player has been hit and where. We can’t allow that simply because a game server can’t trust the clients on such important decisions. Even if the client is “clean” and protected by <a href="/wiki/Valve_Anti-Cheat" title="Valve Anti-Cheat">Valve Anti-Cheat</a>, the packets could be still modified on a 3rd machine while routed to the game server. These “cheat proxies” could inject “hit” messages into the network packet without being detected by VAC (a “man-in-the-middle” attack).<br></p><p>Network latencies and lag compensation can create paradoxes that seem illogical compared to the real world. For example, you can be hit by an attacker you can’t even see anymore because you already took cover. What happened is that the server moved your player hitboxes back in time, where you were still exposed to your attacker. This inconsistency problem can’t be solved in general because of the relatively slow packet speeds. In the real world, you don’t notice this problem because light (the packets) travels so fast and you and everybody around you sees the same world as it is right now.<br></p><br><h2 id="Net_graph">Net graph</h2><br><p>The Source engine offers a couple of tools to check your client connection speed and quality. The most popular one is the net graph, which can be enabled with <code>net_graph 2</code> (or <code>+graph</code>). Incoming packets are represented by small lines moving from right to left. The height of each line reflects size of a packet. If a gap appears between lines, a packet was lost or arrived out of order. The lines are color-coded depending on what kind of data they contain.<br></p><p>Under the net graph, the first line shows your current rendered frames per second, your average latency, and the current value of <code>cl_updaterate</code>. The second line shows the size in bytes of the last incoming packet (snapshots), the average incoming bandwidth, and received packets per second. The third line shows the same data just for outgoing packets (user commands).<br></p>
+
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/Source引擎多人游戏网络设计/source_multiplayer_networking_img_4.jpg">
+<p></p><h2 id="Optimizations">Optimizations</h2><p></p>
+<p></p><p>The default networking settings are designed for playing on dedicated server on the Internet. The settings are balanced to work well for most client/server hardware and network configurations. For Internet games the only console variable that should be adjusted on the client is “rate”, which defines your available bytes/second bandwidth of your network connection. Good values for “rate” is 4500 for modems, 6000 for ISDN, 10000 DSL and above.<br></p><p>In an high-performance network environment, where the server and all clients have the necessary hardware resources available, it’s possible to tweak bandwidth and tickrate settings to gain more gameplay precision. Increasing the server tickrate generally improves movement and shooting precision but comes with a higher CPU cost. A Source server running with tickrate 100 generates about 1.5x more CPU load than a default tickrate 66. That can cause serious calculation lags, especially when lots of people are shooting at the same time. It’s not suggested to run a game server with a higher tickrate than 66 to reserve necessary CPU resources for critical situations.<br></p><p></p>
+<div title="Information" style="margin:0.4em 1em 0.5em;"><strong style="display:table-cell;text-align:right;white-space:nowrap;padding-right:0.3em;">Note:</strong><span style="display:table-cell;">It is not possible to change tickrate on CSS, DoD S TF2, L4D and L4D2 because changing tickrate causes server timing issues. The tickrate is set to 66 in CSS, DoD S and TF2, and 30 in L4D and L4D2.</span></div><br><p>If the game server is running with a higher tickrate, clients can increase their snapshot update rate (cl_updaterate) and user command rate (cl_cmdrate), if the necessary bandwidth (rate) is available. The snapshot update rate is limited by the server tickrate, a server can’t send more then one update per tick. So for a tickrate 66 server, the highest client value for cl_updaterate would be 66. If you increase the snapshot rate and encounter packet loss or choke, you have to turn it down again. With an increased cl_updaterate you can also lower the view interpolation delay (cl_interp). The default interpolation delay is 0.1 seconds, which derives from the default cl_updaterate 20. View interpolation delay gives a moving player a small advantage over a stationary player since the moving player can see his target a split second earlier. This effect is unavoidable, but it can be reduced by decreasing the view interpolation delay. If both players are moving, the view lag delay is affecting both players and nobody has an advantage.<br></p><p>This is the relation between snapshot rate and view interpolation delay is the following:<br></p><p><span style="text-align:center; font-weight:bold; font-family:monospace;display:block;font-size:1.2em;">interpolation period = max( cl_interp, cl_interp_ratio / cl_updaterate )</span><br></p><p>“Max(x,y)” means “whichever of these is higher”. You can set <code>cl_interp</code> to 0 and still have a safe amount of interp. You can then increase cl_updaterate to decrease your interp period further, but don’t exceed tickrate (66) or flood your connection with more data than it can handle.<br></p><br><h3 id="Tips">Tips</h3><br><dl><br>    <dt>Don’t change console settings unless you are 100% sure what you are doing</dt><br>    <code>Most &quot;high-performance&quot; setting cause exactly the opposite effect, if the server or network can&#39;t handle the load.</code><br><br>    <dt>Don’t turn off view interpolation and/or lag compensation</dt><br>    <code>It will not improve movement or shooting precision.</code><br><br>    <dt>Optimized setting for one client may not work for other clients</dt><br>    <code>Do not just use settings from other clients without verifing them for your system.</code><br><br>    <dt>If you follow a player in “First-Person” as a spectator in a game or <a href="/wiki/SourceTV" title="SourceTV">SourceTV</a>, you don’t exactly see what the player sees</dt><br>    <code>Spectators see the game world without lag compensation.</code><br></dl><br><br><br><h1 id="译文">译文</h1><br><br><a href="http://gad.qq.com/program/translateview/7168875" target="_blank" rel="noopener">译文出处</a><br><br><div class="WordSection1"> 翻译：pluswu，审校：pluswu<div><span style="font-weight: normal;"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></div><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">Source</span><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">引擎的多人游戏使用基于<span>UDP</span>通信的<span>C/S</span>架构。游戏以服务器逻辑作为世界权威，客户端和服务器通过<span>UDP</span>协议<span>(20~30packet/s</span>）通信。客户端从服务器接收信息并基于当前世界状态渲染画面和输出音频。客户端以固定频率发送操作输入到服务器。客户端仅与游戏服务器，而不是彼此之间通信。多人游戏必须处理基于网络消息同步所带来的一系列问题。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">网络的带宽是有限的，所以服务器不能为每一个世界的变化发送新的更新数据包发送到所有客户端。相反，服务器以固定的频率取当前世界状态的快照并广播这些快照到客户端。网络数据包需要一定的时间量的客户端和服务器（<span>RTT</span>的一半）来往。这意味着客户端时间相对服务器时间总是稍有滞后。此外，客户端输入数据包同步到服务器也有一定网络传输时间，所以服务器处理客户端输入也存在延迟的。不同的客户端因为网络带宽和通信线路不同也会存在不同的网络延时。随着服务器和客户端之间的这些网络延迟增大<span>, </span>网络延迟可能会导致逻辑问题。比如在快节奏的动作游戏中，在几毫秒的延迟甚至就会导致游戏卡顿的感觉，玩家会觉得很难打到对方玩家或运动的物体。此外除了带宽限制和网络延迟还要考虑网络传输中会有消息丢失的情况。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><img width="554" height="193" id="图片 2" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://gameweb-img.qq.com/gad/20160826/image001.1472207636.gif" alt="Source引擎多人模式网络同步模型"></span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">为了解决网络通信引入的一系列问题，<span>Source</span>引擎在服务器同步时采用了数据压缩和延迟补偿的逻辑，客户端采用了预测运行和插值平滑处理等技术来获得更好的游戏体验。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><br></span></p><h2 id="基本网络模型">基本网络模型</h2><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">服务器以一个固定的时间间隔更新模拟游戏世界。默认情况下，时间步长为<span>15ms</span>，以<span>66.66</span>次每秒的频率更新模拟游戏世界，但不同游戏可以指定更新频率。在每个更新周期内服务器处理传入的用户命令，运行物理模拟步，检查游戏规则，并更新所有的对象状态。每一次模拟更新<span>tick</span>之后服务器会决定是否更新当前时间快照以及每个客户端当前是否需更新。较高的<span>tickrate</span>增加了模拟精度，需要服务器和客户端都有更多可用的<span>CPU</span>和带宽资源。客户通常只能提供有限的带宽。在最坏的情况下，玩家的调制解调器连接不能获得超过<span>5-7KB /</span>秒的流量。如果服务器的数据更新发送频率超过了客户端的带宽处理限制，丢包是不可避免的。因此客户端可以通过在控制台设置接受带宽限制，以告诉服务器其收到的带宽容量。这是客户最重要的网络参数，想要获得最佳的游戏体验的话必须正确的设置此参数。客户端可以通过设置<span>cl_updaterate</span>（默认<span>20</span>）来改变获得快照平的频率，但服务器永远不会发送比<span>tickerate</span>更多的更新或超过请求的客户端带宽限制。服务器管理员可以通过<span>sv_minrate</span>和<span>sv_maxrate(byte/s)</span>限制客户端的上行请求频率。当然快照更新同步频率都受到<span>sv_minupdaterate</span>和<span>sv_maxupdaterate</span>（快照<span>/</span>秒）的限制。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">客户端使用与服务端<span>tickrate</span>一样的频率采样操作输入创建用户命令。用户命令基本上是当前的键盘和鼠标状态的快照。客户端不会把每个用户命令都立即发送到服务器而是以每秒（通常是<span>30</span>）的速率发送命令包。这意味着两个或更多个用户的命令在同一包内传输。客户可以增加与的<span>cl_cmdrate</span>命令速率。这可以提高响应速度，但需要更多的出口带宽。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">游戏数据使用增量更新压缩来减少网络传输。服务器不会每次都发送一个完整的世界快照，而只会更新自上次确认更新<span>(</span>通过<span>ACK</span>确认<span>)</span>之后所发生的变化（增量快照<span>)</span>。客户端和服务器之间发送的每个包都会带有<span>ACK</span>序列号来跟踪网络数据流。当游戏开始时或客户端在发生非常严重的数据包丢失时<span>, </span>客户可以要求全额快照同步。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">用户操作的响应速度<span>(</span>操作到游戏世界中的可视反馈之间的时间<span>)</span>是由很多因素决定的，包括服务器<span>/</span>客户端的<span>CPU</span>负载，更新频率，网络速率和快照更新设置，但主要是由网络包的传输时间确定。从客户端发送命令到服务器响应<span>, </span>再到客户端接收此命令对应的服务器响应被称为延迟或<span>ping</span>（或<span>RTT</span>）。低延迟在玩多人在线游戏时有显著的优势。客户端本地预测和服务器的延迟补偿技术可以尽量为网络较差的游戏玩家提供相对公平的体验。如果有良好的带宽和<span>CPU</span>可用，可以通过调整网络设置以获得更好的体验<span>, </span>反之我们建议保持默认设置，因为不正确的更改可能导致负面影响大于实际效益。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><br></span></p><h2 id="Enitiy插值平滑">Enitiy插值平滑</h2><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">通常情况下客户端接收每秒约<span>20</span>个快照更新。如果世界中的对象（实体）直接由服务器同步的位置呈现，物体移动和动画会看起来很诡异。网络通信的丢包也将导致明显的毛刺。解决这个问题的关键是要延迟渲染，玩家位置和动画可以在两个最近收到快照之间的连续插值。以每秒<span>20</span>快照为例，一个新的快照更新到达时大约每<span>50</span>毫秒。如果客户端渲染延迟<span>50</span>毫秒，客户端收到一个快照，并在此之前的快照之间内插<span>(Source</span>默认为<span>100</span>毫秒的插补周期<span>)</span>；这样一来，即使一个快照丢失，总是可以在两个有效快照之间进行平滑插值。如下图显示传入世界快照的到达时间：</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">         </span><span style="font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><img width="491" height="191" id="图片 3" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://gameweb-img.qq.com/gad/20160826/image002.1472207636.gif" alt="Source引擎多人模式网络同步模型"></span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">在客户端接收到的最后一个快照是在<span>tick 344</span>或<span>10.30</span>秒。客户的时间将继续在此快照的基础上基于客户端的帧率增加。下一个视图帧渲染时间是当前客户端的时间<span>10.32</span>减去<span>0.1</span>秒的画面插值延迟<span>10.20</span>。在我们的例子下一个渲染帧的时间是<span>10.22</span>和所有实体及其动画都可以基于快照<span>340</span>和<span>342</span>做正确的插值处理。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">既然我们有一个<span>100</span>毫秒的延迟插值，如果快照<span>342</span>由于丢包缺失，插值可以使用快照<span>340</span>和<span>344</span>来进行平滑处理。如果连续多个快照丢失，插值处理可能表现不会很好，因为插值是基于缓冲区的历史快照进行的。在这种情况下，渲染器会使用外推法（<span>cl_extrapolate 1</span>），并尝试基于其已知的历史，为实体做一个基于目前为止的一个简单线性外推。外推只会快照更新包连续丢失（<span>cl_extrapolate_amount</span>）<span>0.25</span>秒才会触发，因为该预测之后误差将变得太大。实体内会插导致<span>100</span>毫秒默认（<span>cl_interp 0.1</span>）的恒定视图“滞后”，就算你在<span>listenserver</span>（服务器和客户端在同一台机器上）上玩游戏。这并不是说你必须提前预判动画去瞄准射击，因为服务器端的滞后补偿知道客户端实体插值并纠正这个误差。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">最近<span>Source</span>引擎的游戏有<span>cl_interp_ratioCVaR</span>的。有了这个，你可以轻松，安全地通过设置<span>cl_interp</span>为<span>0</span>，那么增加的<span>cl_updaterate</span>的值（这同时也会受限于服务器<span>tickrate</span>）来减少插补周期。你可以用<span>net_graph 1</span>检查您的最终线性插值。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">如果打开<span>sv_showhitboxes</span>，你会看到在服务器时间绘制的玩家包围盒，这意味着他们在前进的线性插值时期所呈现的播放器模式。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><br></span></p><h2 id="输入预测">输入预测</h2><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">让我们假设一个玩家有<span>150</span>毫秒的网络延迟，并开始前进。前进键被按下的信息被存储在用户命令，并发送至服务器。用户命令是由移动代码逻辑处理，玩家的角色将在游戏世界中向前行走。这个世界状态的变化传送到所有客户端的下一个快照的更新。因此玩家看到自己开始行动的响应会有<span>150</span>毫秒延迟，这种延迟对于高频动作游戏<span>(</span>体育，设计类游戏<span>)</span>会有明显的延迟感。玩家输入和相应的视觉反馈之间的延迟会产生一种奇怪的，不自然的感觉，使得玩家很难移动或精确瞄准。客户端的输入预测（<span>cl_predict 1</span>）执行是一种消除这种延迟的方法，让玩家的行动感到更即时。与其等待服务器来更新自己的位置，在本地客户端只是预测自己的用户命令的结果。因此，客户端准确运行相同的代码和规则服务器将使用来处理用户命令。预测完成后，当地的玩家会移动到新位置，而服务器仍然可以看到他在老地方。<span>150</span>毫秒后，客户会收到包含基于他早期预测用户命令更改服务器的快照。客户端会将预测位置同服务器的位置对比。如果它们是不同的，则发生了预测误差。这表明，在客户端没有关于其他实体的正确信息和环境时，它处理用户命令。然后，客户端必须纠正自己的位置，因为服务器拥有客户端预测最终决定权。如果<span>cl_showerror 1</span>开启，客户端可以看到，当预测误差发生。预测误差校正可以是相当明显的，并且可能导致客户端的视图不规则跳动。通过在一定时间（<span>cl_smoothtime</span>）逐渐纠正这个错误，错误可以顺利解决。预测误差平滑处理可以通过设置<span>cl_smooth 0</span>来关闭。预测只对本地玩家以及那些只收它影响的实体有效，因为预测的工作原理是使用客户端的操作来预测的。对于其他玩家没法做有效预测<span>, </span>因为没有办法立即从他们身上得到操作信息。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><br></span></p><h2 id="延迟补偿">延迟补偿</h2><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">       比方说，一个玩家在<span>10.5s</span>的时刻射击了一个目标。射击信息被打包到用户命令，该命令通过网络的方式发送至服务器。服务器持续模拟游戏世界，目标可能已经移动到一个不同的位置。用户命令到达服务器时间<span>10.6</span>时服务器就无法检测到射击命中，即使玩家已经在目标准确瞄准。这个错误需要由服务器侧进行延迟补偿校正。延迟补偿系统使所有玩家最近位置的历史一秒。如果在执行用户的命令，服务器预计在命令创建什么时间如下：</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">命令执行时间<span>=</span>当前服务器时间<span> - </span>数据包延迟<span> - </span>客户端查看插值</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">然后服务器会将所有其他玩家回溯到命令执行时的位置，他们在命令执行时间。用户指令被执行，并正确地检测命中。用户命令处理完成后，玩家将会恢复到原来的位置。由于实体插值包含在公式中，可能会导致意外的结果。服务器端可以启用<span>sv_showimpacts 1</span>，显示服务器和客户端射击包围盒位置差异：</span></p><p class="MsoNormal"><span style="font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><img width="554" height="299" id="图片 4" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://gameweb-img.qq.com/gad/20160826/image003.1472207636.jpg" alt="Source引擎多人模式网络同步模型"></span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">该画面在主机上设置延迟<span>200</span>毫秒<span>(net_fakelag</span>设置<span>)</span>时获取的，射击真实命中玩家。红色命中包围盒显示了客户端那里是<span>100</span>毫秒<span>+</span>插补周期前的目标位置。此后，目标继续向左移动，而用户命令被行进到服务器。用户命令到达后，服务器恢复基于所述估计的命令执行时间目标位置（蓝色击中盒）。服务器回溯演绎，并确认命中（客户端看到流血效果）。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">因为在时间测量精度的误差客户端和服务器命中包围盒不完全匹配。对于快速移动的物体甚至几毫秒的误差也会导致几英寸的误差。多人游戏击中检测不是基于像素的完美匹配，此外基于<span>tickrate</span>模拟的运动物体的速度也有精度的限制。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">既然击中检测服务器上的逻辑如此复杂为什么不把命中检查放在客户端呢？如果在客户端进行命中检查<span>, </span>玩家位置和像素命中处理检测都可以精准的进行。客户端将只告诉服务器用“打”的消息一直打到什么样的玩家。因为游戏服务器不能信任客户端这种重要决定。因为即使客户端是“干净”的，并通过了<span>Valve</span>反作弊保护，但是报文可以被截获修改然后发送到游戏服务器。这些“作弊代理”可以注入“打”的消息到网络数据包而不被<span>VAC</span>被检测。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">网络延迟和滞后补偿可能会引起真实的世界不可能的逻辑。例如，您可能被你看不到的目标所击中。服务器移到你的命中包围盒时光倒流，你仍然暴露给了攻击者。这种不一致问题不能通过一般化的防范解决，因为相对网络包传输的速度。在现实世界中，因为光传播如此之快，你，每个人都在你身边看到同一个世界，所以你才你没有注意到这个问题。</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><br></span></p><h2 id="网络视图">网络视图</h2><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">Source</span><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">引擎提供了一些工具来检查您的客户端连接速度和质量。使用<span>net_graph 2</span>可以启用相关的视图。下面的曲线图中，第一行显示每秒当前的渲染的帧，您的平均延迟时间，以及的<span>cl_updaterate</span>的当前值。第二行显示在最后进来的数据包（快照），平均传入带宽和每秒接收的数据包的字节大小。第三行显示刚刚传出的数据包（用户命令）相同的数据。</span></p><p class="MsoNormal"><span style="font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><img width="554" height="219" id="图片 5" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://gameweb-img.qq.com/gad/20160826/image004.1472207636.jpg" alt="Source引擎多人模式网络同步模型"></span><span class="3Char"><span style="font-size:13.5pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><h2 id="优化">优化</h2></span></span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">默认的网络设置是专门为通过互联网连接的游戏服务器设计的。可以适用大多数客户机<span>/</span>服务器的硬件和网络配置工作。对于网络游戏，应该在客户端上进行调整，唯一的控制台变量是“<span>rate</span>”，它定义客户端可用的字节<span>/</span>网络连接带宽。</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"> </span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">在一个良好的网络环境中，服务器和所有客户端都具有必要的硬件资源可用，可以调整带宽和更新频率设置，来获得更多的游戏精度。增加<span>tickrate</span>通常可以提高运动和射击精度，但会消耗更多的服务器<span>CPU</span>资源。<span>tickrate 100</span>运行的服务器的负载大概是<span>tickrate 66</span>运行时的约<span>1.5</span>倍<span>, </span>因此如果<span>CPU</span>性能不足可能会导致严重的计算滞后，尤其是在玩家数量比较多的时候。建议对具有更高<span>tickrate</span>超的游戏服务器预留必要的<span>CPU</span>资源。</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"> </span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">如果游戏服务器使用较高<span>tickrate</span>运行时，客户端可以在带宽可用的情况下增加他们的快照更新率（的<span>cl_updaterate</span>）和用户命令速率（的<span>cl_cmdrate</span>）。快照更新速率由服务器<span>tickrate</span>限制，一台服务器无法发送每个时钟周期的一个以上的更新。因此，对于一个<span>tickrate66</span>服务器，为的<span>cl_updaterate</span>最高的客户价值，将是<span>66</span>。如果你增加快照率遇到，你必须再次打开它。与增加的<span>cl_updaterate</span>你也可以降低画面插值延迟（<span>cl_interp</span>）。默认的插值延迟为<span>0.1</span>秒<span>(</span>默认的<span>cl_updaterate</span>为<span>20) </span>视图内插延迟会导致移动的玩家会比静止不动的玩家更早发现对方。这种效果是不可避免的，但可以通过减小视图内插值延迟来减小。如果双方玩家正在移动，画面滞后会延迟影响双方玩家<span>,</span>双方玩家都不能获利。快照速率和视图延迟插值之间的关系如下：</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">插补周期<span>= MAX(cl_interp</span>，<span>cl_interp_ratio /cl_updaterate)</span></span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">可以设置<span>cl_interp</span>为<span>0</span>，仍然有插值的安全量。也可以把<span>cl_updaterate</span>增加，进一步降低你的插补周期，但不会超过更新<span>tickrate(66)</span>或客户端的网络处理能力。</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><br></span></p><h3 id="小贴士">小贴士</h3><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">不要瞎改终端配置除非你完全确定你在干嘛</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">       </span><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">如果客户端和服务器没有足够<span>CPU</span>和网络资源，绝大多数所所谓高性能优化都是起负面作用</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">不要关闭画面插值和延迟补偿</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">       </span><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">这样并不能代理移动和设计精准度提升</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">优化设置可能不会对每个客户端都有效</span></p><p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">如果是你是在游戏里或者<span>SourceTv</span>里第一视角观看你看到的画面和玩家可能不一样</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;">观战者的画面没有延迟补偿</span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><br></span></p><p class="MsoNormal" style="box-sizing: content-box; margin-top: 24px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); line-height: 24px;"><span style="box-sizing: content-box; margin: 0px; padding: 0px;"><span style="box-sizing: content-box; margin: 0px; padding: 0px; line-height: 24px;"><span style="font-family:微软雅黑;font-size:medium;">【版权声明】</span></span></span></p><p class="MsoNormal" style="box-sizing: content-box; margin-top: 24px; margin-bottom: 0px; padding: 0px; color: rgb(51, 51, 51); line-height: 24px;"><span style="box-sizing: content-box; margin: 0px; padding: 0px;"><span style="font-family:微软雅黑;font-size:medium;">原文作者未做权利声明，视为共享知识产权进入公共领域，自动获得授权；</span></span></p><p class="MsoNormal" style="text-indent:21.0pt"><span style="font-size:12.0pt;font-family:&quot;微软雅黑&quot;,&quot;sans-serif&quot;"><br></span></p></div>                    <br>                
+
+
+
+
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Valve/" rel="tag"><i class="fa fa-tag"></i> Valve</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/latency_compensating_methods_in_client_server_in_game_protocol_design_and_optimization/" rel="next" title="C/S游戏架构中延迟补偿的设计和优化方法">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    C/S游戏架构中延迟补偿的设计和优化方法
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/template_in_cpp_file/" rel="prev" title="模板能放cpp文件里吗之为什么">
+                <p class="post-nav-pre-next-title">
+                    模板能放cpp文件里吗之为什么
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原文"><span class="nav-text">原文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic_networking"><span class="nav-text">Basic networking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servers_that_Support_Tickrate"><span class="nav-text">Servers that Support Tickrate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Entity_interpolation"><span class="nav-text">Entity interpolation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input_prediction"><span class="nav-text">Input prediction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lag_compensation"><span class="nav-text">Lag compensation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Net_graph"><span class="nav-text">Net graph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optimizations"><span class="nav-text">Optimizations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips"><span class="nav-text">Tips</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#译文"><span class="nav-text">译文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本网络模型"><span class="nav-text">基本网络模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enitiy插值平滑"><span class="nav-text">Enitiy插值平滑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入预测"><span class="nav-text">输入预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延迟补偿"><span class="nav-text">延迟补偿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络视图"><span class="nav-text">网络视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化"><span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小贴士"><span class="nav-text">小贴士</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

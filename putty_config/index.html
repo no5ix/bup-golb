@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'Putty配置' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="VBox,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="平时工作学习必须要使用Windows，在SSH远程连接软件里Putty算是用得比较顺手的，而且很小巧。但是每次输入密码很麻烦，还容易输错，OpenSSH可以利用密钥来自动登陆，如此一来方便了不少。配置过程分为三步：1、生成公钥和私钥先要下载一个叫puttygen的软件（下载见附件），在Windows端生成公钥和私钥。点击Generate开始生成在生成过程中用鼠标在进度条下面的空白处乱晃几下，产生随">
+<meta name="keywords" content="VBox">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Putty配置">
+<meta property="og:url" content="https://hulinhong.com/putty_config/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="平时工作学习必须要使用Windows，在SSH远程连接软件里Putty算是用得比较顺手的，而且很小巧。但是每次输入密码很麻烦，还容易输错，OpenSSH可以利用密钥来自动登陆，如此一来方便了不少。配置过程分为三步：1、生成公钥和私钥先要下载一个叫puttygen的软件（下载见附件），在Windows端生成公钥和私钥。点击Generate开始生成在生成过程中用鼠标在进度条下面的空白处乱晃几下，产生随">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Putty配置">
+<meta name="twitter:description" content="平时工作学习必须要使用Windows，在SSH远程连接软件里Putty算是用得比较顺手的，而且很小巧。但是每次输入密码很麻烦，还容易输错，OpenSSH可以利用密钥来自动登陆，如此一来方便了不少。配置过程分为三步：1、生成公钥和私钥先要下载一个叫puttygen的软件（下载见附件），在Windows端生成公钥和私钥。点击Generate开始生成在生成过程中用鼠标在进度条下面的空白处乱晃几下，产生随">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Putty配置 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/putty_config/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Putty配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-08-23T15:11:26+00:00">
+                08-23-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/VBox/" rel="tag"><i class="fa fa-tag"></i> VBox</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Linux 常用SIG信号及其键值/" rel="next" title="Linux 常用SIG信号及其键值">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Linux 常用SIG信号及其键值
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/gdb_multi_thread_and_multi_process/" rel="prev" title="GDB多进程多线程调试实战">
+              <p class="post-nav-pre-next-title">
+                  GDB多进程多线程调试实战
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <div class="con editor-preview-side"><p>平时工作学习必须要使用Windows，在SSH远程连接软件里Putty算是用得比较顺手的，而且很小巧。</p><p><a href="/img/putty_auto_login_ssh/113555117.png" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/113555117.png" style="float:none;" title="2013-12-05_111750.png" alt="113555117.png"></a></p><p><br></p><p>但是每次输入密码很麻烦，还容易输错，OpenSSH可以利用密钥来自动登陆，如此一来方便了不少。配置过程分为三步：</p><p><strong>1、生成公钥和私钥</strong></p><p>先要下载一个叫puttygen的软件（下载见附件），在Windows端生成公钥和私钥。</p><p>点击Generate开始生成</p><p><a href="/img/putty_auto_login_ssh/113555442.png" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/113555442.png" style="float:none;" title="2013-12-05_111133.png" alt="113555442.png"></a></p><p>在生成过程中用鼠标在进度条下面的<span style="color:#ff0000;">空白处乱晃</span>几下，产生随机性：</p><p><a href="/img/putty_auto_login_ssh/113555424.png" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/113555424.png" title="2013-12-05_111207.png" style="float:none;" alt="113555424.png"></a></p><p>生成完毕，将私钥保存起来：</p><p><a href="/img/putty_auto_login_ssh/131658317.png" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/131658317.png" title="67.png" alt="131658317.png"></a></p><p>然后将公钥全选复制。<br></p><p><a href="/img/putty_auto_login_ssh/131248930.png" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/131248930.png" title="78.png" alt="131248930.png"></a></p><p><br></p><p><strong>2、远程主机配置</strong></p><p>我这里使用的是CentOS6.4，已经安装了OpenSSH，如果远程主机没有安装的，先要安装。</p><p>先连接上远程主机，然后输入命令</p><pre class="brush:bash;toolbar:false;">mkdir .ssh</pre><pre class="brush:bash;toolbar:false;">chmod 700 .ssh</pre><pre class="brush:bash;toolbar:false;">vim ~/.ssh/authorized_keys</pre><p>按“i”键进入编辑模式（用过vi/vim的都应该知道吧），然后点鼠标右键将刚才复制的公钥粘贴进去，然后按“Esc”，输入wq&lt;Enter&gt;保存。</p><p><a href="/img/putty_auto_login_ssh/131401631.png" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/131401631.png" title="89.png" alt="131401631.png"></a></p><p>安全起见，设置验证文件为只读：</p><p><br></p><pre class="brush:bash;toolbar:false;">chmod 400 ~/.ssh/authorized_keys</pre><p><span style="font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;"><span style="line-height:17.59375px;"><br></span></span></p><p><strong><span style="font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;"><span style="line-height:17.59375px;">3、Putty端配置</span></span></strong></p><p><strong><span style="font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;"><span style="line-height:17.59375px;"><br></span></span></strong></p><p><span style="line-height:17.59375px;font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;">先到Connection-Data项设置自己的登陆用户名，如图（我的是root）：</span></p><p><span style="line-height:17.59375px;font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;"></span></p><p><a href="/img/putty_auto_login_ssh/131535572.png" style="font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;line-height:17.59375px;" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/131535572.png" title="99.png" alt="131535572.png" style="float:none;"></a></p><p><br></p><p><span style="line-height:17.59375px;font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;">再点SSH项下面的Auth，添加第一步保存的私钥</span></p><p><span style="line-height:17.59375px;font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;"><a href="/img/putty_auto_login_ssh/131534643.png" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/131534643.png" title="100.png" alt="131534643.png" style="float:none;"></a></span></p><p><br></p><p><span style="line-height:17.59375px;font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;">然后很重要的是要回去Session项里<span style="line-height:17.59375px;font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;color:#ff0000;">保存！！！</span>不然下次又得重新添加一遍</span></p><p><span style="line-height:17.59375px;font-family:consolas, 'bitstream vera sans mono', 'courier new', courier, monospace;"><a href="/img/putty_auto_login_ssh/132022649.png" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/132022649.png" title="110.png" alt="132022649.png"></a></span></p><p><br></p><p>然后再双击Default Settings里保存的任务，就直接登陆进去了：</p><p><a href="http://s3.51cto.com/wyfs02/M01/12/E8/wKiom1MP7Wfh2XdgAABhqqyu7f4525.png" target="_blank"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://s3.51cto.com/wyfs02/M01/12/E8/wKiom1MP7Wfh2XdgAABhqqyu7f4525.png" title="捕获.PNG" alt="wKiom1MP7Wfh2XdgAABhqqyu7f4525.png"></a></p><p>是不是很棒~</p><p><br></p><p>最后再优化一下显示设置（转过来的）：</p><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"><span style="font-size:14px;">字体大小设置</span></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"><span style="font-size:14px;">Window-&gt;Appearance-&gt;Font settings—&gt;Change按钮设置（我的设置为12）</span></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"><span style="font-size:14px;">字体颜色设置</span></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"><span style="font-size:14px;">Window-&gt;Colours-&gt;Default Foreground-&gt;Modify设置（我喜欢绿色设置：R:0 G:255 B:64）</span></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"><span style="font-size:14px;">此外在默认的黑色背景下 蓝色看不太清楚，可以把Window-&gt;Colours-&gt;ANSI Blue 更改一下设置（我设置为R：255 G：0 B：128）</span></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"><span style="font-size:14px;">全屏/退出全屏的快捷键设置</span></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"></div><div style="font-family:'microsoft yahei ui', 'microsoft yahei', simsun, 'segoe ui', tahoma, helvetica, sans-serif, 'microsoft yahei', georgia, helvetica, arial, sans-serif, '宋体', pmingliu, serif;font-size:14px;line-height:21px;"><span style="font-size:14px;">Window-&gt;Behaviour最下面有个Full screen on Alt-Enter 勾上就可以了。</span></div>
+
+<h1 id="putty配置导出的方法"><a href="#putty配置导出的方法" class="headerlink" title="putty配置导出的方法"></a>putty配置导出的方法</h1><p>PuTTY 是一款小巧的开源 Telnet/SSH 客户端，但是它不提供设置的导入导出工具，PuTTY 将设置都保存在注册表中，所以要备份主要就是要备份注册表里的资料。</p>
+<p>下面是备份步骤，实质上就是导出相应的注册表键值：</p>
+<ol>
+<li>开始-&gt;运行(Win+R)-&gt;regedit</li>
+<li>找到 HKEY_CURRENT_USER\Software\SimonTatham</li>
+<li>在 SimonTatham 这个节点上点击右键，选择导出，保存。</li>
+</ol>
+<p>如果你想恢复配置信息，只需要双击保存的这个文件，导入注册表信息即可。</p>
+<p>说明：注册表PuTTY下的Sessions中保存设置连接的项目和设定值，SshHostKeys保存设置过的Remote Host Public Key。</p>
+<h1 id="KeepAlive"><a href="#KeepAlive" class="headerlink" title="KeepAlive"></a>KeepAlive</h1><p>很多远程主机当你一段时间没有输入, 他就会把你踢下线, 所以需要 KeepAlive 功能, </p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/putty_auto_login_ssh/keep_alive.jpg" alt="KeepAlive"></p>
+<p>如果填写 0 , 就表示不需要 KeepAlive 功能,<br>填写大于 0 的数, 比如 4, 就意味着每 4 秒就会发送一个空包到远程主机来 KeepAlive .<br>所以建议填写8秒左右的数.</p>
+<h1 id="SSH-证书登陆配置"><a href="#SSH-证书登陆配置" class="headerlink" title="SSH 证书登陆配置"></a>SSH 证书登陆配置</h1><p><code>sudo vi /etc/ssh/sshd_config</code></p>
+<p>取消注释 : #AuthorizedKeysFile .ssh/authorized_keys<br>禁止密码登录 : 修改yes-&gt;no : <code>PasswordAuthentication no</code></p>
+<p>然后重启ssh : <code>sudo service sshd restart</code></p>
+<h1 id="Putty-server-refused-our-key的三种原因和解决方法"><a href="#Putty-server-refused-our-key的三种原因和解决方法" class="headerlink" title="Putty server refused our key的三种原因和解决方法"></a>Putty server refused our key的三种原因和解决方法</h1><p>server refused our key 是非常容易遇到的错误</p>
+<h2 id="1、-ssh文件夹权限错或authorized-keys权限错"><a href="#1、-ssh文件夹权限错或authorized-keys权限错" class="headerlink" title="1、.ssh文件夹权限错或authorized_keys权限错"></a>1、.ssh文件夹权限错或authorized_keys权限错</h2><p>.ssh 以及其父文件夹（root为/root，普通用户为Home目录）都应该设置为只有该用户可写（比如700）。<br>且 设置 authorized_keys 的权限为 400</p>
+<pre><code>chmod 700 .ssh
+chmod 400 ~/.ssh/authorized_keys
+</code></pre><p>以下为原因：<br>ssh服务器的key方式登录对权限要求严格。</p>
+<ul>
+<li>对于客户端: 私钥必须为600权限或者更严格权限(400), 一旦其他用户可读, 私钥就不起作用(如640), 表现为系统认为不存在私钥</li>
+<li>对于服务器端: 要求必须公钥其他用户不可写, 一旦其他用户可写(如660), 就无法用key登录, 表现为:Permission denied (publickey).</li>
+</ul>
+<p>同时要求.ssh目录其他用户不可写,一旦其他用户可写(如770), 就无法使用key登录, 表现为:Permission denied (publickey).</p>
+<h2 id="2、SElinux导致"><a href="#2、SElinux导致" class="headerlink" title="2、SElinux导致"></a>2、SElinux导致</h2><p>密钥文件不能通过SElinux认证，解决方法如下：</p>
+<p><code># restorecon -R -v /home #root用户为/root</code></p>
+<p>我遇到的就是这种情况，找了好久还找到是这个原因，因为是新装的虚拟机，SElinux还没关闭。<br>这篇博文详细得说明了原因：<a href="http://www.toxingwang.com/linux-unix/linux-basic/846.html" target="_blank" rel="noopener">http://www.toxingwang.com/linux-unix/linux-basic/846.html</a></p>
+<h2 id="3、sshd配置不正确"><a href="#3、sshd配置不正确" class="headerlink" title="3、sshd配置不正确"></a>3、sshd配置不正确</h2><p>正确配置方法如下：<br>/etc/ssh/sshd_config </p>
+<p>1、找到 #StrictModes yes 改成 StrictModes no （去掉注释后改成 no） </p>
+<p>2、找到 #PubkeyAuthentication yes 改成 PubkeyAuthentication yes （去掉注释） </p>
+<p>3、找到 #AuthorizedKeysFile .ssh/authorized_keys 改成 AuthorizedKeysFile .ssh/authorized_keys （去掉注释） </p>
+<p>4、保存 5、/etc/rc.d/init.d/sshd reload 重新加载</p>
+</div>
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/VBox/" rel="tag"><i class="fa fa-tag"></i> VBox</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/Linux 常用SIG信号及其键值/" rel="next" title="Linux 常用SIG信号及其键值">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Linux 常用SIG信号及其键值
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/gdb_multi_thread_and_multi_process/" rel="prev" title="GDB多进程多线程调试实战">
+                <p class="post-nav-pre-next-title">
+                    GDB多进程多线程调试实战
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#putty配置导出的方法"><span class="nav-text">putty配置导出的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#KeepAlive"><span class="nav-text">KeepAlive</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSH-证书登陆配置"><span class="nav-text">SSH 证书登陆配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Putty-server-refused-our-key的三种原因和解决方法"><span class="nav-text">Putty server refused our key的三种原因和解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、-ssh文件夹权限错或authorized-keys权限错"><span class="nav-text">1、.ssh文件夹权限错或authorized_keys权限错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、SElinux导致"><span class="nav-text">2、SElinux导致</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、sshd配置不正确"><span class="nav-text">3、sshd配置不正确</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

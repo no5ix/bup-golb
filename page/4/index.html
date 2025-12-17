@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🚙">
+<meta property="og:url" content="https://hulinhong.com/page/4/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚙">
+<meta name="twitter:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>🚙 - 💨 💨 💨</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/eng_plan_thought/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/eng_plan_thought/" itemprop="url">English Plan & Thought</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-11-03T10:10:21+00:00">
+                11-03-2023
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="W每日时间安排指引"><a href="#W每日时间安排指引" class="headerlink" title="W每日时间安排指引"></a>W每日时间安排指引</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">/</th>
+<th style="text-align:center">周中(英语日)</th>
+<th style="text-align:center">周六(英语日)</th>
+<th style="text-align:center">周日(若有自驾游则为中文日, 否则为英文日)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">08:00</td>
+<td style="text-align:center">起床上班</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">狂欢</td>
+</tr>
+<tr>
+<td style="text-align:center">08:30</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">起床上班</td>
+<td style="text-align:center">狂欢</td>
+</tr>
+<tr>
+<td style="text-align:center">早上在车上</td>
+<td style="text-align:center">Peppa Pig</td>
+<td style="text-align:center">背单词</td>
+<td style="text-align:center">狂欢</td>
+</tr>
+<tr>
+<td style="text-align:center">到公司后 ~ 开始工作前</td>
+<td style="text-align:center">背单词 &amp; 中译英</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">狂欢</td>
+</tr>
+<tr>
+<td style="text-align:center">10:00</td>
+<td style="text-align:center">背单词 &amp; 中译英</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">自驾游出发 &amp; 车上看美剧</td>
+</tr>
+<tr>
+<td style="text-align:center">18:00 ~ 上车前</td>
+<td style="text-align:center">背单词 &amp; 中译英</td>
+<td style="text-align:center">狂欢开始</td>
+<td style="text-align:center">/</td>
+</tr>
+<tr>
+<td style="text-align:center">晚上在车上</td>
+<td style="text-align:center">Peppa Pig</td>
+<td style="text-align:center">狂欢</td>
+<td style="text-align:center">车上看美剧</td>
+</tr>
+<tr>
+<td style="text-align:center">到家后(约19:30)</td>
+<td style="text-align:center">1. 补白天没做完的<code>背单词&amp;中译英</code> 2. 不洗头则打球(一周至少2次) or 炉石</td>
+<td style="text-align:center">狂欢</td>
+<td style="text-align:center">狂欢</td>
+</tr>
+<tr>
+<td style="text-align:center">到家一小时后(约20:30)</td>
+<td style="text-align:center">W洗澡</td>
+<td style="text-align:center">W洗澡</td>
+<td style="text-align:center">W洗澡</td>
+</tr>
+<tr>
+<td style="text-align:center">洗完澡后(约21:00)</td>
+<td style="text-align:center">美剧</td>
+<td style="text-align:center">狂欢</td>
+<td style="text-align:center">狂欢</td>
+</tr>
+<tr>
+<td style="text-align:center">00:00</td>
+<td style="text-align:center">睡觉</td>
+<td style="text-align:center">睡觉</td>
+<td style="text-align:center">睡觉</td>
+</tr>
+</tbody>
+</table>
+<h1 id="说英语计划"><a href="#说英语计划" class="headerlink" title="说英语计划"></a>说英语计划</h1><ol>
+<li>我们把彼此当做一个不会说中文的外国妻子或丈夫, 这样事情就一切自然而然了, 你肯定是该交流还是要交流, 即使说的蹩脚英语, 然后做各种笔记把说不出来的不太流利的表达都记下来, 查查看看下回应该怎么说</li>
+<li>我们一周24小时都说英语(除了有自驾游的周日), 但是因为我们情况特殊, 我们有时候是要沟通重要事情的, 虽然一周可能就只有三四次重要事务沟通, 所以我们定一个规矩: 一周夫妻互相对话提供6次说中文的机会</li>
+</ol>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/eng_easy_english_012_english_in_everyday_life/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/eng_easy_english_012_english_in_everyday_life/" itemprop="url">Easy English-012-English in Everyday Life</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-29T22:07:09+00:00">
+                10-29-2023
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="Youtube-origin-URL"><a href="#Youtube-origin-URL" class="headerlink" title="Youtube origin URL"></a>Youtube origin URL</h1><ul>
+<li><a href="https://www.youtube.com/watch?v=oOxoYZc6cB4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=oOxoYZc6cB4</a></li>
+</ul>
+<h1 id="04-44-Bargaining-at-the-Flea-Market"><a href="#04-44-Bargaining-at-the-Flea-Market" class="headerlink" title="04:44 Bargaining at the Flea Market"></a>04:44 Bargaining at the Flea Market</h1><ul>
+<li>Excuse me, how much would you like for this <code>broach</code>(钻头；凿子；胸针（等于 brooch）)?</li>
+<li><blockquote>
+<p>Which one please?</p>
+</blockquote>
+</li>
+<li>The purple butterfly.</li>
+<li><blockquote>
+<p>Oh, that one is very popular.It’s 75 dollars.</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>75 dollars? Oh my goodness. It’s beautiful, but I can’t afford that.My mother will be disappointed, but never mind.I’ll find something at another stall.Thank you very much for your help.</p>
+</blockquote>
+</li>
+<li>How much are you willing to pay? I can’t sell myself short.</li>
+<li><blockquote>
+<p>Oh, I can pay a Dollar more than forty dollars.</p>
+</blockquote>
+</li>
+<li>Okay, that’s too low. I cannot let it go for that.</li>
+<li>No problem, I understand.</li>
+<li>How about sixty dollars?</li>
+<li><blockquote>
+<p>Unfortunately, that’s still too much.I could stretch to 45 dollars.</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>45 dollars? no, no, no.Fifty dollars, that’s my final offer. Take it or leave it.</p>
+</blockquote>
+</li>
+<li>That’s great. I’ll take it. My mother will be delighted.</li>
+<li><blockquote>
+<p>Of course, pass it here, and I’ll wrap it up for you.</p>
+</blockquote>
+</li>
+<li>Sir, here you go.</li>
+<li><blockquote>
+<p>Thank you so much. Here’s fifty dollars.</p>
+</blockquote>
+</li>
+<li>Thank you. Enjoy the rest of your day. </li>
+<li><blockquote>
+<p>You too.</p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/eng_friends_rachel_laundry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/eng_friends_rachel_laundry/" itemprop="url">老友记瑞秋洗衣S01E05</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-29T21:17:21+00:00">
+                10-29-2023
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h1><p>10:38</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/eng_misc_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/eng_misc_notes/" itemprop="url">English Misc Notes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-26T21:32:21+00:00">
+                10-26-2023
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="https://docs.qq.com/doc/DZEJDZGhOWEhhVmJM" target="_blank" rel="noopener">英语杂项笔记原文</a></p>
+<h1 id="时间介词"><a href="#时间介词" class="headerlink" title="时间介词"></a>时间介词</h1><p>以下是常见的表示时间点的介词用法：<br>●On：用于表示特定的某一天或日期或某一天的上中下午，如：on Monday, on July 4th , on the weekend, on Monday morning  (“On the weekend” 和 “at the weekend” 都是正确的表达方式，含义相同。然而，“at the weekend” 在英国英语中更常用，而“on the weekend” 在美国英语中更为常见)<br>●At：用于表示具体的某一时刻或时间，如：at 3 o’clock, at noon, at night, at midnight<br>●In：用于表示一段时间内，如：in the morning, in May, in 2022, in the evening, in the afternoon<br>●By：用于表示在某个时间之前完成某事，如：finish the task by 5 p.m.。<br>●From…to：用于表示从某一时间开始到另一时间结束，如：from Monday to Friday。<br>●Between…and：用于表示两个时间点之间的时间，如：between 4 and 6 p.m.。</p>
+<p>需要注意的是，有些时间点介词的使用是固定的，但有些情况下也需要根据具体语境进行判断</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/eng_easy_english_010_daily_english_conversation_practice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/eng_easy_english_010_daily_english_conversation_practice/" itemprop="url">Easy English - 010 - Daily English Conversation Practice</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-24T23:21:27+00:00">
+                10-24-2023
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="Youtube-origin-URL"><a href="#Youtube-origin-URL" class="headerlink" title="Youtube origin URL"></a>Youtube origin URL</h1><p><a href="https://www.youtube.com/watch?v=GAuqgOC6eKY" target="_blank" rel="noopener">https://www.youtube.com/watch?v=GAuqgOC6eKY</a></p>
+<h1 id="00-08-Let’s-make-breakfast"><a href="#00-08-Let’s-make-breakfast" class="headerlink" title="00:08 Let’s make breakfast"></a>00:08 Let’s make breakfast</h1><ul>
+<li><blockquote>
+<p>let’s Surprise mom and dad with a delicious breakfast. They deserve it.They’ve worked so much this week and have been very tired.</p>
+</blockquote>
+</li>
+<li>Good idea. They’ll be thrilled. So what do you have in mind?</li>
+<li><blockquote>
+<p>How about <code>scrambled</code>(adj. 炒的) eggs? We all like eggs.Let’s better make <code>frittata</code>( n. 菜肉馅煎蛋饼 ).</p>
+</blockquote>
+</li>
+<li>Sounds perfect.</li>
+<li><blockquote>
+<p>How many eggs do we need?</p>
+</blockquote>
+</li>
+<li>Well, I think we need eight eggs.And we need a little cheese, bacon, one onion, one pepper and heavy cream.</li>
+<li><blockquote>
+<p>We have all the ingredients? Let me check.Fortunately, we have everything we need. Let’s get started.</p>
+</blockquote>
+</li>
+<li>Let’s pop the pan in the oven for fifteen minutes. </li>
+<li><blockquote>
+<p>How about we also make banana smoothie? Would you like that?</p>
+</blockquote>
+</li>
+<li>I’m afraid we don’t have any bananas left. We ate them all yesterday.But We have plenty of mangoes in the fridge.</li>
+<li><blockquote>
+<p>Mangoes are great too.Oh, it looks amazing. It’s beautifully puffed and cooked.</p>
+</blockquote>
+</li>
+<li>We can add some yogurt on top and some <code>avocado</code>( n. 鳄梨,牛油果 ) slices.It’s ready to be served. </li>
+<li><blockquote>
+<p>Something smells delicious in here. You’ve made breakfast, kids?</p>
+</blockquote>
+</li>
+<li>What a pleasant surprise. I didn’t expect that. What’s the <code>occasion</code>( n.（某事发生的）时刻，时候；&lt;正式&gt;时机，适当的机会；特殊（或重大）场合，特殊（或重大）事件；&lt;正式&gt;理由，原因 )?And we just wanted to have a lovely saturday morning.</li>
+<li><blockquote>
+<p>That’s so seet ! I’m impressed, really! Thank u so much! I love you!</p>
+</blockquote>
+</li>
+<li>We love u too.</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/guilin_zipai/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/guilin_zipai/" itemprop="url">桂林字牌</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-10-04T21:47:21+00:00">
+                10-04-2023
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="桂林字牌总体玩法规则"><a href="#桂林字牌总体玩法规则" class="headerlink" title="桂林字牌总体玩法规则"></a>桂林字牌总体玩法规则</h1><p><a href="https://baike.baidu.com/item/大字牌" target="_blank" rel="noopener">https://baike.baidu.com/item/大字牌</a></p>
+<h1 id="算胡头"><a href="#算胡头" class="headerlink" title="算胡头"></a>算胡头</h1><ol>
+<li>计分的基本单位为”胡”，每5胡为1”舵”。(桂林称”舵”为“子”).</li>
+<li>胡牌最低胡牌数10胡10 -14胡为1舵，15-19胡为2舵，20-24胡为3舵，以下类推。(逢5进1)。</li>
+<li>胡牌在以下几种情况要加分: 自摸+1舵;有上醒牌每一张+1舵;有下醒牌每一张+1舵;天胡、地胡、三笼五坎四种特殊胡牌+1舵</li>
+</ol>
+<h1 id="特别细节项"><a href="#特别细节项" class="headerlink" title="特别细节项"></a>特别细节项</h1><h2 id="下伙"><a href="#下伙" class="headerlink" title="下伙"></a>下伙</h2><p>如果想吃上家打出的某一张牌，例如你想吃上家的1张小七，自己手中又有相同的1张或且 2张七，则手中的1张小七(或2张小七, ps:有两张相同的遇到对方打出来的小七也可以选择不碰牌的) 必须组成另外的一比并且一起亮出来 (或两比, 如”二七十”), 如不能组成另外的一比(或2比)则不能吃上家的这张牌。如果吃了而不下伙,挨发现该玩家必须付给其它玩家应的底油。</p>
+<p>举个例子: </p>
+<ol>
+<li>当手上有2个小二七十和1个小八1个小九, 上家打出1个七, 此时是可以吃上家这个小七的, 当时手上的2个小二七十也要跟着一起亮出来, 这个行为就叫做下火</li>
+<li>当手上有1个小二七十和1个小八1个小九, 上家打出1个七, 此时是可以吃上家这个小七的, 当时手上的1个小二七十也要跟着一起亮出来, 这个行为就叫做下火</li>
+<li>当手上有1个小二1个小七和1个小八1个小九, 上家打出1个七, 此时是不能吃上家这个小七的, 因为吃了上家这个小七, 手上的还剩下1个小二1个小七无法组成一个比子, 无法下火, 所以吃不了</li>
+</ol>
+<h2 id="不碰但是又自己摸到了"><a href="#不碰但是又自己摸到了" class="headerlink" title="不碰但是又自己摸到了"></a>不碰但是又自己摸到了</h2><p>如果自己手中有一对（分大小写）牌，另外玩家打出相同的一张，如果不碰后，自己再摸起另外一张，则必须将这一张牌亮于桌面，两张盖于桌面（与罩和对相区别，但和牌后分数与罩一样）。若是另外一玩家再打出，则不可以碰，但可以吃。</p>
+<h2 id="起手就有两个四个的"><a href="#起手就有两个四个的" class="headerlink" title="起手就有两个四个的"></a>起手就有两个四个的</h2><p>如果起始手中有2个四个(分大小写)的, 在最后马上要听牌的时候就不要再从手牌中丢牌了,否则胡不了了. </p>
+<p>举个例子: 当起手就有两条龙, 如四个小八 和 四个大七, 当打牌打到最后手里还剩下这两条龙以及小四和小五和两个小九和两个两个大六, 当上家打出一个大六的时候, 你碰了大六, 此时可以不用从手牌里丢牌了, 直接让下家继续抓牌即可</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/eng_subjunctive_mood/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/eng_subjunctive_mood/" itemprop="url">English SubJunctive Mood</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-08-15T14:45:21+00:00">
+                08-15-2023
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/English/" itemprop="url" rel="index">
+                    <span itemprop="name">English</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p><a href="https://docs.qq.com/doc/DZFRESGpJUGxtaERt?u=73f406cf05794003af892cdef46dd10e" target="_blank" rel="noopener">Subjunctive Mood original address</a></p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

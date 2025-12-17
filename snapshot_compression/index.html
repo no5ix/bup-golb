@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '网络物理模拟五之快照压缩' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GafferOnGames,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="自我总结快照压缩技术的要点为 :   压缩Orientation数据 : 利用四元数的”最小的三个分量”性质:x^2+y^2+z^2+w^2 = 1 来在传输的时候丢弃一个分量并在网络的另外一端对整个四元数进行重建 压缩线性速度和Postion数据 : 把他们限制在某个范围内, 就可以用这个范围的最大值所占用的比特位数来保存这两种数据了, 而不用一个超大的数来保证可以保存他们的最大值了(占用超多b">
+<meta name="keywords" content="GafferOnGames">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络物理模拟五之快照压缩">
+<meta property="og:url" content="https://hulinhong.com/snapshot_compression/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="自我总结快照压缩技术的要点为 :   压缩Orientation数据 : 利用四元数的”最小的三个分量”性质:x^2+y^2+z^2+w^2 = 1 来在传输的时候丢弃一个分量并在网络的另外一端对整个四元数进行重建 压缩线性速度和Postion数据 : 把他们限制在某个范围内, 就可以用这个范围的最大值所占用的比特位数来保存这两种数据了, 而不用一个超大的数来保证可以保存他们的最大值了(占用超多b">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络物理模拟五之快照压缩">
+<meta name="twitter:description" content="自我总结快照压缩技术的要点为 :   压缩Orientation数据 : 利用四元数的”最小的三个分量”性质:x^2+y^2+z^2+w^2 = 1 来在传输的时候丢弃一个分量并在网络的另外一端对整个四元数进行重建 压缩线性速度和Postion数据 : 把他们限制在某个范围内, 就可以用这个范围的最大值所占用的比特位数来保存这两种数据了, 而不用一个超大的数来保证可以保存他们的最大值了(占用超多b">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>网络物理模拟五之快照压缩 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/snapshot_compression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网络物理模拟五之快照压缩</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-24T11:13:35+00:00">
+                01-24-2017
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GS/" itemprop="url" rel="index">
+                    <span itemprop="name">GS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/GafferOnGames/" rel="tag"><i class="fa fa-tag"></i> GafferOnGames</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/snapshot_interpolation/" rel="next" title="网络物理模拟四之快照插值">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  网络物理模拟四之快照插值
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/state_synchronization/" rel="prev" title="网络物理模拟六之状态同步">
+              <p class="post-nav-pre-next-title">
+                  网络物理模拟六之状态同步
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="自我总结"><a href="#自我总结" class="headerlink" title="自我总结"></a>自我总结</h1><p>快照压缩技术的要点为 : </p>
+<ul>
+<li><strong>压缩Orientation数据</strong> : 利用四元数的”最小的三个分量”性质:x^2+y^2+z^2+w^2 = 1 来在传输的时候丢弃一个分量并在网络的另外一端对整个四元数进行重建</li>
+<li><strong>压缩线性速度和Postion数据</strong> : 把他们限制在某个范围内, 就可以用这个范围的最大值所占用的比特位数来保存这两种数据了, 而不用一个超大的数来保证可以保存他们的最大值了(占用超多bit位)</li>
+<li><strong>增量压缩</strong></li>
+</ul>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="https://gafferongames.com/post/snapshot_compression/" target="_blank" rel="noopener">原文出处</a></p>
+<p>原文标题 : <strong>Snapshot Compression</strong> (<em>Advanced techniques for optimizing bandwidth</em>)</p>
+<hr>
+<p></p><h2 id="introduction">Introduction</h2><p></p>
+<p>Hi, I&rsquo;m <a href="https://gafferongames.com/about" target="_blank" rel="noopener">Glenn Fiedler</a> and welcome to <strong><a href="https://gafferongames.com/categories/networked-physics/" target="_blank" rel="noopener">Networked Physics</a></strong>.</p><br><p>In the <a href="https://gafferongames.com/post/snapshot_interpolation/" target="_blank" rel="noopener">previous article</a> we sent snapshots of the entire simulation 10 times per-second over the network and interpolated between them to reconstruct a view of the simulation on the other side.</p><br><p>The problem with a low snapshot rate like 10HZ is that interpolation between snapshots adds interpolation delay on top of network latency. At 10 snapshots per-second, the minimum interpolation delay is 100ms, and a more practical minimum considering network jitter is 150ms. If protection against one or two lost packets in a row is desired, this blows out to 250ms or 350ms delay.</p><br><p>This is not an acceptable amount of delay for most games, but when the physics simulation is as unpredictable as ours, the only way to reduce it is to increase the packet send rate. Unfortunately, increasing the send rate also increases bandwidth. So what we&rsquo;re going to do in this article is work through every possible bandwidth optimization <em>(that I can think of at least)</em> until we get bandwidth under control.</p><br><p>Our target bandwidth is <strong>256 kilobits per-second</strong>.</p><br><h2 id="starting-point-60hz">Starting Point @ 60HZ</h2><br><p>Life is rarely easy, and the life of a network programmer, even less so. As network programmers we&rsquo;re often tasked with the impossible, so in that spirit, let&rsquo;s increase the snapshot send rate from 10 to 60 snapshots per-second and see exactly how far away we are from our target bandwidth.</p><br><video preload="auto" controls="controls" width="100%"><br><source src="https://gafferongames.com/videos/snapshot_compression_uncompressed.mp4" type="video/mp4"><br><source src="https://gafferongames.com/videos/snapshot_compression_uncompressed.webm" type="video/webm"><br></video><br><p>That&rsquo;s a <em>LOT</em> of bandwidth: <strong>17.37 megabits per-second!</strong></p><br><p>Let&rsquo;s break it down and see where all the bandwidth is going.</p><br><p>Here&rsquo;s the per-cube state sent in the snapshot:</p><br><pre><code>    struct CubeState<br>    {<br>        bool interacting;<br>        vec3f position;<br>        vec3f linear_velocity;<br>        quat4f orientation;<br>    };<br></code></pre><br><p>And here&rsquo;s the size of each field:</p><br><ul><br><li>quat orientation: <b>128 bits</b></li><br><li>vec3 linear_velocity: <b>96 bits</b></li><br><li>vec3 position: <b>96 bits</b></li><br><li>bool interacting: <b>1 bit</b></li><br></ul><br><p>This gives a total of 321 bits bits per-cube (or 40.125 bytes per-cube).</p><br><p>Let&rsquo;s do a quick calculation to see if the bandwidth checks out. The scene has 901 cubes so <strong>901x40.125 = 36152.625</strong> bytes of cube data per-snapshot. 60 snapshots per-second so <strong>36152.625 x 60 = 2169157.5</strong> bytes per-second. Add in packet header estimate: <strong>2169157.5 + 32x60 = 2170957.5</strong>. Convert bytes per-second to megabits per-second: <strong>2170957.5 x 8 / ( 1000 x 1000 ) = 17.38mbps</strong>.</p><br><p>Everything checks out. There&rsquo;s no easy way around this, we&rsquo;re sending a hell of a lot of bandwidth, and we have to reduce that to something around 1-2% of it&rsquo;s current bandwidth to hit our target of 256 kilobits per-second.</p><br><p>Is this even possible? <em>Of course it is!</em> Let&rsquo;s get started :)</p><br><h3 id="optimizing-orientation">Optimizing Orientation</h3><br><p>We&rsquo;ll start by optimizing orientation because it&rsquo;s the largest field. (When optimizing bandwidth it&rsquo;s good to work in the order of greatest to least potential gain where possible&hellip;)</p><br><p>Many people when compressing a quaternion think: &ldquo;I know. I&rsquo;ll just pack it into 8.8.8.8 with one 8 bit signed integer per-component!&rdquo;. Sure, that works, but with a bit of math you can get much better accuracy with fewer bits using a trick called the &ldquo;smallest three&rdquo;.</p><br><p>How does the smallest three work? Since we know the quaternion represents a rotation its length must be 1, so x^2+y^2+z^2+w^2 = 1. We can use this identity to drop one component and reconstruct it on the other side. For example, if you send x,y,z you can reconstruct w = sqrt( 1 - x^2 - y^2 - z^2 ). You might think you need to send a sign bit for w in case it is negative, but you don&rsquo;t, because you can make w always positive by negating the entire quaternion if w is negative (in quaternion space (x,y,z,w) and (-x,-y,-z,-w) represent the same rotation.)</p><br><p>Don&rsquo;t always drop the same component due to numerical precision issues. Instead, find the component with the largest absolute value and encode its index using two bits [0,3] (0=x, 1=y, 2=z, 3=w), then send the index of the largest component and the smallest three components over the network (hence the name). On the other side use the index of the largest bit to know which component you have to reconstruct from the other three.</p><br><p>One final improvement. If v is the absolute value of the largest quaternion component, the next largest possible component value occurs when two components have the same absolute value and the other two components are zero. The length of that quaternion (v,v,0,0) is 1, therefore v^2 + v^2 = 1, 2v^2 = 1, v = 1/sqrt(2). This means you can encode the smallest three components in [-0.707107,+0.707107] instead of [-1,+1] giving you more precision with the same number of bits.</p><br><p>With this technique I&rsquo;ve found that minimum sufficient precision for my simulation is 9 bits per-smallest component. This gives a result of 2 + 9 + 9 + 9 = 29 bits per-orientation (down from 128 bits).</p><br><video controls="controls" width="100%"><br><source src="https://gafferongames.com/videos/snapshot_compression_compressed_orientation.mp4" type="video/mp4"><br><source src="https://gafferongames.com/videos/snapshot_compression_compressed_orientation.webm" type="video/webm"><br>Your browser does not support the video tag.<br></video><br><p>This optimization reduces bandwidth by over 5 megabits per-second, and I think if you look at the right side, you&rsquo;d be hard pressed to spot any artifacts from the compression.</p><br><h3 id="optimizing-linear-velocity">Optimizing Linear Velocity</h3><br><p>What should we optimize next? It&rsquo;s a tie between linear velocity and position. Both are 96 bits. In my experience position is the harder quantity to compress so let&rsquo;s start here.</p><br><p>To compress linear velocity we need to bound its x,y,z components in some range so we don&rsquo;t need to send full float values. I found that a maximum speed of 32 meters per-second is a nice power of two and doesn&rsquo;t negatively affect the player experience in the cube simulation. Since we&rsquo;re really only using the linear velocity as a <em>hint</em> to improve interpolation between position sample points we can be pretty rough with compression. 32 distinct values per-meter per-second provides acceptable precision.</p><br><p>Linear velocity has been bounded and quantized and is now three integers in the range [-1024,1023]. That breaks down as follows: [-32,+31] (6 bits) for integer component and multiply 5 bits fraction precision. I hate messing around with sign bits so I just add 1024 to get the value in range [0,2047] and send that instead. To decode on receive just subtract 1024 to get back to signed integer range before converting to float.</p><br><p>11 bits per-component gives 33 bits total per-linear velocity. Just over <sup>1</sup>&frasl;<sub>3</sub> the original uncompressed size!</p><br><p>We can do even better than this because most cubes are stationary. To take advantage of this we just write a single bit &ldquo;at rest&rdquo;. If this bit is 1, then velocity is implicitly zero and is not sent. Otherwise, the compressed velocity follows after the bit (33 bits). Cubes at rest now cost just 127 bits, while cubes that are moving cost one bit more than they previously did: 159 + 1 = 160 bits.</p><br><video controls="controls" width="100%"><br><source src="https://gafferongames.com/videos/snapshot_compression_at_rest_flag.mp4" type="video/mp4"><br><source src="https://gafferongames.com/videos/snapshot_compression_at_rest_flag.webm" type="video/webm"><br>Your browser does not support the video tag.<br></video><br><p>But why are we sending linear velocity at all? In the <a href="https://gafferongames.com/networked-physics/snapshots-and-interpolation/" target="_blank" rel="noopener">previous article</a> we decided to send it because it improved the quality of interpolation at 10 snapshots per-second, but now that we&rsquo;re sending 60 snapshots per-second is this still necessary? As you can see below the answer is <em>no</em>.</p><br><video controls="controls" width="100%"><br><source src="https://gafferongames.com/videos/snapshot_compression_no_velocity.mp4" type="video/mp4"><br><source src="https://gafferongames.com/videos/snapshot_compression_no_velocity.webm" type="video/webm"><br>Your browser does not support the video tag.<br></video><br><p>Linear interpolation is good enough at 60HZ. This means we can avoid sending linear velocity entirely. Sometimes the best bandwidth optimizations aren&rsquo;t about optimizing what you send, they&rsquo;re about what you <em>don&rsquo;t</em> send.</p><br><h3 id="optimizing-position">Optimizing Position</h3><br><p>Now we have only position to compress. We&rsquo;ll use the same trick we used for linear velocity: bound and quantize. I chose a position bound of [-256,255] meters in the horizontal plane (xy) and since in the cube simulation the floor is at z=0, I chose a range of [0,32] meters for z.</p><br><p>Now we need to work out how much precision is required. With experimentation I found that 512 values per-meter (roughly 2mm precision) provides enough precision. This gives position x and y components in [-131072,+131071] and z components in range [0,16383]. That&rsquo;s 18 bits for x, 18 bits for y and 14 bits for z giving a total of 50 bits per-position (originally 96).</p><br><p>This reduces our cube state to 80 bits, or just 10 bytes per-cube.</p><br><p>This is approximately <sup>1</sup>&frasl;<sub>4</sub> of the original cost. Definite progress!</p><br><video controls="controls" width="100%"><br><source src="https://gafferongames.com/videos/snapshot_compression_compressed_position.mp4" type="video/mp4"><br><source src="https://gafferongames.com/videos/snapshot_compression_compressed_position.webm" type="video/webm"><br>Your browser does not support the video tag.<br></video><br><p>Now that we&rsquo;ve compressed position and orientation we&rsquo;ve run out of simple optimizations. Any further reduction in precision results in unacceptable artifacts.</p><br><h3 id="delta-compression">Delta Compression</h3><br><p>Can we optimize further? The answer is yes, but only if we embrace a completely new technique: <strong>delta compression</strong>.</p><br><p>Delta compression sounds mysterious. Magical. Hard. Actually, it&rsquo;s not hard at all. Here&rsquo;s how it works: the left side sends packets to the right like this: &ldquo;This is snapshot 110 encoded relative to snapshot 100&rdquo;. The snapshot being encoded relative to is called the baseline. How you do this encoding is up to you, there are many fancy tricks, but the basic, big order of magnitude win comes when you say: &ldquo;Cube n in snapshot 110 is the same as the baseline. One bit: Not changed!&rdquo;</p><br><p>To implement delta encoding it is of course essential that the sender only encodes snapshots relative to baselines that the other side has received, otherwise they cannot decode the snapshot. Therefore, to handle packet loss the receiver has to continually send &ldquo;ack&rdquo; packets back to the sender saying: &ldquo;the most recent snapshot I have received is snapshot n&rdquo;. The sender takes this most recent ack and if it is more recent than the previous ack updates the baseline snapshot to this value. The next time a packet is sent out the snapshot is encoded relative to this more recent baseline. This process happens continuously such that the steady state becomes the sender encoding snapshots relative to a baseline that is roughly RTT (round trip time) in the past.</p><br><p>There is one slight wrinkle: for one round trip time past initial connection the sender doesn&rsquo;t have any baseline to encode against because it hasn&rsquo;t received an ack from the receiver yet. I handle this by adding a single flag to the packet that says: &ldquo;this snapshot is encoded relative to the initial state of the simulation&rdquo; which is known on both sides. Another option if the receiver doesn&rsquo;t know the initial state is to send down the initial state using a non-delta encoded path, eg. as one large data block, and once that data block has been received delta encoded snapshots are sent first relative to the initial baseline in the data block, then eventually converge to the steady state of baselines at RTT.</p><br><video controls="controls" width="100%"><br><source src="https://gafferongames.com/videos/snapshot_compression_delta_not_changed.mp4" type="video/mp4"><br><source src="https://gafferongames.com/videos/snapshot_compression_delta_not_changed.webm" type="video/webm"><br>Your browser does not support the video tag.<br></video><br><p>As you can see above this is a big win. We can refine this approach and lock in more gains but we&rsquo;re not going to get another order of magnitude improvement past this point. From now on we&rsquo;re going to have to work pretty hard to get a number of small, cumulative gains to reach our goal of 256 kilobits per-second.</p><br><h4 id="incremental-improvements">Incremental Improvements</h4><br><p>First small improvement. Each cube that isn&rsquo;t sent costs 1 bit (not changed). There are 901 cubes so we send 901 bits in each packet even if no cubes have changed. At 60 packets per-second this adds up to 54kbps of bandwidth. Seeing as there are usually significantly less than 901 changed cubes per-snapshot in the common case, we can reduce bandwidth by sending only changed cubes with a cube index [0,900] identifying which cube it is. To do this we need to add a 10 bit index per-cube to identify it.</p><br><p>There is a cross-over point where it is actually more expensive to send indices than not-changed bits. With 10 bit indices, the cost of indexing is 10xn bits. Therefore it&rsquo;s more efficient to use indices if we are sending 90 cubes or less (900 bits). We can evaluate this per-snapshot and send a single bit in the header indicating which encoding we are using: 0 = indexing, 1 = changed bits. This way we can use the most efficient encoding for the number of changed cubes in the snapshot.</p><br><p>This reduces the steady state bandwidth when all objects are stationary to around 15 kilobits per-second. This bandwidth is composed entirely of our own packet header (uint16 sequence, uint16 base, bool initial) plus IP and UDP headers (28 bytes).</p><br><p>Next small gain. What if we encoded the cube index relative to the previous cube index? Since we are iterating across and sending changed cube indices in-order: cube 0, cube 10, cube 11, 50, 52, 55 and so on we could easily encode the 2nd and remaining cube indices relative to the previous changed index, e.g.: +10, +1, +39, +2, +3. If we are smart about how we encode this index offset we should be able to, on average, represent a cube index with less than 10 bits.</p><br><p>The best encoding depends on the set of objects you interact with. If you spend a lot of time moving horizontally while blowing cubes from the initial cube grid then you hit lots of +1s. If you move vertically from initial state you hit lots of +30s (sqrt(900)). What we need then is a general purpose encoding capable of representing statistically common index offsets with less bits.</p><br><p>After a small amount of experimentation I came up with this simple encoding:</p><br><ul><br><li>[1,8] =&gt; 1 + 3 (4 bits)</li><br><li>[9,40] =&gt; 1 + 1 + 5 (7 bits)</li><br><li>[41,900] =&gt; 1 + 1 + 10 (12 bits)</li><br></ul><br><p>Notice how large relative offsets are actually more expensive than 10 bits. It&rsquo;s a statistical game. The bet is that we&rsquo;re going to get a much larger number of small offsets so that the win there cancels out the increased cost of large offsets. It works. With this encoding I was able to get an average of 5.5 bits per-relative index.</p><br><p>Now we have a slight problem. We can no longer easily determine whether changed bits or relative indices are the best encoding. The solution I used is to run through a mock encoding of all changed cubes on packet write and count the number of bits required to encode relative indices. If the number of bits required is larger than 901, fallback to changed bits.</p><br><p>Here is where we are so far, which is a significant improvement:</p><br><video controls="controls" width="100%"><br><source src="https://gafferongames.com/videos/snapshot_compression_delta_relative_index.mp4" type="video/mp4"><br><source src="https://gafferongames.com/videos/snapshot_compression_delta_relative_index.webm" type="video/webm"><br>Your browser does not support the video tag.<br></video><br><p>Next small improvement. Encoding position relative to (offset from) the baseline position. Here there are a lot of different options. You can just do the obvious thing, eg. 1 bit relative position, and then say 8-10 bits per-component if all components have deltas within the range provided by those bits, otherwise send the absolute position (50 bits).</p><br><p>This gives a decent encoding but we can do better. If you think about it then there will be situations where one position component is large but the others are small. It would be nice if we could take advantage of this and send these small components using less bits.</p><br><p>It&rsquo;s a statistical game and the best selection of small and large ranges per-component depend on the data set. I couldn&rsquo;t really tell looking at a noisy bandwidth meter if I was making any gains so I captured the position vs. position base data set and wrote it to a text file for analysis.</p><br><p>I wrote a short ruby script to find the best encoding with a greedy search. The best bit-packed encoding I found for the data set works like this: 1 bit small per delta component followed by 5 bits if small [-16,+15] range, otherwise the delta component is in [-256,+255] range and is sent with 9 bits. If any component delta values are outside the large range, fallback to absolute position. Using this encoding I was able to obtain on average 26.1 bits for changed positions values.</p><br><h4 id="delta-encoding-smallest-three">Delta Encoding Smallest Three</h4><br><p>Next I figured that relative orientation would be a similar easy big win. Problem is that unlike position where the range of the position offset is quite small relative to the total position space, the change in orientation in 100ms is a much larger percentage of total quaternion space.</p><br><p>I tried a bunch of stuff without good results. I tried encoding the 4D vector of the delta orientation directly and recomposing the largest component post delta using the same trick as smallest 3. I tried calculating the relative quaternion between orientation and base orientation, and since I knew that w would be large for this (rotation relative to identity) I could avoid sending 2 bits to identify the largest component, but in turn would need to send one bit for the sign of w because I don&rsquo;t want to negate the quaternion. The best compression I could find using this scheme was only 90% of the smallest three. Not very good.</p><br><p>I was about to give up but I run some analysis over the smallest three representation. I found that 90% of orientations in the smallest three format had the same largest component index as their base orientation 100ms ago. This meant that it could be profitable to delta encode the smallest three format directly. What&rsquo;s more I found that there would be no additional precision loss with this method when reconstructing the orientation from its base. I exported the quaternion values from a typical run as a data set in smallest three format and got to work trying the same multi-level small/large range per-component greedy search that I used for position.</p><br><p>The best encoding found was: 5-8, meaning [-16,+15] small and [-128,+127] large. One final thing: as with position the large range can be extended a bit further by knowing that if the component value is not small the value cannot be in the [-16,+15] range. I leave the calculation of how to do this as an exercise for the reader. Be careful not to collapse two values onto zero.</p><br><p>The end result is an average of 23.3 bits per-relative quaternion. That&rsquo;s 80.3% of the absolute smallest three.</p><br><p>That&rsquo;s just about it but there is one small win left. Doing one final analysis pass over the position and orientation data sets I noticed that 5% of positions are unchanged from the base position after being quantized to 0.5mm resolution, and 5% of orientations in smallest three format are also unchanged from base.</p><br><p>These two probabilities are mutually exclusive, because if both are the same then the cube would be unchanged and therefore not sent, meaning a small statistical win exists for 10% of cube state if we send one bit for position changing, and one bit for orientation changing. Yes, 90% of cubes have 2 bits overhead added, but the 10% of cubes that save 20+ bits by sending 2 bits instead of 23.3 bit orientation or 26.1 bits position make up for that providing a small overall win of roughly 2 bits per-cube.</p><br><video controls="controls" width="100%"><br><source src="https://gafferongames.com/videos/snapshot_compression_delta_end_result.mp4" type="video/mp4"><br><source src="https://gafferongames.com/videos/snapshot_compression_delta_end_result.webm" type="video/webm"><br>Your browser does not support the video tag.<br></video><br><p>As you can see the end result is pretty good.</p><br><h4 id="conclusion">Conclusion</h4><br><p>And that&rsquo;s about as far as I can take it using traditional hand-rolled bit-packing techniques. You can find source code for my implementation of all compression techniques mentioned in this article <a href="https://gist.github.com/gafferongames/bb7e593ba1b05da35ab6" target="_blank" rel="noopener">here</a>.</p><br><p>It&rsquo;s possible to get even better compression using a different approach. Bit-packing is inefficient because not all bit values have equal probability of 0 vs 1. No matter how hard you tune your bit-packer a context aware arithmetic encoding can beat your result by more accurately modeling the probability of values that occur in your data set. This <a href="https://github.com/rygorous/gaffer_net/blob/master/main.cpp" target="_blank" rel="noopener">implementation</a> by Fabian Giesen beat my best bit-packed result by 25%.</p><br><p>It&rsquo;s also possible to get a much better result for delta encoded orientations using the previous baseline orientation values to estimate angular velocity and predict future orientations rather than delta encoding the smallest three representation directly.</p><br><p>Chris Doran from Geomerics wrote also wrote an excellent <a href="http://www.geomerics.com/wp-content/uploads/2015/04/rotation_blog_toprint.pdf" target="_blank" rel="noopener">article</a> exploring the mathematics of relative quaternion compression that is worth reading.</p>
+
+
+<h1 id="译文">译文</h1>
+
+
+<p><a href="http://gad.qq.com/program/translateview/7164499" target="_blank" rel="noopener">译文出处</a></p>
+<div class="WordSection1"><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;font-size:medium;"><span style="line-height: 21pt; color: rgb(34, 34, 34);">译者：张大伟（卡卡是我）/ </span><span style="color: rgb(34, 34, 34); line-height: 24px;">许春</span><span style="color: rgb(34, 34, 34);"><span style="line-height: 24px;">(</span></span><span style="color: rgb(34, 34, 34); line-height: 24px;">conan</span><span style="color: rgb(34, 34, 34);"><span style="line-height: 24px;">)</span></span><span style="line-height: 21pt; color: rgb(34, 34, 34);">    </span><span style="line-height: 21pt; color: rgb(34, 34, 34);">审校：崔国军（飞扬</span><span style="line-height: 21pt; color: rgb(34, 34, 34);">971</span><span style="line-height: 21pt; color: rgb(34, 34, 34);">）</span></span></p><p class="MsoNormal" align="left"><span style="line-height: 21pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><br><h2 id="介绍">介绍</h2><br><span style="font-family:微软雅黑;font-size:medium;">大家好，我是格伦·菲德勒。欢迎阅读《网络物理模拟》的系列文章，这个系列文章的主题是关于如何将一个物理模拟通过网络通信进行同步。</span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">在前面的文章中，我们会通过网络以每秒<span>10</span>次的速度发送整个模拟状态的快照，并在网络通信的另外一侧对这些快照进行插值来重建整个模拟的世界状态。</span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">因为我们发送的快照的频率比较低，这样会带来的一个问题就是对快照进行插值的话会在网络延迟的基础上还要增加插值带来的延迟。如果是每秒<span>10</span>次快照这个情况，最小的插值延迟是<span>100</span>毫秒，考虑到网络抖动的话一个比较实际的最小延迟是<span>150</span>毫秒。如果需要在连续丢失一个到两个包的情况进行保护处理的话，可能延迟就会高达<span>250</span>毫秒甚至<span>350</span>毫秒。</span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">这种程度的延迟对于大多数游戏来说都是不能接受的量。减少这种延迟的唯一方法是增加快照发送的频率。由于许多游戏是以<span>60fps</span>的频率进行更新，可以尝试以每秒<span>60</span>次的频率发送快照而不是我们正在使用的每秒<span>10</span>次。但是很不幸的是，这样做的话会带来网络带宽的损耗，不仅是因为我们更加频繁的发送相同大小的数据包，而且还因为发送每个数据包都会有包头数据的负担。</span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p style="margin: 6pt 0cm; line-height: 16.8pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">这个的原因听起来很明显，如果以每秒<span>60</span>次的频率来发送数据包，那么相比以每秒<span>10</span>次的频率来发送数据包，我们发送的<span>UDP/IP</span>数据包头的数据量很明显将是<span>6</span>倍。在计算数据包头的带宽消耗的时候我使用了一个经验法则，大概每个数据包头带来的带宽损耗大概是<span>32</span>字节。这个估计并不十分准确但是能让我们对一个典型的数据包头到底是多大有个粗略的概念。把这个大小乘以<span>60</span>就是每秒的带宽损耗，你会发现这样损耗的带宽其实不是一个小数目。而且这样带来带宽损耗是一个基础大小，你根本就没有办法来减少。如果是采用<span>IPv6</span>的话，数据包头的大小可能会更大，每秒的带宽损耗也会跟着变大。</span></span></p><p style="margin: 6pt 0cm; line-height: 16.8pt; background-image: initial; background-attachment: initial; background-size: initial; background-origin: initial; background-clip: initial; background-position: initial; background-repeat: initial;"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">对于数据包的包头带来开销，我们基本是没有办法进行优化的，但是数据包的其他所有部分我们都可以进行优化。所以我们将在本文中要做的事情就是遍历一切可能的带宽优化方法（至少是我能想到的一切带宽优化方法）直到我们把带宽的消耗控制在我们能接受的范围内。对于这个应用程序，我们把带宽控制的目标设置为每秒<span>256kb</span>。</span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><br><h2 id="从60HZ为起点开始优化吧">从60HZ为起点开始优化吧</h2><br><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">这看起来似乎是比较小的一个流量，可能你的网络连接能够支持更大的流量，但是我们要明白的是当你对视频游戏或者物理模拟进行网络通信的时候，你的目标是减少延迟和确保对玩家来说最好的网络连接情况。为了实现这一目标，最好不要让连接一直饱和工作，做到这一点的办法是使用一个比较保守的带宽量，这样就比较不容易给你的玩家造成困扰和麻烦。</span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">让我们看下当我们以每秒<span>60</span>次的频率发送未压缩的快照的时候，我们到底使用了多大的带宽。</span></span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;font-size:medium;"><br><br><video preload="auto" loop="loop" width="100%" controls="controls"><br><source src="/img/snapshot_compression_1.mp4" type="video/mp4"><br></video><br><br><br></span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;font-size:medium;"><br></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">这一切的带宽都是从哪里来的呢？这个数据包包含了一个有<span>901</span>个立方体的数组，其它的东西就没有什么了。很显然，立方体的数据是造成高带宽的原因，但是为什么发送每个立方体的数据会这么昂贵呢？</span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">每个立方体具有以下这些属性：</span></span></p><p class="MsoNormal" align="left" style="margin-left: 36.05pt; text-indent: -18pt;"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">·<span style="font-variant-numeric: normal; font-stretch: normal; line-height: normal;">         </span></span>用<span>quat</span>表示的立方体朝向<span style="color: rgb(34, 34, 34);">：<span>128</span>比特。</span></span></p><p class="MsoNormal" align="left" style="margin-left: 36.05pt; text-indent: -18pt;"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">·<span style="font-variant-numeric: normal; font-stretch: normal; line-height: normal;">         </span></span><span style="color: rgb(34, 34, 34);">用<span>vec3</span>表示的立方体速度：<span>96</span>比特。</span></span></p><p class="MsoNormal" align="left" style="margin-left: 36.05pt; text-indent: -18pt;"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">·<span style="font-variant-numeric: normal; font-stretch: normal; line-height: normal;">         </span></span><span style="color: rgb(34, 34, 34);">用<span>vec3</span>表示的立方体位置：<span>96</span>比特。</span></span></p><p class="MsoNormal" align="left" style="margin-left: 36.05pt; text-indent: -18pt;"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">·<span style="font-variant-numeric: normal; font-stretch: normal; line-height: normal;">         </span></span><span style="color: rgb(34, 34, 34);">用<span>bool</span>表示的是否相互作用：<span>1</span>比特。</span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">所以一个立方体一共要占据<span>321</span>比特的大小（<span>40.125</span>字节）</span></span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">让我们做下数学计算并确保一切的东西都包括在内了。这个场景有<span>901</span>个立方体所以每次快照的立方体数据大概有<span>901x40.125 = 36152.625</span></span>字节<span style="color: rgb(34, 34, 34);">。每秒<span>60</span>张快照就一共是，每秒<span>6152.625 x 60 = 216915</span></span><span>7.5</span>字节。<span style="color: rgb(34, 34, 34);">再加入报文头部大小的估计：<span>2169157.5 + 32x60 = 217095</span></span><span>7.5</span>字节。将单<span style="color: rgb(34, 34, 34);">位从每秒比特转换成每秒<span>Mb</span>：<span>2170957.5 x 8 / ( 1000 x 1000 ) =17.38mbps</span>。这与刚才的得到的结果就足够接近了！</span></span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;font-size:medium;"><br></span></p><div class="WordSection1" style="layout-grid:15.6pt"><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(34, 34, 34);"><br><h3 id="优化Orientation数据">优化Orientation数据</h3><br><span style="font-family:微软雅黑;font-size:medium;">正如你看到的那样，所有的东西我们都考虑进来了。让我们先开始从立方体的方向数据进行优化，因为它是最大的一块数据。（当对带宽进行优化的时候，最有效的办法是从大数据到小数进行优化，这样才能收益最大）。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">在压缩四元数的时候很多人会这么想：<span>“</span>我知道了，我可以把四元数的每一位用<span>8</span>个比特的有符号整数来表示，这样大小就用一个<span>32</span>位的整数来表示四元数了<span>“</span>。当然，这是一个可行的方法，但是如果使用一些数学方面的技巧，你可以用更少的位数得到一个更加准确的表示方法，这个数学技巧被称为<span>”</span>最小的三个分量<span>“</span>。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">最小的三个分量这种方法是如何起作用的？因为我们知道代表旋转的四元数的长度一定是<span>1</span>，因此代表旋转的四元数会有这么一个性质：<span>x^2+y^2+z^2+w^2 = 1</span>。我们可以利用四元数的这个性质来在传输的时候丢弃一个分量并在网络的另外一端对整个四元数进行重建。举个简单的例子来说，如果你通过网络发送的是<span>x</span>、<span>y</span>、<span>z</span>，你就可以利用这样一个公式来重建<span>w</span>分量：<span>w = sqrt( 1 – x^2 – y^2 – z^2 )</span>。你可能觉得需要发送一个符号位来标识<span>w</span>的正负，以防止<span>w</span>是负的情况，但是事实上，你根本不需要这么做，因为总是可以保证<span>w</span>是正的，如果<span>w</span>是负的话，可以把整个四元数的四个分量取反就好了（在四元数空间中，<span>(x,y,z,w)</span>和<span>(-x,-y,-z,-w)</span>代表的是相同的旋转）。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(40, 40, 40);">不要总是丢弃同一</span><span style="color: black;">个分量，因为不总是丢弃同一个分量会得到更高的精度。</span><span style="color: rgb(40, 40, 40);">，相反，要找到四个分量中最大的那一个（以绝对值的大小来衡量）并把这个分量的序号编码进一个<span>2</span>比特<span>[0,3]</span>的信息中（<span>0=x,1=y, 2=z, 3=w)</span>），然后通过网络发送最小的三个分量以及最大分量的序号（这样的话，通过最大的分量的序号，我们就知道了发送过来的三个分量的名字）。在网络的另外一端，我们会从<span>2</span>比特的最大分量的序号信息中解码出来我们需要重建的分量是哪一个，然后就可以利用传过来的三个分量对其进行重建。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">最后一个改进。如果<span>v</span>是四元数四个分量中最大的那个分量，可能会出现两个分量是<span>0</span>而另外两个分量的绝对值一样大的情况，这个四元数（<span>v</span>，<span>v</span>，<span>0</span>，<span>0</span>）的长度是<span>1</span>，因此<span>v^2 + v^2= 1</span>，<span>2v^2 = 1</span>，<span>v = 1/sqrt(2)</span>。这意味着你将会在<span>[-0.707107</span>，<span>+0.707107]</span>的大小区间里面对最小的三个分量进行编码而不是在<span>[-1</span>，<span>+1]</span>这个完整的可用空间，这将使你得到更高的精度。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">通过这种方法，我发现对于我的模拟情况来说保证最小的精度要求也需要用<span>9</span>个比特来表示一个分量。这样的话，结果就是要对每个方向需要用<span>2 + 9 + 9 + 9= 29</span>比特。（而原来是需要<span>128</span>个比特位！）。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><br><br><video preload="auto" loop="loop" width="100%" controls="controls"><br><source src="/img/snapshot_compression_2.mp4" type="video/mp4"><br></video><br><br><span style="color: rgb(40, 40, 40);"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><br><h3 id="优化线性速度数据">优化线性速度数据</h3><br><span style="font-family:微软雅黑;font-size:medium;">接下来我们应该优化什么？线性速度和位置数据均可（需要<span>96</span>个比特位）。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">根据我的经验来看，位置信息是非常难以压缩的，所以让我们从线性速度开始。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">要压缩线性速度的话，我们首先需要把线性速度的分量限制在某个范围内，这样的话我们就不需要发送完整的浮点值。我发现最大速度定为<span>32</span>米每秒的话就会非常好，正好是<span>2</span>的平方数，并且在立方体模拟的情况下不会影响玩家的体验。由于我们实际上只是使用线性速度作为一个辅助信息来提高位置采样点之间的插值，所以我们可以极大地压缩线性速度值。我发现，其实是只使用<span>32</span>个离散的值（<span>0</span>到<span>31</span>）也是一个可以接受的精度。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">线性速度已经被限定在某个范围内并进行了量化，现在三个整数会分布在【<span>-1024</span>，<span>1023</span>】内。这种分解具体如下：【<span>-32</span>，<span>+ 31</span>】（<span>6</span>位）用来表示分量的整数部分，然后会乘以<span>5</span>位的小数部分。我不喜欢用符号位乱搞，所以我只是整体都加了<span>1024</span>来让值的范围在【<span>0</span>，<span>2047</span>】，并把新得到的值发送出去。在接收的时候如果想要解码的话，先要减去<span>1024</span>，这样才会得到原始的有符号数，然后才是转换成浮点数。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">每个分量占据<span>11</span>比特，加起来就是每个线性速度要一共占据<span>33</span>比特的大小，只比未压缩前的数据量的<span>1/3</span>稍微多一点点！</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">因为大多数立方体是固定的，我们可以处理的更好。为了利用这一点，我们可以在立方体<span>“</span>处于休息状态<span>”</span>的时候只写一个单独的比特位。如果这个比特的值是<span>1</span>，那么我们就知道了速度其实是<span>0</span>并且并不发送。否则，压缩好的速度会跟着这个比特值（压缩好的速度值一共有<span>33</span>比特）。<span>“</span>处于休息状态<span>”</span>的立方体现在一共占据了<span>127</span>比特，而正处于移动状态的立方体消耗的带宽大小比之前的方法要多一个比特：<span>159 +1 = 160 </span>比特。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><br><br><video preload="auto" loop="loop" width="100%" controls="controls"><br><source src="/img/snapshot_compression_3.mp4" type="video/mp4"><br></video><br><br><span style="color: rgb(40, 40, 40);"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">但是我们为什么要发送线性速度呢？在前一篇文章中，我们决定发送线性速度是因为它对于每秒<span>10</span>次快照的情况能显著的提高插值的质量。但是，现在我们每秒发送<span>60</span>次快照，那么是否还需要发送线性速度呢？你可以在下面看到，答案是不需要。在高发送频率的时候线性插值的效果是足够好的。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><br><br><video preload="auto" loop="loop" width="100%" controls="controls"><br><source src="/img/snapshot_compression_4.mp4" type="video/mp4"><br></video><br><br><span style="color: rgb(40, 40, 40);"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><br><h3 id="优化Position数据">优化Position数据</h3><br><span style="font-family:微软雅黑;font-size:medium;">那么现在我们只有一个位置信息需要压缩了。我们将使用用于线性速度一样的小技巧：限定在某个范围内并进行量化。大多数的游戏世界其实是相当大的所以我选择的位置限制是在水平平面上的【<span>-256,256</span>】米之内，因为在我的立方体模拟情形中，地板的高度是<span>z=0</span>，所以我选择的<span>z</span>的范围是【<span>0,32</span>】米。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">现在我们需要确定我们对精度的要求到底是多少。通过一些实验，我发现每米有<span>512</span>个值（大概精度是<span>2mm</span>）的情况就能够提供足够的精度。这样做的话会让<span>x</span>和<span>y</span>分量的值可以分布在区间【<span>131072,+131071</span>】，让<span>z</span>分量的值分布在区间【<span>0, 16383</span>】。所以这么处理的话，<span>x</span>分量占据<span>18</span>比特的大小，<span>y</span>分量占据<span>18</span>比特的大小，而<span>z</span>分量占据<span>14</span>比特的大小，加起来每个位置一共占据<span>50</span>比特的大小（原先是<span>96</span>比特的大小）。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">这可以把我们的每个立方体的信息减至<span>80</span>比特，也就是<span>10</span>字节。（<span>4</span>倍的提升，原先每个立方体的状态大概需要<span>40</span>字节的大小）。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><br><br><video preload="auto" loop="loop" width="100%" controls="controls"><br><source src="/img/snapshot_compression_5.mp4" type="video/mp4"><br></video><br><br><span style="color: rgb(40, 40, 40);"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">现在我们对位置信息和方向信息进行了压缩，我们已经通过减少我们发送的数据的精度来完成了简单的压缩。并且压缩率已经到了如果任何方向上进一步压缩都会导致精度进一步受损到不可接受的程度。</span></span></p><b><span style="font-family:微软雅黑;font-size:medium;">我们还可以进行进一步的优化么？</span></b><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><br><h3 id="增量压缩">增量压缩</h3><br><span style="font-family:微软雅黑;font-size:medium;">答案是肯定的，但是我们需要使用一种全新的技术：增量压缩。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">增量压缩听起来让人感觉神秘、神奇、很艰深。实际上，这个技术根本就不难。下面是它具体如何工作的：网络连接的一侧给另外一侧发送数据包，像这样：<span>“</span>这是快照<span>110</span>相对于快照<span>100</span>的编码<span>”</span>。快照是基于某个被称为基线的东西进行编码的。具体你如何实现这种编码方式完全取决于你，这里面有很多花哨的技巧，但是基础是一样的，当你说出<span>“</span>在快照<span>110</span>里面的第<span>n</span>个立方体相对于基线是没有任何改变，所以它只用<span>1</span>个比特位表示：没有变化！<span>”</span>的时候，大量的数据传输就被节省下来了。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">为了实现增量压缩的编码，当然有一点是非常关键的就是发送方必须只编码那些相对基线发生了变化的东西，这样就要求它要知道网络连接的另外一侧已经接收了什么，否则发送方根本就没法对快照进行编码。因此，为了处理数据包丢失的情况，接收方必须持续发送“<span>ack”</span>（接收确认）的数据包给发送方，这个数据包是说<span>“</span>我已经收到的最新的快照是快照<span>n”</span>。发送方解析最近收到最近的接收确认包，如果这个接收确认包比之前的接收确认包记录的快照更新的话，就会把基线的值调整成最近的接收确认包里面记载的快照。下一次发送数据包的时候，快照就会根据最新更新的基线进行编码。这个过程会持续的进行，这样的话稳定状态下发送者编码快照时候与基线的差距基本就是由过去这段时间的往返时间决定的。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">这里面会有一个小问题：在刚开始连接的时候，因为发送方没有一次通信所需要的往返时间以及并没有从接收方收到任何的确认包，所以发送方根本就没有任何基线进行相对编码。我是通过在数据包里面添加了一个单独的标志来解决这个问题的，这个标记的意思是“这个快照是相对于模拟的初始状态进行编码的<span>”</span>，而这个标志位是双方都明白意思的。另外一个解决方案是如果发送方不知道发送的初始状态的话，就使用一个非增量的路径进行发送初始状态。所以有可能最初发送的是一个非常大的数据块，一旦这个数据块被接收确认的话，后续发送就会以这个大的数据块作为机箱来发送增量编码的快照，然后最终收敛到以往返时延作为基准的稳定状态。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><br><br><video preload="auto" loop="loop" width="100%" controls="controls"><br><source src="/img/snapshot_compression_6.mp4" type="video/mp4"><br></video><br><br><span style="color: rgb(40, 40, 40);"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">正如你可以在上面看到的那样，这是一个巨大的胜利。我们可以完善这一做法，并来获得更多的收益，但是这个收益是有限的，不会是像刚才这个做法这样带来这么大幅度的提升。从现在开始，我们将需要努力工作来获得一些比较小幅度能累积的收益来达到我们设定的<span>256kb</span>每秒的目标。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><br><h4 id="增量的一些优化">增量的一些优化</h4><br><span style="font-family:微软雅黑;font-size:medium;">第一个小的提升。每个未发送的立方体需要花费<span>1</span>比特的带宽（如果立方体没有变化的话）。因为场景中一共有<span>901</span>个立方体，所以即使所有的数据包都没有变化的话，我们还是要在每个数据包要发送<span>901</span>个比特。如果是每秒发送<span>60</span>个数据包的频率的话，这就将增加<span>54kb</span>的带宽。可以看到在通常情况下会在每次快照的时候发生变化的立方体数目明显小于<span>901</span>个，所以我们可以通过只发送变化过的立方体来减小消耗的带宽。我们创建了一个立方体索引【<span>0</span>，<span>900</span>】来标记哪一个立方体是什么。为了做到这一点，我们需要给每个立方体增加<span>10</span>位的索引来标识它。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">这里面其实是有一个权衡点的，就是发送索引比发送一个位来表示立方体未发生变化要浪费更多的带宽。因为每个立方体的索引是<span>10</span>位，所以索引的消耗是<span>10xn</span>位。因此如果我们发送的立方体数目小于<span>90</span>个的话（也就是小于<span>900</span>位的话），使用索引是更加有效率的。我们可以依照这个数值对每个快照进行评估，并在数据包的头部发送一个单独的位来进行标示我们该使用哪种方法，我们使用如下的定义：<span>0=</span>索引，<span>1=</span>用单独的<span>1</span>位进行标示是否发生变化。通过这种方法我们根据快照中要发送的发生改变的立方体数目来进行最有效的编码。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">这种方法会在所有物体都是固定不发生变化的情况下可以减少稳定状态下的带宽到大约<span>15kb</span>每秒。这种情况下带宽是完全由我们自己的数据包包头（<span>16</span>位无符号的顺序号、<span>16</span>位无符号的基准线编号、用了标记是否是初始状态的布尔值）外加<span>IP </span>和<span>UDP</span>的包头（<span>28</span>位）来占据的。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><br><br><video preload="auto" loop="loop" width="100%" controls="controls"><br><source src="/img/snapshot_compression_7.mp4" type="video/mp4"><br></video><br><br><span style="color: rgb(40, 40, 40);"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">下一个小的提升。如果我们相对于之前的立方体索引进行当前立方体索引编码怎么样？因为我们在遍历所有的立方体的时候是按照顺序进行遍历的并会按照顺序发送发生改变的立方体：比如说像立方体<span>0</span>、立方体<span>10,</span>、立方体<span>11</span>、立方体<span>50</span>、立方体<span>52</span>、立方体<span>55</span>这样，所以我们可以很容易根据前一个立方体的索引对当前立方体的编号进行相对索引，这样的话，前面的例子就会变成：<span>+10</span>、<span>+1</span>、<span> +39</span>、<span> +2</span>、<span>+3</span>。如果我们可以很聪明的利用相对index编码的话，从平均情况来说，我们可以用少于<span>10</span>位的数据来表示一个立方体的索引。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">最好的编码方法取决于和你进行交互的物体集合。如果你花了很多时间进行水平移动的同时还将很多立方体从最初的立方体位置上推开，那么就会在相对index编码的方法得到很多的<span>+1</span>。如果你从最初的状态开始垂直移动，那么就会在相对index编码的方法得到很多的<span>+30(sqrt(900))</span>。我们需要的是一种通用的编码方法能够用很少的位来表示统计学下通用的index偏移。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">在进行少量的实验之后，我想出了这个简单的编码方式：</span></span></p><p class="MsoNormal" align="left" style="margin-left:36.05pt;text-align:left;text-indent:-18.0pt"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: normal;">         </span></span><span style="color: rgb(34, 34, 34);">[1,8] =&gt; 1 + 3 (4</span><span style="color: rgb(34, 34, 34);">位<span>)</span></span></span></p><p class="MsoNormal" align="left" style="margin-left:36.05pt;text-align:left;text-indent:-18.0pt"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: normal;">         </span></span><span style="color: rgb(34, 34, 34);">[9,40] =&gt; 1 + 1 + 5 (7</span><span style="color: rgb(34, 34, 34);">位<span>)</span></span></span></p><p class="MsoNormal" align="left" style="margin-left:36.05pt;text-align:left;text-indent:-18.0pt"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">·<span style="font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; line-height: normal;">         </span></span><span style="color: rgb(34, 34, 34);">[41,900] =&gt; 1 + 1 + 10 (12</span><span style="color: rgb(34, 34, 34);">位<span>)</span></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">需要注意下相对偏移具体是有多大，这个大小可能超过<span>10</span>位的大小。这是一个统计意义的游戏。赌注是我们可能得到一个大得多的偏差，这样如果赢的话会消除大偏移带来的增加的消耗。这确实起作用了。有了这个编码方法，我的每个相对序号的大小平均下来是<span>5.5</span>位这么大。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">现在我们会有一个小问题。我们再也不能很容易地确定到底是用一位来表示是否发生了更改还是使用相对序号才是最好的编码方法。我使用的解决方案就是通过将所有发生改变的立方体通过一个模拟编码的方式写入一个数据包里面，然后计算相对序号这种编码方式所需要的位数。如果所需的位数比<span>901</span>大，那么我们就切换回用一位来表示是否发生了更改的方法。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><br><br><video preload="auto" loop="loop" width="100%" controls="controls"><br><source src="/img/snapshot_compression_8.mp4" type="video/mp4"><br></video><br><br><span style="color: rgb(40, 40, 40);"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">接下来我们要做这样的一个小的提升。利用基线时候立方体所在的位置对位置信息进行编码。这里有很多不同的选择。你可以做那些有明显效果的事情。举个简单的例子来说，用<span>1</span>位来表示这是相对位置的信息，然后用<span>8-10</span>位来表示每个分量的相对位置信息，如果所有分量的位置正好在这些位数提供的数据范围之内，否则的话就该发送绝对位置（需要使用<span>50</span>位）。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">这给出了一个还不错的编码方法，但是我们可以做的更好。如果你仔细想想的话，就会发现有如下一个情况，一个位置分量很大但是其他位置分量很小。如果我们可以利用这一点的话，就能得到更好的效果，并且用更少的位数来发送这些大小比较小的分量信息。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">这是一个统计游戏，到底是给每个分量选择一个比较小的数据范围还是选择一个比较大的数据范围依赖于数据集本身。我没有办法只是看带宽的大小就能告诉一些真正有用的信息，所以我捕获了位置以及基准位置数据，并把它们写入一个文件进行分析。这个格式是每一行表示一个立方体的数据信息，依次是<span>x</span>、<span>y</span>、<span>z</span>、<span>base_x</span>、<span>base_y</span>、<span>base_z</span>。目标是在每一行用基准线状态下位置的<span>x</span>、<span>y</span>、<span>z</span>分量来对当前状态下的<span>x</span>、<span>y</span>、<span>z</span>分量进行编码。如果你有兴趣的话<span>,</span>你可以在这里（地址是<span><a href="http://gafferongames.com/wp-content/uploads/2015/02/position_values.txt" target="_blank" rel="noopener">http://gafferongames.com/wp-content/uploads/2015/02/position_values.txt</a></span>）下载这个数据集。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><span><br></span>我写了一个简短的<span>ruby</span>脚本来使用暴力搜索找到最优的编码方案。我发现最好的位打包编码的数据集是这样运作的：先对每个分量使用<span>1</span>位数据标识，然后如果确实是小数据的话<span>(</span>也就是区间在【<span>-16.15</span>】之内的话<span>)</span>，就使用<span>5</span>位的数据，否则的话，分量的增量的取值范围在【<span>-256</span>，<span>256</span>】之内，并用<span>9</span>位数据进行发送。如果任意分量的增量超出了这个范围的话就会换回使用绝对位置。通过使用这种编码方法，我可以对每个变化的位置只用平均下来<span>26.1</span>位来进行表示。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><br><h4 id="增量编码最小的三个分量">增量编码最小的三个分量</h4><br><span style="font-family:微软雅黑;font-size:medium;">接下来，我将指出如同相对方向变化的话能几乎取得相对位置变化相同的效果。这里的问题可能会有些不一样，就是位置变化的取值范围相对于整个位置空间而言是非常非常小的，但是<span>100</span>毫秒内方向上的变化可能占整个四元数空间的话，是一个非常大的比例。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">我尝试了很多方法但并没有得到好的结果。我尝试直接对方向的增量这个四维向量进行编码并使用那个“最小的三个分量”这个技巧来隐含的表示最大的分量。我还尝试计算基线状态下的方向和当前方向之间的相对四元数。因为我知道<span>w</span>分量将是最大的分量（因为这个四元数表示的是旋转），我可以不用发送<span>2</span>位数据来确定最大的分量，但反过来将需要发送一位数据来标识<span>w</span>分量的正负，因为我不想对整个四元数取反。通过这种方案我能找到的最好的压缩方法只有“最小的三个分量”方法的数据量的<span>90%</span>。这个结果并不是太令人满意。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">我几乎都要放弃这个方向的优化了，但是我对“最小的三个分量”方法跑了一些分析结果。我发现按照<span>“</span>最小的三个分量”的格式<span>90%</span>的情况下方向里面最大的那个分量都和<span>100</span>毫秒之前基线状态下方向里面最大的分量是相同的。这意味着如果直接对最小的三个分量进行增量编码的话有可能是能获得更大收益的。更重要的是，我发现如果使用这种方法的话，在从基线数据重建整个方向信息的话不会有任何额外的精度损失。我从场景中运行一些方向信息并把这些方向信息以最小的三个分量”的格式导出来，并使用我曾经对位置信息使用过的暴力穷举方法来对每个分量的取值范围进行评估。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">所找到的最佳编码方法是：<span>5-8</span>，这意味着对于比较小的数值使用的是【<span>-16.15</span>】这个区间，对于比较大的数值，使用的是【<span>-128,+127</span>】这个区间。最后一件要做的事情：就跟位置信息的处理一样，大的取值范围可以通过单独的一位来提前知道分量值不会落在【<span>-16.15</span>】这个区间而进行更一步的拓展。我把如何做到这一点作为一个练习留给读者作为一个练习。要小心，不要让这个区间的首尾值最后都成为<span>0</span>。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">最后的结果是每个相对四元数平均下来只需要<span>23.3</span>位的数据来表示。这是“最小的三个分量”方法的数据量的<span>80.3%</span>。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(40, 40, 40);">我们所做的优化大概就是这些内容了。但是还有一个小的优化还没有做。通过对传过来的位置和方向数据集进行一个了最终的分析，我注意到如果是在<span>0.5</span>毫米这个精确度的话大概有<span>5%</span>的位置信息是相比于基线状态的位置是没有任何变化的，而且有<span>5%</span>以“最小的三个分量”格式表示的方向信息也是相比于基线状态的方向信息是没有任何变化的。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><span><span style="color:#282828;"><br></span></span><span style="color: rgb(40, 40, 40);">这两种概率是相互排斥的，因为这两种情况同时满足的话那么对应的立方体根本就不会发生变化进而根本就不会发送这个立方体的信息过来，这意味这在这个小规模的统计里面存在<span>10%</span>的立方体，它们的状态我们可以发送一个单独的位来表明是否有位置变化，再用另外一个单独的位来表明是否有方向变化。是的，如果这么做的话，就会给<span>90%</span>的立方体带来<span>2</span>位的额外负担，但是<span>10%</span>的立方体可以节省<span>20</span>多位的带宽（或者用<span>2</span>位信息换取了<span>23.3</span>位的方向信息，或者用<span>2</span>位信息换取了<span>26.1</span>位的位置信息），这种方法大概能给每个立方体在每次快照时候要发送的数据量减少大概<span>2</span>位。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><br><br><video preload="auto" loop="loop" width="100%" controls="controls"><br><source src="/img/snapshot_compression_9.mp4" type="video/mp4"><br></video><br><br><span style="color: rgb(40, 40, 40);"><br></span></span></p><span style="color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;font-size:medium;">带宽优化有很多的选择方案，而且可以通过一点点工作一些看上去不可能的事情事实上也会变得可能。通过文中的种种方法，我们大概降低了<span>20M</span>比特下来，最后平均下来只有不到<span>0.25m</span>比特。这相比原来未压缩的带宽，大概只有原来的<span>1.25</span>％！</span></span><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;"> </span></span></p><span style="color: rgb(40, 40, 40);"><br><h4 id="总结">总结</h4><br><span style="font-family:微软雅黑;font-size:medium;">好了, 这就是我用传统的手动位打包技术能压缩优化到的最大程度了，你可以看到做一些优化之后可以得到多么大的提升。</span></span><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(40, 40, 40);">你可以在这里（地址在</span><span><a rel="noopener" href="https://gist.github.com/gafferongames/bb7e593ba1b05da35ab6" target="_blank"><span><span>这里</span></span></a></span><span style="color: rgb(40, 40, 40);">）找到文中提到的所有压缩技术的代码实现。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(40, 40, 40);"><br></span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(40, 40, 40);">可以使用不同的方法得到更好的压缩比例。位打包这种方法并不是非常有效率的，是因为并不是所有的位的值取<span>0</span>或者<span>1</span>的概率都是相同的。无论根据具体的环境来如何努力的调整位打包技术，我们都可以根据数据集里面的取值的概率情况来建立一个更精确的模型来轻松的打败之前的调整结果。<span>Fabian Giesen</span>的实现（地址在</span><span><a rel="noopener" href="https://github.com/rygorous/gaffer_net/blob/master/main.cpp" target="_blank"><span><span>这里</span></span></a></span><span style="color: rgb(40, 40, 40);">）可以比我最好的位打包结果还能提升<span>25%</span>。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(40, 40, 40);">Geomerics</span><span style="color: rgb(40, 40, 40);">的克里斯<span>·</span>多兰（地址在</span><span><a rel="noopener" href="http://www.geomerics.com/wp-content/uploads/2015/04/rotation_blog_toprint.pdf" target="_blank"><span><span>这里</span></span></a></span><span style="color: rgb(40, 40, 40);">）写了一篇很好的文章来探索数学上如何对四元数进行压缩，非常值得一读。如果不是直接使用<span>”</span>最小的三个分量<span>“</span>这种方法，而是利用之前的基线数据来估计下角速度和预测未来的方向应该能对增量编码的方向信息得到好的多的结果。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;">下一章要讲的是：《状态同步》。</span></span></p><p class="MsoNormal" align="left" style="text-align:left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;"><br></span></span></p><p class="MsoNormal" style="box-sizing: content-box; margin-top: 24px; margin-bottom: 0px; padding: 0px; font-family: Arial; color: rgb(51, 51, 51); font-size: 16px; line-height: 24px;"><span style="box-sizing: content-box; margin: 0px; padding: 0px;"><span style="box-sizing: content-box; margin: 0px; padding: 0px; line-height: 24px;"><span style="box-sizing: content-box; margin: 0px; padding: 0px; font-family: 微软雅黑; font-size: medium;">【版权声明】</span></span></span></p><p class="MsoNormal" style="box-sizing: content-box; margin-top: 24px; margin-bottom: 0px; padding: 0px; font-family: Arial; color: rgb(51, 51, 51); font-size: 16px; line-height: 24px;"><span style="box-sizing: content-box; margin: 0px; padding: 0px;"><span style="box-sizing: content-box; margin: 0px; padding: 0px; font-family: 微软雅黑; font-size: medium;">原文作者未做权利声明，视为共享知识产权进入公共领域，自动获得授权；</span></span></p></div><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:medium;"></span></span></p></div>                    <br>                
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/GafferOnGames/" rel="tag"><i class="fa fa-tag"></i> GafferOnGames</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/snapshot_interpolation/" rel="next" title="网络物理模拟四之快照插值">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    网络物理模拟四之快照插值
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/state_synchronization/" rel="prev" title="网络物理模拟六之状态同步">
+                <p class="post-nav-pre-next-title">
+                    网络物理模拟六之状态同步
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自我总结"><span class="nav-text">自我总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原文"><span class="nav-text">原文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#starting-point-60hz"><span class="nav-text">Starting Point @ 60HZ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#optimizing-orientation"><span class="nav-text">Optimizing Orientation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optimizing-linear-velocity"><span class="nav-text">Optimizing Linear Velocity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optimizing-position"><span class="nav-text">Optimizing Position</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#delta-compression"><span class="nav-text">Delta Compression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#incremental-improvements"><span class="nav-text">Incremental Improvements</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delta-encoding-smallest-three"><span class="nav-text">Delta Encoding Smallest Three</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#conclusion"><span class="nav-text">Conclusion</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#译文"><span class="nav-text">译文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从60HZ为起点开始优化吧"><span class="nav-text">从60HZ为起点开始优化吧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化Orientation数据"><span class="nav-text">优化Orientation数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化线性速度数据"><span class="nav-text">优化线性速度数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化Position数据"><span class="nav-text">优化Position数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增量压缩"><span class="nav-text">增量压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增量的一些优化"><span class="nav-text">增量的一些优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增量编码最小的三个分量"><span class="nav-text">增量编码最小的三个分量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

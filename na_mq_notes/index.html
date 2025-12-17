@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('mmp'){
+            let localStoragePasswdKey = 'MQ notes' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'mmp') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'mmp') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,Java,NA,Kafka,RabbitMQ,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="noodle,Java,NA,Kafka,RabbitMQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MQ notes">
+<meta property="og:url" content="https://hulinhong.com/na_mq_notes/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.663Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MQ notes">
+<meta name="twitter:description" content=". . .">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>MQ notes | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_mq_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MQ notes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-20T05:58:08+00:00">
+                02-20-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+                <a href="/tags/Kafka/" rel="tag"><i class="fa fa-tag"></i> Kafka</a>
+              
+                <a href="/tags/RabbitMQ/" rel="tag"><i class="fa fa-tag"></i> RabbitMQ</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/na_contractor_real_q/" rel="next" title="Contractor interview real Q">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Contractor interview real Q
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/na_java_backend_syllabus/" rel="prev" title="Java backend syllabus">
+              <p class="post-nav-pre-next-title">
+                  Java backend syllabus
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ul>
+<li><a href="https://www.bilibili.com/video/BV1h94y1Q7Xg/?vd_source=8a83b38420b65ac33aa101b7754630f6" target="_blank" rel="noopener">视频教程1, kafka一小时入门精讲课程（高清重制无废话版</a></li>
+<li><a href="https://www.bilibili.com/video/BV1Gp421m7UN/?vd_source=8a83b38420b65ac33aa101b7754630f6" target="_blank" rel="noopener">视频教程2, 尚硅谷Kafka教程，2024新版kafka视频，零基础入门到实战</a></li>
+</ul>
+<h1 id="syllabus"><a href="#syllabus" class="headerlink" title="syllabus"></a>syllabus</h1><table>
+<thead>
+<tr>
+<th>Session</th>
+<th>Topic</th>
+<th>Detailed Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td><code>KAFKA</code></td>
+<td>1. Kafka - concepts, how it works and how message is sent to partition<br>2. Consumer Group, assignment strategy<br>3. Message in Order</td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>KAFKA2</code></td>
+<td>1. Kafka Duplicate Message<br>2. Kafka Message Loss<br>3. Poison Failure, DLQ<br>4. Kafka Security (SASL, ACLs, Encrypt etc)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="why-MQ"><a href="#why-MQ" class="headerlink" title="why MQ"></a>why MQ</h1><p>主要有三个作用：</p>
+<ul>
+<li><p><strong>解耦</strong>。如图所示。假设有系统B、C、D都需要系统A的数据，于是系统A调用三个方法发送数据到B、C、D。这时，系统D不需要了，那就需要在系统A把相关的代码删掉。假设这时有个新的系统E需要数据，这时系统A又要增加调用系统E的代码。为了降低这种强耦合，就可以使用MQ，系统A只需要把数据发送到MQ，其他系统如果需要数据，则从MQ中获取即可。<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image.png" alt="alt text"></p>
+</li>
+<li><p><strong>异步</strong>。如图所示。一个客户端请求发送进来，系统A会调用系统B、C、D三个系统，同步请求的话，响应时间就是系统A、B、C、D的总和，也就是800ms。如果使用MQ，系统A发送数据到MQ，然后就可以返回响应给客户端，不需要再等待系统B、C、D的响应，可以大大地提高性能。对于一些非必要的业务，比如发送短信，发送邮件等等，就可以采用MQ。<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-1.png" alt="alt text"></p>
+</li>
+<li><p><strong>削峰</strong>。如图所示。这其实是MQ一个很重要的应用。假设系统A在某一段时间请求数暴增，有5000个请求发送过来，系统A这时就会发送5000条SQL进入MySQL进行执行，MySQL对于如此庞大的请求当然处理不过来，MySQL就会崩溃，导致系统瘫痪。如果使用MQ，系统A不再是直接发送SQL到数据库，而是把数据发送到MQ，MQ短时间积压数据是可以接受的，然后由消费者每次拉取2000条进行处理，防止在请求峰值时期大量的请求直接发送到MySQL导致系统崩溃。<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-2.png" alt="alt text"></p>
+</li>
+</ul>
+<h1 id="Kafka-vs-RabbitMQ"><a href="#Kafka-vs-RabbitMQ" class="headerlink" title="Kafka vs. RabbitMQ"></a>Kafka vs. RabbitMQ</h1><ul>
+<li>Kafka中，只有<strong>pull</strong>: <ul>
+<li>Consumer使用pull模式从broker订阅并消费消息，而不是由broker主动推送给consumer。原因主要有以下几点：<ul>
+<li><strong>消费速率控制</strong>：push模式很难适应消费速率不同的消费者，因为消息发送速率是由broker决定的，可能会导致Consumer来不及处理消息，出现拒绝服务以及网络拥塞等问题。而pull模式下，Consumer可以根据自身的消费能力以适当的速率消费消息，自主控制消费消息的速率，还能选择不同的提交方式从而实现不同的传输语义。</li>
+<li><strong>简化broker设计</strong>：pull模式可以简化broker的设计，Consumer可自主控制消费方式，如可批量消费也可逐条消费。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RabbitMQ既支持broker主动推送消息给consumer的推模式（<strong>push</strong>），也支持consumer主动从broker拉取消息的拉模式（<strong>pull</strong>）：<ul>
+<li><strong>推模式</strong>(默认)：消费者调用<code>channel.basicConsume</code>方法订阅队列后，由RabbitMQ主动将消息推送给订阅队列的消费者。推模式是一种高效的消息处理方式，具有较好的实时性，消息到达RabbitMQ后会立即被投递给匹配的消费者，消费者能及时得到最新的消息。不过，该模式下消费者必须设置一个缓冲区来缓存消息，否则缓冲区可能会溢出。</li>
+<li><strong>拉模式</strong>(极少使用)：消费者调用<code>channel.basicGet</code>方法主动从指定队列中拉取消息。这种模式在消费者需要时才去拉取消息，会增加消息延迟，降低系统吞吐量，实时性也较差，消费者获取新消息的时间取决于其拉取消息的时间。</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th><strong>Apache Kafka</strong></th>
+<th><strong>RabbitMQ</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Type</strong></td>
+<td>Distributed <strong>log-based streaming platform</strong></td>
+<td>Traditional <strong>message broker</strong> (queue-based)</td>
+</tr>
+<tr>
+<td><strong>Architecture</strong></td>
+<td>Pull-based, partitioned log with persistent storage</td>
+<td>Push-based, uses queues and exchanges</td>
+</tr>
+<tr>
+<td><strong>Message Model</strong></td>
+<td>Publish-subscribe (log replay possible)</td>
+<td>Queues with consumer ACKs (point-to-point or pub-sub)</td>
+</tr>
+<tr>
+<td><strong>Throughput</strong></td>
+<td>Extremely high (millions/sec), horizontally scalable</td>
+<td>Moderate to high, lower than Kafka in most cases</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Slightly higher, designed for throughput and durability</td>
+<td>Lower latency, good for near-real-time delivery</td>
+</tr>
+<tr>
+<td><strong>Durability</strong></td>
+<td>Designed for <strong>long-term storage</strong> (e.g., days/months)</td>
+<td>Messages typically removed once consumed</td>
+</tr>
+<tr>
+<td><strong>Ordering</strong></td>
+<td>Guaranteed within a <strong>partition</strong></td>
+<td>Ordering not guaranteed without careful config</td>
+</tr>
+<tr>
+<td><strong>Persistence</strong></td>
+<td>Highly durable, append-only log</td>
+<td>Persistent queues, but not optimized for large history</td>
+</tr>
+<tr>
+<td><strong>Protocol Support</strong></td>
+<td>Kafka (native TCP), Kafka Connect, REST Proxy</td>
+<td>AMQP 0.9.1 (default), MQTT, STOMP, HTTP, etc.</td>
+</tr>
+<tr>
+<td><strong>Consumer Model</strong></td>
+<td>Consumer groups (each group reads independently)</td>
+<td>Messages removed once delivered to a consumer</td>
+</tr>
+<tr>
+<td><strong>Use Cases</strong></td>
+<td>Event sourcing, real-time analytics, stream processing</td>
+<td>Task queues, background jobs, short-lived events</td>
+</tr>
+<tr>
+<td><strong>Operational Cost</strong></td>
+<td>More complex (e.g., Zookeeper, tuning partitions)</td>
+<td>Easier to set up and manage for simple use cases</td>
+</tr>
+</tbody>
+</table>
+<p>When to Use Kafka:</p>
+<ul>
+<li>High-throughput event pipelines</li>
+<li>Real-time analytics</li>
+<li>Event sourcing / CDC (Change Data Capture)</li>
+<li>Log aggregation across distributed systems</li>
+</ul>
+<p>When to Use RabbitMQ:</p>
+<ul>
+<li>Lower latency</li>
+<li>Task queues (e.g., background job processing)</li>
+<li>Complex routing with low volume (e.g., topic or header exchanges)</li>
+<li>When AMQP protocol is a requirement</li>
+</ul>
+<p>Verdict:</p>
+<ul>
+<li>Use <strong>Kafka</strong> for <strong>scalable, durable, high-throughput streaming</strong>.</li>
+<li>Use <strong>RabbitMQ</strong> for <strong>lower latency, reliable messaging with rich routing logic and simpler delivery guarantees</strong>.</li>
+</ul>
+<hr>
+<h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-13.png" alt="alt text"><br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-14.png" alt="alt text"></p>
+<p>参考: <a href="https://www.hellointerview.com/learn/system-design/deep-dives/kafka" target="_blank" rel="noopener">https://www.hellointerview.com/learn/system-design/deep-dives/kafka</a></p>
+<p>Kafka 的消费模型要分清楚两个层面：</p>
+<p>🔑 Topic → Consumer Group</p>
+<ul>
+<li>一个 <strong>topic</strong> 可以被 <strong>多个 consumer group</strong> 同时消费。</li>
+<li>每个 consumer group 相当于一个“订阅”，彼此互不影响。<ul>
+<li>举例：<ul>
+<li>订单服务写入 <code>order_events</code> topic。</li>
+<li>风控系统的 groupA 消费它，做风控。</li>
+<li>数据仓库的 groupB 也消费它，做分析。</li>
+<li>两边都能拿到 <strong>完整数据</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>🔑 Consumer Group 内部分工</p>
+<ul>
+<li>一个 consumer group 内可以有多个 consumer 实例。</li>
+<li>Kafka 会把 topic 的 <strong>partition</strong> 分配给这些 consumer。</li>
+<li>但 <strong>同一个 partition 内的数据只会分配给 group 内的一个 consumer</strong>（保证顺序性）。</li>
+<li>重新平衡 ：当作为消费者组的一部分时，如果一个消费者出现故障，Kafka 将在剩余的消费者之间重新分配分区，以便所有分区仍在处理中。</li>
+</ul>
+<hr>
+<p>🔑 总结：</p>
+<ul>
+<li>一个 <strong>topic 可以被多个 consumer group 消费</strong>（广播模式）。</li>
+<li>在 <strong>同一个 consumer group 内</strong>，一个 partition <strong>只会被一个 consumer 消费</strong>（分区级别的并行 + 顺序保证）。</li>
+</ul>
+<hr>
+<h2 id="一个topic有多个partition，每个partition又有多个副本，leader副本和follower副本吗"><a href="#一个topic有多个partition，每个partition又有多个副本，leader副本和follower副本吗" class="headerlink" title="一个topic有多个partition，每个partition又有多个副本，leader副本和follower副本吗?"></a>一个topic有多个partition，每个partition又有多个副本，leader副本和follower副本吗?</h2><p>是的，在 Kafka 这样的分布式消息系统里，一个主题（Topic）可包含多个分区（Partition），而每个分区又能有多个副本（Replica），其中就分为领导者副本（Leader Replica）和追随者副本（Follower Replica），下面详细介绍：</p>
+<h3 id="主题（Topic）"><a href="#主题（Topic）" class="headerlink" title="主题（Topic）"></a>主题（Topic）</h3><p>主题是 Kafka 中数据组织的逻辑概念，它可被看作是消息的类别或者数据流的名称。生产者把消息发送到主题，消费者则从主题接收消息。例如，在一个电商系统里，可能会有“order_topic”“payment_topic”等不同主题，分别用于处理订单和支付相关的消息。</p>
+<h3 id="分区（Partition）"><a href="#分区（Partition）" class="headerlink" title="分区（Partition）"></a>分区（Partition）</h3><ul>
+<li><strong>定义</strong>：主题会被划分为一个或多个分区，分区是物理存储的基本单元。每个分区在物理上对应一个日志文件，消息会按顺序追加到这个日志文件中。</li>
+<li><strong>作用</strong>：分区能提升 Kafka 的并发处理能力。不同的分区可分布在不同的服务器上，生产者和消费者能够并行地对不同分区进行读写操作，从而提高系统的吞吐量。</li>
+</ul>
+<h3 id="副本（Replica）"><a href="#副本（Replica）" class="headerlink" title="副本（Replica）"></a>副本（Replica）</h3><ul>
+<li><strong>定义</strong>：为确保数据的可靠性和高可用性，每个分区可以有多个副本。这些副本会被分布到不同的 Broker 节点上。</li>
+<li><strong>类型</strong><ul>
+<li><strong>领导者副本（Leader Replica）</strong>：每个分区都会有一个领导者副本，所有的读写操作都直接与领导者副本进行交互。生产者发送消息时，消息会被写入领导者副本；消费者读取消息时，也是从领导者副本读取。领导者副本负责维护分区内消息的顺序和一致性。</li>
+<li><strong>追随者副本（Follower Replica）</strong>：追随者副本会从领导者副本异步地复制消息，以保持与领导者副本的数据一致。当领导者副本所在的 Broker 节点出现故障时，Kafka 会从追随者副本中选举出一个新的领导者副本，从而保证服务的可用性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="示例说明"><a href="#示例说明" class="headerlink" title="示例说明"></a>示例说明</h3><p>假设存在一个名为“user_activity_topic”的主题，它有 3 个分区（Partition 0、Partition 1、Partition 2），每个分区有 2 个副本。那么整体架构如下：</p>
+<table>
+<thead>
+<tr>
+<th>分区</th>
+<th>领导者副本所在 Broker</th>
+<th>追随者副本所在 Broker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partition 0</td>
+<td>Broker 1</td>
+<td>Broker 2</td>
+</tr>
+<tr>
+<td>Partition 1</td>
+<td>Broker 2</td>
+<td>Broker 3</td>
+</tr>
+<tr>
+<td>Partition 2</td>
+<td>Broker 3</td>
+<td>Broker 1</td>
+</tr>
+</tbody>
+</table>
+<p>在这个示例中，生产者向“user_activity_topic”发送消息时，消息会根据分区策略被分配到不同的分区，并且只会写入该分区的领导者副本。追随者副本会不断地从领导者副本复制消息，以保证数据的一致性。当某个 Broker 节点出现故障时，Kafka 会自动进行领导者选举，确保系统的正常运行。 </p>
+<h2 id="Kafka同一个消费组对于一个分区是共享同一个offset的是吧"><a href="#Kafka同一个消费组对于一个分区是共享同一个offset的是吧" class="headerlink" title="Kafka同一个消费组对于一个分区是共享同一个offset的是吧"></a>Kafka同一个消费组对于一个分区是共享同一个offset的是吧</h2><p>是的，在 Kafka 里，同一个消费组对于一个分区共享同一个 offset。下面从原理、目的和影响等方面详细解释：</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li><strong>分区分配机制</strong>：Kafka 为了保证消息在分区内的顺序消费和避免重复消费，采用了一个分区只能被一个消费组内的一个消费者消费的策略。这意味着在同一个消费组中，针对特定的一个分区，只会有一个消费者负责处理该分区的消息。既然只有一个消费者处理这个分区，那么该分区对应的消费偏移量（offset）在这个消费组内就是唯一的，也就是共享同一个 offset。</li>
+<li><strong>offset 提交</strong>：消费者在消费完消息后，需要向 Kafka 提交 offset，以此告知 Kafka 该消费组已经消费到了分区的哪个位置。在一个消费组里，无论哪个消费者实际消费了分区的消息，最终提交的都是该分区统一的 offset。例如，消费者 A 消费了分区 P0 的部分消息后提交 offset，这个 offset 就代表了整个消费组在分区 P0 的消费进度。</li>
+</ul>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><ul>
+<li><strong>保证消息顺序性</strong>：确保同一个消费组对分区内的消息按顺序处理。如果每个消费者都有自己独立的 offset，就可能出现多个消费者乱序消费分区消息的情况，破坏了消息在分区内的顺序性。</li>
+<li><strong>避免重复消费</strong>：统一的 offset 能让消费组清楚知道哪些消息已经被消费过。当消费者出现故障重启或者进行分区重平衡后，能从正确的 offset 位置继续消费，避免重复处理已经消费过的消息。</li>
+</ul>
+<h3 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h3><ul>
+<li><strong>故障恢复</strong>：若消费组内负责某分区的消费者出现故障，Kafka 会将该分区分配给其他消费者，新的消费者会从共享的 offset 位置继续消费，保证消费的连续性。</li>
+<li><strong>分区重平衡</strong>：当消费组发生分区重平衡时，所有消费者会重新分配分区，每个分区对应的共享 offset 能帮助新接手的消费者准确找到消费起点。 </li>
+</ul>
+<h2 id="in-kafka-how-to-handle-schema-evolution"><a href="#in-kafka-how-to-handle-schema-evolution" class="headerlink" title="in kafka, how to handle schema evolution"></a>in kafka, how to handle schema evolution</h2><h3 id="什么是schema"><a href="#什么是schema" class="headerlink" title="什么是schema"></a>什么是schema</h3><p>Schema 演进（Schema Evolution） 是指在不破坏已有数据和消费者的前提下，对数据结构进行修改和升级的过程。</p>
+<p>为什么需要 Schema 演进？</p>
+<p>Kafka 中的数据通常使用 Avro、Protobuf 或 JSON 进行序列化。随着业务发展，数据结构不可避免地要调整，比如：</p>
+<ul>
+<li>•    添加新字段</li>
+<li>•    删除旧字段</li>
+<li>•    修改字段类型或默认值</li>
+</ul>
+<p>Schema 演进的目标：让新老版本的 producer 和 consumer 能够兼容地生产和消费数据，避免因结构变更导致系统崩溃或数据出错。</p>
+<p>举个例子：</p>
+<p>初始 schema：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;User&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">    &#123; &quot;name&quot;: &quot;username&quot;, &quot;type&quot;: &quot;string&quot; &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>后续演进版本：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;User&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">    &#123; &quot;name&quot;: &quot;username&quot;, &quot;type&quot;: &quot;string&quot; &#125;,</span><br><span class="line">    &#123; &quot;name&quot;: &quot;email&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;&quot; &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果设置了 向后兼容（backward compatibility），旧消费者仍然可以读取新数据，因为新字段有默认值。</p>
+<p>总结：</p>
+<p>Schema 演进就是在版本升级时，保证数据结构变更的同时不影响已有系统运行。它依赖于明确的兼容性策略，常与 Schema Registry 一起使用，是构建稳定、可维护数据平台的关键手段。</p>
+<h3 id="如何处理"><a href="#如何处理" class="headerlink" title="如何处理"></a>如何处理</h3><p>在 Kafka 中处理 Schema 演进（Schema Evolution），通常采用 Avro + Schema Registry 的方式。关键在于使用 Confluent 的 Schema Registry 来管理 schema 版本，并确保 producer 和 consumer 对 schema 演进的兼容性。</p>
+<p>处理方式如下：</p>
+<ol>
+<li>使用 Schema Registry<ul>
+<li>•    Producer 将 schema 注册到 Schema Registry。</li>
+<li>•    消费者从 Schema Registry 获取相应 schema 进行反序列化。</li>
+</ul>
+</li>
+<li>设置兼容性策略（Compatibility Modes）, Schema Registry 支持几种兼容策略：<ul>
+<li>•    BACKWARD：新 schema 能读取旧数据。</li>
+<li>•    FORWARD：旧 schema 能读取新数据。</li>
+<li>•    FULL：双向兼容。</li>
+<li>•    NONE：不检查兼容性。</li>
+</ul>
+</li>
+</ol>
+<p>推荐使用 BACKWARD 或 FULL 以保证消费端平稳升级。</p>
+<p>遵循 Avro 的演进规则</p>
+<p>支持的兼容性变更包括：</p>
+<ul>
+<li>•    添加字段（带默认值）</li>
+<li>•    删除字段（不再使用）</li>
+<li>•    字段类型兼容变更（如 int → long）</li>
+</ul>
+<p>不支持的变更包括：</p>
+<ul>
+<li>•    删除无默认值字段</li>
+<li>•    字段类型不兼容更改（如 string → int）</li>
+</ul>
+<p>实际示例：添加字段</p>
+<p>旧 Schema：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;User&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">    &#123;&quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;string&quot;&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>新 Schema（添加字段）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;User&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">    &#123;&quot;name&quot;: &quot;name&quot;, &quot;type&quot;: &quot;string&quot;&#125;,</span><br><span class="line">    &#123;&quot;name&quot;: &quot;age&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 0&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>建议：</p>
+<ul>
+<li>•    在 CI/CD 中加上 schema 演进检测。</li>
+<li>•    控制 schema 发布流程，避免非兼容变更。</li>
+<li>•    所有服务统一使用 Schema Registry 中的 schema，不手动写 schema。</li>
+</ul>
+<p>如需高可靠性系统，schema 设计时务必考虑未来扩展性和演进策略。</p>
+<h3 id="avro是啥和protobuf对比"><a href="#avro是啥和protobuf对比" class="headerlink" title="avro是啥和protobuf对比"></a>avro是啥和protobuf对比</h3><p>Avro 是什么？</p>
+<p>Avro 是 Apache 出品的一种数据序列化格式，常用于大数据和 Kafka 场景中。它定义数据的 结构（Schema），并将结构和数据一起序列化，便于不同系统之间通信。</p>
+<p>Avro 的特点：</p>
+<ul>
+<li>•    紧凑高效：使用二进制编码，占用空间小。</li>
+<li>•    支持 schema 演进：内置支持兼容性检查。</li>
+<li>•    自描述性：每条消息携带 schema ID，可自动解析。</li>
+<li>•    与 Kafka 紧密集成：广泛用于 Kafka 消息序列化。</li>
+</ul>
+<p>Avro vs. Protobuf 对比</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Avro</th>
+<th>Protobuf</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开发方</td>
+<td>Apache</td>
+<td>Google</td>
+</tr>
+<tr>
+<td>Schema 定义方式</td>
+<td>JSON Schema</td>
+<td>.proto文件（专用语法）</td>
+</tr>
+<tr>
+<td>序列化格式</td>
+<td>二进制</td>
+<td>二进制</td>
+</tr>
+<tr>
+<td>Schema是否携带在数据中</td>
+<td>可选（通常只携带schema ID）</td>
+<td>否（需外部管理或代码生成）</td>
+</tr>
+<tr>
+<td>Schema演进支持</td>
+<td>非常好，支持多种兼容策略</td>
+<td>有一定支持，但依赖生成代码和兼容性手动管理</td>
+</tr>
+<tr>
+<td>与Kafka兼容性</td>
+<td>最佳，官方推荐与Schema Registry搭配</td>
+<td>可以使用，但不如Avro原生支持</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>高</td>
+<td>更高（略优于Avro）</td>
+</tr>
+<tr>
+<td>可读性</td>
+<td>JSON定义可读性好</td>
+<td>.proto文件较规范但不如JSON易读</td>
+</tr>
+<tr>
+<td>动态Schema支持</td>
+<td>强，支持无需生成代码的动态解析</td>
+<td>弱，推荐使用预编译的类</td>
+</tr>
+</tbody>
+</table>
+<p>结论：</p>
+<ul>
+<li>•    用 Avro：如果你在 Kafka、Hadoop、Flink 等大数据生态中，需要 强 Schema 演进、与 Schema Registry 集成，优先选 Avro。</li>
+<li>•    用 Protobuf：如果你追求极致性能、跨语言 gRPC 通信、或者你在 Google 技术栈内，Protobuf 更适合。</li>
+</ul>
+<p>实际工程中，Avro 更适合 Kafka 数据流场景，Protobuf 更适合微服务通信场景。</p>
+<h3 id="schema-registry是啥？一个第三方进程吗"><a href="#schema-registry是啥？一个第三方进程吗" class="headerlink" title="schema registry是啥？一个第三方进程吗"></a>schema registry是啥？一个第三方进程吗</h3><p>是的，Schema Registry 是一个独立部署的服务进程，通常由 Confluent 提供（也有其他兼容实现），专门用于 集中管理 Kafka 消息的 Schema，支持版本控制、兼容性验证等功能。</p>
+<p>Schema Registry 的作用：</p>
+<ol>
+<li>管理 Schema 版本：记录每个 topic 的 schema 变更历史。</li>
+<li>验证兼容性：防止不兼容 schema 上线，保障消费者安全。</li>
+<li>提供 Schema ID 映射：每条 Kafka 消息只需携带一个 schema ID，反序列化时去 registry 查 schema。</li>
+<li>支持 Avro / Protobuf / JSON Schema：不是 Avro 专属，但 Avro 最常用。</li>
+</ol>
+<p>部署方式：</p>
+<ul>
+<li>•    是一个 独立进程（Java 服务），通常以 REST 接口形式运行。</li>
+<li>•    默认端口是 8081。</li>
+<li>•    可与 Kafka 独立部署，也可集群化部署。</li>
+<li>•    支持 高可用（HA），可以配合多个 Kafka Broker 使用。</li>
+</ul>
+<p>Kafka + Avro + Schema Registry 的消息流程图：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Producer]</span><br><span class="line">   |</span><br><span class="line">   | — Serialize data with Avro + schema ID</span><br><span class="line">   |</span><br><span class="line">[V] </span><br><span class="line">[Kafka Broker]</span><br><span class="line">   |</span><br><span class="line">   | — Consumer receives binary + schema ID</span><br><span class="line">   |</span><br><span class="line">[V]</span><br><span class="line">[Consumer]</span><br><span class="line">   |</span><br><span class="line">   | — Queries Schema Registry via schema ID</span><br><span class="line">   | — Deserializes data using schema</span><br><span class="line">   V</span><br><span class="line">  Final Object</span><br></pre></td></tr></table></figure></p>
+<p>总结：</p>
+<p>Schema Registry 是 Kafka 架构中不可或缺的一个中间组件，用于安全、规范、可演进地管理 schema。如果你在用 Kafka 传结构化数据（特别是 Avro），Schema Registry 是强烈推荐配套部署的服务。</p>
+<h3 id="What-is-kafka-dead-letter-queue-and-how-do-you-handle-it"><a href="#What-is-kafka-dead-letter-queue-and-how-do-you-handle-it" class="headerlink" title="What is kafka dead letter queue and how do you handle it"></a>What is kafka dead letter queue and how do you handle it</h3><p>A Kafka dead - letter queue (DLQ) is a special topic in a Kafka cluster that is used to store messages that cannot be successfully processed for some reason. Here’s an overview of what it is and how to handle it:</p>
+<ul>
+<li><strong>Purpose</strong>: The main purpose of a DLQ is to prevent messages from being lost when they encounter processing failures. Instead of discarding the messages, they are sent to the DLQ for further analysis and possible re - processing.</li>
+<li><strong>How Messages End Up in the DLQ</strong>: Messages can end up in the DLQ due to various reasons, such as application - level errors (e.g., incorrect message format, missing required fields), network issues, or problems with the processing logic. When a consumer fails to process a message after a certain number of retries, the message is typically redirected to the DLQ.</li>
+<li><strong>Monitoring and Analysis</strong>:<ul>
+<li><strong>Monitor DLQ Size</strong>: Regularly check the size of the DLQ to identify any unusual spikes. A growing DLQ may indicate a problem with the message processing pipeline.</li>
+<li><strong>Inspect Messages</strong>: Examine the messages in the DLQ to determine the cause of the processing failures. This can involve looking at the message payload, headers, and any error messages associated with the failed processing attempts.</li>
+</ul>
+</li>
+<li><strong>Error Resolution</strong>:<ul>
+<li><strong>Fix Application Bugs</strong>: If the errors are due to bugs in the consumer application, fix the code and redeploy the application.</li>
+<li><strong>Data Correction</strong>: If the messages in the DLQ contain incorrect data, correct the data either manually or through an automated process.</li>
+</ul>
+</li>
+<li><strong>Message Re - processing</strong>:<ul>
+<li><strong>Manual Re - processing</strong>: For critical or complex messages, you may choose to re - process them manually. This allows for careful inspection and ensures that the processing is done correctly.</li>
+<li><strong>Automated Re - processing</strong>: Set up a mechanism to automatically re - process messages from the DLQ. This can be a separate consumer that reads from the DLQ and attempts to process the messages again, perhaps with some additional error - handling logic.</li>
+</ul>
+</li>
+<li><strong>Configuration and Tuning</strong>:<ul>
+<li><strong>Retry Policies</strong>: Review and adjust the retry policies for your consumers. Determine the appropriate number of retries and the delay between retries based on the nature of your application and the expected failure scenarios.</li>
+<li><strong>DLQ Topic Configuration</strong>: Configure the DLQ topic with appropriate settings, such as retention policies and replication factors. Ensure that the DLQ has enough storage to handle the potentially large number of messages.</li>
+</ul>
+</li>
+</ul>
+<p>Handling a Kafka dead - letter queue effectively requires a combination of monitoring, error resolution, message re - processing, and proper configuration to ensure the reliability and integrity of the message processing system.</p>
+<h2 id="kafka-Exactly-one-semantics"><a href="#kafka-Exactly-one-semantics" class="headerlink" title="kafka Exactly one semantics"></a>kafka Exactly one semantics</h2><p>Kafka 提供三种消息传递语义，分别是最多一次（At most once）、至少一次（At least once）和精确一次（Exactly once），它们的区别如下：</p>
+<h3 id="最多一次（At-most-once）"><a href="#最多一次（At-most-once）" class="headerlink" title="最多一次（At most once）"></a>最多一次（At most once）</h3><ul>
+<li><strong>生产者</strong>：消息发送后，不管是否成功写入 Kafka 就继续发送下一条消息。如果发送失败，不会重试。比如网络抖动导致消息没发出去，生产者也不会重新发送。</li>
+<li><strong>消费者</strong>：消费消息前先提交偏移量，再处理消息。若处理过程中消费者崩溃，已提交偏移量的消息不会再次处理，可能造成消息丢失。</li>
+<li><strong>应用场景</strong>：适用于对数据丢失容忍度较高，对性能要求较高的场景，如实时日志收集，少量日志丢失不影响整体分析。</li>
+</ul>
+<h3 id="至少一次（At-least-once）"><a href="#至少一次（At-least-once）" class="headerlink" title="至少一次（At least once）"></a>至少一次（At least once）</h3><ul>
+<li><strong>生产者</strong>：消息发送失败会重试，保证消息至少被写入 Kafka 一次。但如果写入成功，而确认响应丢失，生产者重试会导致消息重复写入。</li>
+<li><strong>消费者</strong>：先处理消息，处理完成后再提交偏移量。若处理完消息还未提交偏移量时消费者崩溃，重启后会重新处理之前的消息，导致消息重复消费。</li>
+<li><strong>应用场景</strong>：适用于对数据丢失零容忍，但能接受数据重复的场景，如数据统计分析，重复数据可以通过去重处理。</li>
+</ul>
+<h3 id="精确一次（Exactly-once）"><a href="#精确一次（Exactly-once）" class="headerlink" title="精确一次（Exactly once）"></a>精确一次（Exactly once）</h3><ul>
+<li><strong>生产者</strong>：有幂等生产者和事务性生产者两种机制。幂等生产者借助 PID 和序列号避免同一分区内重复写入；事务性生产者保证跨分区消息发送的原子性，失败可回滚。</li>
+<li><strong>消费者</strong>：结合生产者事务操作与手动提交偏移量，在事务中处理消息并在完成后提交，故障时事务回滚，确保消息不重复不丢失。</li>
+<li><strong>应用场景</strong>：适用于对数据准确性要求极高的场景，如金融交易系统，每笔交易必须精确处理一次。</li>
+</ul>
+<h3 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h3><p>Exactly-once semantics means that each message is written to a Kafka topic and consumed and processed exactly once,<br>ensuring data consistency.</p>
+<h3 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h3><ul>
+<li><strong>Producer</strong>: Retries may lead to duplicate message writes due to the failure of receiving acknowledgments.</li>
+<li><strong>Consumer</strong>: Incorrect timing of offset commits may result in duplicate message processing or message loss.</li>
+</ul>
+<h3 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h3><ul>
+<li><strong>Producer</strong><ul>
+<li><strong>Idempotent Producer</strong>: Introduced since Kafka 0.11.0, it avoids duplicate writes by means of the Producer ID (<br>PID) and sequence numbers.</li>
+<li><strong>Transactional Producer</strong>: Ensures the atomicity of message sending across multiple partitions, and in case of<br>failure, the transaction can be rolled back.</li>
+</ul>
+</li>
+<li><strong>Consumer</strong>: Combine the producer’s transaction operations with manual offset commits. Process messages within a<br>transaction and commit the offset after the processing is completed. When a failure occurs, the transaction is rolled<br>back to ensure there are no message-related issues.</li>
+</ul>
+<h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><p>RabbitMQ是一款使用Erlang语言开发的，实现AMQP(高级消息队列协议)的开源消息中间件。首先要知道一些RabbitMQ的特点，官网可查：</p>
+<ul>
+<li>可靠性。支持持久化，传输确认，发布确认等保证了MQ的可靠性。</li>
+<li>灵活的分发消息策略。这应该是RabbitMQ的一大特点。在消息进入MQ前由Exchange(交换机)进行路由消息。分发消息策略有：简单模式、工作队列模式、发布订阅模式、路由模式、通配符模式。</li>
+<li>支持集群。多台RabbitMQ服务器可以组成一个集群，形成一个逻辑Broker。</li>
+<li>多种协议。RabbitMQ支持多种消息队列协议，比如 STOMP、MQTT 等等。</li>
+<li>支持多种语言客户端。RabbitMQ几乎支持所有常用编程语言，包括 Java、.NET、Ruby 等等。</li>
+<li>可视化管理界面。RabbitMQ提供了一个易用的用户界面，使得用户可以监控和管理消息 Broker。</li>
+<li>插件机制。RabbitMQ提供了许多插件，可以通过插件进行扩展，也可以编写自己的插件。</li>
+</ul>
+<h2 id="how-to-use-it-in-springboot"><a href="#how-to-use-it-in-springboot" class="headerlink" title="how to use it in springboot"></a>how to use it in springboot</h2><p><a href="https://zhuanlan.zhihu.com/p/163790007" target="_blank" rel="noopener">原文地址</a></p>
+<p>服务端搭建好了之后肯定要用客户端去操作，接下来就用 Java 做一个简单的 HelloWord 演示。</p>
+<p>因为我用的是 SpringBoot，所以在<strong>生产者这边</strong>加入对应的 starter 依赖即可：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>一般需要创建一个公共项目 common，共享一些配置，比如队列主题，交换机名称，路由匹配键名称等等。</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-3.png" alt="alt text"></p>
+<p>首先在 application.yml 文件加上 RabbitMQ 的配置信息：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">    rabbitmq:</span></span><br><span class="line"><span class="attr">        host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">        port:</span> <span class="number">5672</span></span><br><span class="line"><span class="attr">        username:</span> <span class="string">guest</span></span><br><span class="line"><span class="attr">        password:</span> <span class="string">guest</span></span><br></pre></td></tr></table></figure>
+<p>然后在生产者这边，加上 common 包的 maven 依赖，然后创建一个 Direct 交换机以及队列的配置类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectRabbitConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Queue <span class="title">rabbitmqDemoDirectQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 1、name:    队列名称</span></span><br><span class="line"><span class="comment">         * 2、durable: 是否持久化</span></span><br><span class="line"><span class="comment">         * 3、exclusive: 是否独享、排外的。如果设置为true，定义为排他队列。则只有创建者可以使用此队列。也就是private私有的。</span></span><br><span class="line"><span class="comment">         * 4、autoDelete: 是否自动删除。也就是临时队列。当最后一个消费者断开连接后，会自动删除。</span></span><br><span class="line"><span class="comment">         * */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Queue(RabbitMQConfig.RABBITMQ_DEMO_TOPIC, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DirectExchange <span class="title">rabbitmqDemoDirectExchange</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//Direct交换机</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DirectExchange(RabbitMQConfig.RABBITMQ_DEMO_DIRECT_EXCHANGE, <span class="keyword">true</span>, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Binding <span class="title">bindDirect</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//链式写法，绑定交换机和队列，并设置匹配键</span></span><br><span class="line">        <span class="keyword">return</span> BindingBuilder</span><br><span class="line">                <span class="comment">//绑定队列</span></span><br><span class="line">                .bind(rabbitmqDemoDirectQueue())</span><br><span class="line">                <span class="comment">//到交换机</span></span><br><span class="line">                .to(rabbitmqDemoDirectExchange())</span><br><span class="line">                <span class="comment">//并设置匹配键</span></span><br><span class="line">                .with(RabbitMQConfig.RABBITMQ_DEMO_DIRECT_ROUTING);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后再创建一个发送消息的 Service 类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitMQServiceImpl</span> <span class="keyword">implements</span> <span class="title">RabbitMQService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//日期格式化</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sendMsg</span><span class="params">(String msg)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String msgId = UUID.randomUUID().toString().replace(<span class="string">"-"</span>, <span class="string">""</span>).substring(<span class="number">0</span>, <span class="number">32</span>);</span><br><span class="line">            String sendTime = sdf.format(<span class="keyword">new</span> Date());</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            map.put(<span class="string">"msgId"</span>, msgId);</span><br><span class="line">            map.put(<span class="string">"sendTime"</span>, sendTime);</span><br><span class="line">            map.put(<span class="string">"msg"</span>, msg);</span><br><span class="line">            rabbitTemplate.convertAndSend(RabbitMQConfig.RABBITMQ_DEMO_DIRECT_EXCHANGE, RabbitMQConfig.RABBITMQ_DEMO_DIRECT_ROUTING, map);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"ok"</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"error"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后根据业务放在需要用的地方，比如定时任务，或者接口。我这里就简单一点使用 Controller 层进行发送：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/mall/rabbitmq"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitMQController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> RabbitMQService rabbitMQService;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送消息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> java技术爱好者</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/sendMsg"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sendMsg</span><span class="params">(@RequestParam(name = <span class="string">"msg"</span>)</span> String msg) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> rabbitMQService.sendMsg(msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生产者写完之后，就写消费者端的代码，消费者很简单。maven 依赖，yml 文件配置和生产者一样。只需要创建一个类，@RabbitListener 注解写上监听队列的名称，如图所示：<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-4.png" alt="alt text"></p>
+<p>最后再启动消费者，进行消费：</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-5.png" alt="alt text"><br>这时候就会持续监听队列的消息，只要生产者发送一条消息到 MQ，消费者就消费一条。我这里尝试发送 4 条：</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-6.png" alt="alt text"><br>由于队列不存在，启动消费者报错的这个问题。最好的方法是生产者和消费者都尝试创建队列，怎么写呢，有很多方式，我这里用一个相对简单一点的：</p>
+<p>生产者的配置类加点东西：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实现BeanPostProcessor类，使用Bean的生命周期函数</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectRabbitConfig</span> <span class="keyword">implements</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//这是创建交换机和队列用的rabbitAdmin对象</span></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> RabbitAdmin rabbitAdmin;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//初始化rabbitAdmin对象</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RabbitAdmin <span class="title">rabbitAdmin</span><span class="params">(ConnectionFactory connectionFactory)</span> </span>&#123;</span><br><span class="line">        RabbitAdmin rabbitAdmin = <span class="keyword">new</span> RabbitAdmin(connectionFactory);</span><br><span class="line">        <span class="comment">// 只有设置为 true，spring 才会加载 RabbitAdmin 这个类</span></span><br><span class="line">        rabbitAdmin.setAutoStartup(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">return</span> rabbitAdmin;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//实例化bean后，也就是Bean的后置处理器</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        <span class="comment">//创建交换机</span></span><br><span class="line">        rabbitAdmin.declareExchange(rabbitmqDemoDirectExchange());</span><br><span class="line">        <span class="comment">//创建队列</span></span><br><span class="line">        rabbitAdmin.declareQueue(rabbitmqDemoDirectQueue());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样启动生产者就会自动创建交换机和队列，不用等到发送消息才创建。</p>
+<p>消费者需要加一点代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="comment">//使用queuesToDeclare属性，如果不存在则会创建队列</span></span><br><span class="line"><span class="meta">@RabbitListener</span>(queuesToDeclare = <span class="meta">@Queue</span>(RabbitMQConfig.RABBITMQ_DEMO_TOPIC))</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitDemoConsumer</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，无论生产者还是消费者先启动都不会出现问题了~</p>
+<blockquote>
+<p>代码地址：<a href="https://github.com/yehongzhi/mall" target="_blank" rel="noopener">https://github.com/yehongzhi/mall</a>  </p>
+</blockquote>
+<h2 id="components-of-RabbitMQ"><a href="#components-of-RabbitMQ" class="headerlink" title="components of RabbitMQ"></a>components of RabbitMQ</h2><p>从上面的 HelloWord 例子中，我们大概也能体验到一些，就是 RabbitMQ 的组成，它是有这几部分：</p>
+<ul>
+<li>Broker：消息队列服务进程。此进程包括两个部分：Exchange 和 Queue。<ul>
+<li>Exchange：消息队列交换机。<strong>按一定的规则将消息路由转发到某个队列</strong>。</li>
+<li>Queue：消息队列，存储消息的队列。</li>
+</ul>
+</li>
+<li>Producer：消息生产者。生产方客户端将消息同交换机路由发送到队列中。</li>
+<li>Consumer：消息消费者。消费队列中存储的消息。</li>
+</ul>
+<p>这些组成部分是如何协同工作的呢，大概的流程如下，请看下图：</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-7.png" alt="alt text"></p>
+<ol>
+<li>消息生产者连接到 RabbitMQ Broker，创建 connection，开启 channel。</li>
+<li>生产者声明交换机类型、名称、是否持久化等。</li>
+<li>生产者发送消息，并指定消息是否持久化等属性和 routing key。</li>
+<li>exchange 收到消息之后，<strong>根据 routing key 路由到跟当前交换机绑定的相匹配的队列</strong>里面。</li>
+<li>消费者监听接收到消息之后开始业务处理。</li>
+</ol>
+<h2 id="different-types-of-Exchange"><a href="#different-types-of-Exchange" class="headerlink" title="different types of Exchange"></a>different types of Exchange</h2><p>从上面的工作流程可以看出，实际上有个关键的组件 Exchange，因为<strong>消息发送到 RabbitMQ 后首先要经过 Exchange 路由才能找到对应的 Queue</strong>。</p>
+<p>实际上 Exchange 类型有四种，根据不同的类型工作的方式也有所不同。在 HelloWord 例子中，我们就使用了比较简单的 <strong>Direct Exchange</strong>，翻译就是直连交换机。其余三种分别是：<strong>Fanout exchange、Topic exchange、Headers exchange</strong>。</p>
+<h3 id="Direct-Exchange"><a href="#Direct-Exchange" class="headerlink" title="Direct Exchange"></a>Direct Exchange</h3><p>见文知意，直连交换机意思是此交换机需要绑定一个队列，要求<strong>该消息与一个特定的路由键完全匹配</strong>。简单点说就是一对一的，点对点的发送。<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-8.png" alt="alt text"></p>
+<p>完整的代码就是上面的 HelloWord 的例子，不再重复代码。</p>
+<h3 id="Fanout-exchange"><a href="#Fanout-exchange" class="headerlink" title="Fanout exchange"></a>Fanout exchange</h3><p>这种类型的交换机需要将队列绑定到交换机上。<strong>一个发送到交换机的消息都会被转发到与该交换机绑定的所有队列上</strong>。很像子网广播，每台子网内的主机都获得了一份复制的消息。简单点说就是发布订阅。<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-9.png" alt="alt text"></p>
+<h3 id="Topic-Exchange"><a href="#Topic-Exchange" class="headerlink" title="Topic Exchange"></a>Topic Exchange</h3><p>直接翻译的话叫做主题交换机，如果从用法上面翻译可能叫通配符交换机会更加贴切。这种交换机是使用通配符去匹配，路由到对应的队列。通配符有两种：<code>&quot;*&quot;</code> 、 <code>&quot;#&quot;</code>。需要注意的是通配符前面必须要加上 <code>&quot;.&quot;</code> 符号。</p>
+<ul>
+<li><code>*</code> 符号：有且只匹配一个词。比如 <code>a.*</code>可以匹配到 “a.b”、”a.c”，但是匹配不了 “a.b.c”。</li>
+<li><code>#</code> 符号：匹配一个或多个词。比如 “rabbit.#” 既可以匹配到 “rabbit.a.b”、”rabbit.a”，也可以匹配到 “rabbit.a.b.c”。</li>
+</ul>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-10.png" alt="alt text"></p>
+<h3 id="Headers-Exchange"><a href="#Headers-Exchange" class="headerlink" title="Headers Exchange"></a>Headers Exchange</h3><p>这种交换机用的相对没这么多。<strong>它跟上面三种有点区别，它的路由不是用 routingKey 进行路由匹配，而是在匹配请求头中所带的键值进行路由</strong>。如图所示：</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-11.png" alt="alt text"></p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_mq_notes/image-12.png" alt="alt text"></p>
+<p>创建队列需要设置绑定的头部信息，有两种模式：<strong>全部匹配和部分匹配</strong>。如上图所示，交换机会根据生产者发送过来的头部信息携带的键值去匹配队列绑定的键值，路由到对应的队列。</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+              <a href="/tags/Kafka/" rel="tag"><i class="fa fa-tag"></i> Kafka</a>
+            
+              <a href="/tags/RabbitMQ/" rel="tag"><i class="fa fa-tag"></i> RabbitMQ</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/na_contractor_real_q/" rel="next" title="Contractor interview real Q">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Contractor interview real Q
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/na_java_backend_syllabus/" rel="prev" title="Java backend syllabus">
+                <p class="post-nav-pre-next-title">
+                    Java backend syllabus
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考链接"><span class="nav-text">参考链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#syllabus"><span class="nav-text">syllabus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#why-MQ"><span class="nav-text">why MQ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka-vs-RabbitMQ"><span class="nav-text">Kafka vs. RabbitMQ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka"><span class="nav-text">Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个topic有多个partition，每个partition又有多个副本，leader副本和follower副本吗"><span class="nav-text">一个topic有多个partition，每个partition又有多个副本，leader副本和follower副本吗?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主题（Topic）"><span class="nav-text">主题（Topic）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分区（Partition）"><span class="nav-text">分区（Partition）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#副本（Replica）"><span class="nav-text">副本（Replica）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例说明"><span class="nav-text">示例说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka同一个消费组对于一个分区是共享同一个offset的是吧"><span class="nav-text">Kafka同一个消费组对于一个分区是共享同一个offset的是吧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影响"><span class="nav-text">影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in-kafka-how-to-handle-schema-evolution"><span class="nav-text">in kafka, how to handle schema evolution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是schema"><span class="nav-text">什么是schema</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何处理"><span class="nav-text">如何处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#avro是啥和protobuf对比"><span class="nav-text">avro是啥和protobuf对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#schema-registry是啥？一个第三方进程吗"><span class="nav-text">schema registry是啥？一个第三方进程吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-kafka-dead-letter-queue-and-how-do-you-handle-it"><span class="nav-text">What is kafka dead letter queue and how do you handle it</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kafka-Exactly-one-semantics"><span class="nav-text">kafka Exactly one semantics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最多一次（At-most-once）"><span class="nav-text">最多一次（At most once）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#至少一次（At-least-once）"><span class="nav-text">至少一次（At least once）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精确一次（Exactly-once）"><span class="nav-text">精确一次（Exactly once）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concept"><span class="nav-text">Concept</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenges"><span class="nav-text">Challenges</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solutions"><span class="nav-text">Solutions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RabbitMQ"><span class="nav-text">RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-use-it-in-springboot"><span class="nav-text">how to use it in springboot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#components-of-RabbitMQ"><span class="nav-text">components of RabbitMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#different-types-of-Exchange"><span class="nav-text">different types of Exchange</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Direct-Exchange"><span class="nav-text">Direct Exchange</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fanout-exchange"><span class="nav-text">Fanout exchange</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Topic-Exchange"><span class="nav-text">Topic Exchange</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Headers-Exchange"><span class="nav-text">Headers Exchange</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

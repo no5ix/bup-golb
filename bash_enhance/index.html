@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'Bash定制' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Bash,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="profile和bashrc和bash_profile的区别 /etc/profile:此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从 /etc/profile.d 目录的配置文件中搜集shell的设置.所以如果你有对/etc/profile有修改的话必须得重启你的修改才会生效，此修改对每个用户都生效。   /etc/bashrc:为每一个运行bash shell的用户">
+<meta name="keywords" content="Bash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bash定制">
+<meta property="og:url" content="https://hulinhong.com/bash_enhance/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="profile和bashrc和bash_profile的区别 /etc/profile:此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从 /etc/profile.d 目录的配置文件中搜集shell的设置.所以如果你有对/etc/profile有修改的话必须得重启你的修改才会生效，此修改对每个用户都生效。   /etc/bashrc:为每一个运行bash shell的用户">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bash定制">
+<meta name="twitter:description" content="profile和bashrc和bash_profile的区别 /etc/profile:此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从 /etc/profile.d 目录的配置文件中搜集shell的设置.所以如果你有对/etc/profile有修改的话必须得重启你的修改才会生效，此修改对每个用户都生效。   /etc/bashrc:为每一个运行bash shell的用户">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Bash定制 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/bash_enhance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Bash定制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-02-01T19:38:55+00:00">
+                02-01-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Bash/" rel="tag"><i class="fa fa-tag"></i> Bash</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/how_to_build_a_simple_ubuntu_server_three/" rel="next" title="从零开始搭建一台简易Ubuntu服务器三">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  从零开始搭建一台简易Ubuntu服务器三
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/三种编程命名规范/" rel="prev" title="三种编程命名规范">
+              <p class="post-nav-pre-next-title">
+                  三种编程命名规范
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="profile和bashrc和bash-profile的区别"><a href="#profile和bashrc和bash-profile的区别" class="headerlink" title="profile和bashrc和bash_profile的区别"></a>profile和bashrc和bash_profile的区别</h1><ul>
+<li><code>/etc/profile</code>:此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从 <code>/etc/profile.d</code> 目录的配置文件中搜集shell的设置.<br>所以如果你有对<code>/etc/profile</code>有修改的话必须得重启你的修改才会生效，此修改对每个用户都生效。</li>
+</ul>
+<ul>
+<li><p><code>/etc/bashrc</code>:为每一个运行bash shell的用户执行此文件.当bash shell被打开时,该文件被读取.<br>如果你想对所有的使用bash的用户修改某个配置并在以后打开的bash都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个bash即可生效。</p>
+</li>
+<li><p><code>~/.bash_profile</code>:每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的.bashrc文件.<br>此文件类似于<code>/etc/profile</code>，也是需要需要重启才会生效，<code>/etc/profile</code>对所有用户生效，<code>~/.bash_profile</code>只对当前用户生效。</p>
+</li>
+<li><p><code>~/.bashrc</code>:该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该文件被读取.（每个用户都有一个.bashrc文件，在用户目录下）<br>此文件类似于<code>/etc/bashrc</code>，不需要重启生效，重新打开一个bash即可生效，  <code>/etc/bashrc</code>对所有用户新打开的bash都生效，但<code>~/.bashrc</code>只对当前用户新打开的bash生效。</p>
+</li>
+<li><p>~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件. </p>
+</li>
+</ul>
+<p>另外,<code>/etc/profile</code>中设定的变量(全局)的可以作用于任何用户,而<code>~/.bashrc</code>等中设定的变量(局部)只能继承<code>/etc/profile</code>中的变量,他们是”父子”关系.</p>
+<p><code>~/.bash_profile</code> 是交互式、login 方式进入bash 运行的；<br><code>~/.bashrc</code> 是交互式 non-login 方式进入bash 运行的；</p>
+<p>通常二者设置大致相同，所以通常 <code>~/.bash_profile</code> 会在其文件中加入以下代码来调用 <code>~/.bashrc</code> :<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Get the aliases and <span class="built_in">functions</span></span></span><br><span class="line">if [ -f ~/.bashrc ]; then</span><br><span class="line">        . ~/.bashrc</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="设置core文件格式"><a href="#设置core文件格式" class="headerlink" title="设置core文件格式"></a>设置core文件格式</h1><p><code>/proc/sys/kernel/core_pattern</code>可以设置格式化的core文件保存位置或文件名，<br>比如原来文件内容是core-%e , 可以这样修改:</p>
+<p><code>echo &quot;/corefile/core-%e-%p-%t&quot; &gt; /proc/sys/kernel/core_pattern</code></p>
+<p>将会控制所产生的core文件会存放到/corefile目录下，产生的文件名为core-命令名-pid-时间戳 ,<br>以下是参数列表:</p>
+<pre><code>%p - insert pid into filename 添加pid
+%u - insert current uid into filename 添加当前uid
+%g - insert current gid into filename 添加当前gid
+%s - insert signal that caused the coredump into the filename 添加导致产生core的信号
+%t - insert UNIX time that the coredump occurred into filename 添加core文件生成时的unix时间
+%h - insert hostname where the coredump happened into filename 添加主机名
+%e - insert coredumping executable name into filename 添加命令名
+</code></pre><h1 id="安全的rm"><a href="#安全的rm" class="headerlink" title="安全的rm"></a>安全的rm</h1><p><code>rm -rf</code> 慎用<br>命令敲得多了，常在河边走，难免会湿鞋<br>昨天，一个手误，敲错了命令，把原本想要留的文件夹给rm -rf掉了<br>几天心血全木有了，靠，死的心都有了</p>
+<p>几点教训：</p>
+<ul>
+<li>rm 特别是rm -rf之前，小心，三思，或者直接将命令改写掉</li>
+<li>做好备份，有便捷的备份脚本</li>
+<li>做好定时备份，有个前辈搞定时脚本，每天定时自个执行，即使删错了也不会那么悲催</li>
+</ul>
+<p>在~下 .bashrc或者.bash_profile加入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> the following lines <span class="keyword">if</span> you want `ls<span class="string">' to be colorized:</span></span></span><br><span class="line">export LS_OPTIONS='--color=auto'</span><br><span class="line">eval "`dircolors`"</span><br><span class="line">alias ls='ls $LS_OPTIONS'</span><br><span class="line">alias ll='ls $LS_OPTIONS -alF'</span><br><span class="line">alias l='ls $LS_OPTIONS -lA'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Some more <span class="built_in">alias</span> to avoid making mistakes:</span></span><br><span class="line">alias rm='rm -i'</span><br><span class="line">alias cp='cp -i'</span><br><span class="line">alias mv='mv -i'</span><br><span class="line">alias ll='ls -alF'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> mkdir and enter it</span></span><br><span class="line">alias mc=mkdircd</span><br><span class="line">mkdircd()</span><br><span class="line">&#123;</span><br><span class="line">    mkdir -p "$1" &amp;&amp; cd "$1"</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> and ls -alF dir</span></span><br><span class="line">alias cd=cdll</span><br><span class="line">cdll()</span><br><span class="line">&#123;</span><br><span class="line">        builtin cd "$@" &amp;&amp; ll;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ulimit -c unlimited</span><br></pre></td></tr></table></figure>
+<h2 id="建立一个简易回收站"><a href="#建立一个简易回收站" class="headerlink" title="建立一个简易回收站"></a>建立一个简易回收站</h2><p>搞个回收站得在~下 .bashrc或者.bash_profile加入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir -p ~/.trash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> original rm</span></span><br><span class="line">alias or='/bin/rm'</span><br><span class="line"></span><br><span class="line">alias rm=trash</span><br><span class="line">alias r=trash</span><br><span class="line">alias lr='ls -alF ~/.trash'</span><br><span class="line">alias cr='cd ~/.trash'</span><br><span class="line">alias ur=undelfile</span><br><span class="line">alias er=emptytrash</span><br><span class="line"></span><br><span class="line">undelfile()</span><br><span class="line">&#123;</span><br><span class="line">  mv -i ~/.trash/$@ ./</span><br><span class="line">&#125;</span><br><span class="line">trash()</span><br><span class="line">&#123;</span><br><span class="line">    for TARGET_NAME in $@</span><br><span class="line">    do</span><br><span class="line">        TARGET_WITH_NO_LAST_SLASH=~/.trash/$&#123;TARGET_NAME%*/&#125;</span><br><span class="line">        if [ -d $&#123;TARGET_WITH_NO_LAST_SLASH&#125; ]; then</span><br><span class="line">        # or -rf $&#123;TARGET_WITH_NO_LAST_SLASH&#125;</span><br><span class="line">            mv $&#123;TARGET_WITH_NO_LAST_SLASH&#125; $&#123;TARGET_WITH_NO_LAST_SLASH&#125;_`date '+%x%X'`</span><br><span class="line">            echo "rename the old one with the sameName_currentTime successfully."</span><br><span class="line">        fi</span><br><span class="line">        if [ -f $&#123;TARGET_WITH_NO_LAST_SLASH&#125; ]; then</span><br><span class="line">        # or -rf $&#123;TARGET_WITH_NO_LAST_SLASH&#125;</span><br><span class="line">            mv $&#123;TARGET_WITH_NO_LAST_SLASH&#125; $&#123;TARGET_WITH_NO_LAST_SLASH&#125;_`date '+%x%X'`</span><br><span class="line">            echo "rename the old one with the sameName_currentTime successfully."</span><br><span class="line">        fi</span><br><span class="line">        if [ -L $&#123;TARGET_WITH_NO_LAST_SLASH&#125; ]; then</span><br><span class="line">        # or -rf $&#123;TARGET_WITH_NO_LAST_SLASH&#125;</span><br><span class="line">            mv $&#123;TARGET_WITH_NO_LAST_SLASH&#125; $&#123;TARGET_WITH_NO_LAST_SLASH&#125;_`date '+%x%X'`</span><br><span class="line">            echo "rename the old one with the sameName_currentTime successfully."</span><br><span class="line">        fi</span><br><span class="line">    done</span><br><span class="line">    ORIGIN_TARGET=$@</span><br><span class="line">    mv $&#123;ORIGIN_TARGET%*/&#125; ~/.trash/    #$&#123;ORIGIN_TARGET%*/&#125; for removing the last slash</span><br><span class="line">&#125;</span><br><span class="line">emptytrash()</span><br><span class="line">&#123;</span><br><span class="line">    read -p "clear sure?[n]" confirm</span><br><span class="line">    [ $confirm == 'y' ] || [ $confirm == 'Y' ]  &amp;&amp; or -rf ~/.trash/*</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果想清空回收站彻底删除所有, 用<code>er</code>就可以了.</p>
+<p>上文中的 <code>alias or=&#39;/bin/rm&#39;</code>中的 <code>/bin/rm</code> 因系统而异,<br>你可以敲 <code>whereis rm</code> 命令来查看你的系统的rm在哪儿,<br>比如我的就是</p>
+<pre><code>[b@host ~]$ whereis rm
+rm: /bin/rm /usr/share/man/man1/rm.1.gz
+</code></pre><p>而有些人的却是 <code>/usr/bin/rm</code> , 那就要改成 <code>alias or=&#39;/usr/bin/rm&#39;</code> 了</p>
+<h1 id="命令补全增强"><a href="#命令补全增强" class="headerlink" title="命令补全增强"></a>命令补全增强</h1><p>首先找到 <code>.inputrc</code>  文件, 通过</p>
+<pre><code>sudo find / -name inputrc
+</code></pre><p>来找到它, 如果没找到就在自己的home目录下新建一个 <code>.inputrc</code> 文件, 然后在<code>.inputrc</code>文件末尾加上常用的Bash定制 :</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">set completion-ignore-case on  </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">For single press Tab results <span class="keyword">for</span> when a partial or no completion is possible  </span></span><br><span class="line">set show-all-if-ambiguous on  </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">For results when no completion is possible  </span></span><br><span class="line">set show-all-if-unmodified on  </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">History completion bound to arrow keys (down, up)  </span></span><br><span class="line">"\e[A": history-search-backward  </span><br><span class="line">"\e[B": history-search-forward</span><br></pre></td></tr></table></figure>
+<p>解释 :</p>
+<ul>
+<li>show-all-if-ambiguous : 默认情况下，按下两次 <tab> 才会出现提示，现在只需要一次了。</tab></li>
+<li>completion-ignore-case : 在自动补全时忽略大小写</li>
+<li>history-search-* : 输入某个命令的一部分时，按上下箭头，会匹配关于这个这命令最近的使用历史。比如：输入 vim ，然后按”上“键，此时，可以显示上一次运行vim时的那条命令，非常的方便！</li>
+</ul>
+<h1 id="Bash中快速移动光标"><a href="#Bash中快速移动光标" class="headerlink" title="Bash中快速移动光标"></a>Bash中快速移动光标</h1><p>bash有两种输入模式vi模式和emacs模式，其中emacs是默认模式，而且操作起来也比vi模式要快捷。可以通过 set -o vi和set -o emacs来转换。 </p>
+<h2 id="命令行中移动"><a href="#命令行中移动" class="headerlink" title="命令行中移动"></a>命令行中移动</h2><p><code>Alt+f</code>和<code>Alt+b</code> 是前后移动一个单词的距离这个很快比如你输入了 </p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><ul>
+<li>Alt+d 往右边删除一个单词 </li>
+<li>Alt+Backspace 往左删除一个单词 </li>
+<li>Ctrl+u 往左删除到行首 </li>
+<li>Ctrl+k 往右删除到行末 </li>
+</ul>
+<p>其中这些删除都放入了删除环里面，可以使用Ctrl+y找回，Alt+y在删除环里面移动也就是说命令行里面可以使用剪切和粘贴了。<br>上面的几条如果用熟练了效率能提高很多。 </p>
+<p>而如果还想了解更多的快捷键绑定，敲如下命令 </p>
+<p>　　bind -P </p>
+<p>发现有些你需要的功能而没有快捷键绑定的话可以如下绑定，比如我绑定了两个函数 </p>
+<ul>
+<li>bind -m emacs ‘“/M-w”: kill-region’ </li>
+<li>bind -m emacs ‘“/M-W”: copy-region-as-kill’</li>
+</ul>
+<h2 id="在命令历史中查找"><a href="#在命令历史中查找" class="headerlink" title="在命令历史中查找"></a>在命令历史中查找</h2><p><strong>PS : 其实如果使用了上述的<a href="#Bash定制">Bash定制</a>中的 <code>history-search-*</code> 就不需要这个 <code>ctrl + r</code> 了</strong></p>
+<p>使用 Ctrl+r， 这个键组合是反向增量查找消息历史。很好用。 比如你很久以前输入过某个命令如。 gcc -c -DKKT - Dnnn 等等，一长串， 用上下方向键来找比较困难，这时候可以Ctrl+r，然后输入gcc很快找到该命令，重复按Ctrl+r将查找更早的历史。</p>
+<h1 id="bash脚本基础"><a href="#bash脚本基础" class="headerlink" title="bash脚本基础"></a>bash脚本基础</h1><ul>
+<li>-e filename  如果 filename存在，则为真  [ -e /var/log/syslog ]</li>
+<li>-d filename  如果 filename为目录，则为真  [ -d /tmp/mydir ]</li>
+<li>-f filename  如果 filename为常规文件，则为真  [ -f /usr/bin/grep ]</li>
+<li>-L filename  如果 filename为符号链接，则为真  [ -L /usr/bin/grep ]</li>
+<li>-r filename  如果 filename可读，则为真  [ -r /var/log/syslog ]</li>
+<li>-w filename  如果 filename可写，则为真  [ -w /var/mytmp.txt ]</li>
+<li>-x filename  如果 filename可执行，则为真  [ -L /usr/bin/grep ]</li>
+<li>filename1-nt filename2  如果 filename1比 filename2新，则为真  [ /tmp/install/etc/services -nt /etc/services ]</li>
+<li>filename1-ot filename2  如果 filename1比 filename2旧，则为真  [ /boot/bzImage -ot arch/i386/boot/bzImage ]</li>
+</ul>
+<p>一个例子 :</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">BUILD_DIR=../build</span><br><span class="line"></span><br><span class="line">if [ ! -d $&#123;BUILD_DIR&#125; ]; then</span><br><span class="line">    mkdir $&#123;BUILD_DIR&#125;</span><br><span class="line">else</span><br><span class="line">    echo "BUILD_DIR is already exist."</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RTS_PATH=`cd .. &amp;&amp; pwd`</span><br><span class="line">RTS_SYMBOLIC_LINK=~/rts</span><br><span class="line"></span><br><span class="line">if [ ! -L "$RTS_SYMBOLIC_LINK" ]; then</span><br><span class="line">    ln -s $RTS_PATH $RTS_SYMBOLIC_LINK;</span><br><span class="line">else</span><br><span class="line">    echo "RTS_SYMBOLIC_LINK is already exist."</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Bash/" rel="tag"><i class="fa fa-tag"></i> Bash</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/how_to_build_a_simple_ubuntu_server_three/" rel="next" title="从零开始搭建一台简易Ubuntu服务器三">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    从零开始搭建一台简易Ubuntu服务器三
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/三种编程命名规范/" rel="prev" title="三种编程命名规范">
+                <p class="post-nav-pre-next-title">
+                    三种编程命名规范
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#profile和bashrc和bash-profile的区别"><span class="nav-text">profile和bashrc和bash_profile的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置core文件格式"><span class="nav-text">设置core文件格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全的rm"><span class="nav-text">安全的rm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建立一个简易回收站"><span class="nav-text">建立一个简易回收站</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令补全增强"><span class="nav-text">命令补全增强</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bash中快速移动光标"><span class="nav-text">Bash中快速移动光标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行中移动"><span class="nav-text">命令行中移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-text">删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在命令历史中查找"><span class="nav-text">在命令历史中查找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bash脚本基础"><span class="nav-text">bash脚本基础</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

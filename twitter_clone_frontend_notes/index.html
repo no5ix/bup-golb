@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('mmp'){
+            let localStoragePasswdKey = 'Twitter Clone frontend notes' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'mmp') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'mmp') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GitHub,noodle,NA,Javascript,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="Twitter Clone backend notes Project URLhttps://github.com/merikbest/twitter-spring-reactjs 涉及的主要技术通过分析项目的 package.json 文件，该项目前端主要使用了以下技术：  React (v16.14.0)：一个用于构建用户界面的 JavaScript 库。 TypeScript：JavaScr">
+<meta name="keywords" content="GitHub,noodle,NA,Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Twitter Clone frontend notes">
+<meta property="og:url" content="https://hulinhong.com/twitter_clone_frontend_notes/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="Twitter Clone backend notes Project URLhttps://github.com/merikbest/twitter-spring-reactjs 涉及的主要技术通过分析项目的 package.json 文件，该项目前端主要使用了以下技术：  React (v16.14.0)：一个用于构建用户界面的 JavaScript 库。 TypeScript：JavaScr">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Twitter Clone frontend notes">
+<meta name="twitter:description" content="Twitter Clone backend notes Project URLhttps://github.com/merikbest/twitter-spring-reactjs 涉及的主要技术通过分析项目的 package.json 文件，该项目前端主要使用了以下技术：  React (v16.14.0)：一个用于构建用户界面的 JavaScript 库。 TypeScript：JavaScr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Twitter Clone frontend notes | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/twitter_clone_frontend_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Twitter Clone frontend notes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2025-05-17T18:13:08+00:00">
+                05-17-2025
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/GitHub/" rel="tag"><i class="fa fa-tag"></i> GitHub</a>
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+                <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/twitter_clone_backend_notes/" rel="next" title="Twitter Clone backend notes">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Twitter Clone backend notes
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <a href="/twitter_clone_backend_notes/" title="Twitter Clone backend notes">Twitter Clone backend notes</a>
+<h1 id="Project-URL"><a href="#Project-URL" class="headerlink" title="Project URL"></a>Project URL</h1><p><a href="https://github.com/merikbest/twitter-spring-reactjs" target="_blank" rel="noopener">https://github.com/merikbest/twitter-spring-reactjs</a></p>
+<h1 id="涉及的主要技术"><a href="#涉及的主要技术" class="headerlink" title="涉及的主要技术"></a>涉及的主要技术</h1><p>通过分析项目的 <code>package.json</code> 文件，该项目前端主要使用了以下技术：</p>
+<ul>
+<li><strong>React (v16.14.0)</strong>：一个用于构建用户界面的 JavaScript 库。</li>
+<li><strong>TypeScript</strong>：JavaScript 的一个超集，添加了静态类型定义。</li>
+<li><strong>Redux</strong>：一个用于 JavaScript 应用程序的可预测状态容器，常与 React 配合使用，本项目中还使用了 <code>react-redux</code> 进行绑定，以及 <code>redux-saga</code> 处理副作用。</li>
+<li><strong>Material-UI (MUI)</strong>：一个流行的 React UI 框架，提供了丰富的预构建组件，包括核心组件 (<code>@material-ui/core</code>)、图标 (<code>@material-ui/icons</code>) 和实验性组件 (<code>@material-ui/lab</code>)。</li>
+<li><strong>React Router</strong>：用于处理 React 应用中的路由。</li>
+<li><strong>Axios</strong>：一个基于 Promise 的 HTTP 客户端，用于发送网络请求。</li>
+<li><strong>i18next</strong>：一个强大的国际化框架，用于实现多语言支持。</li>
+<li><strong>Node-sass</strong>：允许在项目中使用 Sass/SCSS 进行 CSS 预处理。</li>
+<li><strong>Jest &amp; Enzyme</strong>：用于 JavaScript 和 React 应用的测试框架和工具库。</li>
+</ul>
+<p>项目本身是使用 <strong>Create React App</strong> 引导创建的。</p>
+<p>实践和阅读代码：</p>
+<ul>
+<li>尝试运行项目，并修改一些简单的组件，观察变化。</li>
+<li>阅读项目中的代码，特别是组件 (<code>src/components</code>) 和页面 (<code>src/pages</code>) 部分，理解它们是如何组织和工作的。</li>
+<li>重点关注 <code>src/store</code> 目录，理解 Redux 的状态管理是如何在本项目的具体实践的。</li>
+<li>查看 <code>src/services/api</code> 目录，了解与后端 API 的交互方式。</li>
+</ul>
+<h1 id="文件目录结构"><a href="#文件目录结构" class="headerlink" title="文件目录结构"></a>文件目录结构</h1><p>好的，我们来详细了解一下这个前端项目的目录结构和关键文件。这个项目看起来是一个标准的 Create React App (<code>CRA</code>) 项目结构，并在此基础上进行了一些常见的组织。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">project-root/</span><br><span class="line">├── src/                      # 源代码目录</span><br><span class="line">│   ├── components/           # 可复用的 React 组件</span><br><span class="line">│   ├── pages/               # 页面级组件</span><br><span class="line">│   ├── store/               # Redux 状态管理相关文件</span><br><span class="line">│   ├── services/            # API 服务和接口调用</span><br><span class="line">│   ├── hook/                # 自定义 React Hooks</span><br><span class="line">│   ├── hoc/                 # 高阶组件</span><br><span class="line">│   ├── core/                # 核心功能和配置</span><br><span class="line">│   ├── util/                # 工具函数</span><br><span class="line">│   ├── constants/           # 常量定义</span><br><span class="line">│   ├── types/               # TypeScript 类型定义</span><br><span class="line">│   ├── i18n.ts             # 国际化配置</span><br><span class="line">│   ├── theme.ts            # 主题配置</span><br><span class="line">│   ├── App.tsx             # 应用程序主组件</span><br><span class="line">│   └── index.tsx           # 应用程序入口文件</span><br><span class="line">├── public/                  # 静态资源目录</span><br><span class="line">├── package.json            # 项目依赖配置和脚本</span><br><span class="line">├── tsconfig.json           # TypeScript 配置</span><br><span class="line">├── jest.config.js          # Jest 测试配置</span><br><span class="line">└── babel.config.js         # Babel 转译配置</span><br></pre></td></tr></table></figure>
+<h2 id="根目录-frontend"><a href="#根目录-frontend" class="headerlink" title="根目录 (frontend/)"></a>根目录 (<code>frontend/</code>)</h2><p>这是前端项目的顶层目录。</p>
+<ul>
+<li><strong><code>package.json</code></strong><ul>
+<li><strong>作用</strong>：定义了项目的元数据，包括项目名称、版本、依赖项 (dependencies 和 devDependencies) 以及可执行脚本 (如 <code>start</code>, <code>build</code>, <code>test</code>)。</li>
+<li><strong>关键信息</strong>：通过此文件可以了解项目使用了哪些第三方库，例如 React, Redux, Material-UI, Axios 等。</li>
+</ul>
+</li>
+<li><strong><code>README.md</code></strong><ul>
+<li><strong>作用</strong>：项目的说明文档，通常包含如何启动项目、运行测试、构建项目等信息。</li>
+</ul>
+</li>
+<li><strong><code>tsconfig.json</code></strong><ul>
+<li><strong>作用</strong>：TypeScript 编译器的配置文件，定义了编译选项，如目标 JavaScript 版本、模块系统、JSX 处理方式、路径别名等。</li>
+</ul>
+</li>
+<li><strong><code>jest.config.js</code></strong> 和 <strong><code>setupTests.js</code></strong><ul>
+<li><strong>作用</strong>：Jest 测试框架的配置文件。<code>jest.config.js</code> 用于配置 Jest 的行为，如测试环境、模块名映射、覆盖率报告等。<code>setupTests.js</code> (通常在 <code>src</code> 目录下) 用于在每个测试文件运行之前执行一些全局设置，例如配置 Enzyme Adapter。</li>
+</ul>
+</li>
+<li><strong><code>babel.config.js</code></strong><ul>
+<li><strong>作用</strong>：Babel 的配置文件，用于将较新版本的 JavaScript (和 TypeScript/JSX) 代码转换为向后兼容的版本。</li>
+</ul>
+</li>
+<li><strong><code>node_modules/</code></strong> (通常在 <code>.gitignore</code> 中，不会上传到版本库)<ul>
+<li><strong>作用</strong>：存放项目所有依赖的第三方库的地方。</li>
+</ul>
+</li>
+<li><strong><code>build/</code></strong> (通常在 <code>.gitignore</code> 中，执行 <code>yarn build</code> 或 <code>npm run build</code> 后生成)<ul>
+<li><strong>作用</strong>：存放生产环境构建后的静态文件，这些文件最终会被部署到服务器。</li>
+</ul>
+</li>
+<li><strong><code>public/</code></strong><ul>
+<li><strong><code>index.html</code></strong>：应用的 HTML 入口文件。React 应用通常会挂载到这个文件中的某个 DOM 元素上（例如 <code>&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</code>）。</li>
+<li><strong><code>favicon.ico</code></strong>, <strong><code>logo192.png</code></strong>, <strong><code>logo512.png</code></strong>, <strong><code>manifest.json</code></strong>, <strong><code>robots.txt</code></strong> 等：这些是应用的图标、PWA (Progressive Web App) 配置文件以及搜索引擎爬虫规则文件。</li>
+</ul>
+</li>
+<li><strong><code>src/</code></strong>：这是我们最关心的目录，包含了应用所有的源代码。</li>
+</ul>
+<h2 id="src-目录"><a href="#src-目录" class="headerlink" title="src/ 目录"></a><code>src/</code> 目录</h2><p>这是前端应用的核心代码所在地。</p>
+<ul>
+<li><strong><code>index.tsx</code></strong><ul>
+<li><strong>作用</strong>：应用的 JavaScript/TypeScript 入口文件。它负责将根组件 (通常是 <code>App</code>) 渲染到 <code>public/index.html</code> 中的根 DOM 节点上。</li>
+<li><strong>关键操作</strong>：<ul>
+<li>引入全局样式。</li>
+<li>设置 Redux Store Provider，使整个应用都能访问到 store。</li>
+<li>设置 React Router (<code>BrowserRouter</code>)，启用客户端路由。</li>
+<li>初始化 i18next 以进行国际化。</li>
+<li>将 <code>&lt;App /&gt;</code> 组件渲染到 DOM。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>App.tsx</code></strong><ul>
+<li><strong>作用</strong>：应用的根组件。它通常包含主要的布局结构（如侧边栏、主内容区）和路由配置。</li>
+<li><strong>关键内容</strong>：<ul>
+<li>定义应用的主题 (Theme) 和颜色方案切换逻辑。</li>
+<li>通过 <code>react-router-dom</code> 的 <code>Switch</code> 和 <code>Route</code> 组件来定义不同 URL 路径对应的页面组件。</li>
+<li>可能会包含一些全局的 Modal 或 Notification 组件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>routes.ts</code></strong> (或类似名称的文件，如 <code>router.ts</code>)<ul>
+<li><strong>作用</strong>：通常用于集中管理应用的路由配置。它会导出一个路由配置数组或对象，供 <code>App.tsx</code> 使用。</li>
+<li><strong>关键内容</strong>：定义了每个路由的路径 (<code>path</code>)、对应的组件 (<code>component</code>)、是否精确匹配 (<code>exact</code>) 以及可能的子路由。</li>
+</ul>
+</li>
+<li><strong><code>theme.ts</code></strong> (或 <code>styles/theme.ts</code>)<ul>
+<li><strong>作用</strong>：定义了 Material-UI (或其他 UI 库) 的主题配置。</li>
+<li><strong>关键内容</strong>：包括颜色、字体、间距、组件覆盖样式等，用于统一应用的视觉风格。此项目定义了多种主题如 <code>dimTheme</code>, <code>lightsOutTheme</code>, <code>defaultTheme</code> 以及不同的颜色方案。</li>
+</ul>
+</li>
+<li><strong><code>i18n.ts</code></strong><ul>
+<li><strong>作用</strong>：i18next 国际化库的配置文件。</li>
+<li><strong>关键内容</strong>：初始化 i18next，配置语言检测器、后端 (用于加载翻译文件) 以及默认语言等。</li>
+</ul>
+</li>
+<li><strong><code>store/</code></strong>：存放 Redux 状态管理相关代码。<ul>
+<li><strong><code>store.ts</code></strong>：创建和配置 Redux store 的地方。它会组合所有的 reducers (来自 <code>ducks</code> 目录)，并应用中间件 (如 <code>redux-saga</code>)。</li>
+<li><strong><code>rootReducer.ts</code></strong>：组合所有 “ducks” 中的 reducer 成一个根 reducer。</li>
+<li><strong><code>saga.ts</code></strong> (或 <code>rootSaga.ts</code>)：组合所有 “ducks” 中的 sagas 成一个根 saga。</li>
+<li><strong><code>ducks/</code></strong>：按照功能模块组织 Redux 的 action, reducer, saga, selector 等。具体结构已在上一问中详细解释。</li>
+</ul>
+</li>
+<li><strong><code>components/</code></strong>：存放可复用的 UI 组件。<ul>
+<li><strong>作用</strong>：这些组件通常是无状态的 (stateless) 或展示型的 (presentational)，专注于 UI 的渲染。</li>
+<li><strong>示例</strong>：<code>SideMenu/SideMenu.tsx</code>, <code>TweetComponent/TweetComponent.tsx</code>, <code>AddTweetForm/AddTweetForm.tsx</code> 等。</li>
+<li>每个组件文件夹内通常包含组件本身 (<code>.tsx</code>) 和其样式文件 (<code>.module.css</code>, <code>.module.scss</code>, 或 styled-components 定义)。</li>
+</ul>
+</li>
+<li><strong><code>pages/</code></strong> (或 <code>views/</code>, <code>screens/</code>)：存放页面级别的组件。<ul>
+<li><strong>作用</strong>：这些组件通常对应应用中的一个完整页面或视图，它们会组合多个基础组件，并可能包含页面特有的业务逻辑和状态管理。</li>
+<li><strong>示例</strong>：<code>Home/Home.tsx</code>, <code>Login/Login.tsx</code>, <code>Settings/Settings.tsx</code>, <code>UserPage/UserPage.tsx</code> 等。</li>
+</ul>
+</li>
+<li><strong><code>services/</code></strong> (或 <code>api/</code>)：存放与后端 API 交互的逻辑。<ul>
+<li><strong>作用</strong>：封装 API 请求，使得组件或 saga 可以更方便地调用。</li>
+<li><strong>示例</strong>：<code>api/tweet-service/tweetApi.ts</code> 封装了与推文相关的 API 请求。</li>
+<li>可能包含不同服务（如 <code>user-service</code>, <code>tweet-service</code>）的子目录。</li>
+</ul>
+</li>
+<li><strong><code>core/</code></strong>：存放项目核心的、基础的工具或配置。<ul>
+<li><strong><code>axios.ts</code></strong>：配置 Axios 实例，例如设置基础 URL、请求拦截器（如添加认证 token）等。</li>
+</ul>
+</li>
+<li><strong><code>hooks/</code></strong>：存放自定义 React Hooks。<ul>
+<li><strong>作用</strong>：用于封装可复用的有状态逻辑，使组件逻辑更清晰。</li>
+<li><strong>示例</strong>：<code>useDebounce.ts</code> (防抖 hook), <code>useModalWindow.ts</code> (控制模态框显示的 hook)。</li>
+</ul>
+</li>
+<li><strong><code>constants/</code></strong>：存放应用中使用的常量。<ul>
+<li><strong>作用</strong>：将硬编码的值提取出来，便于管理和修改。</li>
+<li><strong>示例</strong>：<ul>
+<li><code>path-constants.ts</code>：定义路由路径常量。</li>
+<li><code>endpoint-constants.ts</code>：定义 API 端点常量。</li>
+<li><code>common-constants.ts</code>：定义一些通用的常量。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>types/</code></strong>：存放 TypeScript 类型定义。<ul>
+<li><strong>作用</strong>：定义应用中数据结构的类型和接口，增强代码的健壮性和可维护性。</li>
+<li><strong>示例</strong>：<code>tweet.ts</code>, <code>user.ts</code>, <code>common.ts</code> 等。</li>
+<li><code>types.d.ts</code> 或 <code>react-app-env.d.ts</code>：用于声明全局类型或第三方库的类型。</li>
+</ul>
+</li>
+<li><strong><code>util/</code></strong> (或 <code>utils/</code>)：存放一些工具函数或辅助模块。<ul>
+<li><strong>作用</strong>：提供一些通用的辅助函数，如日期格式化、文本处理、测试工具等。</li>
+<li><strong>示例</strong>：<code>format-date-helper.ts</code>, <code>text-formatter.tsx</code>, <code>test-utils/</code> 等。</li>
+</ul>
+</li>
+<li><strong><code>assets/</code></strong> (或 <code>images/</code>, <code>styles/</code>)：存放静态资源，如图片、全局样式表 (如果未使用 CSS Modules 或 styled-components) 等。本项目中，图标似乎直接在 <code>icons.tsx</code> 中定义为 SVG 组件。</li>
+<li><strong><code>hoc/</code></strong>: 存放高阶组件 (Higher-Order Components)。<ul>
+<li><strong>作用</strong>: 用于复用组件逻辑，向组件注入额外的 props 或行为。</li>
+<li><strong>示例</strong>: <code>withDocumentTitle.tsx</code> 用于动态修改页面标题。</li>
+</ul>
+</li>
+</ul>
+<p>这种结构使得项目代码清晰、模块化，便于团队协作和长期维护。了解每个文件夹和文件的职责是理解整个前端应用的关键。</p>
+<h1 id="package-json-和-package-lock-json的区别"><a href="#package-json-和-package-lock-json的区别" class="headerlink" title="package.json 和 package-lock.json的区别"></a>package.json 和 package-lock.json的区别</h1><p><code>package.json</code> 和 <code>package-lock.json</code> 都用于管理 Node.js 项目的依赖，但它们的职责不同，配合使用能保证<strong>依赖声明清晰</strong>且<strong>安装结果一致</strong>。</p>
+<h2 id="package-json-的作用（声明依赖）"><a href="#package-json-的作用（声明依赖）" class="headerlink" title="package.json 的作用（声明依赖）"></a><code>package.json</code> 的作用（声明依赖）</h2><ul>
+<li>你<strong>手动编辑</strong>的文件，用于<strong>声明项目所需的包及版本范围</strong>。</li>
+<li>比如：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"express"</span>: <span class="string">"^4.18.0"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>^4.18.0</code> 表示允许安装 <code>4.x.x</code> 中最新的版本（不含 <code>5.0.0</code>）。</li>
+<li>同时也包含项目名称、脚本命令、作者等元信息。</li>
+</ul>
+<h2 id="package-lock-json-的作用（锁定依赖）"><a href="#package-lock-json-的作用（锁定依赖）" class="headerlink" title="package-lock.json 的作用（锁定依赖）"></a><code>package-lock.json</code> 的作用（锁定依赖）</h2><ul>
+<li>自动生成（首次执行 <code>npm install</code> 后），用于<strong>锁定具体安装的版本</strong>，包括所有子依赖的确切版本。</li>
+<li>确保在任何机器上执行 <code>npm install</code> 都会装出<strong>完全相同的依赖树</strong>。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"express": &#123;</span><br><span class="line">  "version": "4.18.2",          // 实际安装的版本</span><br><span class="line">  "resolved": "https://registry.npmjs.org/express/-/express-4.18.2.tgz",</span><br><span class="line">  "integrity": "sha512-..."</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="关键区别总结"><a href="#关键区别总结" class="headerlink" title="关键区别总结"></a>关键区别总结</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th><code>package.json</code></th>
+<th><code>package-lock.json</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是否手动编辑</td>
+<td>✅ 是</td>
+<td>❌ 自动生成</td>
+</tr>
+<tr>
+<td>是否提交到版本控制</td>
+<td>✅ 是</td>
+<td>✅ 是（必须提交）</td>
+</tr>
+<tr>
+<td>是否定义依赖的版本范围</td>
+<td>✅ 是（用 <code>^</code>, <code>~</code> 等）</td>
+<td>❌ 否（精确版本）</td>
+</tr>
+<tr>
+<td>是否控制依赖树一致性</td>
+<td>❌ 否</td>
+<td>✅ 是（完全锁定安装结果）</td>
+</tr>
+<tr>
+<td>是否包含子依赖信息</td>
+<td>❌ 否</td>
+<td>✅ 是</td>
+</tr>
+</tbody>
+</table>
+<p>建议:  </p>
+<ul>
+<li><strong>永远提交 <code>package-lock.json</code></strong> 到 Git，避免团队成员之间或 CI 环境中的依赖差异。</li>
+<li>修改依赖时，只改 <code>package.json</code>，让 npm 自动更新 lock 文件。</li>
+</ul>
+<h2 id="有了package-json还需要package-lock-json吗"><a href="#有了package-json还需要package-lock-json吗" class="headerlink" title="有了package.json还需要package-lock.json吗"></a>有了package.json还需要package-lock.json吗</h2><p>需要，<strong>绝对需要</strong>。<code>package.json</code> 和 <code>package-lock.json</code> 解决的是<strong>两个完全不同层面的问题</strong>：</p>
+<ul>
+<li>package.json 和 package-lock.json 都用于管理 Node.js 项目的依赖，但它们的职责不同，配合使用能保证依赖声明清晰且安装结果一致。</li>
+<li><code>package.json</code> 像是 <strong>菜单</strong> —— 你告诉厨房：“我要吃宫保鸡丁，不辣，份量正常。”</li>
+<li><code>package-lock.json</code> 是 <strong>厨房实际做出来的菜谱和食材清单</strong> —— 精确到“用了哪家厂的鸡腿、哪瓶酱油、几克盐”。</li>
+</ul>
+<hr>
+<p><code>package.json</code> 只声明版本范围，不够精确</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"lodash": "^4.17.0"</span><br></pre></td></tr></table></figure>
+<p>这个意思是：安装 <code>4.x.x</code> 中的<strong>最新版本</strong>，但每个人、每台机器、每次安装时点不同，就可能装出：</p>
+<ul>
+<li>A 开发机装了 <code>4.17.21</code></li>
+<li>B CI 环境装了 <code>4.17.15</code></li>
+<li>C 同事昨天装了 <code>4.17.19</code></li>
+</ul>
+<p>这种不一致会导致<strong>线上 bug 无法复现</strong>、<strong>构建失败</strong>、<strong>行为不一致</strong>。</p>
+<hr>
+<p><code>package-lock.json</code> 锁定了实际安装版本</p>
+<p>它会记录下：</p>
+<ul>
+<li><code>lodash@4.17.21</code></li>
+<li>以及 lodash 的子依赖、孙依赖的具体版本</li>
+<li>所有依赖的下载地址和校验 hash（<code>integrity</code> 字段）</li>
+</ul>
+<p>确保：</p>
+<blockquote>
+<p><strong>“任何人在任何时间、任何机器上 <code>npm install</code> 都会装出一模一样的依赖树。”</strong></p>
+</blockquote>
+<hr>
+<p> <strong>如果只保留 <code>package.json</code> 会发生什么？</strong></p>
+<ul>
+<li>安装出来的依赖版本<strong>会随时间波动</strong></li>
+<li>同一个项目，成员之间、测试环境、线上环境可能<strong>装出不同的依赖</strong></li>
+<li>你看到的 bug，别人可能复现不了</li>
+</ul>
+<p>这是<strong>灾难</strong>，特别是生产级项目。</p>
+<p>结论:</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>只用 <code>package.json</code></th>
+<th>用 <code>package.json + lock</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>能声明需要哪些依赖</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>能精确控制版本一致性</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>能保证 CI/CD、开发环境一致</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>会不会随机踩到依赖更新的坑</td>
+<td>✅ 有可能</td>
+<td>❌ 锁死版本，避免问题</td>
+</tr>
+</tbody>
+</table>
+<p>所以，<strong>lock 文件是保证你项目稳定性、可复现性、安全性的重要保障。</strong></p>
+<p>不管是 <code>npm</code> 的 <code>package-lock.json</code>，还是 <code>yarn.lock</code>，都必须提交并维护。</p>
+<h1 id="项目中和jest有关的代码在哪"><a href="#项目中和jest有关的代码在哪" class="headerlink" title="项目中和jest有关的代码在哪"></a>项目中和jest有关的代码在哪</h1><p>基于项目中使用的依赖和搜索结果，Jest相关的文件通常位于以下位置：</p>
+<ol>
+<li><p><strong>配置文件</strong>：</p>
+<ul>
+<li><code>jest.config.js</code> 通常在项目根目录下</li>
+<li><code>src/setupTests.ts</code> 用于 Jest 的全局设置</li>
+</ul>
+</li>
+<li><p><strong>测试文件</strong>的常见位置：</p>
+<ul>
+<li><code>src/__tests__/</code> 目录下 <a href="https://stackoverflow.com/questions/62442797/jest-folder-structure" target="_blank" rel="noopener">[3]</a></li>
+<li>与源文件同目录下的 <code>*.test.ts</code> 或 <code>*.spec.ts</code> 文件</li>
+<li>组件测试通常与组件文件放在同一目录</li>
+</ul>
+</li>
+<li><p><strong>测试辅助文件</strong>：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line">/src</span><br><span class="line">  /utils</span><br><span class="line">    /__tests__/</span><br><span class="line">      test-utils.ts      <span class="comment">// 测试工具函数</span></span><br><span class="line">      mocks/             <span class="comment">// mock 数据</span></span><br><span class="line">  /components</span><br><span class="line">    /__tests__/</span><br><span class="line">      Component.test.ts  <span class="comment">// 组件测试</span></span><br><span class="line">  setupTests.ts          <span class="comment">// 全局测试设置</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>相关的包依赖</strong>（从项目配置中可以看到）：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"jest"</span>: <span class="string">"26.6.0"</span>,</span><br><span class="line">  <span class="attr">"@testing-library/react"</span>: <span class="string">"11.1.0"</span>,</span><br><span class="line">  <span class="attr">"enzyme-adapter-react-16"</span>: <span class="string">"1.15.6"</span>,</span><br><span class="line">  <span class="attr">"enzyme-to-json"</span>: <span class="string">"3.6.2"</span>,</span><br><span class="line">  <span class="attr">"jest-websocket-mock"</span>: <span class="string">"2.3.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>要找到具体的测试文件，你可以：</p>
+<ol>
+<li>在项目根目录查找 <code>jest.config.js</code></li>
+<li>查找 <code>src/setupTests.ts</code> 或 <code>src/setupTests.js</code></li>
+<li>搜索 <code>.test.ts</code>, <code>.test.tsx</code>, <code>.spec.ts</code>, <code>.spec.tsx</code> 文件</li>
+<li>查找 <code>__tests__</code> 目录</li>
+</ol>
+<h1 id="Enzyme"><a href="#Enzyme" class="headerlink" title="Enzyme"></a>Enzyme</h1><p><code>Enzyme</code> 是一个由 Airbnb 开发的 <strong>React 测试工具库</strong>，用于更方便地对 React 组件进行单元测试。</p>
+<p>虽然 Enzyme 在 React 16/17 时代非常流行，但现在已经基本被 <strong><a href="https://testing-library.com/" target="_blank" rel="noopener">React Testing Library</a></strong> 取代，因为后者更符合用户行为驱动（“以用户的方式测试”）的理念，且官方更推荐。</p>
+<p>不过，如果你维护的是旧项目，理解 Enzyme 的用法仍然有价值。</p>
+<hr>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>Enzyme 提供三种渲染方式：</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>用途</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>shallow()</code></td>
+<td>浅渲染，只渲染当前组件</td>
+<td>快速、隔离子组件</td>
+</tr>
+<tr>
+<td><code>mount()</code></td>
+<td>全渲染，包括子组件</td>
+<td>适合集成测试，依赖 DOM 环境</td>
+</tr>
+<tr>
+<td><code>render()</code></td>
+<td>使用 <code>cheerio</code> 渲染成 HTML</td>
+<td>快速、不可交互</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight jsx"><figcaption><span>Counter.jsx</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// Counter.jsx</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Count: &#123;count&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;+&lt;/</span>button&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>Counter.test.js</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// Counter.test.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; shallow &#125; <span class="keyword">from</span> <span class="string">'enzyme'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Counter &#125; <span class="keyword">from</span> <span class="string">'./Counter'</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'Counter'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">'renders count and increments on click'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = shallow(<span class="xml"><span class="tag">&lt;<span class="name">Counter</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml">    expect(wrapper.find('p').text()).toContain('0');</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    wrapper.find('button').simulate('click');</span></span><br><span class="line"><span class="xml">    expect(wrapper.find('p').text()).toContain('1'); // ❌ 注意：shallow 不会更新 useState 的值</span></span><br><span class="line"><span class="xml">  &#125;);</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>✅ 实际上你需要用 <code>mount</code> 来测试 <code>useState</code> 行为：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; mount &#125; <span class="keyword">from</span> <span class="string">'enzyme'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wrapper = mount(<span class="xml"><span class="tag">&lt;<span class="name">Counter</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml">wrapper.find('button').simulate('click');</span></span><br><span class="line"><span class="xml">expect(wrapper.find('p').text()).toContain('1');</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Enzyme 需要配合适配器使用（依赖 React 版本）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save enzyme enzyme-adapter-react-16</span><br></pre></td></tr></table></figure>
+<p>然后在测试配置中添加：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; configure &#125; <span class="keyword">from</span> <span class="string">'enzyme'</span>;</span><br><span class="line"><span class="keyword">import</span> Adapter <span class="keyword">from</span> <span class="string">'enzyme-adapter-react-16'</span>;</span><br><span class="line"></span><br><span class="line">configure(&#123; <span class="attr">adapter</span>: <span class="keyword">new</span> Adapter() &#125;);</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>优点：</strong></p>
+<ul>
+<li>支持组件内部结构和方法测试</li>
+<li>提供类似 jQuery 的 API（如 <code>.find()</code>, <code>.prop()</code>）</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><strong>对 React 新版本支持差</strong>（如 hooks、concurrent mode）</li>
+<li>不符合用户行为驱动的测试理念</li>
+</ul>
+<hr>
+<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><blockquote>
+<p>如果是新项目，请使用 <strong>React Testing Library</strong>，它更稳定、更现代、更贴近真实用户行为，且社区主流也已经转向。</p>
+</blockquote>
+<h2 id="本项目中的实例-登录页面测试"><a href="#本项目中的实例-登录页面测试" class="headerlink" title="本项目中的实例-登录页面测试"></a>本项目中的实例-登录页面测试</h2><p>这个测试文件主要测试了登录组件的四个方面：</p>
+<ol>
+<li><strong>基本渲染测试</strong>：确保组件正确渲染所有必要的 UI 元素</li>
+<li><strong>表单提交测试</strong>：验证表单输入和提交功能是否正常工作</li>
+<li><strong>错误状态测试</strong>：确保在发生错误时正确显示错误信息</li>
+<li><strong>卸载行为测试</strong>：验证组件在卸载时是否正确清理状态</li>
+</ol>
+<p>测试使用了以下关键工具：</p>
+<ul>
+<li>Jest 作为测试框架</li>
+<li>Enzyme 用于组件渲染和交互测试</li>
+<li>Redux mock store 用于模拟状态管理</li>
+<li>Memory History 用于路由测试</li>
+</ul>
+<p>每个测试用例都通过模拟用户交互和验证组件行为来确保组件的可靠性。</p>
+<figure class="highlight ts"><figcaption><span>Login.test.tsx</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// 导入必要的依赖</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createMemoryHistory &#125; <span class="keyword">from</span> <span class="string">"history"</span>; <span class="comment">// 用于创建内存路由历史</span></span><br><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">"@material-ui/core"</span>; <span class="comment">// Material-UI 按钮组件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入本地组件和工具</span></span><br><span class="line"><span class="keyword">import</span> Login <span class="keyword">from</span> <span class="string">"../Login"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createMockRootState, mockDispatch, mountWithStore &#125; <span class="keyword">from</span> <span class="string">"../../../util/test-utils/test-helper"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; LoginTextField &#125; <span class="keyword">from</span> <span class="string">"../LoginInputField"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; UserActionsType &#125; <span class="keyword">from</span> <span class="string">"../../../store/ducks/user/contracts/actionTypes"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; LoadingStatus &#125; <span class="keyword">from</span> <span class="string">"../../../types/common"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 登录组件的测试套件</span></span><br><span class="line">describe(<span class="string">"Login"</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 创建一个加载完成状态的模拟 Redux store</span></span><br><span class="line">    <span class="keyword">const</span> mockStore = createMockRootState(LoadingStatus.LOADED);</span><br><span class="line">    <span class="comment">// 声明模拟 dispatch 函数</span></span><br><span class="line">    <span class="keyword">let</span> mockDispatchFn: jest.Mock;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在每个测试用例之前执行</span></span><br><span class="line">    beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 重置模拟 dispatch 函数</span></span><br><span class="line">        mockDispatchFn = mockDispatch();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试组件渲染是否正确</span></span><br><span class="line">    <span class="comment">// `it` 是定义单个测试用例的函数。语义是 "It should..."，即“它应该……”。</span></span><br><span class="line">    <span class="comment">// test 和 it 在 Jest 中是完全等价的，官方推荐使用 test，但 it 也很常见。</span></span><br><span class="line">    it(<span class="string">"should render correctly"</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 使用模拟 store 挂载登录组件</span></span><br><span class="line">        <span class="keyword">const</span> wrapper = mountWithStore(&lt;Login /&gt;, mockStore);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 验证必要的文本内容是否存在</span></span><br><span class="line">        expect(wrapper.text().includes(<span class="string">"Log in to Twitter"</span>)).toBe(<span class="literal">true</span>);</span><br><span class="line">        expect(wrapper.find(Button).text().includes(<span class="string">"Login"</span>)).toBe(<span class="literal">true</span>);</span><br><span class="line">        expect(wrapper.text().includes(<span class="string">"Forgot password?"</span>)).toBe(<span class="literal">true</span>);</span><br><span class="line">        expect(wrapper.text().includes(<span class="string">"Sign up for Twitter"</span>)).toBe(<span class="literal">true</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试登录表单提交</span></span><br><span class="line">    it(<span class="string">"should submit Login form"</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 创建路由历史对象</span></span><br><span class="line">        <span class="keyword">const</span> history = createMemoryHistory();</span><br><span class="line">        <span class="comment">// 模拟的用户输入数据</span></span><br><span class="line">        <span class="keyword">const</span> mockEmail = <span class="string">"testemail@test.test"</span>;</span><br><span class="line">        <span class="keyword">const</span> mockPassword = <span class="string">"testpassword"</span>;</span><br><span class="line">        <span class="comment">// 挂载组件，传入 store 和 history</span></span><br><span class="line">        <span class="keyword">const</span> wrapper = mountWithStore(&lt;Login /&gt;, mockStore, history);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 查找输入框元素</span></span><br><span class="line">        <span class="keyword">const</span> inputEmail = wrapper.find(LoginTextField).at(<span class="number">0</span>).find(<span class="string">"input"</span>).at(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">const</span> inputPassword = wrapper.find(LoginTextField).at(<span class="number">1</span>).find(<span class="string">"input"</span>).at(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模拟用户输入</span></span><br><span class="line">        inputEmail.simulate(<span class="string">"change"</span>, &#123; target: &#123; value: mockEmail &#125; &#125;);</span><br><span class="line">        inputPassword.simulate(<span class="string">"change"</span>, &#123; target: &#123; value: mockPassword &#125; &#125;);</span><br><span class="line">        <span class="comment">// 模拟表单提交</span></span><br><span class="line">        wrapper.find(Button).at(<span class="number">0</span>).simulate(<span class="string">"submit"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 验证 dispatch 是否被正确调用</span></span><br><span class="line">        expect(mockDispatchFn).nthCalledWith(<span class="number">1</span>, &#123;</span><br><span class="line">            payload: &#123;</span><br><span class="line">                email: mockEmail,</span><br><span class="line">                password: mockPassword,</span><br><span class="line">                history: history</span><br><span class="line">            &#125;, </span><br><span class="line">            <span class="keyword">type</span>: UserActionsType.FETCH_SIGN_IN</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试错误状态的渲染</span></span><br><span class="line">    it(<span class="string">"should render error"</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 使用错误状态创建 store 并挂载组件</span></span><br><span class="line">        <span class="keyword">const</span> wrapper = mountWithStore(&lt;Login /&gt;, createMockRootState(LoadingStatus.ERROR));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 验证错误消息是否显示</span></span><br><span class="line">        expect(wrapper.text().includes(<span class="string">"The username and password you entered did not match our records. "</span> +</span><br><span class="line">            <span class="string">"Please double-check and try again."</span>)).toBe(<span class="literal">true</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试组件卸载时的行为</span></span><br><span class="line">    it(<span class="string">"should component unmount"</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 挂载组件</span></span><br><span class="line">        <span class="keyword">const</span> wrapper = mountWithStore(&lt;Login /&gt;, mockStore);</span><br><span class="line">        <span class="comment">// 卸载组件</span></span><br><span class="line">        wrapper.unmount();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 验证卸载时是否正确设置了加载状态</span></span><br><span class="line">        expect(mockDispatchFn).nthCalledWith(<span class="number">1</span>, &#123;</span><br><span class="line">            payload: LoadingStatus.LOADING,</span><br><span class="line">            <span class="keyword">type</span>: UserActionsType.SET_USER_LOADING_STATE</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/GitHub/" rel="tag"><i class="fa fa-tag"></i> GitHub</a>
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+              <a href="/tags/Javascript/" rel="tag"><i class="fa fa-tag"></i> Javascript</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/twitter_clone_backend_notes/" rel="next" title="Twitter Clone backend notes">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Twitter Clone backend notes
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Project-URL"><span class="nav-text">Project URL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#涉及的主要技术"><span class="nav-text">涉及的主要技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件目录结构"><span class="nav-text">文件目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#根目录-frontend"><span class="nav-text">根目录 (frontend/)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#src-目录"><span class="nav-text">src/ 目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#package-json-和-package-lock-json的区别"><span class="nav-text">package.json 和 package-lock.json的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#package-json-的作用（声明依赖）"><span class="nav-text">package.json 的作用（声明依赖）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#package-lock-json-的作用（锁定依赖）"><span class="nav-text">package-lock.json 的作用（锁定依赖）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键区别总结"><span class="nav-text">关键区别总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有了package-json还需要package-lock-json吗"><span class="nav-text">有了package.json还需要package-lock.json吗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目中和jest有关的代码在哪"><span class="nav-text">项目中和jest有关的代码在哪</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Enzyme"><span class="nav-text">Enzyme</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心概念"><span class="nav-text">核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建议"><span class="nav-text">建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本项目中的实例-登录页面测试"><span class="nav-text">本项目中的实例-登录页面测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

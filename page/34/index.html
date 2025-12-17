@@ -1,0 +1,2467 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🚙">
+<meta property="og:url" content="https://hulinhong.com/page/34/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚙">
+<meta name="twitter:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>🚙 - 💨 💨 💨</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/MySQL入门一之增删查改与关联/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/MySQL入门一之增删查改与关联/" itemprop="url">MySQL入门一之增删查改与关联</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-27T22:51:11+00:00">
+                02-27-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index">
+                    <span itemprop="name">DB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h1><ul>
+<li><p>INSERT INTO table_name (列1, 列2,…) VALUES (值1, 值2,….)</p>
+</li>
+<li><p>DELETE FROM 表名称 WHERE 列名称 = 值</p>
+</li>
+<li><p>UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值</p>
+</li>
+<li><p>SELECT 列名称 FROM 表名称</p>
+</li>
+</ul>
+<h1 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h1><p>SQL join 用于根据两个或多个表中的列之间的关系，从这些表中查询数据。</p>
+<h2 id="Join和Key概绍"><a href="#Join和Key概绍" class="headerlink" title="Join和Key概绍"></a>Join和Key概绍</h2><p>有时为了得到完整的结果，我们需要从两个或更多的表中获取结果。我们就需要执行 join。<br>数据库中的表可通过键将彼此联系起来。主键（Primary Key）是一个列，在这个列中的每一行的值都是唯一的。在表中，每个主键的值都是唯一的。这样做的目的是在不重复每个表中的所有数据的情况下，把表间的数据交叉捆绑在一起。<br>请看 “Persons” 表：</p>
+<table>
+<thead>
+<tr>
+<th>Id_P</th>
+<th>LastName</th>
+<th>FirstName</th>
+<th>Address</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Adams</td>
+<td>John</td>
+<td>Oxford Street</td>
+<td>London</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bush</td>
+<td>George</td>
+<td>Fifth Avenue</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Carter</td>
+<td>Thomas</td>
+<td>Changan Street</td>
+<td>Beijing</td>
+</tr>
+</tbody>
+</table>
+<p>请注意，”Id_P” 列是 Persons 表中的的主键。这意味着没有两行能够拥有相同的 Id_P。即使两个人的姓名完全相同，Id_P 也可以区分他们。<br>接下来请看 “Orders” 表：</p>
+<table>
+<thead>
+<tr>
+<th>Id_O</th>
+<th>OrderNo</th>
+<th>Id_P</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>77895</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>44678</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>22456</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>24562</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>34764</td>
+<td>65</td>
+</tr>
+</tbody>
+</table>
+<p>请注意，”Id_O” 列是 Orders 表中的的主键，同时，”Orders” 表中的 “Id_P” 列用于引用 “Persons” 表中的人，而无需使用他们的确切姓名。<br>请留意，”Id_P” 列把上面的两个表联系了起来。</p>
+<p>下面列出了您可以使用的 JOIN 类型，以及它们之间的差异。</p>
+<ul>
+<li>JOIN(INNER JOIN): 如果左右表中都有至少一个匹配，则返回行</li>
+<li>LEFT JOIN: 即使右表中没有匹配，也从左表返回所有的行</li>
+<li>RIGHT JOIN: 即使左表中没有匹配，也从右表返回所有的行</li>
+<li>FULL JOIN: 只要其中一个表中存在匹配，就返回行</li>
+</ul>
+<p><strong>注</strong> : JOIN使用on的, 而不是where.</p>
+<h2 id="使用Join-INNER-JOIN"><a href="#使用Join-INNER-JOIN" class="headerlink" title="使用Join(INNER JOIN)"></a>使用Join(INNER JOIN)</h2><p>除了上面的方法，我们也可以使用关键词 JOIN 来从两个表中获取数据。<br>如果我们希望列出所有人的定购，可以使用下面的 SELECT 语句：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line">FROM Persons</span><br><span class="line">INNER JOIN Orders</span><br><span class="line">ON Persons.Id_P = Orders.Id_P</span><br><span class="line">ORDER BY Persons.LastName</span><br></pre></td></tr></table></figure></p>
+<p>结果集：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>OrderNo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>22456</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>24562</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>77895</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>44678</td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用Left-Join"><a href="#使用Left-Join" class="headerlink" title="使用Left Join"></a>使用Left Join</h2><p>现在，我们希望列出所有的人，以及他们的定购 - 如果有的话。<br>您可以使用下面的 SELECT 语句：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line">FROM Persons</span><br><span class="line">LEFT JOIN Orders</span><br><span class="line">ON Persons.Id_P=Orders.Id_P</span><br><span class="line">ORDER BY Persons.LastName</span><br></pre></td></tr></table></figure></p>
+<p>结果集：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>OrderNo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>22456</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>24562</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>77895</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>44678</td>
+</tr>
+<tr>
+<td>Bush</td>
+<td>George</td>
+<td>- - - -</td>
+</tr>
+</tbody>
+</table>
+<p>LEFT JOIN 关键字会从左表 (Persons) 那里返回所有的行，即使在右表 (Orders) 中没有匹配的行。</p>
+<h2 id="使用Right-Join"><a href="#使用Right-Join" class="headerlink" title="使用Right Join"></a>使用Right Join</h2><p>现在，我们希望列出所有的定单，以及定购它们的人 - 如果有的话。<br>您可以使用下面的 SELECT 语句：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line">FROM Persons</span><br><span class="line">RIGHT JOIN Orders</span><br><span class="line">ON Persons.Id_P=Orders.Id_P</span><br><span class="line">ORDER BY Persons.LastName</span><br></pre></td></tr></table></figure></p>
+<p>结果集：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>OrderNo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>22456</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>24562</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>77895</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>44678</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>34764</td>
+</tr>
+</tbody>
+</table>
+<p>RIGHT JOIN 关键字会从右表 (Orders) 那里返回所有的行，即使在左表 (Persons) 中没有匹配的行。</p>
+<h2 id="使用Full-Join"><a href="#使用Full-Join" class="headerlink" title="使用Full Join"></a>使用Full Join</h2><p>现在，我们希望列出所有的人，以及他们的定单，以及所有的定单，以及定购它们的人。<br>您可以使用下面的 SELECT 语句：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line">FROM Persons</span><br><span class="line">FULL JOIN Orders</span><br><span class="line">ON Persons.Id_P=Orders.Id_P</span><br><span class="line">ORDER BY Persons.LastName</span><br></pre></td></tr></table></figure></p>
+<p>结果集：</p>
+<table>
+<thead>
+<tr>
+<th>LastName</th>
+<th>FirstName</th>
+<th>OrderNo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>22456</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>John</td>
+<td>24562</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>77895</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>Thomas</td>
+<td>44678</td>
+</tr>
+<tr>
+<td>Bush</td>
+<td>George</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>34764</td>
+</tr>
+</tbody>
+</table>
+<p>FULL JOIN 关键字会从左表 (Persons) 和右表 (Orders) 那里返回所有的行。如果 “Persons” 中的行在表 “Orders” 中没有匹配，或者如果 “Orders” 中的行在表 “Persons” 中没有匹配，这些行同样会列出。</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/protobuf_tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/protobuf_tutorial/" itemprop="url">ProtoBuf的安装与使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-23T12:06:56+00:00">
+                02-23-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>与 JSON 相比， Protobuf 的序列化和反序列化的速度更快，而且传输的数据会先压缩，<br>使得传输的效率更高些 。<br>Protobuf ， 全称 Protocol Buffer ， 是 Google 公司内部的混合语言数据标准，是一种轻便<br>高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。 它很适合做数据<br>存储或 RPC 数据交换格式 。 Protobuf是可用于通信协议、数据存储等领域的语言无关、平台<br>无关、可扩展的序列化结构数据格式 。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>谷歌的东西要想在大陆安装起来总是有点那啥, 你懂的.</p>
+<h2 id="需要的依赖"><a href="#需要的依赖" class="headerlink" title="需要的依赖"></a>需要的依赖</h2><pre><code>sudo apt-get install curl
+
+sudo apt-get install autoconf autogen
+
+sudo apt-get install libtool
+</code></pre><h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>下载自github的代码需要首先执行 $ ./autogen.sh 生成configure文件 </p>
+<p>注意autogen.sh 需要gtest包，默认是从 googletest.googlecode.com下载，国内需要翻墙才能访问，很多人问autogen.sh运行失败，这里我补充一下 </p>
+<p>修改一下autogen.sh , 将这段:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &quot;Google Test not present.  Fetching gtest-1.5.0 from the web...&quot;</span><br><span class="line">curl http://googletest.googlecode.com/files/gtest-1.5.0.tar.bz2 | tar jx</span><br><span class="line">mv gtest-1.5.0 gtest</span><br></pre></td></tr></table></figure></p>
+<p>修改为:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://github.com/google/googletest/archive/release-1.5.0.tar.gz</span><br><span class="line">tar xzvf release-1.5.0.tar.gz</span><br><span class="line">mv googletest-release-1.5.0 gtest</span><br></pre></td></tr></table></figure></p>
+<p>再执行 autogen.sh，这样就不会报错了</p>
+<pre><code>$ ./configure
+$ make
+$ make check
+$ make install
+</code></pre><p>默认是装在</p>
+<pre><code>usr/local/bin
+usr/local/lib,
+usr/local/include 
+</code></pre><h2 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h2><pre><code>protoc --version
+</code></pre><p>如果安装成功,会出现版本号 如</p>
+<pre><code>libprotoc 2.6.1
+</code></pre><p>如果有问题，会输出错误内容, 最后我安装完成,用上述命令检查版本号时出现如下问题</p>
+<pre><code>protoc: error while loading shared libraries: libprotocbuf.so.9: cannot open shared
+</code></pre><p>错误原因</p>
+<p>protobuf的默认安装路径是/usr/local/lib,而/usr/local/lib不在ubuntu体系默认的LD_LIBRARY_PATH里,所以就找不到lib</p>
+<p>解决办法 : </p>
+<p>1 - 在 /etc/ld.so.conf.d/目录下创建文件 bprotobuf.conf文件,文件内容如下</p>
+<p><code>/usr/local/lib</code></p>
+<p>2 - 输入命令</p>
+<pre><code>sudo ldconfig
+</code></pre><p>这时,再输入<code>protoc --version</code>就可以正常看到版本号了</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight c++"><figcaption><span>Writer.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Mymessage.pb.h"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Im::Content msg1;</span><br><span class="line">	msg1.set_id(<span class="number">101</span>);</span><br><span class="line">	msg1.set_str(<span class="string">"ggsmd"</span>);</span><br><span class="line">	<span class="function">fstream <span class="title">output</span><span class="params">(<span class="string">"./log"</span>, ios::out | ios::trunc | ios::binary)</span></span>; </span><br><span class="line">	<span class="keyword">if</span> (!msg1.SerializeToOstream(&amp;output)) &#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"Failed to write msg."</span> &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>Reader.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Mymessage.pb.h"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ListMsg</span><span class="params">(<span class="keyword">const</span> Im::Content &amp; msg)</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg.id() &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg.str() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">	Im::Content msg1;</span><br><span class="line">	<span class="function">fstream <span class="title">input</span><span class="params">(<span class="string">"./log"</span>, ios::in | ios::binary)</span></span>;</span><br><span class="line">	<span class="keyword">if</span> (!msg1.ParseFromIstream(&amp;input)) &#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"Failed to parse address book."</span> &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	ListMsg(msg1);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><figcaption><span>makefile</span></figcaption><table><tr><td class="code"><pre><span class="line">INC=/usr/local/include</span><br><span class="line">LIB=/usr/local/lib</span><br><span class="line">lib=protobuf</span><br><span class="line"></span><br><span class="line">all:Writer Reader</span><br><span class="line"></span><br><span class="line">Writer.o:Writer.cpp</span><br><span class="line">	g++ -g -c Writer.cpp -I$(INC) -L$(LIB) -l$(lib)</span><br><span class="line">Reader.o:Reader.cpp</span><br><span class="line">	g++ -g -c Reader.cpp -I$(INC) -L$(LIB) -l$(lib)	</span><br><span class="line"></span><br><span class="line">Writer:Writer.o Mymessage.pb.o </span><br><span class="line">	g++ -g -o Writer Writer.o Mymessage.pb.o -I$(INC) -L$(LIB) -l$(lib)</span><br><span class="line">Reader:Reader.o Mymessage.pb.o </span><br><span class="line">	g++ -g -o Reader Reader.o Mymessage.pb.o -I$(INC) -L$(LIB) -l$(lib)</span><br><span class="line">Mymessage.pb.o:Mymessage.pb.cc</span><br><span class="line">	g++ -g -c Mymessage.pb.cc -I$(INC) -L$(LIB) -l$(lib)	</span><br><span class="line"></span><br><span class="line">clean:Writer Reader Writer.o Reader.o Mymessage.pb.o</span><br><span class="line">	rm Writer Reader Writer.o Reader.o Mymessage.pb.o</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>Mymessage.proto</span></figcaption><table><tr><td class="code"><pre><span class="line">package Im; </span><br><span class="line">message Content </span><br><span class="line">&#123; </span><br><span class="line">    required int32   id = <span class="number">1</span>;  <span class="comment">// ID </span></span><br><span class="line">    required <span class="built_in">string</span>  str = <span class="number">2</span>;  <span class="comment">// str </span></span><br><span class="line">    optional int32   opt = <span class="number">3</span>;  <span class="comment">//optional field </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="打印结果"><a href="#打印结果" class="headerlink" title="打印结果"></a>打印结果</h2><p>执行<br><code>protoc -I=./ --cpp_out=./ Mymessage.proto</code><br> 命令后，会生成 Mymessage.pb.h 和 Mymessage.pb.cc 文件。 再执行 <code>make</code> 命令，生成<br>Writer 和 Reader 文件 。 执行 <code>./Writer</code> 命令后，再执行<code>./Reader</code> 命令，终端上输出：</p>
+<pre><code>b@b-VirtualBox:~/tc$ protoc -I=./ --cpp_out=./ Mymessage.proto
+b@b-VirtualBox:~/tc$ ll
+total 44
+drwxrwxr-x 2 b b  4096  5月 19 22:43 ./
+drwxr-xr-x 4 b b  4096  5月 19 22:35 ../
+-rw-rw-r-- 1 b b   647  5月 19 22:36 makefile
+-rw-rw-r-- 1 b b 12214  5月 19 22:43 Mymessage.pb.cc
+-rw-rw-r-- 1 b b  7762  5月 19 22:43 Mymessage.pb.h
+-rw-rw-r-- 1 b b   161  5月 19 22:36 Mymessage.proto
+-rw-rw-r-- 1 b b   421  5月 19 22:36 Reader.cpp
+-rw-rw-r-- 1 b b   340  5月 19 22:35 Writer.cpp
+
+b@b-VirtualBox:~/tc$ make
+g++ -g -c Writer.cpp -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf
+g++ -g -c Mymessage.pb.cc -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf    
+g++ -g -o Writer Writer.o Mymessage.pb.o -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf
+g++ -g -c Reader.cpp -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf    
+g++ -g -o Reader Reader.o Mymessage.pb.o -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf
+
+b@b-VirtualBox:~/tc$ ll
+total 772
+drwxrwxr-x 2 b b   4096  5月 19 22:43 ./
+drwxr-xr-x 4 b b   4096  5月 19 22:35 ../
+-rw-rw-r-- 1 b b    647  5月 19 22:36 makefile
+-rw-rw-r-- 1 b b  12214  5月 19 22:43 Mymessage.pb.cc
+-rw-rw-r-- 1 b b   7762  5月 19 22:43 Mymessage.pb.h
+-rw-rw-r-- 1 b b 244112  5月 19 22:43 Mymessage.pb.o
+-rw-rw-r-- 1 b b    161  5月 19 22:36 Mymessage.proto
+-rwxrwxr-x 1 b b 188430  5月 19 22:43 Reader*
+-rw-rw-r-- 1 b b    421  5月 19 22:36 Reader.cpp
+-rw-rw-r-- 1 b b  57656  5月 19 22:43 Reader.o
+-rwxrwxr-x 1 b b 184244  5月 19 22:43 Writer*
+-rw-rw-r-- 1 b b    340  5月 19 22:35 Writer.cpp
+-rw-rw-r-- 1 b b  59232  5月 19 22:43 Writer.o
+
+b@b-VirtualBox:~/tc$ ./Writer    
+
+b@b-VirtualBox:~/tc$ ./Reader 
+101
+ggsmd
+</code></pre>
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/cpp_object_model_conclusion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/cpp_object_model_conclusion/" itemprop="url">C++对象模型之虚函数实例讲解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-21T17:49:01+00:00">
+                02-21-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>因为c++只规定了 虚继承/ 虚函数/ 多继承/ 的行为, 但将实现方法留给编译器作者. 所以各个平台的实现并不相同, 得出的结果也不尽相同.</p>
+<p><a href="#测试常用平台的不同">经测试</a>, vs和gcc目前比较统一的情况只有2种 :</p>
+<ul>
+<li>无继承+无虚函数</li>
+<li>无继承+虚函数</li>
+</ul>
+<p><strong>故本文只讨论这2种, 以及了解虚函数和虚继承的含义.</strong></p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/python中的__name__和__main()__/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/python中的__name__和__main()__/" itemprop="url">python中的__name__和__main()__</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-10T22:19:29+00:00">
+                02-10-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#hello.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sayHello</span><span class="params">()</span>:</span></span><br><span class="line">    str=<span class="string">"hello"</span></span><br><span class="line">    print(str);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'This is main of module "hello.py"'</span>)</span><br><span class="line">    sayHello()</span><br></pre></td></tr></table></figure>
+<p>python作为一种脚本语言，我们用python写的各个module都可以包含以上那么一个累死c中的main函数，只不过python中的这种<code>__main__</code>与c中有一些区别，类似于php的魔术那一套, 主要体现在：</p>
+<p>1、当单独执行该module时，比如单独执行以上hello.py： python hello.py，则输出</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">This is main of module &quot;hello.py&quot;</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>可以理解为<code>&quot;if __name__==&quot;__main__&quot;:&quot;</code>这一句与c中的main()函数所表述的是一致的，即作为入口；</p>
+<p>2、当该module被其它module 引入使用时，其中的<code>&quot;if __name__==&quot;__main__&quot;:&quot;</code></p>
+<p>所表示的Block不会被执行,</p>
+<p>这是因为此时module被其它module引用时，</p>
+<p>其<code>__name__</code>的值将发生变化，<code>__name__</code>的值将会是module的名字。</p>
+<p>比如在python shell中import hello后，查看<code>hello.__name__</code>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hello</span><br><span class="line">hello.__name__</span><br><span class="line"><span class="string">'hello'</span></span><br></pre></td></tr></table></figure>
+<p>3、因此，在python中，当一个module作为整体被执行时,moduel.<strong>name</strong>的值将是<code>&quot;__main__&quot;；</code></p>
+<p>而当一个module被其它module引用时，<code>module.__name__</code>将是module自己的名字，</p>
+<p>当然一个module被其它module引用时，其本身并不需要一个可执行的入口main了。</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/条件编译指令之if和ifdef和ifdefined之间的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/条件编译指令之if和ifdef和ifdefined之间的区别/" itemprop="url">条件编译指令之#if和#ifdef和#if defined之间的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-09T17:24:19+00:00">
+                02-09-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="if的使用说明"><a href="#if的使用说明" class="headerlink" title="#if的使用说明"></a>#if的使用说明</h1><p>#if的后面接的是表达式 : </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> (MAX==10)||(MAX==20)</span></span><br><span class="line"> code...</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>它的作用是：如果(MAX==10)||(MAX==20)成立，那么编译器就会把其中的#if 与 #endif之间的代码编译进去（注意：是编译进去，不是执行！！）</p>
+<h1 id="if-defined的使用"><a href="#if-defined的使用" class="headerlink" title="#if defined的使用"></a>#if defined的使用</h1><p>#if后面接的是一个宏, 而#if define(x)的使用如下 : </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined (x)</span></span><br><span class="line">    ...code...</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>这个#if defined它不管里面的“x”的逻辑是“真”还是“假”它只管这个程序的前面的宏定义里面有没有定义“x”这个宏，如果定义了x这个宏，那么，编译器会编译中间的…code…否则不直接忽视中间的…code…代码。<br>另外 #if defined(x)也可以取反，也就用 #if !defined(x)</p>
+<h1 id="ifdef的使用"><a href="#ifdef的使用" class="headerlink" title="#ifdef的使用"></a>#ifdef的使用</h1><ul>
+<li>#ifdef的使用和#if defined()的用法一致</li>
+<li>#ifndef又和#if !defined()的用法一致。</li>
+</ul>
+<p>最后强调两点：</p>
+<ul>
+<li>这几个宏定义只是决定代码块是否被编译！</li>
+<li>别忘了#endif</li>
+</ul>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/lua_special_part/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/lua_special_part/" itemprop="url">Lua特别之处笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-03T18:12:15+00:00">
+                02-03-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="2-2-Booleans"><a href="#2-2-Booleans" class="headerlink" title="2.2 Booleans"></a>2.2 Booleans</h1><p>两个取值 false 和 true。但要注意 Lua 中所有的值都可以作为条件。在控制结构的条<br>件中除了 false 和 nil 为假，其他值都为真。所以 Lua 认为 0 和空串都是真。</p>
+<h1 id="2-5-table"><a href="#2-5-table" class="headerlink" title="2.5 table"></a>2.5 table</h1><p>我们用一个疑问来引入table的介绍</p>
+<h2 id="传的是值还是引用"><a href="#传的是值还是引用" class="headerlink" title="传的是值还是引用?"></a>传的是值还是引用?</h2><p>lua的函数调用传的是值还是引用?</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/gdb_tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gdb_tutorial/" itemprop="url">GDB基础教程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-02T12:18:54+00:00">
+                02-02-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="GDB-操作提示"><a href="#GDB-操作提示" class="headerlink" title="GDB 操作提示"></a>GDB 操作提示</h1><p>在编译可执行文件时需要给 gcc 加上 “-g” 选项，这样它才会为生成的可执行文件加入额外的调试信息。<br>不要使用编译器的优化选项，比如： “-O”，”-O2”。因为编译器会为了优化而改变程序流程，那样不利于调试。<br>在 GDB 中执行 shell 命令可以使用：shell command<br>GDB 命令可以使用 TAB 键来补全。按两次 TAB 键可以看到所有可能的匹配。<br>GDB 命令缩写：例如 info bre 中的 bre 相当于 breakpoints。</p>
+<h1 id="启动GDB"><a href="#启动GDB" class="headerlink" title="启动GDB"></a>启动GDB</h1><ul>
+<li>gdb executable</li>
+<li>gdb -e executable -c core-file</li>
+<li>gdb executable -pid process-id （使用ps相关命令可以查看进程的 pid）</li>
+</ul>
+<h1 id="GDB常用命令"><a href="#GDB常用命令" class="headerlink" title="GDB常用命令"></a>GDB常用命令</h1><ul>
+<li>help                        列出 gdb 帮助信息。</li>
+<li>info+subcommand , 比如 :<ul>
+<li>info breakpoints    : 列出断点。</li>
+<li>info watchpoints    : 列出观察点。</li>
+<li>info threads        : 列出当前的线程。</li>
+<li>info locals        : 列出Local variables of current stack frame</li>
+<li></li>
+</ul>
+</li>
+<li>step(简写一个s也可)         进入下一行代码的执行，会进入函数内部。</li>
+<li>next(简写一个n也可)         执行下一行代码。但不会进入函数内部。</li>
+<li>finish                     跳出当前代码（之前跳入调试）</li>
+<li>continue(c)                继续执行直到下一个断点或观察点。</li>
+<li>b                          断点</li>
+<li>kill                        停止程序执行。</li>
+<li>quit(q)                    退出 GDB调试器</li>
+<li>run(r)                    从头开始执行程序，也允许进行重定向。</li>
+<li>print(p) variable            打印指定变量的值。<ul>
+<li>p variable</li>
+<li>p file::variable</li>
+<li>p ‘file’::variables</li>
+<li></li>
+</ul>
+</li>
+<li>backtrace(简写bt), 显示函数调用栈<ul>
+<li>bt :                        显示所有函数调用栈</li>
+<li>bt n :             显示程序的调用栈信息，只显示栈顶n桢(frame)</li>
+<li>bt -n :             显示程序的调用栈信息，只显示栈底部n桢(frame)</li>
+<li>set backtrace limit n :     设置bt显示的最大桢层数</li>
+<li>where 和 info stack ：        都是bt的别名，功能一样</li>
+</ul>
+</li>
+</ul>
+<h1 id="细说断点"><a href="#细说断点" class="headerlink" title="细说断点"></a>细说断点</h1><p>给 test.c 的第10行设置一个断点 : </p>
+<pre><code>b test.c:10 
+</code></pre><h2 id="断点删除"><a href="#断点删除" class="headerlink" title="断点删除"></a>断点删除</h2><p>断点的删除与断点的设置同样的重要。删除断点的命令有两个:</p>
+<ul>
+<li><a href="#delete">delete</a></li>
+<li><a href="#clear">clear</a></li>
+</ul>
+<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>用法：delete [breakpoints num] [range…]<br>delete可删除单个断点，也可删除一个断点的集合，这个集合用连续的断点号来描述。<br>例如：</p>
+<pre><code>delete 5
+delete 1-10
+</code></pre><h3 id="clear"><a href="#clear" class="headerlink" title="clear"></a>clear</h3><p>用法:</p>
+<ul>
+<li>clear 删除所选定的环境中所有的断点</li>
+<li>clear location location描述具体的断点。</li>
+</ul>
+<p>clear 删除断点是基于行的，不是把所有的断点都删除。<br>例如：</p>
+<pre><code>clear list_insert         //删除函数的所有断点
+clear list.c:list_delet   //删除文件：函数的所有断点
+clear 12                  //删除行号的所有断点
+clear list.c:12           //删除文件：行号的所有断点
+</code></pre><h2 id="断点的使能和禁止"><a href="#断点的使能和禁止" class="headerlink" title="断点的使能和禁止"></a>断点的使能和禁止</h2><p>对断点的控制除了建立和删除外，还可以通过使能和禁止来控制，后一种方法更灵活。</p>
+<p>断点的四种使能操作：</p>
+<ul>
+<li>enable [breakpoints] [range…] 完全使能</li>
+<li>enable                //激活所有断点</li>
+<li>enable 4            //激活4断点</li>
+<li>enable 5-6            //激活5～6断点</li>
+<li>disable [breakpoints] [range…] 禁止</li>
+<li>enable once [breakpoints] [range…] 使能一次，触发后禁止</li>
+<li>enable delete [breakpoints] [range…]使能一次，触发后删除</li>
+</ul>
+<p>用法举例：</p>
+<pre><code>diable                //禁止所有断点
+disble 2            //禁止第二个断点
+disable 1-5            //禁止第1到第5个断点
+</code></pre><h1 id="GDB帮助"><a href="#GDB帮助" class="headerlink" title="GDB帮助"></a>GDB帮助</h1><p>GDB的命令很多, 有些用得少的命令记不住的话, 可以在进入GDB之后敲 “help”, 然后再敲 “help + command_class”,<br>比如 :</p>
+<p><strong>(gdb) help</strong><br>List of classes of commands:</p>
+<p>aliases – Aliases of other commands<br>breakpoints – Making program stop at certain points<br>data – Examining data<br>files – Specifying and examining files<br>internals – Maintenance commands<br>obscure – Obscure features<br>running – Running the program<br>stack – Examining the stack<br>status – Status inquiries<br>support – Support facilities<br>tracepoints – Tracing of program execution without stopping the program<br>user-defined – User-defined commands</p>
+<p>Type “help” followed by a class name for a list of commands in that class.<br>Type “help all” for the list of all commands.<br>Type “help” followed by command name for full documentation.<br>Type “apropos word” to search for commands related to “word”.<br>Command name abbreviations are allowed if unambiguous.</p>
+<p><strong>(gdb) help running </strong><br>Running the program.</p>
+<p>List of commands:</p>
+<p>advance – Continue the program up to the given location (same form as args for break command)<br>attach – Attach to a process or file outside of GDB<br>continue – Continue program being debugged<br>detach – Detach a process or file previously attached<br>detach checkpoint – Detach from a checkpoint (experimental)<br>detach inferiors – Detach from inferior ID (or list of IDS)<br>disconnect – Disconnect from a target<br>finish – Execute until selected stack frame returns<br>handle – Specify how to handle signals<br>inferior – Use this command to switch between inferiors<br>interrupt – Interrupt the execution of the debugged program<br>jump – Continue program being debugged at specified line or address<br>kill – Kill execution of program being debugged<br>kill inferiors – Kill inferior ID (or list of IDs)<br>next – Step program<br>nexti – Step one instruction<br>reverse-continue – Continue program being debugged but run it in reverse<br>reverse-finish – Execute backward until just before selected stack frame is called<br>reverse-next – Step program backward<br>reverse-nexti – Step backward one instruction<br>reverse-step – Step program backward until it reaches the beginning of another source line<br>reverse-stepi – Step backward exactly one instruction<br>run – Start debugged program<br>…</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/singleton_pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/singleton_pattern/" itemprop="url">单例模式的析构问题和线程安全问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-02T12:18:54+00:00">
+                02-02-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <p>在某些应用环境下面，一个类只允许有一个实例，这就是著名的单例模式。<br>单例模式分为</p>
+<ul>
+<li>懒汉模式</li>
+<li>饿汉模式</li>
+</ul>
+<h1 id="饿汉模式"><a href="#饿汉模式" class="headerlink" title="饿汉模式"></a>饿汉模式</h1><p>在实例化 <code>m_instance</code> 变量时，直接调用类的构造函数。顾名思义，在还未使用变量时，已经对 <code>m_instance</code> 进行赋值，就像很饥饿的感觉。<br>在main开始前就初始化好了， 所以是线程安全的。</p>
+<h2 id="没有考虑析构问题饿汉模式的示例代码"><a href="#没有考虑析构问题饿汉模式的示例代码" class="headerlink" title="没有考虑析构问题饿汉模式的示例代码"></a>没有考虑析构问题饿汉模式的示例代码</h2><p>首先给出没有考虑析构问题的饿汉模式的实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	singleton() &#123;&#125;;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	singleton(<span class="keyword">const</span> singleton&amp;) &#123;&#125;;</span><br><span class="line">	singleton&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> singleton&amp;) &#123;&#125;;</span><br><span class="line">	<span class="keyword">static</span> singleton* m_instance;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> singleton* <span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line">	~singleton()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Singleton destruction\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">singleton* singleton::GetInstance()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> m_instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">singleton* singleton::m_instance = <span class="keyword">new</span> singleton;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	singleton *ct = singleton::GetInstance();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="饿汉模式的优点"><a href="#饿汉模式的优点" class="headerlink" title="饿汉模式的优点"></a>饿汉模式的优点</h2><ul>
+<li>线程安全 </li>
+<li>实现简单，容易维护</li>
+</ul>
+<h2 id="饿汉模式的缺点"><a href="#饿汉模式的缺点" class="headerlink" title="饿汉模式的缺点"></a>饿汉模式的缺点</h2><ul>
+<li>不适合部分场景。如：因为性能问题，希望懒加载；需要运行时才能知道，是否生成实例 </li>
+<li>由于在main开始前就必须初始化，几乎不可能给类传入任何参数。</li>
+</ul>
+<h1 id="懒汉模式"><a href="#懒汉模式" class="headerlink" title="懒汉模式"></a>懒汉模式</h1><p>懒汉模式下，在定义m_instance变量时先等于NULL，在调用GetInstance()方法时，在判断是否要赋值。这种模式，并非是线程安全的，因为多个线程同时调用GetInstance()方法，就可能导致有产生多个实例。</p>
+<h2 id="没有考虑线程安全与析构问题的懒汉模式的示例代码"><a href="#没有考虑线程安全与析构问题的懒汉模式的示例代码" class="headerlink" title="没有考虑线程安全与析构问题的懒汉模式的示例代码"></a>没有考虑线程安全与析构问题的懒汉模式的示例代码</h2><p>下面是没有考虑线程安全以及析构问题的懒汉模式的代码实现</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	singleton() &#123;&#125;;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	singleton(<span class="keyword">const</span> singleton&amp;) &#123;&#125;;</span><br><span class="line">	singleton&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> singleton&amp;) &#123;&#125;;</span><br><span class="line">	<span class="keyword">static</span> singleton* m_instance;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> singleton* <span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line">	~singleton()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Singleton destruction\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">singleton* singleton::GetInstance()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (m_instance == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		m_instance = <span class="keyword">new</span> singleton;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> m_instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">singleton* singleton::m_instance = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	singleton *ct = singleton::GetInstance();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="解决懒汉模式线程安全问题的几种方法"><a href="#解决懒汉模式线程安全问题的几种方法" class="headerlink" title="解决懒汉模式线程安全问题的几种方法"></a>解决懒汉模式线程安全问题的几种方法</h2><p>有下面几种方法 :</p>
+<ul>
+<li><a href="#使用局部静态变量">使用局部静态变量</a></li>
+<li><a href="#加锁">加锁</a></li>
+<li><a href="#pthread-once">pthread_once</a></li>
+<li><a href="#DCL">DCL</a></li>
+</ul>
+<h3 id="使用局部静态变量"><a href="#使用局部静态变量" class="headerlink" title="使用局部静态变量"></a>使用局部静态变量</h3><p>使用局部静态变量。<br>局部静态变量的初始化是线程安全的，这一点由编译器保证.（<a href="http://gcc.gnu.org/ml/gcc-patches/2004-09/msg00265.html" target="_blank" rel="noopener">http://gcc.gnu.org/ml/gcc-patches/2004-09/msg00265.html</a>，这是一个 GCC 的 patch，专门解决这个问题）。会在程序退出的时候自动销毁。<br><a href="http://stackoverflow.com/questions/270947/can-any-one-provide-me-a-sample-of-singleton-in-c/271104#271104" target="_blank" rel="noopener">见此处</a></p>
+<p>这个方法适合 C++11，C++11保证静态局部变量的初始化是线程安全的。<br>如果是 C++98 就不能用这个方法。</p>
+<figure class="highlight c++"><figcaption><span>非摸板版本</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">S</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">static</span> S&amp; <span class="title">getInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">static</span> S    instance;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        S() &#123;&#125;</span><br><span class="line">        S(S <span class="keyword">const</span>&amp;);              <span class="comment">// Don't Implement.</span></span><br><span class="line">        <span class="keyword">void</span> <span class="keyword">operator</span>=(S <span class="keyword">const</span>&amp;); <span class="comment">// Don't implement</span></span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
+<p>或者<br><figure class="highlight cpp"><figcaption><span>模板版本</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> T&amp; <span class="title">GetInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">static</span> T instance;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Singleton(T&amp;&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    Singleton(<span class="keyword">const</span> T&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    <span class="keyword">void</span> <span class="keyword">operator</span>= (<span class="keyword">const</span> T&amp;) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    Singleton() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="keyword">virtual</span> ~Singleton() = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h3><p>线程安全，但每次都有开销。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// singleton.h</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">static</span> Singleton *<span class="title">GetInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            lock();</span><br><span class="line">            <span class="keyword">if</span> (p == <span class="literal">NULL</span>) &#123;</span><br><span class="line">                p = <span class="keyword">new</span> Singleton;</span><br><span class="line">            &#125;</span><br><span class="line">			unlock();</span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">static</span> Singleon *p;</span><br><span class="line">    Singleton() &#123;&#125;</span><br><span class="line">    Singleton(<span class="keyword">const</span> Singleton &amp;);</span><br><span class="line">    Singleton&amp; <span class="keyword">operator</span>= (<span class="keyword">const</span> Singleton &amp;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// singleton.cc</span></span><br><span class="line">Singleton *Singleton::p = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="pthread-once"><a href="#pthread-once" class="headerlink" title="pthread_once"></a>pthread_once</h3><p>陈硕推荐的做法</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">static</span> Singleton *<span class="title">GetInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            pthread_once(&amp;ponce_, &amp;Singleton::init);</span><br><span class="line">            <span class="keyword">return</span> value_;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">private</span>:</span><br><span class="line">        Singleton() &#123;&#125;</span><br><span class="line">        Singleton(<span class="keyword">const</span> Singleton &amp;);</span><br><span class="line">        Singleton&amp; <span class="keyword">operator</span>= (<span class="keyword">const</span> Singleton &amp;);</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            value_ = <span class="keyword">new</span> T();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">pthread_once_t</span> ponce_;</span><br><span class="line">        <span class="keyword">static</span> Singleton *value_;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">pthread_once_t</span> SIngleton::ponce_ = PTHREAD_ONCE_INIT;</span><br><span class="line">Singleton* Singleton::value_ = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h3><p>double check locking. 只能用内存屏障，其他做法都是有问题的。<br>参见论文： <a href="http://www.aristeia.com/Papers/DDJ_Jul_Aug_2004_revised.pdf" target="_blank" rel="noopener">http://www.aristeia.com/Papers/DDJ_Jul_Aug_2004_revised.pdf</a><br>普通的 double check 之所以错，是因为乱序执行和多处理器下，不同 CPU 中间 cache 刷往内存并对其他 CPU 可见的顺序无法保障（cache coherency problem）。<br><code>Singleton&lt;T&gt; *p = new Singleton&lt;T&gt;;</code>, 那么实际有 3 步：</p>
+<ol>
+<li>分配内存</li>
+<li>构造</li>
+<li>赋值给 p</li>
+</ol>
+<p>2 和 3 的顺序是未定的（乱序执行！）。因此，如果直接赋值给 p 那么很可能构造还没完成。此时另一个线程调用 GetInstance，在 lock 外面 check 了一下，发现 p!=NULL，于是直接返回 p，使用了未初始化完成的实例，跪了。</p>
+<p>那么，如果用中间变量转一下呢？用 tmp_p 转了下以后，tmp_p 赋值给 p 的时候，显然 p 指向的实例是构造完成了的。然而，这个 tmp_p 在编译器看来明显没什么用，会被优化掉。</p>
+<h1 id="关于不能自动调用析构的问题"><a href="#关于不能自动调用析构的问题" class="headerlink" title="关于不能自动调用析构的问题"></a>关于不能自动调用析构的问题</h1><p>上面的两个示例代码<br>( <a href="#没有考虑析构问题饿汉模式的示例代码">没有考虑析构问题饿汉模式的示例代码</a> 和 <a href="#没有考虑线程安全与析构问题的懒汉模式的示例代码">没有考虑线程安全与析构问题的懒汉模式的示例代码</a> ) 都有不能自动调用析构的问题.</p>
+<p>当你运行这两个示例代码之后, 你都会发现并没有打印 “Singleton destruction”, 也就是说程序结束时并没有调用 singleton 类的析构函数的, 为什么呢?</p>
+<p>因为 <code>m_instance = new singleton;</code>, new出来的东西需要delete掉, 如果加上一句 <code>delete ct; ct = NULL;</code>, 就会调用析构函数了.<br>但这种手动调用很容易忘啊, 怎么才能自动调用它的析构呢?</p>
+<p>我们想要的是 : 自动化的正常删除该实例。</p>
+<p>有两种方法, 我给他划分为: </p>
+<ul>
+<li><a href="#不需要加GC内嵌类的单例模式">不需要加GC(垃圾回收)内嵌类的单例模式(推荐)</a></li>
+<li><a href="#需要加GC内嵌类的单例模式">需要加GC(垃圾回收)内嵌类的单例模式</a></li>
+</ul>
+<h2 id="需要加GC内嵌类的单例模式"><a href="#需要加GC内嵌类的单例模式" class="headerlink" title="需要加GC内嵌类的单例模式"></a>需要加GC内嵌类的单例模式</h2><p>我们先看第二种,</p>
+<p>我们知道，程序在结束的时候，系统会自动析构所有的全局变量。事实上，系统也会析构所有的类的静态成员变量，就像这些静态成员也是全局变量一样。利用这个特征，我们可以在单例类中定义一个这样的静态成员变量，而它的唯一工作就是在析构函数中删除单例类的实例。<br>那就是定义一个内部垃圾回收GC类，并且在 singleton 中定义一个此类的静态成员。程序结束时，系统会自动析构此静态成员，此时，在此类的析构函数中析构 singleton 实例，就可以实现 m_instance 的自动释放。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	singleton() &#123;&#125;;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	singleton(<span class="keyword">const</span> singleton&amp;) &#123;&#125;;</span><br><span class="line">	singleton&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> singleton&amp;) &#123;&#125;;</span><br><span class="line">	<span class="keyword">static</span> singleton* m_instance;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> singleton* <span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line">	~singleton()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Singleton destruction\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">GC</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		~GC()</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"GC destruction\n"</span>);</span><br><span class="line">			<span class="keyword">if</span> (m_instance)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">delete</span> m_instance;</span><br><span class="line">				m_instance = <span class="literal">NULL</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">static</span> GC gc_singleton;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">singleton::GC singleton::gc_singleton;</span><br><span class="line"></span><br><span class="line">singleton* singleton::GetInstance()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (m_instance == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		m_instance = <span class="keyword">new</span> singleton();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> m_instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">singleton* singleton::m_instance = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	singleton *ct = singleton::GetInstance();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然还有更好的方法.那就是下面这个不需要加GC内嵌类的单例模式.</p>
+<h2 id="不需要加GC内嵌类的单例模式"><a href="#不需要加GC内嵌类的单例模式" class="headerlink" title="不需要加GC内嵌类的单例模式"></a>不需要加GC内嵌类的单例模式</h2><p>在 GetInstance 方法里放一个 m_instance 的局部静态变量, 然后返回他的地址, 他就可以在程序结束自动调用析构函数.<br>而且这种方法在C++11也能保证线程安全.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	singleton() &#123;&#125;;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	singleton(<span class="keyword">const</span> singleton&amp;) &#123;&#125;;</span><br><span class="line">	singleton&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> singleton&amp;) &#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">static</span> singleton* <span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line">	~singleton()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Singleton destruction\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">singleton* singleton::GetInstance()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">static</span> singleton m_instance;</span><br><span class="line">	<span class="keyword">return</span> &amp;m_instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	singleton *ct = singleton::GetInstance();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>既要考虑线程安全又要考虑析构问题的话, 有下面几种方法 :</p>
+<ul>
+<li>饿汉模式+GC内嵌类</li>
+<li>懒汉模式+GC内嵌类, 然后加锁，但每个线程缓存了返回的指针，调用一次有用缓存的指针即可。</li>
+<li>懒汉模式+GC内嵌类, 然后 pthread_once</li>
+</ul>
+<p>如果是C++11的话, 则可以使用局部静态变量, 因为C++11保证静态局部变量的初始化是线程安全的(C++98不保证), 而且也没有析构问题.</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/33/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><a class="page-number" href="/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/page/35/">35</a><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/35/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

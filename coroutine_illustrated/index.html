@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '基于ucontext实现协程' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Coroutine,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="干货写在前面 协程的概念就不详细介绍了,不清楚的同学可以自己google,windows和unix like系统本身就提供了协程的支持,windows下叫fiber,unix like系统下叫ucontext. 协程是一种用户态的轻量级线程。本篇主要研究协程的 C/C++ 的实现。首先我们可以看看有哪些语言已经具备协程语义：  比较重量级的有 C#、erlang、golang* 轻量级有 pyth">
+<meta name="keywords" content="Coroutine">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于ucontext实现协程">
+<meta property="og:url" content="https://hulinhong.com/coroutine_illustrated/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="干货写在前面 协程的概念就不详细介绍了,不清楚的同学可以自己google,windows和unix like系统本身就提供了协程的支持,windows下叫fiber,unix like系统下叫ucontext. 协程是一种用户态的轻量级线程。本篇主要研究协程的 C/C++ 的实现。首先我们可以看看有哪些语言已经具备协程语义：  比较重量级的有 C#、erlang、golang* 轻量级有 pyth">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于ucontext实现协程">
+<meta name="twitter:description" content="干货写在前面 协程的概念就不详细介绍了,不清楚的同学可以自己google,windows和unix like系统本身就提供了协程的支持,windows下叫fiber,unix like系统下叫ucontext. 协程是一种用户态的轻量级线程。本篇主要研究协程的 C/C++ 的实现。首先我们可以看看有哪些语言已经具备协程语义：  比较重量级的有 C#、erlang、golang* 轻量级有 pyth">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>基于ucontext实现协程 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/coroutine_illustrated/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于ucontext实现协程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-17T02:47:54+00:00">
+                03-17-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Coroutine/" rel="tag"><i class="fa fa-tag"></i> Coroutine</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/self_cultivation_distributed_system/" rel="next" title="服务器开发自我修养专栏-分布式系统">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  服务器开发自我修养专栏-分布式系统
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/self_cultivation_python/" rel="prev" title="服务器开发自我修养专栏-Python精要">
+              <p class="post-nav-pre-next-title">
+                  服务器开发自我修养专栏-Python精要
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="干货写在前面"><a href="#干货写在前面" class="headerlink" title="干货写在前面"></a>干货写在前面</h1><hr>
+<p>协程的概念就不详细介绍了,不清楚的同学可以自己google,windows和unix like系统<br>本身就提供了协程的支持,windows下叫fiber,unix like系统下叫ucontext.</p>
+<p>协程是一种用户态的轻量级线程。本篇主要研究协程的 C/C++ 的实现。<br>首先我们可以看看有哪些语言已经具备协程语义：</p>
+<ul>
+<li>比较重量级的有 C#、erlang、golang*</li>
+<li>轻量级有 python、lua、javascript、ruby</li>
+<li>还有函数式的 scala、scheme 等。</li>
+</ul>
+<p>c/c++ 不直接支持协程语义，但有不少开源的协程库，如：<br>Protothreads：<a href="http://coolshell.cn/articles/10975.html" target="_blank" rel="noopener">一个 “蝇量级” C 语言协程库</a><br>libco: <a href="http://www.cnblogs.com/bangerlee/p/4003160.html" target="_blank" rel="noopener">来自腾讯的开源协程库 libco 介绍</a>，<a href="http://code.tencent.com/libco.html" target="_blank" rel="noopener">官网</a><br>coroutine: <a href="https://github.com/cloudwu/coroutine/" target="_blank" rel="noopener">云风的一个 C 语言同步协程库</a>, <a href="http://blog.codingnow.com/2012/07/c_coroutine.html" target="_blank" rel="noopener">详细信息</a></p>
+<p>目前看到大概有四种实现协程的方式：</p>
+<ul>
+<li>第一种：利用 glibc 的 ucontext 组件 (云风的库)</li>
+<li>第二种：使用汇编代码来切换上下文 (<a href="http://www.cnblogs.com/sniperHW/archive/2012/06/19/2554574.html" target="_blank" rel="noopener">实现 c 协程</a>)</li>
+<li>第三种：利用 C 语言语法 switch-case 的奇淫技巧来实现（Protothreads)</li>
+<li>第四种：利用了 C 语言的 setjmp 和 longjmp（ <a href="http://www.cnblogs.com/Pony279/p/3903048.html" target="_blank" rel="noopener">一种协程的 C/C++ 实现</a>, 要求函数里面使用 static local 的变量来保存协程内部的数据）</li>
+</ul>
+<p>本篇主要使用 ucontext 来实现简单的协程库。</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="ucontext-初接触"><a href="#ucontext-初接触" class="headerlink" title="ucontext 初接触"></a>ucontext 初接触</h1><hr>
+<p>利用 ucontext 提供的四个函数<code>getcontext(),setcontext(),makecontext(),swapcontext()</code>可以在一个进程中实现用户级的线程切换。</p>
+<p>本节我们先来看 ucontext 实现的一个简单的例子：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ucontext.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">ucontext_t</span> context;</span><br><span class="line"> </span><br><span class="line">    getcontext(&amp;context);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Hello world"</span>);</span><br><span class="line">    sleep(<span class="number">1</span>);</span><br><span class="line">    setcontext(&amp;context);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注：示例代码来自<a href="http://en.wikipedia.org/wiki/Setcontext" target="_blank" rel="noopener">维基百科</a>.</p>
+<p>保存上述代码到<code>example.c</code>, 执行编译命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc example.c -o example</span><br></pre></td></tr></table></figure>
+<p>想想程序运行的结果会是什么样？</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cxy@ubuntu:~$ ./example </span><br><span class="line">Hello world</span><br><span class="line">Hello world</span><br><span class="line">Hello world</span><br><span class="line">Hello world</span><br><span class="line">Hello world</span><br><span class="line">Hello world</span><br><span class="line">Hello world</span><br><span class="line">^C</span><br><span class="line">cxy@ubuntu:~$</span><br></pre></td></tr></table></figure>
+<p>上面是程序执行的部分输出，不知道是否和你想得一样呢？我们可以看到，程序在输出第一个 “Hello world”后并没有退出程序，而是持续不断的输出”Hello world“。其实是程序通过 getcontext 先保存了一个上下文, 然后输出”Hello world”, 在通过 setcontext 恢复到 getcontext 的地方，重新执行代码，所以导致程序不断的输出”Hello world“，在我这个菜鸟的眼里，这简直就是一个神奇的跳转。</p>
+<p><strong>那么问题来了，ucontext 到底是什么？</strong></p>
+<h1 id="ucontext-组件到底是什么"><a href="#ucontext-组件到底是什么" class="headerlink" title="ucontext 组件到底是什么"></a>ucontext 组件到底是什么</h1><hr>
+<p>在类 System V 环境中, 在头文件 <ucontext.h> 中定义了两个结构类型，<code>mcontext_t</code>和<code>ucontext_t</code>和四个函数<code>getcontext(),setcontext(),makecontext(),swapcontext()</code>. 利用它们可以在一个进程中实现用户级的线程切换。</ucontext.h></p>
+<p><code>mcontext_t</code>类型与机器相关，并且不透明.<code>ucontext_t</code>结构体则至少拥有以下几个域:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ucontext</span> &#123;</span></span><br><span class="line">               <span class="class"><span class="keyword">struct</span> <span class="title">ucontext</span> *<span class="title">uc_link</span>;</span></span><br><span class="line">               <span class="keyword">sigset_t</span>         uc_sigmask;</span><br><span class="line">               <span class="keyword">stack_t</span>          uc_stack;</span><br><span class="line">               <span class="keyword">mcontext_t</span>       uc_mcontext;</span><br><span class="line">               ...</span><br><span class="line">           &#125; <span class="keyword">ucontext_t</span>;</span><br></pre></td></tr></table></figure>
+<p>当当前上下文 (如使用 makecontext 创建的上下文）运行终止时系统会恢复<code>uc_link</code>指向的上下文；<code>uc_sigmask</code>为该上下文中的阻塞信号集合；<code>uc_stack</code>为该上下文中使用的栈；<code>uc_mcontext</code>保存的上下文的特定机器表示，包括调用线程的特定寄存器等。</p>
+<p>下面详细介绍四个函数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int getcontext(ucontext_t *ucp);</span><br></pre></td></tr></table></figure>
+<p>初始化 ucp 结构体，将当前的上下文保存到 ucp 中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int setcontext(const ucontext_t *ucp);</span><br></pre></td></tr></table></figure>
+<p>设置当前的上下文为 ucp，setcontext 的上下文 ucp 应该通过 getcontext 或者 makecontext 取得，如果调用成功则不返回。如果上下文是通过调用 getcontext() 取得, 程序会继续执行这个调用。如果上下文是通过调用 makecontext 取得, 程序会调用 makecontext 函数的第二个参数指向的函数，如果 func 函数返回, 则恢复 makecontext 第一个参数指向的上下文第一个参数指向的上下文 context_t 中指向的 uc_link. 如果 uc_link 为 NULL, 则线程退出。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void makecontext(ucontext_t *ucp, void (*func)(), int argc, ...);</span><br></pre></td></tr></table></figure>
+<p>makecontext 修改通过 getcontext 取得的上下文 ucp(这意味着<strong>调用 makecontext 前必须先调用 getcontext</strong>)。然后给该上下文指定一个栈空间 ucp-&gt;stack，设置后继的上下文 ucp-&gt;uc_link.</p>
+<p>当上下文通过 setcontext 或者 swapcontext 激活后，执行 func 函数，argc 为 func 的参数个数，后面是 func 的参数序列。当 func 执行返回后，继承的上下文被激活，如果继承上下文为 NULL 时，线程退出。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int swapcontext(ucontext_t *oucp, ucontext_t *ucp);</span><br></pre></td></tr></table></figure>
+<p>保存当前上下文到 oucp 结构体中，然后激活 upc 上下文。</p>
+<p>如果执行成功，getcontext 返回 0，setcontext 和 swapcontext 不返回；如果执行失败，getcontext,setcontext,swapcontext 返回 - 1，并设置对于的 errno.</p>
+<p>简单说来， <code>getcontext</code>获取当前上下文，<code>setcontext</code>设置当前上下文，<code>swapcontext</code>切换上下文，<code>makecontext</code>创建一个新的上下文。</p>
+<h1 id="小试牛刀-使用-ucontext-组件实现线程切换"><a href="#小试牛刀-使用-ucontext-组件实现线程切换" class="headerlink" title="小试牛刀 - 使用 ucontext 组件实现线程切换"></a>小试牛刀 - 使用 ucontext 组件实现线程切换</h1><hr>
+<p>虽然我们称协程是一个用户态的轻量级线程，但实际上多个协程同属一个线程。任意一个时刻，同一个线程不可能同时运行两个协程。如果我们将协程的调度简化为：主函数调用协程 1，运行协程 1 直到协程 1 返回主函数，主函数在调用协程 2，运行协程 2 直到协程 2 返回主函数。示意步骤如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">执行主函数</span><br><span class="line">    切换：主函数 --&gt; 协程1</span><br><span class="line">    执行协程1</span><br><span class="line">    切换：协程1  --&gt; 主函数</span><br><span class="line">    执行主函数</span><br><span class="line">    切换：主函数 --&gt; 协程2</span><br><span class="line">    执行协程2</span><br><span class="line">    切换协程2  --&gt; 主函数</span><br><span class="line">    执行主函数</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>这种设计的关键在于实现主函数到一个协程的切换，然后从协程返回主函数。这样无论是一个协程还是多个协程都能够完成与主函数的切换，从而实现协程的调度。</p>
+<p>实现用户线程的过程是：</p>
+<ol>
+<li>我们首先调用 getcontext 获得当前上下文</li>
+<li>修改当前上下文 ucontext_t 来指定新的上下文，如指定栈空间及其大小，设置用户线程执行完后返回的后继上下文（即主函数的上下文）等</li>
+<li>调用 makecontext 创建上下文，并指定用户线程中要执行的函数</li>
+<li>切换到用户线程上下文去执行用户线程（如果设置的后继上下文为主函数，则用户线程执行完后会自动返回主函数）。</li>
+</ol>
+<p>下面代码<code>context_test</code>函数完成了上面的要求。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ucontext.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"1"</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"11"</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"111"</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"1111"</span>);</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">context_test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> <span class="built_in">stack</span>[<span class="number">1024</span>*<span class="number">128</span>];</span><br><span class="line">    <span class="keyword">ucontext_t</span> child,main;</span><br><span class="line"> </span><br><span class="line">    getcontext(&amp;child); <span class="comment">//获取当前上下文</span></span><br><span class="line">    child.uc_stack.ss_sp = <span class="built_in">stack</span>;<span class="comment">//指定栈空间</span></span><br><span class="line">    child.uc_stack.ss_size = <span class="keyword">sizeof</span>(<span class="built_in">stack</span>);<span class="comment">//指定栈空间大小</span></span><br><span class="line">    child.uc_stack.ss_flags = <span class="number">0</span>;</span><br><span class="line">    child.uc_link = &amp;main;<span class="comment">//设置后继上下文</span></span><br><span class="line"> </span><br><span class="line">    makecontext(&amp;child,(<span class="keyword">void</span> (*)(<span class="keyword">void</span>))func1,<span class="number">0</span>);<span class="comment">//修改上下文指向func1函数</span></span><br><span class="line"> </span><br><span class="line">    swapcontext(&amp;main,&amp;child);<span class="comment">//切换到child上下文，保存当前上下文到main</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"main"</span>);<span class="comment">//如果设置了后继上下文，func1函数指向完后会返回此处</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    context_test();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 context_test 中，创建了一个用户线程 child, 其运行的函数为 func1. 指定后继上下文为 main<br>func1 返回后激活后继上下文，继续执行主函数。</p>
+<p>保存上面代码到 example-switch.cpp. 运行编译命令:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">g++ example-switch.cpp -o example-switch</span><br></pre></td></tr></table></figure>
+<p>执行程序结果如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cxy@ubuntu:~$ ./example-switch</span><br><span class="line">1</span><br><span class="line">11</span><br><span class="line">111</span><br><span class="line">1111</span><br><span class="line">main</span><br><span class="line">cxy@ubuntu:~$</span><br></pre></td></tr></table></figure>
+<p>你也可以通过修改后继上下文的设置，来观察程序的行为。如修改代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">child.uc_link = &amp;main;</span><br></pre></td></tr></table></figure>
+<p>为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">child.uc_link = NULL;</span><br></pre></td></tr></table></figure>
+<p>再重新编译执行，其执行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cxy@ubuntu:~$ ./example-switch</span><br><span class="line">1</span><br><span class="line">11</span><br><span class="line">111</span><br><span class="line">1111</span><br><span class="line">cxy@ubuntu:~$</span><br></pre></td></tr></table></figure>
+<p>可以发现程序没有打印 “main”，执行为 func1 后直接退出，而没有返回主函数。可见，如果要实现主函数到线程的切换并返回，指定后继上下文是非常重要的。</p>
+<h1 id="使用-ucontext-实现自己的协程库"><a href="#使用-ucontext-实现自己的协程库" class="headerlink" title="使用 ucontext 实现自己的协程库"></a>使用 ucontext 实现自己的协程库</h1><hr>
+<p>掌握了上一节从主函数到协程的切换的关键，我们就可以开始考虑实现自己的协程了。<br>定义一个协程的结构体如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*Fun)</span><span class="params">(<span class="keyword">void</span> *arg)</span></span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">uthread_t</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">ucontext_t</span> ctx;</span><br><span class="line">    Fun func;</span><br><span class="line">    <span class="keyword">void</span> *arg;</span><br><span class="line">    <span class="keyword">enum</span> ThreadState state;</span><br><span class="line">    <span class="keyword">char</span> <span class="built_in">stack</span>[DEFAULT_STACK_SZIE];</span><br><span class="line">&#125;<span class="keyword">uthread_t</span>;</span><br></pre></td></tr></table></figure>
+<p>ctx 保存协程的上下文，stack 为协程的栈，栈大小默认为 DEFAULT_STACK_SZIE=128Kb. 你可以根据自己的需求更改栈的大小。func 为协程执行的用户函数，arg 为 func 的参数，state 表示协程的运行状态，包括 FREE,RUNNABLE,RUNING,SUSPEND, 分别表示空闲，就绪，正在执行和挂起四种状态。</p>
+<p>在定义一个调度器的结构体</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">uthread_t</span>&gt; Thread_vector;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">schedule_t</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">ucontext_t</span> main;</span><br><span class="line">    <span class="keyword">int</span> running_thread;</span><br><span class="line">    Thread_vector threads;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">schedule_t</span>():running_thread(<span class="number">-1</span>)&#123;&#125;</span><br><span class="line">&#125;<span class="keyword">schedule_t</span>;</span><br></pre></td></tr></table></figure>
+<p>调度器包括主函数的上下文 main, 包含当前调度器拥有的所有协程的 vector 类型的 threads，以及指向当前正在执行的协程的编号 running_thread. 如果当前没有正在执行的协程时，running_thread=-1.</p>
+<p>接下来，在定义几个使用函数 uthread_create,uthread_yield,uthread_resume 函数已经辅助函数 schedule_finished. 就可以了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int  uthread_create(schedule_t &amp;schedule,Fun func,void *arg);</span><br></pre></td></tr></table></figure>
+<p>创建一个协程，该协程的会加入到 schedule 的协程序列中，func 为其执行的函数，arg 为 func 的执行函数。返回创建的线程在 schedule 中的编号。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void uthread_yield(schedule_t &amp;schedule);</span><br></pre></td></tr></table></figure>
+<p>挂起调度器 schedule 中当前正在执行的协程，切换到主函数。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void uthread_resume(schedule_t &amp;schedule,int id);</span><br></pre></td></tr></table></figure>
+<p>恢复运行调度器 schedule 中编号为 id 的协程</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int  schedule_finished(const schedule_t &amp;schedule);</span><br></pre></td></tr></table></figure>
+<p>判断 schedule 中所有的协程是否都执行完毕，是返回 1，否则返回 0. 注意：如果有协程处于挂起状态时算作未全部执行完毕，返回 0.</p>
+<p>代码就不全贴出来了，我们来看看两个关键的函数的具体实现。首先是 uthread_resume 函数：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">uthread_resume</span><span class="params">(<span class="keyword">schedule_t</span> &amp;schedule , <span class="keyword">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(id &lt; <span class="number">0</span> || id &gt;= schedule.threads.size())&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">uthread_t</span> *t = &amp;(schedule.threads[id]);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">switch</span>(t-&gt;state)&#123;</span><br><span class="line">        <span class="keyword">case</span> RUNNABLE:</span><br><span class="line">            getcontext(&amp;(t-&gt;ctx));</span><br><span class="line"> </span><br><span class="line">            t-&gt;ctx.uc_stack.ss_sp = t-&gt;<span class="built_in">stack</span>;</span><br><span class="line">            t-&gt;ctx.uc_stack.ss_size = DEFAULT_STACK_SZIE;</span><br><span class="line">            t-&gt;ctx.uc_stack.ss_flags = <span class="number">0</span>;</span><br><span class="line">            t-&gt;ctx.uc_link = &amp;(schedule.main);</span><br><span class="line">            t-&gt;state = RUNNING;</span><br><span class="line"> </span><br><span class="line">            schedule.running_thread = id;</span><br><span class="line"> </span><br><span class="line">            makecontext(&amp;(t-&gt;ctx),(<span class="keyword">void</span> (*)(<span class="keyword">void</span>))(uthread_body),<span class="number">1</span>,&amp;schedule);</span><br><span class="line"> </span><br><span class="line">            <span class="comment">/* !! note : Here does not need to break */</span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">case</span> SUSPEND:</span><br><span class="line"> </span><br><span class="line">            swapcontext(&amp;(schedule.main),&amp;(t-&gt;ctx));</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>: ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果指定的协程是首次运行，处于 RUNNABLE 状态，则创建一个上下文，然后切换到该上下文。如果指定的协程已经运行过，处于 SUSPEND 状态，则直接切换到该上下文即可。代码中需要注意 RUNNBALE 状态的地方不需要 break.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">uthread_yield</span><span class="params">(<span class="keyword">schedule_t</span> &amp;schedule)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(schedule.running_thread != <span class="number">-1</span> )&#123;</span><br><span class="line">        <span class="keyword">uthread_t</span> *t = &amp;(schedule.threads[schedule.running_thread]);</span><br><span class="line">        t-&gt;state = SUSPEND;</span><br><span class="line">        schedule.running_thread = <span class="number">-1</span>;</span><br><span class="line"> </span><br><span class="line">        swapcontext(&amp;(t-&gt;ctx),&amp;(schedule.main));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>uthread_yield 挂起当前正在运行的协程。首先是将 running_thread 置为 - 1，将正在运行的协程的状态置为 SUSPEND，最后切换到主函数上下文。</p>
+<p>更具体的代码我已经放到 github 上, <a href="https://github.com/Winnerhust/uthread" target="_blank" rel="noopener">点击这里</a>。</p>
+<h1 id="最后一步-使用我们自己的协程库"><a href="#最后一步-使用我们自己的协程库" class="headerlink" title="最后一步 - 使用我们自己的协程库"></a>最后一步 - 使用我们自己的协程库</h1><hr>
+<p>保存下面代码到 example-uthread.cpp.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"uthread.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">(<span class="keyword">void</span> * arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"22"</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"22"</span>);</span><br><span class="line">    uthread_yield(*(<span class="keyword">schedule_t</span> *)arg);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"22"</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"22"</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func3</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"3333"</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"3333"</span>);</span><br><span class="line">    uthread_yield(*(<span class="keyword">schedule_t</span> *)arg);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"3333"</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"3333"</span>);</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">schedule_test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">schedule_t</span> s;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">int</span> id1 = uthread_create(s,func3,&amp;s);</span><br><span class="line">    <span class="keyword">int</span> id2 = uthread_create(s,func2,&amp;s);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">while</span>(!schedule_finished(s))&#123;</span><br><span class="line">        uthread_resume(s,id2);</span><br><span class="line">        uthread_resume(s,id1);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"main over"</span>);</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    schedule_test();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行编译命令并运行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">g++ example-uthread.cpp -o example-uthread</span><br><span class="line">./example-uthread</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cxy@ubuntu:~/mythread$./example-uthread</span><br><span class="line">22</span><br><span class="line">22</span><br><span class="line">3333</span><br><span class="line">3333</span><br><span class="line">22</span><br><span class="line">22</span><br><span class="line">3333</span><br><span class="line">3333</span><br><span class="line">main over</span><br><span class="line">cxy@ubuntu:~/mythread$</span><br></pre></td></tr></table></figure>
+<p>可以看到，程序协程 func2，然后切换到主函数, 在执行协程 func3，再切换到主函数，又切换到 func2, 在切换到主函数，再切换到 func3, 最后切换到主函数结束。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我们利用 getcontext 和 makecontext 创建上下文，设置后继的上下文到主函数，设置每个协程的栈空间。在利用 swapcontext 在主函数和协程之间进行切换。</p>
+<p>到此，使用 ucontext 做一个自己的协程库就到此结束了。相信你也可以自己完成自己的协程库了。</p>
+<p>最后，代码我已经放到 github 上, <a href="https://github.com/Winnerhust/uthread" target="_blank" rel="noopener">点击这里</a>。</p>
+<p>转自: <a href="https://blog.csdn.net/qq910894904/article/details/41911175" target="_blank" rel="noopener">https://blog.csdn.net/qq910894904/article/details/41911175</a></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Coroutine/" rel="tag"><i class="fa fa-tag"></i> Coroutine</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/self_cultivation_distributed_system/" rel="next" title="服务器开发自我修养专栏-分布式系统">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    服务器开发自我修养专栏-分布式系统
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/self_cultivation_python/" rel="prev" title="服务器开发自我修养专栏-Python精要">
+                <p class="post-nav-pre-next-title">
+                    服务器开发自我修养专栏-Python精要
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#干货写在前面"><span class="nav-text">干货写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ucontext-初接触"><span class="nav-text">ucontext 初接触</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ucontext-组件到底是什么"><span class="nav-text">ucontext 组件到底是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小试牛刀-使用-ucontext-组件实现线程切换"><span class="nav-text">小试牛刀 - 使用 ucontext 组件实现线程切换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-ucontext-实现自己的协程库"><span class="nav-text">使用 ucontext 实现自己的协程库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后一步-使用我们自己的协程库"><span class="nav-text">最后一步 - 使用我们自己的协程库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '阅读开源服务器源码基础' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="UNP,TLPI,APUE,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="当阅读一些开源服务器源码的时候, 如果不知道以下知识, 就会有知识盲点, 导致不知所云.这篇博客会讲述一些相关的编程知识点, 把之前的笔记总结一下.还是那句老话, 带着问题阅读是最容易让人类迅速进入状态的. 进程的内存布局是什么样的?记忆口诀 : 文初堆栈  每个进程所分配的内存由很多部分组成，通常称之为“段( segment)”。如下所示。  文本段  包含了进程运行的程序机器语言指令。文本段具">
+<meta name="keywords" content="UNP,TLPI,APUE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阅读开源服务器源码基础">
+<meta property="og:url" content="https://hulinhong.com/阅读开源服务器源码基础/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="当阅读一些开源服务器源码的时候, 如果不知道以下知识, 就会有知识盲点, 导致不知所云.这篇博客会讲述一些相关的编程知识点, 把之前的笔记总结一下.还是那句老话, 带着问题阅读是最容易让人类迅速进入状态的. 进程的内存布局是什么样的?记忆口诀 : 文初堆栈  每个进程所分配的内存由很多部分组成，通常称之为“段( segment)”。如下所示。  文本段  包含了进程运行的程序机器语言指令。文本段具">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.690Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="阅读开源服务器源码基础">
+<meta name="twitter:description" content="当阅读一些开源服务器源码的时候, 如果不知道以下知识, 就会有知识盲点, 导致不知所云.这篇博客会讲述一些相关的编程知识点, 把之前的笔记总结一下.还是那句老话, 带着问题阅读是最容易让人类迅速进入状态的. 进程的内存布局是什么样的?记忆口诀 : 文初堆栈  每个进程所分配的内存由很多部分组成，通常称之为“段( segment)”。如下所示。  文本段  包含了进程运行的程序机器语言指令。文本段具">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>阅读开源服务器源码基础 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/阅读开源服务器源码基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">阅读开源服务器源码基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-04T19:01:46+00:00">
+                07-04-2016
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/UNP/" rel="tag"><i class="fa fa-tag"></i> UNP</a>
+              
+                <a href="/tags/TLPI/" rel="tag"><i class="fa fa-tag"></i> TLPI</a>
+              
+                <a href="/tags/APUE/" rel="tag"><i class="fa fa-tag"></i> APUE</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/MongoDB能取代MySQL或者Redis能取代memcached么/" rel="next" title="MongoDB能取代MySQL或者Redis能取代memcached么">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  MongoDB能取代MySQL或者Redis能取代memcached么
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/游戏服务端常用架构一/" rel="prev" title="游戏服务端常用架构一">
+              <p class="post-nav-pre-next-title">
+                  游戏服务端常用架构一
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p>当阅读一些开源服务器源码的时候, 如果不知道以下知识, 就会有知识盲点, 导致不知所云.<br>这篇博客会讲述一些相关的编程知识点, 把之前的笔记总结一下.<br>还是那句老话, <strong>带着问题阅读是最容易让人类迅速进入状态的</strong>.</p>
+<h1 id="进程的内存布局是什么样的"><a href="#进程的内存布局是什么样的" class="headerlink" title="进程的内存布局是什么样的?"></a>进程的内存布局是什么样的?</h1><p>记忆口诀 : 文初堆栈</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://img.blog.csdn.net/20170822215327682?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbm9zaXg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>每个进程所分配的内存由很多部分组成，通常称之为“段( segment)”。如下所示。</p>
+<ul>
+<li>文本段<br>  包含了进程运行的程序机器语言指令。文本段具有只读属性，以防止进程通过错<br>  误指针意外修改自身指令。因为多个进程可同时运行同一程序，所以又将文本段设为可<br>  共享，这样，一份程序代码的拷贝可以映射到所有这些进程的虚拟地址空间中。</li>
+<li>初始化数据段<br>  包含显式初始化的全局变量和静态变量。当程序加载到内存时，从可执<br>  行文件中读取这些变量的值。</li>
+<li>未初始化数据段<br>  包含了未进行显式初始化的全局变量和静态变量。程序启动之前，系统<br>  将本段内所有内存初始化为0。出于历史原因，此段常被称为BSS段，这源于老版本的<br>  汇编语言助记符“block started by symbol”o将经过初始化的全局变量和静态变量与未经<br>  初始化的全局变量和静态变量分开存放，其主要原因在于程序在磁盘上存储时，没有必<br>  要为未经初始化的变量分配存储空间。相反，可执行文件只需记录未初始化数据段的位<br>  置及所需大小，直到运行时再由程序加载器来分配这一空间。</li>
+<li>堆(heap)<br>  是可在运行时（为变量）动态进行内存分配的一块区域盛顶端称作program break。</li>
+<li>栈( stack)<br>  是一个动态增长和收缩的段，由栈帧（stack frames）组成。系统会为每个<br>  当前调用的函数分配一个栈帧。栈帧中存倍了函数的局部变量（所谓自动变量）、实<br>  参和返回值。</li>
+</ul>
+<h1 id="线程的同步机制有哪些"><a href="#线程的同步机制有哪些" class="headerlink" title="线程的同步机制有哪些?"></a>线程的同步机制有哪些?</h1><ul>
+<li>互斥量</li>
+<li>条件变量</li>
+<li>自旋锁<br>  自旋锤与互斥量类似，但它不是通过休眠使进程阻塞，而是在获取镪之前一直处于忙等（自<br>  旋）阻塞状态．自旋锁可用于“下情况锁被持有的时间短，而且线程并不希望在重新调度上花<br>  费太多的成本。</li>
+<li>读写锁(也叫做共享互斥锁)<br>  读写锁也叫做共享互斥锁( shared-exclusive lock)。当读写锁是读模式锁住时，就可以说成是<br>  以共享模式锁住的。当它是写模式锁住的时候，就可以说成是以互斥模式锁住的。</li>
+</ul>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="如何避免死锁"><a href="#如何避免死锁" class="headerlink" title="如何避免死锁"></a>如何避免死锁</h1><p><strong>总结</strong></p>
+<ul>
+<li>顺序加锁</li>
+<li>可以先释放占有的锁，然后过一段时间再试</li>
+</ul>
+<p>如果线程试图对同一个互斥量加锁两次，那么它自身就会陷入死锁状态，但是使用互斥量时，<br>还有其他不太明显的方式也能产牛死锁。例如，程序中使用一个以上的互斥量时，如果允许一个<br>线程一直占有第一个互斥量，并且在试图锁住第二个互斥量时处于阻塞状态，但是拥有第二个互<br>斥量的线程也在试图锁住第一个互斥量。因为两个线程都在相互请求对方拥有的资源，所<br>以这两个线程都无法向前运行，于是就产生死锁。</p>
+<p>  可以通过仔细控制互斥量加锁的顺序来避免死锁的发生。例如，假设需要对两个互斥量A和<br>B同时加锁。如果所有线程总是在对互斥量B加锁之前锁住互斥量A即可，那么使用这两个瓦斥量就<br>不会产生死锁（当然在其他的资源上仍可能出现死锁）。</p>
+<p>类似地，如果所有的线程总是在锁住互<br>斥量A之前锁住互斥量B，那么也不会发生死锁。可能出现的死锁只会发生在一个线程试图锁住<br>另一个线程以相反的顺序锁住的互斥量。</p>
+<p>  有时候，应用程序的结构使得对互斥量进行排序是很困难的。如果涉及了太多的锁和数据结<br>构，可用的函数并不能把它转换成简单的层次，那么就需要采用另外的方法。</p>
+<p>在这种情况下，可以先释放占有的锁，然后过一段时间再试。这种情况可以使用pthread_mutex_trylock接口避免<br>死锁。如果已经占有某些锁而且pthread_mutextrylock接口返回成功，那么就可以前进。但<br>是，如果不能获取锁，可以先释放已经占有的锁，做好浦理工作，然后过一段时间再重新试。</p>
+<h1 id="进程间的同步机制-也就是进程间通信-能通信就能同步了嘛-有哪些"><a href="#进程间的同步机制-也就是进程间通信-能通信就能同步了嘛-有哪些" class="headerlink" title="进程间的同步机制(也就是进程间通信, 能通信就能同步了嘛)有哪些?"></a>进程间的同步机制(也就是进程间通信, 能通信就能同步了嘛)有哪些?</h1><p>博客中 <a href="/ipc/" title="进程间的通信与同步">进程间的通信与同步</a>有详细说明</p>
+<ul>
+<li>管道<ul>
+<li>匿名管道(父子进程间使用)</li>
+<li>命名管道(无亲缘关系进程间使用)</li>
+</ul>
+</li>
+<li>FIFO</li>
+<li>消息队列</li>
+<li>信号量</li>
+<li>信号</li>
+<li>共享内存</li>
+<li>套接字(本地进程如果用套接字通信, 一般用unix套接字)</li>
+</ul>
+<h1 id="linux的任务调度机制是什么？"><a href="#linux的任务调度机制是什么？" class="headerlink" title="linux的任务调度机制是什么？"></a>linux的任务调度机制是什么？</h1><p>Linux 分实时进程和普通进程，实时进程应该先于普通进程而运行。<br>而实时进程的调度机制为：</p>
+<ul>
+<li><p>FIFO(先入先出服务调度)</p>
+</li>
+<li><p>RR（时间片轮转调度）。</p>
+</li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/UNP/" rel="tag"><i class="fa fa-tag"></i> UNP</a>
+            
+              <a href="/tags/TLPI/" rel="tag"><i class="fa fa-tag"></i> TLPI</a>
+            
+              <a href="/tags/APUE/" rel="tag"><i class="fa fa-tag"></i> APUE</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/MongoDB能取代MySQL或者Redis能取代memcached么/" rel="next" title="MongoDB能取代MySQL或者Redis能取代memcached么">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    MongoDB能取代MySQL或者Redis能取代memcached么
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/游戏服务端常用架构一/" rel="prev" title="游戏服务端常用架构一">
+                <p class="post-nav-pre-next-title">
+                    游戏服务端常用架构一
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程的内存布局是什么样的"><span class="nav-text">进程的内存布局是什么样的?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程的同步机制有哪些"><span class="nav-text">线程的同步机制有哪些?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何避免死锁"><span class="nav-text">如何避免死锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程间的同步机制-也就是进程间通信-能通信就能同步了嘛-有哪些"><span class="nav-text">进程间的同步机制(也就是进程间通信, 能通信就能同步了嘛)有哪些?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linux的任务调度机制是什么？"><span class="nav-text">linux的任务调度机制是什么？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

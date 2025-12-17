@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'rpclib源码阅读笔记之浅谈cpp func traits' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="UML,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="原文出处  0. 导语大家好，我是光城，欢迎关注公众号：guangcity。在 STL 编程中，容器和算法是独立设计的，即数据结构和算法是独立设计的，连接容器和算法的桥梁就是迭代器了，迭代器使其独立设计成为可能。如下图所示： 上图给出了 STL 的目标就是要把数据和算法分开，分别对其进行设计，之后通过一种名为 iterator 的东西，把这二者再粘接到一起。 设计模式中，关于 iterator 的">
+<meta name="keywords" content="UML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rpclib源码阅读笔记之浅谈cpp func traits">
+<meta property="og:url" content="https://hulinhong.com/cpp_func_traits_intro/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="原文出处  0. 导语大家好，我是光城，欢迎关注公众号：guangcity。在 STL 编程中，容器和算法是独立设计的，即数据结构和算法是独立设计的，连接容器和算法的桥梁就是迭代器了，迭代器使其独立设计成为可能。如下图所示： 上图给出了 STL 的目标就是要把数据和算法分开，分别对其进行设计，之后通过一种名为 iterator 的东西，把这二者再粘接到一起。 设计模式中，关于 iterator 的">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rpclib源码阅读笔记之浅谈cpp func traits">
+<meta name="twitter:description" content="原文出处  0. 导语大家好，我是光城，欢迎关注公众号：guangcity。在 STL 编程中，容器和算法是独立设计的，即数据结构和算法是独立设计的，连接容器和算法的桥梁就是迭代器了，迭代器使其独立设计成为可能。如下图所示： 上图给出了 STL 的目标就是要把数据和算法分开，分别对其进行设计，之后通过一种名为 iterator 的东西，把这二者再粘接到一起。 设计模式中，关于 iterator 的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>rpclib源码阅读笔记之浅谈cpp func traits | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/cpp_func_traits_intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">rpclib源码阅读笔记之浅谈cpp func traits</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-04-18T01:59:01+00:00">
+                04-18-2021
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/UML/" rel="tag"><i class="fa fa-tag"></i> UML</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/self_cultivation_python/" rel="next" title="服务器开发自我修养专栏-Python精要">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  服务器开发自我修养专栏-Python精要
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/self_cultivation_encoding/" rel="prev" title="服务器开发自我修养专栏-编码知识">
+              <p class="post-nav-pre-next-title">
+                  服务器开发自我修养专栏-编码知识
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><a href="https://light-city.club/2019/10/07/traits/#!" target="_blank" rel="noopener">原文出处</a></p>
+<hr>
+<h2 id="0-导语"><a href="#0-导语" class="headerlink" title="0. 导语"></a><strong>0. 导语</strong></h2><p>大家好，我是光城，欢迎关注公众号：<strong>guangcity</strong>。在 STL 编程中，容器和算法是独立设计的，即数据结构和算法是独立设计的，连接容器和算法的桥梁就是迭代器了，迭代器使其独立设计成为可能。如下图所示：</p>
+<p>上图给出了 STL 的目标就是要把数据和算法分开，分别对其进行设计，之后通过一种名为 iterator 的东西，把这二者再粘接到一起。</p>
+<p>设计模式中，关于 iterator 的描述为：<strong>一种能够顺序访问容器中每个元素的方法，使用该方法不能暴露容器内部的表达方式。而类型萃取技术就是为了要解决和 iterator 有关的问题的。</strong></p>
+<p>它将范型算法 (find, count, find_if) 用于某个容器中, 最重要的是要给算法提供一个访问容器元素的工具，iterator 就扮演着这个重要的角色。</p>
+<p>而在算法中我们可能会定义简单的中间变量或者设定算法的返回变量类型，这时候需要知道迭代器所指元素的类型是什么，但是由于没有 typeof 这类判断类型的函数, 我们无法直接获取，那该如何是好？本文就来具体阐述。</p>
+<p>对于迭代器来说就是一种智能指针，因此，它也就拥有了一般指针的所有特点——能够对其进行 * 和 -&gt; 操作。但是在遍历容器的时候，不可避免的要对遍历的容器内部有所了解，所以，干脆把迭代器的开发工作交给容器的设计者好了，如此以来，所有实现细节反而得以封装起来不被使用者看到，这正是为什么每一种 STL 容器都提供有专属迭代器的缘故。</p>
+<p>而 Traits 在<code>bits/stl_iterator_base_types.h</code>中：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;_Tp*&gt;</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">ptrdiff_t</span> difference_type;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::value_type value_type;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::pointer pointer;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::reference reference;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> _Tp::iterator_category iterator_category;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>看的一脸懵逼吧，没事，看完本节，入门 STL，哈哈~</p>
+<h2 id="1-template-参数推导"><a href="#1-template-参数推导" class="headerlink" title="1.template 参数推导"></a><strong>1.template 参数推导</strong></h2><p>首先，在算法中运用迭代器时，很可能会用到<strong>其相应型别（associated type）</strong>（迭代器所指之物的型别）。假设算法中有必要声明一个变量，以 “迭代器所指对象的型别” 为型别，该<strong>怎么办呢？</strong></p>
+<p><strong>解决方法是：利用 function template 的参数推导机制。</strong></p>
+<p>例如：</p>
+<p>如果 T 是某个指向特定对象的指针，那么在 func 中需要指针所指向对象的型别的时候，怎么办呢？这个还比较容易，模板的参数推导机制可以完成任务，</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span></span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">func</span>(<span class="title">I</span> <span class="title">iter</span>) &#123;</span></span><br><span class="line">    func_impl(iter, *iter); <span class="comment">// 传入iter和iter所指的值，class自动推导</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过模板的推导机制，我们轻而易举的或得了指针所指向的对象的类型。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">func_impl</span>(<span class="title">I</span> <span class="title">iter</span>, <span class="title">T</span> <span class="title">t</span>) &#123;</span></span><br><span class="line">        T tmp; <span class="comment">// 这里就是迭代器所指物的类别</span></span><br><span class="line">        <span class="comment">// ... 功能实现</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    func(&amp;i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是，<strong>函数的 “template 参数推导机制” 推导的只是参数，无法推导函数的返回值类型。万一需要推导函数的传回值，就无能为力了</strong>。因此，我们引出下面的方法。</p>
+<h2 id="2-声明内嵌型别"><a href="#2-声明内嵌型别" class="headerlink" title="2. 声明内嵌型别"></a><strong>2. 声明内嵌型别</strong></h2><p><strong>迭代器所指对象的型别，称之为迭代器的 value type。</strong></p>
+<p>尽管在 func_impl 中我们可以把 T 作为函数的返回值，但是问题是用户需要调用的是 func。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">T</span> <span class="title">func_impl</span>(<span class="title">I</span> <span class="title">iter</span>, <span class="title">T</span> <span class="title">t</span>) &#123;</span></span><br><span class="line">        T tmp; <span class="comment">// 这里就是迭代器所指物的类别</span></span><br><span class="line">        <span class="comment">// ... 功能实现</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class">(*<span class="title">T</span>) <span class="title">func</span>(<span class="title">T</span> <span class="title">t</span>) &#123;</span> <span class="comment">// !!!Wrong code</span></span><br><span class="line">    <span class="keyword">return</span> func_impl(t, *t); <span class="comment">// forward the task to func_impl</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i  =<span class="number">10</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;func(&amp;i)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// !!! Can’t pass compile</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果去编译上述代码，编译失败！</p>
+<p>这个问题解决起来也不难，声明内嵌型别似乎是个好主意，这样我们就可以直接获取。只要做一个 iterator，然后在定义的时候为其指向的对象类型制定一个别名，就好了，像下面这样：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">MyIter</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type; <span class="comment">// 内嵌型别声明</span></span><br><span class="line">    T* ptr;</span><br><span class="line">    MyIter(T* p = <span class="number">0</span>) : ptr(p) &#123;&#125;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*() <span class="keyword">const</span> &#123; <span class="keyword">return</span> *ptr; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typename</span> <span class="title">I</span>:</span>:value_type</span><br><span class="line">func(I ite) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"class version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    MyIter&lt;<span class="keyword">int</span>&gt; ite(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">8</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; func(ite);    <span class="comment">// 输出8</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很漂亮的解决方案，看上去一切都很完美。但是，实际上还是有问题，因为 func 如果是一个泛型算法，那么它也绝对要接受一个原生指针作为迭代器，但是显然，你无法让下面的代码编译通过：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">5</span>);</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;func(p)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
+<p>我们的 func 无法支持原生指针，这显然是不能接受的。此时，template partial specialization 就派上了用场。</p>
+<h2 id="3-救世主-Traits"><a href="#3-救世主-Traits" class="headerlink" title="3. 救世主 Traits"></a><strong>3. 救世主 Traits</strong></h2><p>前面也提到了，如果直接使用<code>typename I::value_type</code>，算法就无法接收原生指针，因为原生指针根本就没有 value_type 这个内嵌类型。</p>
+<p>因此，我们还需要加入一个中间层对其进行判断，看它是不是原生指针，注意，这就是 traits 技法的妙处所在。</p>
+<p>如果我们只使用上面的做法，也就是内嵌 value_type，那么对于没有 value_type 的指针，我们只能对其进行偏特化，这种偏特化是针对可调用函数 func 的偏特化，假如 func 有 100 万行行代码，那么就会造成极大的视觉污染。</p>
+<p><strong>（1）函数偏特化</strong></p>
+<p>函数偏特化：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">MyIter</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type; <span class="comment">// 内嵌型别声明</span></span><br><span class="line">    T* ptr;</span><br><span class="line">    MyIter(T* p = <span class="number">0</span>) : ptr(p) &#123;&#125;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*() <span class="keyword">const</span> &#123; <span class="keyword">return</span> *ptr; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typename</span> <span class="title">I</span>:</span>:value_type</span><br><span class="line">func(I ite) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"class version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">I</span></span></span><br><span class="line"><span class="class"><span class="title">func</span>(<span class="title">I</span>* <span class="title">ite</span>) &#123;</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"pointer version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">I</span> <span class="title">func</span>(<span class="title">const</span> <span class="title">I</span>* <span class="title">ite</span>) &#123;</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"const pointer version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    MyIter&lt;<span class="keyword">int</span>&gt; ite(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">8</span>));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; func(ite)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">52</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;func(p)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> k = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;func(&amp;k)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class version</span><br><span class="line">8</span><br><span class="line">pointer version</span><br><span class="line">52</span><br><span class="line">const pointer version</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p><strong>（2）加入中间层</strong></p>
+<p>在 STL 中 Traits 是什么呢？看下图：</p>
+<p>利用一个中间层<code>iterator_traits</code>固定了<code>func</code>的形式，使得重复的代码大量减少，唯一要做的就是稍稍特化一下 iterator_tartis 使其支持 pointer 和 const pointer:)</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">MyIter</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type; <span class="comment">// 内嵌型别声明</span></span><br><span class="line">    T* ptr;</span><br><span class="line">    MyIter(T* p = <span class="number">0</span>) : ptr(p) &#123;&#125;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*() <span class="keyword">const</span> &#123; <span class="keyword">return</span> *ptr; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// class type</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> T::value_type value_type;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 偏特化1</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;T*&gt; &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 偏特化2</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">iterator_traits</span>&lt;const T*&gt; &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">I</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">typename</span> <span class="title">iterator_traits</span>&lt;I&gt;:</span>:value_type</span><br><span class="line"><span class="comment">// 首先询问iterator_traits&lt;I&gt;::value_type,如果传递的I为指针,则进入特化版本,iterator_traits直接回答;如果传递进来的I为class type,就去询问T::value_type.</span></span><br><span class="line">func(I ite) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"normal version"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> *ite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    MyIter&lt;<span class="keyword">int</span>&gt; ite(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">8</span>));</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; func(ite)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">52</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;func(p)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> k = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;func(&amp;k)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述的过程是首先询问<code>iterator_traits&lt;I&gt;::value_type</code>，如果传递的 I 为指针, 则进入特化版本,<code>iterator_traits</code>直接回答<code>T</code>; 如果传递进来的<code>I</code>为<code>class type</code>, 就去询问<code>T::value_type</code>.</p>
+<p>上述的通俗解释为算法 (func) 问 iterator_traits(我)，但是 iterator_traits(我)发现手上是指针的时候，就由我来替它回答。如果是 class type，iterator_traits(我)就继续问(他 —T::value_type)。</p>
+<p><strong>总结：通过定义内嵌类型，我们获得了知晓 iterator 所指元素类型的方法，通过 traits 技法，我们将函数模板对于原生指针和自定义 iterator 的定义都统一起来，我们使用 traits 技法主要是为了解决原生指针和自定义 iterator 之间的不同所造成的代码冗余，这就是 traits 技法的妙处所在。</strong></p>
+<p>学习书籍：</p>
+<blockquote>
+<p>侯捷《 STL 源码剖析》  </p>
+</blockquote>
+<p>学习文章：</p>
+<blockquote>
+<p><a href="https://link.zhihu.com/?target=https%3A//juejin.im/post/5b1a43fb51882513bf1795c6" target="_blank" rel="noopener">https://juejin.im/post/5b1a43fb51882513bf1795c6</a><br><a href="https://link.zhihu.com/?target=https%3A//www.cnblogs.com/mangoyuan/p/6446046.html" target="_blank" rel="noopener">https://www.cnblogs.com/mangoyuan/p/6446046.html</a><br><a href="https://link.zhihu.com/?target=http%3A//www.cppblog.com/nacci/archive/2005/11/03/911.aspx" target="_blank" rel="noopener">http://www.cppblog.com/nacci/archive/2005/11/03/911.aspx</a>  </p>
+</blockquote>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/UML/" rel="tag"><i class="fa fa-tag"></i> UML</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/self_cultivation_python/" rel="next" title="服务器开发自我修养专栏-Python精要">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    服务器开发自我修养专栏-Python精要
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/self_cultivation_encoding/" rel="prev" title="服务器开发自我修养专栏-编码知识">
+                <p class="post-nav-pre-next-title">
+                    服务器开发自我修养专栏-编码知识
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-导语"><span class="nav-text">0. 导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-template-参数推导"><span class="nav-text">1.template 参数推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-声明内嵌型别"><span class="nav-text">2. 声明内嵌型别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-救世主-Traits"><span class="nav-text">3. 救世主 Traits</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

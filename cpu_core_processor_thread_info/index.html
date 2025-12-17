@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '逻辑CPU与核心备忘' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="CPU,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="CPU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逻辑CPU与核心备忘">
+<meta property="og:url" content="https://hulinhong.com/cpu_core_processor_thread_info/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="逻辑CPU与核心备忘">
+<meta name="twitter:description" content=". . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>逻辑CPU与核心备忘 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/cpu_core_processor_thread_info/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">逻辑CPU与核心备忘</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-06T00:27:26+00:00">
+                07-06-2020
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NP/" itemprop="url" rel="index">
+                    <span itemprop="name">NP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/CPU/" rel="tag"><i class="fa fa-tag"></i> CPU</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/python_call_new_init/" rel="next" title="python单例实现之详解元类和type和__call__和__new__和__init__">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  python单例实现之详解元类和type和__call__和__new__和__init__
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/algo_na_tricks/" rel="prev" title="Algo Tricks">
+              <p class="post-nav-pre-next-title">
+                  Algo Tricks
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<p>cpu、core、processor、thread 等概念，有的是物理的有的是逻辑的，在不同语境中含义不尽相同。</p>
+<ul>
+<li>“电脑有几个 cpu ?”</li>
+<li>“多线程程序设置多少个线程数效果好？”</li>
+<li>“linux cpuinfo / top 里展示的 cpu 的信息如何理解？”</li>
+</ul>
+<h1 id="物理-cpu-数（physical-cpu）"><a href="#物理-cpu-数（physical-cpu）" class="headerlink" title="物理 cpu 数（physical cpu）"></a>物理 cpu 数（physical cpu）</h1><p>指主板上实际插入的 cpu 硬件个数（socket）。（但是这一概念经常被泛泛的说成是 cpu 数，这很容易导致与 core 数，processor 数等概念混淆，所以此处强调是物理 cpu 数）。</p>
+<p>由于在主板上引入多个 cpu 插槽需要更复杂的硬件支持（连接不同插槽的 cpu 到内存和其他资源），通常只会在服务器上才这样做。在家用电脑中，一般主板上只会有一个 cpu 插槽。</p>
+<h1 id="核心（core）"><a href="#核心（core）" class="headerlink" title="核心（core）"></a>核心（core）</h1><p>一开始，每个物理 cpu 上只有一个核心（a single core），对操作系统而言，也就是同一时刻只能运行一个进程 / 线程。 为了提高性能，cpu 厂商开始在单个物理 cpu 上增加核心（实实在在的硬件存在），也就出现了双核心 cpu（dual-core cpu）以及多核心 cpu（multiple cores），这样一个双核心 cpu 就是同一时刻能够运行两个进程 / 线程的。</p>
+<h1 id="同时多线程与超线程"><a href="#同时多线程与超线程" class="headerlink" title="同时多线程与超线程"></a>同时多线程与超线程</h1><blockquote>
+<p>同时多线程技术（simultaneous multithreading）和 超线程技术（hyper–threading/HT）</p>
+</blockquote>
+<p>本质一样，是为了提高单个 core 同一时刻能够执行的多线程数的技术（充分利用单个 core 的计算能力，尽量让其 “一刻也不得闲”）。</p>
+<p>simultaneous multithreading 缩写是 SMT，AMD 和其他 cpu 厂商的称呼。 hyper–threading 是 Intel 的称呼，可以认为 hyper–threading 是 SMT 的一种具体技术实现。</p>
+<p>在类似技术下，产生了如下等价术语：</p>
+<ul>
+<li>虚拟 core： virtual core</li>
+<li>逻辑 processer： logical processor</li>
+<li>线程：thread</li>
+</ul>
+<p>所以可以这样说：某款采用 SMT 技术的 4 核心 AMD cpu 提供了 8 线程同时执行的能力；某款采用 HT 技术的 2 核心 Intel cpu 提供了 4 线程同时执行的能力。</p>
+<h1 id="查看-cpu-信息的方法与命令"><a href="#查看-cpu-信息的方法与命令" class="headerlink" title="查看 cpu 信息的方法与命令"></a>查看 cpu 信息的方法与命令</h1><h2 id="linux-系统"><a href="#linux-系统" class="headerlink" title="linux 系统"></a>linux 系统</h2><p><code>lscpu</code> 命令可以同时看到各种信息。比如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">CPU(s):                24</span><br><span class="line">On-line CPU(s) list:   0-23</span><br><span class="line">Thread(s) per core:    2</span><br><span class="line">Core(s) per socket:    6</span><br><span class="line">Socket(s):             2</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>查看物理 cpu 数：</p>
+<blockquote>
+<p><code>cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</code>  </p>
+</blockquote>
+<p>查看每个物理 cpu 中 核心数 (core 数)：</p>
+<blockquote>
+<p><code>cat /proc/cpuinfo | grep &quot;cpu cores&quot; | uniq</code>  </p>
+</blockquote>
+<p>查看总的逻辑 cpu 数（processor 数）：</p>
+<blockquote>
+<p><code>cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l</code>  </p>
+</blockquote>
+<p>查看 cpu 型号：</p>
+<blockquote>
+<p><code>cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</code>  </p>
+</blockquote>
+<p>判断 cpu 是否 64 位：</p>
+<blockquote>
+<p>检查 cpuinfo 中的 flags 区段，看是否有 lm （long mode） 标识  </p>
+</blockquote>
+<h2 id="window-系统"><a href="#window-系统" class="headerlink" title="window 系统"></a>window 系统</h2><p>任务管理器-性能-CPU:</p>
+<ul>
+<li>Sockets</li>
+<li>Cores</li>
+<li>Logical processors</li>
+</ul>
+<h2 id="x86-与-x86-64-摘自-维基百科"><a href="#x86-与-x86-64-摘自-维基百科" class="headerlink" title="x86 与 x86_64 (摘自 维基百科)"></a>x86 与 x86_64 (摘自 维基百科)</h2><h2 id="x86"><a href="#x86" class="headerlink" title="x86"></a>x86</h2><p>泛指一系列基于 Intel 8086 且向后兼容的中央处理器指令集架构。</p>
+<p>x86 的 32 位架构一般又被称作 IA-32，全名为 “Intel Architecture, 32-bit”。</p>
+<p>值得注意的是，Intel 也推出过 IA-64 架构，虽然名字上与 “IA-32” 相似，但两者完全不兼容，并不属于 x86 指令集架构家族。</p>
+<h2 id="x86-64"><a href="#x86-64" class="headerlink" title="x86-64"></a>x86-64</h2><p>又称 x64，即英文词 64-bit extended，64 位拓展 的简写，是 x86 架构的 64 位拓展，向后兼容于 16 位及 32 位的 x86 架构。</p>
+<p>不同厂商有不同的称呼：</p>
+<ul>
+<li>x64 于 1999 年由 AMD 设计，AMD 首次公开 64 位集以扩展给 x86，称为 “AMD64”</li>
+<li>其后也为 Intel 所采用，Intel 称为 “Intel 64”</li>
+<li>苹果公司和 RPM 包管理员称为 “x86-64” 或 “x86_64”</li>
+<li>甲骨文公司及 Microsoft 称为 “x64”</li>
+<li>BSD 家族及其他 Linux 发行版则使用 “amd64”，32 位版本则称为 “i386”（或 i486/586/686）</li>
+<li>Arch Linux 成为 x86_64</li>
+</ul>
+<h2 id="多线程程序线程数"><a href="#多线程程序线程数" class="headerlink" title="多线程程序线程数"></a>多线程程序线程数</h2><p>为了让我们的多线程程序更好的利用 cpu 资源，我们通常会先了解机器拥有的 processor 数，有若干手段可以获取这一信息：</p>
+<ul>
+<li>cpuinfo 中查看：比如上文中的 <code>cat /proc/cpuinfo | grep &quot;processor&quot; | wc -l</code></li>
+<li>top 命令查看：cpu0,cpu1,…</li>
+<li>编程：比如在 Java 中用 <code>Runtime.getRuntime().availableProcessors()</code></li>
+</ul>
+<p>具体在多线程程序中设置线程数多大，对计算密集型的程序有的建议是 processor count + 1，有的建议是 processor count 的 1.5 倍，都是经验值，实测为准。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><ul>
+<li>一台完整的计算机可能包含一到多个物理 cpu</li>
+<li>从单个物理 cpu （physical cpu）的角度看，其可能是单核心、双核心甚至多核心的</li>
+<li>从单个核心（core）的角度看，还有 SMT / HT 等技术让每个 core 对计算机操作系统而言用起来像多个物理 core 差不多</li>
+</ul>
+<p>总的逻辑 cpu 数 = 物理 cpu 数 <em> 每颗物理 cpu 的核心数 </em> 每个核心的超线程数</p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><ul>
+<li><a href="https://link.zhihu.com/?target=https%3A//www.howtogeek.com/194756/cpu-basics-multiple-cpus-cores-and-hyper-threading-explained/" target="_blank" rel="noopener">cpu-basics-multiple-cpus-cores-and-hyper-threading-explained</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Simultaneous_multithreading" target="_blank" rel="noopener">Simultaneous multithreading</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Hyper-threading" target="_blank" rel="noopener">Hyper-threading</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//www.cnblogs.com/bugutian/p/6138880.html" target="_blank" rel="noopener">Linux 查看物理 CPU 个数、核数、逻辑 CPU 个数</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//zh.wikipedia.org/wiki/X86" target="_blank" rel="noopener">x86</a></li>
+<li><a href="https://link.zhihu.com/?target=https%3A//zh.wikipedia.org/wiki/X86-64" target="_blank" rel="noopener">x86-64</a></li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/CPU/" rel="tag"><i class="fa fa-tag"></i> CPU</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/python_call_new_init/" rel="next" title="python单例实现之详解元类和type和__call__和__new__和__init__">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    python单例实现之详解元类和type和__call__和__new__和__init__
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/algo_na_tricks/" rel="prev" title="Algo Tricks">
+                <p class="post-nav-pre-next-title">
+                    Algo Tricks
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#物理-cpu-数（physical-cpu）"><span class="nav-text">物理 cpu 数（physical cpu）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心（core）"><span class="nav-text">核心（core）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同时多线程与超线程"><span class="nav-text">同时多线程与超线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看-cpu-信息的方法与命令"><span class="nav-text">查看 cpu 信息的方法与命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-系统"><span class="nav-text">linux 系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window-系统"><span class="nav-text">window 系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x86-与-x86-64-摘自-维基百科"><span class="nav-text">x86 与 x86_64 (摘自 维基百科)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x86"><span class="nav-text">x86</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x86-64"><span class="nav-text">x86-64</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程程序线程数"><span class="nav-text">多线程程序线程数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程"><span class="nav-text">线程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

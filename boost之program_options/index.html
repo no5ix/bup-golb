@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'boost之program_options' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Boost,CPP,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="介绍命令行接口是普遍,基础的人机交互接口，从命令行提取程序的运行时选项的方法有很多。 你可以自己编写相对应的完整的解析函数，或许你有丰富的C语言编程经验，熟知getopt()函数的用法，又或许使用Python的你已经在使用optparse库来简化这一工作。 大家在平时不断地谈及到“不要重复造轮子”，那就需要掌握一些顺手的库，这里介绍一种C++方式来解析命令行选项的方法，就是使用Boost.Prog">
+<meta name="keywords" content="Boost,CPP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="boost之program_options">
+<meta property="og:url" content="https://hulinhong.com/boost之program_options/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="介绍命令行接口是普遍,基础的人机交互接口，从命令行提取程序的运行时选项的方法有很多。 你可以自己编写相对应的完整的解析函数，或许你有丰富的C语言编程经验，熟知getopt()函数的用法，又或许使用Python的你已经在使用optparse库来简化这一工作。 大家在平时不断地谈及到“不要重复造轮子”，那就需要掌握一些顺手的库，这里介绍一种C++方式来解析命令行选项的方法，就是使用Boost.Prog">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="boost之program_options">
+<meta name="twitter:description" content="介绍命令行接口是普遍,基础的人机交互接口，从命令行提取程序的运行时选项的方法有很多。 你可以自己编写相对应的完整的解析函数，或许你有丰富的C语言编程经验，熟知getopt()函数的用法，又或许使用Python的你已经在使用optparse库来简化这一工作。 大家在平时不断地谈及到“不要重复造轮子”，那就需要掌握一些顺手的库，这里介绍一种C++方式来解析命令行选项的方法，就是使用Boost.Prog">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>boost之program_options | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/boost之program_options/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">boost之program_options</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-15T15:11:26+00:00">
+                08-15-2016
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Boost/" rel="tag"><i class="fa fa-tag"></i> Boost</a>
+              
+                <a href="/tags/CPP/" rel="tag"><i class="fa fa-tag"></i> CPP</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/关于UNP与APUE与TLPI三本大部头的阅读建议(着重讲UNP)/" rel="next" title="关于UNP与APUE与TLPI三本大部头的阅读建议(着重讲UNP)">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  关于UNP与APUE与TLPI三本大部头的阅读建议(着重讲UNP)
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/PHP的魔术/" rel="prev" title="PHP的魔术">
+              <p class="post-nav-pre-next-title">
+                  PHP的魔术
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>命令行接口是普遍,基础的人机交互接口，从命令行提取程序的运行时选项的方法有很多。</p>
+<p>你可以自己编写相对应的完整的解析函数，或许你有丰富的C语言编程经验，熟知getopt()函数的用法，又或许使用Python的你已经在使用optparse库来简化这一工作。</p>
+<p>大家在平时不断地谈及到“不要重复造轮子”，那就需要掌握一些顺手的库，这里介绍一种C++方式来解析命令行选项的方法，就是使用Boost.Program_options库。</p>
+<p>program_options提供程序员一种方便的命令行和配置文件进行程序选项设置的方法。</p>
+<p>使用program_options库而不是你自己动手写相关的解析代码，因为它更简单，声明程序选项的语法简洁，并且库自身也非常小。</p>
+<p>将选项值转换为适合的类型值的工作也都能自动完成。</p>
+<p>库有着完备的错误检查机制，如果自己手写解析代码时，就可能会错过对一些出错情况的检查了。</p>
+<p>最后，选项值不仅能从命令行获取，也能从配置文件，甚至于环境变量中提取，而这些选择不会增加明显的工作量。</p>
+<h1 id="示例说明"><a href="#示例说明" class="headerlink" title="示例说明"></a>示例说明</h1><p>以下面简单的hello程序进行说明，默认打印hello world,如果传入-p选项，就会打印出人的姓名，另外通过传入-h选项，可以打印出帮助选项。</p>
+<p>略微看一眼代码文件和相应的屏幕输入输出，然后我们再一起来看看这些是如何发生的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//hello.cpp </span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;boost/program_options.hpp&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">    using namespace boost::program_options;</span><br><span class="line">    //声明需要的选项</span><br><span class="line">    options_description desc(&quot;Allowed options&quot;);</span><br><span class="line">    desc.add_options()</span><br><span class="line">        (&quot;help,h&quot;, &quot;produce help message&quot;)</span><br><span class="line">        (&quot;person,p&quot;, value&lt;string&gt;()-&gt;default_value(&quot;world&quot;), &quot;who&quot;)</span><br><span class="line">        ;</span><br><span class="line"></span><br><span class="line">    variables_map vm;        </span><br><span class="line">    store(parse_command_line(argc, argv, desc), vm);</span><br><span class="line">    notify(vm);    </span><br><span class="line"></span><br><span class="line">    if (vm.count(&quot;help&quot;)) &#123;</span><br><span class="line">        cout &lt;&lt; desc;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; &quot;Hello &quot; &lt;&lt; vm[&quot;person&quot;].as&lt;string&gt;() &lt;&lt; endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是在Windows命令提示符窗口上的输入输出结果，其中”&gt;”表示提示符。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&gt;hello </span><br><span class="line">Hello world</span><br><span class="line"></span><br><span class="line">&gt;hello -h</span><br><span class="line">Allowed options:</span><br><span class="line">  -h [ --help ]                produce help message</span><br><span class="line">  -p [ --person ] arg (=world) who</span><br><span class="line"></span><br><span class="line">&gt;hello --person len</span><br><span class="line">Hello len</span><br></pre></td></tr></table></figure>
+<p>首先通过options_description类声明了需要的选项，add_options返回了定义了operator()的特殊的代理对象。</p>
+<p>这个调用看起来有点奇怪，其参数依次为选项名，选项值，以及选项的描述。</p>
+<p>注意到示例中的选项名为”help,h”，是因为声明了具有短选项名和长选项名的选项，这跟gnu程序的命令行具有一致性。</p>
+<p>当然你可以省略短选项名，但是这样就不能用命令选项简写了。</p>
+<p>第二个选项的声明，定义了选项值为string类型，其默认值为world.</p>
+<p>接下来,声明了variables_map类的对象，它主要用来存储选项值，并且能储存任意类型的值。</p>
+<p>然后，store,parse_command_line和notify函数使vm能存储在命令行中发现的选项。</p>
+<p>最后我们就自由地使用这些选项了，variables_map类的使用就像使用std::map一样，除了它必须用as方法去获取值。</p>
+<p>如果as方法调用的指定类型与实际存储的类型不同，就会有异常抛出。</p>
+<p>具有编程的你可能有这样的经验，使用cl或gcc对源文件进行编译时，可直接将源文件名放置在命令行中，而无需什么选项字母，如gcc a.c之类的。</p>
+<p>prgram_options也能处理这种情况，在库中被称为”positional options”(位置选项),但这需要程序员的一点儿帮助才能完成。</p>
+<p>看下面的经过对应修改的代码，我们无需传入”-p”选项，就能可指定”person”选项值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">positional_options_description p;</span><br><span class="line">p.add(&quot;person&quot;, -1);</span><br><span class="line">store(command_line_parser(argc, argv).options(desc).positional(p).run(), vm);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;hello len</span><br><span class="line">Hello len</span><br></pre></td></tr></table></figure>
+<p>前面新增的两行是为了说明所有的位置选项都应被解释成”person”选项，这里还采用了command_line_parser类来解析命令行，而不是用parse_command_line函数。</p>
+<p>后者只是对前者类的简单封装，但是现在我们需要传入一些额外的信息，所以要使用类本身。</p>
+<p>选项复合来源<br>一般来说，在命令行上指定所有选项，对用户来说是非常烦人的。</p>
+<p>如果有些选项要应用于每次运行，那该怎么办呢。</p>
+<p>我们当然希望能创建出带有些常用设置的选项文件，跟命令行一起应用于程序中。</p>
+<p>当然这一切需要将命令行与配置文件中的值结合起来。</p>
+<p>比如，在命令行中指定的某些选项值应该能覆盖配置文件中的对应值，或者将这些值组合起来。</p>
+<p>下面的代码段将选项通过文件读取，这文件是文本格式，可用”#”表示注释，格式如命令行中的参数一样，选项=值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ifstream ifs(&quot;config.cfg&quot;);</span><br><span class="line">store(parse_config_file(ifs,config),vm);</span><br><span class="line">notify(vm);</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://www.boost.org/doc/libs/1_35_0/doc/html/program_options.html" target="_blank" rel="noopener">Boost.prgram_options库文档</a></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Boost/" rel="tag"><i class="fa fa-tag"></i> Boost</a>
+            
+              <a href="/tags/CPP/" rel="tag"><i class="fa fa-tag"></i> CPP</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/关于UNP与APUE与TLPI三本大部头的阅读建议(着重讲UNP)/" rel="next" title="关于UNP与APUE与TLPI三本大部头的阅读建议(着重讲UNP)">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    关于UNP与APUE与TLPI三本大部头的阅读建议(着重讲UNP)
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/PHP的魔术/" rel="prev" title="PHP的魔术">
+                <p class="post-nav-pre-next-title">
+                    PHP的魔术
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例说明"><span class="nav-text">示例说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

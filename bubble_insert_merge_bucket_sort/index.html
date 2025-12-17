@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '排序算法二之谈一谈冒泡插入归并桶排序' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Algo,Sort,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="注：以下所有代码皆可以直接运行， 都已经测试过。 冒泡排序(可略过, 不实用)想象这里有很多泡泡，最大的泡泡每次循环之后浮到数组的最后面">
+<meta name="keywords" content="Algo,Sort">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序算法二之谈一谈冒泡插入归并桶排序">
+<meta property="og:url" content="https://hulinhong.com/bubble_insert_merge_bucket_sort/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="注：以下所有代码皆可以直接运行， 都已经测试过。 冒泡排序(可略过, 不实用)想象这里有很多泡泡，最大的泡泡每次循环之后浮到数组的最后面">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="排序算法二之谈一谈冒泡插入归并桶排序">
+<meta name="twitter:description" content="注：以下所有代码皆可以直接运行， 都已经测试过。 冒泡排序(可略过, 不实用)想象这里有很多泡泡，最大的泡泡每次循环之后浮到数组的最后面">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>排序算法二之谈一谈冒泡插入归并桶排序 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/bubble_insert_merge_bucket_sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">排序算法二之谈一谈冒泡插入归并桶排序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-08-20T19:38:55+00:00">
+                08-20-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+              
+                <a href="/tags/Sort/" rel="tag"><i class="fa fa-tag"></i> Sort</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/introduction_of_sort_algorithm_complexity_and_data_structure/" rel="next" title="谈一谈各类算法的复杂度和常用数据结构">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  谈一谈各类算法的复杂度和常用数据结构
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/quick_sort_and_binary_search/" rel="prev" title="排序算法三之谈一谈快排优化和二分查找">
+              <p class="post-nav-pre-next-title">
+                  排序算法三之谈一谈快排优化和二分查找
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>注：以下所有代码皆可以直接运行， 都已经测试过。</strong></p>
+<h1 id="冒泡排序-可略过-不实用"><a href="#冒泡排序-可略过-不实用" class="headerlink" title="冒泡排序(可略过, 不实用)"></a><strong>冒泡排序(可略过, 不实用)</strong></h1><p>想象这里有很多泡泡，最大的泡泡每次循环之后浮到数组的最后面</p>
+<!--  –&gt;
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/algo_newbie/bubble_sort.png" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> startIndex, <span class="keyword">int</span> endIndex)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!arr || startIndex &lt; <span class="number">0</span> || endIndex &lt; <span class="number">0</span> || endIndex - startIndex &lt;= <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> outerIndex = startIndex; outerIndex &lt;= endIndex; ++outerIndex)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> innerIndex = startIndex; innerIndex &lt;= endIndex - outerIndex - <span class="number">1</span>; ++innerIndex)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (arr[innerIndex] &gt; arr[innerIndex + <span class="number">1</span>] )</span><br><span class="line">			&#123;</span><br><span class="line">				temp = arr[innerIndex];</span><br><span class="line">				arr[innerIndex] = arr[innerIndex + <span class="number">1</span>];</span><br><span class="line">				arr[innerIndex + <span class="number">1</span>] = temp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>. . .</strong><a id="more"></a><p></p>
+<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a><strong>插入排序</strong></h1><p>想象手上有几张牌， 现在你抽了一张牌， 然后需要从手上最右边的牌开始比较，然后插入到相应位置</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/bubble_insert_merge_bucket_sort/sort_algo_1.png" alt><br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/bubble_insert_merge_bucket_sort/sort_algo_2.png" alt title="insert sort"></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">( <span class="keyword">int</span> arr[], <span class="keyword">int</span> startIndex, <span class="keyword">int</span> endIndex, <span class="keyword">int</span> arrLen )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( !arr || arrLen &lt;= <span class="number">0</span> || endIndex - startIndex &gt; arrLen</span><br><span class="line">		|| startIndex &lt; <span class="number">0</span> || startIndex &gt;= endIndex )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> ( <span class="keyword">int</span> outerIndex = startIndex; outerIndex &lt;= endIndex; ++outerIndex )</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> ( <span class="keyword">int</span> innerIndex = outerIndex;</span><br><span class="line">			innerIndex - <span class="number">1</span> &gt;= startIndex &amp;&amp; arr[innerIndex] &lt; arr[innerIndex - <span class="number">1</span>];</span><br><span class="line">			--innerIndex )</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">auto</span> temp = arr[innerIndex];</span><br><span class="line">			arr[innerIndex] = arr[innerIndex - <span class="number">1</span>];</span><br><span class="line">			arr[innerIndex - <span class="number">1</span>] = temp;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a><strong>归并排序</strong></h1><p>归并排序用了分治的思想，有很多算法在结构上是递归的：为了解决一个给定的问题，算法要一次或多次地递归调用其自身来解决相关的子问题。这些算法通常采用分治策略（divide-and-conquier）：将原问题划分成n个规模较小而结构与原问题相似的子问题；递归地解决这些子问题，然后再合并其结果，就得到原问题的解。</p>
+<h2 id="介绍分治思想"><a href="#介绍分治思想" class="headerlink" title="介绍分治思想"></a>介绍分治思想</h2><p><strong>分治模式</strong>在每一层递归上都有三个步骤：</p>
+<ul>
+<li><p>分解（divide）：将原问题分解成一系列子问题；</p>
+</li>
+<li><p>解决（conquer）：递归地解各子问题。若子问题足够小，则直接求解；</p>
+</li>
+<li><p>合并：将子问题的结果合并成原问题的解。</p>
+</li>
+</ul>
+<h2 id="归并的具体思路"><a href="#归并的具体思路" class="headerlink" title="归并的具体思路"></a>归并的具体思路</h2><p>归并排序算法的关键操作是“合并”步骤中两个<strong>已排序</strong>序列的合并。我们通过调用一个辅助过<br>程MERGE(A，p，q，r)来完成合并，其中A是一个数组，p、q和r是数组下标，满足p&lt;=q&lt;r。<br>该过程假设子数组A[p．．q]和A[q+l．．r]都已排好序。它合并这两个子数组形成单一的已排好<br>序的子数组并代替当前的子数组A[p.．r]。</p>
+<p>回到我们玩扑克牌的例子，假设桌上有两堆牌面朝上的牌，每堆都已<strong>排序</strong>，最小的牌在顶上。<br>我们希望把这两堆牌合并成单一的排好序的输出堆，牌面朝下地放在桌上。<br>我们的基本步骤包括在牌面朝上的两堆牌的顶上两张牌中选取较小的一张，将该牌从其堆中移开（该堆的顶上将<br>显露一张新牌）并牌面朝下地将该牌放置到输出堆。<br>重复这个步骤，直到一个输入堆为空，这时，我们只是拿起剩余的输入堆并牌面朝下地将该堆放置到输出堆。</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/bubble_insert_merge_bucket_sort/merge_sort_1..png" alt title="merge sort"></p>
+<h2 id="归并的算法实现"><a href="#归并的算法实现" class="headerlink" title="归并的算法实现"></a>归并的算法实现</h2><p>下面是手写的一个比较直白明了的归并排序的 c++ 实现：</p>
+<p>MergeSort.h</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">unsigned</span> N&gt;</span><br><span class="line">void MergeSort(int (&amp;arr)[N], int start_index, int end_index)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// check</span></span><br><span class="line">	<span class="keyword">if</span> (!arr</span><br><span class="line">		|| start_index &lt; <span class="number">0</span></span><br><span class="line">		|| end_index &lt; <span class="number">0</span></span><br><span class="line">		|| end_index &lt;= start_index</span><br><span class="line">		|| end_index &gt;= <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(<span class="keyword">int</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	DoMergeSort(arr, start_index, end_index);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoMergeSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> start_index, <span class="keyword">int</span> end_index)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> start_index, <span class="keyword">int</span> mid_index, <span class="keyword">int</span> end_index)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>MergeSort.cpp</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"MergeSort.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoMergeSort</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> start_index, <span class="keyword">int</span> end_index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (start_index &gt;= end_index)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> mid_index = (start_index + end_index) / <span class="number">2</span>;</span><br><span class="line">	DoMergeSort(arr, start_index, mid_index);</span><br><span class="line">	DoMergeSort(arr, mid_index + <span class="number">1</span>, end_index);</span><br><span class="line">	Merge(arr, start_index, mid_index, end_index);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> arr[], <span class="keyword">int</span> start_index, <span class="keyword">int</span> mid_index, <span class="keyword">int</span> end_index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr_left_len = mid_index - start_index + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> arr_right_len = end_index - mid_index;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> *arr_left = <span class="keyword">new</span> <span class="keyword">int</span>[arr_left_len];</span><br><span class="line">	<span class="keyword">int</span> *arr_right = <span class="keyword">new</span> <span class="keyword">int</span>[arr_right_len];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!arr_left || !arr_right)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = start_index; i &lt;= end_index; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> ( i &gt; mid_index )</span><br><span class="line">		&#123;</span><br><span class="line">			arr_right[i - mid_index - <span class="number">1</span>] = arr[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			arr_left[i - start_index] = arr[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> arr_left_index = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> arr_right_index = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> arr_index = start_index;</span><br><span class="line">	<span class="keyword">while</span> (arr_left_index &lt; arr_left_len &amp;&amp; arr_right_index &lt; arr_right_len)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (arr_left[arr_left_index] &lt; arr_right[arr_right_index])</span><br><span class="line">		&#123;</span><br><span class="line">			arr[arr_index++] = arr_left[arr_left_index++];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			arr[arr_index++] = arr_right[arr_right_index++];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(arr_left_index &lt; arr_left_len)</span><br><span class="line">	&#123;</span><br><span class="line">		arr[arr_index++] = arr_left[arr_left_index++];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(arr_right_index &lt; arr_right_len)</span><br><span class="line">	&#123;</span><br><span class="line">		arr[arr_index++] = arr_right[arr_right_index++];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">delete</span>[] arr_left;</span><br><span class="line">	arr_left = <span class="literal">nullptr</span>;</span><br><span class="line">	<span class="keyword">delete</span>[] arr_right;</span><br><span class="line">	arr_right = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>main.cpp</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"MergeSort.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> test_arr[] = &#123; <span class="number">4</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">1</span> &#125;;</span><br><span class="line">	MergeSort(test_arr, <span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : test_arr)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h1><p>桶排序 (Bucket sort) 是一种基于计数的排序算法，工作的原理是将数据分到有限数量的桶子里，然后每个桶再分别排序（有可能再使用别的排序算法或是以递回方式继续使用桶排序进行排序）。当要被排序的数据内的数值是均匀分配的时候，桶排序时间复杂度为Θ(n)。桶排序不同于快速排序，并不是比较排序，不受到时间复杂度 O(nlogn) 下限的影响。</p>
+<p>桶排序按下面 4 步进行：</p>
+<ol>
+<li>设置固定数量的空桶。</li>
+<li>把数据放到对应的桶中。</li>
+<li>对每个不为空的桶中数据进行排序。</li>
+<li>拼接从不为空的桶中数据，得到结果。</li>
+</ol>
+<p>桶排序，主要适用于小范围整数数据，且独立均匀分布，可以计算的数据量很大，而且符合线性期望时间。</p>
+<h2 id="桶排序算法图解演示"><a href="#桶排序算法图解演示" class="headerlink" title="桶排序算法图解演示"></a>桶排序算法图解演示</h2><p>举例来说，现在有一组数据 [7, 36, 65, 56, 33, 60, 110, 42, 42, 94, 59, 22, 83, 84, 63, 77, 67, 101]，怎么对其按从小到大顺序排序呢？</p>
+<!--  –&gt;
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/algo_newbie/bucket_sort.png" alt=""></p>
+<p>操作步骤说明：</p>
+<ol>
+<li>设置桶的数量为 5 个空桶，找到最大值 110，最小值 7，每个桶的范围 20.8=(110-7+1)/5 。</li>
+<li>遍历原始数据，以链表结构，放到对应的桶中。数字 7，桶索引值为 0，计算公式为 floor((7 – 7) / 20.8)， 数字 36，桶索引值为 1，计算公式 floor((36 – 7) / 20.8)。</li>
+<li>当向同一个索引的桶，第二次插入数据时，判断桶中已存在的数字与新插入数字的大小，按照左到右，从小到大的顺序插入。如：索引为 2 的桶，在插入 63 时，桶中已存在 4 个数字 56，59，60，65，则数字 63，插入到 65 的左边。</li>
+<li>合并非空的桶，按从左到右的顺序合并 0，1，2，3，4 桶。</li>
+<li>得到桶排序的结构</li>
+</ol>
+<h2 id="桶排序代码实现例子"><a href="#桶排序代码实现例子" class="headerlink" title="桶排序代码实现例子"></a>桶排序代码实现例子</h2><p><strong>假设数据分布在[0，100)之间，每个桶内部用链表表示，在数据入桶的同时插入排序。然后把各个桶中的数据合并。</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> BUCKET_NUM = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>&#123;</span></span><br><span class="line">	explicit ListNode(int i=0):mData(i),mNext(NULL)&#123;&#125;</span><br><span class="line">	ListNode* mNext;</span><br><span class="line">	<span class="keyword">int</span> mData;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">ListNode* <span class="title">insert</span><span class="params">(ListNode* head,<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">	ListNode dummyNode;</span><br><span class="line">	ListNode *newNode = <span class="keyword">new</span> ListNode(val);</span><br><span class="line">	ListNode *pre,*curr;</span><br><span class="line">	dummyNode.mNext = head;</span><br><span class="line">	pre = &amp;dummyNode;</span><br><span class="line">	curr = head;</span><br><span class="line">	<span class="keyword">while</span>(<span class="literal">NULL</span>!=curr &amp;&amp; curr-&gt;mData&lt;=val)&#123;</span><br><span class="line">		pre = curr;</span><br><span class="line">		curr = curr-&gt;mNext;</span><br><span class="line">	&#125;</span><br><span class="line">	newNode-&gt;mNext = curr;</span><br><span class="line">	pre-&gt;mNext = newNode;</span><br><span class="line">	<span class="keyword">return</span> dummyNode.mNext;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">ListNode* <span class="title">Merge</span><span class="params">(ListNode *head1,ListNode *head2)</span></span>&#123;</span><br><span class="line">	ListNode dummyNode;</span><br><span class="line">	ListNode *dummy = &amp;dummyNode;</span><br><span class="line">	<span class="keyword">while</span>(<span class="literal">NULL</span>!=head1 &amp;&amp; <span class="literal">NULL</span>!=head2)&#123;</span><br><span class="line">		<span class="keyword">if</span>(head1-&gt;mData &lt;= head2-&gt;mData)&#123;</span><br><span class="line">			dummy-&gt;mNext = head1;</span><br><span class="line">			head1 = head1-&gt;mNext;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			dummy-&gt;mNext = head2;</span><br><span class="line">			head2 = head2-&gt;mNext;</span><br><span class="line">		&#125;</span><br><span class="line">		dummy = dummy-&gt;mNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(<span class="literal">NULL</span>!=head1) dummy-&gt;mNext = head1;</span><br><span class="line">	<span class="keyword">if</span>(<span class="literal">NULL</span>!=head2) dummy-&gt;mNext = head2;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> dummyNode.mNext;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BucketSort</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> arr[])</span></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;ListNode*&gt; buckets(BUCKET_NUM,(ListNode*)(<span class="number">0</span>));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123;</span><br><span class="line">		<span class="keyword">int</span> index = arr[i]/BUCKET_NUM;</span><br><span class="line">		ListNode *head = buckets.at(index);</span><br><span class="line">		buckets.at(index) = insert(head,arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	ListNode *head = buckets.at(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;BUCKET_NUM;++i)&#123;</span><br><span class="line">		head = Merge(head,buckets.at(i));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)&#123;</span><br><span class="line">		arr[i] = head-&gt;mData;</span><br><span class="line">		head = head-&gt;mNext;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>-->
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+            
+              <a href="/tags/Sort/" rel="tag"><i class="fa fa-tag"></i> Sort</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/introduction_of_sort_algorithm_complexity_and_data_structure/" rel="next" title="谈一谈各类算法的复杂度和常用数据结构">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    谈一谈各类算法的复杂度和常用数据结构
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/quick_sort_and_binary_search/" rel="prev" title="排序算法三之谈一谈快排优化和二分查找">
+                <p class="post-nav-pre-next-title">
+                    排序算法三之谈一谈快排优化和二分查找
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#冒泡排序-可略过-不实用"><span class="nav-text">冒泡排序(可略过, 不实用)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

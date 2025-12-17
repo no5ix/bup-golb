@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🚙">
+<meta property="og:url" content="https://hulinhong.com/page/29/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚙">
+<meta name="twitter:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>🚙 - 💨 💨 💨</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/cplusplus_confused_points_two/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/cplusplus_confused_points_two/" itemprop="url">C++很基础的易混淆点二</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-09T13:35:25+00:00">
+                12-09-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="位操作运算符的问题"><a href="#位操作运算符的问题" class="headerlink" title="位操作运算符的问题"></a>位操作运算符的问题</h1><p>二进制的100 的第0位是 0<br>1(第2位)  0(第1位)  0(第0位)，<br>所以把一个数的第三位进行清零、置位(把某个bit置为1)、取反的操作如下：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Bit3 (0X01&lt;&lt;3)</span></span><br><span class="line"><span class="comment">/*对一个数的第三位进行清零、置位、取反*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">15</span> ;      <span class="comment">// 0000 1111</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"原大小：%d\n"</span>, a);</span><br><span class="line"></span><br><span class="line">	a &amp;= ~Bit3;     <span class="comment">//清零, 0000 0111</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"清零后：%d\n"</span>, a);</span><br><span class="line"></span><br><span class="line">	a |= Bit3;     <span class="comment">//置位, 0000 1111</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"置位后：%d\n"</span>, a);</span><br><span class="line"></span><br><span class="line">	a ^= Bit3;     <span class="comment">//取反, 0000 0111</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"取反后：%d\n"</span>, a);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/cpp_vargs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/cpp_vargs/" itemprop="url">C++可变参数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-09T13:35:25+00:00">
+                12-09-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="可变参数的宏"><a href="#可变参数的宏" class="headerlink" title="可变参数的宏"></a>可变参数的宏</h1><p>一般在调试打印Debug信息的时候, 需要可变参数的宏. 从C99开始可以使编译器标准支持可变参数宏(variadic macros), 另外GCC也支持可变参数宏, 但是两种在细节上可能存在区别.</p>
+<p><code>__VA_ARGS__</code> 将 “…” 传递给宏 . 如</p>
+<p><code>#define debug(format, ...) fprintf(stderr, format, __VA_ARGS__)</code></p>
+<p>GCC使用一种不同的语法,从而可以给可变参数一个名字,如同其它参数一样.</p>
+<p><code>#define debug(format, args...) fprintf (stderr, format, args)</code></p>
+<p>这和第一条的宏例子是完全一样的,但是这么写可读性更强并且更容易进行描述.</p>
+<p>上面两个定义的宏,如果出现 debug(“A Message”)的时候,由于宏展开后有个多余的逗号,所以在GCC中将导致编译错误, 而VS则不会. 所以移植性更好的写法是<br>使用一个特殊的”##”操作,格式如下:</p>
+<p><code>#define debug(format, ...) fprintf (stderr, format, ## __VA_ARGS__)</code></p>
+<p>这里,如果可变参数被忽略或为空,”##”操作将使预处理器(preprocessor)去除掉它前面的那个逗号.</p>
+<h1 id="什么是可变形参函数"><a href="#什么是可变形参函数" class="headerlink" title="什么是可变形参函数"></a>什么是可变形参函数</h1><p>　　在 c++ 编程中，有时我们需要编写一些在源代码编写阶段无法确定参数个数，有时甚至无法确定参数类型的函数。</p>
+<p>　　例如，一个求和函数。可以通过重载实现若干个数的和。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int sum(int i1, int i2);</span><br><span class="line">int sum(int i1, int i2, int i3);</span><br><span class="line">...//还可以重载更多类似函数</span><br><span class="line"></span><br><span class="line">double sum(double d1, double d2);</span><br><span class="line">double sum(double d1, double d2, double d3);</span><br><span class="line">...//还可以重载更多类似函数</span><br></pre></td></tr></table></figure>
+<p>　　以上代码通过重载机制来解决变参问题。但很快我们就会发现这种方法存在的问题：必须确保所有可能的实参列表都有对应的重载声明和定义，如果上述方法如果参与运算的参数个数可能从 2——20 个不等，那么我们就需要重载 19 次同一个函数。</p>
+<p>　　我们需要的是这样一类函数：它们可以在运行时取任意的实参个数并根据实参的个数自动处理不同实参的情形，或者至少可以在运行时指定任意的实参个数。</p>
+<h1 id="实现变参函数的三种方法"><a href="#实现变参函数的三种方法" class="headerlink" title="实现变参函数的三种方法"></a>实现变参函数的三种方法</h1><p>　　在 C++ 中实现一个变参函数的方法有三种：第一种方法，将函数形参声明为 C++11 新标准中的 initializer_list 标准库类型；第二种方法继承自 C 语言，形参声明为省略符，函数实现时用参数列表宏访问参数；最后一种方法利用 C++ 泛型特性，声明一个可变参数模板来实现。</p>
+<p>　　<strong>1. 可变参数宏</strong><br>　　实现步骤如下：<br>　　　　１. 函数原型中使用省略号；<br>　　　　２. 函数定义中创建一个 va_list 变量；<br>　　　　 3. 初始化 va_list 变量；<br>　　　　 4. 访问参数列表；<br>　　　　 5. 完成清理工作；<br>　　上述步骤的实现需要使用到四个宏：<strong>_va_list、va_start(va_list, arg)、va_arg(va_list, type)、va_end(va<em>list)</em></strong> 这些宏在<strong>头文件 stdarg.h</strong> 中声明定义。因此使用时需要包含该头文件。</p>
+<p>　　以下代码使用可变参数宏实现一个函数 sum，该函数接受任意个数的整形实参，返回这些实参的和。（忽略可能存在的整形溢出）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/* --sum.cpp-- 可变参数宏实现求任意个整形值得和 */</span><br><span class="line">#include &lt;stdarg.h&gt;</span><br><span class="line"></span><br><span class="line">int sum(int count, ...);    　　//原型中使用省略号</span><br><span class="line"></span><br><span class="line">int sum(int count, ...)&#123;    　　//count 表示可变参数个数</span><br><span class="line">    va_list ap;　　　　　　　　　　//声明一个va_list变量</span><br><span class="line">    va_start(ap, count);　　 　　//初始化，第二个参数为最后一个确定的形参</span><br><span class="line"></span><br><span class="line">    int sum = 0;  </span><br><span class="line">    for(int i = 0; i &lt; count; i++)          </span><br><span class="line">        sum += va_arg(ap, int); //读取可变参数，的二个参数为可变参数的类型</span><br><span class="line"></span><br><span class="line">    va_end(ap);          　　　　//清理工作 </span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　使用这种方法需要注意一下几点：<br>　　1. 函数原型中，<strong>省略号必须在参数列表的末尾</strong>：也就是说，在函数原型中参数列表省略号的右边不能再出现确定参数；<br>　　2. 运行时，函数必须能够根据已有信息（既有约定，或确定实参）<strong>确定可变参数的具体个数与类型</strong>：函数定义需要知道可变参数的具体类型、个数，这些信息是在运行时确定的，那么显然应该由实参来确定。在上面的例子中 count 传递了可变参数的个数，而参数类型则是既有约定（整形）；<br>　　3. 使用完成时需要<strong>用 va_end() 做清理工作</strong>，可变参数宏可能使用了动态分配的内存，忘记执行清理操作有可能导致内存泄漏等问题；<br>　　4. 可变参数宏只能实现顺序访问可变参数，无法后退访问，但是可以在清理操作完成后重新使用 va_start 初始化 va_list 变量，重新遍历形参表；<br>　　5. 该方法是<strong>极不安全</strong>的，宏本身无法提供任何安全性保证，他总是按照既定代码 “自作多情” 的认为实参就应该是那么多，即使实参并不是那么多。这就要求所有安全性必须由程序员来保证。例如，在以上的示例代码中，如果调用时指定 count 为 10，但实际上只给出 9 个可变形参，那么函数还是会读取 10 个参数，显然第十次读取是多余的，多余的操作一般不会有什么好结果，当然如果实参过多，多余的实参也不会被读取而是被忽略。</p>
+<p>　　使用这种方法的一个实例是 printf() 函数。printf() 函数通过分析第一个字符串参数中的占位符个数来确定形参的个数；通过占位符的不同来确定参数类型（%d 表示 int 类型、%s 表示 char *）；它也有上述提到的安全问题，如果不小心少提供了个实参，那么越界访问就会发生。</p>
+<p>　　<strong>2. initializer_list 标准库类型</strong><br>　　实现步骤如下：<br>　　　　１. 函数原型中使用实例化 <strong>initializer_list</strong> 模板代表可变参数列表；<br>　　　　２. 使用迭代器访问 initializer_list 中的参数；<br>　　　　 3. 传入实参写在 {} 之内。<br>　　以上步骤中使用到 initializer_list。这是 C++11 新标准中引入的一个标准库类型，与 vector 等容器一样 initializer_list 也支持 <strong>begin() 和 end()</strong> 操作，返回指向首元素的迭代器和尾后迭代器。initializer_list 在同名头文件中声明，其实现由编译器支持。<br>　　以下代码使用 initializer_list 实现函数 sum。（忽略可能存在的整形溢出）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/* --sum.cpp-- 利用initializer_list模板实现求人一个整形值得和 */</span><br><span class="line">#include &lt;initializer_list&gt;</span><br><span class="line"></span><br><span class="line">int sum(initializer_list&lt;int&gt; il);  //函数原型用int实例化initializer_list作为形参</span><br><span class="line"></span><br><span class="line">int sum(inttializer_list&lt;int&gt; il)&#123;</span><br><span class="line">    int sum = 0;</span><br><span class="line">    for(auto p = il.begin(); p != il.end(); p++)   //使用迭代器访问参数</span><br><span class="line">        sum += *p;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　使用这种方法需要注意一下几点：<br>　　１. initializer_list 在 C++11 中才被引入，这意味着在编译时可能需要加上这个选项 <strong>-std=c++11</strong> 才能成功编译。上述代码中的 auto 关键字也是 C++11 的一部分；<br>　　 2. 参数必须<strong>放在一组‘{}’（大括号）内</strong>，编译器通过大括号来将这组参数转化为 initializer_list. 大括号的的一组实参与 initializer_list 形参对应；<br>　　 3. 函数原型 initializer_list 与普通形参无异。这表明形参列表中可以包含其他类型参数且位置不限，以下函数原型是正确的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void func(char c, initializer_list&lt;int&gt; il, double d);</span><br></pre></td></tr></table></figure>
+<p>　　４. 同一个 initializer_list 中的参数具有相同的类型。本质上来说 initializer_list 是一个编译器支持的容器类模板，同其他容器一样，容器中的<strong>元素具有相同的类型</strong>。</p>
+<p>　　使用这种方法的一个实例是 C++11 中 vector 的列表初始化构造函数。</p>
+<p>　　<strong>3. 可变参数模板</strong><br>　　在介绍这种方法之前需要先介绍两个并不常用的概念：模板参数包和函数参数包。<br>　　<strong>模板参数包</strong>是零个或多个类型参数的集合。模板参数列表中，class… 或 typename… 表明其后的类型参数表示一个模板参数包；<br>　　<strong>函数参数包</strong>是零个或多个非类型参数的集合。函数形参列表中类型名加省略号表明其后的参数表示一个函数参数包；另外，类型为模板参数包的函数形参是一个函数参数包。<br>　　以下引用参考书目 2 中的示例代码来直观展现这两个概念：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//args是一个模板参数包；rest是一个函数参数包</span><br><span class="line">//args表示零个或多个模板类型参数</span><br><span class="line">//rest表示零个或多个函数参数</span><br><span class="line">template&lt;typename T, typename... args&gt;</span><br><span class="line">void foo(const T &amp;t, const args&amp;... rest);</span><br></pre></td></tr></table></figure>
+<p>　　与 sizeof() 运算符类似，sizeof…() 运算符用于参数包。<strong>sizeof…() 将返回参数包中参数个数</strong>。</p>
+<p>　　利用可变参数模板实现可变参数函数的步骤如下：<br>　　１. 编写含有模板参数包和函数参数包的模板函数；<br>　　 2. 函数定义<strong>递归</strong>调用自己，每一步递归参数包中参数减一；<br>　　 3. 编写处理<strong>边界情况</strong>（参数包含有零个参数）的模板。<br>　　以下引用参考书目２中示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//用来终止递归并答应最后一个元素的函数</span><br><span class="line">//此函数必须在可变参数版本的print定义之前声明</span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">std::ostream &amp;print(std::ostream &amp;os, const T &amp;t)&#123;</span><br><span class="line">    return os &lt;&lt; t;                //包中最后一个元素</span><br><span class="line">&#125;</span><br><span class="line">//包中除最后一个元素之外的其他元素都会调用这个版本的pirnt</span><br><span class="line">template &lt;typename T, typename... Args&gt;</span><br><span class="line">std::ostream &amp;print(std::ostream &amp;os, const T &amp;t, cosnt Args &amp;... rest)&#123;</span><br><span class="line">    os &lt;&lt; t &lt;&lt; &quot;,&quot;;               //打印第一个实参，包中元素减一</span><br><span class="line">    return print(os, rest...);    //递归调用，打印剩余实参</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　使用这种方法需要注意的是：<br>　　1. 必须处理边界情况。且如代码注释所示：应当首先定义处理边界情况的模板。<br>　　2. 参数包在参数列表最右侧，参数包只能从左至右展开？<br>　　3. 参数包能够实现更加复杂的模板，更多内容参考 C++ Primer(第五版) 第 16 章相关内容。</p>
+<p>　　这种实现方式的根本原理实际上与最初提到的重载是一致的。通过定义模板，让编译器根据实参类型自动生成对应的重载函数。</p>
+<h1 id="三种实现方法的比较"><a href="#三种实现方法的比较" class="headerlink" title="三种实现方法的比较"></a>三种实现方法的比较</h1><p>　　以上提到的三种方法都可以实现变参函数。但三种方法都有其各自的有点和局限性，在选择时可以从以下几个方面考虑：<br>　　1. <strong>若非必要，不要使用可变参数函数</strong>。应该首先考虑函数重载等其他方法。<br>　　2. <strong>除非需要兼容 C 语言编译器，否则不要使用可变参数宏</strong>。应为这种方法最不安全；尤其是当参数为对象时这种方法易产生各种问题。毕竟这些宏是为 C 语言设计的，C 语言中没有对象。<br>　　3. 如果参数类型相同且 C++11 可用，则通过声明形参为 <strong>initializer_list 往往是最简单、最有效的办法</strong>。<br>　　4. 变参模板看似最为强大。参数的类型可以不同、比可变参数宏更加安全并且可以自动推断参数类型和参数个数。但考虑到模板会为每一个不同的实例生成代码，如果函数的实例过多可能会<strong>使代码体积增大</strong>。另外，依靠<strong>递归</strong>使得功能<strong>具有局限性</strong>，并且<strong>效率</strong>也会受到影响。</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/lua_cpp_bind/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/lua_cpp_bind/" itemprop="url">C++与Lua本质原始交互API</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-11T19:29:22+00:00">
+                11-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>我们用一个例子来说明.</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/lua_cpp_toluapp_tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/lua_cpp_toluapp_tutorial/" itemprop="url">tolua++安装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-11T19:29:22+00:00">
+                11-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>我们用一个例子来说明.</p>
+<p>本文环境为 : </p>
+<ul>
+<li>ubuntu1404</li>
+<li>g++ 4.8.4</li>
+<li>python</li>
+<li>git</li>
+<li>lua5.1( 因为tolua++只支持到5.1, 安装5.1教程看 <a href="/lua_install_tutorial/" title="Lua的win和linux环境简单安装">Lua的win和linux环境简单安装</a> )</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/lua_pairs_ipairs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/lua_pairs_ipairs/" itemprop="url">Lua中ipairs和pairs的区别与使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-11T19:29:22+00:00">
+                11-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>关于ipairs()和pairs(),Lua官方手册是这样说明的：</p>
+<p><strong>pairs (t)</strong></p>
+<p>If t has a metamethod __pairs, calls it with t as argument and returns the first three results from the call.</p>
+<p>Otherwise, returns three values: the next function, the table t, and nil, so that the construction</p>
+<pre><code>` for k,v in pairs(t) do body end`
+</code></pre><p>will iterate over all key–value pairs of table t.</p>
+<p>See function next for the caveats of modifying the table during its traversal.</p>
+<p><strong>ipairs (t)</strong></p>
+<p>If t has a metamethod __ipairs, calls it with t as argument and returns the first three results from the call.</p>
+<p>Otherwise, returns three values: an iterator function, the table t, and 0, so that the construction</p>
+<pre><code>` for i,v in ipairs(t) do body end`
+</code></pre><p>will iterate over the pairs (1,t[1]), (2,t[2]), …, up to the first integer key absent from the table.</p>
+<p>根据官方手册的描述，pairs会遍历表中所有的key-value值，而pairs会根据key的数值从1开始加1递增遍历对应的table[i]值，直到出现第一个不是按1递增的数值时候退出。</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/lua_install_tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/lua_install_tutorial/" itemprop="url">Lua的win和linux环境搭建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-08T19:29:22+00:00">
+                11-08-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="ubuntu环境"><a href="#ubuntu环境" class="headerlink" title="ubuntu环境"></a>ubuntu环境</h1><p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/Linux常用命令笔记整理之tcpdump/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/Linux常用命令笔记整理之tcpdump/" itemprop="url">Linux常用命令笔记整理之tcpdump</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-03T19:25:59+00:00">
+                11-03-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>强大的抓包工具, 博大精深内容太多, 所以这篇博客整理得只说常用, 具体的参考tcpdump用户手册,<br>tcpdump需要root权限, 所以记得加上sudo</p>
+<h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a><strong>常用参数</strong></h2><ul>
+<li><p>-nn选项：<br>意思是说当tcpdump遇到协议号或端口号时，不要将这些号码转换成对应的协议名称或端口名称。比如，大家都知道80是http端口，tcpdump就不会将它显示成http了</p>
+</li>
+<li><p>-c选项：<br>是Count的含义，这设置了我们希望tcpdump帮我们抓几个包。</p>
+</li>
+<li><p>-i : 指定哪一张网卡</p>
+</li>
+<li><p>-l : 使得输出变为行缓冲</p>
+</li>
+<li><p>-t :  输出时不打印时间戳</p>
+</li>
+<li><p>-v :  输出更详细的信息</p>
+</li>
+<li><p>-F : 指定过滤表达式所在的文件, 可以建立了一个filter.txt文本文件来存储过滤表达式，然后通过-F来指定filter.txt</p>
+</li>
+<li><p>-w : 将流量保存到文件中</p>
+</li>
+<li><p>-r :  读取raw packets文件</p>
+</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/linux常用文本处理命令笔记整理之sed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux常用文本处理命令笔记整理之sed/" itemprop="url">linux常用文本处理命令笔记整理之sed</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-23T12:51:19+00:00">
+                10-23-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>sed是一种流编辑器，它是文本处理中非常中的工具，能够完美的配合正则表达式使用，功能不同凡响。处理时，把当前处理的行存储在临时缓冲区中，称为“模式空间”（pattern space），接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。文件内容并没有 改变，除非你使用重定向存储输出。Sed主要用来自动编辑一个或多个文件；简化对文件的反复操作；编写转换程序等。</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

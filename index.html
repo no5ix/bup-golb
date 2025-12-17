@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🚙">
+<meta property="og:url" content="https://hulinhong.com/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚙">
+<meta name="twitter:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>🚙 - 💨 💨 💨</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/optimized_hexo_next_theme/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/optimized_hexo_next_theme/" itemprop="url">A optimized Hexo & Next.</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-01-18T00:05:48+00:00">
+                01-18-2013
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p><strong>This blog is powered by my open-source project, made by me in 2013</strong>,  <a href="https://github.com/no5ix/hexo-theme-neo" target="_blank" rel="noopener"><i class="fa fa-fw fa-github fa-2x"></i>hexo-theme-neo</a> </p>
+<p>I’ve optimized the <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">original NexT theme</a> and many <a href="https://hexo.io" target="_blank" rel="noopener">hexo</a> plugins through numerous code modifications, including:</p>
+<ul>
+<li>Implemented headroom.js for auto-hiding header: hides on downward scroll, reappears on upward scroll</li>
+<li>The optimization of the animation. Now, even an extremely long blog article with tens of thousands of words won’t freeze.</li>
+<li>Buttons that allow the sidebar to be fully expanded and the logic for double - clicking to expand it individually have been added, along with different markings for different levels of headings, making it clearer.</li>
+<li>Mobile-first improvements:<ul>
+<li>Restructured header layout</li>
+<li>Unified sidebar behavior between mobile/desktop</li>
+<li>Scrollable table of contents on mobile</li>
+</ul>
+</li>
+<li>Added article encryption support</li>
+<li>Replaced Fancybox with mediumzoom for superior image zoom experience</li>
+<li>Redesigned local search engine:<ul>
+<li>Fixed keyboard pop-up issues on mobile</li>
+<li>Excludes encrypted articles from search results</li>
+<li>Added elegant transition animations</li>
+</ul>
+</li>
+</ul>
+<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><ol>
+<li>Download Node.js version 10.13.0 here and verify with <code>node -v</code>. Using this specific version is crucial—do not modify it.</li>
+<li>Delete the <code>source</code> folder in this project.</li>
+<li>Create a new <code>source</code> folder.</li>
+<li>Run <code>npm install -g hexo-cli</code>, then <code>npm install --force</code>.</li>
+<li>Extract <code>my_node_modules.tar.gz</code> into the current directory <code>tar -zxvf my_node_modules.tar.gz</code>(Ensure Hexo is installed before running this step)</li>
+<li>Learn <a href="https://hexo.io/docs/index.html" target="_blank" rel="noopener">Hexo’s base usage</a> for Writing/Generating/Deployment .</li>
+<li>Learn <a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT</a>. Explore NexT’s documentation for theme-specific configurations.</li>
+<li>Modify the configuration files: <code>/_config.yml</code> and <code>/themes/next/_config.yml</code></li>
+<li>Run <code>hexo clean</code> to remove cached files.</li>
+<li>Run <code>hexo generate</code> to generate static files.</li>
+<li>Run <code>hexo server</code> to start a local Hexo server.</li>
+</ol>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/auto_toc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/auto_toc/" itemprop="url">A userscript that adds a table of contents to any website</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-08-25T21:56:12+00:00">
+                08-25-2022
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p><a href="https://github.com/no5ix/auto-toc" target="_blank" rel="noopener"><i class="fa fa-fw fa-github fa-2x"></i>auto-toc</a> </p>
+<h1 id="auto-toc"><a href="#auto-toc" class="headerlink" title="auto-toc"></a>auto-toc</h1><p>Displays a table of contents for any website, making it easier to read and navigate long articles, documentations, and online books.</p>
+<p>Generate TOC(table of contents) for any website.<br><!-- 可以为任何网站生成TOC网站目录大纲. --></p>
+<p>Switch black/white themes automatically according to your compupter’s light/dark mode.<br><!-- 会根据你的电脑的黑夜白天模式自动切换黑白主题. --></p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://raw.githubusercontent.com/no5ix/auto-toc/refs/heads/main/auto_toc_demo_image.png" alt></p>
+<h1 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h1><ul>
+<li>Work properly on any website that conforms to the HTML standard and uses HTML heading tags properly (e.g. Wikipedia.com). </li>
+<li>Accurate article and heading detection</li>
+<li>A clean user interface</li>
+<li>Highlight current heading</li>
+<li>Click to jump to headings</li>
+<li>Drag the panel to your preferred position</li>
+<li>Only runs when you actually use it</li>
+<li>Dark mode, automatically</li>
+<li>6 heading levels</li>
+<li>Expand all headings to a specific level</li>
+<li>Support HTML label:<ul>
+<li><code>H1</code>, <code>H2</code>, <code>H3</code>, <code>H4</code>, <code>H5</code>, <code>H6</code></li>
+<li><code>&lt;strong&gt;</code></li>
+<li><code>&lt;b&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/tab_to_find/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/tab_to_find/" itemprop="url">A shell plugin that provides interactive Tab search & completion for any path</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-08-22T22:48:12+00:00">
+                08-22-2022
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p><a href="https://github.com/no5ix/tab-to-find" target="_blank" rel="noopener"><i class="fa fa-fw fa-github fa-2x"></i>tab-to-find</a> </p>
+<h1 id="tab-to-find"><a href="#tab-to-find" class="headerlink" title="tab-to-find"></a>tab-to-find</h1><p>One tab enables interactive and dynamic search for everything!!</p>
+<p>It also supports tab dynamic completion of commands for the paths of any directories and files. </p>
+<p>It is extremely useful for people who often need to find files and are troubled by entering very long paths. There is no need to type the paths one by one slowly. You can search and reach the target in one step. Even if there are <strong>millions</strong> of files, it is still very smooth and not laggy at all.</p>
+<p>Abbreviation: TTF</p>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://raw.githubusercontent.com/no5ix/tab-to-find/main/tab-to-find-demo.gif" alt="tab-to-find-demo.gif"></p>
+<h1 id="features"><a href="#features" class="headerlink" title="features"></a>features</h1><ul>
+<li>Just press tab as usual.<ul>
+<li>Without entering anything, tab can directly and dynamically search for all directories and files in the current directory and its subdirectories. It’s also very useful just as a search tool.</li>
+<li>Use tab to autocomplete.<ul>
+<li>It doesn’t necessarily have to be an exact match at the beginning. For example, if you enter <code>doc</code> and then press tab, it can match <code>test_doc</code>, <code>doc_test</code>, and <code>test_doc_test</code>.</li>
+<li>It can recursively match all files/directories with <code>doc</code> in the subdirectories of the current directory. That means you can enter <code>cd doc</code> in the <code>home</code> directory and directly <code>cd</code> from the <code>home</code> directory to <code>~/github/test - proj/documents</code> in one step!<ul>
+<li>If there is only one match, it will be automatically completed.<ul>
+<li>For example, if it matches <code>Documents/</code>, but if that’s not what you want and you want <code>~/github/test - proj/documents</code>, you can press tab again.</li>
+</ul>
+</li>
+<li>If there is more than one match, it will recursively search all folders containing <code>doc</code> in the subdirectories.</li>
+</ul>
+</li>
+<li>If what follows <code>cd</code> is not a directory, it will automatically enter the directory where that file is located. For example, if you enter <code>cd ~/github/test.txt</code>, it can directly enter the <code>~/github</code> folder.</li>
+<li>If the input ends with <code>//</code>, it can search only for folders in one level of the directory, instead of recursively searching all subdirectories.</li>
+<li>If the input ends with <code>..</code>, it can search only for files in one level of the directory, instead of recursively searching all subdirectories.</li>
+<li>The same applies to other commands such as <code>vi</code>, <code>ln</code>, <code>mv</code>, <code>cp</code>, etc.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><ul>
+<li>Press tab to search everything</li>
+<li>Press tab for completion as usual</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/sux_readme/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/sux_readme/" itemprop="url">An alternative to Alfred+Wox+Listary+OneQuick+CapslockPlus</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-09T22:09:39+00:00">
+                01-09-2020
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <!-- [<i class="fa fa-fw fa-github fa-2x"></i>nox](https://github.com/no5ix/sux) 
+
+An alternative to **Alfred**/**Wox**/**Listary**/**Capslock+** .
+
+Inspired by Alfred/Wox/Listary/Capslock+/utools, thank u.
+
+<video width="100%" controls="controls">
+<source src="/img/sux/sux_intro.mp4" type="video/mp4" />
+</video> -->
+<!-- ![sux](https://raw.githubusercontent.com/no5ix/no5ix.github.io/71f651a204bdf460b4b4330de8ac185794ee7b59/source/img/sux/sux.svg) -->
+<p><a href="https://github.com/no5ix/sux" target="_blank" rel="noopener"><i class="fa fa-fw fa-github fa-2x"></i>sux</a> </p>
+<ul>
+<li><a href="https://www.zhihu.com/question/310110592/answer/1909948496" target="_blank" rel="noopener">Zhihu link</a></li>
+<li><a href="https://github.com/no5ix/sux/releases" target="_blank" rel="noopener">Download link</a></li>
+</ul>
+<p><code>sux</code> is a powerful productivity tool with a size of only 2M+. It also has the following features:</p>
+<ul>
+<li>Translation</li>
+<li>History Clipboard</li>
+<li>Everything Search Toolbar</li>
+<li>Screenshot &amp; Pinning</li>
+<li>Quick Search Similar to listary/alfred/wox</li>
+<li>Hot Corners Similar to macOS</li>
+<li>Hot Edge Triggers</li>
+<li>Fully Customizable Global Shortcuts for Various Operations</li>
+<li>Text Replacer</li>
+<li>Text Transformer</li>
+<li>Tray Menu</li>
+<li>CMD Commands</li>
+<li>Customizable JSON Configuration</li>
+<li>Custom Themes</li>
+<li>etc …</li>
+</ul>
+<p>An alternative to <strong>Alfred</strong>/<strong>Wox</strong>/<strong>Listary</strong>/<strong>Capslock+</strong>/<strong>OneQuick</strong> .</p>
+<p>Inspired by Alfred/Wox/Listary/Capslock+/utools/OneQuick, thank u.</p>
+<!-- [![](https://github.com/no5ix/no5ix.github.io/blob/source/source//sux/sux/web_search.gif)](https://hulinhong.com/2020/01/09/sux_readme/)
+点击图片来看完整视频.click img to see full video. -->
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/kcpp_intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/kcpp_intro/" itemprop="url">A lightweight KCP session implementation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-09T01:09:39+00:00">
+                08-09-2018
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NP/" itemprop="url" rel="index">
+                    <span itemprop="name">NP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p><a href="https://github.com/no5ix/kcpp" target="_blank" rel="noopener"><i class="fa fa-fw fa-github fa-2x"></i>kcpp</a> </p>
+<h1 id="Lightweight-KCP-Session-Implementation-kcpp"><a href="#Lightweight-KCP-Session-Implementation-kcpp" class="headerlink" title="Lightweight KCP Session Implementation - kcpp"></a>Lightweight KCP Session Implementation - kcpp</h1><p><code>kcpp</code> truly enables you to use KCP just by including a single header file and writing a few lines of code, without having to worry about how to organize the code to adapt to KCP.</p>
+<ul>
+<li>You only need to include the single header file <code>kcpp.h</code>.</li>
+<li>You only need to call <code>KcpSession::Send</code>, <code>KcpSession::Recv</code>, and <code>KcpSession::Update</code> to complete UDP connection state management, session control, and RUDP protocol scheduling.</li>
+</ul>
+<h1 id="What-is-KCP"><a href="#What-is-KCP" class="headerlink" title="What is KCP?"></a>What is KCP?</h1><p>KCP is a high-performance, reliable, and lightweight transport layer protocol designed to accelerate UDP-based data transmission. It provides an efficient alternative to TCP while maintaining UDP’s low-latency benefits. Originally developed by skywind3000, KCP is widely used in real-time applications such as gaming, live streaming, VPNs, and P2P networking.</p>
+<h1 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h1><ul>
+<li>Single-header-only</li>
+<li>Session implementation</li>
+<li>Dynamic redundancy</li>
+<li>Two-channel<ul>
+<li>Reliable</li>
+<li>Unreliable</li>
+</ul>
+</li>
+</ul>
+<h1 id="kcpp-Examples"><a href="#kcpp-Examples" class="headerlink" title="kcpp Examples"></a>kcpp Examples</h1><ul>
+<li><a href="https://github.com/no5ix/realtime-server" target="_blank" rel="noopener">realtime-server</a>: A real-time dedicated game server (FPS / MOBA).</li>
+<li><a href="https://github.com/no5ix/realtime-server-ue4-demo" target="_blank" rel="noopener">realtime-server-ue4-demo</a>: A UE4 state synchronization demo for the real-time server. <a href="https://hulinhong.com">Video Preview</a></li>
+</ul>
+<h1 id="kcpp-Usage"><a href="#kcpp-Usage" class="headerlink" title="kcpp Usage"></a>kcpp Usage</h1><p>The main loop is supposed to be as follows:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Game.Init();</span><br><span class="line"></span><br><span class="line"><span class="comment">// kcpp initialization</span></span><br><span class="line">kcpp::<span class="function">KcpSession <span class="title">myKcpSess</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    KcpSession::RoleTypeE,</span></span></span><br><span class="line">    std::bind(udp_output, _1, _2),</span><br><span class="line">    <span class="built_in">std</span>::bind(udp_input),</span><br><span class="line">    <span class="built_in">std</span>::bind(timer)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (!isGameOver) &#123;</span><br><span class="line">    myKcpSess.Update();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (myKcpSess.Recv(data, len)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (len &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Game.HandleRecvData(data, len);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            Game.HandleRecvError(len);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (myKcpSess.CheckCanSend()) &#123;</span><br><span class="line">        myKcpSess.Send(data, len);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        Game.HandleCanNotSendForNow();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Game.Logic();</span><br><span class="line">    Game.Render();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The <code>Recv</code>, <code>Send</code>, and <code>Update</code> functions of kcpp are guaranteed to be non-blocking.<br>Please read <a href="https://github.com/no5ix/kcpp/blob/master/TestKcppClient.cpp" target="_blank" rel="noopener">TestKcppClient.cpp</a> and <a href="https://github.com/no5ix/kcpp/blob/master/TestKcppServer.cpp" target="_blank" rel="noopener">TestKcppServer.cpp</a> for some basic usage examples.</p>
+<h1 id="KCP-Source-Code-Annotations"><a href="#KCP-Source-Code-Annotations" class="headerlink" title="KCP Source Code Annotations"></a>KCP Source Code Annotations</h1><p>This project also comes with an annotated version of the KCP source code, <code>ikcp.h</code> and <code>ikcp.c</code>. It can be regarded as another detailed explanation of KCP, which is convenient for self-study and helps others get started more quickly. The original code is from: <a href="https://github.com/skywind3000/kcp" target="_blank" rel="noopener">https://github.com/skywind3000/kcp</a>. Thanks to skywind3000 for bringing such a concise and excellent project.</p>
+<p>Readers interested in open-source projects for real-time combat games like FPS / MOBA can also visit <a href="https://github.com/no5ix/realtime-server" target="_blank" rel="noopener">realtime-server</a>. Welcome to communicate.</p>
+<p>Note: Tabs are used for indentation in the project, and tab is set to 2 spaces.</p>
+<p>Almost every paragraph has annotations, and key data structures are accompanied by diagrams. For example:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">//</span><br><span class="line">// The data packets sent by KCP have their own packet structure. The packet header is 24 bytes in total and contains some necessary information. The specific content and size are as follows:</span><br><span class="line">//</span><br><span class="line">// |&lt;------------ 4 bytes ------------&gt;|</span><br><span class="line">// +--------+--------+--------+--------+</span><br><span class="line">// |  conv                             | conv: Conversation, the session serial number used to identify whether the sent and received data packets are consistent.</span><br><span class="line">// +--------+--------+--------+--------+ cmd: Command, the instruction type, representing the type of this Segment.</span><br><span class="line">// |  cmd   |  frg   |       wnd       | frg: Fragment, the segmentation serial number. The segments are numbered from large to small, and 0 indicates that the data packet has been received completely.</span><br><span class="line">// +--------+--------+--------+--------+ wnd: Window, the window size.</span><br><span class="line">// |                ts                 | ts: Timestamp, the sending timestamp.</span><br><span class="line">// +--------+--------+--------+--------+</span><br><span class="line">// |                 sn                | sn: Sequence Number, the Segment serial number.</span><br><span class="line">// +--------+--------+--------+--------+</span><br><span class="line">// |                una                | una: Unacknowledged, the current unacknowledged serial number,</span><br><span class="line">// +--------+--------+--------+--------+      which means that all packets before this serial number have been received.</span><br><span class="line">// |                len                | len: Length, the length of the subsequent data.</span><br><span class="line">// +--------+--------+--------+--------+</span><br><span class="line">//</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">//---------------------------------------------------------------------</span><br><span class="line">// ...</span><br><span class="line">// rcv_queue: The queue for receiving messages. The data in rcv_queue is continuous, while the data in rcv_buf may be intermittent.</span><br><span class="line">// nrcv_que: The number of Segments in the receiving queue rcv_queue, which needs to be less than rcv_wnd.</span><br><span class="line">// rcv_queue is shown in the following diagram:</span><br><span class="line">// +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+</span><br><span class="line">// ... | 2 | 3 | 4 | ............................................... </span><br><span class="line">// +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+</span><br><span class="line">//              ^              	        ^                      	^        </span><br><span class="line">//              |                      	|                      	|        </span><br><span class="line">//           rcv_nxt           	rcv_nxt + nrcv_que      rcv_nxt + rcv_wnd		</span><br><span class="line">//</span><br><span class="line">// snd_buf: The buffer for sending messages.</span><br><span class="line">// snd_buf is shown in the following diagram:</span><br><span class="line">// +---+---+---+---+---+---+---+---+---+---+---+---+---+</span><br><span class="line">// ... | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ...........</span><br><span class="line">// +---+---+---+---+---+---+---+---+---+---+---+---+---+</span><br><span class="line">//              ^               ^               ^</span><br><span class="line">//              |               |               |</span><br><span class="line">//           snd_una         snd_nxt    snd_una + snd_wnd	</span><br><span class="line">//</span><br><span class="line">//</span><br><span class="line">// rcv_buf: The buffer for receiving messages.</span><br><span class="line">// rcv_buf is shown in the following diagram. The data in rcv_queue is continuous, while the data in rcv_buf may be intermittent.</span><br><span class="line">// +---+---+---+---+---+---+---+---+---+---+---+---+---+</span><br><span class="line">// ... | 2 | 4 | 6 | 7 | 8 | 9 | ...........</span><br><span class="line">// +---+---+---+---+---+---+---+---+---+---+---+---+---+	</span><br><span class="line">//</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/a_real_time_game_server_and_a_ue4_demo_for_it/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/a_real_time_game_server_and_a_ue4_demo_for_it/" itemprop="url">A lightweight game server engine</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-02T17:56:12+00:00">
+                05-02-2018
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://raw.githubusercontent.com/no5ix/realtime-server/dev/img/UE4DemoScreenshot.gif" alt></p>
+<h1 id="Architecture-Diagram"><a href="#Architecture-Diagram" class="headerlink" title="Architecture Diagram"></a>Architecture Diagram</h1><p>This architecture diagram is automatically generated by writing PlantUML.</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://raw.githubusercontent.com/no5ix/realtime-server/dev/img/img_1.png" alt></p>
+<h1 id="Key-Features"><a href="#Key-Features" class="headerlink" title="Key Features"></a>Key Features</h1><ul>
+<li><strong>Business layer development based on ECS framework</strong>: You can inherit from the base entity class and base component class.</li>
+<li><strong>Integrated service mechanism based on <code>etcd</code></strong>: It includes service registration, TTL, service discovery, load balancing, load reporting, and Watch mechanism.</li>
+<li><strong>RPC framework based on <code>msgpack</code></strong>: It supports direct calling via IP address and direct calling of remote virtual entities/components in combination with ECS.</li>
+<li><strong>Coroutine business layer support based on asyncio asynchronous IO</strong>: You can achieve the effect of directly calling RPC and getting the return value like <code>result = await rpc_call()</code>.<ul>
+<li>A coroutine pool is implemented and encapsulated into a concise decorator for easy calling in the business layer.</li>
+</ul>
+</li>
+<li><strong>Support for TCP and RUDP</strong></li>
+<li><strong>Asynchronous HTTP microservice framework based on Sanic</strong>: It is convenient for developing various public services.<ul>
+<li>An authentication module based on JWT.</li>
+<li>A data persistence module based on Redis.</li>
+<li>An ODM module based on Umongo.</li>
+</ul>
+</li>
+<li><strong>Hot - update reload module</strong>:<ul>
+<li>Full - scale update: Stable.</li>
+<li>Incremental update: Faster, convenient for daily development.</li>
+</ul>
+</li>
+<li><strong>Asynchronous TimedRotating log module support</strong>:<ul>
+<li>Automatically rolls over log files according to date and time.</li>
+<li>Supports callbacks of coroutine objects.</li>
+<li>Changes colors according to log levels for easy querying.</li>
+<li>Prints the stack and <code>locals</code> when reporting traces.</li>
+<li>Provides file jump support in PyCharm for log levels above warning.</li>
+</ul>
+</li>
+<li><strong>Timer module supporting 1:N model</strong>: It avoids the error - prone issue of overwriting the same key.<ul>
+<li>You can reuse a key without overwriting the previous timers associated with the key. However, when calling <code>cancel_timer</code>, all timers with the same key will be cancelled at once.</li>
+</ul>
+</li>
+<li><strong>Enhanced JSON parser</strong>: It supports comments, automatic removal of commas, and variable macros.</li>
+<li><strong>Data persistence module based on MongoDB</strong></li>
+<li><strong>Client - side simulation and automated testing support</strong></li>
+<li><strong>Pre - gateway <code>gate</code> server for the lobby server</strong>: It is responsible for data compression/decompression, encryption/decryption, and authentication.</li>
+</ul>
+<h1 id="Python-Version"><a href="#Python-Version" class="headerlink" title="Python Version"></a>Python Version</h1><p>Python 3.8.8</p>
+<h1 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h1><p>Here are the answers to common questions. Please don’t spam the group with these questions:</p>
+<ul>
+<li><strong>Where can I find the old version?</strong><ul>
+<li>Do you mean the CPP version in the following demo image? It’s in the <a href="https://github.com/no5ix/realtime-server/tree/master" target="_blank" rel="noopener">master branch</a>.</li>
+</ul>
+</li>
+<li><strong>Why choose Python for the new version instead of C++? Or why not make C++ the bottom layer and Python the upper layer?</strong><ul>
+<li>It’s possible to use C++ as the bottom layer and Python as the upper layer for calling. However, the current vision is to encourage more developers to contribute. The threshold of C++ is significantly higher than that of Python for other contributors.</li>
+<li>If there are enough users in the future, we will consider making the bottom layer in C++ and packaging it into <code>.pyd</code> or <code>.so</code> for the upper layer to call.</li>
+<li>For most games, the performance of Python is sufficient.</li>
+<li>The vision of this server engine is to target mass developers for rapid development. Python has a wide audience and is easy to learn.</li>
+</ul>
+</li>
+<li><strong>What’s the significance of <code>lobby_gate</code>? Why doesn’t the client connect directly to the lobby?</strong><ul>
+<li>Generally, when latency is not a critical issue, the client accesses the lobby through the <code>gate</code>. The <code>gate</code> is responsible for proxying and forwarding network communication data between the client and the game. It also handles data encryption, decryption, compression, and decompression, reducing the performance pressure on the lobby.</li>
+<li>The logic of message processing in the lobby can be simpler without dealing with I/O multiplexing, as all messages come from a single TCP connection (single gateway) or a fixed number of TCP connections (multiple gateways).</li>
+<li>After the client starts, it connects to the gateway, which then connects to the scene server and forwards all message packets. When switching scenes, the connection between the client and the gateway remains intact. The gateway is responsible for connecting to the new scene. Since the gateway and the game server are usually in the same local area network, the problem of disconnection is greatly improved.</li>
+<li>In a multi - process online game architecture, the game server not only processes client messages but also messages from other processes such as accounts and GM tools. For security reasons, it is necessary to isolate and restrict client messages.</li>
+<li>Game servers often need to start new servers, merge servers, or migrate due to hardware failures. If the game server directly provides services to the client, the client usually needs to log out and log in again when the service changes. If a gateway is used, when the server address changes internally, only the gateway needs to be updated and reconnect, and the client may not even notice.</li>
+</ul>
+</li>
+<li><strong>What is RUDP?</strong><ul>
+<li>Its full name is reliable UDP.</li>
+<li>Currently, this server engine is implemented in Python based on the standard KCP algorithm.</li>
+<li>There are plans to improve KCP in the future, and the performance will be further enhanced. Stay tuned:<ul>
+<li>Add a dynamic redundant packet mechanism based on SRTT monitoring.</li>
+<li>Simplify the packet header (for example, some fields in the packet header do not need 32 bits and can be changed to 16 bits).</li>
+<li>Introduce the dupack mechanism, not just sending <code>IKCP_CMD_ACK</code> packets.<ul>
+<li>Make full use of the fields in the packet header. For example, when the number of ACKs to be sent in the ACK list array is less than or equal to 3, use the <code>len</code>, <code>rdc_len</code>, and <code>sn</code> in the packet header to represent the sequence numbers of the received packets.</li>
+<li>Redundant ACK mechanism: When the number of ACKs to be sent in the ACK list array is greater than 3, the body will contain all the ACKs in the merged ACK list and the previously sent ACKs until the packet size reaches the MSS.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>…</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>What about etcd?</strong><ul>
+<li>It implements service registration, service discovery, load balancing, and load reporting through its TTL and Watch mechanisms.</li>
+<li>It is convenient for implementing distributed locks.</li>
+<li>The V2 version of the HTTP API is used for interacting with etcd. Since the interaction is not sensitive to latency, gRPC is not used to keep it simple.</li>
+<li>Then why choose etcd instead of ZooKeeper?<ul>
+<li>The purposes of the two applications are different. The purpose of etcd is to be a highly available Key/Value storage system, mainly used for sharing configurations and service discovery; the purpose of ZooKeeper is to be a highly effective and reliable collaborative working system.</li>
+<li>The interface call methods are different. etcd is based on an HTTP + JSON API, which can be easily used with just <code>curl</code>, making it convenient for each host in the cluster to access; ZooKeeper is based on TCP and requires a dedicated client.</li>
+<li>The functions are quite similar. Both etcd and ZooKeeper provide key - value storage services, cluster queue synchronization services, and the ability to observe changes in the value of a key.</li>
+<li>The deployment methods are also similar: They both use a cluster mode and can support thousands of nodes. etcd is written in Go and can be deployed by directly compiling the binary files; ZooKeeper is written in Java and depends on JDK, so JDK needs to be deployed first.</li>
+<li>Implementation languages: Go has almost the same efficiency as C, especially since Go is a language designed for multi - threading and process communication, and it performs very well in small - scale clusters; Java requires more code to implement, and its performance is average in small - scale clusters. However, after optimizing multi - threading in large - scale scenarios, its performance is not much different from that of Go.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/sux_mac_readme/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/sux_mac_readme/" itemprop="url">A powerful sux-like productivity tool on Mac</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2025-03-14T20:09:39+00:00">
+                03-14-2025
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="sux-mac"><a href="#sux-mac" class="headerlink" title="sux-mac"></a>sux-mac</h1><p>A powerful <a href="https://github.com/no5ix/sux" target="_blank" rel="noopener">sux-like</a> productivity tool on Mac. 一个 Mac 端的类似 <a href="https://github.com/no5ix/sux" target="_blank" rel="noopener">sux</a> 的强大效率工具.</p>
+<h1 id="features"><a href="#features" class="headerlink" title="features"></a>features</h1><ul>
+<li>Clipboard history supports both text and images. You can select a single item for copying, and it also allows you to copy all the contents in the clipboard history at once. <ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/sux_mac_readme/image-1.png" alt="alt text"></li>
+</ul>
+</li>
+<li>Automatically switch input method:<ul>
+<li>Every time you switch software, it will automatically prompt the current input method status.<ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/sux_mac_readme/image-2.png" alt="alt text"></li>
+</ul>
+</li>
+<li>Remember the input method used by each software last time, and automatically switch the input method according to the software. For example, after you switch from Chinese to English input method in software A, then go to B to use Chinese input method. When you go to software A, it will automatically switch to English input method. </li>
+</ul>
+</li>
+<li>Automatically maximize the window. After setting the software list, it will automatically maximize the window when these software are opened.</li>
+<li>Implement text input enhancement, you can use the Capslock key with the following auxiliary keys to achieve most of the text operation requirements, no longer need to switch back and forth between the mouse and keyboard, can be similar to vim, various cursor movements are very convenient<ul>
+<li>You can fully customize</li>
+<li>default settings: <ul>
+<li>Capslock + J: down</li>
+<li>Capslock + K: up</li>
+<li>Capslock + H: left</li>
+<li>Capslock + L: right</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Detect corners and edges and use Hammerspoon to set custom actions, and dual monitors are also supported.<ul>
+<li>You can fully customize</li>
+<li>default HotEdges settings:<ul>
+<li>Quickly touch the top  <strong>left</strong>  half edge of the screen twice to maximize the window</li>
+<li>Quickly touch the top of the screen twice  <strong>right</strong>  half the edge, you can slide to the top of the window</li>
+<li>Quickly touch the bottom of the screen twice  <strong>right</strong>  half the edge, you can slide to the bottom of the window</li>
+<li>Quickly touch the <strong>left</strong> edge of the screen twice with the mouse, you can turn the window into half the size of the screen and paste it on the <strong>left</strong> edge of the screen</li>
+<li>Quickly touch the  <strong>right</strong>  edge of the screen twice to turn the window into half the size of the screen and stick it to the  <strong>right</strong>  edge of the screen</li>
+<li>When you have two monitors, right-click on the top <strong>left</strong> half edge of the screen to move the window to the <strong>left</strong> side of the monitor and maximize it</li>
+<li>When you have two monitors, right-click on the top  <strong>right</strong>  half edge of the screen to move the window to the monitor on the  <strong>right</strong>  side and maximize it</li>
+<li>…</li>
+</ul>
+</li>
+<li>default HotCorners settings:<ul>
+<li>Mouse touch upper <strong>left</strong> corner: previous page (such as the previous tab of the webpage, the previous tab of vscode)</li>
+<li>Mouse the upper <strong>right</strong> corner: next page (e.g. the next tab of the web page, the next tab of vscode)</li>
+<li>Mouse touch in the lower <strong>left</strong> corner: Switch to the previous software</li>
+<li>Mouse the upper <strong>right</strong> corner: next page (e.g. the next tab of the web page, the next tab of vscode)</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><ol>
+<li>Install the Hammerspoon software: <a href="https://www.hammerspoon.org" target="_blank" rel="noopener">https://www.hammerspoon.org</a></li>
+<li>Place the .hammerspoon folder in your user home directory.</li>
+<li>Launch Hammerspoon and reload the configuration:<ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/sux_mac_readme/image-3.png" alt="alt text"></li>
+</ul>
+</li>
+</ol>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

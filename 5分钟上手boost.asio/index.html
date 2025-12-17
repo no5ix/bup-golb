@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '5分钟上手boost.asio' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Boost,CPP,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="Boost.Asio入门首先，让我们先来了解一下什么是Boost.Asio？怎么编译它？ linux下直接 : sudo apt-get install libboost-all-dev 什么是Boost.Asio简单来说，Boost.Asio是一个跨平台的、主要用于网络和其他一些底层输入/输出编程的C++库。 . . .">
+<meta name="keywords" content="Boost,CPP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5分钟上手boost.asio">
+<meta property="og:url" content="https://hulinhong.com/5分钟上手boost.asio/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="Boost.Asio入门首先，让我们先来了解一下什么是Boost.Asio？怎么编译它？ linux下直接 : sudo apt-get install libboost-all-dev 什么是Boost.Asio简单来说，Boost.Asio是一个跨平台的、主要用于网络和其他一些底层输入/输出编程的C++库。 . . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5分钟上手boost.asio">
+<meta name="twitter:description" content="Boost.Asio入门首先，让我们先来了解一下什么是Boost.Asio？怎么编译它？ linux下直接 : sudo apt-get install libboost-all-dev 什么是Boost.Asio简单来说，Boost.Asio是一个跨平台的、主要用于网络和其他一些底层输入/输出编程的C++库。 . . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>5分钟上手boost.asio | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/5分钟上手boost.asio/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">5分钟上手boost.asio</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T23:26:16+00:00">
+                01-12-2017
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NP/" itemprop="url" rel="index">
+                    <span itemprop="name">NP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Boost/" rel="tag"><i class="fa fa-tag"></i> Boost</a>
+              
+                <a href="/tags/CPP/" rel="tag"><i class="fa fa-tag"></i> CPP</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/分布式具体实现重要组件之RPC/" rel="next" title="分布式具体实现重要组件之RPC">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  分布式具体实现重要组件之RPC
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/网络物理模拟一之网络物理部分的简介/" rel="prev" title="网络物理模拟一之网络物理部分的简介">
+              <p class="post-nav-pre-next-title">
+                  网络物理模拟一之网络物理部分的简介
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="Boost-Asio入门"><a href="#Boost-Asio入门" class="headerlink" title="Boost.Asio入门"></a>Boost.Asio入门</h1><p>首先，让我们先来了解一下什么是Boost.Asio？怎么编译它？</p>
+<p>linux下直接 : sudo apt-get install libboost-all-dev</p>
+<h1 id="什么是Boost-Asio"><a href="#什么是Boost-Asio" class="headerlink" title="什么是Boost.Asio"></a>什么是Boost.Asio</h1><p>简单来说，Boost.Asio是一个跨平台的、主要用于网络和其他一些底层输入/输出编程的C++库。</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="异步VS同步"><a href="#异步VS同步" class="headerlink" title="异步VS同步"></a>异步VS同步</h1><blockquote>
+<p>首先，异步编程和同步编程是非常不同的。</p>
+</blockquote>
+<p>在同步编程中，所有的操作都是顺序执行的，比如从socket中读取（请求），然后写入（回应）到socket中。</p>
+<p>每一个操作都是阻塞的。</p>
+<p>因为操作是阻塞的，所以为了不影响主程序，当在socket上读写时，通常会创建一个或多个线程来处理socket的输入/输出。</p>
+<p>因此，同步的服务端/客户端通常是多线程的。</p>
+<p>相反的，异步编程是事件驱动的。</p>
+<p>虽然启动了一个操作，但是你不知道它何时会结束；它只是提供一个回调给你，当操作结束时，它会调用这个API，并返回操作结果。</p>
+<p>对于有着丰富经验的QT（诺基亚用来创建跨平台图形用户界面应用程序的库）程序员来说，这就是他们的第二天性。</p>
+<p>因此，在异步编程中，你只需要一个线程。</p>
+<p>因为中途做改变会非常困难而且容易出错，所以你在项目初期（最好是一开始）就得决定用同步还是异步的方式实现网络通信。</p>
+<p>不仅API有极大的不同，你程序的语意也会完全改变（异步网络通信通常比同步网络通信更加难以测试和调试）。</p>
+<p>你需要考虑是采用阻塞调用和多线程的方式（同步，通常比较简单），或者是更少的线程和事件驱动（异步，通常更复杂）。</p>
+<h1 id="同步例子"><a href="#同步例子" class="headerlink" title="同步例子"></a>同步例子</h1><h2 id="同步客户端"><a href="#同步客户端" class="headerlink" title="同步客户端"></a>同步客户端</h2><p>下面是一个基础的同步客户端例子：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> boost::asio;</span><br><span class="line">io_service service;</span><br><span class="line">ip::tcp::endpoint ep( ip::address::from_string("127.0.0.1"), 2001);</span><br><span class="line">ip::tcp::<span class="function">socket <span class="title">sock</span><span class="params">(service)</span></span>;</span><br><span class="line">sock.connect(ep);</span><br></pre></td></tr></table></figure>
+<p>首先，你的程序至少需要一个io_service实例。</p>
+<p>Boost.Asio使用io_service同操作系统的输入/输出服务进行交互。</p>
+<p>通常一个io_service的实例就足够了。</p>
+<p>然后，创建你想要连接的地址和端口，再建立socket。</p>
+<p>把socket连接到你创建的地址和端口。</p>
+<h2 id="同步服务端"><a href="#同步服务端" class="headerlink" title="同步服务端"></a>同步服务端</h2><p>下面是一个简单的同步Boost.Asio的服务端：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> boost::<span class="built_in">shared_ptr</span>&lt;ip::tcp::socket&gt; socket_ptr;</span><br><span class="line">io_service service;</span><br><span class="line">ip::tcp::endpoint ep( ip::tcp::v4(), 2001)); // listen on 2001</span><br><span class="line">ip::tcp::<span class="function">acceptor <span class="title">acc</span><span class="params">(service, ep)</span></span>;</span><br><span class="line"><span class="keyword">while</span> ( <span class="literal">true</span>) &#123;</span><br><span class="line">    socket_ptr sock(new ip::tcp::socket(service));</span><br><span class="line">    acc.accept(*sock);</span><br><span class="line">    boost::thread( boost::bind(client_session, sock));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">client_session</span><span class="params">(socket_ptr sock)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> ( <span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">char</span> data[<span class="number">512</span>];</span><br><span class="line">        <span class="keyword">size_t</span> len = sock-&gt;read_some(buffer(data));</span><br><span class="line">        <span class="keyword">if</span> ( len &gt; <span class="number">0</span>)</span><br><span class="line">            write(*sock, buffer(<span class="string">"ok"</span>, <span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先，同样是至少需要一个io_service实例。</p>
+<p>然后你指定你想要监听的端口，再创建一个接收器——一个用来接收客户端连接的对象。</p>
+<p> 在接下来的循环中，你创建一个虚拟的socket来等待客户端的连接。</p>
+<p> 然后当一个连接被建立时，你创建一个线程来处理这个连接。</p>
+<p>在client_session线程中来读取一个客户端的请求，进行解析，然后返回结果。</p>
+<h1 id="异步例子"><a href="#异步例子" class="headerlink" title="异步例子"></a>异步例子</h1><h2 id="异步客户端"><a href="#异步客户端" class="headerlink" title="异步客户端"></a>异步客户端</h2><p>而创建一个异步的客户端，你需要做如下的事情：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> boost::asio;</span><br><span class="line">io_service service;</span><br><span class="line">ip::tcp::endpoint ep( ip::address::from_string("127.0.0.1"), 2001);</span><br><span class="line">ip::tcp::<span class="function">socket <span class="title">sock</span><span class="params">(service)</span></span>;</span><br><span class="line">sock.async_connect(ep, connect_handler);</span><br><span class="line">service.run();</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">connect_handler</span><span class="params">(<span class="keyword">const</span> boost::system::error_code &amp; ec)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 如果ec返回成功我们就可以知道连接成功了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在程序中你需要创建至少一个io_service实例。</p>
+<p>你需要指定连接的地址以及创建socket。</p>
+<p>当连接完成时（其完成处理程序）你就异步地连接到了指定的地址和端口，也就是说，connect_handler被调用了。</p>
+<p>当connect_handler被调用时，检查错误代码（ec），如果成功，你就可以向服务端进行异步的写入。</p>
+<p>注意：只要还有待处理的异步操作，servece.run()循环就会一直运行。</p>
+<p>在上述例子中，只执行了一个这样的操作，就是socket的async_connect。</p>
+<p>在这之后，service.run()就退出了。</p>
+<p>每一个异步操作都有一个完成处理程序——一个操作完成之后被调用的函数。</p>
+<h2 id="异步服务端"><a href="#异步服务端" class="headerlink" title="异步服务端"></a>异步服务端</h2><p> 下面的代码是一个基本的异步服务端<br> <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> boost::asio;</span><br><span class="line"><span class="keyword">typedef</span> boost::<span class="built_in">shared_ptr</span>&lt;ip::tcp::socket&gt; socket_ptr;</span><br><span class="line">io_service service;</span><br><span class="line">ip::tcp::endpoint ep( ip::tcp::v4(), 2001)); // 监听端口2001</span><br><span class="line">ip::tcp::<span class="function">acceptor <span class="title">acc</span><span class="params">(service, ep)</span></span>;</span><br><span class="line">socket_ptr sock(new ip::tcp::socket(service));</span><br><span class="line">start_accept(sock);</span><br><span class="line">service.run();</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">start_accept</span><span class="params">(socket_ptr sock)</span> </span>&#123;</span><br><span class="line">    acc.async_accept(*sock, boost::bind( handle_accept, sock, _1) );</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handle_accept</span><span class="params">(socket_ptr sock, <span class="keyword">const</span> boost::system::error_code &amp;</span></span></span><br><span class="line"><span class="function"><span class="params">err)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ( err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 从这里开始, 你可以从socket读取或者写入</span></span><br><span class="line">    socket_ptr sock(new ip::tcp::socket(service));</span><br><span class="line">    start_accept(sock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上述代码片段中，首先，你创建一个io_service实例，指定监听的端口。</p>
+<p>然后，你创建接收器acc——一个接受客户端连接，创建虚拟的socket，异步等待客户端连接的对象。</p>
+<p>最后，运行异步service.run()循环。</p>
+<p>当接收到客户端连接时，handle_accept被调用（调用async_accept的完成处理程序）。</p>
+<p>如果没有错误，这个socket就可以用来做读写操作。</p>
+<p>在使用这个socket之后，你创建了一个新的socket，然后再次调用start_accept()，用来创建另外一个“等待客户端连接”的异步操作，从而使service.run()循环一直保持忙碌状态。</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Boost/" rel="tag"><i class="fa fa-tag"></i> Boost</a>
+            
+              <a href="/tags/CPP/" rel="tag"><i class="fa fa-tag"></i> CPP</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/分布式具体实现重要组件之RPC/" rel="next" title="分布式具体实现重要组件之RPC">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    分布式具体实现重要组件之RPC
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/网络物理模拟一之网络物理部分的简介/" rel="prev" title="网络物理模拟一之网络物理部分的简介">
+                <p class="post-nav-pre-next-title">
+                    网络物理模拟一之网络物理部分的简介
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Boost-Asio入门"><span class="nav-text">Boost.Asio入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Boost-Asio"><span class="nav-text">什么是Boost.Asio</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步VS同步"><span class="nav-text">异步VS同步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步例子"><span class="nav-text">同步例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同步客户端"><span class="nav-text">同步客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步服务端"><span class="nav-text">同步服务端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步例子"><span class="nav-text">异步例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#异步客户端"><span class="nav-text">异步客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步服务端"><span class="nav-text">异步服务端</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

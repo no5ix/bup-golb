@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '异步日志小结' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="最近工作涉及到生产环境的日志系统, 小结一波, 其实践为:   cpp高性能的异步日志系统模块导出给py使用 此cpp模块另起线程 logger通过unix socket连接上address 为 “/dev/log”，与 rsyslogd 程序通信 log先缓存在一个buffer中, 通过一个任务来把log存入syslog这一事件封装起来 把这个任务加入一个线程间可保序输出的任务队列(常用asio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异步日志小结">
+<meta property="og:url" content="https://hulinhong.com/async_log_summary/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="最近工作涉及到生产环境的日志系统, 小结一波, 其实践为:   cpp高性能的异步日志系统模块导出给py使用 此cpp模块另起线程 logger通过unix socket连接上address 为 “/dev/log”，与 rsyslogd 程序通信 log先缓存在一个buffer中, 通过一个任务来把log存入syslog这一事件封装起来 把这个任务加入一个线程间可保序输出的任务队列(常用asio">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="异步日志小结">
+<meta name="twitter:description" content="最近工作涉及到生产环境的日志系统, 小结一波, 其实践为:   cpp高性能的异步日志系统模块导出给py使用 此cpp模块另起线程 logger通过unix socket连接上address 为 “/dev/log”，与 rsyslogd 程序通信 log先缓存在一个buffer中, 通过一个任务来把log存入syslog这一事件封装起来 把这个任务加入一个线程间可保序输出的任务队列(常用asio">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>异步日志小结 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/async_log_summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">异步日志小结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-15T16:31:26+00:00">
+                11-15-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NP/" itemprop="url" rel="index">
+                    <span itemprop="name">NP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/goland_pycharm_activation/" rel="next" title="Pycharm & Goland 激活">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Pycharm & Goland 激活
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/vscode_cl_code_runner/" rel="prev" title="vscode用cl来编译c++">
+              <p class="post-nav-pre-next-title">
+                  vscode用cl来编译c++
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p>最近工作涉及到生产环境的日志系统, 小结一波, 其实践为: </p>
+<ol>
+<li>cpp高性能的异步日志系统模块导出给py使用</li>
+<li>此cpp模块另起线程</li>
+<li>logger通过unix socket连接上address 为 “/dev/log”，与 rsyslogd 程序通信</li>
+<li>log先缓存在一个buffer中, 通过一个任务来把log存入syslog这一事件封装起来</li>
+<li>把这个任务加入一个线程间可保序输出的任务队列(常用asio的strand来实现), 即可返回了</li>
+<li>之后会异步顺序输出到syslog,  然后/ etc/init.d/rsyslog 这个后台程序根据 / etc/rsyslog.conf 这个配置文件 将日志输出到不同的文件，包括网络文件，即其他服务器(分发到数据部门, 然后他们就可从中筛选提取数据, 并制作网站供各方查询日志了)</li>
+</ol>
+<p><strong>. . .</strong><a id="more"></a> </p>
+<p>关于syslog可参考以下记录, 以下文字转自 <a href="https://www.cnblogs.com/xybaby/p/6596431.html" target="_blank" rel="noopener">https://www.cnblogs.com/xybaby/p/6596431.html</a></p>
+<p><strong>正文</strong></p>
+<p>　　本文记录了因为一个简单的日志需求，继而对 linux 环境下 syslog、rsyslog、unix domain socket 的学习。本文关注使用层面，并不涉及 rsyslog 的实现原理，感兴趣的读者可以参考 <a href="http://www.rsyslog.com/%20" target="_blank" rel="noopener">rsyslog 官网</a>。另外，本文实验的环境实在 debian8，如果是其他 linux 发行版本或者 debian 的其他版本，可能会稍微有些差异。</p>
+<h1 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h1><p>　　工作中有一个在 Linux（debian8）环境下运行的服务器程序，用 python 语言实现，代码中有不同优先级的日志需要记录，开发的时候都是使用 python 的 logging 模块输出到文件，示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging, os</span><br><span class="line"></span><br><span class="line">logger = <span class="keyword">None</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_logger</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> logger</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> logger:</span><br><span class="line">        logger = logging.getLogger(<span class="string">'ServerLog'</span>)</span><br><span class="line">        logger.setLevel(logging.INFO)</span><br><span class="line">        filehandler = logging.FileHandler(os.environ[<span class="string">'HOME'</span>] + <span class="string">'/Server.log'</span>, encoding=<span class="string">'utf8'</span>)</span><br><span class="line">        filehandler.setFormatter(logging.Formatter(<span class="string">"%(asctime)s - %(levelname)s - %(message)s"</span>))</span><br><span class="line">        logger.addHandler(filehandler)</span><br><span class="line">    <span class="keyword">return</span> logger</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">some_func</span><span class="params">()</span>:</span></span><br><span class="line">    get_logger().info(<span class="string">"call some_func"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    some_func()</span><br></pre></td></tr></table></figure>
+<p>　　运行上面这段代码，就会在 home 目录下面产生一个 server.log 文件。</p>
+<p>　　后来数据分析的部门说他们希望能够实时拿到一部分日志，他们有一台专门处理日志的服务器，那么怎么把日志发给他们呢？笔者之前并没有相关经验，数据分析部门的同事说，这种需求他们都是找运维人员帮忙。运维同事给出的方案很简单：产品把日志写到 syslog，然后他们负责把带有某些关键字的日志转发给数据分析部门，在运维同事的指导下，把代码改成了这样:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> logging.handlers</span><br><span class="line"></span><br><span class="line">logger = <span class="keyword">None</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_logger</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> logger</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> logger:</span><br><span class="line">        logger = logging.getLogger(<span class="string">'ServerLog'</span>)</span><br><span class="line">        logger.setLevel(logging.INFO)</span><br><span class="line"></span><br><span class="line">        sys_handler = logging.handlers.SysLogHandler(<span class="string">'/dev/log'</span>, facility=logging.handlers.SysLogHandler.LOG_LOCAL0)</span><br><span class="line">        syslog_tag = <span class="string">'ServerLog'</span></span><br><span class="line">        sys_handler.setFormatter(logging.Formatter(syslog_tag + <span class="string">":%(asctime)s - %(name)s - %(levelname)s - %(message)s"</span>))</span><br><span class="line"></span><br><span class="line">        logger.addHandler(sys_handler)</span><br><span class="line">    <span class="keyword">return</span> logger</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">some_func</span><span class="params">()</span>:</span></span><br><span class="line">    get_logger().info(<span class="string">"call some_func"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    some_func()</span><br></pre></td></tr></table></figure>
+<p>　　上面的代码修改了日志的输出形式，直观的感受就是从文件 server.log 到了 /dev/log，但 / dev/log 对应的是 SysLogHandler，并不是 FileHandler，所以肯定不是一个普通的文件。此时，我有两个疑问：第一，这里我并没有将日志输出到 home 目录下的 Server.log 文件，但是程序运行的时候生成了这么一个文件；第二，怎么讲日志发送到数据分析部门的服务器。</p>
+<p>　　不懂就问：</p>
+<p>　　Q：新的代码下怎么生成 Server.log 文件，日志内容又是怎么转发到数据分析部门的服务器？</p>
+<p>　　A:  这个是 / etc/init.d/rsyslog 这个后台程序根据 / etc/rsyslog.conf 这个配置文件 将日志输出到不同的文件，包括网络文件，即其他服务器。看 / etc/rsyslog.conf 这个配置就明白了。</p>
+<p>　　Q：OK，那 python 代码将文件输出到 / dev/log 跟 rsyslog 又是什么关系呢？</p>
+<p>　　A：python 的 sysloghandler 会将日志发送到 rsyslog，他们之间使用 unix domain socket 通信，具体看 logging 模块的源码就知道了</p>
+<h1 id="unix-domain-socket："><a href="#unix-domain-socket：" class="headerlink" title="unix domain socket："></a>unix domain socket：</h1><p>　　按照上面的对话的意思，python 程序先将日志发送给 rsyslog 这个程序，然后 rsyslog 再处理收到的日志数据，所以先看 logging 代码：</p>
+<p>　　SysLogHandler 这个类在 logging.handlers.py, 核心代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, address=<span class="params">(<span class="string">'localhost'</span>, SYSLOG_UDP_PORT)</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">             facility=LOG_USER, socktype=socket.SOCK_DGRAM)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Initialize a handler.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    If address is specified as a string, a UNIX socket is used. To log to a</span></span><br><span class="line"><span class="string">    local syslogd, "SysLogHandler(address="/dev/log")" can be used.</span></span><br><span class="line"><span class="string">    If facility is not specified, LOG_USER is used.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    logging.Handler.__init__(self)</span><br><span class="line"></span><br><span class="line">    self.address = address</span><br><span class="line">    self.facility = facility</span><br><span class="line">    self.socktype = socktype</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> isinstance(address, basestring):</span><br><span class="line">        self.unixsocket = <span class="number">1</span></span><br><span class="line">        self._connect_unixsocket(address)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        self.unixsocket = <span class="number">0</span></span><br><span class="line">        self.socket = socket.socket(socket.AF_INET, socktype)</span><br><span class="line">        <span class="keyword">if</span> socktype == socket.SOCK_STREAM:</span><br><span class="line">            self.socket.connect(address)</span><br><span class="line">    self.formatter = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_connect_unixsocket</span><span class="params">(self, address)</span>:</span></span><br><span class="line">    self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)</span><br><span class="line">    <span class="comment"># syslog may require either DGRAM or STREAM sockets</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        self.socket.connect(address)</span><br><span class="line">    <span class="keyword">except</span> socket.error:</span><br><span class="line">        self.socket.close()</span><br><span class="line">        self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)</span><br><span class="line">        self.socket.connect(address)</span><br></pre></td></tr></table></figure>
+<p>　　在<strong>init</strong>.doc 里面写得很清楚，如果 address 是一个字符串（默认值是一个 tuple），那么会建立一个 unix socket（<a href="https://en.wikipedia.org/wiki/Unix_domain_socket" target="_blank" rel="noopener">unix domain socket</a>）。如果 address 为 “/dev/log”（正如我们之前的 python 代码），那么输出到本机的 syslogd 程序。另外，在第 27 行 self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM) socket.socket 的第一个参数 family 的值为 <strong>AF_UNIX</strong>，而不是我们经常使用的 AF_INET(IPV4）或者 AF_INET6(IPV6)。那么什么是 unix domain socket 呢？</p>
+<p>　　unix domain socket 是进程间通信（IPC：<a href="https://en.wikipedia.org/wiki/Inter-process_communication" target="_blank" rel="noopener">inter-process communication</a>）的一种方式，其他还有管道、命名管道、消息队列、共享内存、socket 之类的。unix domain socket 与平常使用的 socket（狭义的 internet socket）有什么区别呢，那就是 unix domain socket 只能在同一台主机上的进程之间通信，普通的 socket 也可以通过’localhost’来在同一台主机通信，那么 unix domain socket 有哪些优势呢？</p>
+<p>　　第一：不需要经过网络协议栈</p>
+<p>　　第二：不需要打包拆包、计算校验和、维护序号和应答等</p>
+<p>　　所以，优势就是性能好，一个字，快。</p>
+<p>　　下面用一个简单的服务器客户端例子来看看 unix domain socket 的使用方法与过程：</p>
+<p>　　服务器：uds_server.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ADDR = <span class="string">'/tmp/uds_tmp'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket, os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)</span><br><span class="line">        <span class="keyword">if</span> os.path.exists(ADDR):</span><br><span class="line">                os.unlink(ADDR)</span><br><span class="line">        sock.bind(ADDR)</span><br><span class="line">        sock.listen(<span class="number">5</span>)</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">                connection, address = sock.accept()</span><br><span class="line">                <span class="keyword">print</span> <span class="string">"Data : %s"</span> % connection.recv(<span class="number">1024</span>);</span><br><span class="line">                connection.send(<span class="string">"hello uds client"</span>)</span><br><span class="line">                connection.close()</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">        sock.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">        main()</span><br></pre></td></tr></table></figure>
+<p>　　客户端：uds_client.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ADDR = <span class="string">'/tmp/uds_tmp'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)</span><br><span class="line">        sock.connect(ADDR)</span><br><span class="line">        sock.send(<span class="string">'hello unix domain socket server'</span>)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'client recieve'</span>, sock.recv(<span class="number">1024</span>)</span><br><span class="line">        sock.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">        main()</span><br></pre></td></tr></table></figure>
+<p>　　首先：运行服务器 python uds_server.py，这个时候在 / tmp 目录下产生了文件，用 ls 查看详细信息如下：</p>
+<p>　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170323140416611-1663002555.png" alt></p>
+<p>　　可以看到，文件类型（第一个字段）为 s，代表 socket 文件。（PS： 如果进程间用命令管道通信，也是利用中间文件，ls 显示的文件类型为 p）</p>
+<p>　　运行客户端 python uds_client.py，在客户端和服务器端都有相应的输出，使用方法与普通 socket 没有什么大的差异。</p>
+<h1 id="日志转发流程："><a href="#日志转发流程：" class="headerlink" title="日志转发流程："></a>日志转发流程：</h1><p>　　在了解了 unix domain socket 这个概念之后，下面就比较简单了，首先是 / dev/log 这个文件，我们用 ls 来查看这个文件的信息</p>
+<p>　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170321200554424-555977189.png" alt></p>
+<p>　　可以看到这个文件是一个符号链接文件，真实的文件是 / run/systemd/journal/dev-log, 那么再来查看这个文件</p>
+<p>　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170321200742736-1156458900.png" alt></p>
+<p>　　ok，是一个 socket 文件，复合预期，按照之前的 unix domain socket 的例子，rsyslog 也应该咋这个文件上监听，我们来看看</p>
+<p>　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170324101520533-1212316745.png" alt></p>
+<p>　　lsof fd 可以列出所有使用了这个文件（linux 下文件的概念比较宽泛）的进程，事实上我们看到只有 systemd 和 systemd-j 两个不明所以的进程。那么直接看看 rsyslog 使用的 unix domain socket 吧</p>
+<p>　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170322091124143-462804263.png" alt></p>
+<pre><code>![](/img/syslog_intro/1089769-20170324101545783-1464834217.png)
+</code></pre><p>　　额，可以看到 rsyslogd 使用的 socket domain socket 是 / run/systemd/journal/syslog，并不是 / run/systemd/journal/dev-log，这两个文件在同一个目录下，那么再来看看还有哪些进程使用了 / run/systemd/journal/syslog。</p>
+<p> 　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170322194059533-186007552.png" alt></p>
+<p>　　so，systemd 和 rsyslogd 都使用了这个文件，感觉像是应用进程 (e.g. 上面的 python 程序）将日志通过 / run/systemd/journal/dev-log（/dev/log 背后真正的文件）发送到 systemd， 然后 systemd 再将日志通过 / run/systemd/journal/syslog 发送到 rsyslogd，是不是这样呢，google 了一下，发现了这篇文章 <a href="http://unix.stackexchange.com/questions/205883/understand-logging-in-linux" target="_blank" rel="noopener">understand-logging-in-linux</a>，确实是这么一个过程：</p>
+<blockquote>
+<p>systemd has a single monolithic log management program, <code>systemd-journald</code>. This runs as a service managed by systemd.</p>
+<ul>
+<li>It reads <code>/dev/kmsg</code> for kernel log data.</li>
+<li>It reads <code>/dev/log</code> (a symbolic link to <code>/run/systemd/journal/dev-log</code>) for application log data from the GNU C library’s <code>syslog()</code> function.</li>
+<li>It listens on the <code>AF_LOCAL</code> stream socket at <code>/run/systemd/journal/stdout</code> for log data coming from systemd-managed services.</li>
+<li>It listens on the <code>AF_LOCAL</code> datagram socket at <code>/run/systemd/journal/socket</code> for log data coming from programs that speak the systemd-specific journal protocol (i.e. <code>sd_journal_sendv()</code> et al.).</li>
+<li>It mixes these all together.</li>
+<li>It writes to a set of system-wide and per-user journal files, in <code>/run/log/journal/</code> or <code>/var/log/journal/</code>.</li>
+<li>If it can connect (as a client) to an <code>AF_LOCAL</code> datagram socket at <code>/run/systemd/journal/syslog</code>it writes journal data there, if forwarding to syslog is configured.</li>
+</ul>
+</blockquote>
+<p>　　ok，到现在为止，我们知道了应用程序的日志是怎么转发到 rsyslog，那么 rsyslog 怎么处理接收到的日志，秘密就在 / etc/rsyslog.conf, 在打开这个配置文件之前，我们先看看 <a href="http://www.rsyslog.com/" target="_blank" rel="noopener">rsyslog</a> 官网的简单描述：</p>
+<blockquote>
+<p> 　　RSYSLOG is the <strong>r</strong>ocket-fast <strong>sys</strong>tem for <strong>log</strong> processing.</p>
+</blockquote>
+<p> 　　原来 R 是 rocket-fast 的意思！火箭一般快！官网声称每秒可以处理百万级别的日志。rsyslogd 在部分 linux 环境是默认的 syslogd 程序（至少在笔者的机器上），d 是 daemon 的意思，后台进程。系统启动的时候就会启动该进程来处理日志（包括操作系统自身和用户进程的日志）。打开修改过的 / etc/rsyslog.conf, 接下来就是见证奇迹的时刻</p>
+<p> 　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170323142740033-1321897632.png" alt></p>
+<p>　　原来一举一动都在监控之中。这个文件是系统提供的，直接在这个文件上做修改显然不是明智之举。如上图红色部分，可以再 rysyslog.d 文件夹下增加自己的配置文件，定制日志过滤规则。那么看看的 rsyslog.d 文件夹下新增的 tmp.conf</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$FileOwner USERNAME</span><br><span class="line">$FileGroup USERNAME</span><br><span class="line">$FileCreateMode <span class="number">0644</span></span><br><span class="line">$DirCreateMode <span class="number">0755</span></span><br><span class="line">$Umask <span class="number">0022</span></span><br><span class="line">$template serverLog,<span class="string">"/home/USERNAME/Server.log"</span></span><br><span class="line">$template LogFormat,<span class="string">"%msg%\n"</span></span><br><span class="line">if $syslogfacility-text == 'local0' and $syslogtag contains 'ServerLog' then -?serverLog;LogFormat</span><br><span class="line"></span><br><span class="line"><span class="comment">#if $syslogfacility-text == 'local0' and $syslogtag contains 'ServerLog' then @someip:port</span></span><br><span class="line">&amp; stop</span><br></pre></td></tr></table></figure>
+<p>　　再来回顾一下对应的应用代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> logging.handlers</span><br><span class="line"></span><br><span class="line">logger = <span class="keyword">None</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_logger</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> logger</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> logger:</span><br><span class="line">        logger = logging.getLogger(<span class="string">'ServerLog'</span>)</span><br><span class="line">        logger.setLevel(logging.INFO)</span><br><span class="line"></span><br><span class="line">        sys_handler = logging.handlers.SysLogHandler(<span class="string">'/dev/log'</span>, facility=logging.handlers.SysLogHandler.LOG_LOCAL0)</span><br><span class="line">        syslog_tag = <span class="string">'ServerLog'</span></span><br><span class="line">        sys_handler.setFormatter(logging.Formatter(syslog_tag + <span class="string">":%(asctime)s - %(name)s - %(levelname)s - %(message)s"</span>))</span><br><span class="line"></span><br><span class="line">        logger.addHandler(sys_handler)</span><br><span class="line">    <span class="keyword">return</span> logger</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">some_func</span><span class="params">()</span>:</span></span><br><span class="line">    get_logger().info(<span class="string">"call some_func"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    some_func()</span><br></pre></td></tr></table></figure>
+<p>　　注意：配置文件需要与应用代码配合，比如代码中第 11 行 facility=logging.handlers.SysLogHandler.LOG_LOCAL0 与 配置中 $syslogfacility-text == ‘local0’ 相对应；代码第 12 行 syslog_tag = ‘ServerLog’ 与 配置文件 $syslogtag contains ‘ServerLog’ 对应。关于 python 代码中 syslogtag 的设置，参考了 stackoverflow 上的<a href="http://stackoverflow.com/questions/9542465/how-to-change-the-tag-when-logging-to-syslog-from-unknown" target="_blank" rel="noopener">这个问答</a>。</p>
+<p>　　当我们修改了配置时候需要通过命令 /etc/init.d/rsyslog restart 来重启 rsyslogd，重启之后再运行之前的 python 文件，就可以了。</p>
+<p> 　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170323165530158-761295228.png" alt></p>
+<h2 id="发送到远端服务器："><a href="#发送到远端服务器：" class="headerlink" title=" 发送到远端服务器："></a> 发送到远端服务器：</h2><p>　　上面的 tmp.conf 文件注释掉了第 10 行，这一行的作用是将满足条件的日志发送到指定的其他机器上，IP：Port 用来指定接受日志的远端 rsyslogd 程序。默认情况下 rsyslogd 在 514 端口监听。假设我需要给局域网内 10.240.10.10 发送 syslog，第 10 行改成这样就行了：</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; if $syslogfacility-text == &apos;local0&apos; and $syslogtag contains &apos;ServerLog&apos; then @10.240.10.10</span><br><span class="line">&gt; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>　　那么 10.240.10.10 主要开启 rsyslogd 的远程监听，并指定远端日志的输出规则，for example：</p>
+<p>　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170410132458782-973391177.png" alt></p>
+<p>　　这个配置，让 rsyslogd 使用 UDP 和 TCP 协议同时在 514 端口上监听，并将非本机的日志输出到对应远端主机名的文件。注意，以上修改 都需要重启 rsyslogd 才能生效。</p>
+<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><p>　　日志从应用程序到最终的日志文件（或者远程服务器）的流程如下：</p>
+<p>　　<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/syslog_intro/1089769-20170323163540080-1733313578.png" alt></p>
+<h1 id="references："><a href="#references：" class="headerlink" title="references："></a>references：</h1><p><a href="https://en.wikipedia.org/wiki/Inter-process_communication" target="_blank" rel="noopener">inter-process communication</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Unix_domain_socket" target="_blank" rel="noopener">unix domain socket</a></p>
+<p><a href="http://unix.stackexchange.com/questions/205883/understand-logging-in-linux" target="_blank" rel="noopener">understand-logging-in-linux</a></p>
+<p><a href="https://linux.cn/article-5023-1.html" target="_blank" rel="noopener">在 Linux 上配置一个 syslog 服务器</a></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/goland_pycharm_activation/" rel="next" title="Pycharm & Goland 激活">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Pycharm & Goland 激活
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/vscode_cl_code_runner/" rel="prev" title="vscode用cl来编译c++">
+                <p class="post-nav-pre-next-title">
+                    vscode用cl来编译c++
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#需求："><span class="nav-text">需求：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#unix-domain-socket："><span class="nav-text">unix domain socket：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志转发流程："><span class="nav-text">日志转发流程：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发送到远端服务器："><span class="nav-text"> 发送到远端服务器：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结："><span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#references："><span class="nav-text">references：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('mmp'){
+            let localStoragePasswdKey = 'System Design Top 100' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'mmp') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'mmp') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,NA,SystemDesign,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="noodle,NA,SystemDesign">
+<meta property="og:type" content="article">
+<meta property="og:title" content="System Design Top 100">
+<meta property="og:url" content="https://hulinhong.com/na_sd_top100/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.663Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="System Design Top 100">
+<meta name="twitter:description" content=". . .">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>System Design Top 100 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_sd_top100/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">System Design Top 100</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-18T22:58:08+00:00">
+                08-18-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+                <a href="/tags/SystemDesign/" rel="tag"><i class="fa fa-tag"></i> SystemDesign</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/surface_optimization/" rel="next" title="Surface使用优化">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Surface使用优化
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/na_vlog_text/" rel="prev" title="vlog text">
+              <p class="post-nav-pre-next-title">
+                  vlog text
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<a href="/na_sd_syllabus/" title="System Design syllabus">System Design syllabus</a>
+<h1 id="Design-a-notification-System-middle"><a href="#Design-a-notification-System-middle" class="headerlink" title="Design a notification System - middle"></a>Design a notification System - middle</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image.png" alt="alt text"></p>
+<p>3 types of notification formats are:</p>
+<ul>
+<li>mobile push notification</li>
+<li>SMS message</li>
+<li>Email</li>
+</ul>
+<h2 id="step1-Understand-the-problem-and-establish-design-scope"><a href="#step1-Understand-the-problem-and-establish-design-scope" class="headerlink" title="step1-Understand the problem and establish design scope"></a>step1-Understand the problem and establish design scope</h2><ul>
+<li><strong>Candidate</strong>: What types of notifications does the system support?<ul>
+<li><strong>Interviewer</strong>: Push notification, SMS message, and email.</li>
+</ul>
+</li>
+<li><strong>Candidate</strong>: Is it a real-time system?<ul>
+<li><strong>Interviewer</strong>: Let us say it is a soft real-time system. We want a user to receive notifications as soon as possible. However, if the system is under a high workload, a slight delay is acceptable.</li>
+</ul>
+</li>
+<li><strong>Candidate</strong>: What are the supported devices?<ul>
+<li><strong>Interviewer</strong>: iOS devices, android devices, and laptop/desktop.</li>
+</ul>
+</li>
+<li><strong>Candidate</strong>: What triggers notifications?<ul>
+<li><strong>Interviewer</strong>: Notifications can be triggered by client applications. They can also be scheduled on the server-side.</li>
+</ul>
+</li>
+<li><strong>Candidate</strong>: Will users be able to <strong>opt-out</strong>(用户选择退出、不参与某个功能或服务) ?<ul>
+<li><strong>Interviewer</strong>: Yes, users who choose to opt-out will no longer receive notifications.</li>
+</ul>
+</li>
+<li><strong>Candidate</strong>: How many notifications are sent out each day?<ul>
+<li><strong>Interviewer</strong>: 10 million mobile push notifications, 1 million SMS messages, and 5 million emails.</li>
+</ul>
+</li>
+</ul>
+<h2 id="step2-Propose-high-level-design-and-get-buy-in"><a href="#step2-Propose-high-level-design-and-get-buy-in" class="headerlink" title="step2-Propose high-level design and get buy-in"></a>step2-Propose high-level design and get buy-in</h2><h3 id="iOS-push-notification"><a href="#iOS-push-notification" class="headerlink" title="iOS push notification"></a>iOS push notification</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-25.png" alt="alt text"></p>
+<ul>
+<li><p>Provider. A provider builds and sends notification requests to <strong>Apple Push Notification Service</strong> (<strong>APNS</strong>). To construct a push notification, the provider provides the following data:</p>
+<ul>
+<li>• Device token: This is a unique identifier used for sending push notifications.</li>
+<li>• Payload: This is a JSON dictionary that contains a notification’s payload:<ul>
+<li><figure class="highlight json"><figcaption><span>payload</span></figcaption><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"aps"</span>: &#123;</span><br><span class="line">        <span class="attr">"alert"</span>: &#123;</span><br><span class="line">            <span class="attr">"title"</span>: <span class="string">"Game Request"</span>,</span><br><span class="line">            <span class="attr">"body"</span>: <span class="string">"Bob wants to play chess"</span>,</span><br><span class="line">            <span class="attr">"action-loc-key"</span>: <span class="string">"PLAY"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"badge"</span>: <span class="number">5</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>APNS: This is a remote service provided by Apple to propagate push notifications to iOS devices.</p>
+</li>
+<li>iOS Device: It is the end client, which receives push notifications.</li>
+</ul>
+<hr>
+<h3 id="Android-push-notification"><a href="#Android-push-notification" class="headerlink" title="Android push notification"></a>Android push notification</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-26.png" alt="alt text"></p>
+<p>Instead of using APNs, Firebase Cloud Messaging (<strong>FCM</strong>) is commonly used to send push notifications to android devices.</p>
+<hr>
+<h3 id="SMS-message"><a href="#SMS-message" class="headerlink" title="SMS message"></a>SMS message</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-27.png" alt="alt text"></p>
+<hr>
+<h3 id="Email"><a href="#Email" class="headerlink" title="Email"></a>Email</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-28.png" alt="alt text"></p>
+<hr>
+<h3 id="including-all-the-third-party-services"><a href="#including-all-the-third-party-services" class="headerlink" title="including all the third-party services"></a>including all the third-party services</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-29.png" alt="alt text"></p>
+<hr>
+<h3 id="Contact-info-gathering-flow"><a href="#Contact-info-gathering-flow" class="headerlink" title="Contact info gathering flow"></a>Contact info gathering flow</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-30.png" alt="alt text"><br>when a user installs our app or signs up for the first time,<br>API servers collect user contact info and store it in the database.</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-31.png" alt="alt text"></p>
+<hr>
+<h3 id="High-level-design"><a href="#High-level-design" class="headerlink" title="High-level design"></a>High-level design</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-32.png" alt="alt text"></p>
+<ul>
+<li><strong>Service 1 to N</strong>: A service can be a <strong>micro-service</strong>, a cron job, or a distributed system that <strong>triggers notification</strong> sending events. <ul>
+<li>For example, a billing service sends emails to remind customers of their due payment or a shopping website tells customers that their packages will be delivered tomorrow via SMS messages.</li>
+</ul>
+</li>
+<li><strong>Notification system</strong>: The notification system is the centerpiece of sending/receiving notifications. Starting with something simple, only one notification server is used. It <strong>provides APIs</strong> for services 1 to N, and builds notification payloads for third party services.</li>
+</ul>
+<hr>
+<h3 id="High-level-design-improved"><a href="#High-level-design-improved" class="headerlink" title="High-level design (improved)"></a>High-level design (improved)</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-33.png" alt="alt text"></p>
+<p>we improve the design as listed below:</p>
+<ul>
+<li>• Move the database and <strong>cache</strong> out of the notification server.</li>
+<li>• Add <strong>more</strong> notification server<strong>s</strong> and set up automatic horizontal scaling.</li>
+<li>• Introduce <strong>message queues</strong> to decouple the system components.</li>
+</ul>
+<p>New: </p>
+<ul>
+<li><strong>Notification servers</strong>: They provide the following functionalities:<ul>
+<li>• <strong>Provide APIs</strong> for services to send notifications. Those APIs are only accessible internally or by verified clients to prevent spams.</li>
+<li>• Carry out basic <strong>validations</strong> to verify emails, phone numbers, etc.</li>
+<li>• <strong>Query</strong> the database or cache to fetch data needed to render a notification.</li>
+<li>• <strong>Put</strong> notification data to message queues for parallel processing.</li>
+</ul>
+</li>
+<li><strong>Cache</strong>: User info, device info, notification templates are cached.</li>
+<li><strong>DB</strong>: It stores data about user, notification, settings, etc.</li>
+<li><strong>Message queues</strong>: They remove dependencies between components. Message queues serve as <strong>buffers</strong> when high volumes of notifications are to be sent out. Each notification type is assigned with a distinct message queue so an outage in one third-party service will not affect other notification types.</li>
+<li><strong>Workers</strong>: Workers are <strong>a list of servers</strong> that pull notification events from message queues and send them to the corresponding third-party services.</li>
+</ul>
+<h2 id="step3-Design-deep-dive"><a href="#step3-Design-deep-dive" class="headerlink" title="step3-Design deep dive"></a>step3-Design deep dive</h2><p><strong>How to prevent data loss?</strong><br>To satisfy this requirement,<br>the notification system persists notification data in a database and implements a retry<br>mechanism. The <strong>notification log</strong> database is included for data persistence<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-34.png" alt="alt text"></p>
+<p><strong>Will recipients receive a notification exactly once?</strong><br>When a notification event first arrives, we check if it is seen before by checking the event ID.<br>If it is <strong>seen</strong> before, it is <strong>discarded</strong>. Otherwise, we will send out the notification.</p>
+<p><strong>Notification template</strong><br>A large notification system sends out millions of notifications per day, and many of these<br>notifications follow a similar <strong>format</strong>. Notification templates are introduced to avoid building every notification from scratch.</p>
+<p>A notification template is a preformatted notification to create your unique notification by customizing <strong>parameters</strong>, <strong>styling</strong>, tracking links, etc. Here is an example template of push notifications.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BODY:</span><br><span class="line">You dreamed of it. We dared it. [ITEM NAME] is back — only until [DATE].</span><br><span class="line">CTA:</span><br><span class="line">Order Now. Or, Save My [ITEM NAME]</span><br></pre></td></tr></table></figure>
+<p><strong>Notification setting</strong><br>Before any notification is sent to a user, we first check if a user is opted-in to receive this type<br>of notification.</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>user_id</code></td>
+<td><code>bigInt</code></td>
+<td>用户唯一标识</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td><code>varchar</code></td>
+<td>通知渠道，例如 push notification、email、SMS</td>
+</tr>
+<tr>
+<td><code>opt_in</code></td>
+<td><code>boolean</code></td>
+<td>用户是否同意接收该渠道的通知（是否选择接收）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rate limiting</strong><br>To avoid overwhelming users with too many notifications, we can <strong>limit</strong> the number of<br>notifications a user can receive. This is important because receivers could turn off<br>notifications completely if we send too often.</p>
+<p><strong>Retry mechanism</strong><br>When a third-party service fails to send a notification, the notification will be added to the<br>message queue for retrying. If the problem persists, an alert will be sent out to developers.</p>
+<p><strong>Security in push notifications</strong><br>For iOS or Android apps, <code>appKey</code> and <code>appSecret</code> are used to secure push notification APIs. <strong>Only authenticated or verified</strong> clients are allowed to send push notifications using our APIs. </p>
+<p><strong>Monitor queued notifications</strong><br>A key metric to monitor is the total number of queued notifications. If the number is large,<br>the notification events are not processed fast enough by workers. To avoid delay in the<br>notification delivery, <strong>more workers are needed</strong>.<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-35.png" alt="alt text"></p>
+<p><strong>Events tracking</strong><br>Notification metrics, such as open rate, click rate, and engagement are important in<br>understanding customer behaviors. Analytics service implements events tracking. Integration<br>between the notification system and the analytics service is usually required<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-36.png" alt="alt text"></p>
+<hr>
+<h3 id="updated-design"><a href="#updated-design" class="headerlink" title="updated design"></a>updated design</h3><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-37.png" alt="alt text"></p>
+<h1 id="Design-a-Social-Network-like-Twitter-middle"><a href="#Design-a-Social-Network-like-Twitter-middle" class="headerlink" title="Design a Social Network (like Twitter) - middle"></a>Design a Social Network (like Twitter) - middle</h1><ul>
+<li>关注/粉丝系统设计（fanout on write vs fanout on read）</li>
+<li>动态（Feed）生成</li>
+<li>分布式数据库与缓存优化（Redis, Cassandra, etc.）</li>
+</ul>
+<h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><p>Functional Requirements:</p>
+<ol>
+<li>Users should be able to post new tweets.</li>
+<li>A user should be able to follow other users.</li>
+<li>Users should be able to mark tweets as favorites.</li>
+<li>The service should be able to create and display a user’s timeline consisting of top tweets from all the people the user follows.</li>
+<li>Tweets can contain photos and videos.</li>
+</ol>
+<p>Non-functional Requirements:</p>
+<ol>
+<li>Our service needs to be highly available.</li>
+<li>Acceptable latency of the system is 200ms for timeline generation.</li>
+<li>Consistency can take a hit (in the interest of availability); if a user doesn’t see<br>a tweet for a while, it should be fine.</li>
+</ol>
+<h2 id="Capacity-Estimation-and-Constraints"><a href="#Capacity-Estimation-and-Constraints" class="headerlink" title="Capacity Estimation and Constraints"></a>Capacity Estimation and Constraints</h2><p>Let’s assume we have <strong>one billion</strong> total users with <strong>200</strong> million daily active users<br>(<strong>DAU</strong>). Also assume we have 100 million new tweets every day and on average each<br>user follows <strong>200</strong> people.</p>
+<p>How many favorites per day? If, on average, each user favorites five tweets per day<br>we will have:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">200M users * 5 favorites =&gt; 1B favorites</span><br></pre></td></tr></table></figure></p>
+<p>How many total <strong>tweet-views</strong> will our system generate? Let’s assume on average<br>a user visits their timeline <code>2 times</code> a day and visits <code>5</code> other people’s pages. On<br>each page if a user sees <code>20 tweets</code>, then our system will generate <code>28B/day</code> total<br>tweet-views:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">200M DAU * ((2 + 5) * 20 tweets) =&gt; 28B/day</span><br></pre></td></tr></table></figure></p>
+<p><strong>Storage Estimates</strong>: Let’s say each tweet has <code>140</code> characters and we need <code>2</code> bytes to<br>store a character without compression. Let’s assume we need <code>30 bytes</code> to store<br>metadata with each tweet (like ID, timestamp, user ID, etc.). Total storage we would<br>need:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">100M * (280 + 30) bytes =&gt; 100M * 300bytes =&gt; 100M * 0.3KB =&gt; 30, 000, 000KB =&gt; 30, 000 MB =&gt; 30GB/day</span><br></pre></td></tr></table></figure></p>
+<p>What would our <strong>storage</strong> needs be for five years? How much storage we would need<br>for users’ data, follows, favorites? We will leave this for the exercise.<br>Not all tweets will have media, let’s assume that on average every fifth tweet has a<br>photo and every tenth has a video. Let’s also assume on average a photo is <code>200KB</code><br>and a video is 2MB. This will lead us to have <code>24TB</code> of new media every day.<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(100M/5 photos * 200KB) + (100M/10 videos * 2MB) ~= 24TB/day</span><br></pre></td></tr></table></figure></p>
+<p>计算如下：</p>
+<ul>
+<li><code>20M * 0.2MB = 4,000,000 MB</code></li>
+<li><code>10M * 2MB = 20,000,000 MB</code></li>
+<li>总和：<code>4,000,000 + 20,000,000 = 24,000,000 MB</code></li>
+</ul>
+<p>换算为其他单位：</p>
+<ul>
+<li><code>24,000,000 MB = 24,000 GB = 24 TB</code></li>
+</ul>
+<p><strong>Bandwidth Estimates</strong>: Since total ingress is 24TB per day, this would translate into<br><code>290MB/sec</code>.<br>Remember that we have <code>28B</code> tweet views per day. We must show the photo of every<br>tweet (if it has a photo), but let’s assume that the users watch every <code>3rd</code> video they<br>see in their timeline. So, total <code>egress</code>(<code>/ˈiːɡres/</code> n. 外出；出口) will be:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(28B * 280 bytes) / 86400s of text =&gt; 93MB/s</span><br><span class="line">+ (28B/5 * 200KB ) / 86400s of photos =&gt; 13GB/S</span><br><span class="line">+ (28B/10/3 * 2MB ) / 86400s of Videos =&gt; 22GB/s</span><br><span class="line">Total ~= 35GB/s</span><br></pre></td></tr></table></figure></p>
+<h2 id="High-level-SD"><a href="#High-level-SD" class="headerlink" title="High level SD"></a>High level SD</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-38.png" alt="alt text"></p>
+<h2 id="Database-Schema"><a href="#Database-Schema" class="headerlink" title="Database Schema"></a>Database Schema</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-39.png" alt="alt text"></p>
+<p>A straightforward approach for storing the above schema would be to use an<br>RDBMS like MySQL since we require joins. But relational databases come with their<br>challenges, especially when we need to scale them.</p>
+<ul>
+<li>We can store <code>photos</code> in a distributed file storage like HDFS or <code>S3</code>.</li>
+<li>We can store the above <code>schema</code> in a distributed key-value store to enjoy the benefits offered by NoSQL.<ul>
+<li>All the metadata related to photos can go to a table where the ‘key’ would be the ‘PhotoID’ and the ‘value’ would be an object containing PhotoLocation, UserLocation, CreationTimestamp, etc.</li>
+<li>We need to store relationships between users and photos, to know who owns which photo. We also need to store the list of people a user follows. </li>
+<li>For both of these tables, we can use a <strong>wide-column datastore like Cassandra</strong>.<ul>
+<li>For the ‘UserPhoto’ table, the ‘key’ would be ‘UserID’ and the ‘value’ would be the list of ‘PhotoIDs’ the user owns, stored in different columns. We will have a similar scheme for the ‘UserFollow’ table.</li>
+<li><code>Cassandra</code> or key-value stores in general, always maintain a certain number of replicas to offer reliability. Also, in such data stores, deletes don’t get applied instantly, data is retained for certain days (to support undeleting) before getting removed from the system permanently.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Twitter这类应用，更适合使用 Cassandra 这样的宽列数据库</strong>（或类似架构），原因如下：</p>
+<p>Twitter 特征分析：</p>
+<ul>
+<li><strong>写入密集型</strong>：用户不断发推、点赞、关注等，每秒写入量极高。</li>
+<li><strong>读性能可通过反范式设计优化</strong>：例如，用户主页 Feed 是预构建好的，而不是实时聚合查询。</li>
+<li><strong>高可用要求极高</strong>：宕机意味着全球范围的服务不可用。</li>
+<li><strong>全球部署，需要多数据中心支持</strong>。</li>
+<li><strong>一致性可以适当放松（最终一致性是可接受的）</strong>。</li>
+</ul>
+<p>为什么是 Cassandra？</p>
+<p>For an app like Twitter, we need a extremely <strong>high write throughput</strong>, because users constantly post tweets, like, follow, so the system needs to handle very high write throughput. </p>
+<p>The <strong>read side</strong> is usually optimized by precomputing the user feeds rather than doing real-time aggregation queries.</p>
+<p>Also, <code>availability</code> is super critical. Any downtime affects users worldwide. Since Twitter is deployed across multiple data centers globally, the database needs to support multi-region replication.</p>
+<p>Cassandra fits well because it doesn’t have a single leader node—it’s decentralized and highly fault-tolerant. Plus, it offers tunable consistency, and <code>eventual consistency</code> is acceptable for this kind of application.</p>
+<p>So <strong>overall</strong>, Cassandra’s write performance, high availability, global distribution support, and relaxed consistency model make it a great fit for Twitter-like systems.</p>
+<table>
+<thead>
+<tr>
+<th>要求</th>
+<th>Cassandra 提供</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>高写入吞吐</strong></td>
+<td>LSM Tree + 去中心化架构，写性能极高</td>
+</tr>
+<tr>
+<td><strong>无单点故障</strong></td>
+<td>P2P 架构，每个节点都能接收写</td>
+</tr>
+<tr>
+<td><strong>高可用</strong></td>
+<td>数据自动多副本，容错能力强</td>
+</tr>
+<tr>
+<td><strong>多数据中心部署</strong></td>
+<td>原生支持，多活同步写入</td>
+</tr>
+<tr>
+<td><strong>可调一致性</strong></td>
+<td>可根据业务选择强一致或最终一致</td>
+</tr>
+<tr>
+<td><strong>反范式建模支持</strong></td>
+<td>宽列模型天然支持冗余字段、反规范化存储</td>
+</tr>
+</tbody>
+</table>
+<p>MongoDB 不太适合 Twitter 的原因：</p>
+<ul>
+<li><strong>写入压力高时主节点可能成为瓶颈</strong>。</li>
+<li><strong>Sharding 和分布式部署复杂度更高</strong>。</li>
+<li><strong>多活写支持不如 Cassandra 成熟</strong>。</li>
+</ul>
+<h2 id="Data-Sharding"><a href="#Data-Sharding" class="headerlink" title="Data Sharding"></a>Data Sharding</h2><p>Since we have a huge number of new tweets every day and our read load is extremely<br>high too, we need to distribute our data onto multiple machines such that we can<br>read/write it efficiently. We have many options to <strong>shard</strong> our data; let’s go through<br>them one by one:</p>
+<ul>
+<li>Sharding based on UserID</li>
+<li>Sharding based on TweetID</li>
+<li>Sharding based on Tweet creation time</li>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-40.png" alt="alt text"></li>
+</ul>
+<h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-41.png" alt="alt text"></p>
+<h2 id="Timeline-generation"><a href="#Timeline-generation" class="headerlink" title="Timeline generation"></a>Timeline generation</h2><ul>
+<li><strong>Feed generation</strong>: News feed is generated from the posts (or feed items) of users and<br>entities (pages and groups) that a user follows.<ul>
+<li><strong>Offline generation for newsfeed</strong>: We can have dedicated servers that are continuously generating users’ newsfeed and storing them in memory. So, whenever a user requests for the new posts for their feed, we can simply serve it from the pre-generated, stored location. </li>
+</ul>
+</li>
+<li><strong>Feed publishing</strong>: The process of pushing a post to all the followers is called a <strong>fanout</strong><ul>
+<li>the <code>push</code> approach is called <code>fanout-on-write</code>,</li>
+<li>the <code>pull</code> approach is called <code>fanout-on-load</code>.</li>
+<li><code>hybrid</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="../img/na_sd_js_java/image-42.png" alt="alt text"></p>
+<h1 id="Design-FB-Live-Comments-middle"><a href="#Design-FB-Live-Comments-middle" class="headerlink" title="Design FB Live Comments - middle"></a>Design FB Live Comments - middle</h1><hr>
+<h1 id="Design-Uber-hard"><a href="#Design-Uber-hard" class="headerlink" title="Design Uber - hard"></a>Design Uber - hard</h1><hr>
+<h1 id="Design-Youtube-hard"><a href="#Design-Youtube-hard" class="headerlink" title="Design Youtube - hard"></a>Design Youtube - hard</h1><hr>
+<h1 id="Design-Web-Crawler-hard"><a href="#Design-Web-Crawler-hard" class="headerlink" title="Design Web Crawler - hard"></a>Design Web Crawler - hard</h1><hr>
+<h1 id="Design-Ad-Click-Aggregator-hard"><a href="#Design-Ad-Click-Aggregator-hard" class="headerlink" title="Design Ad Click Aggregator - hard"></a>Design Ad Click Aggregator - hard</h1><hr>
+<h1 id="Design-a-RESTful-API-backend-for-a-fullstack-web-app"><a href="#Design-a-RESTful-API-backend-for-a-fullstack-web-app" class="headerlink" title="Design a RESTful API backend for a fullstack web app"></a>Design a RESTful API backend for a fullstack web app</h1><ul>
+<li>身份验证（JWT, OAuth）</li>
+<li>多用户协作（文档编辑、聊天）</li>
+<li>前端状态同步机制（useEffect + polling / WebSocket）</li>
+<li>如何在 React 前端和 Spring Boot 后端协同设计接口</li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+              <a href="/tags/SystemDesign/" rel="tag"><i class="fa fa-tag"></i> SystemDesign</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/surface_optimization/" rel="next" title="Surface使用优化">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Surface使用优化
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/na_vlog_text/" rel="prev" title="vlog text">
+                <p class="post-nav-pre-next-title">
+                    vlog text
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-a-notification-System-middle"><span class="nav-text">Design a notification System - middle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#step1-Understand-the-problem-and-establish-design-scope"><span class="nav-text">step1-Understand the problem and establish design scope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step2-Propose-high-level-design-and-get-buy-in"><span class="nav-text">step2-Propose high-level design and get buy-in</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-push-notification"><span class="nav-text">iOS push notification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-push-notification"><span class="nav-text">Android push notification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SMS-message"><span class="nav-text">SMS message</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Email"><span class="nav-text">Email</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#including-all-the-third-party-services"><span class="nav-text">including all the third-party services</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Contact-info-gathering-flow"><span class="nav-text">Contact info gathering flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#High-level-design"><span class="nav-text">High-level design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#High-level-design-improved"><span class="nav-text">High-level design (improved)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step3-Design-deep-dive"><span class="nav-text">step3-Design deep dive</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#updated-design"><span class="nav-text">updated design</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-a-Social-Network-like-Twitter-middle"><span class="nav-text">Design a Social Network (like Twitter) - middle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirements"><span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Capacity-Estimation-and-Constraints"><span class="nav-text">Capacity Estimation and Constraints</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High-level-SD"><span class="nav-text">High level SD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Database-Schema"><span class="nav-text">Database Schema</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Sharding"><span class="nav-text">Data Sharding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache"><span class="nav-text">Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Timeline-generation"><span class="nav-text">Timeline generation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-FB-Live-Comments-middle"><span class="nav-text">Design FB Live Comments - middle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Uber-hard"><span class="nav-text">Design Uber - hard</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Youtube-hard"><span class="nav-text">Design Youtube - hard</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Web-Crawler-hard"><span class="nav-text">Design Web Crawler - hard</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Ad-Click-Aggregator-hard"><span class="nav-text">Design Ad Click Aggregator - hard</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-a-RESTful-API-backend-for-a-fullstack-web-app"><span class="nav-text">Design a RESTful API backend for a fullstack web app</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

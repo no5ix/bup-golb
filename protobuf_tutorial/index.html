@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'ProtoBuf的安装与使用' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ProtoBuf,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="介绍与 JSON 相比， Protobuf 的序列化和反序列化的速度更快，而且传输的数据会先压缩，使得传输的效率更高些 。Protobuf ， 全称 Protocol Buffer ， 是 Google 公司内部的混合语言数据标准，是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。 它很适合做数据存储或 RPC 数据交换格式 。 Protobuf是可用于通信协议、数据存储">
+<meta name="keywords" content="ProtoBuf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ProtoBuf的安装与使用">
+<meta property="og:url" content="https://hulinhong.com/protobuf_tutorial/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="介绍与 JSON 相比， Protobuf 的序列化和反序列化的速度更快，而且传输的数据会先压缩，使得传输的效率更高些 。Protobuf ， 全称 Protocol Buffer ， 是 Google 公司内部的混合语言数据标准，是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。 它很适合做数据存储或 RPC 数据交换格式 。 Protobuf是可用于通信协议、数据存储">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ProtoBuf的安装与使用">
+<meta name="twitter:description" content="介绍与 JSON 相比， Protobuf 的序列化和反序列化的速度更快，而且传输的数据会先压缩，使得传输的效率更高些 。Protobuf ， 全称 Protocol Buffer ， 是 Google 公司内部的混合语言数据标准，是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。 它很适合做数据存储或 RPC 数据交换格式 。 Protobuf是可用于通信协议、数据存储">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>ProtoBuf的安装与使用 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/protobuf_tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ProtoBuf的安装与使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-02-23T12:06:56+00:00">
+                02-23-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/ProtoBuf/" rel="tag"><i class="fa fa-tag"></i> ProtoBuf</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/cpp_object_model_conclusion/" rel="next" title="C++对象模型之虚函数实例讲解">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  C++对象模型之虚函数实例讲解
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/MySQL入门一之增删查改与关联/" rel="prev" title="MySQL入门一之增删查改与关联">
+              <p class="post-nav-pre-next-title">
+                  MySQL入门一之增删查改与关联
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>与 JSON 相比， Protobuf 的序列化和反序列化的速度更快，而且传输的数据会先压缩，<br>使得传输的效率更高些 。<br>Protobuf ， 全称 Protocol Buffer ， 是 Google 公司内部的混合语言数据标准，是一种轻便<br>高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。 它很适合做数据<br>存储或 RPC 数据交换格式 。 Protobuf是可用于通信协议、数据存储等领域的语言无关、平台<br>无关、可扩展的序列化结构数据格式 。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>谷歌的东西要想在大陆安装起来总是有点那啥, 你懂的.</p>
+<h2 id="需要的依赖"><a href="#需要的依赖" class="headerlink" title="需要的依赖"></a>需要的依赖</h2><pre><code>sudo apt-get install curl
+
+sudo apt-get install autoconf autogen
+
+sudo apt-get install libtool
+</code></pre><h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>下载自github的代码需要首先执行 $ ./autogen.sh 生成configure文件 </p>
+<p>注意autogen.sh 需要gtest包，默认是从 googletest.googlecode.com下载，国内需要翻墙才能访问，很多人问autogen.sh运行失败，这里我补充一下 </p>
+<p>修改一下autogen.sh , 将这段:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &quot;Google Test not present.  Fetching gtest-1.5.0 from the web...&quot;</span><br><span class="line">curl http://googletest.googlecode.com/files/gtest-1.5.0.tar.bz2 | tar jx</span><br><span class="line">mv gtest-1.5.0 gtest</span><br></pre></td></tr></table></figure></p>
+<p>修改为:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://github.com/google/googletest/archive/release-1.5.0.tar.gz</span><br><span class="line">tar xzvf release-1.5.0.tar.gz</span><br><span class="line">mv googletest-release-1.5.0 gtest</span><br></pre></td></tr></table></figure></p>
+<p>再执行 autogen.sh，这样就不会报错了</p>
+<pre><code>$ ./configure
+$ make
+$ make check
+$ make install
+</code></pre><p>默认是装在</p>
+<pre><code>usr/local/bin
+usr/local/lib,
+usr/local/include 
+</code></pre><h2 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h2><pre><code>protoc --version
+</code></pre><p>如果安装成功,会出现版本号 如</p>
+<pre><code>libprotoc 2.6.1
+</code></pre><p>如果有问题，会输出错误内容, 最后我安装完成,用上述命令检查版本号时出现如下问题</p>
+<pre><code>protoc: error while loading shared libraries: libprotocbuf.so.9: cannot open shared
+</code></pre><p>错误原因</p>
+<p>protobuf的默认安装路径是/usr/local/lib,而/usr/local/lib不在ubuntu体系默认的LD_LIBRARY_PATH里,所以就找不到lib</p>
+<p>解决办法 : </p>
+<p>1 - 在 /etc/ld.so.conf.d/目录下创建文件 bprotobuf.conf文件,文件内容如下</p>
+<p><code>/usr/local/lib</code></p>
+<p>2 - 输入命令</p>
+<pre><code>sudo ldconfig
+</code></pre><p>这时,再输入<code>protoc --version</code>就可以正常看到版本号了</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight c++"><figcaption><span>Writer.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Mymessage.pb.h"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Im::Content msg1;</span><br><span class="line">	msg1.set_id(<span class="number">101</span>);</span><br><span class="line">	msg1.set_str(<span class="string">"ggsmd"</span>);</span><br><span class="line">	<span class="function">fstream <span class="title">output</span><span class="params">(<span class="string">"./log"</span>, ios::out | ios::trunc | ios::binary)</span></span>; </span><br><span class="line">	<span class="keyword">if</span> (!msg1.SerializeToOstream(&amp;output)) &#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"Failed to write msg."</span> &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>Reader.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Mymessage.pb.h"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ListMsg</span><span class="params">(<span class="keyword">const</span> Im::Content &amp; msg)</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg.id() &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; msg.str() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">	Im::Content msg1;</span><br><span class="line">	<span class="function">fstream <span class="title">input</span><span class="params">(<span class="string">"./log"</span>, ios::in | ios::binary)</span></span>;</span><br><span class="line">	<span class="keyword">if</span> (!msg1.ParseFromIstream(&amp;input)) &#123;</span><br><span class="line">		<span class="built_in">cerr</span> &lt;&lt; <span class="string">"Failed to parse address book."</span> &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	ListMsg(msg1);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><figcaption><span>makefile</span></figcaption><table><tr><td class="code"><pre><span class="line">INC=/usr/local/include</span><br><span class="line">LIB=/usr/local/lib</span><br><span class="line">lib=protobuf</span><br><span class="line"></span><br><span class="line">all:Writer Reader</span><br><span class="line"></span><br><span class="line">Writer.o:Writer.cpp</span><br><span class="line">	g++ -g -c Writer.cpp -I$(INC) -L$(LIB) -l$(lib)</span><br><span class="line">Reader.o:Reader.cpp</span><br><span class="line">	g++ -g -c Reader.cpp -I$(INC) -L$(LIB) -l$(lib)	</span><br><span class="line"></span><br><span class="line">Writer:Writer.o Mymessage.pb.o </span><br><span class="line">	g++ -g -o Writer Writer.o Mymessage.pb.o -I$(INC) -L$(LIB) -l$(lib)</span><br><span class="line">Reader:Reader.o Mymessage.pb.o </span><br><span class="line">	g++ -g -o Reader Reader.o Mymessage.pb.o -I$(INC) -L$(LIB) -l$(lib)</span><br><span class="line">Mymessage.pb.o:Mymessage.pb.cc</span><br><span class="line">	g++ -g -c Mymessage.pb.cc -I$(INC) -L$(LIB) -l$(lib)	</span><br><span class="line"></span><br><span class="line">clean:Writer Reader Writer.o Reader.o Mymessage.pb.o</span><br><span class="line">	rm Writer Reader Writer.o Reader.o Mymessage.pb.o</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>Mymessage.proto</span></figcaption><table><tr><td class="code"><pre><span class="line">package Im; </span><br><span class="line">message Content </span><br><span class="line">&#123; </span><br><span class="line">    required int32   id = <span class="number">1</span>;  <span class="comment">// ID </span></span><br><span class="line">    required <span class="built_in">string</span>  str = <span class="number">2</span>;  <span class="comment">// str </span></span><br><span class="line">    optional int32   opt = <span class="number">3</span>;  <span class="comment">//optional field </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="打印结果"><a href="#打印结果" class="headerlink" title="打印结果"></a>打印结果</h2><p>执行<br><code>protoc -I=./ --cpp_out=./ Mymessage.proto</code><br> 命令后，会生成 Mymessage.pb.h 和 Mymessage.pb.cc 文件。 再执行 <code>make</code> 命令，生成<br>Writer 和 Reader 文件 。 执行 <code>./Writer</code> 命令后，再执行<code>./Reader</code> 命令，终端上输出：</p>
+<pre><code>b@b-VirtualBox:~/tc$ protoc -I=./ --cpp_out=./ Mymessage.proto
+b@b-VirtualBox:~/tc$ ll
+total 44
+drwxrwxr-x 2 b b  4096  5月 19 22:43 ./
+drwxr-xr-x 4 b b  4096  5月 19 22:35 ../
+-rw-rw-r-- 1 b b   647  5月 19 22:36 makefile
+-rw-rw-r-- 1 b b 12214  5月 19 22:43 Mymessage.pb.cc
+-rw-rw-r-- 1 b b  7762  5月 19 22:43 Mymessage.pb.h
+-rw-rw-r-- 1 b b   161  5月 19 22:36 Mymessage.proto
+-rw-rw-r-- 1 b b   421  5月 19 22:36 Reader.cpp
+-rw-rw-r-- 1 b b   340  5月 19 22:35 Writer.cpp
+
+b@b-VirtualBox:~/tc$ make
+g++ -g -c Writer.cpp -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf
+g++ -g -c Mymessage.pb.cc -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf    
+g++ -g -o Writer Writer.o Mymessage.pb.o -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf
+g++ -g -c Reader.cpp -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf    
+g++ -g -o Reader Reader.o Mymessage.pb.o -I/home/sharexu/charpter13/1302/include -L/home/sharexu/charpter13/1302/lib -lprotobuf
+
+b@b-VirtualBox:~/tc$ ll
+total 772
+drwxrwxr-x 2 b b   4096  5月 19 22:43 ./
+drwxr-xr-x 4 b b   4096  5月 19 22:35 ../
+-rw-rw-r-- 1 b b    647  5月 19 22:36 makefile
+-rw-rw-r-- 1 b b  12214  5月 19 22:43 Mymessage.pb.cc
+-rw-rw-r-- 1 b b   7762  5月 19 22:43 Mymessage.pb.h
+-rw-rw-r-- 1 b b 244112  5月 19 22:43 Mymessage.pb.o
+-rw-rw-r-- 1 b b    161  5月 19 22:36 Mymessage.proto
+-rwxrwxr-x 1 b b 188430  5月 19 22:43 Reader*
+-rw-rw-r-- 1 b b    421  5月 19 22:36 Reader.cpp
+-rw-rw-r-- 1 b b  57656  5月 19 22:43 Reader.o
+-rwxrwxr-x 1 b b 184244  5月 19 22:43 Writer*
+-rw-rw-r-- 1 b b    340  5月 19 22:35 Writer.cpp
+-rw-rw-r-- 1 b b  59232  5月 19 22:43 Writer.o
+
+b@b-VirtualBox:~/tc$ ./Writer    
+
+b@b-VirtualBox:~/tc$ ./Reader 
+101
+ggsmd
+</code></pre>
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ProtoBuf/" rel="tag"><i class="fa fa-tag"></i> ProtoBuf</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/cpp_object_model_conclusion/" rel="next" title="C++对象模型之虚函数实例讲解">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    C++对象模型之虚函数实例讲解
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/MySQL入门一之增删查改与关联/" rel="prev" title="MySQL入门一之增删查改与关联">
+                <p class="post-nav-pre-next-title">
+                    MySQL入门一之增删查改与关联
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要的依赖"><span class="nav-text">需要的依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装步骤"><span class="nav-text">安装步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查是否安装成功"><span class="nav-text">检查是否安装成功</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打印结果"><span class="nav-text">打印结果</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

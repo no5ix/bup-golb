@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🚙">
+<meta property="og:url" content="https://hulinhong.com/page/32/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚙">
+<meta name="twitter:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>🚙 - 💨 💨 💨</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/关系型数据库与NoSQL的爱恨情仇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/关系型数据库与NoSQL的爱恨情仇/" itemprop="url">关系型数据库与NoSQL的爱恨情仇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-20T13:18:17+00:00">
+                05-20-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index">
+                    <span itemprop="name">DB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="NoSQL因关系数据库的不足而生"><a href="#NoSQL因关系数据库的不足而生" class="headerlink" title="NoSQL因关系数据库的不足而生"></a>NoSQL因关系数据库的不足而生</h1><p>随着互联网的不断发展，各种类型的应用层出不穷，所以导致在这个云计算的时代，</p>
+<p>对技术提出了更多的需求，主要体现在下面这四个方面：</p>
+<ul>
+<li>低延迟的读写速度：应用快速地反应能极大地提升用户的满意度; </li>
+<li>支撑海量的数据和流量：对于搜索这样大型应用而言，需要利用PB级别的数据和能应对百万级的流量; </li>
+<li>大规模集群的管理：系统管理员希望分布式应用能更简单的部署和管理;</li>
+</ul>
+<p>庞大运营成本的考量：IT经理们希望在硬件成本、软件成本和人力成本能够有大幅度地降低;</p>
+<p>目前世界上主流的存储系统大部分还是采用了关系型数据库，其主要有一下优点：</p>
+<ul>
+<li>事务处理—保持数据的一致性；</li>
+<li>由于以标准化为前提，数据更新的开销很小（相同的字段基本上只有一处）；</li>
+<li>可以进行Join等复杂查询。</li>
+</ul>
+<p>虽然关系型数据库已经在业界的数据存储方面占据不可动摇的地位，但是由于其天生的几个限制，</p>
+<p>使其很难满足上面这几个需求： </p>
+<ul>
+<li>扩展困难：由于存在类似Join这样多表查询机制，使得数据库在扩展方面很艰难; </li>
+<li>读写慢：这种情况主要发生在数据量达到一定规模时由于关系型数据库的系统逻辑非常复杂，使得其非常容易发生死锁等的并发问题，所以导致其读写速度下滑非常严重; </li>
+<li>成本高：企业级数据库的License价格很惊人，并且随着系统的规模，而不断上升; </li>
+<li>有限的支撑容量：现有关系型解决方案还无法支撑Google这样海量的数据存储; </li>
+</ul>
+<blockquote>
+<p>业界为了解决上面提到的几个需求，推出了多款新类型的数据库，并且由于它们在设计上和传统的NoSQL数据库相比有很大的不同，<br>所以被统称为“NoSQL”系列数据库。</p>
+</blockquote>
+<p>总的来说，在设计上，它们非常关注对数据高并发地读写和对海量数据的存储等，与关系型数据库相比，它们在架构和数据模型方量面做了“减法”，</p>
+<p>而在扩展和并发等方面做了“加法”。</p>
+<blockquote>
+<p>现在主流的NoSQL数据库有<strong>MongoDB</strong>和<strong>Redis</strong>以及BigTable、Hbase、Cassandra、SimpleDB、CouchDB、等。</p>
+</blockquote>
+<p>接下来，将关注NoSQL数据库到底存在哪些优缺点。</p>
+<h1 id="NoSQL的优缺点"><a href="#NoSQL的优缺点" class="headerlink" title="NoSQL的优缺点"></a>NoSQL的优缺点</h1><p>在优势方面，主要体现在下面这三点： </p>
+<ul>
+<li>简单的扩展：典型例子是Cassandra，由于其架构是类似于经典的P2P，所以能通过轻松地添加新的节点来扩展这个集群; </li>
+<li>快速的读写：主要例子有redis，由于其逻辑简单，而且纯内存操作，使得其性能非常出色，单节点每秒可以处理超过10万次读写操作; </li>
+<li>低廉的成本：这是大多数分布式数据库共有的特点，因为主要都是开源软件，没有昂贵的License成本; </li>
+</ul>
+<p>但瑕不掩瑜，NoSQL数据库还存在着很多的不足，常见主要有下面这几个： </p>
+<ul>
+<li>不提供对SQL的支持：如果不支持SQL这样的工业标准，将会对用户产生一定的学习和应用迁移成本; </li>
+<li>支持的特性不够丰富：现有产品所提供的功能都比较有限，大多数NoSQL数据库都不支持事务，也不像MS SQL Server和Oracle那样能提供各种附加功能，比如BI和报表等; </li>
+<li>现有产品的不够成熟：大多数产品都还处于初创期，和关系型数据库几十年的完善不可同日而语; </li>
+</ul>
+<p>上面NoSQL产品的优缺点都是些比较共通的，在实际情况下，每个产品都会根据自己所遵从的数据模型和CAP理念而有所不同.</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/编译过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/编译过程/" itemprop="url">编译过程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-07T17:24:19+00:00">
+                05-07-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>通常我们使用gcc来生成可执行程序，命令为：gcc hello.c，默认生成可执行文件a.out</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>其实编译（包括链接）的命令：gcc hello.c 可分解为如下4个大的步骤：</p><br><ul><br><ul><br><li><strong>预处理</strong>(Preprocessing)</li><li><strong>编译</strong>(Compilation)</li><li><strong>汇编</strong>(Assembly)</li><li><strong>链接</strong>(Linking)</li></ul><br></ul><br><br><br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://smilejay.com/wp-content/uploads/2012/01/gcc_compilation_stages.jpg" alt="gcc_compilation"><br><br><br><h1 id="预处理">预处理</h1><br><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 预处理(Preproceessing)</strong></p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>预处理的过程主要处理包括以下过程：</strong></p><br><ul><br><li>将所有的#define删除，并且<strong>展开所有的宏定义</strong></li><li><strong>处理</strong>所有的<strong>条件预编译指令</strong>，比如#if #ifdef #elif #else #endif等</li><li><strong>处理#include</strong><span>&nbsp;</span>预编译指令，将被包含的文件插入到该预编译指令的位置。</li><li><strong>删除所有注释<span>&nbsp;</span></strong>“//”和”/<em> </em>/”.</li><li><strong>添加行号和文件标识</strong>，以便编译时产生调试用的行号及编译错误警告行号。</li><li>保留所有的<strong>#pragma编译器指令</strong>，因为编译器需要使用它们</li></ul><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>通常使用以下命令来进行预处理：</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>gcc -E hello.c -o hello.i</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>参数<strong>-E</strong>表示只进行预处理 或者也可以使用以下指令完成预处理过程</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>cpp hello.c &gt; hello.i &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/<em> &nbsp;cpp – The C Preprocessor&nbsp; </em>/</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>直接cat hello.i 你就可以看到预处理后的代码</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p>
+
+
+<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 编译(Compilation)</strong></p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>编译过程就是把预处理完的文件进行一系列的词法分析，语法分析，语义分析及优化后生成相应的汇编代码。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>$gcc –S hello.i –o hello.s</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>或者</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>$ /usr/lib/gcc/i486-linux-gnu/4.4/cc1 hello.c</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>注：现在版本的GCC把预处理和编译两个步骤合成一个步骤，用cc1工具来完成。gcc其实是后台程序的一些包装，根据不同参数去调用其他的实际处理程序，比如：预编译编译程序cc1、汇编器as、连接器ld</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>可以看到编译后的汇编代码(hello.s)如下：</p>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> .file   &quot;hello.c&quot;</span><br><span class="line">    .section    .rodata</span><br><span class="line">.LC0:</span><br><span class="line">    .string &quot;Hello, world.&quot;</span><br><span class="line">    .text</span><br><span class="line">.globl main</span><br><span class="line">    .type   main, @function</span><br><span class="line">main:</span><br><span class="line">    pushl   %ebp</span><br><span class="line">    movl    %esp, %ebp</span><br><span class="line">    andl    $-16, %esp</span><br><span class="line">    subl    $16, %esp</span><br><span class="line">    movl    $.LC0, (%esp)</span><br><span class="line">    call    puts</span><br><span class="line">    movl    $0, %eax</span><br><span class="line">    leave</span><br><span class="line">    ret</span><br><span class="line">    .size   main, .-main</span><br><span class="line">    .ident  &quot;GCC: (Ubuntu 4.4.3-4ubuntu5) 4.4.3&quot;</span><br><span class="line">    .section    .note.GNU-stack,&quot;&quot;,@progbits</span><br></pre></td></tr></table></figure>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p>
+
+<h1 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h1><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 汇编(Assembly)</strong></p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>汇编器是将汇编代码转变成机器可以执行的命令，每一个汇编语句几乎都对应一条机器指令。汇编相对于编译过程比较简单，根据汇编指令和机器指令的对照表一一翻译即可。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>$ gcc –c hello.c –o hello.o</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>或者</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>$ as hello.s –o hello.co</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>由于hello.o的内容为机器码，不能以普通文本形式的查看（vi 打开看到的是乱码）。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p>
+
+<h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><strong>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 链接(Linking)</strong></p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>通过调用链接器ld来链接程序运行需要的一大堆目标文件，以及所依赖的其它库文件，最后生成可执行文件。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>ld -static crt1.o crti.o crtbeginT.o hello.o -start-group -lgcc -lgcc_eh -lc-end-group crtend.o crtn.o (省略了文件的路径名)。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p>
+
+<h1 id="编译器和链接器具体做了什么"><a href="#编译器和链接器具体做了什么" class="headerlink" title="编译器和链接器具体做了什么"></a>编译器和链接器具体做了什么</h1><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>helloworld的大体编译和链接过程就是这样了，那么编译器和链接器到底做了什么呢？</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br><strong>编译过程可分为6步：</strong></p>
+
+<ul>
+<li>词法分析：扫描器（Scanner）将源代的字符序列分割成一系列的记号（Token）。lex工具可实现词法扫描。</li>
+<li>语法分析：语法分析器将记号（Token）产生语法树（Syntax Tree）。yacc工具可实现语法分析(yacc: Yet Another Compiler Compiler)。</li>
+<li>语义分析：静态语义（在编译器可以确定的语义）、动态语义（只能在运行期才能确定的语义）。</li>
+<li>源代码优化：源代码优化器(Source Code Optimizer)，将整个语法书转化为中间代码（Intermediate Code）（中间代码是与目标机器和运行环境无关的）。中间代码使得编译器被分为前端和后端。编译器前端负责产生机器无关的中间代码；编译器后端将中间代码转化为目标机器代码。</li>
+<li>目标代码生成：代码生成器(Code Generator).</li>
+<li>目标代码优化：目标代码优化器(Target Code Optimizer)。</li>
+</ul>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>&nbsp;</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>链接的主要内容是把各个模块之间相互引用的部分处理好，使得各个模块之间能够正确地衔接。</p><br><p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>链接的主要过程包括：地址和空间分配（Address and Storage Allocation），符号决议（Symbol Resolution），重定位（Relocation）等。</p>
+
+<h1 id="链接分为静态链接和动态链接"><a href="#链接分为静态链接和动态链接" class="headerlink" title="链接分为静态链接和动态链接"></a>链接分为静态链接和动态链接</h1><ol>
+<li><p>静态链接是指在编译阶段直接把静态库加入到可执行文件中去，这样可执行文件会比较大。</p>
+</li>
+<li><p>动态链接则是指链接阶段仅仅只加入一些描述信息，而程序执行时再从系统中把相应动态库加载到内存中去。</p>
+</li>
+</ol>
+<p style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px"><br>静态链接的大致过程如下图所示：</p>
+
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="http://smilejay.com/wp-content/uploads/2012/01/linking.jpg" alt="static_linking"></p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/valgrind_tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/valgrind_tutorial/" itemprop="url">关于Valgrind所报的4种内存丢失</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-05-02T17:56:12+00:00">
+                05-02-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="官方解释及分析"><a href="#官方解释及分析" class="headerlink" title="官方解释及分析"></a>官方解释及分析</h1><p>摘自<a href="http://valgrind.org/docs/manual/faq.html#faq.deflost" target="_blank" rel="noopener">http://valgrind.org/docs/manual/faq.html#faq.deflost</a></p>
+<p><strong>5.2.With Memcheck’s memory leak detector, what’s the difference between “definitely lost”, “indirectly lost”, “possibly lost”, “still reachable”, and “suppressed”?
+</strong></p>
+<p>The details are in the Memcheck section of the user manual.<br>In short:</p>
+<ul>
+<li><p>“definitely lost” means your program is leaking memory – fix those leaks!</p>
+</li>
+<li><p>“indirectly lost” means your program is leaking memory in a pointer-based structure. (E.g. if the root node of a binary tree is “definitely lost”, all the children will be “indirectly lost”.) If you fix the “definitely lost” leaks, the “indirectly lost” leaks should go away.</p>
+</li>
+<li><p>“possibly lost” means your program is leaking memory, unless you’re doing unusual things with pointers that could cause them to point into the middle of an allocated block; see the user manual for some possible causes. Use –show-possibly-lost=no if you don’t want to see these reports.</p>
+</li>
+<li><p>“still reachable” means your program is probably ok – it didn’t free some memory it could have. This is quite common and often reasonable. Don’t use –show-reachable=yes if you don’t want to see these reports.</p>
+</li>
+<li><p>“suppressed” means that a leak error has been suppressed. There are some suppressions in the default suppression files. You can ignore suppressed errors.</p>
+</li>
+</ul>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><ul>
+<li><p>“definitely lost”：确认丢失。程序中存在内存泄露，应尽快修复。当程序结束时如果一块动态分配的内存没有被释放且通过程序内的指针变量均无法访问这块内存则会报这个错误。</p>
+</li>
+<li><p>“indirectly lost”：间接丢失。当使用了含有指针成员的类或结构时可能会报这个错误。这类错误无需直接修复，他们总是与”definitely lost”一起出现，只要修复”definitely lost”即可。例子可参考我的例程。</p>
+</li>
+<li><p>“possibly lost”：可能丢失。大多数情况下应视为与”definitely lost”一样需要尽快修复，除非你的程序让一个指针指向一块动态分配的内存（但不是这块内存起始地址），然后通过运算得到这块内存起始地址，再释放它。例子可参考我的例程。当程序结束时如果一块动态分配的内存没有被释放且通过程序内的指针变量均无法访问这块内存的起始地址，但可以访问其中的某一部分数据，则会报这个错误。</p>
+</li>
+<li><p>“still reachable”：可以访问，未丢失但也未释放。如果程序是正常结束的，那么它可能不会造成程序崩溃，但长时间运行有可能耗尽系统资源，因此笔者建议修复它。如果程序是崩溃（如访问非法的地址而崩溃）而非正常结束的，则应当暂时忽略它，先修复导致程序崩溃的错误，然后重新检测。</p>
+</li>
+<li><p>“suppressed”：已被解决。出现了内存泄露但系统自动处理了。可以无视这类错误。这类错误我没能用例程触发，看官方的解释也不太清楚是操作系统处理的还是valgrind，也没有遇到过。所以无视他吧~</p>
+</li>
+</ul>
+<h1 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> *g_p1;</span><br><span class="line"><span class="keyword">int</span> *g_p2;</span><br><span class="line"><span class="function"><span class="keyword">int</span> ** <span class="title">fun1</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//付给了局部变量, 函数结束而不释放,为肯定丢失.</span></span><br><span class="line">    <span class="comment">//把函数尾部语句return p; 改为return 0;更能说明这个问题.</span></span><br><span class="line">    <span class="keyword">int</span> **p=(<span class="keyword">int</span> **)<span class="built_in">malloc</span>(<span class="number">16</span>); </span><br><span class="line">    g_p1=<span class="built_in">malloc</span>(<span class="number">20</span>);  <span class="comment">//付给了全局变量, 内存可以访问</span></span><br><span class="line">    g_p2=(<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="number">30</span>);</span><br><span class="line">    g_p2++;            <span class="comment">//付给了全局变量, 内存可以访问,但是指针被移动过,为可能丢失</span></span><br><span class="line">    p[<span class="number">1</span>]=(<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="number">40</span>); <span class="comment">//如果p丢失了,则p[1]为间接丢失.</span></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> **p=fun1();</span><br><span class="line"><span class="comment">//  free(g_p1);  //如果不free, 将会有 still reachable 内存泄露</span></span><br><span class="line"><span class="comment">//  free(--g_p2);//如果不free, 将会有 possibly lost 内存泄露</span></span><br><span class="line"><span class="comment">//  free(p[1]);  //如果不free, 将会有 indirectly lost 内存泄露</span></span><br><span class="line"><span class="comment">//  free(p);     //如果不free, 将会有 definitely lost内存泄露</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行编译命令<code>g++ val_test.cpp -o v</code>, 然后</p>
+<p>当执行<code>valgrind ./v</code> 命令之后的<strong>简易</strong>内存错误报告 :</p>
+<pre><code>==4765== Memcheck, a memory error detector
+==4765== Copyright (C) 2002-2013, and GNU GPL&apos;d, by Julian Seward et al.
+==4765== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==4765== Command: ./v
+==4765== 
+==4765== 
+==4765== HEAP SUMMARY:
+==4765==     in use at exit: 106 bytes in 4 blocks
+==4765==   total heap usage: 4 allocs, 0 frees, 106 bytes allocated
+==4765== 
+==4765== LEAK SUMMARY:
+==4765==    definitely lost: 16 bytes in 1 blocks
+==4765==    indirectly lost: 40 bytes in 1 blocks
+==4765==      possibly lost: 30 bytes in 1 blocks
+==4765==    still reachable: 20 bytes in 1 blocks
+==4765==         suppressed: 0 bytes in 0 blocks
+==4765== Rerun with --leak-check=full to see details of leaked memory
+==4765== 
+==4765== For counts of detected and suppressed errors, rerun with: -v
+==4765== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+b@b-VirtualBox:~/tc/valgrind_test$ valgrind --leak-check=full
+valgrind: no program specified
+valgrind: Use --help for more information.
+</code></pre><p>当执行<code>valgrind --leak-check=full ./v</code> 命令之后的<strong>详细</strong>内存错误报告 :</p>
+<pre><code>==4767== Memcheck, a memory error detector
+==4767== Copyright (C) 2002-2013, and GNU GPL&apos;d, by Julian Seward et al.
+==4767== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==4767== Command: ./v
+==4767== 
+==4767== 
+==4767== HEAP SUMMARY:
+==4767==     in use at exit: 106 bytes in 4 blocks
+==4767==   total heap usage: 4 allocs, 0 frees, 106 bytes allocated
+==4767== 
+==4767== 30 bytes in 1 blocks are possibly lost in loss record 2 of 4
+==4767==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4767==    by 0x40055E: fun1() (val_test.cpp:12)
+==4767==    by 0x4005AB: main (val_test.cpp:20)
+==4767== 
+==4767== 56 (16 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 4 of 4
+==4767==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4767==    by 0x40053F: fun1() (val_test.cpp:10)
+==4767==    by 0x4005AB: main (val_test.cpp:20)
+==4767== 
+==4767== LEAK SUMMARY:
+==4767==    definitely lost: 16 bytes in 1 blocks
+==4767==    indirectly lost: 40 bytes in 1 blocks
+==4767==      possibly lost: 30 bytes in 1 blocks
+==4767==    still reachable: 20 bytes in 1 blocks
+==4767==         suppressed: 0 bytes in 0 blocks
+==4767== Reachable blocks (those to which a pointer was found) are not shown.
+==4767== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==4767== 
+==4767== For counts of detected and suppressed errors, rerun with: -v
+==4767== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>由局部变量指向的内存,如果不释放为肯定丢失, </li>
+<li>由此指针而引起的后续内存泄露,为间接丢失.</li>
+<li>由全局变量指向的内存如果不被释放,为still reachable, </li>
+<li>如果该变量改动过, 为可能丢失.</li>
+</ul>
+<p>是啊,局部变量是栈变量,如果你不能把这个栈变量处理好,出了这个函数,指针地址就丢失了,这时那是肯定丢失了.</p>
+<p>如果你付给的地址是全局变量,倒是可以访问,叫still reachable</p>
+<p>但是如果你这个全局变量的值改动过, 那只有你知道怎样正确访问这块内存,别人可能就访问不到了,这叫可能丢失.</p>
+<p>由肯定丢失而引起的进一步的内存丢失为间接丢失.</p>
+<h1 id="解决内存泄漏的顺序"><a href="#解决内存泄漏的顺序" class="headerlink" title="解决内存泄漏的顺序"></a>解决内存泄漏的顺序</h1><p><strong>所以碰到问题你首先要解决什么问题?</strong></p>
+<p>肯定丢失,<br>然后是可能丢失,<br>然后间接丢失,<br>然后still reachable!!!</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/multi_thread_dev_base_concept/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/multi_thread_dev_base_concept/" itemprop="url">多线程开发的一些基本概念</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-27T18:31:26+00:00">
+                04-27-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="竞态（race-condition）"><a href="#竞态（race-condition）" class="headerlink" title="竞态（race condition）"></a>竞态（race condition）</h1><p>软件层面上，竞态是指多个线程或进程读写一个共享资源 (或共享设备) 时的输出结果依赖于线程或进程的先后执行顺序或者时间；<br>（ 更权威的介绍可以看 <a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" rel="noopener">wiki</a> )</p>
+<p>至于为什么会发生竞态呢？很简单，因为并发，并发使多线程，多进程环境变成可能。</p>
+<p>竞态具体场景：假如我们有 2 个进程会对一个全局变量进行 ++ 操作，理想时，程序会这样执行：</p>
+<table><tbody><tr><td style="background:rgb(242,242,242);"><br><p><span style="font-size:24px;">Thread 1</span></p><br></td><td style="background:rgb(242,242,242);"><br><p><span style="font-size:24px;">Thread 2</span></p><br></td><td style="background:rgb(242,242,242);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(242,242,242);"><br><p><span style="font-size:24px;">Integer value</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">0</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">read value</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">←</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">0</span></p><br></td></tr><tr><td style="background:rgb(245,222,179);"><br><p><span style="font-size:24px;">increase value</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">0</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">write back</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">→</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">1</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">read value</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">←</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">1</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(245,222,179);"><br><p><span style="font-size:24px;">increase value</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">1</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">write back</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">→</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">2</span></p><br></td></tr></tbody></table>
+
+<p>   然而，由于并发的普遍存在，使得情况有时” 不受控制”（不如工程师预期那样工作），可能会变成这样：</p>
+<table><tbody><tr><td style="background:rgb(242,242,242);"><br><p><span style="font-size:24px;">Thread 1</span></p><br></td><td style="background:rgb(242,242,242);"><br><p><span style="font-size:24px;">Thread 2</span></p><br></td><td style="background:rgb(242,242,242);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(242,242,242);"><br><p><span style="font-size:24px;">Integer value</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">0</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">read value</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">←</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">0</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">read value</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">←</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">0</span></p><br></td></tr><tr><td style="background:rgb(245,222,179);"><br><p><span style="font-size:24px;">increase value</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">0</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(245,222,179);"><br><p><span style="font-size:24px;">increase value</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">0</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">write back</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">→</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">1</span></p><br></td></tr><tr><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;"> </span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">write back</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">→</span></p><br></td><td style="background:rgb(249,249,249);"><br><p><span style="font-size:24px;">1</span></p><br></td></tr></tbody></table>
+
+
+<h1 id="并发（concurrency）"><a href="#并发（concurrency）" class="headerlink" title="并发（concurrency）"></a>并发（concurrency）</h1><p>并发 (concurrency) 指的是多个执行单元同时、并行被执行。而并发的执行单元对共享资源 (硬件资源和软件上的全局、静态变量) 的访问则容易导致竞态 (race conditions), 可能导致并发 (即竞态?) 的情况有：</p>
+<ul>
+<li><p>SMP（Symmetric Multi-Processing），对称多处理结构。SMP 是一种紧耦合、共享存储的系统模型，它的特点是多个 CPU 使用共同的系统总线，因此可访问共同的外设和存储器。</p>
+</li>
+<li><p>中断. 中断可以打断正在执行的进程 (哪怕是在中断上下文)，若中断处理程序对共享资源进程访问，则竞态也会发生.</p>
+</li>
+<li><p>内核抢占.2.6 以后内核提供了内核可抢占特性，虽然是作为一个配置选项，但我们写程序时还是要考虑周全，故内核抢占也是作为伪并发的表现，也可能发生竞态；</p>
+</li>
+</ul>
+<h1 id="临界区（critical-section）"><a href="#临界区（critical-section）" class="headerlink" title="临界区（critical section）"></a>临界区（critical section）</h1><p>多个线程进程对共享资源进行访问在软件表现为一个程序片段，如何避免竞态的发生呢？</p>
+<p>一个执行路径在对共享资源进行访问时禁止其他执行路径进行访问，当有一个执行路径（A）对共享资源进行访问时，如有其他执行路径想访问共享资源，须睡眠等待 A 执行路径退出。</p>
+<p>那么这时这个程序片段就是临界区。那么具体如何来实现临界区呢？linux 内核提供了多种同步互斥机制.（如信号量，互斥量，自旋锁，RCU，原子操作等）.</p>
+<h1 id="什么是RAII技术"><a href="#什么是RAII技术" class="headerlink" title="什么是RAII技术"></a>什么是RAII技术</h1><p>我们在C++中经常使用new申请了内存空间，但是却也经常忘记delete回收申请的空间，容易造成内存溢出，于是RAII技术就诞生了，来解决这样的问题。</p>
+<p>RAII（Resource Acquisition Is Initialization）机制是Bjarne Stroustrup首先提出的，是一种利用对象生命周期来控制程序资源（如内存、文件句柄、网络连接、互斥量等等）的简单技术。 我们知道在函数内部的一些成员是放置在栈空间上的，当函数返回时，这些栈上的局部变量就会立即释放空间，于是Bjarne Stroustrup就想到确保能运行资源释放代码的地方就是在这个程序段（栈）中放置的对象的析构函数了，因为stack winding会保证它们的析构函数都会被执行。RAII就利用了栈里面的变量的这一特点。</p>
+<p>RAII 的一般做法是这样的：在对象构造时获取资源，接着控制对资源的访问使之在对象的生命周期内始终保持有效，最后在对象析构的时候释放资源。</p>
+<p>借此，我们实际上把管理一份资源的责任托管给了一个存放在栈空间上的局部对象。<br>这种做法有两大好处： </p>
+<ul>
+<li>(1)不需要显式地释放资源。 </li>
+<li>(2)采用这种方式，对象所需的资源在其生命期内始终保持有效。</li>
+</ul>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/MySQL入门三之GroupBy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/MySQL入门三之GroupBy/" itemprop="url">MySQL入门三之GroupBy</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-17T12:11:21+00:00">
+                04-17-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index">
+                    <span itemprop="name">DB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="SQL-GROUP-BY-实例"><a href="#SQL-GROUP-BY-实例" class="headerlink" title="SQL GROUP BY 实例"></a>SQL GROUP BY 实例</h1><p>我们拥有下面这个 “Orders” 表：</p>
+<table>
+<thead>
+<tr>
+<th>O_Id</th>
+<th>OrderDate</th>
+<th>OrderPrice</th>
+<th>Customer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2008/12/29</td>
+<td>1000</td>
+<td>Bush</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2008/11/23</td>
+<td>1600</td>
+<td>Carter</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2008/10/05</td>
+<td>700</td>
+<td>Bush</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2008/09/28</td>
+<td>300</td>
+<td>Bush</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2008/08/06</td>
+<td>2000</td>
+<td>Adams</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2008/07/21</td>
+<td>100</td>
+<td>Carter</td>
+</tr>
+</tbody>
+</table>
+<p>现在，我们希望查找每个客户的总金额（总订单）。<br>我们想要使用 GROUP BY 语句对客户进行组合。<br>我们使用下列 SQL 语句：</p>
+<p><code>SELECT Customer,SUM(OrderPrice) FROM Orders GROUP BY Customer</code></p>
+<p>结果集类似这样：</p>
+<table>
+<thead>
+<tr>
+<th>Customer</th>
+<th>SUM(OrderPrice)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bush</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>1700</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>2000</td>
+</tr>
+</tbody>
+</table>
+<p>很棒吧，对不对？<br>让我们看一下如果省略 GROUP BY 会出现什么情况：</p>
+<p><code>SELECT Customer,SUM(OrderPrice) FROM Orders</code></p>
+<p>结果集类似这样：</p>
+<table>
+<thead>
+<tr>
+<th>Customer</th>
+<th>SUM(OrderPrice)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bush</td>
+<td>5700</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>5700</td>
+</tr>
+<tr>
+<td>Bush</td>
+<td>5700</td>
+</tr>
+<tr>
+<td>Bush</td>
+<td>5700</td>
+</tr>
+<tr>
+<td>Adams</td>
+<td>5700</td>
+</tr>
+<tr>
+<td>Carter</td>
+<td>5700</td>
+</tr>
+</tbody>
+</table>
+<p>上面的结果集不是我们需要的。<br>那么为什么不能使用上面这条 SELECT 语句呢？</p>
+<p>解释如下：<br>上面的 SELECT 语句指定了两列（Customer 和 SUM(OrderPrice)）。<br>“SUM(OrderPrice)” 返回一个单独的值（”OrderPrice” 列的总计），而 “Customer” 返回 6 个值（每个值对应 “Orders” 表中的每一行）。<br>因此，我们得不到正确的结果。不过，您已经看到了，GROUP BY 语句解决了这个问题。</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/sizeof_struct/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/sizeof_struct/" itemprop="url">对象模型之内存对齐基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-12T23:30:01+00:00">
+                04-12-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <p>本文不讨论类的虚函数, 请参考 <a href="/cpp_object_model_conclusion/" title="C++对象模型之虚函数讲解">C++对象模型之虚函数讲解</a></p>
+<h1 id="内存对齐规则"><a href="#内存对齐规则" class="headerlink" title="内存对齐规则"></a>内存对齐规则</h1><p>首先我们明确内存对齐规则</p>
+<p>我们设 </p>
+<pre><code>A = #pragma pack()指定的数
+B = 这个数据成员的自身长度
+C = 结构(或联合)中最大数据成员长度
+</code></pre><p>在解释内存对齐的作用前，先来看下内存对齐的规则：</p>
+<p>1.  <strong>对于结构的各个成员</strong>，第一个成员位于偏移为0的位置，<br>以后每个数据成员的偏移量必须是 <code>min( A，B )</code> 的倍数。</p>
+<p>2.  <strong>在数据成员完成各自对齐之后</strong>，结构(或联合)本身也要进行对齐，对齐将按照 <code>min( A, C)</code> 进行。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p><strong>32位</strong>机器上, 下列代码的sizeof(a)的值是多少?</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(2)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">union</span> U</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span> buff[<span class="number">13</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    &#125;u;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">char</span>* (*f)(<span class="keyword">void</span>*);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">enum</span>&#123; red, green, blue &#125; color;</span><br><span class="line">&#125;a;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br></pre></td></tr></table></figure>
+<h2 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h2><p>答案是sizeof(a)的值为22.</p>
+<ul>
+<li>void foo() { } ，typedef char* (f)(void);不占字节，</li>
+<li>枚举占4个字节，</li>
+<li>union按最大的变量所占字节算，占14个字节，</li>
+<li>int占4个字节，</li>
+</ul>
+<p>4+14+4=22。</p>
+<p>如果把#pragma pack(2)改为 #pragma pack(4)， sizeof(a)的值就为 24。</p>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>分为三部分来解析:</p>
+<ul>
+<li><a href="#枚举所占内存计算方法">枚举所占内存计算方法</a></li>
+<li><a href="#pragma-pack用法">#pragma pack用法</a></li>
+<li><a href="#共用体-union-所占内存计算方法">共用体(union)所占内存计算方法</a></li>
+</ul>
+<h3 id="枚举所占内存计算方法"><a href="#枚举所占内存计算方法" class="headerlink" title="枚举所占内存计算方法"></a>枚举所占内存计算方法</h3><p>枚举变量，由枚举类型定义的变量。枚举变量的大小，即枚举类型所占内存的大小。</p>
+<p>由于枚举变量的赋值，一次只能存放枚举结构中的某个常数。</p>
+<p>所以枚举变量的大小，实质是常数所占内存空间的大小（常数为int类型，当前主流的编译器中一般是32位机器和64位机器中int型都是4个字节），枚举类型所占内存大小也是这样。</p>
+<h3 id="pragma-pack用法"><a href="#pragma-pack用法" class="headerlink" title="#pragma pack用法"></a>#pragma pack用法</h3><p><code>#pragma pack(a)</code>规定的对齐长度（a可选值为1，2，4，8，16），实际使用的规则是：<br>结构，联合，或者类的数据成员，第一个放在偏移为0的地方，以后每个数据成员的对齐，按照#pragma pack指定的数值和这个数据成员自身长度中，比较小的那个进行。<br>也就是说，当#pragma pack的值等于或超过所有数据成员长度的时候，这个值的大小将不产生任何效果。<br>而结构整体的对齐，则按照结构体中最大的数据成员 和 #pragma pack指定值 之间，较小的那个进行。<br>而 <code>#pragma pack()</code> 表示恢复默认的内存对齐（与<code>#pragma pack(a)</code>指令配对使用）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(4)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestB</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> aa; <span class="comment">//第一个成员，放在[0,3]偏移的位置，</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> a; <span class="comment">//第二个成员，自身长为1，#pragma pack(4),取小值，也就是1，所以这个成员按一字节对齐，放在偏移[4]的位置。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">short</span> b; <span class="comment">//第三个成员，自身长2，#pragma pack(4)，取2，按2字节对齐，所以放在偏移[6,7]的位置。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> c; <span class="comment">//第四个，自身长为1，放在[8]的位置。</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br></pre></td></tr></table></figure>
+<p>这个类实际占据的内存空间是9字节<br>类之间的对齐，是按照类内部最大的成员的长度，和#pragma pack规定的值之中较小的一个对齐的。<br>所以这个例子中，类之间对齐的长度是min(sizeof(int),4)，也就是4。<br>9按照4字节圆整的结果是12，所以sizeof(TestB)是12。</p>
+<p>如果<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(2)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestB</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> aa; <span class="comment">//第一个成员，放在[0,3]偏移的位置，</span></span><br><span class="line">    <span class="keyword">char</span> a; <span class="comment">//第二个成员，自身长为1，#pragma pack(2),取小值，也就是1，所以这个成员按一字节对齐，放在偏移[4]的位置。</span></span><br><span class="line">    <span class="keyword">short</span> b; <span class="comment">//第三个成员，自身长2，#pragma pack(2)，取2，按2字节对齐，所以放在偏移[6,7]的位置。</span></span><br><span class="line">    <span class="keyword">char</span> c; <span class="comment">//第四个，自身长为1，放在[8]的位置。</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看出，上面的位置完全没有变化，只是类之间改为按2字节对齐，9按2圆整的结果是10。<br>所以 sizeof(TestB)是10。</p>
+<p>现在去掉第一个成员变量为如下代码：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(4)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestC</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　　<span class="keyword">char</span> a;<span class="comment">//第一个成员，放在[0]偏移的位置，</span></span><br><span class="line">　　<span class="keyword">short</span> b;<span class="comment">//第二个成员，自身长2，#pragma pack(4)，取2，按2字节对齐，所以放在偏移[2,3]的位置。</span></span><br><span class="line">　　<span class="keyword">char</span> c;<span class="comment">//第三个，自身长为1，放在[4]的位置。</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack()</span></span><br></pre></td></tr></table></figure></p>
+<p>整个类的大小是5字节，按照min(sizeof(short),4)字节对齐，也就是2字节对齐，结果是6，所以sizeof(TestC)是6。</p>
+<h3 id="共用体-union-所占内存计算方法"><a href="#共用体-union-所占内存计算方法" class="headerlink" title="共用体(union)所占内存计算方法"></a>共用体(union)所占内存计算方法</h3><p>共用体又名”联合体”, 英文名为union.</p>
+<p>当多个数据需要共享内存或者多个数据每次只取其一时，可以利用联合体(union)。在C Programming Language 一书中对于联合体是这么描述的：</p>
+<ul>
+<li>联合体是一个结构；</li>
+<li>它的所有成员相对于基地址的偏移量都为0；</li>
+<li>此结构空间要大到足够容纳最”宽”的成员；</li>
+<li>其对齐方式要适合其中所有的成员；</li>
+</ul>
+<p>下面解释这四条描述：</p>
+<p>由于联合体中的所有成员是共享一段内存的，因此每个成员的存放首地址相对于于联合体变量的基地址的偏移量为0，即所有成员的首地址都是一样的。为了使得所有成员能够共享一段内存，因此该空间必须足够容纳这些成员中最宽的成员。对于这句“对齐方式要适合其中所有的成员”是指其必须符合所有成员的自身对齐方式。</p>
+<p>下面举例说明：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">union U</span><br><span class="line">&#123;</span><br><span class="line">    char s[9];</span><br><span class="line">    int n;</span><br><span class="line">    double d;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>s占9字节，n占4字节，d占8字节，因此其至少需9字节的空间。然而其实际大小并不是9，用运算符sizeof测试其大小为16.这是因为这里存在字节对齐的问题，9既不能被4整除，也不能被8整除。</p>
+<p>因此补充字节到16，这样就符合所有成员的自身对齐了。从这里可以看出联合体所占的空间不仅取决于最宽成员，还跟所有成员有关系，即其大小必须满足两个条件：</p>
+<ul>
+<li>大小足够容纳最宽的成员；</li>
+<li>大小能被其包含的所有基本数据类型的大小所整除。</li>
+</ul>
+<h3 id="若问题为-pragma-pack-4-的情况"><a href="#若问题为-pragma-pack-4-的情况" class="headerlink" title="若问题为#pragma pack(4)的情况"></a>若问题为#pragma pack(4)的情况</h3><ul>
+<li>void foo() { } ，typedef char* (f)(void);不占字节，</li>
+<li>枚举占4个字节，</li>
+<li>union按最大的变量buff[13]所占字节算为13, 在#pragma pack(2)的情况, 得补齐1个字节变为14才能被2整除, 而#pragma pack(4)的情况得补齐3个字节, 总占16个字节，才可以被4整除,</li>
+<li>int占4个字节</li>
+</ul>
+<p>所以#pragma pack(4)的情况, sizeof(A)为4+16+4=24。</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>注意有陷阱, 32位环境下</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">pragma</span> pack(2)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test_class</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">float</span> i;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">union</span> test_union</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> bb;</span><br><span class="line">		<span class="keyword">char</span> aa[<span class="number">13</span>];</span><br><span class="line">		<span class="keyword">short</span> cc;</span><br><span class="line">	&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">enum</span> test_enum</span><br><span class="line">	&#123;</span><br><span class="line">		monday,</span><br><span class="line">		tuesday,</span><br><span class="line">		sunday</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">testFunc</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">char</span> xmly;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">pragma</span> pack()</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(test_class) : "</span> &lt;&lt; <span class="keyword">sizeof</span>(test_class) &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请问打印结果?</p>
+<p><code>sizeof(test_class) : 6</code></p>
+<p>为什么呢?<br>注意看共用体 test_union 和枚举 test_enum其实并没有声明变量, 如果写成<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">pragma</span> pack(2)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test_class</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">float</span> i;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">union</span> test_union</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> bb;</span><br><span class="line">		<span class="keyword">char</span> aa[<span class="number">13</span>];</span><br><span class="line">		<span class="keyword">short</span> cc;</span><br><span class="line">	&#125;uVar;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">enum</span> test_enum</span><br><span class="line">	&#123;</span><br><span class="line">		monday,</span><br><span class="line">		tuesday,</span><br><span class="line">		sunday</span><br><span class="line">	&#125;eVar;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">testFunc</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> xmly;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta"># <span class="meta-keyword">pragma</span> pack()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> enum_x </span><br><span class="line">&#123; </span><br><span class="line">	x1=<span class="number">5</span>, </span><br><span class="line">	x2, </span><br><span class="line">	x3, </span><br><span class="line">	x4, </span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">enum</span> enum_x x=x3; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(test_class) : "</span> &lt;&lt; <span class="keyword">sizeof</span>(test_class) &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"x : "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	test_class::test_enum i;</span><br><span class="line">	i = test_class::monday;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"i : "</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	test_class test_obj;</span><br><span class="line">	test_obj.eVar = test_class::sunday;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; test_obj.monday &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; test_class::sunday &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打印结果就为 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sizeof(test_class) : 24</span><br><span class="line">x : 7</span><br><span class="line">i : 0</span><br><span class="line">0</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/smart_pointer_note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/smart_pointer_note/" itemprop="url">智能指针笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-11T12:26:26+00:00">
+                04-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <p>有些错误是编译器查不到的, 这种错误是最可怕的, 当项目大了之后,<br>即使用 Valgrind 也很难定位,<br>因为裸指针在团队合作中使用很容易导致其他成员忘记释放或多次释放, 所以在团队合作中一般使用智能指针. </p>
+<p>而智能指针用的不好, 结果可能适得其反.</p>
+<p>所以我们聊一下智能指针的几点注意事项.</p>
+<p>总结自 C++ Primer.</p>
+<h1 id="一个简单的包含删除器的例子演示"><a href="#一个简单的包含删除器的例子演示" class="headerlink" title="一个简单的包含删除器的例子演示"></a>一个简单的包含删除器的例子演示</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::bind;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>::placeholders;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">testBind</span><span class="params">( <span class="keyword">int</span>* a, <span class="keyword">int</span> b, <span class="keyword">int</span> c )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; *a + b + c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> *a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Foo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	Foo() = <span class="keyword">default</span>;</span><br><span class="line">	Foo( <span class="keyword">const</span> Foo &amp; a )</span><br><span class="line">	&#123;</span><br><span class="line">		data = a.data;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"复制构造"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">print_sum</span><span class="params">( <span class="keyword">int</span> n1, <span class="keyword">int</span> n2 )</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; n1 + n2 &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> data = <span class="number">10</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//绑定类成员函数用对象的指针</span></span><br><span class="line">	Foo foo;</span><br><span class="line">	<span class="keyword">auto</span> f3 = <span class="built_in">std</span>::bind( &amp;Foo::print_sum, &amp;foo, <span class="number">95</span>, _1 );</span><br><span class="line">	f3( <span class="number">5</span> );</span><br><span class="line"></span><br><span class="line">	<span class="keyword">auto</span> check_testBind = <span class="built_in">std</span>::bind( testBind, <span class="built_in">std</span>::placeholders::_1, <span class="number">3</span>, <span class="number">9</span> );</span><br><span class="line">	<span class="keyword">int</span> * p = <span class="keyword">new</span> <span class="keyword">int</span>( <span class="number">7</span> );</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; check_testBind( p ) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; pi( <span class="keyword">new</span> <span class="keyword">int</span>(),</span><br><span class="line">		check_testBind );</span><br><span class="line">	*pi = <span class="number">88</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; pii( <span class="keyword">new</span> <span class="keyword">int</span>( <span class="number">12</span> ),</span><br><span class="line">		<span class="built_in">std</span>::bind( testBind, <span class="built_in">std</span>::placeholders::_1, <span class="number">32</span>, <span class="number">19</span> ) );</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::function&lt; <span class="keyword">int</span>( <span class="keyword">int</span>* ) &gt; test_function_bind =</span><br><span class="line">		<span class="built_in">std</span>::bind( testBind, <span class="built_in">std</span>::placeholders::_1, <span class="number">331</span>, <span class="number">9</span> );</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"test_function_bind( p, 331, 9 ) = "</span> &lt;&lt; test_function_bind( p ) &lt;&lt; <span class="built_in">endl</span>;;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; piii( <span class="keyword">new</span> <span class="keyword">int</span>( <span class="number">112</span> ),</span><br><span class="line">		test_function_bind );</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印结果 :</p>
+<pre><code>100
+119
+7
+347
+test_function_bind( p, 331, 9 ) = 7
+452
+63
+100
+请按任意键继续. . .
+</code></pre><h1 id="智能指针陷阱"><a href="#智能指针陷阱" class="headerlink" title="智能指针陷阱"></a>智能指针陷阱</h1><p>智能指针可以提供对动态分配的内存安全而又方便的管理，但这建立在正确使用的<br>前提下 。 为了正确使用智能指针，我们必须坚持一些基本规范 :</p>
+<ul>
+<li>不使用相同的内置指针值初始化(或 reset) 多个智能指针 。</li>
+<li>不 delete get ( ) 返 回的指针 。</li>
+<li>不使用 get () 初始化或 reset 另 一 个智能指针 。</li>
+<li>如果你使用 get () 返 回的指针，记住当最后一个对应的智能指针销 毁 后， 你 的<br>指 针就 变为无 效 了 。</li>
+<li>如果你使用智能指针管理的资源不是 new 分配的内存 ， 记住传递给它一个删除<br>器( 参见 12. 1.4 节 ， 第 415 页和 12. 1.5 节 ， 第 419 页)。</li>
+</ul>
+<h1 id="尽量用make-shared而非new"><a href="#尽量用make-shared而非new" class="headerlink" title="尽量用make_shared而非new"></a>尽量用make_shared而非new</h1><p>shared_ptr 可以协调对象的析构 ， 但这仅限于其自身的拷贝 ( 也 是 shared_ptr)<br>之间。</p>
+<p><strong>这也是为什么我们推荐使用 make_shared 而不是 new 的原因 。</strong></p>
+<p><strong>这样 ， 我们就能在分配对象的同时就将 shared_ptr 与之绑定，</strong><br><strong>从而避免了无意中将同一块内存绑定到多个独立创建的 shared_ptr 上 。(这是最容易犯的错)</strong></p>
+<p><strong>总结 : 所以我们要尽量一开始就用make_shared来分配动态内存, 而不是先new一个出来, 再找机会将它转为智能指针.</strong></p>
+<p>考虑下面对 shared_ptr 进行操作的函数 :</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在函数被调用时 ptr 被创建并初始化</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process</span><span class="params">(<span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 使用 ptr</span></span><br><span class="line">&#125; <span class="comment">// ptr 离 开作用域，被销毁</span></span><br></pre></td></tr></table></figure>
+<p>process 的参数是传值方式传递的，因此实参会被拷贝到 ptr 巾 。 拷贝 一 个 shared_ptr<br>会递增其引用讨数，因此， 在 process 运行过程中，引用七| 数值至少为 2 。 当 process<br>结束时， ptr 的引用计数会边喊，但不会变为 0 。 因此，当用音11变 11 ptr 被销毁时， ptr<br>指向的内存不会被释放 。</p>
+<p>使用此函数的正确方法是传递给它一个 shared_ptr :</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">42</span>)) ; <span class="comment">// 引用计数为 1</span></span><br><span class="line">process(p); <span class="comment">// 拷贝 p 会递增它的引用计数 ;在 process 中引用计数位为 2</span></span><br><span class="line"><span class="keyword">int</span> i = *p; <span class="comment">// 正确:引用计数位为 1</span></span><br></pre></td></tr></table></figure>
+<p>虽然不能传递给 process 一 个内置指针，但可以传递 给它 一 个(临时的)<br>shared_ptr ， 这个 shared_ptr 是用 一个内 置指针显式构造的 。 但是，这样做很可能<br>会导致错误 :</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">int *x(new int(1024)); // 危险 x 是一个普通指针，不是一个智能指针</span><br><span class="line">process(x) ; <span class="comment">// 错误 : 不能将 int* 转换为 一个 shared_ptr&lt;int&gt;</span></span><br><span class="line">process(<span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt;(x)); <span class="comment">// 合法的，但内存会被释放!</span></span><br><span class="line"><span class="keyword">int</span> j = *x ; <span class="comment">//未定义的 x 是一个空悬指针!</span></span><br></pre></td></tr></table></figure>
+<p>在上面的调用中 ， 我们将一个临时 shared_ptr 传递给 process 。 当这个调用所在的表<br>达式结束时，这个临时对象就被销毁了 。 销毁这个临时变量会递减引用计数，此时引用计<br>数就变为 0 了 。 因此，当临时对象被销毁时 ， 它所指向的内存会被释放 。<br>但 x 继续指 向 (已经释放的)内存，从而变成一个空悬指针。如果试图使用 x 的值，<br>其行为是未定义的 。</p>
+<p>当将一个 shared_ptr 绑定到一个普通指针时 ， 我们就将内存的管理责任交给了这<br>个 shared_ptr 一旦这样做 了 ， 我们就不应该再使用内置指针来访问 shared_ptr 所<br>指向的内存了 </p>
+<h1 id="不要使用-get-初始化另一个智能指针或为智能指针赋值"><a href="#不要使用-get-初始化另一个智能指针或为智能指针赋值" class="headerlink" title="不要使用 get 初始化另一个智能指针或为智能指针赋值"></a>不要使用 get 初始化另一个智能指针或为智能指针赋值</h1><p>智能指针类型定义了 一个名为 get 的函数(参见表 1 2. J )，它返回一个内置指针，<br>指向智能指针管理的对象 。 此函数是为了这样一种情况而设计的 : 我们需要向不能使用智<br>能指针的代码传递一个内置指针。使用 get 返回的指告| 的代码不能 delete 此指针 。<br>虽然编译器不会给出错误信息 ， 但将另一个智能指针也绑定到 get 返回的指针上是<br>错误的 :</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">42</span>)) ; <span class="comment">// 引 用计数为 1</span></span><br><span class="line"><span class="keyword">int</span> *q = p . get() ; <span class="comment">// 正确 · 但使用 q 时妥注意，不要让它管理的指针被释放</span></span><br><span class="line">&#123; <span class="comment">// 新程序块</span></span><br><span class="line"><span class="comment">// 未定义:两个独立的 shared_ptr 指 向 相同的内存</span></span><br><span class="line">    shared ptr&lt;<span class="keyword">int</span>&gt; (q) ;</span><br><span class="line">&#125; <span class="comment">// 程序块结束， q 被销毁 ， 它指向的内存被待放</span></span><br><span class="line"><span class="keyword">int</span> foo = *p ; <span class="comment">// 未定义 p 指向的内存 已 经被释放了</span></span><br></pre></td></tr></table></figure>
+<p>在本例中， p 和 q 指 向相同的内存。由于它们是相互独立创建的，因此各自的引用计数都<br>是 1。 当 q 所在的程序块结束时 ， q 被销毁 ， 这会导致 q 指向的内存被释放 。 从而 p 变成<br>一个空悬指针，意味着当我们试图使用 p 时，将发生未定义的行为 。 而且 ， 当 p 被销毁时 ，<br>这块内存会被第二次 delete 。</p>
+<p>get 用来将指针的访问权限传递给代码，你只有在确定代码不会 get.<br>特别是，永远不要用 get 初始化另一个智能指针 del ete 指针或者为另一个智能指针赋值.</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/31/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/33/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

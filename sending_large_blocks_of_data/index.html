@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '构建游戏网络协议四之发送大块数据' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GafferOnGames,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="本篇自我总结有了本系列上篇文章中的分包和重组系统为何还要这个发送大块数据系统?是否是多余的?是雷同的吗?请看总结概要理清思路, 再细看文章. 为什么需要做这个发送大块数据系统第一眼看上去，这种替代性的技术似乎非常类似于数据包的分包和重组，但是它的实现是完全不同的。这种实现上的差异的目的是为了解决数据包分包和重组的一个关键弱点 : 一个片段的丢失就会导致整个数据包都要被丢弃掉然后重新分包重发。 你可">
+<meta name="keywords" content="GafferOnGames">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建游戏网络协议四之发送大块数据">
+<meta property="og:url" content="https://hulinhong.com/sending_large_blocks_of_data/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="本篇自我总结有了本系列上篇文章中的分包和重组系统为何还要这个发送大块数据系统?是否是多余的?是雷同的吗?请看总结概要理清思路, 再细看文章. 为什么需要做这个发送大块数据系统第一眼看上去，这种替代性的技术似乎非常类似于数据包的分包和重组，但是它的实现是完全不同的。这种实现上的差异的目的是为了解决数据包分包和重组的一个关键弱点 : 一个片段的丢失就会导致整个数据包都要被丢弃掉然后重新分包重发。 你可">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建游戏网络协议四之发送大块数据">
+<meta name="twitter:description" content="本篇自我总结有了本系列上篇文章中的分包和重组系统为何还要这个发送大块数据系统?是否是多余的?是雷同的吗?请看总结概要理清思路, 再细看文章. 为什么需要做这个发送大块数据系统第一眼看上去，这种替代性的技术似乎非常类似于数据包的分包和重组，但是它的实现是完全不同的。这种实现上的差异的目的是为了解决数据包分包和重组的一个关键弱点 : 一个片段的丢失就会导致整个数据包都要被丢弃掉然后重新分包重发。 你可">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>构建游戏网络协议四之发送大块数据 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/sending_large_blocks_of_data/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">构建游戏网络协议四之发送大块数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-28T15:13:35+00:00">
+                02-28-2017
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GS/" itemprop="url" rel="index">
+                    <span itemprop="name">GS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/GafferOnGames/" rel="tag"><i class="fa fa-tag"></i> GafferOnGames</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/packet_fragmentation_and_reassembly/" rel="next" title="构建游戏网络协议三之数据包的分包和重组">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  构建游戏网络协议三之数据包的分包和重组
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/kbe_ue4_demo/" rel="prev" title="KBE的UE4的demo大体解读">
+              <p class="post-nav-pre-next-title">
+                  KBE的UE4的demo大体解读
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="本篇自我总结"><a href="#本篇自我总结" class="headerlink" title="本篇自我总结"></a>本篇自我总结</h1><p>有了本系列上篇文章中的分包和重组系统为何还要这个发送大块数据系统?是否是多余的?是雷同的吗?<br>请看总结概要理清思路, 再细看文章.</p>
+<h2 id="为什么需要做这个发送大块数据系统"><a href="#为什么需要做这个发送大块数据系统" class="headerlink" title="为什么需要做这个发送大块数据系统"></a>为什么需要做这个发送大块数据系统</h2><p>第一眼看上去，这种替代性的技术似乎非常类似于数据包的分包和重组，但是它的实现是完全不同的。这种实现上的差异的目的是为了解决数据包分包和重组的一个关键弱点 : 一个片段的丢失就会导致整个数据包都要被丢弃掉然后重新分包重发。</p>
+<p>你可能需要这样做的一些常见的例子包括：客户端在首次加入的时候，服务器需要下发一个大的数据块给客户端(可能是世界的初始状态)、一开始用来做增量编码的基线或者是在一个多人在线网络游戏里面客户端在加载界面所等待的大块数据。</p>
+<p>在这些情况下非常重要的是不仅要优雅地处理数据包的丢失，还要尽可能的利用可用的带宽并尽可能快的发送大块数据。</p>
+<p>这个发送大块数据系统大致可以理解为是一个在原来分包和重组系统的基础上增加了分包确认功能, 也就是说增加了可靠性的部分.</p>
+<h2 id="本篇基本术语"><a href="#本篇基本术语" class="headerlink" title="本篇基本术语"></a>本篇基本术语</h2><p>In this new system blocks of data are called chunks. Chunks are split up into slices. This name change keeps the chunk system terminology (chunks/slices) distinct from packet fragmentation and reassembly (packets/fragments).</p>
+<ul>
+<li>块 : 在这个新系统中，大块的数据被称为”块”(chunks)</li>
+<li>片段 : 而块被分成的分包被称为”片段”(slices)</li>
+</ul>
+<h2 id="数据包的结构设计"><a href="#数据包的结构设计" class="headerlink" title="数据包的结构设计"></a>数据包的结构设计</h2><p>这个系统在网络上发送的数据包类型一共有两种类型：</p>
+<ul>
+<li><p>Slice packet片段数据包 : 这包括了一个块的片段，最多大小为1k。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SliceSize = <span class="number">1024</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MaxSlicesPerChunk = <span class="number">256</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MaxChunkSize = SliceSize  MaxSlicesPerChunk;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SlicePacket</span> :</span> <span class="keyword">public</span> protocol2::Packet</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">uint16_t</span> chunkId;</span><br><span class="line">    <span class="keyword">int</span> sliceId;</span><br><span class="line">    <span class="keyword">int</span> numSlices;</span><br><span class="line">    <span class="keyword">int</span> sliceBytes;</span><br><span class="line">    <span class="keyword">uint8_t</span> data[SliceSize];</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> stream&gt; <span class="function"><span class="keyword">bool</span> <span class="title">Serialize</span><span class="params">( Stream &amp; stream )</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        serialize_bits( stream, chunkId, <span class="number">16</span> );</span><br><span class="line">        serialize_int( stream, sliceId, <span class="number">0</span>, MaxSlicesPerChunk - <span class="number">1</span> );</span><br><span class="line">        serialize_int( stream, numSlices, <span class="number">1</span>, MaxSlicesPerChunk );</span><br><span class="line">        <span class="keyword">if</span> ( sliceId == numSlices - <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            serialize_int( stream, sliceBytes, <span class="number">1</span>, SliceSize );</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ( Stream::IsReading )</span><br><span class="line">        &#123;</span><br><span class="line">            sliceBytes = SliceSize;</span><br><span class="line">        &#125;</span><br><span class="line">        serialize_bytes( stream, data, sliceBytes );</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Ack packet确认数据包 : 一个位域bitfield指示哪些片段已经收到, we just send the entire state of all acked slices in each ack packet. When the ack packet is received (including the slice that was just received).</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AckPacket</span> :</span> <span class="keyword">public</span> protocol2::Packet </span><br><span class="line">&#123; </span><br><span class="line">    <span class="keyword">uint16_t</span> chunkId; </span><br><span class="line">    <span class="keyword">int</span> numSlices; </span><br><span class="line">    <span class="keyword">bool</span> acked[MaxSlicesPerChunk]; </span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">Serialize</span><span class="params">( Stream &amp; stream )</span></span></span><br><span class="line"><span class="function">    </span>&#123; </span><br><span class="line">        serialize_bits( stream, chunkId, <span class="number">16</span> ); </span><br><span class="line">        serialize_int( stream, numSlices, <span class="number">1</span>, MaxSlicesPerChunk ); </span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numSlices; ++i ) </span><br><span class="line">            serialize_bool( stream, acked[i] ); <span class="keyword">return</span> <span class="literal">true</span>; &#125; &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="发送方的实现"><a href="#发送方的实现" class="headerlink" title="发送方的实现"></a>发送方的实现</h2><p>与之前文章介绍的数据包的分包和重组系统不同，块系统在同一时间只能由一个块正在传输。<br>发送方的策略是：</p>
+<ul>
+<li>持续的发送片段数据包，直到所有的片段数据包都被确认。</li>
+<li>不再对已经确认过的片段数据包进行发送。</li>
+</ul>
+<p>对于发送方而言有一点比较微妙，实现一个片段数据包重新发送的最小延迟是一个很棒的主意，如果不这么做的话，就可能会出现这种一样情况，对于很小的块数据或者一个块的最后几个片段数据包，很容易不停的发送它们把整个网络都塞满。正是因为这一原因，我们使用了一个数组来记录每个片段数据包的上一次发送时间。重新发送延迟的一个选择是使用一个估计的网络往返时延，或者只有在超过上一次发送时间网络往返时延*1.25还没有收到确认数据包的情况才会重新发送。或者，你可以说“这根本就无所谓”，只要超过上一次发送时间100毫秒了就重新发送。我只是列举适合我自己的方案！</p>
+<p>我们使用以下的数据结构来描述发送方：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChunkSender</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">bool</span> sending;</span><br><span class="line">    <span class="keyword">uint16_t</span> chunkId;</span><br><span class="line">    <span class="keyword">int</span> chunkSize;</span><br><span class="line">    <span class="keyword">int</span> numSlices;</span><br><span class="line">    <span class="keyword">int</span> numAckedSlices;</span><br><span class="line">    <span class="keyword">int</span> currentSliceId;</span><br><span class="line">    <span class="keyword">bool</span> acked[MaxSlicesPerChunk];</span><br><span class="line">    <span class="keyword">uint8_t</span> chunkData[MaxChunkSize];</span><br><span class="line">    <span class="keyword">double</span> timeLastSent[MaxSlicesPerChunk];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="接收方的实现思路"><a href="#接收方的实现思路" class="headerlink" title="接收方的实现思路"></a>接收方的实现思路</h2><p>首先，接收方的设置会从块0开始。当一个片段数据包从网络上传递过来，并且能够匹配这个块id的话，“receiving”状态会从false翻转为true，第一个片段数据包的数据会插入” chunkData“变量的合适位置，片段数据包的数量会根据第一个片段数据包里面的数据进行正确的设置，已经接收到的片段数据包的数量会加一，也就是从0到1，针对每个片段数据包的接收标记里面对应这个片段数据包的项会变为true。</p>
+<p>随着这个块数据的其他片段数据包的到来，会对每一个片段数据包进行检测，判断它们的id是否与当前块的id相同，如果不相同的话就会被丢弃。如果这个片段数据包已经收到过的话，那么这个包也会被丢弃。否则，这个片段数据包的数据会插入” chunkData“变量的合适位置、已经接收到的片段数据包的数量会加一、针对每个片段数据包的接收标记里面对应这个片段数据包的项会变为true。</p>
+<p>这一过程会持续进行，直到接收到所有的片段数据包。一旦接收到所有的片段数据包（也就是已经接收到的片段数据包的数量等于片段数据包的数量的时候），接收方会把“receiving “状态改为false，而把”readyToRead“状态改为true。当”readyToRead”状态为true的时候，所有收到的片段数据包都会被丢弃。在这一点上，这个处理过程通常非常的短，会在收到片段数据包的同一帧进行处理，调用者会检查”我有一块数据要读取么？“并处理块数据。然后会重置数据块接收器的所有数据为默认值，除了块数据的id从0增加到1，这样我们就准备好接收下一个块了。<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChunkReceiver</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">bool</span> receiving;</span><br><span class="line">    <span class="keyword">bool</span> readyToRead;</span><br><span class="line">    <span class="keyword">uint16_t</span> chunkId;</span><br><span class="line">    <span class="keyword">int</span> chunkSize;</span><br><span class="line">    <span class="keyword">int</span> numSlices;</span><br><span class="line">    <span class="keyword">int</span> numReceivedSlices;</span><br><span class="line">    <span class="keyword">bool</span> received[MaxSlicesPerChunk];</span><br><span class="line">    <span class="keyword">uint8_t</span> chunkData[MaxChunkSize];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="防DDos"><a href="#防DDos" class="headerlink" title="防DDos"></a>防DDos</h2><p>如果你对每个收到的片段数据包都会回复一个确认数据包的话，那么发送方能够构造一个很小的片段数据包发送给你，而你会回复一个比发送给你的片段数据包还大的确认数据包，这样你的服务器就变成了一个可以被人利用来进行DDos放大攻击的工具。</p>
+<p>永远不要设计一个包含对接收到的数据包进行一对一的映射响应的协议。让我们举个简单例子来说明一下这个问题。如果有人给你发送1000个片段数据包，永远不要给他回复1000个确认数据包。相反只发一个确认数据包，而且最多每50毫秒或者100毫秒才发送一个确认数据包。如果你是这样设计的话，那么DDos攻击完全不可能的。</p>
+<h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="https://gafferongames.com/post/sending_large_blocks_of_data/" target="_blank" rel="noopener">原文出处</a></p>
+<p>原文标题 : <strong>Sending Large Blocks of Data</strong> (<em>How to send blocks quickly and reliably over UDP</em>)</p>
+<hr>
+<p></p><h2 id="introduction">Introduction</h2><p></p>
+<p>Hi, I’m <a href="https://gafferongames.com/about" target="_blank" rel="noopener">Glenn Fiedler</a> and welcome to <strong><a href="https://gafferongames.com/categories/building-a-game-network-protocol/" target="_blank" rel="noopener">Building a Game Network Protocol</a></strong>.</p><br><p>In the <a href="https://gafferongames.com/post/packet_fragmentation_and_reassembly/" target="_blank" rel="noopener">previous article</a> we implemented packet fragmentation and reassembly so we can send packets larger than MTU.</p><br><p>This approach works great when the data block you&rsquo;re sending is time critical and can be dropped, but in other cases you need to send large blocks of quickly and reliably over packet loss, and you need the data to get through.</p><br><p>In this situation, a different technique gives much better results.</p><br><h2 id="background">Background</h2><br><p>It&rsquo;s common for servers to send large block of data to the client on connect, for example, the initial state of the game world for late join.</p><br><p>Let&rsquo;s assume this data is 256k in size and the client needs to receive it before they can join the game. The client is stuck behind a load screen waiting for the data, so obviously we want it to be transmitted as quickly as possible.</p><br><p>If we send the data with the technique from the previous article, we get <em>packet loss amplification</em> because a single dropped fragment results in the whole packet being lost. The effect of this is actually quite severe. Our example block split into 256 fragments and sent over 1% packet loss now has a whopping 92.4% chance of being dropped!</p><br><p>Since we just need the data to get across, we have no choice but to keep sending it until it gets through. On average, we have to send the block 10 times before it&rsquo;s received. You may laugh but this actually happened on a AAA game I worked on!</p><br><p>To fix this, I implemented a new system for sending large blocks, one that handles packet loss by resends fragments until they are acked. Then I took the problematic large blocks and piped them through this system, fixing a bunch of players stalling out on connect, while continuing to send time critical data (snapshots) via packet fragmentation and reassembly.</p><br><h2 id="chunks-and-slices">Chunks and Slices</h2><br><p>In this new system blocks of data are called <em>chunks</em>. Chunks are split up into <em>slices</em>. This name change keeps the chunk system terminology (chunks/slices) distinct from packet fragmentation and reassembly (packets/fragments).</p><br><p>The basic idea is that slices are sent over the network repeatedly until they all get through. Since we are implementing this over UDP, simple in concept becomes a little more complicated in implementation because have to build in our own basic reliability system so the sender knows which slices have been received.</p><br><p>This reliability gets quite tricky if we have a bunch of different chunks in flight, so we&rsquo;re going to make a simplifying assumption up front: we&rsquo;re only going to send one chunk over the network at a time. This doesn&rsquo;t mean the sender can&rsquo;t have a local send queue for chunks, just that in terms of network traffic there&rsquo;s only ever one chunk <em>in flight</em> at any time.</p><br><p>This makes intuitive sense because the whole point of the chunk system is to send chunks reliably and in-order. If you are for some reason sending chunk 0 and chunk 1 at the same time, what&rsquo;s the point? You can&rsquo;t process chunk 1 until chunk 0 comes through, because otherwise it wouldn&rsquo;t be reliable-ordered.</p><br><p>That said, if you dig a bit deeper you&rsquo;ll see that sending one chunk at a time does introduce a small trade-off, and that is that it adds a delay of RTT between chunk n being received and the send starting for chunk n+1 from the receiver&rsquo;s point of view.</p><br><p>This trade-off is totally acceptable for the occasional sending of large chunks like data sent once on client connect, but it&rsquo;s definitely <em>not</em> acceptable for data sent 10 or 20 times per-second like snapshots. So remember, this system is useful for large, infrequently sent blocks of data, not for time critical data.</p><br><h2 id="packet-structure">Packet Structure</h2><br><p>There are two sides to the chunk system, the <strong>sender</strong> and the <strong>receiver</strong>.</p><br><p>The sender is the side that queues up the chunk and sends slices over the network. The receiver is what reads those slice packets and reassembles the chunk on the other side. The receiver is also responsible for communicating back to the sender which slices have been received via acks.</p><br><p>The netcode I work on is usually client/server, and in this case I usually want to be able to send blocks of data from the server to the client <em>and</em> from the client to the server. In that case, there are two senders and two receivers, a sender on the client corresponding to a receiver on the server and vice-versa.</p><br><p>Think of the sender and receiver as end points for this chunk transmission protocol that define the direction of flow. If you want to send chunks in a different direction, or even extend the chunk sender to support peer-to-peer, just add sender and receiver end points for each direction you need to send chunks.</p><br><p>Traffic over the network for this system is sent via two packet types:</p><br><ul><br><li><strong>Slice packet</strong> - contains a slice of a chunk up to 1k in size.</li><br><li><strong>Ack packet</strong> - a bitfield indicating which slices have been received so far.</li><br></ul><br><p>The slice packet is sent from the sender to the receiver. It is the payload packet that gets the chunk data across the network and is designed so each packet fits neatly under a conservative MTU of 1200 bytes. Each slice is a maximum of 1k and there is a maximum of 256 slices per-chunk, therefore the largest data you can send over the network with this system is 256k.</p><br><pre><code>const int SliceSize = 1024;<br>const int MaxSlicesPerChunk = 256;<br>const int MaxChunkSize = SliceSize <em> MaxSlicesPerChunk;<br><br>struct SlicePacket : public protocol2::Packet<br>{<br>    uint16_t chunkId;<br>    int sliceId;<br>    int numSlices;<br>    int sliceBytes;<br>    uint8_t data[SliceSize];<br><br>    template &amp;lt;typename Stream&amp;gt; bool Serialize( Stream &amp;amp; stream )<br>    {<br>        serialize_bits( stream, chunkId, 16 );<br>        serialize_int( stream, sliceId, 0, MaxSlicesPerChunk - 1 );<br>        serialize_int( stream, numSlices, 1, MaxSlicesPerChunk );<br>        if ( sliceId == numSlices - 1 )<br>        {<br>            serialize_int( stream, sliceBytes, 1, SliceSize );<br>        }<br>        else if ( Stream::IsReading )<br>        {<br>            sliceBytes = SliceSize;<br>        }<br>        serialize_bytes( stream, data, sliceBytes );<br>        return true;<br>    }<br>};<br></em></code></pre><br><p>There are two points I&rsquo;d like to make about the slice packet. The first is that even though there is only ever one chunk in flight over the network, it&rsquo;s still necessary to include the chunk id (0,1,2,3, etc&hellip;) because packets sent over UDP can be received out of order.</p><br><p>Second point. Due to the way chunks are sliced up we know that all slices except the last one must be SliceSize (1024 bytes). We take advantage of this to save a small bit of bandwidth sending the slice size only in the last slice, but there is a trade-off: the receiver doesn&rsquo;t know the exact size of a chunk until it receives the last slice.</p><br><p>The other packet sent by this system is the ack packet. This packet is sent in the opposite direction, from the receiver back to the sender. This is the reliability part of the chunk network protocol. Its purpose is to lets the sender know which slices have been received.</p><br><pre><code>struct AckPacket : public protocol2::Packet<br>{<br>    uint16_t chunkId;<br>    int numSlices;<br>    bool acked[MaxSlicesPerChunk];<br><br>    bool Serialize( Stream &amp;amp; stream )<br>    {<br>        serialize_bits( stream, chunkId, 16 );<br>        serialize_int( stream, numSlices, 1, MaxSlicesPerChunk );<br>        for ( int i = 0; i &amp;lt; numSlices; ++i )<br>        {<br>            serialize_bool( stream, acked[i] ); return true; } };<br>        }<br>    }<br>};<br></code></pre><br><p>Acks are short for &lsquo;acknowledgments&rsquo;. So an ack for slice 100 means the receiver is <em>acknowledging</em> that it has received slice 100. This is critical information for the sender because not only does it let the sender determine when all slices have been received so it knows when to stop, it also allows the sender to use bandwidth more efficiently by only sending slices that haven&rsquo;t been acked.</p><br><p>Looking a bit deeper into the ack packet, at first glance it seems a bit <em>redundant</em>. Why are we sending acks for all slices in every packet? Well, ack packets are sent over UDP so there is no guarantee that all ack packets are going to get through. You certainly don&rsquo;t want a desync between the sender and the receiver regarding which slices are acked.</p><br><p>So we need some reliability for acks, but we don&rsquo;t want to implement an <em>ack system for acks</em> because that would be a huge pain in the ass. Since the worst case ack bitfield is just 256 bits or 32 bytes, we just send the entire state of all acked slices in each ack packet. When the ack packet is received, we consider a slice to be acked the instant an ack packet comes in with that slice marked as acked and locally that slice is not seen as acked yet.</p><br><p>This last step, biasing in the direction of non-acked to ack, like a fuse getting blown, means we can handle out of order delivery of ack packets.</p><br><h2 id="sender-implementation">Sender Implementation</h2><br><p>Let&rsquo;s get started with the implementation of the sender.</p><br><p>The strategy for the sender is:</p><br><ul><br><li>Keep sending slices until all slices are acked</li><br><li>Don&rsquo;t resend slices that have already been acked</li><br></ul><br><p>We use the following data structure for the sender:</p><br><pre><code>class ChunkSender<br>{<br>    bool sending;<br>    uint16_t chunkId;<br>    int chunkSize;<br>    int numSlices;<br>    int numAckedSlices;<br>    int currentSliceId;<br>    bool acked[MaxSlicesPerChunk];<br>    uint8_t chunkData[MaxChunkSize];<br>    double timeLastSent[MaxSlicesPerChunk];<br>};<br></code></pre><br><p>As mentioned before, only one chunk is sent at a time, so there is a &lsquo;sending&rsquo; state which is true if we are currently sending a chunk, false if we are in an idle state ready for the user to send a chunk. In this implementation, you can&rsquo;t send another chunk while the current chunk is still being sent over the network. If you don&rsquo;t like this, stick a queue in front of the sender.</p><br><p>Next, we have the id of the chunk we are currently sending, or, if we are not sending a chunk, the id of the next chunk to be sent, followed by the size of the chunk and the number of slices it has been split into. We also track, per-slice, whether that slice has been acked, which lets us count the number of slices that have been acked so far while ignoring redundant acks. A chunk is considered fully received from the sender&rsquo;s point of view when numAckedSlices == numSlices.</p><br><p>We also keep track of the current slice id for the algorithm that determines which slices to send, which works like this. At the start of a chunk send, start at slice id 0 and work from left to right and wrap back around to 0 again when you go past the last slice. Eventually, you stop iterating across because you&rsquo;ve run out of bandwidth to send slices. At this point, remember our current slice index via current slice id so you can pick up from where you left off next time. This last part is important because it distributes sends across all slices, not just the first few.</p><br><p>Now let&rsquo;s discuss bandwidth limiting. Obviously you don&rsquo;t just blast slices out continuously as you&rsquo;d flood the connection in no time, so how do we limit the sender bandwidth? My implementation works something like this: as you walk across slices and consider each slice you want to send, estimate roughly how many bytes the slice packet will take eg: roughly slice bytes + some overhead for your protocol and UDP/IP header. Then compare the amount of bytes required vs. the available bytes you have to send in your bandwidth budget. If you don&rsquo;t have enough bytes accumulated, stop. Otherwise, subtract the bytes required to send the slice and repeat the process for the next slice.</p><br><p>Where does the available bytes in the send budget come from? Each frame before you update the chunk sender, take your target bandwidth (eg. 256kbps), convert it to bytes per-second, and add it multiplied by delta time (dt) to an accumulator.</p><br><p>A conservative send rate of 256kbps means you can send 32000 bytes per-second, so add 32000  dt to the accumulator. A middle ground of 512kbit/sec is 64000 bytes per-second. A more aggressive 1mbit is 125000 bytes per-second. This way each update you <em>accumulate</em> a number of bytes you are allowed to send, and when you&rsquo;ve sent all the slices you can given that budget, any bytes left over stick around for the next time you try to send a slice.</p><br><p>One subtle point with the chunk sender and is that it&rsquo;s a good idea to implement some minimum resend delay per-slice, otherwise you get situations where for small chunks, or the last few slices of a chunk that the same few slices get spammed over the network.</p><br><p>For this reason we maintain an array of last send time per-slice. One option for this resend delay is to maintain an estimate of RTT and to only resend a slice if it hasn&rsquo;t been acked within RTT * 1.25 of its last send time. Or, you could just resend the slice it if it hasn&rsquo;t been sent in the last 100ms. Works for me!</p><br><h2 id="kicking-it-up-a-notch">Kicking it up a notch</h2><br><p>Do the math you&rsquo;ll notice it still takes a long time for a 256k chunk to get across:</p><br><ul><br><li>1mbps = 2 seconds</li><br><li>512kbps = 4 seconds</li><br><li>256kbps = <strong>8 seconds :(</strong></li><br></ul><br><p>Which kinda sucks. The whole point here is quickly and reliably. Emphasis on <em>quickly</em>. Wouldn&rsquo;t it be nice to be able to get the chunk across faster? The typical use case of the chunk system supports this. For example, a large block of data sent down to the client immediately on connect or a block of data that has to get through before the client exits a load screen and starts to play. You want this to be over as quickly as possible and in both cases the user really doesn&rsquo;t have anything better to do with their bandwidth, so why not use as much of it as possible?</p><br><p>One thing I&rsquo;ve tried in the past with excellent results is an initial burst. Assuming your chunk size isn&rsquo;t so large, and your chunk sends are infrequent, I can see no reason why you can&rsquo;t just fire across the entire chunk, all slices of it, in separate packets in one glorious burst of bandwidth, wait 100ms, and then resume the regular bandwidth limited slice sending strategy.</p><br><p>Why does this work? In the case where the user has a good internet connection (some multiple of 10mbps or greater&hellip;), the slices get through very quickly indeed. In the situation where the connection is not so great, the burst gets buffered up and <em>most</em> slices will be delivered as quickly as possible limited only by the amount bandwidth available. After this point switching to the regular strategy at a lower rate picks up any slices that didn&rsquo;t get through the first time.</p><br><p>This seems a bit risky so let me explain. In the case where the user can&rsquo;t quite support this bandwidth what you&rsquo;re relying on here is that routers on the Internet <em>strongly prefer</em> to buffer packets rather than discard them at almost any cost. It&rsquo;s a TCP thing. Normally, I hate this because it induces latency in packet delivery and messes up your game packets which you want delivered as quickly as possible, but in this case it&rsquo;s good behavior because the player really has nothing else to do but wait for your chunk to get through.</p><br><p>Just don&rsquo;t go too overboard with the spam or the congestion will persist after your chunk send completes and it will affect your game for the first few seconds. Also, make sure you increase the size of your OS socket buffers on both ends so they are larger than your maximum chunk size (I recommend at least double), otherwise you&rsquo;ll be dropping slices packets before they even hit the wire.</p><br><p>Finally, I want to be a responsible network citizen here so although I recommend sending all slices once in an initial burst, it&rsquo;s important for me to mention that I think this really is only appropriate, and only really <em>borderline appropriate</em> behavior for small chunks in the few 100s of k range in 2016, and only when your game isn&rsquo;t sending anything else that is time-critical.</p><br><p>Please don&rsquo;t use this burst strategy if your chunk is really large, eg: megabytes of data, because that&rsquo;s way too big to be relying on the kindness of strangers, AKA. the buffers in the routers between you and your packet&rsquo;s destination. For this it&rsquo;s necessary to implement something much smarter. Something adaptive that tries to send data as quickly as it can, but backs off when it detects too much latency and/or packet loss as a result of flooding the connection. Such a system is outside of the scope of this article.</p><br><h2 id="receiver-implementation">Receiver Implementation</h2><br><p>Now that we have the sender all sorted out let&rsquo;s move on to the reciever. </p><br><p>As mentioned previously, unlike the packet fragmentation and reassembly system from the previous article, the chunk system only ever has one chunk in flight.</p><br><p>This makes the reciever side of the chunk system much simpler:</p><br><pre><code>class ChunkReceiver<br>{<br>    bool receiving;<br>    bool readyToRead;<br>    uint16_t chunkId;<br>    int chunkSize;<br>    int numSlices;<br>    int numReceivedSlices;<br>    bool received[MaxSlicesPerChunk];<br>    uint8_t chunkData[MaxChunkSize];<br>};<br></code></pre><br><p>We have a state whether we are currently &lsquo;receiving&rsquo; a chunk over the network, plus a &rsquo;readyToRead&rsquo; state which indicates that a chunk has received all slices and is ready to be popped off by the user. This is effectively a minimal receive queue of length 1. If you don&rsquo;t like this, of course you are free to add a queue.</p><br><p>In this data structure we also keep track of chunk size (although it is not known with complete accuracy until the last slice arrives), num slices and num received slices, as well as a received flag per-slice. This per-slice received flag lets us discard packets containing slices we have already received, and count the number of slices received so far (since we may receive the slice multiple times, we only increase this count the first time we receive a particular slice). It&rsquo;s also used when generating ack packets. The chunk receive is completed from the receiver&rsquo;s point of view when numReceivedSlices == numSlices.</p><br><p>So what does it look like end-to-end receiving a chunk?</p><br><p>First, the receiver sets up set to start at chunk 0. When the a slice packet comes in over the network matching the chunk id 0, &lsquo;receiving&rsquo; flips from false to true, data for that first slice is inserted into &lsquo;chunkData&rsquo; at the correct position, numSlices is set to the value in that packet, numReceivedSlices is incremented from 0 -&gt; 1, and the received flag in the array entry corresponding to that slice is set to true.</p><br><p>As the remaining slice packets for the chunk come in, each of them are checked that they match the current chunk id and numSlices that are being received and are ignored if they don&rsquo;t match. Packets are also ignored if they contain a slice that has already been received. Otherwise, the slice data is copied into the correct place in the chunkData array, numReceivedSlices is incremented and received flag for that slice is set to true.</p><br><p>This process continues until all slices of the chunk are received, at which point the receiver sets receiving to &lsquo;false&rsquo; and &lsquo;readyToRead&rsquo; to true. While &lsquo;readyToRead&rsquo; is true, incoming slice packets are discarded. At this point, the chunk receive packet processing is performed, typically on the same frame. The caller checks &lsquo;do I have a chunk to read?&rsquo; and processes the chunk data. All chunk receive data is cleared back to defaults, except chunk id which is incremented from 0 -&gt; 1, and we are ready to receive the next chunk.</p><br><h2 id="conclusion">Conclusion</h2><br><p>The chunk system is simple in concept, but the implementation is certainly not. I encourage you to take a close look at the <a href="http://www.patreon.com/gafferongames" target="_blank" rel="noopener">source code</a> for this article for further details.</p>
+
+
+<h1 id="译文">译文</h1>
+
+
+<p><a href="http://gad.qq.com/program/translateview/7165598" target="_blank" rel="noopener">译文出处</a></p>
+<div class="WordSection1"><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">翻译：张华栋<span> (wcby)     </span>审校：王磊<span>(</span>未来的未来<span>)</span></span> </span></p><p class="MsoNormal" align="left"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span><span style="font-family:微软雅黑;"><br></span></span></span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">大家好，我是格伦·菲德勒。欢迎大家阅读系列教程《构建游戏网络协议》的第四篇文章。</span></span><span style="color: rgb(34, 34, 34); font-size: 12pt; font-family: 微软雅黑;">在之前的文章中，我们讨论了如何在游戏协议这一层实现对数据包的分包和重组。</span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">现在在这篇文章里面，我们将继续通过探索在<span>UDP</span>协议上发送大块数据的替代方案来继续我们构建一个专业级别的游戏网络协议的征程。</span> </span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">第一眼看上去，这种替代性的技术似乎非常类似于数据包的分包和重组，但是它的实现是完全不同的。这种实现上的差异的目的是为了解决数据包分包和重组的一个关键弱点<span>-</span>一个片段的丢失就会导致整个数据包都要被丢弃掉。这种行为是非常不好的，因为它会随着分包数量的增加而放大数据包丢失的概率。当你遇到大块数据包的时候，这种放大是如此的明显，加入<span>256 k</span>大小的分包丢失率是<span>1%</span>的话，那么原始数据包就有<span>92.4%</span>的概率被丢弃。平均来说，你需要发送原始数据包<span>10</span>次，它才能顺利的到达网络的另外一端！</span> </span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">如果你需要在一个可能会有数据包丢失的网络上比如说互联网，快速和可靠地发送大量的数据，很明显，这样的方法是完全不可接受的。你可能需要这样做的一些常见的例子包括：客户端在首次加入的时候，服务器需要下发一个大的数据块给客户端<span>(</span>可能是世界的初始状态<span>)</span>、一开始用来做增量编码的基线或者是在一个多人在线网络游戏里面客户端在加载界面所等待的大块数据。</span> </span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在这些情况下非常重要的是不仅要优雅地处理数据包的丢失，还要尽可能的利用可用的带宽并尽可能快的发送大块数据。</span></span><span style="color: rgb(34, 34, 34); font-size: 12pt; font-family: 微软雅黑;">这正是我要在这篇文章里面告诉你该如何做的内容。</span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-family:微软雅黑;"><h2 id="块和片段"><span style="color: rgb(34, 34, 34);"><span style="font-size:x-large;">块和片段</span></span></h2> </span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">让我们开始使用基本术语。在这个新系统中，大块的数据被称为<span>”</span>块<span>“</span>，而它们被分成的分包被称为<span>”</span>片段<span>”</span>。 这个名字上的改变使的块系统的术语<span>(</span>块和片段<span>)</span>不同于数据包分包和重组的术语<span>(</span>数据包和分包<span>)</span>。这是我认为很重要的一个事情，因为这些系统是在解决不同的问题，没有理由你不能在相同的网络协议中同时这两个系统。事实上，我经常把这两个结合起来，在时间比较关键的增量数据包里面使用数据包的分包和重组，当客户端加入游戏的时候，使用块系统来下发整个游戏世界的初始状态下<span>(</span>非常大的数据包<span>)</span>。</span> </span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">块系统的基本思想，真是一点都不复杂，是把块分成很多片段，然后通过网络多次发送片段，直到他们都顺利的到达网络的另外一端。当然，因为我们正在<span>UDP</span>协议上实现这个功能，同时还有可能数据包会丢失、数据包乱序到达以及数据包重复到达的情况，简单的概念在实现中也会变得非常复杂，因为我们必须在<span>UDP</span>协议上建立我们自己的具有基本可靠性的系统，这样发送方才能知道这个片段已经被网络的另外一端成功收到。</span> </span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">如果我们有一组不同的块正在传输过程中<span>(</span>就像我们在数据包的分包和重组中所做的那样<span>)</span>，那么可靠性的问题就会变得非常棘手，所以我们要做一个简化的假设。我们一次只会通过网络发送一个块的数据。这并不意味着发送者不能在本地有一个块的发送队列，这只是意味着在实际的网络传输中只有一个块的数据会正在传递。</span> </span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这么做之所以有意义，是因为有了这一点假设以后就能保证块系统能够可靠有序的发送块。如果你因为某些原因在同一时间发送块<span>0</span>和块<span>1</span>，这会发生什么？你不能在块<span>0</span>到来之前处理块<span>1</span>，否则这个传输过程就不是有序可靠了。也就是说，如果你挖得深一些的话，你会发现一次只能发送一个块确实引入了一个小的权衡，它给正在接收的块Ｎ增加了一个网络往返延迟，以及从接收方的角度看块Ｎ＋１的发送开始时间也被延迟了一个网络往返延迟。</span> </span></p><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这个代价是完全可以接受的，因为发送大块数据是一个非常偶然的事情（举些简单的例子来说，当客户端连接上来的时候会发送大块数据，当新的关卡需要进行加载的时候才会发送大块数据。。。），但是如果<span>1</span>秒钟内<span>10</span>次或者<span>20</span>次发送块数据的话这就是绝对不能被接受的了。所以我希望你能看到这个系统是专为什么目的设计的以及不是为什么目的设计的。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-family:微软雅黑;"><h2 id="数据包的结构"><span style="font-size: 18pt; color: rgb(34, 34, 34);">数据包的结构</span></h2> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在块系统中有两方会参与，分别是发送方和接收方。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">发送方是负责将块压入队列并通过网络发送片段。接收方是负责在网络的另外一端读取这些片段并进行重组。接收方还负责通过发送<span>“</span>确认<span>”</span>数据包给发送方来与发送方交流表明这个片段已经收到。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我工作过的网络模式通常是客户端与服务端之间的通信，在这种情况下，我通常希望能够从服务器往客户端发送大块数据，以及从客户端到服务器发送大块数据。所以在这种情况下，有两个发送方和两个接收方，一个发送方在客户端对应着在服务器那边有一个接收方，反过来也是如此。可以把发送方和接收方认为是块传输协议的终点，这样也就定义了网络流的方向。如果你想在不同的方向发送块，甚至是扩展块的发送方来支持点对点的发送，只需要在你需要发送块的每个方向添加一个发送方和一个接收方作为终点。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这个系统在网络上发送的数据包类型一共有两种类型：</span> </span></p><p class="MsoListParagraph" align="left" style="margin-left: 21pt; text-indent: -21pt; line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">1）片段数据包<span>-</span>这包括了一个块的片段，最多大小为<span>1k</span>。</span> </span></p><p class="MsoListParagraph" align="left" style="margin-left: 21pt; text-indent: -21pt; line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">2）确认数据包<span>-</span>一个位域指示哪些片段已经收到。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">片段数据包是从发送方发送到接收器的。这是通过网络对块数据进行传递的有效载荷数据包，在设计的时候每个片段数据包的大小都贴近一个保守的最大传输单元的大小，也就是<span> 1200</span>字节。每个片段数据包最大是<span>1 k</span>，每个块最多有<span>256</span>个片段数据包，所以通过这个系统可以通过网络发送的最大的数据是<span>256k</span>（如果你愿意的话，你可以增加这个片段的最大数目）。我建议保持片段的大小为<span>1k</span>，这主要是基于最大传输单元方面的考虑。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="color: rgb(43, 43, 43); background: rgb(248, 248, 248);"> </span></span></p><div><div id="highlighter_653417" class="syntaxhighlighter  cpp"><div class="toolbar"><a class="toolbar_item command_help help">?</a></div><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">const</code> <code class="cpp color1 bold">int</code> <code class="cpp plain">SliceSize = 1024;</code></div><div class="line number2 index1 alt1"><code class="cpp keyword bold">const</code> <code class="cpp color1 bold">int</code> <code class="cpp plain">MaxSlicesPerChunk = 256;</code></div><div class="line number3 index2 alt2"><code class="cpp keyword bold">const</code> <code class="cpp color1 bold">int</code> <code class="cpp plain">MaxChunkSize = SliceSize <em> MaxSlicesPerChunk;</em></code></div><div class="line number4 index3 alt1"> </div><div class="line number5 index4 alt2"><code class="cpp keyword bold">struct</code> <code class="cpp plain">SlicePacket : </code><code class="cpp keyword bold">public</code> <code class="cpp plain">protocol2::Packet</code></div><div class="line number6 index5 alt1"><code class="cpp plain">{</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">    </code><code class="cpp plain">uint16_t chunkId;</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">sliceId;</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">numSlices;</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">sliceBytes;</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">    </code><code class="cpp plain">uint8_t data[SliceSize];</code></div><div class="line number12 index11 alt1"><code class="cpp spaces"> </code> </div><div class="line number13 index12 alt2"><code class="cpp spaces">    </code><code class="cpp keyword bold">template</code> <code class="cpp plain">&lt;</code><code class="cpp keyword bold">typename</code> <code class="cpp plain">stream</code><code class="cpp string"></code><code class="cpp plain">&gt; </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">Serialize( Stream &amp; stream )</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">    </code><code class="cpp plain">{</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">        </code><code class="cpp plain">serialize_bits( stream, chunkId, 16 );</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">        </code><code class="cpp plain">serialize_int( stream, sliceId, 0, MaxSlicesPerChunk - 1 );</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">        </code><code class="cpp plain">serialize_int( stream, numSlices, 1, MaxSlicesPerChunk );</code></div><div class="line number18 index17 alt1"><code class="cpp spaces">        </code><code class="cpp keyword bold">if</code> <code class="cpp plain">( sliceId == numSlices - 1 )</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">        </code><code class="cpp plain">{</code></div><div class="line number20 index19 alt1"><code class="cpp spaces">            </code><code class="cpp plain">serialize_int( stream, sliceBytes, 1, SliceSize );</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">        </code><code class="cpp plain">}</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">        </code><code class="cpp keyword bold">else</code> <code class="cpp keyword bold">if</code> <code class="cpp plain">( Stream::IsReading )</code></div><div class="line number23 index22 alt2"><code class="cpp spaces">        </code><code class="cpp plain">{</code></div><div class="line number24 index23 alt1"><code class="cpp spaces">            </code><code class="cpp plain">sliceBytes = SliceSize;</code></div><div class="line number25 index24 alt2"><code class="cpp spaces">        </code><code class="cpp plain">}</code></div><div class="line number26 index25 alt1"><code class="cpp spaces">        </code><code class="cpp plain">serialize_bytes( stream, data, sliceBytes );</code></div><div class="line number27 index26 alt2"><code class="cpp spaces">        </code><code class="cpp keyword bold">return</code> <code class="cpp keyword bold">true</code><code class="cpp plain">;</code></div><div class="line number28 index27 alt1"><code class="cpp spaces">    </code><code class="cpp plain">}</code></div><div class="line number29 index28 alt2"><code class="cpp plain">};</code><code class="cpp keyword bold"></code><code class="cpp plain"></code></div></div></td></tr></table></div></div><br><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在这里我想对片段数据包进行两点说明。第一点是即使只有一个块在网络上进行传输，仍然是有必要在数据包里面包含一个块的<span>id(</span>比如说，<span>0</span>、<span>1</span>、<span>2</span>、<span>3</span>、等等等<span>)</span>，这是<span>,</span>因为通过<span>UDP</span>协议发送的数据包可以是乱序到达的。通过这种方式的话，如果一个片段数据包到达的时候对应着一个已经接受过的块，举个简单的例子来说明，你正在接受块<span>2</span>的数据，但是块<span>1</span>的一个片段数据包现在到达了，你可以直接拒绝这个数据包，而不是接受它的数据包并把它的数据插入到块<span>2</span>从而把块<span>2</span>的数据给弄混了。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">第二点。由于我们知道块分成片段的方法会把所有的片段除了最后一个以外都弄成必须<span>SliceSize</span>的大小<span>(</span>也就是<span>1024</span>字节<span>)</span>。我们利用这一点来节省一点带宽，我们只在最后一个片段里面发送片段的大小，但这是一种权衡<span>:</span>接收方不知道块的确切大小到底是多少字节，直到它接收到最后一个片段才能知道。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">可以让这个系统继续往后发送新的数据包的机制是确认数据包。这个数据包是沿着另外一个方向进行发送的，也就是从接收方发回给发送方，这也是块网络协议中负责可靠性的部分。它存在的目的是让发送方知道这个片段已经被发送方收到。</span></span></p><div><div id="highlighter_476828" class="syntaxhighlighter  cpp"><div class="toolbar"><a class="toolbar_item command_help help">?</a></div><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">struct</code> <code class="cpp plain">AckPacket : </code><code class="cpp keyword bold">public</code> <code class="cpp plain">protocol2::Packet </code></div><div class="line number2 index1 alt1"><code class="cpp plain">{ </code></div><div class="line number3 index2 alt2"><code class="cpp spaces">    </code><code class="cpp plain">uint16_t chunkId; </code></div><div class="line number4 index3 alt1"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">numSlices; </code></div><div class="line number5 index4 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">acked[MaxSlicesPerChunk]; </code></div><div class="line number6 index5 alt1"> </div><div class="line number7 index6 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">Serialize( Stream &amp; stream )</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">    </code><code class="cpp plain">{ </code></div><div class="line number9 index8 alt2"><code class="cpp spaces">        </code><code class="cpp plain">serialize_bits( stream, chunkId, 16 ); </code></div><div class="line number10 index9 alt1"><code class="cpp spaces">        </code><code class="cpp plain">serialize_int( stream, numSlices, 1, MaxSlicesPerChunk ); </code></div><div class="line number11 index10 alt2"><code class="cpp spaces">        </code><code class="cpp keyword bold">for</code> <code class="cpp plain">( </code><code class="cpp color1 bold">int</code> <code class="cpp plain">i = 0; i &lt; numSlices; ++i ) </code></div><div class="line number12 index11 alt1"><code class="cpp spaces">            </code><code class="cpp plain">serialize_bool( stream, acked[i] ); </code><code class="cpp keyword bold">return</code> <code class="cpp keyword bold">true</code><code class="cpp plain">; } };</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">    </code><code class="cpp plain">}</code></div><div class="line number14 index13 alt1"><code class="cpp plain">};</code></div></div></td></tr></table></div></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><br></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">ack</span><span style="font-size: 12pt; color: rgb(34, 34, 34);">是<span>“</span>确认<span>”</span>的缩写。所以一个对片段<span>100</span>的确认数据包意味着接收方确认它已经接收到了片段<span>100</span>。这对于发送方来说是一条关键信息，因为它不仅让发送方知道什么时候所有的片段都已经被成功接收，这样发送方就可以停止发送了，它还允许发送方只重发那些还没有被确认的片段，这样就能让发送方更有效率的利用带宽。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">让我们对确认数据包再深入一点思考，似乎在一开始看上去对于每个数据包的所有分片都发送确认包似乎有点多余。我们为什么要这么做<span>?</span>是的，这是因为确认数据包是通过<span>UDP</span>协议发送的，所以没有办法保证所有的确认数据包都会成功的到达网络的另外一端，你当然不会希望发送方和接收方之间对于目前确认到那个片段的信息都是不同步的。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">所以我们需要一些确认数据包传输的可靠性，但是我们不希望实现一个确认数据包的确认系统，因为这将会是一个非常痛苦和麻烦的过程。因为在最坏的情况下，确认数据包的大小是<span>256</span>位或<span>32</span>字节，最简单的方法是也是最好的。we just send the entire state of all acked slices in each ack packet. When the ack packet is received, we consider a slice to be acked the instant an ack packet comes in with that slice marked as acked and locally that slice is not seen as acked yet.</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"></span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-family:微软雅黑;"><h2 id="基本的发送方实现"><span style="font-size: 18pt; color: rgb(34, 34, 34);">基本的发送方实现</span></h2> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">现在我们已经了解了这个系统背后的基本概念，让我们从发送方的实现开始实现整个系统。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">发送方的策略是：</span> </span></p><p class="MsoListParagraph" align="left" style="margin-left: 21pt; text-indent: -21pt; line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">1）持续的发送片段数据包，直到所有的片段数据包都被确认。</span> </span></p><p class="MsoListParagraph" align="left" style="margin-left: 21pt; text-indent: -21pt; line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);">2）</span><span style="font-size: 12pt; color: rgb(34, 34, 34);">不再对已经确认过的片段数据包进行发送。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我们使用以下的数据结构来描述发送方：</span></span></p><div><div id="highlighter_252465" class="syntaxhighlighter  cpp"><div class="toolbar"><a class="toolbar_item command_help help">?</a></div><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">class</code> <code class="cpp plain">ChunkSender</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">sending;</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">    </code><code class="cpp plain">uint16_t chunkId;</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">chunkSize;</code></div><div class="line number6 index5 alt1"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">numSlices;</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">numAckedSlices;</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">currentSliceId;</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">acked[MaxSlicesPerChunk];</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">    </code><code class="cpp plain">uint8_t chunkData[MaxChunkSize];</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">double</code> <code class="cpp plain">timeLastSent[MaxSlicesPerChunk];</code></div><div class="line number12 index11 alt1"><code class="cpp plain">};</code></div></div></td></tr></table></div></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><br></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">正如之前提到的那样，一次只会发送一个块的数据，如果我们正在发送一个块的数据的时候，那么关于<span>“</span>发送<span>”</span>的状态是<span>true</span>，假如我们处于闲置状态、正在准备发送一个块的数据的时候，那么关于<span>“</span>发送<span>”</span>的状态是<span>false</span>。在这个实现中，如果当前有一个块的数据仍在通过网络进行发送的话，你不能发送另外一个块的数据。你必须等待当前块的数据发送完毕之后才可以发送另外一个块的数据。如果你不喜欢的话，在块的发送器的前端按照你的意愿可以放置一个发送队列。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">接下来，我们有我们正在发送的块数据的<span>id</span>，或者如果我们没有在发送块数据的话，那么我们有要发送的下一个块数据的<span>id</span>、以及这个块所分成的片段数据包的数量。我们也会跟踪每个片段数据包，来记录这个片段数据包是否已经被确认，这可以让我们避免重发那些已经收到的片段数据包，并且我们还会记录迄今为止已经确认收到的片段数据包的数量，这个数量会去掉冗余的确认，也就是每个片段数据包的确认只算一次。从发送方的观点来看，只有当确认的片段数据包的数量等于这个块所分成的片段数据包的数量的时候才会这个块数据已经被完全收到了。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我们还需要为这个算法记录当前发送的片段数据包的<span>id</span>，因为这将决定了哪些片段数据包将被发送。它的工作机制大致是这样：一个块数据开始发送的时候，是从<span>id</span>为<span>0</span>的片段数据包开始发送的，然后依次从左到右开始发送直到经过最后一个片段数据包<span>(</span>也就是<span>id</span>为分包数量的大小<span>-1)</span>的时候会回头从<span>id</span>为<span>0</span>的片段数据包继续发送。最终，你会停止这个迭代因为发送的片段数据包已经耗尽了带宽。在这一点上，我们通过记录当前发送的片段数据包的<span>id</span>就能记住我们当前遍历的片段数据包的索引，这样在下一次开始遍历的时候你就可以继续从这个位置开始发送片段数据包。最后一部分是非常重要的，这是因为它可以把发送一个块数据所有的片段数据包这个事情是分散开，而不是在一起就全部发出去。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">现在让我们讨论下带宽限制。显然你不能把所有的片段数据包一次全部发完，因为如果这么做的话，会把整个链接堵住，那么，我们该如何限制发送方所使用的带宽<span>?</span>我的实现机制大概是这样的：当你对全部的片段数据包进行遍历并且考虑你想要发送的每个片段数据包的时候，大概估计下这个片段数据包会需要占据多少字节，比如可以用这种估计算法：大概这个片段的字节数<span>+</span>一些协议的开销和<span>UDP / IP</span>的报头。然后用所需的字节数和你带宽预算里面可用来进行发送的字节数进行比较。如果带宽预算里面没有足够可用的字节数，那么就停止发送。否则的话，从带宽预算里面减去发送这个片段数据包所需的字节数，然后对于下个片段数据包重复整个过程。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">带宽预算里面可用的字节发送预算是从哪里计算得来的？在每一帧更新块的发送方之前，把你的目标带宽（比如说每秒<span>256KB</span>）转换成每秒可以发送的字节数，然后用它乘以更新时间来把记过放到一个累加器里面。每秒<span>256KB</span>是一个比较保守的发送速率，这意味你可以每秒发送<span>32000</span>个字节，所以把<span>32000  dt</span>这个值添加到累加器里面。每秒<span>512KB</span>是一个比较适中的估计，意味你可以每秒发送<span>64000</span>个字节。每秒<span>1MB</span>是一个比较激进的估计，意味你可以每秒发送<span>125000</span>个字节。通过这种方法，在每次更新的时候你就可以累加你被允许发送的字节数了，这样当你可以按照预算来发送最大数量的片段数据包，如果还有数据没有发完的话，会等到下一帧的时候再尝试发送。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">对于发送方而言有一点比较微妙，实现一个片段数据包重新发送的最小延迟是一个很棒的主意，如果不这么做的话，就可能会出现这种一样情况，对于很小的块数据或者一个块的最后几个片段数据包，很容易不停的发送它们把整个网络都塞满。正是因为这一原因，我们使用了一个数组来记录每个片段数据包的上一次发送时间。重新发送延迟的一个选择是使用一个估计的网络往返时延，或者只有在超过上一次发送时间网络往返时延<span>*1.25</span>还没有收到确认数据包的情况才会重新发送。或者，你可以说<span>“</span>这根本就无所谓<span>”</span>，只要超过上一次发送时间<span>100</span>毫秒了就重新发送。我只是列举适合我自己的方案！</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);"> </span> </span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-family:微软雅黑;"><h2 id="把发送方实现的更完美一点"><span style="font-size: 18pt; color: rgb(34, 34, 34);">把发送方实现的更完美一点</span></h2> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">如果你仔细用数学计算一下的话，你会注意到对于一个<span>256K </span>的数据块而言，它要在网络上发送完毕仍然需要发送很长的时间：</span> </span></p><ul type="disc"><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-family:微软雅黑;"><span style="font-size: 12pt;">如果网络速率是每秒<span>1M</span>的话，就需要<span>2</span>秒钟的时间。</span> </span></li><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-family:微软雅黑;"><span style="font-size: 12pt;">如果网络速率是每秒<span>512KB</span>的话，就需要<span>4</span>秒钟的时间。</span> </span></li><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-family:微软雅黑;"><span style="font-size: 12pt;">如果网络速率是每秒<span>256KB</span>的话，就需要<span>8</span>秒钟的时间。</span> </span></li></ul><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这可有点糟糕。我们实现系统的重点是快速和可靠性。再次强调下需要能够快速传递。如果块系统的传输不能做到快速的话，这是不是会不太好？块系统的一些典型用例会支持这一点。举个简单的例子来说明，当客户端第一次连接上服务器的时候，一大块数据需要立刻发送给客户端，或者在客户端退出加载界面开始游戏的时候需要能够大量数据快速下发给客户端。你想要尽快的传递完需要的数据，而且在这两种情况下，用户对于自己的带宽并没有什么太多其他的用途，那么为什么不使用尽可能多的带宽<span>?</span></span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span><br></span></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在过去我曾经尝试过一个方法，就是在一开始的时候尽量传递，这取得了很好的效果。假设你的块大小并不是那么大，而且你的块发送频率并不那么频繁，我没找到什么理由为什么你不能在一开始就把所有的片段数据包都发送出去，填充满贷款，然后等待<span>100</span>毫秒，在恢复成正常的带宽受限的片段数据包发送策略。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">为什么这样会取得良好的效果？如果用户有一个良好的网络连接（可以每秒发送超过<span>10MB</span>的数据甚至更多。。。），事实上，片段数据包在网络上的传输非常的快速。如果是连接的情况并不是那么好的情况下，大部分的片段数据包会得到缓冲，大部分的片段数据包受限于带宽但是会尽可能快的发送出去。处理完这些数据包之后，就会切换到常规的策略，从那些第一次没有发送出去的片段数据包选择合适的进行发送。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这似乎有点冒险，所以让我来解释一下。如果出现大量数据需要传输但是已经超过带宽限制的情况，互联网上的路由器会倾向于缓冲这些数据包，而不是不惜代价的抛弃它们。这就是<span>TCP</span>协议会做的事情。通常情况下，我讨厌这个机制因为它会诱发延迟而且会弄乱那些你想要尽快交付的游戏数据包，但在这种情况下它是一个非常好的行为，这是因为玩家真的没有其他事情可以做，智能等待你的块数据赶紧传输完毕。只是在你的块数据传输完毕以后，会有一些垃圾数据或者交通拥堵，它会影响你的游戏开始的几秒钟。另外，请确保你增加了网络两端的加操作系统的套接字缓冲区的大小，这样它们才可以比你最大的块数据的大小要大<span>(</span>我建议至少增加一倍<span>)</span>，否则在超过网络带宽的限制之前你就会出现丢弃段数据包的情况。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">最后，我想成为一个负责任的网络公民，虽然在这里我推荐在最开始连接的时候一次发送所有的片段数据包，所以对我来说介绍下我认为这真的是适当的是非常非常重要的，在<span>2016</span>年的网络环境下，发送几百个<span>KB</span>量级的数据包是没什么大不了的行为，而且只会发生在没有其他关键数据同时发送的情况下。让我们举个简单的例子来说明，如果用户正在玩你的游戏，那么当你发送大块数据的时候，使用保守的策略。如果不这么做的话，就会冒影响用户游戏体验的风险，这是因为你的发送行为可能会诱导额外的网络延迟或者出现数据包丢失的情况。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">同样，如果你的块数据非常大的情况下，比如说是十几<span>MB</span>的情况，那么请不要使用这种野蛮发送的策略，这是因为这种方法太过于依赖陌生人的仁慈，也就是在你和你的数据包目的地之间的路由器缓冲区。如果要持续发送非常大的数据块保持一个高吞吐量有必要实施一些更聪明的方法。这是某种自适应的方法，它会试图尽快发送数据，但是一旦检测到因为连接上有太多的数据在传输导致太多的延迟或者数据包的丢失，就能切换回一个低速的方式。这样一个系统超出了本文的范围。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-family:微软雅黑;"><h2 id="接收方的实现"><span style="font-size: 18pt; color: rgb(34, 34, 34);">接收方的实现</span></h2> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">现在我们已经解决了发送方实现的所有细节和小问题，那么让我们开始实现接收方。正如之前提到的那样，与之前文章介绍的数据包的分包和重组系统不同，块系统在同一时间只能由一个块正在传输。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这使得块系统的接收方可以实现的更加简单，你可以看下面的实现<span>:</span></span> </span></p><div><div id="highlighter_415734" class="syntaxhighlighter  cpp"><div class="toolbar"><a class="toolbar_item command_help help">?</a></div><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">class</code> <code class="cpp plain">ChunkReceiver</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">receiving;</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">    </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">readyToRead;</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">    </code><code class="cpp plain">uint16_t chunkId;</code></div><div class="line number6 index5 alt1"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">chunkSize;</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">numSlices;</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">numReceivedSlices;</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">    </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">received[MaxSlicesPerChunk];</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">    </code><code class="cpp plain">uint8_t chunkData[MaxChunkSize];</code></div><div class="line number11 index10 alt2"><code class="cpp plain">};</code></div></div></td></tr></table></div></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><br></p><p class="MsoNormal" align="left" style="text-indent: 21pt; line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34);"> </span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我们有一个状态来记录我们是否正在网络上“接收”一个块数据，加上“<span>readyToRead’</span>”状态来表明是否已经有一个块的所有片段数据包都已经收到、已经准备好被用户弹出进行读取处理了。接收队列的最小长度是<span>1</span>，这是非常有效的。如果你不喜欢这个的话，你当然可以立即从块数据接收器里面将这个数据弹出并把它插入实际的接收队列。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在这个数据结构中我们还记录了块数据的大小（尽管不是完全准确，直到收到最后一个片段数据包才能准确的计算块数据的大小）、片段数据包的数量、已经接收到的片段数据包的数量还有针对每个片段数据包的一个接收标记。针对每个片段数据包的接收标记可以让我们丢弃那些我们已经收到的片段数据包，并计算到目前为止我们已经收到的片段数据包的数量（因为我们可能会多次收到同一个片段数据包，但是我们只会在第一次收到这个片段数据包的才会增加计数器的值）。它也被用在生成确认数据包上。当已经接收到的片段数据包的数量等于片段数据包的数量的时候，从接收方的角度看这个块数据的接收才算完成。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-family:微软雅黑;"></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">首先，接收方的设置会从块<span>0</span>开始。当一个片段数据包从网络上传递过来，并且能够匹配这个块<span>id</span>的话，“<span>receiving”</span>状态会从<span>false</span>翻转为<span>true</span>，第一个片段数据包的数据会插入”<span> chunkData</span>“变量的合适位置，片段数据包的数量会根据第一个片段数据包里面的数据进行正确的设置，已经接收到的片段数据包的数量会加一，也就是从<span>0</span>到<span>1</span>，针对每个片段数据包的接收标记里面对应这个片段数据包的项会变为<span>true</span>。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">随着这个块数据的其他片段数据包的到来，会对每一个片段数据包进行检测，判断它们的<span>id</span>是否与当前块的<span>id</span>相同，如果不相同的话就会被丢弃。如果这个片段数据包已经收到过的话，那么这个包也会被丢弃。否则，这个片段数据包的数据会插入”<span> chunkData</span>“变量的合适位置、已经接收到的片段数据包的数量会加一、针对每个片段数据包的接收标记里面对应这个片段数据包的项会变为<span>true</span>。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这一过程会持续进行，直到接收到所有的片段数据包。一旦接收到所有的片段数据包（也就是已经接收到的片段数据包的数量等于片段数据包的数量的时候），接收方会把“<span>receiving </span>“状态改为<span>false</span>，而把”<span>readyToRead</span>“状态改为<span>true</span>。当<span>”readyToRead”</span>状态为<span>true</span>的时候，所有收到的片段数据包都会被丢弃。在这一点上，这个处理过程通常非常的短，会在收到片段数据包的同一帧进行处理，调用者会检查<span>”</span>我有一块数据要读取么？<span>“</span>并处理块数据。然后会重置数据块接收器的所有数据为默认值，除了块数据的<span>id</span>从<span>0</span>增加到<span>1</span>，这样我们就准备好接收下一个块了。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-family:微软雅黑;"><h2 id="浸泡测试的重要性和确认数据包"><span style="font-size: 18pt; color: rgb(34, 34, 34);">浸泡测试的重要性和确认数据包</span></h2> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">第一眼看上去，确认数据包这个系统似乎很简单：</span> </span></p><p class="MsoListParagraph" align="left" style="margin-left: 21pt; text-indent: -21pt; line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">1）记录已经接收到的片段数据包。</span> </span></p><p class="MsoListParagraph" align="left" style="margin-left: 21pt; text-indent: -21pt; line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">2）当一个片段数据包收到以后，回复一个包含所有确认收到的片段数据包信息的确认数据包。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这看上去实现起来似乎相当的简单，但是像大多数发生在<span>UDP</span>协议的事情一样，当涉及到数据包丢失的时候，就有一些微妙的点让它的处理有点棘手。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">一个对于确认数据包比较天真的实现可能是这样子的。每次收到片段数据包，就回复一个包含所有确认收到的片段数据包信息的确认数据包（也会包括刚收到的片段数据包的信息）。这看上去非常符合逻辑，但是这使得块协议给恶意发送者一个漏洞使得它们可以块协议作为一个DDos的工具。如何作为一个DDos的工具<span>?</span>如果你对每个收到的片段数据包都会回复一个确认数据包的话，那么发送方能够构造一个很小的片段数据包发送给你，而你会回复一个比发送给你的片段数据包还大的确认数据包，这样你的服务器就变成了一个可以被人利用来进行DDos放大攻击的工具。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">现在也许是因为我对DDos这个事情有一点偏执（我确实是有一点），但是一般来说你可以防止对DDos的放大，永远不要设计一个包含对接收到的数据包进行一对一的映射响应的协议。让我们举个简单例子来说明一下这个问题。如果有人给你发送<span>1000</span>个片段数据包，永远不要给他回复<span>1000</span>个确认数据包。相反只发一个确认数据包，而且最多每<span>50</span>毫秒或者<span>100</span>毫秒才发送一个确认数据包。如果你是这样设计的话，那么滥用你的<span>UDP</span>协议对DDos进行放大就是完全不可能的。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">还有其他的方法让这个确认系统容易出错，而这些都往往表现为<span>”</span>发送挂起<span>“</span>。换句话说，接收方已经知道这个块已经发送完毕了，但是由于程序员的错误，发送方错过了一个确认数据包<span>(</span>可能是针对最后一个片段数据包的确认数据包<span>)</span>并且卡入到一个状态，会不停的反复重发这个片段数据包而没有得到一个确认数据包的响应。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">在过去<span>10</span>年里，我可能至少<span>5</span>次从头开始实现这个块系统，每次我都找到新的和令人兴奋的方式来让发送方挂起。我开发和测试块系统的策略是首先进行编码确认它能够跑起来，然后设置一个测试工具在有大量的数据包丢失、数据包乱序和重复的情况下随机发送随机大小的块。这往往会清除任何挂起。我曾经实现过的块系统都至少有一个挂起存在，通常会有<span>2</span>到<span>3</span>个挂起。所以如果你是打算从头开始实现这个块系统的话，请不要轻敌。请设置一个浸泡测试。你会感谢我在这里的提醒的。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我通常遇到的第一次挂起是由于对同一个片段数据包的多次收到不会回复一个确认数据包。它有点像这样：<span>” </span>哦，这个片段数据包已经收到过了么？已经收到过了就丢弃它<span>”</span>，然后忘记在确认数据包里面设置标记。这对于发送方来说是一个困扰，因为这样的话就不会有一个确认数据包，那么如果出现这种情况的话，又恰好遇到第一次收到这个片段数据包的时候发送的确认数据包出现丢包的情况，发送方根本就不知道这个他在反复发送的片段数据包其实已经被收到了。如果你就是这么不巧，遇上了第一次收到这个片段数据包的时候发送的确认数据包出现丢包的情况，那么就遇上了挂起的情况。如果你想在你的代码里面重现这个情况的话，可以在收到最后一个片段数据包的时候不发送确认数据包，那么出现的情况就是这种挂起了。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">下一个挂起会发生在接收方在发送方知道之前就已经知道块发送完毕并切换它的状态变量“<span>readyToRead”</span>来丢弃后续传入的片段数据包。在这种状态下，即使接收方认为块已经完全接收完毕，但是发送方还不知道这一点，所以有必要设置确认数据包对应的标志位，即使块已经完全接收完毕，这样发送方才能一直接收到提示块已经全部发送完毕的确认数据包。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">通常遇到的最后一个挂起情况是在读取完块数据以后的状态切换里面，那个时候状态变量“<span>readyToRead”</span>已经切回<span>false</span>而块的<span>id</span>也加一了。让我们举个简单例子来说明一下这个问题，块<span>0</span>已经完成接收，用户已经完成对块<span>0</span>的读取并且块<span>id</span>已经递增到<span>1</span>了，所以我们已经准备好接收块<span>1</span>的片段数据包了（我们会丢弃任何与我们当前正在接收块<span>ID</span>不同的片段数据包）。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">再一次出现这种情况，就是这里的发送方因为确认数据包的丢失导致信息有一点滞后，可能是因为没有收到第一个确认数据包。在这种情况下，有必要关注片段数据包，如果我们正处于这么一个状态：我们尚未收到第<span>n</span>个片段数据包，但是前面<span>n – 1</span>个片段数据包都已经收到了，我们必须设置一个特殊的标记位然后我们会发送一个包含所有前面<span>n – 1</span>个片段数据包都已经收到信息的确认数据包，否则发送方不会意识到块数据已经收到并且发送方已经准备挂起了。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">正如你所看到的那样，确认数据包的实现是有一点微妙的，这是一个有点奇怪的过程因为当片段数据包在网络的一端收到的时候，需要设置一个标记位来发送确认数据包直到发送方知道都有哪些发送的片段数据包被成功接收为止。如果你打破了片段数据包<span>-&gt;</span>确认数据包这个链接的话，那么整个系统就将挂起。我鼓励你仔细看看这篇文章的源代码搞清楚进一步的细节。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-family:微软雅黑;"><h2 id="总结"><span style="font-size: 18pt; color: rgb(34, 34, 34);">总结</span></h2> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">块系统在概念上是很简单的，但是它的具体实现肯定不是微不足道的。在我看来，实现发送者设计这一块是一个很好的学习经验，当你从头开始实现这样的系统的时候一定有很多东西需要学习。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">我希望你喜欢这个系统的设计，并试着自己动手从头开始实现它。这是一个很好的学习经历。此外，我鼓励你在<span>patreon</span>上支持我，作为回报，你会得到本文的示例源代码<span>(</span>以及本系列的其他文章的示例源代码<span>)</span>，还包括我在<span>GDC 2015</span>上关于网络物理的演讲的源代码。</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">如果你觉得这篇文章有价值的话，请在<span>patreon</span>上支持我的写作，这样我会写的更快。你可以在<span>BSD 3.0</span>许可下访问到这篇文章里面的代码。非常感谢你的支持！</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">【版权声明】</span> </span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">原文作者未做权利声明，视为共享知识产权进入公共领域，自动获得授权。</span> </span></p><p class="MsoNormal"><span style="font-family:微软雅黑;"><span> </span> </span></p><p class="MsoNormal"><span><span style="font-family:微软雅黑;"> </span></span> </p></div>                    <br>                
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/GafferOnGames/" rel="tag"><i class="fa fa-tag"></i> GafferOnGames</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/packet_fragmentation_and_reassembly/" rel="next" title="构建游戏网络协议三之数据包的分包和重组">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    构建游戏网络协议三之数据包的分包和重组
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/kbe_ue4_demo/" rel="prev" title="KBE的UE4的demo大体解读">
+                <p class="post-nav-pre-next-title">
+                    KBE的UE4的demo大体解读
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本篇自我总结"><span class="nav-text">本篇自我总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要做这个发送大块数据系统"><span class="nav-text">为什么需要做这个发送大块数据系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本篇基本术语"><span class="nav-text">本篇基本术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据包的结构设计"><span class="nav-text">数据包的结构设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送方的实现"><span class="nav-text">发送方的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接收方的实现思路"><span class="nav-text">接收方的实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防DDos"><span class="nav-text">防DDos</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原文"><span class="nav-text">原文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#background"><span class="nav-text">Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chunks-and-slices"><span class="nav-text">Chunks and Slices</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#packet-structure"><span class="nav-text">Packet Structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sender-implementation"><span class="nav-text">Sender Implementation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kicking-it-up-a-notch"><span class="nav-text">Kicking it up a notch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#receiver-implementation"><span class="nav-text">Receiver Implementation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-text">Conclusion</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#译文"><span class="nav-text">译文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#块和片段"><span class="nav-text">块和片段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据包的结构"><span class="nav-text">数据包的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本的发送方实现"><span class="nav-text">基本的发送方实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把发送方实现的更完美一点"><span class="nav-text">把发送方实现的更完美一点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接收方的实现"><span class="nav-text">接收方的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浸泡测试的重要性和确认数据包"><span class="nav-text">浸泡测试的重要性和确认数据包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

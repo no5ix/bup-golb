@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('mmp'){
+            let localStoragePasswdKey = 'Java backend syllabus without answer' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'mmp') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'mmp') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,Java,NA,Syllabus,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="noodle,Java,NA,Syllabus">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java backend syllabus without answer">
+<meta property="og:url" content="https://hulinhong.com/na_java_backend_syllabus2/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.662Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java backend syllabus without answer">
+<meta name="twitter:description" content=". . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Java backend syllabus without answer | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_java_backend_syllabus2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java backend syllabus without answer</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-01T02:40:08+00:00">
+                03-01-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+                <a href="/tags/Syllabus/" rel="tag"><i class="fa fa-tag"></i> Syllabus</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/na_java_backend_syllabus/" rel="next" title="Java backend syllabus">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Java backend syllabus
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/na_js_frontend_syllabus/" rel="prev" title="JS frontend syllabus">
+              <p class="post-nav-pre-next-title">
+                  JS frontend syllabus
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<ul>
+<li><a href="/na_java_backend_syllabus/" title="Java backend syllabus">Java backend syllabus</a>
+</li>
+</ul>
+<h1 id="session-1"><a href="#session-1" class="headerlink" title="session 1"></a>session 1</h1><ul>
+<li>What is Java variables and How to declare Java variables?</li>
+<li>What are Java data types?</li>
+<li>What are Primitive data types in Java?</li>
+<li>What is wrapper class in Java and Why we need wrapper class?</li>
+<li>What is the differences between passing by value and passing be reference?</li>
+<li>What is an Immutable class in Java?</li>
+<li>How to create a custom immutable class in Java?</li>
+<li>What is String pool in Java and why we need String pool?</li>
+<li>What are the results of following expressions? Please include the calculation process.<ul>
+<li><code>5 &amp; 6</code></li>
+<li><code>5 | 6</code></li>
+<li><code>5 ^ 6</code></li>
+</ul>
+</li>
+<li>What is toString() and why we need it?</li>
+<li>OutOfMemoryError vs StackOverflowError vs Memory Leak</li>
+<li>How to make class immutable?</li>
+<li>How does string works? Why is String immutable in Java?</li>
+<li>What’s Garbage collection types and Whats new in java 8?</li>
+<li>JDK vs JRE vs JVM</li>
+</ul>
+<h1 id="session2"><a href="#session2" class="headerlink" title="session2"></a>session2</h1><ul>
+<li>What is static field and static method?</li>
+<li>What is Object in Java and why we need object?</li>
+<li>What is Inheritance and how many types of inheritance are supported by Java?</li>
+<li>What is Interface and what is abstract class? What are the differences between them?</li>
+<li>What is Polymorphism? And how Java implements it?</li>
+<li>What is the differences between overriding and overloading?</li>
+<li>What is Encapsulation? How Java implements it? And why we need encapsulation?</li>
+<li>What is the difference between abstraction and encapsulation?</li>
+<li>Can we use this keyword in constructor and why?</li>
+<li>Abstract class vs. Interface. When to use abstract class and when to use interface?</li>
+<li>Generics and how do you use generics in your project?</li>
+<li>Java OOP 4 principles, and explain each of them</li>
+<li>Serialization, What is Serializable and SerialVersionUID?</li>
+<li>why using static and why not?</li>
+<li>what is SOLID principle?</li>
+<li>What is externalization and its difference with serialization</li>
+<li>Basic principles of the OOP</li>
+<li>Why Inheritance? / Benefit of using Inheritance</li>
+<li>Inheritance vs. Composition/Aggregation -&gt; IS-A and HAS-A</li>
+<li>Can a class inherits multiple parent classes? / Is multiple inheritance allowed? Why?</li>
+</ul>
+<h1 id="session3"><a href="#session3" class="headerlink" title="session3"></a>session3</h1><ul>
+<li>Describe the Collections Type Hierarchy. What Are the Main Interfaces, and What Are the</li>
+<li>Differences Between Them?</li>
+<li>What are List interface implementations and what are the differences between them and</li>
+<li>when to use what?</li>
+<li>What are Queue interface implementations and what are the differences and when to use</li>
+<li>what?</li>
+<li>What are Set interface implementations and what are the differences and when to use</li>
+<li>what?</li>
+<li>Explain the structure of the Deque implementation of LinkedList and its usage.</li>
+<li>What are the differences between HashMap, LinkedHashMap and TreeMap?</li>
+<li>What is the hashCode() and equals() function?</li>
+<li>How Is HashMap Implemented in Java? How Does Its Implementation Use hashCode and</li>
+<li>equals Methods of Objects? What Is the Time Complexity of Putting and Getting an</li>
+<li>Element from Such Structure?</li>
+<li>What are the differences between SynchronizedMap and ConcurrentHashMap?</li>
+<li>HashMap: how does it work internally, what is hash collision</li>
+<li>HashTable vs. HashMap</li>
+<li>ArrayList vs LinkedList, which one to choose?</li>
+<li>How does arraylist work internally?</li>
+<li>How does ConcurrentHashMap works?</li>
+<li>Relationship between equals() and hashcode()</li>
+<li>Difference between HashSet and TreeSet, HashMap and TreeMap</li>
+<li>What is fail-fast and fail-safe?</li>
+<li>HashMap vs LinkedHashMap and HashSet vs LinkedHashSet</li>
+<li>Suppose when you have Employee class to store data, when do you use list or map</li>
+<li>Difference: Arraylist vs LinkedList, when to use which</li>
+<li>Difference between Iterator and Enumeration</li>
+</ul>
+<h1 id="Session4"><a href="#Session4" class="headerlink" title="Session4"></a>Session4</h1><ul>
+<li>What is Builder Pattern and why we need it?</li>
+<li>What is an exception and what is an error in Java? What are the differences</li>
+<li>between them?</li>
+<li>What are the types of exceptions in Java? What are the differences?</li>
+<li>How can we handle an exception in Java?</li>
+<li>What is a custom exception and why do we need to use it?</li>
+<li>What is the difference between the final and finally keywords?</li>
+<li>Is the following code legal?Why?</li>
+<li>Try{</li>
+<li>}finally{</li>
+<li>}</li>
+<li>Is there anything wrong with the following exception handler as written? Will this code compile?</li>
+<li>Match each situation in the first list with an item in the second list.</li>
+<li>a. Scenarios</li>
+<li>i. int number = “four”;</li>
+<li>ii. public void recursion() { recursion(); }</li>
+<li>iii. A program is reading a stream and reaches the end of the stream marker.</li>
+<li>iv. You write code to read from a file but misspelled the filename</li>
+<li>b. Exceptions/Errors</li>
+<li>i. Error</li>
+<li>ii. checked exception</li>
+<li>iii. compile error</li>
+<li>iv. no exception</li>
+<li>What is Proxy Design Pattern?</li>
+<li>What is a Singleton class?</li>
+<li>Types of Exceptions and how do you deal with exceptions in your project?</li>
+<li>Implement a singleton</li>
+<li>Explain the Factory design pattern</li>
+<li>What design patterns did you worked on before?</li>
+<li>How to custom an Exception?</li>
+<li>What is ConcurrentModificationException and how to handle it?</li>
+</ul>
+<h1 id="Session5"><a href="#Session5" class="headerlink" title="Session5"></a>Session5</h1><ul>
+<li>What is Thread and What is Process? What are differences between them?</li>
+<li>How to create threads in Java?</li>
+<li>Runnable or Thread, which do you prefer to using? Why?</li>
+<li>What are differences between start() and run()?</li>
+<li>What if invoking start() method of a thread twice? What if invoking run() method twice?</li>
+<li>What is Thread Life Cycle in Java? Explain how to get to each stage.</li>
+<li>Explain join() method in Java Thread.</li>
+<li>What are differences sleep() and wait()?</li>
+<li>What is Daemon thread in Java? Why do we need it?</li>
+<li>What is thread interference? Give an example.</li>
+<li>What are some of the ways to perform Thread Synchronization?</li>
+<li>What is Deadlock? How to resolve it?</li>
+<li>What is the difference between Runnable and Callable interface?</li>
+<li>What is ExecutorService?</li>
+<li>Describe when you would use @Async and ExecutorService to improve</li>
+<li>the performance of your web application.</li>
+<li>Explain the usage of get() and join() in ExecutorService, what is the</li>
+<li>difference between them?</li>
+<li>Explain the difference between Future and CompletableFuture.</li>
+<li>Do you know about the Executor Service and Future?</li>
+<li>How do you create a thread?</li>
+<li>How does thread communicate/interact/share data with each other?</li>
+<li>What are the meaning of thread methods: join, wait, sleep, yield</li>
+<li>What is the deadlock? How to FIND it? How to avoid it?</li>
+<li>How to make a global count in multithreading environment</li>
+<li>Difference: Synchronized, ThreadLocal, Volatile, AtomicInteger</li>
+<li>Difference: Sleep and Wait</li>
+<li>Difference runnable vs callable</li>
+<li>Difference future vs completableFuture</li>
+<li>How do you implement a deadlock</li>
+<li>Synchronized method vs Synchronized block</li>
+<li>What is difference between synchronized and ReentrantLock</li>
+</ul>
+<h1 id="Session6"><a href="#Session6" class="headerlink" title="Session6"></a>Session6</h1><p>1) What is the Stream API in Java 8? What are the differences between</p>
+<ul>
+<li>intermediate and terminal operations for Stream?<br>1) What is the Optional class in Java and why do we need it?</li>
+<li>New feature of Java 8. Give an example of how you use them in your project</li>
+<li>If java 8 allows default method in interface, so what is the real difference between interface and</li>
+<li>abstract class?</li>
+<li>What is the Functional Interface? Java 8 built in functional interface? Match each situation in the first list with an item in the second list.<ul>
+<li>a. Scenarios<ul>
+<li>i. int number = “four”;</li>
+<li>ii. public void recursion() { recursion(); }</li>
+<li>iii. A program is reading a stream and reaches the end of the stream</li>
+<li>marker.</li>
+<li>iv. You write code to read from a file but misspelled the filename</li>
+</ul>
+</li>
+<li>b. Exceptions/Errors<ul>
+<li>i. Error</li>
+<li>ii. checked exception</li>
+<li>iii. compile error</li>
+<li>iv. no exception</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Explain Marker Interface. (Please also name some built-in marker interfaces provided in Java.)</li>
+<li>Why we need to use break statement in Switch statement?</li>
+<li>What are access modifiers and their corresponding scopes in Java?</li>
+<li>Explain the main method in Java.</li>
+<li>What is the diamond problem in Java? And how can we resolve the problem?</li>
+<li>What is Comparable and Comparator interface? What are differences between them and</li>
+<li>how to use them?</li>
+<li>What is Functional Interface? How do you create your own Functional Interface?</li>
+<li>What is Lambda Expression? Why does Lambda Expression work so closely with</li>
+<li>Functional Interface?</li>
+<li>java 8: Different types of “method reference”</li>
+<li>What is Optional?</li>
+<li>Java 8: Intermediate operator and terminal operator in stream api</li>
+<li>Map vs. FlatMap</li>
+<li>Java switch statement has too many cases, how to improve it</li>
+<li>Comparable vs. Comparator</li>
+<li>New features in java 11 and 17</li>
+<li>What is Java 17 new feature - sealed class</li>
+</ul>
+<h1 id="Session7"><a href="#Session7" class="headerlink" title="Session7"></a>Session7</h1><ul>
+<li>What is data modeling? Why do we need it? When would you need it?</li>
+<li>What is primary key? How is it different from unique key?</li>
+<li>How do you represent a multi-valued attribute in a database? Please describe in detail</li>
+<li>using an example.</li>
+<li>How do you represent a many-to-many relationship in database? Please describe in detail</li>
+<li>using an example.</li>
+<li>What is normalization? Why do you need to normalize?</li>
+<li>What does data redundancy mean? Can you give an example of each?</li>
+<li>What are normal forms?</li>
+<li>What is database integrity? Why do you need it?</li>
+<li>What are joins and explain different types of joins in detail.</li>
+<li>Explain indexes and why are they needed?</li>
+<li>Explain clustered and non-clustered index and their differences.</li>
+<li>If we have 1B data in our relational database and we do not want to fetch all at once. What</li>
+<li>are the ways that we can partition the data rows?</li>
+<li>Different type of Joins.</li>
+<li>Write a query: find the most popular product of one month.</li>
+<li>Explain ACID concepts</li>
+<li>What database did you use and how do you communicate with the DB</li>
+<li>Find the 2nd largest salary in employee table.</li>
+<li>Find employee whose salary is higher than its own manager(only given employee table which</li>
+<li>contains employee id and its manager id)</li>
+<li>Given employee table contain employee id, name,salary and manager id, find the employee</li>
+<li>whose salary is higher than their manager.</li>
+<li>How to delete duplicate rows, only keep unique rows</li>
+<li>Given 2 tables, find the data in both of table that not matching each other</li>
+<li>PreparedStatement vs Statement vs Callable Statement</li>
+</ul>
+<h1 id="Session8"><a href="#Session8" class="headerlink" title="Session8"></a>Session8</h1><ul>
+<li>Explain relational database and non-relational database.</li>
+<li>Difference between SQL and NoSQL.</li>
+<li>Explain CAP Principal.</li>
+<li>What is ACID?</li>
+<li>How do you decide which database to choose, SQL or NoSQL</li>
+<li>Explain CAP theorem and which database use them</li>
+<li>How to find all available keyspaces in Cassandra</li>
+<li>What is consistent hashing in cassandra</li>
+<li>what is cassandra replication strategy</li>
+<li>What is sharding in MongoDB?</li>
+<li>How replication works in MongoDB</li>
+</ul>
+<h1 id="Session9"><a href="#Session9" class="headerlink" title="Session9"></a>Session9</h1><ul>
+<li>What is RESTful Web Service?</li>
+<li>How to create a controller?</li>
+<li>Describe the RESTful principles.</li>
+<li>How does the RestTemplate work.</li>
+<li>What is difference between path variable and query param?</li>
+<li>Http status code you ever met.</li>
+<li>Explain MVC and the order of each components.</li>
+<li>Different types of request mapping/rest api/http methods.</li>
+<li>Comparison between soap and rest.</li>
+<li>When designing a public API, what needs to be considered.</li>
+<li>If define a object in the controller, and then other request update the value of the object, then</li>
+<li>which value will be fetched by a new request?</li>
+<li>Explain the differences between REST and SOAP.</li>
+<li>Explain the usage of @RestController.</li>
+<li>Explain the difference between @RequestBody and @ResponseBody</li>
+<li>How can we communicate with external applications in our Spring application?</li>
+<li>How to handle controller exceptions? How spring handles exception?</li>
+<li>What will happen after clicking the URL?</li>
+<li>Key Difference: Soap vs Rest</li>
+</ul>
+<h1 id="Session10"><a href="#Session10" class="headerlink" title="Session10"></a>Session10</h1><ul>
+<li>What is Dependency Injection?</li>
+<li>What is the di erence between BeanFactory and ApplicationContext in Spring?</li>
+<li>How Can We Inject Beans in Spring?</li>
+<li>Which Is the Best Way of Injecting Beans and Why?</li>
+<li>What is the Scope of a Bean?</li>
+<li>How Does the Scope Prototype Work?</li>
+<li>What Does the Spring Bean Lifecycle Look Like?</li>
+<li>Explain different ways to solve the bean ambiguity when we try to inject dependencies.</li>
+<li>When there is circular dependency, use which type of injection?</li>
+<li>Setter based Injection VS. Constructor based?</li>
+<li>Explain DispatcherSeervlet in detail</li>
+<li>ApplicationContext VS. BeanFactory</li>
+<li>How to inject beans when there are two beans with the same type?</li>
+<li>Spring validation?</li>
+<li>How to make a java class managed by spring?</li>
+<li>How does spring injection singleton bean into prototype bean?</li>
+<li>How to let spring create a bean only when that bean is needed instead of create at beginning</li>
+<li>What about lazy loading a spring bean?</li>
+<li>Spring literal and new and intern() objects</li>
+<li>Why is spring immutable in java?</li>
+<li>How do you use cache in your whole project?</li>
+<li>Spring Annotation you used in your project?</li>
+<li>What is conditional bean in Spring boot?</li>
+<li>What is IoC/Dependency Injection?</li>
+<li>Spring bean annotation, bean life cycle and bean scope</li>
+<li>Spring Bean scope and explain the request scope</li>
+<li>Different ways of DI</li>
+<li>Difference between @Component and @Bean</li>
+<li>When there is circular dependency, use which type of Injection? / Setter based Injection vs.</li>
+<li>Constructor based</li>
+</ul>
+<h1 id="Session12"><a href="#Session12" class="headerlink" title="Session12"></a>Session12</h1><ul>
+<li>What is Spring Boot? How does it differ from Spring?</li>
+<li>What is Spring Retryable?</li>
+<li>Why do you use Spring Boot? / Benefits of Spring Boot</li>
+<li>How to start a Spring Boot project?</li>
+<li>Command to run a spring boot application</li>
+<li>What does @SpringBootApplication mean?</li>
+<li>For Spring Boot, how do I use another server such as WebLogic instead of the embedded</li>
+<li>Tomcat server?</li>
+<li>Regarding @Async 1) what is it for 2) how to define it 3) how to call async method 4) can async</li>
+<li>method be private and why</li>
+<li>Difference between Spring boot and Spring</li>
+<li>How to do cache in spring boot and how to refresh the cache</li>
+</ul>
+<h1 id="Session13"><a href="#Session13" class="headerlink" title="Session13"></a>Session13</h1><ul>
+<li>What is AOP and why do we need it?</li>
+<li>What is Join Point?</li>
+<li>What is Point Cut?</li>
+<li>What is Advice?</li>
+<li>How do you handle exceptions in your Spring Application?</li>
+<li>What is AOP and how do you implement AOP in the project?</li>
+</ul>
+<h1 id="Session14"><a href="#Session14" class="headerlink" title="Session14"></a>Session14</h1><ul>
+<li>What are JDBC statements? List all types of JDBC statements and their usage.</li>
+<li>What is JdbcTemplate? And what are some of the advantages it has over standard JDBC?</li>
+<li>What is ORM and why is it helpful?</li>
+<li>What is Hibernate and what are the advantages of Hibernate over JDBC?</li>
+<li>What is a Session and how do we get a Session?</li>
+<li></li>
+<li>If an application uses Hibernate for persistent logic and uses MySQL as persistent store,</li>
+<li>what are the steps that we need to do if the application want to switch to OracleDB from</li>
+<li>MySQL? (Assume table structures remain the same)</li>
+<li>What is a SessionFactory and how do we get a SessionFactory?</li>
+<li>Ways to connect to database?</li>
+</ul>
+<h1 id="Session15"><a href="#Session15" class="headerlink" title="Session15"></a>Session15</h1><ul>
+<li>What is “Offline Transaction”?</li>
+<li>How do we usually perform Transaction Management in JDBC?</li>
+<li>What is Database Transaction? How do you implement transaction?</li>
+<li>What are entity states defined in Hibernate / JPA?</li>
+<li>How can we transfer the entity between different states?</li>
+<li>What are differences between save, persist?</li>
+<li>What are differences between update, merge and saveOrUpdate?</li>
+<li>How do you use elasticSearch in your java application</li>
+<li>How does hibernate internally check if entity version has changed?</li>
+<li>How to configure multiple database using JPA?</li>
+</ul>
+<h1 id="Session16"><a href="#Session16" class="headerlink" title="Session16"></a>Session16</h1><ul>
+<li>Explain the difference between authentication and authorization.</li>
+<li>What is JWT?</li>
+<li>What is Spring Security and what can it help us to achieve?</li>
+<li>How do we secure a RESTful API?</li>
+<li>Have you used security? how do you protect your rest api? how do you protect your</li>
+<li>application?</li>
+<li>How do you implement security for your application or microservices</li>
+</ul>
+<h1 id="Session17"><a href="#Session17" class="headerlink" title="Session17"></a>Session17</h1><ul>
+<li>Explain and name some methods that you used in JUnit.</li>
+<li>Explain and name some annotations that you used in JUnit.</li>
+<li>What is Mockito and the usage of it?</li>
+<li>What kind of test experience do you have?</li>
+<li>Cucumber and its annotations.</li>
+<li>How cucumber works, give an example.</li>
+<li>Functional test &amp; Integration test &amp; Unit test</li>
+<li>What’s the test framework in your team?</li>
+<li>Talk about different test you did before.</li>
+<li>Junit VS. Automation</li>
+<li>What is the limitation of the Mockito?</li>
+<li>Can you mock a static field using Mockito?</li>
+<li>How to test a private method without other framework?</li>
+<li>Difference: InjectMock VS. InjectMockBean?</li>
+</ul>
+<h1 id="Session19"><a href="#Session19" class="headerlink" title="Session19"></a>Session19</h1><ul>
+<li>In your own word, please describe some of the advantages and disadvantages of a</li>
+<li>Monolithic Application.</li>
+<li>In your own word, please describe some of the advantages and disadvantages of a</li>
+<li>Microservice Application.</li>
+<li>What is the purpose of using Netflix Eureka?</li>
+<li>How can microservices communicate with each other?</li>
+<li>What is the purpose of using Spring API Gateway?</li>
+<li>Explain cascading failure in microservice and how to prevent it.</li>
+<li>Explain CircuitBreaker and how it works in detail.</li>
+<li>How much load can your API handle at the same time? What is your RPS</li>
+<li>When your frontend or rest api loads slowly, how do you solve it?</li>
+<li>How to monitor the status of the application?</li>
+<li>What application details are stored in service registry?</li>
+<li>How can you make services communicate with each other? -&gt; Tools like Spring Cloud to setup</li>
+<li>microservice or use message queue like Kafka</li>
+<li>How to use the Zuul Gateway API? / How does the Zuul Gateway API work?</li>
+<li>How to manage the entire transaction across different microservices? How to rollback?</li>
+<li>How to communicate between microservices</li>
+<li>Explain microservice</li>
+<li>What microservice did your team use?</li>
+<li>Disadvantage of microservice</li>
+<li>Synchronous communication and A-Synchrounous commuication in microservice-&gt;</li>
+<li>RestTemplate or feign and message queue like Kafka</li>
+<li>vertically and horizontally</li>
+<li>How to deploy microservices to AWS EC2?</li>
+<li>What type of application is suitable for microservice architecture? What type is not?</li>
+<li>Suppose you have two Eureka servers, how does each application know which Eureka server it</li>
+<li>is registered to?</li>
+<li>What is the circuit breaker?</li>
+<li>How does microservices communicate with each other?</li>
+<li>How do you use RestTemplate?</li>
+<li>How do you get noticed when a service is down?</li>
+<li>How to setup service discovery?</li>
+<li>What is Granuarity Line in microserivce</li>
+<li>How check services and their status, what is they are hosted in docker</li>
+<li>How do you config for multiple environments?</li>
+</ul>
+<h1 id="Session20"><a href="#Session20" class="headerlink" title="Session20"></a>Session20</h1><ul>
+<li>Use your own words to explain Kafka.</li>
+<li>Did you use Kafka in your project? How does it work?</li>
+<li>Talk about Kafka and Zookeeper</li>
+<li>How to start and stop kafka server?</li>
+<li>How to prevent data loss in kafka</li>
+<li>How to keep message order in Kafka</li>
+<li>Kafka how to let two consumers read the same message</li>
+<li>Kafka how to determine the consumption rate</li>
+</ul>
+<h1 id="session22"><a href="#session22" class="headerlink" title="session22"></a>session22</h1><ul>
+<li>How do you monitor your application? Please provide examples.</li>
+<li>Explain the difference between these log levels: INFO, WARN, ERROR.</li>
+<li>If you have error, but it is not showing in log, how do you debug and find it?</li>
+<li>How to prevent duplicate message in kafka</li>
+<li>What is kafka dead letter queue and how do you handle it?</li>
+<li>How to implement security to kafka. Kafka Security</li>
+</ul>
+<h1 id="Session23"><a href="#Session23" class="headerlink" title="Session23"></a>Session23</h1><ul>
+<li>Use your own words to explain Jenkins.</li>
+<li>Can you talk about CI/CD?</li>
+<li>Git command you used in the project</li>
+<li>How do you release from the git repository</li>
+<li>How do you combine several commits together</li>
+<li>What is git cherry-pick</li>
+<li>difference between git and svn</li>
+<li>difference git merge and rebase</li>
+</ul>
+<h1 id="Session24"><a href="#Session24" class="headerlink" title="Session24"></a>Session24</h1><ul>
+<li>How to deploy microservice in AWS container</li>
+</ul>
+<h1 id="Session25"><a href="#Session25" class="headerlink" title="Session25"></a>Session25</h1><ul>
+<li>AWS difference between parameter store and secret manager</li>
+<li>AWS where to store certificate file</li>
+</ul>
+<h1 id="extra"><a href="#extra" class="headerlink" title="extra"></a>extra</h1><p>(those we are not sure which session to put in)</p>
+<ul>
+<li>Use your own words to explain TDD and why use TDD.</li>
+<li>Please do some research on Redis and use your own words to explain what Redis is.</li>
+<li>Use your own words to explain what Swagger is.</li>
+<li>Please do some research on ELK and use your own words to explain what they are.</li>
+<li>Use your own words to explain Jira.</li>
+<li>What is RabbitMQ and what can it help us to achieve in a web application?</li>
+<li>What are the component of RabbitMQ?</li>
+<li>What are different types of Exchange that exist in RabbitMQ?</li>
+<li>What is Scheduler and what can it help us to achieve in a web application?</li>
+<li>What is Maven and why it is used?</li>
+<li>What is POM? And what information does POM contain?</li>
+<li>What is Maven Repository? What is Maven Central Repository? What is local Maven</li>
+<li>Repository?</li>
+<li>What is JAR and WAR? What are the di erences?</li>
+<li>What is Connection Pool and its advantages?</li>
+<li>What are some of the configurations for Connection Pool?</li>
+<li>Difference between get and load?</li>
+<li>What is flush method? Why do we need it?</li>
+<li>What is evict method? Can you provide an example where you used it?</li>
+<li>How to use docker in the Spring Boot?</li>
+<li>ElasticSearch why do you use it</li>
+<li>How does Java class loader work?</li>
+<li>Shallow copy vs. Deep copy</li>
+<li>When implements Serializable, what if you don’t define the serialVersionUID? What if you</li>
+<li>remove it?</li>
+<li>Design a Employee Voting system according to the requirements</li>
+<li>Design a parking lot according to the requirements</li>
+<li>When you API request or Frontend page loading slowly, how do you handle it?</li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+              <a href="/tags/Syllabus/" rel="tag"><i class="fa fa-tag"></i> Syllabus</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/na_java_backend_syllabus/" rel="next" title="Java backend syllabus">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Java backend syllabus
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/na_js_frontend_syllabus/" rel="prev" title="JS frontend syllabus">
+                <p class="post-nav-pre-next-title">
+                    JS frontend syllabus
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#session-1"><span class="nav-text">session 1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session2"><span class="nav-text">session2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session3"><span class="nav-text">session3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session4"><span class="nav-text">Session4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session5"><span class="nav-text">Session5</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session6"><span class="nav-text">Session6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session7"><span class="nav-text">Session7</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session8"><span class="nav-text">Session8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session9"><span class="nav-text">Session9</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session10"><span class="nav-text">Session10</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session12"><span class="nav-text">Session12</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session13"><span class="nav-text">Session13</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session14"><span class="nav-text">Session14</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session15"><span class="nav-text">Session15</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session16"><span class="nav-text">Session16</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session17"><span class="nav-text">Session17</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session19"><span class="nav-text">Session19</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session20"><span class="nav-text">Session20</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session22"><span class="nav-text">session22</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session23"><span class="nav-text">Session23</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session24"><span class="nav-text">Session24</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session25"><span class="nav-text">Session25</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#extra"><span class="nav-text">extra</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

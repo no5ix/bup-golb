@@ -1,0 +1,2907 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if('mmp'){
+            let localStoragePasswdKey = 'Trine Answers' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== 'mmp') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== 'mmp') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,English,Java,NA,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="noodle,English,Java,NA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trine Answers">
+<meta property="og:url" content="https://hulinhong.com/na_trine_answers/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Trine Answers">
+<meta name="twitter:description" content=". . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Trine Answers | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/na_trine_answers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Trine Answers</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-06T23:51:06+00:00">
+                10-06-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Noodle/" itemprop="url" rel="index">
+                    <span itemprop="name">Noodle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+              
+                <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              
+                <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/supervisor_intro/" rel="next" title="supervisor 备忘">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  supervisor 备忘
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/goland_pycharm_activation/" rel="prev" title="Pycharm & Goland 激活">
+              <p class="post-nav-pre-next-title">
+                  Pycharm & Goland 激活
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="Network-Management"><a href="#Network-Management" class="headerlink" title="Network Management"></a>Network Management</h1><h2 id="quiz22"><a href="#quiz22" class="headerlink" title="quiz22"></a>quiz22</h2><p>Which environmental variables are critical factors in the health of computing equipment?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A Temperature<br>C Humidity</p>
+<p>选择一个选项, 以及列出选项内容, 不要解释原因:  What is the variation in delay called?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Bandwidth variance</p>
+<p>B</p>
+<p>Jitter</p>
+<p>C</p>
+<p>Audit log</p>
+<p>D</p>
+<p>Latency</p>
+<p>B: Jitter</p>
+<p>A specific server’s baseline describes norms for factors, such as how busy its processors are and how much of the memory it uses.</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>True</p>
+<p>B</p>
+<p>False</p>
+<p>A: True</p>
+<p>Which of these are the metrics that are tracked to account for utilization in operations?</p>
+<p>Each correct answer represents a complete solution. Choose all that apply.</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Uptime</p>
+<p>B</p>
+<p>Downtime</p>
+<p>C</p>
+<p>SNMP</p>
+<p>D</p>
+<p>Syslog</p>
+<p>A: Uptime<br>B: Downtime</p>
+<p>Which of the following versions of SNMP supports plaintext authentication with community strings and uses only UDP?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>SNMPv2c</p>
+<p>B</p>
+<p>SNMPv4</p>
+<p>C</p>
+<p>SNMPv1</p>
+<p>D</p>
+<p>SNMPv3</p>
+<p>C: SNMPv1</p>
+<p>Which of these supports strong authentication with MD5 or SHA, providing confidentiality and data integrity of messages via DES or DES-256 encryption between agents and managers?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>NetFlow</p>
+<p>B</p>
+<p>SNMPv2c</p>
+<p>C</p>
+<p>SNMPv3</p>
+<p>D</p>
+<p>Syslog</p>
+<p>C: SNMPv3</p>
+<p>Which of these mathematically determines network errors?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>NetFlow</p>
+<p>B</p>
+<p>SNMP</p>
+<p>C</p>
+<p>Syslog</p>
+<p>D</p>
+<p>CRC</p>
+<p>D: CRC</p>
+<p>Which of these occurs when a segment of data fails the addition or deletion of header information?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Runt</p>
+<p>B</p>
+<p>CRC error</p>
+<p>C</p>
+<p>Encapsulation error</p>
+<p>D</p>
+<p>Giant</p>
+<p>C: Encapsulation error</p>
+<p>Which device components should not be allowed to reach full capacity?</p>
+<p>Each correct answer represents a complete solution. Choose all that apply.</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Voltage</p>
+<p>B</p>
+<p>CPU</p>
+<p>C</p>
+<p>Relay</p>
+<p>D</p>
+<p>Memory</p>
+<p>B: CPU<br>D: Memory</p>
+<p>Which of these can collect more granular information on traffic flows than SNMP is able to?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Baseline</p>
+<p>B</p>
+<p>Syslog</p>
+<p>C</p>
+<p>Uptime</p>
+<p>D</p>
+<p>NetFlow</p>
+<p>D: NetFlow</p>
+<p>Which of these is a text string containing detailed information about the event being reported?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Timestamp</p>
+<p>B</p>
+<p>Facility</p>
+<p>C</p>
+<p>Description</p>
+<p>D</p>
+<p>MNEMONIC</p>
+<p>C: Description</p>
+<p>Which of the following Syslog severity level denotes that the system is unusable?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Critical</p>
+<p>B</p>
+<p>Alert</p>
+<p>C</p>
+<p>Emergency</p>
+<p>D</p>
+<p>Error</p>
+<p>C: Emergency</p>
+<p>Which SNMP version added support for the GET BULK operations?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>SNMPv3</p>
+<p>B</p>
+<p>SNMPv2c</p>
+<p>C</p>
+<p>SNMPv2a</p>
+<p>D</p>
+<p>SNMPv1</p>
+<p>B: SNMPv2c</p>
+<p>Which of these can refer to the standard level of performance of a certain device or to the normal operating capacity for the whole network?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>SNMPv2c</p>
+<p>B</p>
+<p>Management information base</p>
+<p>C</p>
+<p>Baseline</p>
+<p>D</p>
+<p>Syslog</p>
+<p>E</p>
+<p>NetFlow</p>
+<p>C: Baseline</p>
+<p>What can be the smallest size of an Ethernet frame?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>128 bytes</p>
+<p>B</p>
+<p>64 bytes </p>
+<p>C</p>
+<p>72 bytes</p>
+<p>D</p>
+<p>256 bytes</p>
+<p>B: 64 bytes</p>
+<p>Which of these represents the bi-directional traffic flow across an Ethernet interface?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Two-way</p>
+<p>B</p>
+<p>Duplex</p>
+<p>C</p>
+<p>Symmetric</p>
+<p>D</p>
+<p>Full-duplex</p>
+<p>D: Full-duplex</p>
+<p>Which of the following statements is true about latency?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>More the latency, longer the delay, and longer the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>B</p>
+<p>Less the latency, longer the delay, and longer the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>C</p>
+<p>More the latency,shorter the delay, and longer the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>D</p>
+<p>Less the latency, longer the delay, andshorter the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>A: More the latency, longer the delay, and longer the users have to stare blankly back at their computer screen, hoping something happens soon.</p>
+<p>Which protocol allows the users to display, sort, and even search messages, all of which makes it a great troubleshooting tool?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>NetFlow</p>
+<p>B</p>
+<p>Syslog</p>
+<p>C</p>
+<p>Kibana</p>
+<p>D</p>
+<p>SNMP</p>
+<p>B: Syslog</p>
+<p>Which of these is a system-design protocol that guarantees a certain amount of operational uptime during a given period?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>High availability</p>
+<p>B</p>
+<p>Backup systems</p>
+<p>C</p>
+<p>Hot standby</p>
+<p>D</p>
+<p>Redundancy</p>
+<p>A: High availability</p>
+<p>Which networking protocol uses OIDs and MIBs for data collection and organization of data?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Uptime</p>
+<p>B</p>
+<p>SNMP</p>
+<p>C</p>
+<p>Syslog</p>
+<p>D</p>
+<p>NetFlow</p>
+<p>B: SNMP</p>
+<h2 id="quiz23"><a href="#quiz23" class="headerlink" title="quiz23"></a>quiz23</h2><p>You install new switches in your server room and are now experiencing network instability and other issues across all servers in the rack. Which device would be used to alert you of system overheating?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Surge protector<br>B</p>
+<p>Probe<br>C</p>
+<p>Voltage event recorder<br>D</p>
+<p>Fiber light meter</p>
+<p>c: Voltage event recorder</p>
+<p>Which device would be used to measure voltage?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>OTDR</p>
+<p>B</p>
+<p>Butt set</p>
+<p>C</p>
+<p>Toner probe</p>
+<p>D</p>
+<p>Multimeter</p>
+<p>D: Multimeter</p>
+<p>Which device should be used if you need to determine whether your network meets ISO or TIA standards?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Certifiers</p>
+<p>B</p>
+<p>Nmap</p>
+<p>C</p>
+<p>Routing table</p>
+<p>D</p>
+<p>Angry IP</p>
+<p>A: Certifiers</p>
+<p>End-to-end loss across an Ethernet cable is called <strong>___</strong>.</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>interference</p>
+<p>B</p>
+<p>bad port </p>
+<p>C</p>
+<p>incorrect pinout</p>
+<p>D</p>
+<p>attenuation</p>
+<p>D: attenuation</p>
+<p>Which tool is used to attach an RJ-45 connector to Cat 5e, 6, 7, or 8 cables?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>OTDR</p>
+<p>B</p>
+<p>Spectrum analyzer</p>
+<p>C</p>
+<p>Punch-down tool</p>
+<p>D</p>
+<p>Crimper</p>
+<p>D: Crimper</p>
+<p>Which tool pushes a conductor between the sides of a V inside an IDC?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Snips</p>
+<p>B</p>
+<p>Crimper</p>
+<p>C</p>
+<p>Punch-down tool</p>
+<p>D</p>
+<p>Strippers</p>
+<p>C: Punch-down tool</p>
+<p>Which tool would the users use to both find a break in a fiber-optic connection and test the fiber connectivity on the network?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>OTDR</p>
+<p>B</p>
+<p>Butt set</p>
+<p>C</p>
+<p>Toner probe</p>
+<p>D</p>
+<p>Multimeter</p>
+<p>A: OTDR</p>
+<p>Which of these is not a function of a TDR?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Estimate cable lengths.</p>
+<p>B</p>
+<p>Find splice and connector locations and their associated loss amounts.</p>
+<p>C</p>
+<p>Display unused services.</p>
+<p>D</p>
+<p>Determine cable-impedance characteristics.</p>
+<p>E</p>
+<p>Send a signal down a cable and measure how long it takes to come back.</p>
+<p>C: Display unused services.</p>
+<p>Which device monitors incoming voltage levels and overvoltage thresholds?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Toner probe</p>
+<p>B</p>
+<p>Repeater</p>
+<p>C</p>
+<p>Surge protector</p>
+<p>D</p>
+<p>VOM</p>
+<p>C: Surge protector</p>
+<p>On which of these would a technician use a punch-down tool?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Fiber ST connector</p>
+<p>B</p>
+<p>110 blocks</p>
+<p>C</p>
+<p>CSU/DSU</p>
+<p>D</p>
+<p>RJ-45 connector</p>
+<p>B: 110 blocks</p>
+<p>Which of the following tools can test a port on a device?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Certifier</p>
+<p>B</p>
+<p>Toner probe</p>
+<p>C</p>
+<p>Butt set</p>
+<p>D</p>
+<p>Loopback plug</p>
+<p>D: Loopback plug</p>
+<p>Which of the following statements is true about a wire-map tester?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>It is a device that transmits signals through each wire in a copper fiber-optic cable to determine if it’s connected to the correct pin at the other end.</p>
+<p>B</p>
+<p>It is a device that transmits signals through each wire in a copper twisted-pair cable to determine if it’s connected to the correct pin at the same end.</p>
+<p>C</p>
+<p>It is a device that transmits signals through each wire in a copper twisted-pair cable to determine if it’s connected to the correct pin at the other end.</p>
+<p>D</p>
+<p>It is a device that transmits signals through each wire in a copper fiber-optic cable to determine if it’s connected to the correct pin at the same end.</p>
+<p>C: It is a device that transmits signals through each wire in a copper twisted-pair cable to determine if it’s connected to the correct pin at the other end.</p>
+<p>Which device will be used to locate a specific connection in an unlabeled punch-down block?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Certifier</p>
+<p>B</p>
+<p>TDR</p>
+<p>C</p>
+<p>Toner probe</p>
+<p>D</p>
+<p>VOM</p>
+<p>C: Toner probe</p>
+<p>Which software tool looks at all traffic on a network segment?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Spectrum analyzer</p>
+<p>B</p>
+<p>Packet sniffer</p>
+<p>C</p>
+<p>Time-domain reflectometer</p>
+<p>D</p>
+<p>Multimeter</p>
+<p>B: Packet sniffer</p>
+<p>What is the purpose of wire-map testers?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>To help find unused protocols and remove them from the network</p>
+<p>B</p>
+<p>To analyze protocols in software</p>
+<p>C</p>
+<p>To check the copper cable for crossed pairs only</p>
+<p>D</p>
+<p>To detect transposed wires, opens, and shorts in twisted-pair cables</p>
+<p>D: To detect transposed wires, opens, and shorts in twisted-pair cables</p>
+<p>You install new switches in your server room and are now experiencing network instability and other issues across all servers in the rack. Which device would be used to alert you of system overheating?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Surge protector</p>
+<p>B</p>
+<p>Probe</p>
+<p>C</p>
+<p>Voltage event recorder</p>
+<p>D</p>
+<p>Fiber light meter</p>
+<p>C: Voltage event recorder</p>
+<p>Which of these is a wiring error where two connections that are supposed to be connected using the two wires of a twisted-pair cable are instead connected using two wires from different pairs?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Attenuation</p>
+<p>B</p>
+<p>Split pair</p>
+<p>C</p>
+<p>Bent pin</p>
+<p>D</p>
+<p>Bad port</p>
+<p>B: Split pair</p>
+<p>Which of the following statements is true about a butt set?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>It is essentially a portable telephone that allows the users to test analog wet or dry lines and is used to remove those lines.</p>
+<p>B</p>
+<p>It is essentially a portable telephone that allows the users to test digital wet or dry lines and is used to monitor those lines.</p>
+<p>C</p>
+<p>It is essentially a portable telephone that allows the users to test digital wet or dry lines and is used to remove those lines.</p>
+<p>D</p>
+<p>It is essentially a portable telephone that allows the users to test analog wet or dry lines and is used to monitor those lines.</p>
+<p>D: It is essentially a portable telephone that allows the users to test analog wet or dry lines and is used to monitor those lines.</p>
+<p>Which of these can check the speed and condition of the signal on a cable, measure the time it takes to send a signal down the wire and back, and find the exact location of a break?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Multimeter</p>
+<p>B</p>
+<p>Event recorder</p>
+<p>C</p>
+<p>Tone generator</p>
+<p>D</p>
+<p>TDR</p>
+<p>D: TDR</p>
+<p>no bookmarked, confident, or note marked bookmark popover collapsed</p>
+<p>Question 19 :</p>
+<p>You need to create a cable that will connect your host to a wall jack connection. Which of the following tools will you use?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Multimeter</p>
+<p>B</p>
+<p>IDS/IPS</p>
+<p>C</p>
+<p>Snips</p>
+<p>D</p>
+<p>Coax cable strippers</p>
+<p>C: Snips</p>
+<p>Which tool will the users use to trace cables in multiple-pair wiring?</p>
+<p>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.</p>
+<p>A</p>
+<p>Toner probe</p>
+<p>B</p>
+<p>Cable stripper/snips</p>
+<p>C</p>
+<p>Cable tester</p>
+<p>D</p>
+<p>Butt set</p>
+<p>A: Toner probe</p>
+<h2 id="quiz24"><a href="#quiz24" class="headerlink" title="quiz24"></a>quiz24</h2><p>A user calls you to report a problem regarding logging in to the corporate intranet. You can access the website without problems using the user’s username and password. At your request, the user has tried logging in from other workstations but has been unsuccessful. What is the most likely cause of the problem?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>The intranet server is locked up.<br>B</p>
+<p>The network is down.<br>C</p>
+<p>The user is logging in incorrectly.<br>D</p>
+<p>The server is not routing packets correctly to that user’s workstation.<br>Explanation<br>Answer C is correct.</p>
+<p>A workstation presents an error message to a user. The message states that a duplicate IP address has been detected on the network. After establishing a change in the network, what should be the next step of the standard troubleshooting model?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Create an action plan.<br>B</p>
+<p>Identify the results and effects of the solution.<br>C</p>
+<p>Test the result.<br>D</p>
+<p>Select the most probable cause.<br>Explanation<br>Answer D is correct.</p>
+<p>You have gathered information on a network issue and determined the affected areas of the network. What should be your next step to resolve this issue?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>You should test the best solution for the issue.<br>B</p>
+<p>You should implement the best solution for the issue.<br>C</p>
+<p>You should consider any negative impact on the network that might be caused by a solution.<br>D</p>
+<p>You should check if there have been any recent changes to this affected part of the network.</p>
+<p>Answer D is correct.</p>
+<p>A user calls you to report a problem regarding logging in to the corporate intranet. You can access the website without problems using the user’s username and password. At your request, the user has tried logging in from other workstations but has been unsuccessful. What is the most likely cause of the problem?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>The intranet server is locked up.<br>B</p>
+<p>The network is down.<br>C</p>
+<p>The user is logging in incorrectly.<br>D</p>
+<p>The server is not routing packets correctly to that user’s workstation.<br>Explanation<br>Answer C is correct.</p>
+<p>You are troubleshooting a LAN switch and have identified the symptoms. What is the next step you should take?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Determine the scope of the problem.<br>B</p>
+<p>Escalate the issue.<br>C</p>
+<p>Create an action plan.<br>D</p>
+<p>Implement the solution.</p>
+<p>Answer B is correct.</p>
+<p>When troubleshooting an obscure network problem, what physical conditions should be reviewed to make sure that the network device is operating correctly?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ESD problems<br>B</p>
+<p>Excessive humidity<br>C</p>
+<p>Excessive heat<br>D</p>
+<p>Plugged cables<br>Explanation<br>Answers A, B, and C are correct.</p>
+<p>You lose power to your computer room, and the switches in your network do not come back up when everything is brought online. After you have identified the affected areas, established the cause, and escalated this problem, what should be your next step?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Start to implement a solution to get those users back online ASAP.<br>B</p>
+<p>Create an action plan and solution.<br>C</p>
+<p>Meet with the emergency response team to determine the next step.<br>D</p>
+<p>Copy all the working routers’ configurations to the nonworking switches.<br>Explanation<br>Answer C is correct.</p>
+<p>Several users can’t log in to the server. Which action would help you to narrow the problem down to the workstations, network, or server?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Check the network diagnostics.<br>B</p>
+<p>Run tracert from a workstation.<br>C</p>
+<p>Check the server console for user connections.<br>D</p>
+<p>Run netstat on all workstations.<br>Explanation<br>Answer C is correct.</p>
+<p>You have a user who cannot connect to the network. What is the first thing you could check to determine the source of the problem?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Connectivity<br>B</p>
+<p>Workstation configuration<br>C</p>
+<p>Server configuration<br>D</p>
+<p>Patch cable<br>Explanation<br>Answer A is correct.</p>
+<h2 id="quiz25"><a href="#quiz25" class="headerlink" title="quiz25"></a>quiz25</h2><p>Which netstat command displays the owning process ID associated with each connection?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>-s<br>B</p>
+<p>-t<br>C</p>
+<p>-o<br>D</p>
+<p>-r<br>ChatGPT 说：</p>
+<p>✅ 答案：C — -o</p>
+<p>说明：<br>netstat -o 显示每个连接所对应的进程 ID (PID)。</p>
+<p>您说：<br>Which netstat command displays addresses and port numbers in numerical form?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>-n<br>B</p>
+<p>-e<br>C</p>
+<p>-b<br>D</p>
+<p>-f<br>ChatGPT 说：</p>
+<p>✅ 答案：A — -n</p>
+<p>说明：<br>netstat -n 会以数字形式显示地址和端口号，而不是尝试解析为主机名或服务名。</p>
+<p>您说：<br>Which TCP/IP utility is most often used to test whether an IP host is up and functional?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ping<br>B</p>
+<p>netstat<br>C</p>
+<p>ftp<br>D</p>
+<p>telnet<br>ChatGPT 说：</p>
+<p>✅ 答案：A — ping</p>
+<p>说明：<br>ping 用于检测目标 IP 主机是否在线并响应网络请求。</p>
+<p>您说：<br>Which Windows utility can the users use to connect to a machine 50 miles away to troubleshoot?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>netstat<br>B</p>
+<p>Remote Desktop<br>C</p>
+<p>Wireshark<br>D</p>
+<p>arp<br>ChatGPT 说：</p>
+<p>✅ 答案：B — Remote Desktop</p>
+<p>说明：<br>Remote Desktop 允许用户远程连接到另一台 Windows 计算机进行管理和故障排除。</p>
+<p>您说：<br>Which TCP/IP utility will produce the given output?</p>
+<p>Start of code blockReply from 204.153.163.2: bytes=32 time=1ms TTL=128<br>Reply from 204.153.163.2: bytes=32 time=1ms TTL=128<br>Reply from 204.153.163.2: bytes=32 time=1ms TTL=128<br>Reply from 204.153.163.2: bytes=32 time&lt;10ms TTL=128End of code block<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ipconfig<br>B</p>
+<p>tracert<br>C</p>
+<p>ping<br>D</p>
+<p>WINS<br>ChatGPT 说：</p>
+<p>✅ 答案：C — ping</p>
+<p>说明：<br>输出显示了每次发送的数据包大小、往返时间 (time) 和 TTL，典型为 ping 命令的响应格式。</p>
+<p>您说：<br>Which command-line tool would best be used to verify DNS functionality in Linux?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>netstat<br>B</p>
+<p>arp<br>C</p>
+<p>dig<br>D</p>
+<p>nbtstat<br>ChatGPT 说：</p>
+<p>✅ 答案：C — dig</p>
+<p>说明：<br>dig 是 Linux 下用于查询 DNS 记录和验证 DNS 功能的标准命令行工具。</p>
+<p>您说：<br>Which utility produces output similar to the given output?</p>
+<p>Start of code block110 ms  96 ms  107 ms fgo1.corpcomm.net [209.74.93.10]<br>96 ms  126 ms  95 ms someone.corpcomm.net [209.74.93.1]<br>113 ms  119 ms  112 ms Serial5–1–1.GW2.MSP1.alter.net [157.130.100.185]<br>133 ms  123 ms  126 ms 152.ATM3–0.XR2.CHI6.ALTER.NET  [146.188.209.126]<br>176 ms  133 ms  129 ms 290.ATM2–0.TR2.CHI4.ALTER.NET  [146.188.209.10]<br>196 ms  184 ms  218 ms 106.ATM7–0.TR2.SCL1.ALTER.NET  [146.188.136.162]<br>182 ms  187 ms  187 ms 298.ATM7–0.XR2.SJC1.ALTER.NET  [146.188.146.61]<br>204 ms  176 ms  186 ms 192.ATM3–0–0.SAN–JOSE9– GW.ALTER.NET [146.188.144.133]<br>202 ms  198 ms  212 ms atm3–0–622M.cr1.sjc.globalcenter.net [206.57.16.17]<br>209 ms  202 ms  195 ms pos3–1–155M.br4.SJC.globalcenter.net [206.132.150.98]<br>190 ms   *   191 ms pos0–0–0–155M.hr3.SNV.globalcenter.net [206.251.5.93]<br>195 ms  188 ms  188 ms pos4–1–0–   155M.hr2.SNV.globalcenter.net [206.132.150.206]<br>198 ms  202 ms  197 ms www10.yahoo.com [204.71.200.75]<br>End of code block<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>nbtstat<br>B</p>
+<p>netstat<br>C</p>
+<p>arp<br>D</p>
+<p>tracert<br>ChatGPT 说：</p>
+<p>✅ 答案：D — tracert</p>
+<p>说明：<br>输出显示沿路径的每一跳的响应时间和路由节点信息，这是 tracert（Windows 下的 traceroute）命令典型输出。</p>
+<p>您说：<br>Which command-line tool can the users use to find the NIC’s specific MAC address and IP address without physically going to the computer?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>arp<br>B</p>
+<p>nbtstat<br>C</p>
+<p>ping<br>D</p>
+<p>ftp<br>E</p>
+<p>netstat<br>ChatGPT 说：</p>
+<p>✅ 答案：A - arp</p>
+<p>您说：<br>Which ftp navigation tool displays and changes the current directory on the local machine?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>cd<br>B</p>
+<p>ls<br>C</p>
+<p>lcd<br>D</p>
+<p>pwd<br>ChatGPT 说：</p>
+<p>✅ 答案：C — lcd</p>
+<p>说明：<br>lcd (local change directory) 用于在 FTP 会话中显示或切换本地计算机的当前目录。</p>
+<p>您说：<br>Which new Linux command was added recently to configure IP and interface parameters?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ifconfig<br>B</p>
+<p>ip<br>C</p>
+<p>ipconfig<br>D</p>
+<p>nbtstat<br>ChatGPT 说：</p>
+<p>✅ 答案：B — ip</p>
+<p>说明：<br>ip 命令是现代 Linux 系统中替代 ifconfig 的工具，用于配置 IP 地址、路由和网络接口参数。</p>
+<p>您说：<br>Which TCP/IP utility will produce the following result?</p>
+<p>Start of code blockInterface: 199.102.30.152<br>Internet Address   Physical Address    Type<br>199.102.30.15      A0–ee–00–5b–0e–ac   dynamicEnd of code block<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>nbtstat<br>B</p>
+<p>tracert<br>C</p>
+<p>netstat<br>D</p>
+<p>arp<br>ChatGPT 说：</p>
+<p>✅ 答案：D — arp</p>
+<p>说明：<br>输出显示 IP 地址与物理地址（MAC 地址）的映射，这是 arp 命令的典型结果。</p>
+<p>您说：<br>Which of the following arp utility switches display the current ARP entries by interrogating the current protocol data?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>–d<br>B</p>
+<p>–a<br>C</p>
+<p>–g<br>D</p>
+<p>–N<br>ChatGPT 说：</p>
+<p>✅ 答案：B — –a, C — –g</p>
+<p>说明：</p>
+<p>arp -a 和 arp -g 都用于显示当前 ARP 表中的条目。</p>
+<p>-d 用于删除条目，-N 用于指定接口或网络，不显示表。</p>
+<p>您说：<br>You are a network administrator in a reputed company. A user calls you complaining that the performance of the intranet web server is sluggish. When you try to ping the server, it takes several seconds for the server to respond. You suspect that the problem is related to a router that is seriously overloaded. Which of the following workstation utilities could you use to find out which router is causing this problem?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>nbtstat<br>B</p>
+<p>tracert<br>C</p>
+<p>ping<br>D</p>
+<p>arp<br>E</p>
+<p>netstat<br>ChatGPT 说：</p>
+<p>✅ 答案：B — tracert</p>
+<p>说明：<br>tracert（Windows 下）或 traceroute（Linux 下）可以显示从源到目标经过的每一跳路由器，并显示每跳的响应时间，从而帮助定位性能瓶颈或负载过重的路由器。</p>
+<p>您说：<br>Which ping commands will verify that the local TCP/IP interface is working?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ping localif<br>B</p>
+<p>ping localhost<br>C</p>
+<p>ping iphost<br>D</p>
+<p>ping 204.153.163.2<br>E</p>
+<p>ping 127.0.0.1<br>ChatGPT 说：</p>
+<p>✅ 答案：B — ping localhost, E — ping 127.0.0.1</p>
+<p>说明：</p>
+<p>localhost 和 127.0.0.1 都指向本地回环接口，用于测试本机 TCP/IP 堆栈是否正常工作。</p>
+<p>其他选项测试的是网络上的远程主机，而非本地接口。</p>
+<p>您说：<br>Which command captures the traffic on all interfaces?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>tcpdump host 192.168.5.5<br>B</p>
+<p>tcpdump host all<br>C</p>
+<p>tcpdump -i any<br>D</p>
+<p>tcpdump -i eth0<br>ChatGPT 说：</p>
+<p>✅ 答案：C — tcpdump -i any</p>
+<p>说明：<br>tcpdump -i any 捕获所有网络接口上的流量，而 -i eth0 只捕获指定接口的数据包。</p>
+<p>您说：<br>Wireshark is an example of a(n) <strong><strong>__</strong></strong>.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>remote connection tool<br>B</p>
+<p>protocol analyzer<br>C</p>
+<p>throughput tester<br>D</p>
+<p>IDS<br>ChatGPT 说：</p>
+<p>✅ 答案：B — protocol analyzer</p>
+<p>说明：<br>Wireshark 是用于捕获和分析网络数据包的协议分析工具（protocol analyzer）。</p>
+<p>您说：<br>Wireshark is an example of a(n) <strong><strong>__</strong></strong>.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>remote connection tool<br>B</p>
+<p>protocol analyzer<br>C</p>
+<p>throughput tester<br>D</p>
+<p>IDS<br>ChatGPT 说：</p>
+<p>✅ 答案：B — protocol analyzer</p>
+<p>说明：<br>Wireshark 用于捕获、检查和分析网络上的数据包，是典型的协议分析器工具。</p>
+<p>您说：<br>Which utility can the users use to find the MAC and TCP/IP addresses of the Windows workstation?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ipconfig /all<br>B</p>
+<p>tracert<br>C</p>
+<p>ping<br>D</p>
+<p>ipconfig<br>ChatGPT 说：</p>
+<p>✅ 答案：A — ipconfig /all</p>
+<p>说明：<br>ipconfig /all 显示 Windows 工作站的完整网络配置信息，包括 IP 地址、子网掩码、默认网关和物理地址（MAC 地址）。</p>
+<p>您说：<br>Which utility can the users use to find the MAC and TCP/IP addresses of the Windows workstation?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ipconfig /all<br>B</p>
+<p>tracert<br>C</p>
+<p>ping<br>D</p>
+<p>ipconfig<br>ChatGPT 说：</p>
+<p>✅ 答案：A — ipconfig /all</p>
+<p>说明：<br>ipconfig /all 显示 Windows 工作站的完整网络信息，包括 IP 地址和 MAC 地址，而 ipconfig 仅显示基本 IP 配置。</p>
+<p>您说：<br>Which of these is not a chain type used by iptables?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Output<br>B</p>
+<p>Forward<br>C</p>
+<p>Backward<br>D</p>
+<p>Input<br>ChatGPT 说：</p>
+<p>✅ 答案：C — Backward</p>
+<p>说明：<br>iptables 使用的链类型包括 Input、Output 和 Forward。不存在 Backward 链。</p>
+<p>您说：<br>Which netstat utility displays all connections and listening ports on the host computer?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>-f<br>B</p>
+<p>-a<br>C</p>
+<p>-e<br>D</p>
+<p>-b<br>ChatGPT 说：</p>
+<p>✅ 答案：B — -a</p>
+<p>说明：<br>netstat -a 显示主机上所有活动的连接以及所有正在监听的端口。</p>
+<p>您说：<br>Which switch displays both workstation and server sessions but lists remote addresses by IP address only?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>-R<br>B</p>
+<p>-n<br>C</p>
+<p>-S<br>D</p>
+<p>-r<br>ChatGPT 说：</p>
+<p>✅ 答案：C — -S</p>
+<h2 id="practice-A"><a href="#practice-A" class="headerlink" title="practice A"></a>practice A</h2><p>给我正确选项即可: Your wireless network is configured with WEP encryption and has a limited number of users. You notice that there are some unauthorized connections on your access point. Which of the following steps will you take to enhance the security of your network?<br>Each correct answer represents a part of the solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Enable SSID broadcast.<br>B</p>
+<p>Change channel configuration.<br>C</p>
+<p>Configure MAC filtering.<br>D</p>
+<p>Configure WPA encryption.思考了 5sC<br>DWhich of the following statements is true about the unique local addresses?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>They were designed to replace unicast addresses, so they allow communication throughout a site while being routable to a single local network.<br>B</p>
+<p>They were designed to replace site-local addresses, so they allow communication throughout a site while being routable to a single local network.<br>C</p>
+<p>They were designed to replace unicast addresses, so they allow communication throughout a site while being routable to multiple local networks.<br>D</p>
+<p>They were designed to replace site-local addresses, so they allow communication throughout a site while being routable to multiple local networks.思考完毕无响应.5个网页不要多余的解释, 只需要选项和选项内容: Which of the following statements is true about the unique local addresses?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>They were designed to replace unicast addresses, so they allow communication throughout a site while being routable to a single local network.<br>B</p>
+<p>They were designed to replace site-local addresses, so they allow communication throughout a site while being routable to a single local network.<br>C</p>
+<p>They were designed to replace unicast addresses, so they allow communication throughout a site while being routable to multiple local networks.<br>D</p>
+<p>They were designed to replace site-local addresses, so they allow communication throughout a site while being routable to multiple local networks.D<br>They were designed to replace site-local addresses, so they allow communication throughout a site while being routable to multiple local networks.Jennifer, a network administrator, is troubleshooting an expansion card in a computer that allows the computer to receive faxes over a VoIP line. Which of the following cable types is used to connect the line to the expansion card?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>CAT6<br>B</p>
+<p>CAT2<br>C</p>
+<p>CAT9<br>D</p>
+<p>CAT12B<br>CAT2Which of the following vulnerability scanning tools is also known as a sniffer?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Network mapper<br>B</p>
+<p>Wireless scanner<br>C</p>
+<p>Password cracker<br>D</p>
+<p>Protocol analyzerD<br>Protocol analyzerWhich of the following system ports is sometimes called the registered port?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>User<br>B</p>
+<p>Ephemeral<br>C</p>
+<p>Private<br>D</p>
+<p>DynamicNone of the provided options (A: User, B: Ephemeral, C: Private, D: Dynamic) directly correspond to the term “registered port.” In networking, registered ports are those numbered from 1024 to 49151, as defined by the Internet Assigned Numbers Authority (IANA), and are used by specific services or applications upon registration.<br>However, since the question requires selecting one of the given options and none accurately match, the closest related concept might be misinterpreted in the context of the question. Based on standard terminology:</p>
+<p>Ephemeral ports (often called dynamic or private ports) are temporary ports used by clients (49152–65535).<br>Registered ports are not synonymous with user, ephemeral, private, or dynamic ports.</p>
+<p>If forced to choose from the given options, none are correct, but the question may expect D: Dynamic due to occasional confusion in terminology where dynamic ports are misunderstood. However, this is not accurate for registered ports.<br>Final Answer: None (if allowed); otherwise, D: Dynamic (noting potential question error).Which of the following types of cables don’t need EMI shielding?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Optical<br>B</p>
+<p>Twisted-pair<br>C</p>
+<p>MultifiberA<br>Optical<br>C<br>MultifiberHow many broadcast domains are created when an unmanaged 12-port switch is used?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>1<br>B</p>
+<p>6<br>C</p>
+<p>12<br>D</p>
+<p>0A<br>1Which layer of the OSI model performs the process-to-process communication using segments?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Presentation<br>B</p>
+<p>Application<br>C</p>
+<p>Transport<br>D</p>
+<p>NetworkC<br>TransportWhich of these are the types of PDUs?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Set<br>B</p>
+<p>Report<br>C</p>
+<p>Get<br>D</p>
+<p>TrapB<br>Report<br>C<br>Get<br>D<br>TrapMultiple lower bit rate streams are combined by a device called a multiplexer.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>TrueB<br>TrueWhich of the following layers of the OSI model provides delivery and formatting of information for processing and display?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Presentation<br>B</p>
+<p>Data link<br>C</p>
+<p>Transport<br>D</p>
+<p>ApplicationA<br>PresentationA technician is setting up a direct connection between two older PCs so they can communicate but not be on the corporate network. The technician does not have access to a spare switch but does have spare Cat 6 cables, RJ-45 plugs, and a crimping tool. The technician cuts off one end of the cable. Which of the following pin mappings represent what the technician should do to make a crossover cable before crimping the new plug?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>1 &gt; 3, 2 &gt; 6, 3 &gt; 1, and 6 &gt; 2<br>B</p>
+<p>1 &gt; 4, 2 &gt; 5, 4 &gt; 1, and 5 &gt; 2<br>C</p>
+<p>1 &lt; &gt; 8, 2 &lt; &gt; 7, 3 &lt; &gt; 6, and 4 &lt; &gt; 5<br>D</p>
+<p>1 &gt; 3, 4 &gt; 2, 3 &gt; 4, and 6 &gt; 2A<br>1 &gt; 3, 2 &gt; 6, 3 &gt; 1, and 6 &gt; 2Which of these is the correct name of the original Ethernet standard?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>10BASE10<br>B</p>
+<p>10BASE5<br>C</p>
+<p>10BASE12<br>D</p>
+<p>10BASE2B<br>10BASE5A company is concerned about the possible attacks on its network by the attackers to gain access to confidential research data. Which of these is a type of vulnerable system that could be implemented to redirect any attackers on the network?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Separation of duties<br>B</p>
+<p>Honeypot<br>C</p>
+<p>NAC<br>D</p>
+<p>BotnetB<br>HoneypotOn Wi-Fi networks, both WEP and WPA-TKIP use the RC4 cipher, but WEP’s implementation is far more vulnerable to attack.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>FalseA<br>TrueA company’s management has given a list of requirements to the network technician for a LAN connection using CAT6 cabling in an older building. The technician has to keep the environmental factors in mind during the network installation. Which of these should the network technician consider while deciding whether or not to use plenum-rated cables?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Window placement<br>B</p>
+<p>Floor composition<br>C</p>
+<p>Ceiling airflow condition<br>D</p>
+<p>Workstation modelC<br>Ceiling airflow conditionWhich type of cryptographic technology can be used for authentication and non-repudiation?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Cryptographic hashing<br>B</p>
+<p>Asymmetric<br>C</p>
+<p>SymmetricB<br>AsymmetricWhich of these is used when a host joins a network or is assigned a new MAC address?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>FQDN<br>B</p>
+<p>ARP announcement<br>C</p>
+<p>NDP<br>D</p>
+<p>ARP probeB<br>ARP announcementWhich of the following incident goals ensures that incident prevention and response follow the organization’s policies plus any relevant laws, business agreements, or generally expected industry practices?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Forensic practices<br>B</p>
+<p>BC<br>C</p>
+<p>Regulatory compliance<br>D</p>
+<p>DRC<br>Regulatory complianceWhich of the following terms examines the packet origins at a network’s periphery to restrict the outside traffic?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Guest network isolation<br>B</p>
+<p>MAC filtering<br>C</p>
+<p>Edge control<br>D</p>
+<p>Captive portalC<br>Edge controlWhy a password written on a slip of paper is a knowledge factor?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Because it’s meant to be written<br>B</p>
+<p>Because it’s meant to be created<br>C</p>
+<p>Because it’s meant to be remembered<br>D</p>
+<p>Because it’s meant to be identifiedC<br>Because it’s meant to be rememberedWhich of the following SNMP versions has no significant security features, and the devices only respond to messages containing the correct community name string?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>SNMPv1<br>B</p>
+<p>SNMPv2c<br>C</p>
+<p>SNMPv3A<br>SNMPv1<br>B<br>SNMPv2cThe end goal of network security is minimizing the risk to critical assets. However, to calculate risk, the users need to know what threats they face and where the network is vulnerable.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>TrueB<br>Trueno bookmarked, confident, or note marked bookmark popover collapsed<br>Question 74 :<br>Which of the following statements is true about a learning bridge?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It can use the network’s traffic to teach itself the IP address of any given address.<br>B</p>
+<p>It can use the network’s traffic to teach the other networks the IP address of any given address.<br>C</p>
+<p>It can use the network’s traffic to teach itself the location of any given address.<br>D</p>
+<p>It can use the network’s traffic to teach the other networks the location of any given address.C<br>It can use the network’s traffic to teach itself the location of any given address.A network technician in a company has to assist a security team that wants to capture all traffic on a single subnet between the router and the core switch. The team has to ensure that there is only a single collision and a broadcast domain between the router and the switch to collect the traffic easily. Which of the following devices should the technician install to meet the goal mentioned in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Media converter<br>B</p>
+<p>Bridge<br>C</p>
+<p>Router<br>D</p>
+<p>HubD<br>HubIn a NetFlow system, what are the devices that identify network flows called?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Flow collectors<br>B</p>
+<p>Flow aggregators<br>C</p>
+<p>Flow exporters<br>D</p>
+<p>Flow samplersC<br>Flow exportersWhich of the following technologies is designed for communication over long distances on networks containing thousands or millions of users, requiring complex and expensive infrastructure?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>PAN<br>B</p>
+<p>MAN<br>C</p>
+<p>WAN<br>D</p>
+<p>CANC<br>WANConsider the following command:<br>Start of code blockcommand -p ip_address [interface_name] [/all]End of code block<br>Which of the following statements is true regarding the -p and /all options?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>The users can use these options to change the command’s functions.<br>B</p>
+<p>The users can use these options to terminate the command’s functions.<br>C</p>
+<p>The users can use these options to delete the command’s functions.A<br>The users can use these options to change the command’s functions.Which of these was the most common reason for BSOD errors and system reboots in the older versions of Windows?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Failure of the clustered driver<br>B</p>
+<p>Failure of the graphics driver<br>C</p>
+<p>Failure of the facility driver<br>D</p>
+<p>Failure of the virtualized driverB<br>Failure of the graphics driverWhich of the following statements is true about non-repudiation?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>The authorization is verified in a way that even its creator can’t dispute.<br>B</p>
+<p>The availability is verified in a way that even its creator can’t dispute.<br>C</p>
+<p>The authenticity is verified in a way that even its creator can’t dispute.<br>D</p>
+<p>The confidentiality is verified in a way that even its creator can’t dispute.C<br>The authenticity is verified in a way that even its creator can’t dispute.Adam, a user, reports to you that he is unable to communicate with a particular IP address on the company’s network. You have addressed the issue and, now, you need to find where the traffic is stopping. Which of the following commands will you use?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>nslookup<br>B</p>
+<p>arp<br>C</p>
+<p>netstat<br>D</p>
+<p>tracertD<br>tracertWhich of the following protocols is not included in the network layer of the OSI model?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>SPX<br>B</p>
+<p>IPv6<br>C</p>
+<p>IPv4<br>D</p>
+<p>IPXA<br>SPXIf the binary values are of 8-bits, the users show the full eight digits even if it starts with 0.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>FalseA<br>TrueWhich of the following security features is designed to prevent DoS and reconnaissance attacks, which utilize the control plane of software-defined networks?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>DAI<br>B</p>
+<p>Flood guard<br>C</p>
+<p>BPDU guard<br>D</p>
+<p>CoPPD<br>CoPPWhich of the following fields in the IPv4 packet specifies the current hop limit?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>TTL<br>B</p>
+<p>Explicit congestion notification<br>C</p>
+<p>DSCP<br>D</p>
+<p>Fragment offset思考了 3sA<br>TTLWhich of the following is not an example of using network segmentation to control traffic through the internal network?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>When possible, isolate vulnerable legacy systems.<br>B</p>
+<p>Separate other special-purpose networks where possible, such as IoT deployments or Wi-Fi hotspots.<br>C</p>
+<p>Enable DHCP snooping, dynamic ARP inspection, and (for IPv6) RA guard.<br>D</p>
+<p>Segment the L2 network using appropriate VLANs.<br>E</p>
+<p>Segment the L3 network using subnets.思考完毕C<br>Enable DHCP snooping, dynamic ARP inspection, and (for IPv6) RA guard.The chief information officer has noticed that the corporate wireless signal is available in the parking lot. Now, the management requests the network administrator to change the wireless network so that it is no longer accessible in public areas without affecting the availability inside the building. Which of these should the network administrator change on the wireless network?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Power levels<br>B</p>
+<p>Overcapacity<br>C</p>
+<p>Multipath<br>D</p>
+<p>Channel overlapA<br>Power levelsWhich of the following statements is true about insertion loss?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>0 dB would indicate a poor connection.<br>B</p>
+<p>0 dB would indicate 90% signal loss.<br>C</p>
+<p>0 dB would indicate 99% signal loss.<br>D</p>
+<p>0 dB would indicate a perfect and a lossless connection.D<br>0 dB would indicate a perfect and a lossless connection.Which protocol uses UDP port 123 and allows hosts to get information from a time source either by direct queries or by listening to broadcast or multicast traffic?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>POP<br>B</p>
+<p>SMTP<br>C</p>
+<p>IMAP<br>D</p>
+<p>NTPD<br>NTPWhich of the following statements is true with regards to securing authentication and identity management?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Use patch management processes or solutions to ensure that all hosts on the network are kept up to date.<br>B</p>
+<p>Ensure that network-based authentication uses secure protocols.<br>C</p>
+<p>Apply particular scrutiny to legacy systems that cannot be easily replaced.<br>D</p>
+<p>Upgrade or replace legacy systems and hosts with older and unsupported operating systems.B<br>Ensure that network-based authentication uses secure protocols.Which of the following statements is true about biometrics?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Inherence elements that are based on personal physical characteristics are called biometrics.<br>B</p>
+<p>Possession elements that are based on personal logical characteristics are called biometrics.<br>C</p>
+<p>Knowledge elements that are based on personal logical characteristics are called biometrics.<br>D</p>
+<p>Knowledge elements that are based on personal physical characteristics are called biometrics.A<br>Inherence elements that are based on personal physical characteristics are called biometrics.Ann, a network technician, is replacing the existing cables in her company’s remote location. She has to re-install a new cabling solution that will have 10 Gbps speed and can also be run between the structural and drop-down ceilings providing safety in case of fires. Which of these will best meet the requirement of Ann?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Plenum, Cat 6<br>B</p>
+<p>PVC, Cat 6<br>C</p>
+<p>Plenum, Cat 6a<br>D</p>
+<p>STPC<br>Plenum, Cat 6aWhich of the following statements is true about the twist rates in twisted-pair cables?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Higher twist rates are more resistant to crosstalk but need a little more wire for a cable of the same length.<br>B</p>
+<p>Higher twist rates are less resistant to crosstalk and need a little less wire for a cable of the same length.<br>C</p>
+<p>Higher twist rates are more resistant to crosstalk and need a little less wire for a cable of the same length.<br>D</p>
+<p>Higher twist rates are less resistant to crosstalk but need a little more wire for a cable of the same length.A<br>Higher twist rates are more resistant to crosstalk but need a little more wire for a cable of the same length.In which of the following types of assessments do the users need to consider security risks through the supply chain?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Threat<br>B</p>
+<p>Risk<br>C</p>
+<p>Vendor<br>D</p>
+<p>ProcessC<br>VendorTasks, such as data compression, decompression, encryption, and decryption, are all associated with the presentation layer of the OSI model.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>B<br>True</p>
+<p>A company wants to secure its WLAN network by implementing a method that will provide a web page before the users ask for authentication credentials while allowing them access to the network. Which of these will help in satisfying this requirement?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>RBAC<br>B</p>
+<p>Wireless client isolation<br>C</p>
+<p>Geofencing<br>D</p>
+<p>Captive portalD<br>Captive portalWhich of the following technologies is used to connect private devices?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>LAN<br>B</p>
+<p>CAN<br>C</p>
+<p>MAN<br>D</p>
+<p>PAN<br>D<br>PAN</p>
+<p>Which of the following networks connects multiple LANs using long-range transmission media?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>MAN<br>B</p>
+<p>PAN<br>C</p>
+<p>CAN<br>D</p>
+<p>WAN</p>
+<p>D<br>WAN</p>
+<p>A technician is troubleshooting a customer’s network connectivity issue. He needs to determine the IP address of the customer’s router. The customer has an IP address of 192.168.1.55/24. Which of these is the address of the customer’s router?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>192.168.5.55<br>B</p>
+<p>192.168.1.1<br>C</p>
+<p>192.168.0.5<br>D</p>
+<p>192.168.100.1</p>
+<p>B<br>192.168.1.1</p>
+<p>Which of the following combinations will form a two-factor authentication process?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ID card and key fob<br>B</p>
+<p>Smart card and PIN<br>C</p>
+<p>Retina scan and fingerprint<br>D</p>
+<p>Password and PIN</p>
+<p>B<br>Smart card and PIN</p>
+<p>An employee at a company received a call from someone in the IT department asking for information about the company’s network. The caller explained that the information would be used to improve the connection speed, thus improving performance. However, the caller ID on the phone indicated that the call came from outside the company. Which of the following types of attack has occurred in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Social engineering<br>B</p>
+<p>Password<br>C</p>
+<p>Dictionary<br>D</p>
+<p>IP spoofingA<br>Social engineeringWhich of the following procedures are employed when identifying a network problem?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Determine if anything has changed.<br>B</p>
+<p>Approach multiple problems individually.<br>C</p>
+<p>Create a plan.<br>D</p>
+<p>Question users.</p>
+<p>A<br>Determine if anything has changed.<br>B<br>Approach multiple problems individually.<br>D<br>Question users.</p>
+<p>Which of these are the common representations of binary values?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Dodecadecimal<br>B</p>
+<p>Hexadecimal<br>C</p>
+<p>Octal<br>D</p>
+<p>Septal</p>
+<p>answer:</p>
+<p>B<br>Hexadecimal<br>C<br>Octal</p>
+<p>no bookmarked, confident, or note marked bookmark popover collapsed<br>Question 86 :</p>
+<p>Which type of network scope is often used to connect all or parts of a city?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>CAN<br>B</p>
+<p>MAN<br>C</p>
+<p>WAN<br>D</p>
+<p>LANB<br>MANEthernet addressing uses the MAC address burned into each and every Ethernet NIC.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>A<br>True</p>
+<p>While troubleshooting a network, it’s important to view the identification of a problem as an ongoing process.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>TrueB<br>TrueDecibels can be used to describe the absolute power level of a signal that’s being sent or received or the relative losses due to the transmission medium.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>B<br>True</p>
+<p>Which of the following services provides the desktop and other resources?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>PaaS<br>B</p>
+<p>IaaS<br>C</p>
+<p>SaaS<br>D</p>
+<p>DaaS</p>
+<p>D<br>DaaS</p>
+<p>Which TCP/IP tool supersedes the ifconfig, arp, and route commands?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ipconfig<br>B</p>
+<p>dig<br>C</p>
+<p>ip<br>D</p>
+<p>nslookup</p>
+<p>C<br>ip</p>
+<p>Which of the following statements are true about a logical network?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It is the network from the perspective of the computers that use it.<br>B</p>
+<p>It is the path that the information follows.<br>C</p>
+<p>It is the information carried by the physical network.<br>D</p>
+<p>It is a network that includes the electrical, optical, and radio signals that are transmitted and received.<br>A<br>It is the network from the perspective of the computers that use it.<br>B<br>It is the path that the information follows.<br>C<br>It is the information carried by the physical network.</p>
+<p>Internet is an example of the largest WAN.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>A<br>True</p>
+<p>Which of the following IP addresses is reserved for private use?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>197.168.3.100<br>B</p>
+<p>172.168.5.0<br>C</p>
+<p>10.100.200.0<br>D</p>
+<p>169.253.10.20C<br>10.100.200.0</p>
+<p>Which of the following statements is true about RIP?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Since it has a maximum allowable hop count of 20 by default, a hop count of 21 would be deemed unreachable.<br>B</p>
+<p>Since it has a maximum allowable hop count of 18 by default, a hop count of 19 would be deemed unreachable.<br>C</p>
+<p>Since it has a maximum allowable hop count of 16 by default, a hop count of 17 would be deemed unreachable.<br>D</p>
+<p>Since it has a maximum allowable hop count of 15 by default, a hop count of 16 would be deemed unreachable.<br>Explanation<br>Answer D is correct.</p>
+<p>Which of the following statements is true about SNR?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>The higher the SNR, the lower the signal with respect to the noise floor.<br>B</p>
+<p>The higher the SNR, the higher the noise floor with respect to the signal.<br>C</p>
+<p>The lower the SNR, the higher the signal with respect to the noise floor.<br>D</p>
+<p>The higher the SNR, the lower the noise floor with respect to the signal.<br>Explanation<br>Answer D is correct.</p>
+<p>Decibels can be used to describe the absolute power level of a signal that’s being sent or received or the relative losses due to the transmission medium.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>Explanation<br>Answer B is correct.</p>
+<p>Which of these implies a line topology with reference to the point-to-point connections?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Daisy chain<br>B</p>
+<p>Bus<br>C</p>
+<p>Star<br>D</p>
+<p>Termination<br>Explanation<br>Answer B is correct.</p>
+<p>Which of the cellular technologies is a type of cell phone that contains a SIM chip?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>FDMA<br>B</p>
+<p>TDMA<br>C</p>
+<p>GSM<br>D</p>
+<p>CDMA<br>Explanation<br>Answer C is correct.</p>
+<p>Which DNS record is an IPv6 address record that maps a hostname to an IPv6 address?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>A<br>B</p>
+<p>AAAA<br>C</p>
+<p>CNAME<br>D</p>
+<p>SOA<br>Explanation<br>Answer B is correct.</p>
+<p>A laser transmission would stay in a tight beam and only suffer attenuation due to absorption by the air.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>Explanation<br>Answer B is correct.</p>
+<p>Which of these are installed in racks, such as servers, firewall appliances, and redundant power supplies?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>System labeling<br>B</p>
+<p>Port labeling<br>C</p>
+<p>Circuit labeling<br>D</p>
+<p>Naming conventions<br>Explanation<br>Answer A is correct.</p>
+<p>Tasks, such as data compression, decompression, encryption, and decryption, are all associated with the presentation layer of the OSI model.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>Explanation<br>Answer B is correct.</p>
+<p>The OSI model is more general and widely used by network engineers to discuss network theory, but most protocols that the users use daily were written as part of the TCP/IP model.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>Explanation<br>Answer B is correct.</p>
+<p>What is the correct distance range of 1000BaseLX?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>From 2 km up to 20 km<br>B</p>
+<p>From 3 km up to 20 km<br>C</p>
+<p>From 3 km up to 10 km<br>D</p>
+<p>From 2 km up to 10 km<br>Explanation<br>Answer C is correct.</p>
+<p>A network technician has to set up a firewall on a company’s network that would assign private IP addresses to users inside the network and show a public IP address out to the Internet. Which of these should the network technician use to achieve this goal?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>tracert<br>B</p>
+<p>traceroute<br>C</p>
+<p>NAT<br>D</p>
+<p>JAT<br>Explanation<br>Answer C is correct.</p>
+<p>The most effective way to control both authentication of remote users and the application of their permissions is to provision an AAA server.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>Explanation<br>Answer B is correct.</p>
+<p>Which of these is not considered a network device?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Repeater<br>B</p>
+<p>Media<br>C</p>
+<p>Firewall<br>D</p>
+<p>Switch<br>E</p>
+<p>Hub<br>Explanation<br>Answer B is correct.</p>
+<p>High memory utilization can be as severe as a saturated CPU.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>Explanation<br>Answer B is correct.</p>
+<p>A technician is troubleshooting a customer’s network connectivity issue. He needs to determine the IP address of the customer’s router. The customer has an IP address of 192.168.1.55/24. Which of these is the address of the customer’s router?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>192.168.100.1<br>B</p>
+<p>192.168.0.5<br>C</p>
+<p>192.168.1.1<br>D</p>
+<p>192.168.5.55<br>Explanation<br>Answer C is correct.</p>
+<p>QoS refers to the way the resources are controlled so that the quality of service is maintained.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>Explanation<br>Answer A is correct.</p>
+<p>The OSI model is more general and widely used by network engineers to discuss network theory, but most protocols that the users use daily were written as part of the TCP/IP model.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>Explanation<br>Answer A is correct.</p>
+<p>Which of the following statements is true about RIP?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Since it has a maximum allowable hop count of 20 by default, a hop count of 21 would be deemed unreachable.<br>B</p>
+<p>Since it has a maximum allowable hop count of 18 by default, a hop count of 19 would be deemed unreachable.<br>C</p>
+<p>Since it has a maximum allowable hop count of 16 by default, a hop count of 17 would be deemed unreachable.<br>D</p>
+<p>Since it has a maximum allowable hop count of 15 by default, a hop count of 16 would be deemed unreachable.<br>ChatGPT 说：</p>
+<p>The correct answer is:</p>
+<p>C — Since it has a maximum allowable hop count of 16 by default, a hop count of 17 would be deemed unreachable. ✅</p>
+<p>Explanation:<br>RIP (Routing Information Protocol) uses hop count as its routing metric. The protocol defines:</p>
+<p>Maximum hop count = 15</p>
+<p>Any destination with a hop count of 16 is considered unreachable</p>
+<p>So if a route’s hop count exceeds 16 (i.e., 17), RIP will treat it as unreachable. This is a fundamental limit designed to prevent routing loops.</p>
+<p>Option D is a common distractor because it flips the numbers, but RIP’s limit is 15 hops.</p>
+<p>您说：<br>只需要给我选项即可<br>ChatGPT 说：</p>
+<p>C</p>
+<p>您说：<br>选项和选项内容<br>ChatGPT 说：</p>
+<p>C</p>
+<p>Since it has a maximum allowable hop count of 16 by default, a hop count of 17 would be deemed unreachable.</p>
+<p>您说：<br>Which of the following statements is true about RIP?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Since it has a maximum allowable hop count of 20 by default, a hop count of 21 would be deemed unreachable.<br>B</p>
+<p>Since it has a maximum allowable hop count of 18 by default, a hop count of 19 would be deemed unreachable.<br>C</p>
+<p>Since it has a maximum allowable hop count of 16 by default, a hop count of 17 would be deemed unreachable.<br>D</p>
+<p>Since it has a maximum allowable hop count of 15 by default, a hop count of 16 would be deemed unreachable.<br>ChatGPT 说：</p>
+<p>D</p>
+<p>Since it has a maximum allowable hop count of 15 by default, a hop count of 16 would be deemed unreachable.</p>
+<p>您说：<br>Members of a basic service set share a 48-bit identifier compatible with the MAC standard and included in every Wi-Fi frame sent by its members. What is this identifier called?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>SSID<br>B</p>
+<p>PBSSID<br>C</p>
+<p>BSSID<br>D</p>
+<p>GBSSID<br>ChatGPT 说：</p>
+<p>C</p>
+<p>BSSID</p>
+<p>您说：<br>Which of the following TCP/IP tools tests the reachability and latency of a given host?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ping<br>B</p>
+<p>ipconfig<br>C</p>
+<p>route<br>D</p>
+<p>netstat<br>ChatGPT 说：</p>
+<p>A</p>
+<p>ping</p>
+<p>您说：<br>Which of the following statements are true about networks?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>By definition, physical networks always consist only of hardware components and devices.<br>B</p>
+<p>Radio signals are part of the physical network.<br>C</p>
+<p>In a logical network, connections are the protocols that guide data to its destination address.<br>D</p>
+<p>Interface cards are technically a part of the logical network.<br>ChatGPT 说：</p>
+<p>B</p>
+<p>Radio signals are part of the physical network.</p>
+<p>C</p>
+<p>In a logical network, connections are the protocols that guide data to its destination address.</p>
+<p>您说：</p>
+<p>您说：<br>Which of these is a standardized rule for formatting data?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Protocol<br>B</p>
+<p>Node<br>C</p>
+<p>Media<br>D</p>
+<p>Bit<br>ChatGPT 说：</p>
+<p>A</p>
+<p>Protocol</p>
+<p>您说：<br>What should you do if you cannot connect to an AP and you’ve verified that your DHCP configuration and WEP key are correct?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Check the MAC address filtering on the mitigation.<br>B</p>
+<p>Check the MAC address filtering on the AP.<br>C</p>
+<p>Check the IP address filtering on the mitigation.<br>D</p>
+<p>Check the IP address filtering on the AP.<br>ChatGPT 说：</p>
+<p>B</p>
+<p>Check the MAC address filtering on the AP.</p>
+<p>您说：<br>Which of these are some of the calamities that the users should escalate while implementing the solution during network troubleshooting?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Routing problems<br>B</p>
+<p>IPv6 teaming misconfiguration<br>C</p>
+<p>Routing loops<br>D</p>
+<p>Broadcast storms<br>ChatGPT 说：</p>
+<p>A</p>
+<p>Routing problems</p>
+<p>C</p>
+<p>Routing loops</p>
+<p>D</p>
+<p>Broadcast storms</p>
+<p>您说：<br>The OSI model is more general and widely used by network engineers to discuss network theory, but most protocols that the users use daily were written as part of the TCP/IP model.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>ChatGPT 说：</p>
+<p>B</p>
+<p>True</p>
+<p>您说：<br>What is the port number of SMB?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>TCP 945<br>B</p>
+<p>TCP 445<br>C</p>
+<p>TCP 245<br>D</p>
+<p>TCP 345<br>ChatGPT 说：</p>
+<p>B</p>
+<p>TCP 445</p>
+<p>您说：<br>An attacker floods a switch with frames in an attempt to redirect traffic to his server. Which of the following attacks is the attacker most likely using?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>DNS poisoning<br>B</p>
+<p>Phishing<br>C</p>
+<p>On-path<br>D</p>
+<p>ARP spoofing<br>ChatGPT 说：</p>
+<p>D</p>
+<p>ARP spoofing</p>
+<p>您说：<br>A network administrator is setting up a web-based application that needs to be continually accessible to the end-users. Which of the following concepts would best ensure this requirement?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>CARP<br>B</p>
+<p>High availability<br>C</p>
+<p>Fault tolerance<br>D</p>
+<p>Traffic shaping<br>ChatGPT 说：</p>
+<p>B</p>
+<p>High availability</p>
+<p>您说：<br>Which of the following protocols allows active-active load balancing?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>FHRP<br>B</p>
+<p>VRRP<br>C</p>
+<p>GLBP<br>ChatGPT 说：</p>
+<p>C</p>
+<p>GLBP</p>
+<p>您说：<br>Which of these is not a general guideline for establishing the probable cause of a network problem?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Consider multiple approaches.<br>B</p>
+<p>Question the obvious.<br>C</p>
+<p>Consider only the most relevant approach.<br>D</p>
+<p>Keep track of what you’ve already tried.<br>ChatGPT 说：</p>
+<p>C</p>
+<p>Consider only the most relevant approach.</p>
+<p>您说：<br>What is the correct distance range of 1000BaseLX?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>From 3 km up to 20 km<br>B</p>
+<p>From 3 km up to 10 km<br>C</p>
+<p>From 2 km up to 10 km<br>D</p>
+<p>From 2 km up to 20 km<br>ChatGPT 说：</p>
+<p>B</p>
+<p>From 3 km up to 10 km</p>
+<p>您说：<br>Which of the following statements is true about the data link layer of the OSI model?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It is subdivided into four sublayers, namely, MAC, IP, LLC, and UDP.<br>B</p>
+<p>It is subdivided into two sublayers, namely, NIC and LLC.<br>C</p>
+<p>It is subdivided into two sublayers, namely, MAC and LLC.<br>D</p>
+<p>It is subdivided into three sublayers, namely, NIC, MAC, and LLC.<br>ChatGPT 说：</p>
+<p>C</p>
+<p>It is subdivided into two sublayers, namely, MAC and LLC.</p>
+<p>您说：<br>Both RIPv1 and RIPv2 are distance-vector protocols, which means that each router running RIP sends its complete routing tables out to all active interfaces at periodic time intervals.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>ChatGPT 说：</p>
+<p>B</p>
+<p>True</p>
+<p>您说：</p>
+<p>您说：<br>Which of the following statements is true about authentication in a client-server fashion?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>The client providing resources ask for credentials, and the server provides them.<br>B</p>
+<p>The client providing resources ask for credentials, and the server hosts them.<br>C</p>
+<p>The server hosting resources ask for credentials, and the client provides them.<br>ChatGPT 说：</p>
+<p>C</p>
+<p>The server hosting resources ask for credentials, and the client provides them.</p>
+<p>您说：<br>Which type of cable uses low-smoke and fire-retardant materials?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>PVC<br>B</p>
+<p>Multifiber<br>C</p>
+<p>Plenum<br>D</p>
+<p>Riser-rated<br>ChatGPT 说：</p>
+<p>C</p>
+<p>Plenum</p>
+<p>您说：<br>Which of these describes the resolution of a problem while troubleshooting the network?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Determining the extent and the root cause of the problem<br>B</p>
+<p>Learning that a problem exists, through direct observation or a problem report<br>C</p>
+<p>Planning and implementing a fix for the problem<br>D</p>
+<p>Pursuing multiple avenues, beyond personal recollection<br>ChatGPT 说：</p>
+<p>C</p>
+<p>Planning and implementing a fix for the problem</p>
+<p>您说：<br>A network technician has to set up a firewall on a company’s network that would assign private IP addresses to users inside the network and show a public IP address out to the Internet. Which of these should the network technician use to achieve this goal?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>traceroute<br>B</p>
+<p>tracert<br>C</p>
+<p>JAT<br>D</p>
+<p>NAT<br>ChatGPT 说：</p>
+<p>D</p>
+<p>NAT</p>
+<p>您说：<br>Which of these is a technique that writes data patterns over the entire media, thereby eliminating any trace data?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Physical destruction<br>B</p>
+<p>Purging<br>C</p>
+<p>Overwriting<br>D</p>
+<p>Clearing<br>ChatGPT 说：</p>
+<p>C</p>
+<p>Overwriting</p>
+<p>您说：<br>The original intention of NAT was to slow the depletion of available IP address space by allowing many private IP addresses to be represented by some smaller number of public IP addresses.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>ChatGPT 说：</p>
+<p>B</p>
+<p>True</p>
+<p>您说：<br>Which of the following is not the step for testing a theory when troubleshooting?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Measure the plausibility of the theory against the most obvious cause of the problem.<br>B</p>
+<p>Escalate the testing process, if necessary.<br>C</p>
+<p>Perform a sanity check, which means think over the theory and see if there’s any reason that it couldn’t explain the problem.<br>D</p>
+<p>If the theory passes a sanity check, verify it by examining settings or components.<br>ChatGPT 说：</p>
+<p>A</p>
+<p>Measure the plausibility of the theory against the most obvious cause of the problem.</p>
+<p>您说：<br>Which of the following statements is true about access control hardware?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It makes the data unreadable even with advanced forensic techniques.<br>B</p>
+<p>It comprises a category of devices that are used to identify and authenticate users.<br>C</p>
+<p>It scrambles the data on the media, thereby rendering it unreadable without the encryption key.<br>D</p>
+<p>It exposes the media to a powerful and alternating magnetic field, thus removing any previously written data.<br>ChatGPT 说：</p>
+<p>B</p>
+<p>It comprises a category of devices that are used to identify and authenticate users.</p>
+<p>您说：<br>Which of the following statements is correct about the OSI model in networking?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>A communication protocol or network appliance can be described by the layer it occupies.<br>B</p>
+<p>It can be complicated, stressful, and time-consuming.<br>C</p>
+<p>It operates using leased lines from a telecommunication provider.<br>D</p>
+<p>It is made up of seven layers arranged vertically in what is called a stack.<br>ChatGPT 说：</p>
+<p>A</p>
+<p>A communication protocol or network appliance can be described by the layer it occupies.</p>
+<p>D</p>
+<p>It is made up of seven layers arranged vertically in what is called a stack.</p>
+<p>您说：<br>The MIB is a database with a set of predefined questions that the NMS can ask the agents regarding the health of the device or network.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>ChatGPT 说：</p>
+<p>B</p>
+<p>True</p>
+<p>您说：<br>Which of these is not considered a network device?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Repeater<br>B</p>
+<p>Media<br>C</p>
+<p>Firewall<br>D</p>
+<p>Switch<br>E</p>
+<p>Hub<br>ChatGPT 说：</p>
+<p>B</p>
+<p>Media</p>
+<p>您说：<br>DWAN is a virtual WAN architecture that uses software to manage connectivity, devices, and services and can make changes in the network that is based on the current operations.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>ChatGPT 说：</p>
+<p>A</p>
+<p>True</p>
+<p>您说：<br>Which of these is not a distinct function of the layer 2 switches?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Address learning<br>B</p>
+<p>Easy maintenance<br>C</p>
+<p>Forward decisions<br>D</p>
+<p>Loop avoidance<br>ChatGPT 说：</p>
+<p>B</p>
+<p>Easy maintenance</p>
+<p>您说：<br>Essential WAN technologies include user-level connections, such as cable, DSL, or 4G.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>ChatGPT 说：</p>
+<p>B</p>
+<p>True</p>
+<p>您说：<br>A network technician configured a network device. After restarting, the device was unresponsive. Even after doing a hard reset, the device was not restored to factory defaults and did not display any output. Which of these has the technician most likely performed?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Access control lists<br>B</p>
+<p>Driver update<br>C</p>
+<p>Firmware update<br>D</p>
+<p>Rollback<br>ChatGPT 说：</p>
+<p>C</p>
+<p>Firmware update</p>
+<p>您说：<br>A network administrator has to implement a physical security control method that can prevent an attacker from gaining access to a network closet or server room. Which of these will help the network administrator in achieving this goal?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Mantrap<br>B</p>
+<p>Locking rack<br>C</p>
+<p>Biometric<br>D</p>
+<p>Smart lock<br>ChatGPT 说：</p>
+<p>A</p>
+<p>Mantrap</p>
+<p>您说：</p>
+<p>您说：<br>no bookmarked, confident, or note marked bookmark popover collapsed</p>
+<p>您说：<br>Which of these best describes network reliability?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Minimal transmission errors, and detection and correction of any that do occur<br>B</p>
+<p>Connection security<br>C</p>
+<p>Compatibility of components<br>D</p>
+<p>Minimal required network maintenance<br>ChatGPT 说：</p>
+<p>A</p>
+<p>Minimal transmission errors, and detection and correction of any that do occur</p>
+<p>您说：<br>APC connectors can be used only with other APC connectors.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>ChatGPT 说：</p>
+<p>B</p>
+<p>True</p>
+<p>您说：<br>James, a network engineer, is asked to implement a network encompassing the five-block town center and nearby businesses. The inclusion of smartphones and portable devices is crucial to the plan. Which of the following networks will James implement?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>LAN<br>B</p>
+<p>CAN<br>C</p>
+<p>PAN<br>D</p>
+<p>MAN<br>ChatGPT 说：</p>
+<p>D</p>
+<p>MAN</p>
+<p>您说：<br>Which of these are installed in racks, such as servers, firewall appliances, and redundant power supplies?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Port labeling<br>B</p>
+<p>System labeling<br>C</p>
+<p>Naming conventions<br>D</p>
+<p>Circuit labeling<br>ChatGPT 说：</p>
+<p>B</p>
+<p>System labeling</p>
+<p>您说：<br>On the network, you don’t just need to know what the matter is, but you need to know how many users are affected. Which of the following steps of problem identification is explained in the given information?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Determine if anything has changed.<br>B</p>
+<p>Question users.<br>C</p>
+<p>Gather information.<br>D</p>
+<p>Identify the symptoms.<br>ChatGPT 说：</p>
+<p>D</p>
+<p>Identify the symptoms.</p>
+<p>您说：<br>Which of these is a primary concern for WANs?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Fiber-optic connection<br>B</p>
+<p>Digital subscriber line<br>C</p>
+<p>Security<br>ChatGPT 说：</p>
+<p>C</p>
+<p>Security</p>
+<p>您说：<br>An attacker, after gaining access to a facility, places a wireless access point to make it look as though it belongs to the network. He then begins eavesdropping on the wireless traffic. Which of the following attacks has the attacker performed?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Ransomware<br>B</p>
+<p>Evil twin<br>C</p>
+<p>Brute-force<br>D</p>
+<p>Logic bomb<br>ChatGPT 说：</p>
+<p>B</p>
+<p>Evil twin</p>
+<p>您说：</p>
+<p>您说：<br>Which of the following statements is correct about SMB?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It manages distributed directory information services across a network.<br>B</p>
+<p>It is designed to allow various applications to communicate over the network.<br>C</p>
+<p>It refers to the programming language used to communicate with the most popular RDBMS.<br>D</p>
+<p>It allows folders or hard drives to be shared over the network and accessed as if they were local drives.<br>ChatGPT 说：</p>
+<p>D</p>
+<p>It allows folders or hard drives to be shared over the network and accessed as if they were local drives.</p>
+<p>您说：<br>The most effective way to control both authentication of remote users and the application of their permissions is to provision an AAA server.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>ChatGPT 说：</p>
+<p>B</p>
+<p>True</p>
+<p>您说：<br>QoS refers to the way the resources are controlled so that the quality of service is maintained.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>ChatGPT 说：</p>
+<p>B</p>
+<p>True</p>
+<p>您说：<br>您说：<br>您说：<br>Which DNS record is an IPv6 address record that maps a hostname to an IPv6 address?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>AAAA<br>B</p>
+<p>CNAME<br>C</p>
+<p>SOA<br>D</p>
+<p>A<br>ChatGPT 说：</p>
+<p>A</p>
+<p>AAAA</p>
+<p>您说：<br>Which of the following are the resource-sharing protocols?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>SMB<br>B</p>
+<p>POP<br>C</p>
+<p>LDAP<br>D</p>
+<p>SMTP<br>ChatGPT 说：</p>
+<p>A</p>
+<p>SMB</p>
+<p>C</p>
+<p>LDAP</p>
+<p>您说：</p>
+<p>您说：<br>An effective network’s topology is a matter of planning, not organic growth.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>ChatGPT 说：</p>
+<p>A</p>
+<p>True</p>
+<p>您说：</p>
+<p>您说：<br>Which of the following statements is correct about sessions in the session layer of the OSI model?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>They must be created, maintained separately from other sessions, but not ended.<br>B</p>
+<p>They must be created, maintained together with other sessions, but not ended.<br>C</p>
+<p>They must be created, maintained separately from other sessions, and ended.<br>D</p>
+<p>They must be created, maintained together with other sessions, and ended.<br>ChatGPT 说：</p>
+<p>C</p>
+<p>They must be created, maintained separately from other sessions, and ended.</p>
+<p>您说：<br>Which of the following statements is true about RBAC?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It is commonly used in networks to simplify the process of assigning new users the permission required to perform a job role.<br>B</p>
+<p>It is commonly used in networks to simplify the process of denying new users the permission required to perform a job role.<br>C</p>
+<p>It is commonly used in networks to simplify the process of assigning existing users the permission required to perform a job role.<br>D</p>
+<p>It is commonly used in networks to simplify the process of denying existing users the permission required to perform a job role.<br>ChatGPT 说：</p>
+<p>A</p>
+<p>It is commonly used in networks to simplify the process of assigning new users the permission required to perform a job role.</p>
+<p>您说：<br>Which of the following statements is true regarding network convergence?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>High-performance TCP/IP networks augmented by additional technologies are increasingly displacing other options.<br>B</p>
+<p>High-performance TCP/IP networks augmented by additional technologies are increasingly using other options.<br>C</p>
+<p>Low-performance TCP/IP networks augmented by additional technologies are increasingly using other options.<br>D</p>
+<p>Low-performance TCP/IP networks augmented by additional technologies are increasingly displacing other options.<br>ChatGPT 说：</p>
+<p>A</p>
+<p>High-performance TCP/IP networks augmented by additional technologies are increasingly displacing other options.</p>
+<p>您说：<br>High memory utilization can be as severe as a saturated CPU.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>ChatGPT 说：</p>
+<p>B</p>
+<p>True</p>
+<p>您说：<br>Which of the following TCP/IP tools is a more powerful alternative to nslookup for performing DNS lookups?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>hostname<br>B</p>
+<p>dig<br>C</p>
+<p>netstat<br>ChatGPT 说：</p>
+<p>B</p>
+<p>dig</p>
+<p>您说：<br>Why is the TCP/IP model in such wide use, despite its limitations?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It proved so robust and scalable that it was quickly adopted by the US government and research networks that formed the early Internet.<br>B</p>
+<p>It employs physical layers rather than abstraction layers.<br>C</p>
+<p>It’s more comprehensive than the OSI model.<br>D</p>
+<p>It’s protocol-independent.<br>ChatGPT 说：</p>
+<p>A</p>
+<p>It proved so robust and scalable that it was quickly adopted by the US government and research networks that formed the early Internet.</p>
+<p>您说：<br>Ethernet is not only the standard used for almost all modern wired LANs, it’s also increasingly being used for telecommunications and storage networks and is even increasingly adopted as a WAN technology.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>ChatGPT 说：</p>
+<p>A</p>
+<p>True</p>
+<p>您说：<br>Which of the following statements is true about the twisted-pair cables?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Large cables often have a central strength member, with the fibers themselves placed around them.<br>B</p>
+<p>They don’t need EMI shielding, but cables for outdoor use need more physical protection than those used indoors.<br>C</p>
+<p>Instead of an electrical circuit confining the radio signal within a copper cable, light from a laser or LED shines down a hair-thin and highly purified glass fiber.<br>D</p>
+<p>Each balanced pair is warped around itself for the cable’s length, so even a nearby source, such as a parallel cable, will, on average, balance out.<br>ChatGPT 说：</p>
+<p>D</p>
+<p>Each balanced pair is warped around itself for the cable’s length, so even a nearby source, such as a parallel cable, will, on average, balance out.</p>
+<p>您说：<br>Which of the cellular technologies is a type of cell phone that contains a SIM chip?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>CDMA<br>B</p>
+<p>GSM<br>C</p>
+<p>TDMA<br>D</p>
+<p>FDMA<br>ChatGPT 说：</p>
+<p>B</p>
+<p>GSM</p>
+<p>您说：<br>no bookmarked, confident, or note marked bookmark popover collapsed<br>Question 66 :<br>A WAN operates using leased lines from a telecommunication provider, connecting to the LANs in each site.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>ChatGPT 说：</p>
+<p>A</p>
+<p>True</p>
+<p>您说：<br>Why is a routing table more complicated than a MAC table on a switch?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Because multiple entries have to have a single piece of information<br>B</p>
+<p>Because each entry has to have more pieces of information<br>C</p>
+<p>Because multiple entries have to have more pieces of information<br>D</p>
+<p>Because each entry has to have a single piece of information<br>ChatGPT 说：</p>
+<p>B</p>
+<p>Because each entry has to have more pieces of information</p>
+<p>您说：<br>A hospital has installed CCTVs on all the entrances and hallways to monitor the people entering and leaving the facility. The camera feeds go to the surveillance room where security personnel monitors the activities. One of the security personnel notices a man wearing a doctor’s lab coat whose identity cannot be verified by looking through the video feed. The man is seen interacting and mobilizing with other people around him. What kind of attack is the security personnel witnessing?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Man-in-the-middle<br>B</p>
+<p>Ransomware<br>C</p>
+<p>Logic bomb<br>D</p>
+<p>Social engineering<br>ChatGPT 说：</p>
+<p>D</p>
+<p>Social engineering</p>
+<p>您说：</p>
+<p>您说：<br>A network technician has to perform maintenance on many of the company’s web servers during a scheduled change window. This maintenance should not affect the service availability. Which of the following network devices should the network technician use for this purpose?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>IDS<br>B</p>
+<p>Wireless LAN controller<br>C</p>
+<p>VPN concentrator<br>D</p>
+<p>Load balancer<br>ChatGPT 说：</p>
+<p>D</p>
+<p>Load balancer</p>
+<p>您说：<br>An ad hoc network would not scale well and is not recommended due to collision and organization issues.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>ChatGPT 说：</p>
+<p>A</p>
+<p>True</p>
+<p>您说：</p>
+<p>Which of the following standards are used within the telecommunication networks?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>MELS<br>B</p>
+<p>MPLS<br>C</p>
+<p>DSL<br>D</p>
+<p>Frame Relay<br>Explanation<br>Answers B and D are correct.</p>
+<p>Which of the following would be the most efficient subnet mask for a subnetwork accommodating eight hosts?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>/28<br>B</p>
+<p>/29<br>C</p>
+<p>/27<br>D</p>
+<p>/30<br>Explanation<br>Answer A is correct.</p>
+<p>Which of the following statements are not true about the OSI model?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It describes network communication in terms of the underlying network technology or structure.<br>B</p>
+<p>It is a suite of protocols that serves as the world’s primary network standard.<br>C</p>
+<p>Even though the OSI model precisely describes the Internet’s structure, it’s excellent at explaining how real devices and protocols interact.<br>D</p>
+<p>It’s a very abstract model and describes network communication in terms of functions.<br>Explanation<br>Answers A and B are correct.</p>
+<p>The transport layer of the OSI model translates the data between network packets and also the data used by applications.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>Explanation<br>Answer A is correct.</p>
+<p>Which of the following statements is true about the input errors?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>They often indicate low-level errors, such as CRCs.<br>B</p>
+<p>They often indicate low-level errors, such as mitigation.<br>C</p>
+<p>They often indicate high-level errors, such as CRCs.<br>D</p>
+<p>They often indicate high-level errors, such as mitigation.<br>Explanation<br>Answer C is correct.</p>
+<p>A network technician in a company has to create a subnet for 500 host machines. The technician is instructed to use a class B address scheme and leave possible rooms for additional subnets of the same size. Which of the following addresses would fulfill these requirements?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>172.16.0.0/22<br>B</p>
+<p>172.18.0.0/23<br>C</p>
+<p>10.5.4.0/27<br>D</p>
+<p>192.168.25.0/24<br>Explanation<br>Answer B is correct.</p>
+<p>A company is setting up a new branch office. The new office will have two departments, Finance and Engineering. The Finance department will have 55 employees and the Engineering department will have 5 employees. The IP subscribed from the ISP is 192.168.1.0/29. The network administrator is configuring the subnets for the two departments starting with the Finance department. What will be the last host address on the Engineering subnet?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>192.168.1.80<br>B</p>
+<p>192.168.1.78<br>C</p>
+<p>192.168.0.76<br>D</p>
+<p>192.168.1.77<br>E</p>
+<p>192.168.1.79<br>Explanation<br>Answer B is correct.</p>
+<p>A LAN could have hundreds or thousands of nodes.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>Explanation<br>Answer A is correct.</p>
+<p>Which of the following actions are taken by a learning bridge when it checks the destination address against its MAC table?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>If the destination is in the table and on a different segment from that source, it forwards the frame to only that segment.<br>B</p>
+<p>If the destination is on the same segment as the source, it filters the frame by ignoring it.<br>C</p>
+<p>If the destination is in the table and on the same segment as the source, it forwards the frame to only that segment.<br>D</p>
+<p>If the destination address isn’t in the table, it floods the frame to all other segments except the source.<br>Explanation<br>Answers A, B, and D are correct.</p>
+<p>Which of the following statements is true about the dial-up access?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Some modem bondings do not offer dial-up access to users who subscribe to other services.<br>B</p>
+<p>Some ISPs offer dial-up access to users who subscribe to other services.<br>C</p>
+<p>Some modem bondings offer dial-up access to users who subscribe to other services.<br>D</p>
+<p>Some ISPs do not offer dial-up access to users who subscribe to other services.<br>Explanation<br>Answer B is correct.</p>
+<p>The important troubleshooting process for Network+ is CompTIA’s five-step model.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True<br>Explanation<br>Answer A is correct.</p>
+<p>Which of the following statements are true about network troubleshooting?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>The important thing is that the specific methods find a complete process and stick to it, especially during the diagnosis process.<br>B</p>
+<p>It’s often wise to skip around from one troubleshooting step to another based on hunches or habits.<br>C</p>
+<p>Using a systematic process will give the users quicker and more consistent results.<br>D</p>
+<p>The users can solve a surprising amount of problems by fiddling with one piece of a system after another until things work.<br>Explanation<br>Answers A, C, and D are correct.</p>
+<p>Which of these is not a category of the cause of disaster in a disaster recovery plan?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Technological<br>B</p>
+<p>Manmade<br>C</p>
+<p>Technical<br>D</p>
+<p>Natural<br>Explanation<br>Answer C is correct.</p>
+<p>Which of the following statements is true about the networking concepts?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>A bridge is a node on the physical network.<br>B</p>
+<p>A switch is a node on the physical network.<br>C</p>
+<p>A hub is a node on the physical network.<br>D</p>
+<p>A repeater is a node on the physical network.<br>Explanation<br>Answer D is correct.</p>
+<p>Loopback adapters are only useful to verify that the port transmits and receives electronics successfully.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False<br>Explanation<br>Answer A is correct.</p>
+<h2 id="practice-B"><a href="#practice-B" class="headerlink" title="practice B"></a>practice B</h2><p>What happens when a switching loop floods the network repeatedly?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Switch storm<br>B</p>
+<p>Loop bomb<br>C</p>
+<p>Broadcast storm</p>
+<p>ChatGPT 说：<br>✅ C. Broadcast storm</p>
+<p>When a switching loop occurs, broadcast and multicast frames are endlessly replicated and circulated through the network. This results in a broadcast storm, which floods the network and severely degrades performance or causes complete network failure.</p>
+<p>您说：<br>Which of the following spares is connected, powered on, and ready to serve as an automatic failover if the primary connection fails?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Hot<br>B</p>
+<p>Humid<br>C</p>
+<p>Cold<br>D</p>
+<p>Warm</p>
+<p>ChatGPT 说：<br>✅ A. Hot</p>
+<p>A hot spare is connected, powered on, and fully operational, ready to immediately take over if the primary connection or device fails — ensuring minimal or no downtime.</p>
+<p>您说：<br>只需要给我选项和选项描述即可: Switches can create multiple broadcast domains by partitioning the network into the software. What are these domains called?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>VCANs<br>B</p>
+<p>VLANs<br>C</p>
+<p>Address learning<br>D</p>
+<p>RSTP</p>
+<p>ChatGPT 说：<br>B — VLANs: Virtual LANs partition a network into multiple broadcast domains through software configuration on switches.</p>
+<p>您说：<br>Which of the following formulas can be used to express EIRP in decibels?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>EIRP = ERP * 1.65<br>B</p>
+<p>EIRP = ERP / 1.65<br>C</p>
+<p>EIRP = ERP + 2.15<br>D</p>
+<p>EIRP = ERP + 30</p>
+<p>ChatGPT 说：<br>✅ C — EIRP = ERP + 2.15<br>This formula expresses Effective Isotropic Radiated Power (EIRP) in decibels, where 2.15 dB is the gain difference between an isotropic radiator and a dipole antenna.</p>
+<p>您说：<br>不要多余的解释, 就只要选项: VoIP is used not only in voice chat apps but also in many phones.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B</p>
+<p>您说：<br>和选项的内容</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>Which of these is not included in the layer 2 protocol of the OSI model?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Ethernet<br>B</p>
+<p>IPv4 protocol<br>C</p>
+<p>802.11<br>D</p>
+<p>Frame Relay</p>
+<p>ChatGPT 说：<br>B — IPv4 protocol</p>
+<p>您说：<br>A network technician is setting up a wireless access point for a SOHO location. The user has demanded exclusive use of the 5GHz band. Which of the following wireless standards should the network technician use for the purpose mentioned in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>802.11g<br>B</p>
+<p>802.11b<br>C</p>
+<p>802.11ac<br>D</p>
+<p>802.11n</p>
+<p>ChatGPT 说：<br>C — 802.11ac</p>
+<p>您说：<br>A network technician, while troubleshooting a Linux system, wants to display the associated IP address of a network adapter. Which of the following commands should he use?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ipconfig<br>B</p>
+<p>dig<br>C</p>
+<p>traceroute<br>D</p>
+<p>ifconfig</p>
+<p>ChatGPT 说：<br>D — ifconfig</p>
+<p>您说：<br>You are working at the IT help desk when a user calls to report that he cannot access the Internet, although he can connect to the computers on the local network. At the user’s workstation, you run the ipconfig /all command and examine the output. Which of the following options is the most likely explanation for the user’s problem, based on the given ipconfig results?</p>
+<p>Start of code blockWindows IP Configuration</p>
+<p>  Host Name . . . . . . . . . . . . : Client12<br>  Primary Dns Suffix  . . . . . . . :<br>  Node Type . . . . . . . . . . . . : Hybrid<br>  IP Routing Enabled. . . . . . . . : No<br>  WINS Proxy Enabled. . . . . . . . : No</p>
+<p>Ethernet adapter Local Area Connection:</p>
+<p>  Connection-specific DNS Suffix  . :<br>  Description . . . . . . . . . . . : PCIe Family Controller<br>  Physical Address. . . . . . . . . : 60-EB-69-93-5E-E5<br>  DHCP Enabled. . . . . . . . . . . : No<br>  Autoconfiguration Enabled . . . . : Yes<br>  Link-local IPv6 Address . . . . . : fe80::c955:c944:acdd:3fcb%2<br>  IPv4 Address. . . . . . . . . . . : 192.168.23.234<br>  Subnet Mask . . . . . . . . . . . : 255.255.255.0<br>  Lease Obtained. . . . . . . . . . : Monday, October 23, 2017 6:23:47 PM<br>  Lease Expires . . . . . . . . . . : Saturday, November 18, 2017 9:49:24 PM<br>  Default Gateway . . . . . . . . . : 192.168.216.99<br>  DHCPv6 IAID . . . . . . . . . . . : 241232745<br>  DHCPv6 Client DUID  . . . . . . . : 00-01-00-01-18-10-22-0D-60-EB-69-93-5E-E5<br>  DNS Servers . . . . . . . . . . . : 192.168.22.114<br>  NetBIOS over Tcpip. . . . . . . . : EnabledEnd of code block<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>The ‘Default Gateway’ setting is incorrect.<br>B</p>
+<p>The ‘DNS Servers’ setting is located on another network.<br>C</p>
+<p>DHCP is not enabled.<br>D</p>
+<p>The ‘Subnet Mask’ setting is incorrect.</p>
+<p>ChatGPT 说：<br>A — The ‘Default Gateway’ setting is incorrect.</p>
+<p>您说：<br>What is the wavelength of MMF?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Around 850 nm or 1500 nm<br>B</p>
+<p>Around 950 nm or 1500 nm<br>C</p>
+<p>Around 850 nm or 1300 nm<br>D</p>
+<p>Around 1000 nm or 1300 nm</p>
+<p>ChatGPT 说：<br>C — Around 850 nm or 1300 nm</p>
+<p>您说：<br>In an organization, many users are reporting that they are unable to access the Internet in the evening. Users working the day shift are not having such a problem. Which of these can be the cause of this issue?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>MAC filtering<br>B</p>
+<p>Time-based ACL<br>C</p>
+<p>Jamming<br>D</p>
+<p>Port security</p>
+<p>ChatGPT 说：<br>B — Time-based ACL</p>
+<p>您说：<br>The users would use a bridge in a network to reduce collisions within broadcast domains and to increase the number of collision domains in their network.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>ChatGPT 说：<br>A — True</p>
+<p>您说：<br>What is the primary purpose of SSID?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>To allow devices to self-identify as members of multiple interoperating physical network segments<br>B</p>
+<p>To allow devices to self-identify as members of multiple interoperating logical network segments<br>C</p>
+<p>To allow devices to self-identify as members of a single interoperating physical network segment<br>D</p>
+<p>To allow devices to self-identify as members of a single interoperating logical network segment</p>
+<p>ChatGPT 说：<br>D — To allow devices to self-identify as members of a single interoperating logical network segment</p>
+<p>您说：<br>Which of the following statements are true about load balancer configurations?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>The least-connection method is more complicated to implement than round-robin, but it’s better able to deal with services that have variable session lengths.<br>B</p>
+<p>In the round-robin method, servers are listed in order, and each request goes to the server next in line.<br>C</p>
+<p>In the active-passive method, all redundant servers or other resources are constantly available and share the load. If one fails, its workload is distributed to the remaining nodes.<br>D</p>
+<p>In the active-active method, there are one or more failover nodes left on standby until an active node fails, then immediately activated.</p>
+<p>ChatGPT 说：<br>A — The least-connection method is more complicated to implement than round-robin, but it’s better able to deal with services that have variable session lengths.<br>B — In the round-robin method, servers are listed in order, and each request goes to the server next in line.</p>
+<p>您说：<br>Ann, a network technician, has set up an FTP server for a company to distribute software updates for the company’s products. For security reasons, each customer is provided with a unique username and password. Several customers have discovered a virus in one of the security updates. The network technician tested all files before uploading them but on retesting the file, found the virus. Which of these should the network technician do for the customers to validate the proper security patch?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Provide an MD5 hash for each file.<br>B</p>
+<p>Provide biometric authentication.<br>C</p>
+<p>Use TFTP for tested and secured downloads.<br>D</p>
+<p>Configure a honeypot.</p>
+<p>ChatGPT 说：<br>A — Provide an MD5 hash for each file.</p>
+<p>您说：<br>NFV is the process of taking networking functions (such as routers, switches, firewalls, load balancers, and controllers) and virtualizing them.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>Ann, a network technician, has to implement a physical security control that will allow her to detect any intrusion into the server room. Which of the following physical security controls will be most suitable for the purpose mentioned in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Biometrics<br>B</p>
+<p>Proximity readers<br>C</p>
+<p>CCTVs<br>D</p>
+<p>Mantraps</p>
+<p>ChatGPT 说：<br>C — CCTVs</p>
+<p>您说：<br>Which of these makes clustering a less desirable option than load balancing?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It’s less tightly configured since its nodes operate as multiple logical units.<br>B</p>
+<p>It can be more complicated to configure.<br>C</p>
+<p>It doesn’t work as well for some services.<br>D</p>
+<p>It requires identical or nearly identical hardware for each node.</p>
+<p>ChatGPT 说：<br>B — It can be more complicated to configure.<br>C — It doesn’t work as well for some services.<br>D — It requires identical or nearly identical hardware for each node.</p>
+<p>The users would use a bridge in a network to reduce collisions within broadcast domains and to increase the number of collision domains in their network.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>A. True</p>
+<p>A bridge in a network reduces collisions by segmenting the network into multiple collision domains, while keeping the broadcast domain intact. This increases the number of collision domains and reduces collisions within each domain.</p>
+<p>Which of the following terms represents a higher layer router that uses NAT to split server requests between multiple identical servers?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>TCP offloading<br>B</p>
+<p>Content switch<br>C</p>
+<p>Failover cluster<br>D</p>
+<p>Content caching</p>
+<p>B. Content switch</p>
+<p>A content switch, also known as a load balancer, operates at a higher layer (typically the application layer) and uses Network Address Translation (NAT) to distribute server requests across multiple identical servers to balance the load and improve performance.</p>
+<p>An organization has been facing an increased number of successful social engineering attacks. Which of these can help in reducing these attacks in the near future?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Vulnerability analysis<br>B</p>
+<p>AUP<br>C</p>
+<p>End-user awareness training<br>D</p>
+<p>MOU</p>
+<p>C. End-user awareness training</p>
+<p>Social engineering attacks exploit human behavior, and end-user awareness training is the most effective way to reduce these attacks. It educates employees on recognizing phishing, pretexting, and other tactics, empowering them to make informed decisions and avoid falling victim to such schemes.</p>
+<p>A company recently faced an attack on its network infrastructure. On further inspection, it was found that the attacker exploited the vulnerabilities resulting from open switch ports. The CIO has instructed the network administrator that he not only wants the network to be secure but also would like to monitor any attack in the future. Which of these should the network administrator implement to achieve the goal mentioned in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Install a mantrap.<br>B</p>
+<p>Create a VLAN with honeypots.<br>C</p>
+<p>Enable the network-based firewall.<br>D</p>
+<p>Install a HIDS.</p>
+<p>B. Create a VLAN with honeypots.</p>
+<p>您说：<br>A network technician is setting up a new wireless network. With the WPA2 standard in use, which of these will provide both data confidentiality and data integrity?<br>Each correct answer represents a part of the solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>CCMP<br>B</p>
+<p>AES<br>C</p>
+<p>RC4<br>D</p>
+<p>TKIP</p>
+<p>ChatGPT 说：<br>A — CCMP<br>B — AES</p>
+<p>您说：<br>NAT is great to have around when an organization changes its ISP and the networking manager doesn’t want the hassle of changing the internal address scheme.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>Which of the following commands is used to view or alter the routing table?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>route PRINT<br>B</p>
+<p>route<br>C</p>
+<p>route SCAN<br>D</p>
+<p>route -f</p>
+<p>ChatGPT 说：<br>B — route</p>
+<p>您说：<br>A junior network technician is configuring voice control of devices in the CEO’s cabin. Which type of IoT network is established in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>LAN<br>B</p>
+<p>MAN<br>C</p>
+<p>CAN<br>D</p>
+<p>PAN</p>
+<p>ChatGPT 说：<br>D — PAN</p>
+<p>您说：<br>Which of the following well-known ports do the users use to configure outgoing mail on a POP3 email client?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>80<br>B</p>
+<p>143<br>C</p>
+<p>25<br>D</p>
+<p>110</p>
+<p>ChatGPT 说：<br>C — 25</p>
+<p>您说：<br>To ensure security, the users need to install new certificates or generate new SSH keys when deploying a device.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>Which wireless standard uses the 800-900 MHz ISM band with precise frequencies varying by country?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Bluetooth<br>B</p>
+<p>ANT+<br>C</p>
+<p>Zigbee<br>D</p>
+<p>Z-wave</p>
+<p>ChatGPT 说：<br>D — Z-wave</p>
+<p>您说：<br>All ports on the root switch are designated ports that forward the traffic they receive from their segment.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>no bookmarked, confident, or note marked bookmark popover collapsed<br>Question 32 :<br>A properly designed VLAN-based network only routes a minority of traffic, while most packets remain within their VLAN.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>You are installing an ADSL router for your company’s new branch office. The router has a switch module containing four Ethernet ports, all of which are assigned to the default VLAN named VLAN1. When you plug a laptop into one of the Ethernet ports, you can access the Internet with no difficulties. Now, you need to connect the ADSL router to the company’s network so that the wireless access points on the network can provide the users with Internet access through the ADSL router. However, when you plug the router into a network switch port that is assigned to VLAN4, the switch starts generating ‘Native VLAN mismatch detected’ errors once every minute. Which of the following steps should be a part of the solution that you implement to stop the error messages from appearing?<br>Each correct answer represents a part of the solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Create a VLAN4 on the ADSL router’s switch module.<br>B</p>
+<p>Configure the network switch port connected to the router to use VLAN1.<br>C</p>
+<p>Create a VLAN1 on the network switch.<br>D</p>
+<p>Configure the router port connected to the network switch to use VLAN4.</p>
+<p>ChatGPT 说：<br>A — Create a VLAN4 on the ADSL router’s switch module.<br>D — Configure the router port connected to the network switch to use VLAN4.</p>
+<p>您说：<br>Each connection to the hub is its own electrical connection but part of the same overall collision domain.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>The most common use for MySQL is for creating a manual database.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>A — False</p>
+<p>您说：<br>Which of the following statements is true regarding LACP?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It allows ports to be configured as only passive.<br>B</p>
+<p>It allows ports to be configured as active or passive.<br>C</p>
+<p>It allows ports to be configured as only active.<br>D</p>
+<p>It does not allow port configuration.</p>
+<p>ChatGPT 说：<br>B — It allows ports to be configured as active or passive.</p>
+<p>您说：<br>Which backup strategy contains the changes in data since the last full backup?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Differential<br>B</p>
+<p>Dual stack<br>C</p>
+<p>Incremental</p>
+<p>ChatGPT 说：<br>A — Differential</p>
+<p>您说：<br>Why is return loss a problem?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Because it causes interference<br>B</p>
+<p>Because more signal reaches the receiver<br>C</p>
+<p>Because less signal reaches the receiver<br>D</p>
+<p>Because more signal reaches the sender</p>
+<p>ChatGPT 说：<br>A — Because it causes interference<br>C — Because less signal reaches the receiver</p>
+<p>您说：<br>In networks using IPv6 tunneling, an IPv6 packet can be carried as the payload of an IPv4 packet.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>ChatGPT 说：<br>A — True</p>
+<p>您说：<br>no bookmarked, confident, or note marked bookmark popover collapsed<br>Question 44 :<br>In which of the following methods, each incoming connection goes to the server with the fewest active connections?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Least connection<br>B</p>
+<p>Round-robin<br>C</p>
+<p>Content caching<br>D</p>
+<p>Random</p>
+<p>ChatGPT 说：<br>A — Least connection</p>
+<p>您说：<br>Ad hoc networks are created peer to peer or directly between stations and not through an AP.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>ChatGPT 说：<br>A — True</p>
+<p>您说：<br>Which of the following standards utilize MIMO on non-overlapping channels?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>802.11g<br>B</p>
+<p>802.11n<br>C</p>
+<p>802.11ac<br>D</p>
+<p>802.11a<br>E</p>
+<p>802.11b</p>
+<p>ChatGPT 说：<br>B — 802.11n<br>C — 802.11ac</p>
+<p>您说：<br>Which specific type of network configuration is often used in the case of a single institution consisting of multiple and collocated buildings?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>PAN<br>B</p>
+<p>LAN<br>C</p>
+<p>MAN<br>D</p>
+<p>CAN</p>
+<p>ChatGPT 说：<br>D — CAN</p>
+<p>您说：<br>Which of the following layer 1 devices connects multiple nodes into a star configuration?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Collision domain<br>B</p>
+<p>Repeater<br>C</p>
+<p>Network tap<br>D</p>
+<p>Hub</p>
+<p>ChatGPT 说：<br>D — Hub</p>
+<p>您说：<br>Which of these can be used to authenticate remote workers connecting from an offsite location?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>802.1X<br>B</p>
+<p>RADIUS server<br>C</p>
+<p>DHCP server<br>D</p>
+<p>DNS server</p>
+<p>ChatGPT 说：<br>A — 802.1X<br>B — RADIUS server</p>
+<p>您说：<br>What is the purpose of a load balancer?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>To deploy a hardware or software appliance designed to transparently distribute the services among the multiple and virtual whole<br>B</p>
+<p>To deploy a hardware or software appliance designed to transparently combine distributed services into a single and virtual whole<br>C</p>
+<p>To deploy a hardware or software appliance designed to transparently combine distributed services into the multiple and virtual whole<br>D</p>
+<p>To deploy a hardware or software appliance designed to transparently distribute the services into the single and virtual whole</p>
+<p>ChatGPT 说：<br>B — To deploy a hardware or software appliance designed to transparently combine distributed services into a single and virtual whole</p>
+<p>您说：<br>Which of the following types of cameras are helpful in low-traffic areas, where full-time recording might waste network bandwidth or storage space?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Motion-sensitive<br>B</p>
+<p>Wireless<br>C</p>
+<p>Video<br>D</p>
+<p>Night-vision</p>
+<p>ChatGPT 说：<br>A — Motion-sensitive</p>
+<p>您说：<br>Which of the following layers of the OSI model translates physical layer bits to and from ordered packets called frames, transfers them between nodes, and optionally receives acknowledgment of their receipt?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Data link<br>B</p>
+<p>Network<br>C</p>
+<p>Physical<br>D</p>
+<p>Transport</p>
+<p>ChatGPT 说：<br>A — Data link</p>
+<p>您说：<br>A narrowband transmission is highly susceptible to interference, either from noise sources or another network or electronic device using the same channel.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>A node on the logical network isn’t described by its physical location but rather by its address.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>no bookmarked, confident, or note marked bookmark popover collapsed<br>Question 55 :<br>If an Ethernet segment needs to connect to another segment that uses Wi-Fi, Token Ring, or even a different Ethernet speed, a repeater can join them.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>ChatGPT 说：<br>B — False</p>
+<p>您说：<br>The simplest repeater has ports listening in two directions along a cable.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>ChatGPT 说：<br>A — True</p>
+<p>您说：<br>Which of these frequently reports RSSI as a negative dBm measurement?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Antenna gain<br>B</p>
+<p>SNR<br>C</p>
+<p>IETF<br>D</p>
+<p>Wi-Fi analyzer</p>
+<p>ChatGPT 说：<br>D — Wi-Fi analyzer</p>
+<p>您说：<br>Broadband is frequently used for referring to fast Internet connections instead of slow ones.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>ChatGPT 说：<br>A — True</p>
+<p>您说：<br>STP is used by switches to communicate their relative positions and detect redundant links.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>Link aggregation can be used on routers or even hosts with multiple interfaces, where it’s more commonly known as NIC teaming.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>ChatGPT 说：<br>A — True</p>
+<p>您说：<br>A company has provided kiosks to employees within the organization’s boundaries. However, some of the kiosks are in close proximity to a shopping center. The management is concerned about someone accessing the Internet via the kiosk’s wireless network. The network technician has been asked to implement a solution that will provide wireless access only to the employees working at the kiosk. Which of these should the network technician implement?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Port mirroring<br>B</p>
+<p>Firewall<br>C</p>
+<p>VLAN pooling<br>D</p>
+<p>Switch port security</p>
+<p>ChatGPT 说：<br>D — Switch port security</p>
+<p>您说：<br>Which of the following devices should a network administrator configure on the outermost part of a network?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Firewall<br>B</p>
+<p>Content switch<br>C</p>
+<p>Media converter<br>D</p>
+<p>VPN concentrator</p>
+<p>ChatGPT 说：<br>A — Firewall</p>
+<p>您说：<br>What is the purpose of health checking in load balancing devices?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>To move the processing overhead associated with SSL or TLS encryption to another server or a hardware appliance with accelerated encryption features<br>B</p>
+<p>To track the functionality of each server in the load balancing pool and remove it in the case of a failure<br>C</p>
+<p>To use standard compression methods for reducing the bandwidth required by some kinds of data traffic<br>D</p>
+<p>To allow some traffic to be given priority over others</p>
+<p>ChatGPT 说：<br>B — To track the functionality of each server in the load balancing pool and remove it in the case of a failure</p>
+<p>您说：<br>Which of the following statements is true about the original 1997 802.11 standards?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It only supported network speeds of 5 Mbps.<br>B</p>
+<p>It only supported network speeds of 8 Mbps.<br>C</p>
+<p>It only supported network speeds of 10 Mbps.<br>D</p>
+<p>It only supported network speeds of 2 Mbps.</p>
+<p>ChatGPT 说：<br>D — It only supported network speeds of 2 Mbps.</p>
+<p>您说：<br>Some connections use intelligent demarc that performs signal translation or routing.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>True<br>B</p>
+<p>False</p>
+<p>ChatGPT 说：<br>A — True</p>
+<p>您说：<br>Network taps and port mirrors should be placed on chokepoints for critical traffic.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>A company wants a cloud service solution that can provide a deployment platform for its applications, and it doesn’t need to worry about the infrastructure requirements. Which of the following cloud services should be used for the purpose mentioned in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>IaaS<br>B</p>
+<p>SaaS<br>C</p>
+<p>PaaS<br>D</p>
+<p>NaaS</p>
+<p>ChatGPT 说：<br>C — PaaS</p>
+<p>您说：<br>Which of the following components is the transparent optical fiber that carries the signal and is made out of silica glass, which is far more transparent than ordinary consumer glass?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Core<br>B</p>
+<p>Buffer<br>C</p>
+<p>Outer jacket<br>D</p>
+<p>Cladding</p>
+<p>ChatGPT 说：<br>A — Core</p>
+<p>您说：<br>Which of the following statements is true regarding the applications of heightened scrutiny to network applications?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Use secure alternatives to insecure protocols, such as HTTPS and HTTP, instead of SSH and Telnet.<br>B</p>
+<p>Use secure alternatives to insecure protocols, such as HTTPS and SSH, instead of HTTP and Telnet.<br>C</p>
+<p>Use secure alternatives to insecure protocols, such as HTTP and SSH, instead of HTTPS and Telnet.<br>D</p>
+<p>Use secure alternatives to insecure protocols, such as HTTPS and Telnet, instead of HTTP and SSH.</p>
+<p>ChatGPT 说：<br>B — Use secure alternatives to insecure protocols, such as HTTPS and SSH, instead of HTTP and Telnet.</p>
+<p>您说：<br>Which of these would be the most efficient subnet mask for a point-to-point link?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>/29<br>B</p>
+<p>/30<br>C</p>
+<p>/32<br>D</p>
+<p>/28</p>
+<p>ChatGPT 说：<br>B — /30</p>
+<p>您说：<br>Layer 3 devices need a control protocol for sending diagnostic and error information relevant to layer 3.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>A network administrator has configured RIPv2 as the routing protocol for the company’s network. Which metric will be in use for deciding the best path to the network?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Bandwidth<br>B</p>
+<p>Infinite<br>C</p>
+<p>Cost<br>D</p>
+<p>Hop count</p>
+<p>ChatGPT 说：<br>D — Hop count</p>
+<p>您说：<br>A network administrator discovers multiple attempts to scan network hosts and devices originating from a single host on the network. Which of the following threats is most likely involved in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Compromised system<br>B</p>
+<p>IP spoofing<br>C</p>
+<p>Brute-force attack<br>D</p>
+<p>Rogue AP</p>
+<p>ChatGPT 说：<br>A — Compromised system</p>
+<p>您说：<br>A user reports an issue to a network technician that he is unable to connect to the server. The user has Linux OS installed on his system. Which of the following commands should the network technician use to test the connectivity issue between two network devices?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ping<br>B</p>
+<p>dig<br>C</p>
+<p>ipconfig<br>D</p>
+<p>ifconfig</p>
+<p>ChatGPT 说：<br>A — ping</p>
+<p>您说：<br>A new employee is assigned a laptop by the network administrator, which was assigned to someone else in the company. Upon delivering the laptop to the new employee, the administrator documents the new location, the employee’s name, and when the device was reassigned. Which of these best describes the actions mentioned in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Standard operating procedure<br>B</p>
+<p>Change management<br>C</p>
+<p>Asset management<br>D</p>
+<p>Statement of work</p>
+<p>ChatGPT 说：<br>C — Asset management</p>
+<p>您说：<br>Which of these is a general category of scope for a network used over great distances?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>CAN<br>B</p>
+<p>MAN<br>C</p>
+<p>SAN<br>D</p>
+<p>WAN</p>
+<p>ChatGPT 说：<br>D — WAN</p>
+<p>您说：<br>A network technician has been given permission to exploit a weakness in the company’s network. Which process is described in the given scenario?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Social engineering<br>B</p>
+<p>Vulnerability scanning<br>C</p>
+<p>Penetration testing<br>D</p>
+<p>Port mirroring</p>
+<p>ChatGPT 说：<br>C — Penetration testing — Authorized, simulated exploitation of weaknesses to identify and validate security vulnerabilities.</p>
+<p>您说：<br>Which of the following leased line has a maximum data rate of 1.544 Mbps?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>E1<br>B</p>
+<p>T3<br>C</p>
+<p>E3<br>D</p>
+<p>T1</p>
+<p>ChatGPT 说：<br>D — T1</p>
+<p>您说：<br>Which topology consists of two distinct and terminated ends, with each of its computers connecting to one unbroken cable running its entire length?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Mesh<br>B</p>
+<p>Bus<br>C</p>
+<p>Star<br>D</p>
+<p>Ring</p>
+<p>ChatGPT 说：<br>B — Bus</p>
+<p>您说：<br>Which of the following approaches starts in the middle of the stack and can be quicker than the top-to-bottom and bottom-to-top approaches?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Divide-and-conquer<br>B</p>
+<p>Move-the-problem<br>C</p>
+<p>Spot-the-differences<br>D</p>
+<p>Follow-the-path</p>
+<p>ChatGPT 说：<br>A — Divide-and-conquer</p>
+<p>您说：<br>The attackers use the monlist command, which is a remote command in older versions of NTP, that sends the requester a list of the last 600 hosts who have connected to that server.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>B — True</p>
+<p>您说：<br>Which of the following statements is true about VLANs?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>They are a single standard and a collection of methods switches that can be used to partition broadcast domains.<br>B</p>
+<p>They are a single standard and a collection of methods switches that cannot be used to partition broadcast domains.<br>C</p>
+<p>They aren’t a single standard but a single method switch that can be used to partition broadcast domains.<br>D</p>
+<p>They aren’t a single standard but rather a collection of method switches that can be used to partition broadcast domains.</p>
+<p>ChatGPT 说：<br>D — They aren’t a single standard but rather a collection of method switches that can be used to partition broadcast domains.</p>
+<p>您说：<br>The network layer of the OSI model is responsible for identifying and establishing the availability of the intended communication partner and determining whether sufficient resources for the requested communication exist.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>A — False</p>
+<p>您说：<br>What is the other name for the current 802.11ax Wi-Fi standard?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Wi-Fi 8<br>B</p>
+<p>Wi-Fi 9<br>C</p>
+<p>Wi-Fi 6<br>D</p>
+<p>Wi-Fi 7</p>
+<p>ChatGPT 说：<br>C — Wi-Fi 6</p>
+<p>您说：<br>A high-latency network connection is one that experiences short delay times, while a low-latency connection suffers from long delays.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>False<br>B</p>
+<p>True</p>
+<p>ChatGPT 说：<br>A — False</p>
+<p>您说：<br>no bookmarked, confident, or note marked bookmark popover collapsed<br>Question 89 :<br>Which of these is a designation used in routing to send packets to a remote network?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Network address<br>B</p>
+<p>Broadcast address<br>C</p>
+<p>IP address<br>D</p>
+<p>Octet</p>
+<p>ChatGPT 说：<br>A — Network address</p>
+<p>您说：<br>Which of the following statements is true about STP?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It is standardized as IEEE 802.1D.<br>B</p>
+<p>It is standardized as IEEE 802.1C.<br>C</p>
+<p>It is standardized as IEEE 802.1A.<br>D</p>
+<p>It is standardized as IEEE 802.1B.</p>
+<p>ChatGPT 说：<br>A — It is standardized as IEEE 802.1D.</p>
+<p>您说：<br>A disgruntled employee performs a man-in-the-middle attack on a company’s network. All the layer 2 traffic, which was destined for the default gateway, is redirected to the employee’s network. What kind of attack has the employee performed?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Phishing<br>B</p>
+<p>Amplified DNS attack<br>C</p>
+<p>Evil twin<br>D</p>
+<p>ARP cache poisoning</p>
+<p>ChatGPT 说：<br>D — ARP cache poisoning</p>
+<p>您说：<br>An organization’s security policy requires that when new devices are introduced to the network, the devices must be monitored to establish normal traffic patterns. Which of these is generated from the initial monitoring of the devices?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>SOW<br>B</p>
+<p>Baseline<br>C</p>
+<p>Network diagram<br>D</p>
+<p>SLA</p>
+<p>ChatGPT 说：<br>B — Baseline</p>
+<p>Which of the following ping commands specifies the time stamp for count hops in IPv4 addresses only?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>ping -n count<br>B</p>
+<p>ping -s count<br>C</p>
+<p>ping -i TTL<br>D</p>
+<p>ping -f<br>Explanation<br>Answer B is correct.</p>
+<p>Which of the following are the functions of load balancing?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>TCP offloading<br>B</p>
+<p>Priority queuing<br>C</p>
+<p>TLS offloading<br>D</p>
+<p>Content caching<br>Explanation<br>Answers A, B, and D are correct.</p>
+<p>The inverse-square law applied to antenna placement dictates that if the distance from the antenna to the receiving device is doubled, then the signal will drop by how much?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>12 dB<br>B</p>
+<p>10 dB<br>C</p>
+<p>8 dB<br>D</p>
+<p>6 dB<br>Explanation<br>Answer D is correct.</p>
+<p>Which of the following statements are correct about network connectivity?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>In a wireless network, a physical connection between the points is not necessary.<br>B</p>
+<p>The target system must be able to recognize and act on the data it receives.<br>C</p>
+<p>Each system on the network must be able to transmit information to any other system with which it might want to communicate.<br>D</p>
+<p>There must be a physical connection between all points on the network.<br>Explanation<br>Answers B, C, and D are correct.</p>
+<p>Which of the following statements are true about a hub?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It’s similar to a repeater with more than two ports.<br>B</p>
+<p>A hub has no memory for storing data.<br>C</p>
+<p>Connections to a hub are always effectively half-duplex.<br>D</p>
+<p>A hub contains a repeater to help it maintain signal strength.<br>Explanation<br>Answers A, B, and C are correct.</p>
+<p>Which of the following statements are true about the presentation layer of the OSI model?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>It includes HTTP, FTP, telnet, and email.<br>B</p>
+<p>It is sometimes called the syntax layer.<br>C</p>
+<p>It provides services used by host applications.<br>D</p>
+<p>It controls the formatting and security of data.<br>Explanation<br>Answers B and D are correct.</p>
+<p>Which of these are examples of IoT devices?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>A remotely monitored cardiac pacemaker<br>B</p>
+<p>A smartphone app for your home thermostat<br>C</p>
+<p>A key fob that unlocks your car<br>D</p>
+<p>A television remote control<br>E</p>
+<p>A refrigerator with an internal camera<br>Explanation<br>Answers A, B, and E are correct.</p>
+<p>Which of these are the characteristics of jumbo frames?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Used in WAN<br>B</p>
+<p>Used in SAN<br>C</p>
+<p>Used in LAN<br>D</p>
+<p>MTU &gt; 1500<br>E</p>
+<p>MTU &gt; 10000<br>F</p>
+<p>Improves network performance<br>Explanation<br>Answers B, D, and F are correct.</p>
+<p>Which of these is not a primary method of load-balancer configuration?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Priority weighting<br>B</p>
+<p>Least connection<br>C</p>
+<p>Random<br>D</p>
+<p>Round-robin<br>Explanation<br>Answer A is correct.</p>
+<p>Your supervisor has asked you to increase the security of the servers on your network. Which of the following procedures can be considered to be the server hardening techniques?<br>Each correct answer represents a complete solution. Choose all that apply.<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>Disabling unused TCP and UDP ports<br>B</p>
+<p>Upgrading server firmware<br>C</p>
+<p>Disabling unnecessary services<br>D</p>
+<p>Creating privileged user accounts<br>Explanation<br>Answers A, C, and D are correct.</p>
+<p>Which of the following IP addresses is a local host that the router has already spotted via Ethernet traffic and added to the table?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>192.168.200.36<br>B</p>
+<p>192.178.100.36<br>C</p>
+<p>192.168.100.24<br>D</p>
+<p>192.168.100.36<br>Explanation<br>Answer C is correct.</p>
+<p>no bookmarked, confident, or note marked bookmark popover collapsed<br>Question 81 :<br>Which of the following technologies lets the switch bind multiple physical ports into a single logical interface?<br>This type of question contains radio buttons and checkboxes for selection of options. Use Tab for navigation and Enter or space to select the option.<br>A</p>
+<p>LACP<br>B</p>
+<p>Routing table<br>C</p>
+<p>Port aggregation<br>D</p>
+<p>STP<br>Explanation<br>Answer C is correct.</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/English/" rel="tag"><i class="fa fa-tag"></i> English</a>
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/NA/" rel="tag"><i class="fa fa-tag"></i> NA</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/supervisor_intro/" rel="next" title="supervisor 备忘">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    supervisor 备忘
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/goland_pycharm_activation/" rel="prev" title="Pycharm & Goland 激活">
+                <p class="post-nav-pre-next-title">
+                    Pycharm & Goland 激活
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Network-Management"><span class="nav-text">Network Management</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#quiz22"><span class="nav-text">quiz22</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#quiz23"><span class="nav-text">quiz23</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#quiz24"><span class="nav-text">quiz24</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#quiz25"><span class="nav-text">quiz25</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#practice-A"><span class="nav-text">practice A</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#practice-B"><span class="nav-text">practice B</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '构建游戏网络协议三之数据包的分包和重组' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GafferOnGames,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="本篇自我总结本篇主要讲了数据包的分包和重组问题, 到底数据包多大才好呢?是不是越大越好呢?包太大了怎么办呢?请看总结, 不明之处再看文中具体讲解. 为什么需要做这个分包和重组系统每台计算机(路由器)会沿着路由强制要求数据包的大小会有一个最大的上限，这个上限就是所谓的最大传输单元MTU。如果任意一个路由器收到一个数据包的大小超过这个最大传输单元的大小，它有这么两个选择，a)在IP层对这个数据包进行分">
+<meta name="keywords" content="GafferOnGames">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建游戏网络协议三之数据包的分包和重组">
+<meta property="og:url" content="https://hulinhong.com/packet_fragmentation_and_reassembly/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="本篇自我总结本篇主要讲了数据包的分包和重组问题, 到底数据包多大才好呢?是不是越大越好呢?包太大了怎么办呢?请看总结, 不明之处再看文中具体讲解. 为什么需要做这个分包和重组系统每台计算机(路由器)会沿着路由强制要求数据包的大小会有一个最大的上限，这个上限就是所谓的最大传输单元MTU。如果任意一个路由器收到一个数据包的大小超过这个最大传输单元的大小，它有这么两个选择，a)在IP层对这个数据包进行分">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建游戏网络协议三之数据包的分包和重组">
+<meta name="twitter:description" content="本篇自我总结本篇主要讲了数据包的分包和重组问题, 到底数据包多大才好呢?是不是越大越好呢?包太大了怎么办呢?请看总结, 不明之处再看文中具体讲解. 为什么需要做这个分包和重组系统每台计算机(路由器)会沿着路由强制要求数据包的大小会有一个最大的上限，这个上限就是所谓的最大传输单元MTU。如果任意一个路由器收到一个数据包的大小超过这个最大传输单元的大小，它有这么两个选择，a)在IP层对这个数据包进行分">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>构建游戏网络协议三之数据包的分包和重组 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/packet_fragmentation_and_reassembly/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">构建游戏网络协议三之数据包的分包和重组</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-26T03:13:35+00:00">
+                02-26-2017
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GS/" itemprop="url" rel="index">
+                    <span itemprop="name">GS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/GafferOnGames/" rel="tag"><i class="fa fa-tag"></i> GafferOnGames</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/serialization_strategies/" rel="next" title="构建游戏网络协议二之序列化策略">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  构建游戏网络协议二之序列化策略
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/sending_large_blocks_of_data/" rel="prev" title="构建游戏网络协议四之发送大块数据">
+              <p class="post-nav-pre-next-title">
+                  构建游戏网络协议四之发送大块数据
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="本篇自我总结"><a href="#本篇自我总结" class="headerlink" title="本篇自我总结"></a>本篇自我总结</h1><p>本篇主要讲了数据包的分包和重组问题, 到底数据包多大才好呢?是不是越大越好呢?包太大了怎么办呢?<br>请看总结, 不明之处再看文中具体讲解.</p>
+<h2 id="为什么需要做这个分包和重组系统"><a href="#为什么需要做这个分包和重组系统" class="headerlink" title="为什么需要做这个分包和重组系统"></a>为什么需要做这个分包和重组系统</h2><p>每台计算机(路由器)会沿着路由强制要求数据包的大小会有一个最大的上限，这个上限就是所谓的最大传输单元MTU。如果任意一个路由器收到一个数据包的大小超过这个最大传输单元的大小，它有这么两个选择，a)在IP层对这个数据包进行分包，并将分包后的数据包继续传递，b)丢弃这个数据包然后告诉你数据包被丢弃了，你自己负责摆平这个问题。</p>
+<p><strong>实例</strong> : 这儿有一个我会经常遇到的情况。人们在编写多人在线游戏的时候，数据包的平均大小都会非常的小，让我们假设下，这些数据包的平均大小大概只有几百字节，但时不时会在他们的游戏中同时发生大量的事情并且发出去的数据包会出现丢失的情况，这个时候数据包会比通常的情况下要大。突然之间，游戏的数据包的大小就会超过最大传输单元的大小，这样就只有很少一部分玩家能够收到这个数据包，然后整个通信就崩溃了。</p>
+<h2 id="本篇基本术语"><a href="#本篇基本术语" class="headerlink" title="本篇基本术语"></a>本篇基本术语</h2><ul>
+<li>数据包packets</li>
+<li>分包fragments</li>
+</ul>
+<h2 id="分包的数据结构"><a href="#分包的数据结构" class="headerlink" title="分包的数据结构"></a>分包的数据结构</h2><p>我们将允许一个数据包最多可以分成256个数据包，并且每个分包后的数据包的大小不会超过1024个字节。这样的话，我们就可以通过这样一个系统来发送大小最大为256k的数据包</p>
+<pre><del>[protocol id] (32 bits)</del>   // not actually sent, but used to calc crc32
+[crc32] (32 bits)  
+[sequence] (16 bits)  // 数据包序号
+[packet type = 0] (2 bits)
+<strong>[fragment id] (8 bits) // 分包ID
+[num fragments] (8 bits)
+[pad zero bits to nearest byte index] // 用于字节对齐的bits
+&lt;fragment data&gt;</strong>
+</pre>
+
+<h2 id="发送分包后的数据包"><a href="#发送分包后的数据包" class="headerlink" title="发送分包后的数据包"></a>发送分包后的数据包</h2><p>发送分包以后的数据包是一件非常容易的事情。如果数据包的大小小于保守估计的最大传输单元的大小。那么就按正常的方法进行发送。否则的话，就计算这个数据包到底该分成多少个1024字节的数据包分包，然后构建这些分包并按照之前发送正常数据包的方法进行发送。</p>
+<p>发送出去以后也不记录发送的数据包的内容，这种发送以后不记录发送的数据包的内容的方法有一个后果，就是数据包的任意一个分包如果丢失的话，那么整个数据包就都要丢弃。随着分包数量的增加，整个数据包被丢弃的概率也随之增加.由此可见，当你需要发送要给256K的数据包的时候要发送256个分包，如果有一个分包丢失的话，你就要重新把这个256k的数据包再分一次包然后再发送出去。</p>
+<h2 id="什么时候用这个分包和重组系统呢"><a href="#什么时候用这个分包和重组系统呢" class="headerlink" title="什么时候用这个分包和重组系统呢"></a>什么时候用这个分包和重组系统呢</h2><p>因为发送出去以后也不记录发送的数据包, 随着分包数量的增加，整个数据包被丢弃的概率也随之增加, 而一个片段的丢失就会导致整个数据包都要被丢弃掉.所以我建议你要小心分包以后的数量。</p>
+<p><strong>这个分包和重组系统最好是只对2-4个分包的情况进行使用，而且最好是针对那种对时间不怎么敏感的数据使用或者是就算分包lost了也无所谓的情况。</strong>绝对不要只是为了省事就把一大堆依赖顺序的事件打到一个大数据包里面然后依赖数据包的分包和重组机制进行发送。这会让事情变得更加麻烦。</p>
+<p>数据包分包和重组系统的关键弱点是一个片段的丢失就会导致整个数据包都要被丢弃掉, 想要解决这个弱点得使用大块数据发送策略, 见下一篇文章 <a href="/sending_large_blocks_of_data/" title="构建游戏网络协议四之发送大块数据">构建游戏网络协议四之发送大块数据</a>.</p>
+<h2 id="接收分包后的数据包"><a href="#接收分包后的数据包" class="headerlink" title="接收分包后的数据包"></a>接收分包后的数据包</h2><p>之所以对分包后的数据包进行接收很困难的原因是我们不仅需要给缓冲区建立一个数据结构还要把这些分包重组成原始的数据包，我们也要特别小心如果有人试图让我们的程序产生崩溃而给我们发送恶意的数据包。</p>
+<p>要非常小心检查一切可能的情况。除此之外，还有一个非常简单的事情要注意：让分包保存在一个数据结构里面，当一个数据包的所有分包都到达以后（通过计数来判断是否全部到达），将这些分包重组成一个大的数据包，并把这个重组后的大数据包返回给接收方。</p>
+<p>什么样的数据结构在这里是有意义的?这里并没有什么特别的数据结构!我使用的是一种我喜欢称之为序列缓冲区的东西。我想和你分享的最核心的技巧是如何让这个数据结构变得高效：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const int MaxEntries = 256;</span><br><span class="line"> </span><br><span class="line">struct SequenceBuffer</span><br><span class="line">&#123;</span><br><span class="line">    bool exists[MaxEntries];</span><br><span class="line">    uint16_t sequence[MaxEntries];</span><br><span class="line">    Entry entries[MaxEntries];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="https://gafferongames.com/post/packet_fragmentation_and_reassembly/" target="_blank" rel="noopener">原文出处</a></p>
+<p>原文标题 : <strong>Packet Fragmentation and Reassembly</strong> (<em>How to send and receive packets larger than MTU</em>)</p>
+<hr>
+<p></p><h2 id="introduction">Introduction</h2><p></p>
+<p>Hi, I’m <a href="https://gafferongames.com/about" target="_blank" rel="noopener">Glenn Fiedler</a> and welcome to <strong><a href="https://gafferongames.com/categories/building-a-game-network-protocol/" target="_blank" rel="noopener">Building a Game Network Protocol</a></strong>.</p><br><p>In the <a href="https://gafferongames.com/post/serialization_strategies/" target="_blank" rel="noopener">previous article</a> we discussed how to unify packet read and write into a single serialize function and added a bunch of safety features to packet read.</p><br><p>Now we are ready to start putting interesting things in our packets and sending them over the network, but immediately we run into an interesting question: <em>how big should our packets be?</em></p><br><p>To answer this question properly we need a bit of background about how packets are actually sent over the Internet.</p><br><h2 id="background">Background</h2><br><p>Perhaps the most important thing to understand about the internet is that there&rsquo;s no direct connection between the source and destination IP address. What actually happens is that packets hop from one computer to another to reach their destination.</p><br><p>Each computer along this route enforces a maximum packet size called the maximum transmission unit, or MTU. According to the IP standard, if any computer recieves a packet larger than its MTU, it has the option of a) fragmenting that packet, or b) dropping the packet.</p><br><p>So here&rsquo;s how this usually goes down. People write a multiplayer game where the average packet size is quite small, lets say a few hundred bytes, but every now and then when a lot of stuff is happening in their game and a burst of packet loss occurs, packets get a lot larger than usual, going above MTU for the route, and suddenly all packets start getting dropped!</p><br><p>Just last year (2015) I was talking with Alex Austin at Indiecade about networking in his game <a href="http://subrosagame.com" target="_blank" rel="noopener">Sub Rosa</a>. He had this strange networking bug he couldn&rsquo;t reproduce. For some reason, players would randomly get disconnected from the game, but only when a bunch of stuff was going on. It was extremely rare and he was unable to reproduce it. Alex told me looking at the logs it seemed like <em>packets just stopped getting through</em>.</p><br><p>This sounded <em>exactly</em> like an MTU issue to me, and sure enough, when Alex limited his maximum packet size to a reasonable value the bug went away.</p><br><h2 id="mtu-in-the-real-world">MTU in the real world</h2><br><p>So what&rsquo;s a reasonable maximum packet size?</p><br><p>On the Internet today (2016, IPv4) the real-world MTU is 1500 bytes.</p><br><p>Give or take a few bytes for UDP/IP packet header and you&rsquo;ll find that the typical number before packets start to get dropped or fragmented is somewhere around 1472.</p><br><p>You can try this out for yourself by running this command on MacOS X:</p><br><pre>ping -g 56 -G 1500 -h 10 -D 8.8.4.4</pre><br><p>On my machine it conks out around just below 1500 bytes as expected:</p><br><pre>1404 bytes from 8.8.4.4: icmp_seq=134 ttl=56 time=11.945 ms<br>1414 bytes from 8.8.4.4: icmp_seq=135 ttl=56 time=11.964 ms<br>1424 bytes from 8.8.4.4: icmp_seq=136 ttl=56 time=13.492 ms<br>1434 bytes from 8.8.4.4: icmp_seq=137 ttl=56 time=13.652 ms<br>1444 bytes from 8.8.4.4: icmp_seq=138 ttl=56 time=133.241 ms<br>1454 bytes from 8.8.4.4: icmp_seq=139 ttl=56 time=17.463 ms<br>1464 bytes from 8.8.4.4: icmp_seq=140 ttl=56 time=12.307 ms<br>1474 bytes from 8.8.4.4: icmp_seq=141 ttl=56 time=11.987 ms<br>ping: sendto: Message too long<br>ping: sendto: Message too long<br>Request timeout for icmp_seq 142</pre><br><p>Why 1500? That&rsquo;s the default MTU for MacOS X. It&rsquo;s also the default MTU on Windows. So now we have an upper bound for your packet size assuming you actually care about packets getting through to Windows and Mac boxes without IP level fragmentation or a chance of being dropped: <strong>1472 bytes</strong>.</p><br><p>So what&rsquo;s the lower bound? Unfortunately for the routers in between your computer and the destination the IPv4 standard says <strong>576</strong>. Does this mean we have to limit our packets to 400 bytes or less? In practice, not really.</p><br><p>MacOS X lets me set MTU values in range 1280 to 1500 so considering packet header overhead, my first guess for a conservative lower bound on the IPv4 Internet today would be <strong>1200 bytes</strong>. Moving forward, in IPv6 this is also a good value, as any packet of 1280 bytes or less is guaranteed to get passed on without IP level fragmentation.</p><br><p>This lines up with numbers that I&rsquo;ve seen throughout my career. In my experience games rarely try anything complicated like attempting to discover path MTU, they just assume a reasonably conservative MTU and roll with that, something like 1000 to 1200 bytes of payload data. If a packet larger than this needs to be sent, it&rsquo;s split up into fragments by the game protocol and re-assembled on the other side.</p><br><p>And that&rsquo;s <em>exactly</em> what I&rsquo;m going to show you how to do in this article.</p><br><h2 id="fragment-packet-structure">Fragment Packet Structure</h2><br><p>Let&rsquo;s get started with implementation.</p><br><p>The first thing we need to decide is how we&rsquo;re going to represent fragment packets over the network so they are distinct from non-fragmented packets.</p><br><p>Ideally, we would like fragmented and non-fragmented packets to be compatible with the existing packet structure we&rsquo;ve already built, with as little overhead as possible in the common case when we are sending packets smaller than MTU.</p><br><p>Here&rsquo;s the packet structure from the previous article:</p><br><pre><del>[protocol id] (64 bits)</del> // not actually sent, but used to calc crc32<br>[crc32] (32 bits)<br>[packet type] (2 bits for 3 distinct packet types)<br>(variable length packet data according to packet type)<br>[end of packet serialize check] (32 bits)<br></pre><br><p>In our protocol we have three packet types: A, B and C.</p><br><p>Let&rsquo;s make one of these packet types generate really large packets:</p><br><pre>static const int MaxItems = 4096 * 4;<br><br>struct TestPacketB : public Packet<br>{<br>    int numItems;<br>    int items[MaxItems];<br><br>    TestPacketB() : Packet( TEST_PACKET_B )<br>    {<br>        numItems = random_int( 0, MaxItems );<br>        for ( int i = 0; i &lt; numItems; ++i )<br>            items[i] = random_int( -100, +100 );<br>    }<br><br>    template &lt;typename Stream&gt; bool Serialize( Stream &amp; stream )<br>    {<br>        serialize_int( stream, numItems, 0, MaxItems );<br>        for ( int i = 0; i &lt; numItems; ++i )<br>        {<br>            serialize_int( stream, items[i], -100, +100 );<br>        }<br>        return true;<br>    }<br>};<br></pre><br><p>This may seem somewhat contrived but these situations really do occur. For example, if you have a strategy where you send all un-acked events from server to client and you hit a burst of packet loss, you can easily end up with packets larger than MTU, even though your average packet size is quite small.</p><br><p>Another common case is delta encoded snapshots in a first person shooter. Here packet size is proportional to the amount of state changed between the baseline and current snapshots for each client. If there are a lot of differences between the snapshots the delta packet is large and there&rsquo;s nothing you can do about it except break it up into fragments and re-assemble them on the other side.</p><br><p>Getting back to packet structure. It&rsquo;s fairly common to add a sequence number at the header of each packet. This is just a packet number that increases with each packet sent. I like to use 16 bits for sequence numbers even though they wrap around in about 15 minutes @ 60 packets-per-second, because it&rsquo;s extremely unlikely that a packet will be delivered 15 minutes late.</p><br><p>Sequence numbers are useful for a bunch of things like acks, reliability and detecting and discarding out of order packets. In our case, we&rsquo;re going to use the sequence number to identify which packet a fragment belongs to:</p><br><pre><del>[protocol id] (64 bits)</del>   // not actually sent, but used to calc crc32<br>[crc32] (32 bits)<br><strong>[sequence] (16 bits)</strong><br>[packet type] (2 bits)<br>(variable length packet data according to packet type)<br>[end of packet serialize check] (32 bits)<br></pre><br><p>Here&rsquo;s the interesting part. Sure we could just add a bit <strong>is_fragment</strong> to the header, but then in the common case of non-fragmented packets you&rsquo;re wasting one bit that is always set to zero.</p><br><p>What I do instead is add a special fragment packet type:</p><br><pre>enum TestPacketTypes<br>{<br>    PACKET_FRAGMENT = 0,     // RESERVED<br>    TEST_PACKET_A,<br>    TEST_PACKET_B,<br>    TEST_PACKET_C,<br>    TEST_PACKET_NUM_TYPES<br>};<br></pre><br><p>And it just happens to be <em>free</em> because four packet types fit into 2 bits. Now when a packet is read, if the packet type is zero we know it&rsquo;s a fragment packet, otherwise we run through the ordinary, non-fragmented read packet codepath.</p><br><p>Lets design what this fragment packet looks like. We&rsquo;ll allow a maximum of 256 fragments per-packet and have a fragment size of 1024 bytes. This gives a maximum packet size of 256k that we can send through this system, which should be enough for anybody, but please don&rsquo;t quote me on this.</p><br><p>With a small fixed size header, UDP header and IP header a fragment packet be well under the conservative MTU value of 1200. Plus, with 256 max fragments per-packet we can represent a fragment id in the range [0,255] and the total number of fragments per-packet [1,256] with 8 bits.</p><br><pre><del>[protocol id] (32 bits)</del>   // not actually sent, but used to calc crc32<br>[crc32] (32 bits)<br>[sequence] (16 bits)<br>[packet type = 0] (2 bits)<br><strong>[fragment id] (8 bits)<br>[num fragments] (8 bits)<br>[pad zero bits to nearest byte index]<br>&lt;fragment data&gt;</strong><br></pre><br><p>Notice that we pad bits up to the next byte before writing out the fragment data. Why do this? Two reasons: 1) it&rsquo;s faster to copy fragment data into the packet via memcpy than bitpacking each byte, and 2) we can now save a small amount of bandwidth by inferring the fragment size by subtracting the start of the fragment data from the total size of the packet.</p><br><h2 id="sending-packet-fragments">Sending Packet Fragments</h2><br><p>Sending packet fragments is <em>easy</em>. For any packet larger than conservative MTU, simply calculate how many 1024 byte fragments it needs to be split into, and send those fragment packets over the network. Fire and forget!</p><br><p>One consequence of this is that if <em>any</em> fragment of that packet is lost then the entire packet is lost. It follows that if you have packet loss then sending a 256k packet as 256 fragments is not a very good idea, because the probability of dropping a packet increases significantly as the number of fragments increases. Not quite linearly, but in an interesting way that you can read more about <a href="https://www.fourmilab.ch/rpkp/experiments/statistics.html" target="_blank" rel="noopener">here</a>.</p><br><p>In short, to calculate the probability of losing a packet, you must calculate the probability of all fragments being delivered successfully and subtract that from one, giving you the probability that at least one fragment was dropped.</p><br><pre>1 - probability_of_fragment_being_delivered ^ num_fragments<br></pre><br><p>For example, if we send a non-fragmented packet over the network with 1% packet loss, there is naturally a <sup>1</sup>&frasl;<sub>100</sub> chance the packet will be dropped.</p><br><p>As the number of fragments increase, packet loss is amplified:<br><ul><br><li>Two fragments: 1 - (<sup>99</sup>&frasl;<sub>100</sub>) ^ 2 = <strong>2%</strong></li><br><li>Ten fragments: 1 - (<sup>99</sup>&frasl;<sub>100</sub>) ^ 10 = <strong>9.5%</strong></li><br><li>100 fragments: 1 - (<sup>99</sup>&frasl;<sub>100</sub>) ^ 100 = <strong>63.4%</strong></li><br><li>256 fragments: 1 - (<sup>99</sup>&frasl;<sub>100</sub>) ^ 256 = <strong>92.4%</strong></li><br></ul></p><br><p>So I recommend you take it easy with the number of fragments. It&rsquo;s best to use this strategy only for packets in the 2-4 fragment range, and only for time critical data that doesn&rsquo;t matter too much if it gets dropped. It&rsquo;s <em>definitely not</em> a good idea to fire down a bunch of reliable-ordered events in a huge packet and rely on packet fragmentation and reassembly to save your ass.</p><br><p>Another typical use case for large packets is when a client initially joins a game. Here you usually want to send a large block of data down reliably to that client, for example, representing the initial state of the world for late join. Whatever you do, don&rsquo;t send that block of data down using the fragmentation and re-assembly technique in this article.</p><br><p>Instead, check out the technique in <a href="https://gafferongames.com/post/sending-large-blocks-of-data.html" target="_blank" rel="noopener">next article</a> which handles packet loss by resending fragments until they are all received.</p><br><h2 id="receiving-packet-fragments">Receiving Packet Fragments</h2><br><p>It&rsquo;s time to implement the code that receives and processed packet fragments. This is a bit tricky because we have to be particularly careful of somebody trying to attack us with malicious packets.</p><br><p>Here&rsquo;s a list of all the ways I can think of to attack the protocol:</p><br><ul><br><li><p>Try to send out of bound fragments ids trying to get you to crash memory. eg: send fragments [0,255] in a packet that has just two fragments.</p></li><br><li><p>Send packet n with some maximum fragment count of say 2, and then send more fragment packets belonging to the same packet n but with maximum fragments of 256 hoping that you didn&rsquo;t realize I widened the maximum number of fragments in the packet after the first one you received, and you trash memory.</p></li><br><li><p>Send really large fragment packets with fragment data larger than 1k hoping to get you to trash memory as you try to copy that fragment data into the data structure, or blow memory budget trying to allocate fragments</p></li><br><li><p>Continually send fragments of maximum size (<sup>256</sup>&frasl;<sub>256</sub> fragments) in hope that it I could make you allocate a bunch of memory and crash you out. Lets say you have a sliding window of 256 packets, 256 fragments per-packet max, and each fragment is 1k. That&rsquo;s 64 mb per-client.</p></li><br><li><p>Can I fragment the heap with a bunch of funny sized fragment packets sent over and over? Perhaps the server shares a common allocator across clients and I can make allocations fail for other clients in the game because the heap becomes fragmented.</p></li><br></ul><br><p>Aside from these concerns, implementation is reasonably straightforward: store received fragments somewhere and when all fragments arrive for a packet, reassemble them into the original packet and return that to the user.</p><br><h2 id="data-structure-on-receiver-side">Data Structure on Receiver Side</h2><br><p>The first thing we need is some way to store fragments before they are reassembled. My favorite data structure is something I call a <em>sequence buffer</em>:</p><br><pre>const int MaxEntries = 256;<br><br>struct SequenceBuffer<br>{<br>    uint32_t sequence[MaxEntries];<br>    Entry entries[MaxEntries];<br>};<br></pre><br><p>Indexing into the arrays is performed with modulo arithmetic, giving us a fast O(1) lookup of entries by sequence number:</p><br><pre>const int index = sequence % MaxEntries;<br></pre><br><p>A sentinel value of 0xFFFFFFFF is used to represent empty entries. This value cannot possibly occur with 16 bit sequence numbers, thus providing us with a fast test to see if an entry exists for a given sequence number, without an additional branch to test if that entry exists.</p><br><p>This data structure is used as follows. When the first fragment of a new packet comes in, the sequence number is mapped to an entry in the sequence buffer. If an entry doesn&rsquo;t exist, it&rsquo;s added and the fragment data is stored in there, along with information about the fragment, eg. how many fragments there are, how many fragments have been received so far, and so on.</p><br><p>Each time a new fragment arrives, it looks up the entry by the packet sequence number. When an entry already exists, the fragment data is stored and number of fragments received is incremented. Eventually, once the number of fragments received matches the number of fragments in the packet, the packet is reassembled and delivered to the user.</p><br><p>Since it&rsquo;s possible for old entries to stick around (potentially with allocated blocks), great care must be taken to clean up any stale entries when inserting new entries in the sequence buffer. These stale entries correspond to packets that didn&rsquo;t receive all fragments.</p><br><p>And that&rsquo;s basically it at a high level. For further details on this approach please refer to the example source code for this article. </p><br><p><a href="https://www.patreon.com/gafferongames" target="_blank" rel="noopener">Click here to get the example source code for this article series</a>.</p><br><h2 id="test-driven-development">Test Driven Development</h2><br><p>One thing I&rsquo;d like to close this article out on.</p><br><p>Writing a custom UDP network protocol is <em>hard</em>. It&rsquo;s so hard that even though I&rsquo;ve done this from scratch at least 10 times, each time I still manage to fuck it up in a new and exciting ways. You&rsquo;d think eventually I&rsquo;d learn, but this stuff is complicated. You can&rsquo;t just write low-level netcode and expect it to just work.</p><br><p>You have to test it!</p><br><p>My strategy when testing low-level netcode is as follows:</p><br><ul><br><li><p>Code defensively. Assert everywhere. These asserts will fire and they&rsquo;ll be important clues you need when something goes wrong.</p></li><br><li><p>Add functional tests and make sure stuff is working as you are writing it. Put your code through its paces at a basic level as you write it and make sure it&rsquo;s working as you build it up. Think hard about the essential cases that need to be property handled and add tests that cover them.</p></li><br><li><p>But just adding a bunch of functional tests is not enough. There are of course cases you didn&rsquo;t think of! Now you have to get really mean. I call this soak testing and I&rsquo;ve never, not even once, have coded a network protocol that hasn&rsquo;t subsequently had problems found in it by soak testing.</p></li><br><li><p>When soak testing just loop forever and just do a mix of random stuff that puts your system through its paces, eg. random length packets in this case with a huge amount of packet loss, out of order and duplicates through a packet simulator. Your soak test passes when it runs overnight and doesn&rsquo;t hang or assert.</p></li><br><li><p>If you find anything wrong with soak testing. You may need to go back and add detailed logs to the soak test to work out how you got to the failure case. Once you know what&rsquo;s going on, stop. Don&rsquo;t fix it immediately and just run the soak test again.</p></li><br><li><p>Instead, add a unit test that reproduces that problem you are trying to fix, verify your test reproduces the problem, and that it problem goes away with your fix. Only after this, go back to the soak test and make sure they run overnight. This way the unit tests document the correct behavior of your system and can quickly be run in future to make sure you don&rsquo;t break this thing moving forward when you make other changes.</p></li><br><li><p>Add a bunch of logs. High level errors, info asserts showing an overview of what is going on, but also low-level warnings and debug logs that show what went wrong after the fact. You&rsquo;re going to need these logs to diagnose issues that don&rsquo;t occur on your machine. Make sure the log level can be adjusted dynamically.</p></li><br><li><p>Implement network simulators and make sure code handles the worst possible network conditions imaginable. 99% packet loss, 10 seconds of latency and +/- several seconds of jitter. Again, you&rsquo;ll be surprised how much this uncovers. Testing is the time where you want to uncover and fix issues with bad network conditions, not the night before your open beta.</p></li><br><li><p>Implement fuzz tests where appropriate to make sure your protocol doesn&rsquo;t crash when processing random packets. Leave fuzz tests running overnight to feel confident that your code is reasonably secure against malicious packets and doesn&rsquo;t crash.</p></li><br><li><p>Surprisingly, I&rsquo;ve consistently found issues that only show up when I loop the set of unit tests over and over, perhaps these issues are caused by different random numbers in tests, especially with the network simulator being driven by random numbers. This is a great way to take a rare test that fails once every few days and make it fail every time. So before you congratulate yourself on your tests passing 100%, add a mode where your unit tests can be looped easily, to uncover such errors.</p></li><br><li><p>Test simultaneously on multiple platforms. I&rsquo;ve never written a low-level library that worked first time on MacOS, Windows and Linux. There are always interesting compiler specific issues and crashes. Test on multiple platforms as you develop, otherwise it&rsquo;s pretty painful fixing all these at the end.</p></li><br><li><p>This about how people can attack the protocol. Implement code to defend against these attacks. Add functional tests that mimic these attacks and make sure that your code handles them correctly.</p></li><br></ul><br><p>This is my process and it seems to work pretty well. If you are writing a low-level network protocol, the rest of your game depends on this code working correctly. You need to be absolutely sure it works before you build on it, otherwise it&rsquo;s basically a stack of cards.</p><br><p>In my experience, game neworking is hard enough without having suspicions that that your low-level network protocol has bugs that only show up under extreme network conditions. That&rsquo;s exactly where you need to be able to trust your code works correctly. <strong>So test it!</strong></p>
+
+
+
+<h1 id="译文">译文</h1>
+
+
+<p><a href="http://gad.qq.com/program/translateview/7164496" target="_blank" rel="noopener">译文出处</a></p>
+<div class="WordSection1"><b><span style="font-family:微软雅黑;"><span style="color: rgb(34, 34, 34); font-size: 12pt;">译者：崔嘉艺</span><span style="color: rgb(34, 34, 34); font-size: 12pt;">(milan21) </span><span style="color: rgb(34, 34, 34); font-size: 12pt;">审校：崔国军（星际迷航）</span></span></b><div><span style="color: rgb(34, 34, 34); font-size: 12pt;"><span style="font-family:微软雅黑;"><br></span></span></div><p class="MsoNormal" align="left"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">大家好，我是格伦·菲德勒。欢迎大家阅读系列教程《构建游戏网络协议》的第三篇文章。</span><span style="color: rgb(34, 34, 34); font-size: 12pt;">在之前的文章中，我们讨论了如何将数据包的读取和写入用一个单独的序列化函数来实现。</span></span></p><p class="MsoNormal" align="left"><span style="color: rgb(34, 34, 34); font-size: 12pt;"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">现在我们要开始把一些有趣的事情放到这些数据包中，<span>,</span>但正如你即将开始编码的令人惊叹的多人在线动作、第一人称射击、大型多人在线角色扮演游戏、多人在线战术竞技游戏会发生的那样，当你以每秒<span>120</span>次的频率发送<span>8k</span>大小的数据包，游戏网络中会传来一个声音呼喊着你<span>:</span></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">“</span><span style="font-size: 12pt; color: rgb(34, 34, 34);">不要发送超过<span>1200</span>字节大小的数据包<span>!”</span></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">但是都已经<span>2016</span>年了，你真的要注意最大传输单元这个东西么<span>?</span></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">不幸的是，答案是是的！</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><h2 id="最大传输单元MTU"><span style="font-family:微软雅黑;">最大传输单元MTU</span></h2><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">你可能已经听说过最大传输单元了。在网络程序员中流传着大量有关最大传输单元问题的故事。那么这到底是怎么回事呢？究竟什么是最大传输单元<span>?</span>为什么你要在乎最大传输单元这个事情？</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">当你通过互联网来发送数据包的时候到底背后发生了什么？这些数据包要从一台计算机<span>(</span>路由器<span>)</span>跳到另一个计算机<span>(</span>路由器<span>)</span>上，如此往复多次才能到达自己的目的地。这是一个分组交换网络具体如何运作的方式。在大部分时间里，它的工作方式不像是在源和目的地之间存在一条直接的连接。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">但意外的是：每台计算机<span>(</span>路由器<span>)</span>会沿着路由强制要求数据包的大小会有一个最大的上限，这个上限就是所谓的最大传输单元。如果任意一个路由器收到一个数据包的大小超过这个最大传输单元的大小，它有这么两个选择，<span>a)</span>在<span>IP</span>层对这个数据包进行分包，并将分包后的数据包继续传递，<span>b)</span>丢弃这个数据包然后告诉你数据包被丢弃了，你自己负责摆平这个问题。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">这儿有一个我会经常遇到的情况。人们在编写多人在线游戏的时候，数据包的平均大小都会非常的小，让我们假设下，这些数据包的平均大小大概只有几百字节，但时不时会在他们的游戏中同时发生大量的事情并且发出去的数据包会出现丢失的情况，这个时候数据包会比通常的情况下要大。突然之间，游戏的数据包的大小就会超过最大传输单元的大小，这样就只有很少一部分玩家能够收到这个数据包，然后整个通信就崩溃了。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span><br></span>就在去年<span>(2015</span>年<span>)</span>，我与亚历克斯<span>·</span>奥斯汀在<span>Indiecade</span>谈论他的游戏<span>” </span></span><span><a rel="noopener" href="http://subrosagame.com/" target="_blank"><span style="font-size: 12pt; color: rgb(34, 34, 34); text-decoration: none;">Sub Rosa</span></a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);"> “</span><span style="font-size: 12pt; color: rgb(34, 34, 34);">中的网络部分。他遇到了一些奇怪的无法重现的网络<span>bug</span>。出于某种原因，一些客户端（在所有玩家里面总是有那么一个或者两个）会随机的从游戏中断开连接并且其他人都能够正常游戏。查看日志的话，亚历克斯又觉得一切都是正常的，只是看上去好像数据包突然停止进行传递了。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><span><br></span>对我来说，这听上去就像是一个最大传输单元所引起的问题，并且我非常确信。当亚历克斯把他最大的数据包大小限制在一个合理的值之内，这个<span>bug</span>就再也没有出现了。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><h2 id="真实世界中的最大传输单元MTU"><span style="font-family:微软雅黑;">真实世界中的最大传输单元MTU</span></h2><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">所以什么是“一个合理的数据包的大小”？</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">在今天的互联网上<span>(2016</span>年，还是基于<span>IPv4)</span>，典型的最大传输单元的大小是<span>1500</span>字节。在<span>UDP/IP</span>数据包的包头添加或者去掉几个字节，你会发现在数据包开始出现被丢弃或者被分包情况的一个典型的边界值是<span>1472</span>。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">你可以自己在<span>MacOS X</span>尝试运行下下面这个命令：</span></span></p><div style="border:solid #F0F0F0 1.0pt;border-left:solid #E0E0E0 2.25pt;padding:0cm 0cm 0cm 0cm;background:whitesmoke"><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">ping-g 56 -G 1500 -h 10 -D 8.8.4.4</span></span></p></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"> </span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">在我的机器上，这个结果在略微低于<span>1500</span>字节的大小上下浮动，符合预期：</span></span></p><div style="border:solid #F0F0F0 1.0pt;border-left:solid #E0E0E0 2.25pt;padding:0cm 0cm 0cm 0cm;background:whitesmoke"><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">1404bytes from 8.8.4.4: icmp_seq=134 ttl=56 time=11.945 ms</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">1414bytes from 8.8.4.4: icmp_seq=135 ttl=56 time=11.964 ms</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">1424bytes from 8.8.4.4: icmp_seq=136 ttl=56 time=13.492 ms</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">1434bytes from 8.8.4.4: icmp_seq=137 ttl=56 time=13.652 ms</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">1444bytes from 8.8.4.4: icmp_seq=138 ttl=56 time=133.241 ms</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">1454bytes from 8.8.4.4: icmp_seq=139 ttl=56 time=17.463 ms</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">1464bytes from 8.8.4.4: icmp_seq=140 ttl=56 time=12.307 ms</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">1474bytes from 8.8.4.4: icmp_seq=141 ttl=56 time=11.987 ms</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">ping:sendto: Message too long</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">ping:sendto: Message too long</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">Requesttimeout for icmp_seq 142</span></span></p></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"> </span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">为什么是<span>1500</span>字节？这是<span>MacOS X</span>上默认的最大传输单元的大小。这也是<span>Windows</span>平台上默认的最大传输单元的大小。所以现在我们对数据包的大小有了一个上限（也就是不能超过这个默认的最大传输单元的大小），假如你真的关心数据包通过<span>Windows</span>平台或者<span>Mac</span>平台进行传播而不希望数据包在<span>IP</span>层进行分包或者有被丢弃的可能的话，那么就要保证数据包的大小不能超过这个上限：<span>1472</span>个字节。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">那么这个最大传输单元的大小的下限是多少呢？<span>MacOS X</span>允许设置的最大传输单元的大小的值是在<span>1280</span>到<span>1500</span>，所以我对现在互联网上通过<span>IPv4</span>进行传播的数据包的最大传输单元的大小的下限有一个比较保守的估计，就是<span>1200</span>字节。如果是在通过<span>IPv4</span>进行传播的情况下这个比较保守的大传输单元的大小的下限也会是一个很好的估计值，任意数据包只要大小小于<span>1280</span>字节都能保证在没有<span>IP</span>层分包的情况下顺利的传播。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">这个估计与我在职业生涯中感受到的情况是比较一致的。以我的经验来看，很少有游戏会试图做这些复杂的事情，诸如尝试发现路径上的最大传输单元的大小之类的，它们一般都是假定一个合理又保守的最大传输单元的大小然后一直遵循这个值。如果出现一个要发送的数据包比这个保守的最大传输单元的大小要大的情况，游戏协议会将这个数据包分成几个包然后在网络的另外一侧进行重组。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">而这正是我要在这篇文章里面要向你传授的内容。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"></p><h2 id="分包后的数据包的结构"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:x-large;">分包后的数据包的结构</span></span></h2><p></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">让我们从决定该对网络上传输的数据分包后采用什么的结构进行表示来开始构建我们的数据包分包和重组机制。在理想状态下，我们希望分包以后的数据包和未分包的数据包兼容我们现在已经建立好的数据包结构，这样当我们发送小于最大传输单元的大小的数据包的时候，网络协议没有任何多余的负载。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">下面是在前一篇文章结束的时候得到的数据包的结构：</span></span></p><br><br><pre><del>[protocol id] (64 bits)</del> // not actually sent, but used to calc crc32<br>[crc32] (32 bits)<br>[packet type] (2 bits for 3 distinct packet types)<br>(variable length packet data according to packet type)<br>[end of packet serialize check] (32 bits)<br></pre><br><br><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">在我们这个例子之中，我们一共有三个数据包的类型，分别是Ａ、Ｂ和Ｃ。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">让我们用这三个数据包类型中的一个制造一个比最大传输单元的大小还要大一些的数据包：</span></span></p><div><div id="highlighter_44479" class="syntaxhighlighter  cpp"><div class="toolbar"><a class="toolbar_item command_help help">?</a></div><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><div class="line number1 index0 alt2"><span style="font-family:微软雅黑;">1</span></div><div class="line number2 index1 alt1"><span style="font-family:微软雅黑;">2</span></div><div class="line number3 index2 alt2"><span style="font-family:微软雅黑;">3</span></div><div class="line number4 index3 alt1"><span style="font-family:微软雅黑;">4</span></div><div class="line number5 index4 alt2"><span style="font-family:微软雅黑;">5</span></div><div class="line number6 index5 alt1"><span style="font-family:微软雅黑;">6</span></div><div class="line number7 index6 alt2"><span style="font-family:微软雅黑;">7</span></div><div class="line number8 index7 alt1"><span style="font-family:微软雅黑;">8</span></div><div class="line number9 index8 alt2"><span style="font-family:微软雅黑;">9</span></div><div class="line number10 index9 alt1"><span style="font-family:微软雅黑;">10</span></div><div class="line number11 index10 alt2"><span style="font-family:微软雅黑;">11</span></div><div class="line number12 index11 alt1"><span style="font-family:微软雅黑;">12</span></div><div class="line number13 index12 alt2"><span style="font-family:微软雅黑;">13</span></div><div class="line number14 index13 alt1"><span style="font-family:微软雅黑;">14</span></div><div class="line number15 index14 alt2"><span style="font-family:微软雅黑;">15</span></div><div class="line number16 index15 alt1"><span style="font-family:微软雅黑;">16</span></div><div class="line number17 index16 alt2"><span style="font-family:微软雅黑;">17</span></div><div class="line number18 index17 alt1"><span style="font-family:微软雅黑;">18</span></div><div class="line number19 index18 alt2"><span style="font-family:微软雅黑;">19</span></div><div class="line number20 index19 alt1"><span style="font-family:微软雅黑;">20</span></div><div class="line number21 index20 alt2"><span style="font-family:微软雅黑;">21</span></div><div class="line number22 index21 alt1"><span style="font-family:微软雅黑;">22</span></div><div class="line number23 index22 alt2"><span style="font-family:微软雅黑;">23</span></div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><span style="font-family:微软雅黑;"><code class="cpp keyword bold">static</code> <code class="cpp keyword bold">const</code> <code class="cpp color1 bold">int</code> <code class="cpp plain">MaxItems = 4096 * 4;</code></span></div><div class="line number2 index1 alt1"><span style="font-family:微软雅黑;"> </span></div><div class="line number3 index2 alt2"><span style="font-family:微软雅黑;"><code class="cpp keyword bold">struct</code> <code class="cpp plain">TestPacketB : </code><code class="cpp keyword bold">public</code> <code class="cpp plain">protocol2::Packet</code></span></div><div class="line number4 index3 alt1"><code class="cpp plain"><span style="font-family:微软雅黑;">{</span></code></div><div class="line number5 index4 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">numItems;</code></span></div><div class="line number6 index5 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp color1 bold">int</code> <code class="cpp plain">items[MaxItems];</code></span></div><div class="line number7 index6 alt2"><span style="font-family:微软雅黑;"> </span></div><div class="line number8 index7 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">TestPacketB() : Packet( TEST_PACKET_B )</code></span></div><div class="line number9 index8 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">{</code></span></div><div class="line number10 index9 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">        </code><code class="cpp plain">numItems = random_int( 0, MaxItems );</code></span></div><div class="line number11 index10 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">        </code><code class="cpp keyword bold">for</code> <code class="cpp plain">( </code><code class="cpp color1 bold">int</code> <code class="cpp plain">i = 0; i &lt; numItems; ++i )</code></span></div><div class="line number12 index11 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">            </code><code class="cpp plain">items[i] = random_int( -100, +100 );</code></span></div><div class="line number13 index12 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">}</code></span></div><div class="line number14 index13 alt1"><span style="font-family:微软雅黑;"> </span></div><div class="line number15 index14 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp keyword bold">template</code> <code class="cpp plain">&lt;</code><code class="cpp keyword bold">typename</code> <code class="cpp plain">stream</code><code class="cpp string"></code><code class="cpp plain">&gt; </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">Serialize( Stream &amp; stream )</code></span></div><div class="line number16 index15 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">{</code></span></div><div class="line number17 index16 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">        </code><code class="cpp plain">serialize_int( stream, numItems, 0, MaxItems );</code></span></div><div class="line number18 index17 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">        </code><code class="cpp keyword bold">for</code> <code class="cpp plain">( </code><code class="cpp color1 bold">int</code> <code class="cpp plain">i = 0; i &lt; numItems; ++i )</code></span></div><div class="line number19 index18 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">            </code><code class="cpp plain">serialize_int( stream, items[i], -100, +100 );</code></span></div><div class="line number20 index19 alt1"><span style="font-family:微软雅黑;"> </span></div><div class="line number21 index20 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">        </code><code class="cpp keyword bold">return</code> <code class="cpp keyword bold">true</code><code class="cpp plain">;</code></span></div><div class="line number22 index21 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">}</code></span></div><div class="line number23 index22 alt2"><span style="font-family:微软雅黑;"><code class="cpp plain">};</code><code class="cpp keyword bold"></code><code class="cpp plain"></code></span></div></div></td></tr></table></div></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><br></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">这可能看起来不怎么自然，但在现实世界中这些情况真的会发生。举个简单的例子来说，如果你有一个策略，这个策略是从服务器往客户端发送所有的未确认的事件，你会得到一组可信赖也有序的事件，但是也会遇到大量数据包的丢失的情况，你会轻易的遇到数据包比最大传输单元的大小还要大的情况，即使你的数据包的平均大小非常小。（译注：这是由于丢包重传导致的不停重发，而重发的数据包在<span>UDP</span>或者<span>TCP</span>上会进行合并。所以即使数据包的平均大小远小于最大传输单元的大小，但是由于大量这样的数据包的合并，还是很容易出现超过最大传输单元的大小的情况）。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">在大多数的情况下，通过实现这么一个策略：在一个数据包里面只包含很少一组事件或者状态更新来避免数据包的大小超过最大传输单元的大小，采用这种策略以后可以有效的规避上面的那种情况。这种规划在很多情况下都工作的很棒。。。但是有一种情况下这种策略也是存在问题的，这种情况就是增量编码。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">由一个增量编码器创建的数据包的大小是与当前状态与之前状态之间所发生的状态变化的数量成正比的。如果这两个状态之间有大量的不同的话，那么增量也将很大并且你对这种情况其实是没有什么办法的。如果出现一个增量恰好比最大传输单元的大小要大的情况，当然这是一个坏运气下才会出现的情况，但是你仍然要发送这个超过最大传输单元的大小的数据包！所以你可以看到，在增量编码的情况下，你真的不能限制数据包的最大大小一定小于最大传输单元的大小，在这种情况下，数据包的分包和重组策略就有了用武之地。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">让我们回到数据包的结构上面来。在每个数据包的包头的地方添加一个序号是一种非常常见的做法。这并没有什么复杂的。这只是一个数据包的序号，会在每个数据包进行发送的时候依次加一。举个例子来说，就是<span>0</span>、<span>1</span>、<span>2</span>、<span>3</span>这么简单。我喜欢用<span>16</span>比特来表示这个序号，即使在每秒发送<span>60</span>个数据包的情况下，只要<span>15</span>分钟序号就会被用完一遍，需要再次从头开始重用，但是这么做也没有什么关系，主要是因为你在网络上收到一个<span>15</span>分钟之前发送出去的数据包是一个非常罕见的事情，所以你很少会有机会困惑这到底是一个新的数据包还是一个旧的数据包（因为<span>IP</span>层在包头的地方有个跳转计数，超出一定跳转次数的数据包会被丢弃掉，所以基本不用担心这种情况）。如果你确实关心这个问题的话，请使用<span>32</span>比特的序号进行代替。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">无论你选择用多少比特来表示这个序号，它们对于很多事情都是有用的，比如说可依赖性、检测和丢弃乱序的数据包等等。除此之外，我们需要一个数据包序号的原因是在对数据包进行分包的时候，我们需要某个方法来确定这个数据包的分包到底是属于哪个数据包的。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">所以，让我们在我们的数据包的结构里面加上序号这个东西：</span></span></p><br><br><pre><del>[protocol id] (64 bits)</del>   // not actually sent, but used to calc crc32<br>[crc32] (32 bits)<br><strong>[sequence] (16 bits)</strong><br>[packet type] (2 bits)<br>(variable length packet data according to packet type)<br>[end of packet serialize check] (32 bits)<br></pre><br><br><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">这是最有趣的部分。我们可以在数据包的头部只添加一个比特的标识<span> is_fragment</span>，但是对于通常情况下根本不需要分包的数据包来说，你就浪费了一个比特，因为它总是要被置为<span>0</span>。这不是很好。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">相反，我的选择是在数据包的结构里面添加了一个特殊的<span>”</span>分包后的数据包<span>“</span>的类型：</span></span></p><div><div id="highlighter_815496" class="syntaxhighlighter  cpp"><div class="toolbar"><a class="toolbar_item command_help help">?</a></div><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><div class="line number1 index0 alt2"><span style="font-family:微软雅黑;">1</span></div><div class="line number2 index1 alt1"><span style="font-family:微软雅黑;">2</span></div><div class="line number3 index2 alt2"><span style="font-family:微软雅黑;">3</span></div><div class="line number4 index3 alt1"><span style="font-family:微软雅黑;">4</span></div><div class="line number5 index4 alt2"><span style="font-family:微软雅黑;">5</span></div><div class="line number6 index5 alt1"><span style="font-family:微软雅黑;">6</span></div><div class="line number7 index6 alt2"><span style="font-family:微软雅黑;">7</span></div><div class="line number8 index7 alt1"><span style="font-family:微软雅黑;">8</span></div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><span style="font-family:微软雅黑;"><code class="cpp keyword bold">enum</code> <code class="cpp plain">TestPacketTypes</code></span></div><div class="line number2 index1 alt1"><code class="cpp plain"><span style="font-family:微软雅黑;">{</span></code></div><div class="line number3 index2 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">PACKET_FRAGMENT = 0,     </code><code class="cpp comments">// RESERVED</code></span></div><div class="line number4 index3 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">TEST_PACKET_A,</code></span></div><div class="line number5 index4 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">TEST_PACKET_B,</code></span></div><div class="line number6 index5 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">TEST_PACKET_C,</code></span></div><div class="line number7 index6 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">TEST_PACKET_NUM_TYPES</code></span></div><div class="line number8 index7 alt1"><code class="cpp plain"><span style="font-family:微软雅黑;">};</span></code></div></div></td></tr></table></div></div><p class="MsoNormal" align="left" style="margin-bottom: 12pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="color: rgb(34, 34, 34); font-size: 12pt;"><span style="font-family:微软雅黑;"> </span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">这恰好不需要占据任何的空间，是因为四个数据包类型正好可以用两个比特来表示，而这两个比特的空间已经用于表示数据包类型了，我们只是在原来的枚举上新加了一个类型。这么处理以后，每次当我们读取一个数据包的时候，如果这个数据包的类型是<span>0</span>的话，我们就知道这个数据包是一个特殊的分包以后的数据包，它的内存布局可以通过数据包的类型得知，否则的话，我们就走回原来的通用的对非分包的数据包进行读取和处理的方法。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">让我们设计下这个分包后的数据包看起来应该是什么样子的。我们将允许一个数据包最多可以分成<span>256</span>个数据包，并且每个分包后的数据包的大小不会超过<span>1024</span>个字节。这样的话，我们就可以通过这样一个系统来发送大小最大为<span>256k</span>的数据包，这对于任意系统任意情况来说都应该是足够的，但是这只是我个人的一个看法，如果有特殊的情况，还请结合实际情况进行具体分析。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">有了这么一个不大的固定大小的数据包包头结构，再加上<span>UDP</span>的包头结构以及<span>IP</span>的包头结构，一个分包以后的数据包会小于之前我们保守估计的最大传输单元的大小：<span>1200</span>字节。除此之外，因为一个数据包最多可以分包成<span>256</span>个数据包，我们可以用【<span>0</span>，<span>255</span>】这个范围来表示分包的<span>id</span>和序号，这样每个分包里面还需要有<span>8</span>比特来表示这个序号。</span></span></p><br><br><pre><del>[protocol id] (32 bits)</del>   // not actually sent, but used to calc crc32<br>[crc32] (32 bits)<br>[sequence] (16 bits)<br>[packet type = 0] (2 bits)<br><strong>[fragment id] (8 bits)<br>[num fragments] (8 bits)<br>[pad zero bits to nearest byte index]<br>&lt;fragment data&gt;</strong><br></pre><br><br><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">请注意，我们把这几个比特对齐到了下一个字节，然后才把对齐以后的数据写入到数据包里面。我们为什么要这么做？这么做其实是有两个原因的<span>: 1) </span>这么处理以后可以通过<span>memcpy</span>函数更快的把分包的数据拷贝到数据包里面而不需要使用位打包器来对每个字节进行处理。<span>2) </span>我们通过不发送分包数据的大小节省了一小部分带宽。我们可以通过从数据包的整体大小减去分包数据起始位置的字节序号来推断出这个分包的大小。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"></p><h2 id="发送分包以后的数据包"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:x-large;">发送分包以后的数据包</span></span></h2><p></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">发送分包以后的数据包是一件非常容易的事情。如果数据包的大小小于保守估计的最大传输单元的大小。那么就按正常的方法进行发送。否则的话，就计算这个数据包到底该分成多少个<span>1024</span>字节的数据包分包，然后构建这些分包并按照之前发送正常数据包的方法进行发送。发送出去以后也不记录发送的数据包的内容，这没什么困难的！</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">这种发送以后不记录发送的数据包的内容的方法有一个后果，就是数据包的任意一个分包如果丢失的话，那么整个数据包就都要丢弃。由此可见，当你需要发送要给<span>256K</span>的数据包的时候要发送<span>256</span>个分包，如果有一个分包丢失的话，你就要重新把这个<span>256k</span>的数据包再分一次包然后再发送出去。这绝对不是一个好主意。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-family:微软雅黑;"><span style="font-size: 12pt; color: rgb(34, 34, 34);">这显然是一个很糟糕的办法，因为随着分包数目的增多，发生丢失的概率肯定是显著的增大。这种增长关系不是线性的，而是一种相当复杂的关系，如果你对这个计算感兴趣的话，你可以读下<a rel="noopener" href="http://www.fourmilab.ch/rpkp/experiments/statistics.html" target="_blank">这篇文章</a></span><span style="font-size: 12pt; color: rgb(34, 34, 34);">。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">简而言之，如果你要计算一个数据包会被丢弃的概率，你必须要计算所有分包被成功发送到目的地的概率，然后从<span>1</span>中减去这个概率，得到的结果就是至少有一个分包丢失的概率。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">下面这个公式可以用来计算因为分包丢失导致整个数据包被丢弃的概率：</span></span></p><p class="MsoNormal" align="left" style="margin-bottom: 12pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-size: 10pt; color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;">＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼</span></span></p><div style="border:solid #F0F0F0 1.0pt;border-left:solid #E0E0E0 2.25pt;padding:0cm 0cm 0cm 0cm;background:whitesmoke"><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">1- ( probability of fragment being delivered ) ^ num_fragments</span></span></p></div><p class="MsoNormal" align="left" style="margin-bottom: 12pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-size: 10pt; color: rgb(40, 40, 40);"><span style="font-family:微软雅黑;">＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼＼</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"> </span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">让我们举个简单的例子对上面这个公式进行说明，如果我们发送的一个不需要分包的数据包，如果它在网络上传说的时候丢失的概率是<span>1%</span>，那么只有百分之一的概率会出现这个数据包被丢弃的情况，或者我们不要嫌麻烦，把这些数据代入到上面这个公式里面<span>: 1 – (99/100) ^ 1 = 1/100 = 1%</span>。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">随着分包数量的增加，整个数据包被丢弃的概率也随之增加：</span></span></p><ul type="disc"><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-size: 12pt;"><span style="font-family:微软雅黑;">两个分包的情况：<span> 1 – (99/100) ^ 2 = <b><span style="border:none windowtext 1.0pt;     padding:0cm">2%</span></b></span><b><span style="border:none windowtext 1.0pt;     padding:0cm">。</span></b></span></span></li><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-size: 12pt;"><span style="font-family:微软雅黑;">十个分包的情况：<span> 1 – (99/100) ^ 10 = <b><span style="border:none windowtext 1.0pt;     padding:0cm">9.5%</span></b></span><b><span style="border:none windowtext 1.0pt;     padding:0cm">。</span></b></span></span></li><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-size: 12pt;"><span style="font-family:微软雅黑;">一百个分包的情况：<span> 1 – (99/100) ^ 100 = <b><span style="border:none windowtext 1.0pt;     padding:0cm">63.4%</span></b></span><b><span style="border:none windowtext 1.0pt;     padding:0cm">。</span></b></span></span></li><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-size: 12pt;"><span style="font-family:微软雅黑;">二百五十六个分包的情况：<span> 1 – (99/100) ^ 256 = <b><span style="border:none windowtext 1.0pt;     padding:0cm">92.4%</span></b></span><b><span style="border:none windowtext 1.0pt;     padding:0cm">。</span></b></span></span></li></ul><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">所以我建议你要小心分包以后的数量。这个策略最好是只对<span>2-4</span>个分包的情况进行使用，而且最好是针对那种对时间不怎么敏感的数据使用或者是就算分包lost了也无所谓的情况。绝对不要只是为了省事就把一大堆依赖顺序的事件打到一个大数据包里面然后依赖数据包的分包和重组机制进行发送。这会让事情变得更加麻烦。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">大数据包的另外一种典型的用途是当客户端新连入一个游戏服务器的时候。游戏服务器通常会把大块的数据以一种可靠的方式下发给客户端。对于后期才加入的客户端而言，这些大块的数据也许代表了世界的初始状态。无论这些数据包含了怎么样的信息，请不要使用本篇文章的分包技巧来给客户端下发大块的数据。相反，请查阅这个系列教程的下篇文章，在那篇文章里面将讲解如何在有数据包可能发生丢失的情况下，快速可靠的发送大块的数据直到这些大块的数据完全被确认接收。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"></p><h2 id="对分包后的数据包的接收"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:x-large;">对分包后的数据包的接收</span></span></h2><p></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">尽管发送分包以后的数据包是一件相同简单的事情，但是对分包后的数据包进行接收就相对需要技巧了。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">之所以对分包后的数据包进行接收很困难的原因是我们不仅需要给缓冲区建立一个数据结构还要把这些分包重组成原始的数据包，我们也要特别小心如果有人试图让我们的程序产生崩溃而给我们发送恶意的数据包。</span></span></p><br><br><pre><del>[protocol id] (32 bits)</del>   // not actually sent, but used to calc crc32<br>[crc32] (32 bits)<br>[sequence] (16 bits)<br>[packet type = 0] (2 bits)<br><strong>[fragment id] (8 bits)<br>[num fragments] (8 bits)<br>[pad zero bits to nearest byte index]<br>&lt;fragment data&gt;</strong><br></pre><br><br><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">下面列出的是我能想到的如何攻击你的协议以便让你的服务器崩溃的所有方法：</span></span></p><ul type="disc"><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-size: 12pt;"><span style="font-family:微软雅黑;">尝试发送分包<span>ID</span>在一个限制范围内的分包，看看能不能让你的程序崩溃。举个例子来说，也许这个数据包只有两个分包，但是我会发送多个分包<span>ID</span>在【０，２５５】之内的分包。</span></span></li><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-size: 12pt;"><span style="font-family:微软雅黑;">发送一个数据包，让我们假设这个书包的最大分包数量是<span>2</span>，然后发送多个属于这个数据包的分包，但是在分包的数据包报头里面把最大分包的数量改为<span>256</span>，来希望你在接收完第一个分包以后，不会发现分包的最大数量信息被改变了，这样就有可能造成你的内存崩溃。</span></span></li><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-size: 12pt;"><span style="font-family:微软雅黑;">发送非常大的分包，让分包里面的数据超过<span>1k</span>，测试下你在试图把分包数据拷贝到数据结构的时候是否有良好的判断，如果没有良好的判断的话，这也许会让你的内存崩溃，或者占用大量的内容让你在分配新的分包的时候没有空间。 </span></span></li><li class="MsoNormal" style="color:#222222;text-align:left;vertical-align:baseline"><span style="font-size: 12pt;"><span style="font-family:微软雅黑;">持续的给你的程序发送最大分包数目的分包（也就是如果最大分包数目是<span>256</span>的话，就持续不断的发送分包<span>ID</span>是<span>256</span>的数据包），希望你会分配大量的内容来容纳这些分包然后让你的内存崩溃。让我们假设你的程序中有一个滑动窗口，这个滑动窗口有<span>256</span>个数据包，每个数据包最多可以有<span>256</span>个分包，每个分包预留的空间是<span>1k</span>。那么也就是会给每个客户端预留<span>67,108,864</span>字节或者<span>64mb</span>的空间。我可以通过这种方法让服务器崩溃么？我能用一堆大小有趣的分包来耗尽的你地址空间的<span>heap</span>空间么？因为服务器的程序是你来设计实现的，所以只有你才知道这个问题的确切答案。它取决于你的内存预算以及如何分配内存来存储分包。如果你考虑过了觉得这会是一个问题，那么就限制下缓冲区中分包的数目或考虑减少每个数据包的分包的最大数目。考虑给每个分包静态分配数据结果或者使用一个内存池来减少内存碎片。</span></span></li></ul><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">所以你可以看到，在接收端代码是非常脆弱的，要非常小心检查一切可能的情况。除此之外，还有一个非常简单的事情要注意：让分包保存在一个数据结构里面，当一个数据包的所有分包都到达以后（通过计数来判断是否全部到达），将这些分包重组成一个大的数据包，并把这个重组后的大数据包返回给接收方。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">什么样的数据结构在这里是有意义的<span>?</span>这里并没有什么特别的数据结构<span>!</span>我使用的是一种我喜欢称之为序列缓冲区的东西。我想和你分享的最核心的技巧是如何让这个数据结构变得高效：</span></span></p><div><div id="highlighter_81070" class="syntaxhighlighter  cpp"><div class="toolbar"><a class="toolbar_item command_help help">?</a></div><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><div class="line number1 index0 alt2"><span style="font-family:微软雅黑;">1</span></div><div class="line number2 index1 alt1"><span style="font-family:微软雅黑;">2</span></div><div class="line number3 index2 alt2"><span style="font-family:微软雅黑;">3</span></div><div class="line number4 index3 alt1"><span style="font-family:微软雅黑;">4</span></div><div class="line number5 index4 alt2"><span style="font-family:微软雅黑;">5</span></div><div class="line number6 index5 alt1"><span style="font-family:微软雅黑;">6</span></div><div class="line number7 index6 alt2"><span style="font-family:微软雅黑;">7</span></div><div class="line number8 index7 alt1"><span style="font-family:微软雅黑;">8</span></div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><span style="font-family:微软雅黑;"><code class="cpp keyword bold">const</code> <code class="cpp color1 bold">int</code> <code class="cpp plain">MaxEntries = 256;</code></span></div><div class="line number2 index1 alt1"><span style="font-family:微软雅黑;"> </span></div><div class="line number3 index2 alt2"><span style="font-family:微软雅黑;"><code class="cpp keyword bold">struct</code> <code class="cpp plain">SequenceBuffer</code></span></div><div class="line number4 index3 alt1"><code class="cpp plain"><span style="font-family:微软雅黑;">{</span></code></div><div class="line number5 index4 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp color1 bold">bool</code> <code class="cpp plain">exists[MaxEntries];</code></span></div><div class="line number6 index5 alt1"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">uint16_t sequence[MaxEntries];</code></span></div><div class="line number7 index6 alt2"><span style="font-family:微软雅黑;"><code class="cpp spaces">    </code><code class="cpp plain">Entry entries[MaxEntries];</code></span></div><div class="line number8 index7 alt1"><code class="cpp plain"><span style="font-family:微软雅黑;">};</span></code></div></div></td></tr></table></div></div><p class="MsoNormal" align="left" style="margin-bottom: 12pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-family:微软雅黑;"><br></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">这里面有几件事情值得注意。首先，使用类似数组的结构可以允许对给定条目是否存在于一个序列缓冲区的存在性进行快速测试并且将测试结果进行缓存，即使每个数据包的条目结构是非常大的（而且这种结构对于数据包的分包和重组来说是非常棒的）。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">那么我们该如何使用这个数据结构？当你接收到一个分包以后的数据包以后，这个数据包会携带一个序号指定它是属于哪个数据包的分包。这个序号会随着发送而不停的增大<span>(</span>所有序号全部用完导致发生环绕除外<span>)</span>， 所以最关键的技巧是你要对序号进行散列让散列后的序号进入一个数组中某个给定的位置，具体处理过程如下所示：</span></span></p><div style="border:solid #F0F0F0 1.0pt;border-left:solid #E0E0E0 2.25pt;padding:0cm 0cm 0cm 0cm;background:whitesmoke"><p class="MsoNormal" align="left" style="line-height: 16.8pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline; border: none; padding: 0cm;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">int index = sequence % MaxEntries;</span></span></p></div><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"> </span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">现在你可以用<span>O(1)</span>的时间复杂度进行一个快速测试，来通过序号看下一个给定的条目是否存在，并且判断下这个条目是否和你想要读取或者写入的数据包序号相匹配。也就是说，你既需要测试存在性又需要测试序号是否是预期的序号，这是因为所有的序号都是有效的数字<span>(</span>比如说是<span>0)</span>，还有就是因为根据一个特定的数据包序号查找到的条目可能是存在的，但是它属于过去的一个序号（比如说，这是某个其他的序号，但是恰巧通过取模的计算得到相同的序号）。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">所以当一个新的数据包的第一个分包到达的时候，你需要把数据包的序号散列成一个索引，如果发现这个索引对应的内容还不存在的话，你需要设置<span>exists[index] = 1</span>，并设置<span>sequence[index]</span>来匹配你正在处理的数据包，并把这个分包储存在序号缓冲区对应的条目里面。这样当下一次有分包实际到达的时候，你会得到相同的序号，然后得到一个相当的索引，在查找的时候会发现对应这个索引的内容已经存在了，并且这个条目的序号正好能和刚刚接收到的数据包的序号匹配，所以你就可以把这个分包累加到这个条目上，这个过程会一直重复直到这个数据包的所有分包都被接收到为止。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">如果从比较抽象的层次来解释这个事情的话，基本原理大概就是这样的。这种方法的一个更完整的解释请参阅本文的示例源代码。在地址<span><a href="https://www.patreon.com/gafferongames" target="_blank" rel="noopener">https://www.patreon.com/gafferongames</a></span>可以获取本系列文章示例的源代码。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="vertical-align: baseline;"></p><h2 id="网络协议的测试驱动开发"><span style="color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;font-size:x-large;">网络协议的测试驱动开发</span></span></h2><p></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">还有一件事情我想在文章的末尾进行补充说明。我感觉如果我不向我的读者提及这个方法的话，就是对他们的一个伤害。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">编写一个定制的网络协议是非常困难的。这个过程是如此的苦难以至于我从头开始至少编写了<span>10</span>次网络协议，但是每次我都觉得我在用一种全新的有趣的方法在做这个事情。也许你会认为是我在挑战自己，用一些新奇的方法来实现这个过程，但其实是这个过程太复杂了，完全没有办法按照预期的那样写完代码就期待它们能够正确的工作。你需要对写出来的代码进行测试！</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">当编写底层网络协议层的代码的时候，我的策略是<span>:</span></span></span></p><p style=" margin: 6pt 0cm 6pt 21pt ; ; ; ; "><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">1、</span><span style="color: rgb(34, 34, 34);">防御性编程。在一切可能的地方进行断言。当某些地方出现错误的时候这些断言会起作用，并且将成为查找问题的重要线索。</span></span></p><p style=" margin: 6pt 0cm 6pt 21pt ; ; ; ; "><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">2、</span><span style="color: rgb(34, 34, 34);">添加函数的功能测试，确保它们是如你的预期那样工作的。把你的代码放到一个可以运行和测试的环境下，这样可以不时地对它们进行测试以便可以确保它一直会像你起初创建它们时候那样良好的工作。仔细考虑有哪些情况需要正确的处理并给这些情况添加测试。</span></span></p><p style=" margin: 6pt 0cm 6pt 21pt ; ; ; ; "><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">3、</span><span style="color: rgb(34, 34, 34);">虽然函数测试非常有必要，但是只是添加一些函数测试是远远不够的。无论如何都有遇到你没有预料到的情况<span>! </span>现在你必须把它们放到一个真实的环境下看看到底会发生什么。我把这个称之为浸泡测试，并且在我之前编写网络协议的过程中还从来没有过在浸泡测试的过程中没有发现问题的情况。浸泡测试只是在不停的循环，并会随机的做一些事情让你的系统在它的空间中处理一些情况，让我们举些简单的例子对它进行一些简单的说明，比如说构造出随机长度的数据包，而且这些数据包有一个非常高的丢失率，通过数据包模拟器发出的大量乱序并且重复的数据包等等。如果你的程序能够在一晚上的时间里面不挂起或者遇到断言，那么就算你的程序通过了浸泡测试。</span></span></p><p style=" margin: 6pt 0cm 6pt 21pt ; ; ; ; "><span style="font-family:微软雅黑;font-size:medium;"><span style="color: rgb(34, 34, 34);">4、</span><span style="color: rgb(34, 34, 34);">如果你的程序在浸泡测试的过程中发现了某些问题。你可能需要在代码里面添加一些详细的日志以便下次在浸泡测试的时候如果遇到了同样的问题你可以找到出现问题的原因。一旦你知道发生了什么，就可以停止了。不要立即的修复这个问题并且再次运行浸泡测试。这种做法非常的愚蠢。相反，利用单元测试来不停的重现你需要修复的问题，确保单元测试能够重现问题，而且这个问题因为你的修复已经彻底修好了。只有在这样的处理流程之后，才能回到浸泡测试并确保程序在浸泡测试能正常运转一整夜。通过这种方式，单元测试能够记录你的系统的正确的行为并且在以后需要的时候可以快速的运行起来，确保当你做其他改变的时候不会导致一些原来修过的问题重复的出现。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">这就是我的数据包分包和重组的处理流程了，它似乎工作的不错。如果你在进行一些底层的网络协议的设计，你的游戏的其他的部分将依赖于底层的网络协议的设计。在你继续构建其他的功能之前，你需要绝对的确认底层的网络协议是否能够正常的工作，否则就像一堆胡乱堆积的卡片，很容易就散架了。多人在线游戏的网络部分是非常困难的，如果不小心设计的话，很容易就会出现底层网络协议可能无法正常的工作或者存在缺陷。所以请确保你是知道你的底层网络协议是如何工作的！</span></span></p><b><span style="font-size: 12pt; line-height: 156%; font-weight: normal;"><span style="font-family:微软雅黑;">即将到来的文章的预告</span></span></b><div><span style="font-size: 12pt; line-height: 156%; font-weight: normal;"><span style="font-family:微软雅黑;"><br></span></span></div><p class="MsoNormal" align="left" style="vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">下一篇文章是<span>: </span>《发送大块的数据》</span></span></p><p class="MsoNormal" align="left" style="line-height: 18pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">请继续阅读本系列的下一篇文章，在哪篇文章里面我将向你展示如何通过数据包快速可信赖的发送大块的数据，如果其中一块数据丢失了也不需要丢弃整个数据包！</span></span></p><p class="MsoNormal" align="left" style="line-height: 18pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">如果你觉得这篇文章有价值的话，请在<span>patreon</span>上支持我的写作，这样我会写的更快。你可以在<span>BSD 3.0</span>许可下访问到这篇文章里面的代码。非常感谢你的支持！</span></span></p><p class="MsoNormal" align="left" style="line-height: 18pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"><br></span></span></p><p class="MsoNormal" align="left" style="line-height: 18pt; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">【版权声明】</span></span></p><p class="MsoNormal"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;">原文作者未做权利声明，视为共享知识产权进入公共领域，自动获得授权。</span></span></p><p class="MsoNormal" align="left" style="line-height: 16.8pt; vertical-align: baseline;"><span style="font-size: 12pt; color: rgb(34, 34, 34);"><span style="font-family:微软雅黑;"> </span></span></p><p class="MsoNormal"><span style="font-size: 12pt;"><span style="font-family:微软雅黑;"> </span></span></p></div>                    <br>                
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/GafferOnGames/" rel="tag"><i class="fa fa-tag"></i> GafferOnGames</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/serialization_strategies/" rel="next" title="构建游戏网络协议二之序列化策略">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    构建游戏网络协议二之序列化策略
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/sending_large_blocks_of_data/" rel="prev" title="构建游戏网络协议四之发送大块数据">
+                <p class="post-nav-pre-next-title">
+                    构建游戏网络协议四之发送大块数据
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本篇自我总结"><span class="nav-text">本篇自我总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要做这个分包和重组系统"><span class="nav-text">为什么需要做这个分包和重组系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本篇基本术语"><span class="nav-text">本篇基本术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分包的数据结构"><span class="nav-text">分包的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送分包后的数据包"><span class="nav-text">发送分包后的数据包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候用这个分包和重组系统呢"><span class="nav-text">什么时候用这个分包和重组系统呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接收分包后的数据包"><span class="nav-text">接收分包后的数据包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原文"><span class="nav-text">原文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#background"><span class="nav-text">Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mtu-in-the-real-world"><span class="nav-text">MTU in the real world</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fragment-packet-structure"><span class="nav-text">Fragment Packet Structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sending-packet-fragments"><span class="nav-text">Sending Packet Fragments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#receiving-packet-fragments"><span class="nav-text">Receiving Packet Fragments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-structure-on-receiver-side"><span class="nav-text">Data Structure on Receiver Side</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#test-driven-development"><span class="nav-text">Test Driven Development</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#译文"><span class="nav-text">译文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最大传输单元MTU"><span class="nav-text">最大传输单元MTU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#真实世界中的最大传输单元MTU"><span class="nav-text">真实世界中的最大传输单元MTU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分包后的数据包的结构"><span class="nav-text">分包后的数据包的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送分包以后的数据包"><span class="nav-text">发送分包以后的数据包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对分包后的数据包的接收"><span class="nav-text">对分包后的数据包的接收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议的测试驱动开发"><span class="nav-text">网络协议的测试驱动开发</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

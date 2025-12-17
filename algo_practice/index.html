@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '算法企业真题实战练习' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Algo,noodle,LeetCode,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="算法白话总结推荐参考本博客总结的 algo_newbie 本文完整参考代码https://github.com/no5ix/no5ix.github.io/blob/source/source/code/test_algo_practice.py 实战练习 pending_fini 比狗线程排列题 刷完剑指offer 回溯法递归强化 二叉树递归强化  lc4题-两个排序数组找中位数, 困难  一个">
+<meta name="keywords" content="Algo,noodle,LeetCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法企业真题实战练习">
+<meta property="og:url" content="https://hulinhong.com/algo_practice/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="算法白话总结推荐参考本博客总结的 algo_newbie 本文完整参考代码https://github.com/no5ix/no5ix.github.io/blob/source/source/code/test_algo_practice.py 实战练习 pending_fini 比狗线程排列题 刷完剑指offer 回溯法递归强化 二叉树递归强化  lc4题-两个排序数组找中位数, 困难  一个">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法企业真题实战练习">
+<meta name="twitter:description" content="算法白话总结推荐参考本博客总结的 algo_newbie 本文完整参考代码https://github.com/no5ix/no5ix.github.io/blob/source/source/code/test_algo_practice.py 实战练习 pending_fini 比狗线程排列题 刷完剑指offer 回溯法递归强化 二叉树递归强化  lc4题-两个排序数组找中位数, 困难  一个">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>算法企业真题实战练习 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/algo_practice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法企业真题实战练习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-01T18:48:08+00:00">
+                11-01-2018
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/algo_newbie/" rel="next" title="algo_newbie">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  algo_newbie
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/some_script_tool/" rel="prev" title="一些脚本小工具">
+              <p class="post-nav-pre-next-title">
+                  一些脚本小工具
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="算法白话总结"><a href="#算法白话总结" class="headerlink" title="算法白话总结"></a>算法白话总结</h1><p>推荐参考<strong>本博客总结</strong>的 <a href="/algo_newbie/" title="algo_newbie">algo_newbie</a></p>
+<h1 id="本文完整参考代码"><a href="#本文完整参考代码" class="headerlink" title="本文完整参考代码"></a>本文完整参考代码</h1><p><a href="https://github.com/no5ix/no5ix.github.io/blob/source/source/code/test_algo_practice.py" target="_blank" rel="noopener">https://github.com/no5ix/no5ix.github.io/blob/source/source/code/test_algo_practice.py</a></p>
+<h1 id="实战练习-pending-fini"><a href="#实战练习-pending-fini" class="headerlink" title="实战练习 pending_fini"></a>实战练习 pending_fini</h1><ul>
+<li><a href="#比狗-线程全排列">比狗线程排列题</a></li>
+<li>刷完剑指offer</li>
+<li>回溯法递归强化</li>
+<li><p>二叉树递归强化</p>
+</li>
+<li><p><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">lc4题-两个排序数组找中位数, 困难</a></p>
+</li>
+<li><p>一个桶里面有白球. 黑球各 100 个，现在按下述的规则取球：<br>  i . 每次从桶里面拿出来两个球；<br>  ii. 如果取出的是两个同色的球，就再放入一个黑球；<br>  iii. 如果取出的是两个异色的球，就再放入一个白球。<br>  问：最后桶里面只剩下一个黑球的概率是多少？</p>
+</li>
+<li>公司有内部 bbs，员工都会在上面发帖交流。据统计，有三个员工 ID 发帖很多，他们各自的发帖量都超过帖子总数 N 的 1/4。如果给到你所有帖子的发帖人 ID 列表，请写代码找出这三个 ID，要求时间复杂度 O（n），空间复杂度 O（1）。</li>
+</ul>
+<h1 id="finished"><a href="#finished" class="headerlink" title="finished"></a>finished</h1><ul>
+<li><a href="https://leetcode-cn.com/problems/minimum-path-sum/" target="_blank" rel="noopener">leetcode64题最短路径和</a></li>
+<li>判断是否有一个数num在有序数组中出现次数多于数组长度的一半<ul>
+<li>判断num是否等于中间的数即可</li>
+</ul>
+</li>
+<li>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。<ul>
+<li>根据数组特点得到时间复杂度为O(n)的算法。根据数组特点，数组中有一个数字出现的次数超过数组长度的一半，也就是说它出现的次数比其他所有数字出现的次数之和还要多。因此，我们可以在遍历数组的时候设置两个值：一个是数组中的数result，另一个是出现次数times。当遍历到下一个数字的时候，如果与result相同，则次数加1,不同则次数减一，当次数变为0的时候说明该数字不可能为多数元素，将result设置为下一个数字，次数设为1。这样，当遍历结束后，最后一次设置的result的值可能就是符合要求的值（如果有数字出现次数超过一半，则必为该元素，否则不存在），因此，判断该元素出现次数是否超过一半即可验证应该返回该元素还是返回0。这种思路是对数组进行了两次遍历，复杂度为O(n)。</li>
+</ul>
+</li>
+<li>给定一个含有n个元素的整型数组a，其中只有一个元素出现奇数次，找出这个元素。<ul>
+<li>解决问题的关键是要想明白，按位异或运算满足结合律，偶数个异或结果是0，奇数个异或结果是本身，如<code>1 ^ 2 ^ 3 ^ 1 ^ 2 ^ 3 ^ 3 = (3 ^ 3 ^ 3) ^ (1 ^ 1) ^ (2 ^ 2) = 3^ 0 ^ 0 = 3</code>。</li>
+</ul>
+</li>
+<li>一个无序数组找其子序列构成的和最大，要求子序列中的元素在原数组中两两都不相邻, 和是多少?具体是哪个子序列?<ul>
+<li><a href="/algo_newbie/#状态转移方程讲解-打家劫舍">状态转移方程讲解-打家劫舍</a></li>
+</ul>
+</li>
+<li><a href="https://leetcode-cn.com/problems/add-two-numbers-ii/" target="_blank" rel="noopener">lc445</a>, 两个单向链表，返回求和后的链表结构, 例如2-&gt;3-&gt;1-&gt;5，和3-&gt;6，结果返回2-&gt;3-&gt;5-&gt;1<ul>
+<li>用栈</li>
+<li>反转链表再相加</li>
+</ul>
+</li>
+<li><p>现有一个随机数生成器可以生成0到4的数，现在要让你用这个随机数生成器生成0到6的随机数，要保证生成的数概率均匀。</p>
+<ul>
+<li>别被这个题目唬住了, 其实很简单</li>
+<li>大多数利用一个等概率随机数构造另外一个等概率随机数的题目，只需两次使用概率函数即可</li>
+<li>代码如下:<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rand4</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="comment"># 这是题目给的</span></span><br><span class="line">	<span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rand6</span><span class="params">()</span>:</span></span><br><span class="line">	res = rand4()</span><br><span class="line">	<span class="comment"># 只要0和1和2, 注意这个0不可少, 不然`res + rand4()`生成的数至少为1</span></span><br><span class="line">	<span class="keyword">while</span> res &gt; <span class="number">2</span>:</span><br><span class="line">		res = rand4()</span><br><span class="line">	<span class="comment"># 这样就能保证是等概率0到4 , 等概率的加(0, 1, 2), 得到等概率的0-6</span></span><br><span class="line">	<span class="keyword">return</span> res + rand4()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>连续整数求和(<a href="https://leetcode-cn.com/problems/consecutive-numbers-sum/" target="_blank" rel="noopener">leetcode第829题, hard实际有思路就easy</a>)，要求时间复杂度小于O(N)</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">consecutiveNumbersSum</span><span class="params">(self, N: int)</span> -&gt; int:</span></span><br><span class="line">       <span class="comment"># 1个数时，必然有一个数可构成N</span></span><br><span class="line">       <span class="comment"># 2个数若要构成N，第2个数与第1个数差为1，N减掉这个1能整除2则能由商与商+1构成N</span></span><br><span class="line">       <span class="comment"># 3个数若要构成N，第2个数与第1个数差为1，第3个数与第1个数的差为2，N减掉1再减掉2能整除3则能由商、商+1与商+2构成N</span></span><br><span class="line">       <span class="comment"># 依次内推，当商即第1个数小于等于0时结束</span></span><br><span class="line">       res, i = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">       <span class="keyword">while</span> N &gt; <span class="number">0</span>:</span><br><span class="line">           res += N % i == <span class="number">0</span></span><br><span class="line">           N -= i</span><br><span class="line">           i += <span class="number">1</span></span><br><span class="line">       <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="智力题"><a href="#智力题" class="headerlink" title="智力题"></a>智力题</h2><ul>
+<li>有 64 匹马，赛场只有 8 条赛道，请问最少需要比赛多少场才能确定跑得最快的那 4 匹马，不可以借助计时器给每一匹马一一计时；<ul>
+<li><a href="https://www.jianshu.com/p/148439ddcb07" target="_blank" rel="noopener">https://www.jianshu.com/p/148439ddcb07</a></li>
+</ul>
+</li>
+<li>有 N 枚棋子，每个人一次可以拿1到 M 个，谁拿完后棋子的数量为0谁就获胜。现在有1000颗棋子，每次最多拿8个，A 先拿，那么 A 有必胜的拿法吗？<ul>
+<li>这个是个智力题不是算法题, 是倍数的思想</li>
+<li>这类题得先求得 <code>N % (M+1)</code> 的余数, 此处为 <code>1000 % (8+1) = 1</code>, 求得此余数Y后, 先拿的人第一次就拿Y个, 然后假如B同学第二次拿X个比如是4个, 不管B拿多少个, A之后都拿 <code>(M+1)-X</code>个即 <code>(8+1)-4=5</code>个和B同学拿的4个凑成<code>(8+1)=9</code>个, 这样就保证了A是最后一个拿完棋子的人</li>
+</ul>
+</li>
+</ul>
+<h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h2><h3 id="寻找第K大"><a href="#寻找第K大" class="headerlink" title="寻找第K大"></a>寻找第K大</h3><p>有一个整数数组，请你根据快速排序的思路，找出数组中第K大的数。<br>给定一个整数数组a,同时给定它的大小n和要找的K(K在1到n之间)，请返回第K大的数，保证答案存在。</p>
+<p>测试样例：<br>[1,3,5,2,2],5,3<br>返回：2</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution_find_top_k_num</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find_top_k_num</span><span class="params">(self, nums_arr, nums_arr_len, top_k)</span>:</span></span><br><span class="line">        <span class="keyword">assert</span> nums_arr, <span class="string">"nums is empty."</span></span><br><span class="line">        <span class="keyword">assert</span> nums_arr_len &gt; <span class="number">0</span>, <span class="string">"nums is empty."</span></span><br><span class="line">        <span class="keyword">if</span> top_k &gt; nums_arr_len <span class="keyword">or</span> top_k &lt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">        left_index = <span class="number">0</span></span><br><span class="line">        right_index = nums_arr_len - <span class="number">1</span></span><br><span class="line">        _p_index = self._partition(nums_arr, left_index, right_index)</span><br><span class="line">        <span class="keyword">while</span> _p_index != top_k<span class="number">-1</span>:</span><br><span class="line">            _p_index = self._partition(nums_arr, left_index, right_index)</span><br><span class="line">            <span class="keyword">if</span> _p_index &lt; top_k<span class="number">-1</span>:</span><br><span class="line">                left_index = _p_index + <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> _p_index &gt; top_k<span class="number">-1</span>:</span><br><span class="line">                right_index = _p_index - <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> nums_arr[_p_index]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_partition</span><span class="params">(self, nums_arr, left_index, right_index)</span>:</span></span><br><span class="line">        pivot_index = left_index</span><br><span class="line">        _partition_index = pivot_index</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(pivot_index+<span class="number">1</span>, right_index+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> nums_arr[i] &lt;= nums_arr[pivot_index]:</span><br><span class="line">                nums_arr[_partition_index+<span class="number">1</span>], nums_arr[i] = \</span><br><span class="line">                    nums_arr[i], nums_arr[_partition_index+<span class="number">1</span>]</span><br><span class="line">                _partition_index += <span class="number">1</span></span><br><span class="line">        nums_arr[_partition_index], nums_arr[pivot_index] = \</span><br><span class="line">            nums_arr[pivot_index], nums_arr[_partition_index]</span><br><span class="line">        <span class="keyword">return</span> _partition_index</span><br></pre></td></tr></table></figure>
+<h2 id="leetcode"><a href="#leetcode" class="headerlink" title="leetcode"></a>leetcode</h2><h3 id="lc41-缺失的第一个正数"><a href="#lc41-缺失的第一个正数" class="headerlink" title="lc41-缺失的第一个正数"></a>lc41-缺失的第一个正数</h3><p><a href="https://leetcode-cn.com/problems/first-missing-positive/" target="_blank" rel="noopener">lc41, hard</a> 缺失的第一个正数（leetcode第41题）<br>给你一个未排序的整数数组，请你找出其中没有出现的最小的正整数。<br>示例 1:<br>输入: [1,2,0]<br>输出: 3</p>
+<p>示例 2:<br>输入: [3,4,-1,1]<br>输出: 2</p>
+<p>示例 3:<br>输入: [7,8,9,11,12]<br>输出: 1 </p>
+<p>提示：你的算法的时间复杂度应为O(n)，并且只能使用常数级别的额外空间。</p>
+<p><a href="https://leetcode-cn.com/problems/first-missing-positive/solution/tong-pai-xu-python-dai-ma-by-liweiwei1419/" target="_blank" rel="noopener">参考</a><br>我们可以采取这样的思路：就把 11 这个数放到下标为 00 的位置， 22 这个数放到下标为 11 的位置，按照这种思路整理一遍数组。然后我们再遍历一次数组，第 11 个遇到的它的值不等于下标的那个数，就是我们要找的缺失的第一个正数。<br>这个思想就相当于我们自己编写哈希函数，这个哈希函数的规则特别简单，那就是数值为 i 的数映射到下标为 i - 1 的位置。</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/algo_practice/lc41_1.png" alt></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution_lc41</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">firstMissingPositive</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        思路: 使用座位交换法</span></span><br><span class="line"><span class="string">        根据题意可知，缺失的第一个整数是在 [1, len + 1] 之间，</span></span><br><span class="line"><span class="string">        那么我们可以遍历数组，然后将对应的数据填充到对应的位置上去，比如 1 就填充到 nums[0] 的位置， 2 就填充到 nums[1]</span></span><br><span class="line"><span class="string">        如果填充过程中， nums[i] &lt; 1 &amp;&amp; nums[i] &gt; len，那么直接舍弃</span></span><br><span class="line"><span class="string">        填充完成，我们再遍历一次数组，如果对应的 nums[i] != i + 1，那么这个 i + 1 就是缺失的第一个正数</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        比如 nums = [7, 8, 9, 10, 11], len = 5</span></span><br><span class="line"><span class="string">        我们发现数组中的元素都无法进行填充，直接舍弃跳过，</span></span><br><span class="line"><span class="string">        那么最终遍历数组的时候，我们发现 nums[0] != 0 + 1，即第一个缺失的是 1 </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        比如 nums = [3, 1, 2], len = 3</span></span><br><span class="line"><span class="string">        填充过后，我们发现最终数组变成了 [1, 2, 3]，每个元素都对应了自己的位置，那么第一个缺失的就是 len + 1 == 4</span></span><br><span class="line"><span class="string">        """</span> </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        n = len(nums)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            _pending_swap_index = nums[i] - <span class="number">1</span></span><br><span class="line">            <span class="comment"># 只有在 nums[i] 是 [1, len] 之间的数，并且不在自己应该呆的位置， nums[i] != i + 1 ，</span></span><br><span class="line">            <span class="comment"># 并且 它应该呆的位置没有被相同的值占有（即存在重复值占有）	nums[nums[i] - 1] != nums[i] 的时候才进行交换</span></span><br><span class="line">            <span class="comment"># 为什么使用 while ？ 因为交换后，原本 i 位置的 nums[i] 已经交换到了别的地方，</span></span><br><span class="line">            <span class="comment"># 交换后到这里的新值不一定是适合这个位置的，因此需要重新进行判断交换</span></span><br><span class="line">            <span class="comment"># 如果使用 if，那么进行一次交换后，i 就会 +1 进入下一个循环，那么交换过来的新值就没有去找到它该有的位置</span></span><br><span class="line">            <span class="comment"># 比如 nums = [3, 4, -1, 1] 当 3 进行交换后， nums 变成 [-1，4，3，1]，</span></span><br><span class="line">            <span class="comment"># 此时 i == 0，如果使用 if ，那么会进入下一个循环， 这个 -1 就没有进行处理</span></span><br><span class="line">            <span class="keyword">while</span>(n &gt;= nums[i] &gt;= <span class="number">1</span> <span class="keyword">and</span> nums[i] != i+<span class="number">1</span> <span class="keyword">and</span> \</span><br><span class="line">                    nums[i] != nums[_pending_swap_index]):</span><br><span class="line">                <span class="comment"># `nums[i] != nums[_pending_swap_index]` 是为了防止</span></span><br><span class="line">                <span class="comment"># nums[i] 和 nums[_pending_swap_index] 这两个数是相等的导致</span></span><br><span class="line">                <span class="comment"># while死循环</span></span><br><span class="line">                self._swap(nums, i, _pending_swap_index)</span><br><span class="line">                _pending_swap_index = nums[i] - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> nums[i] != i + <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> i + <span class="number">1</span>                </span><br><span class="line">        <span class="keyword">return</span> n + <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_swap</span><span class="params">(self, arr, index1, index2)</span>:</span></span><br><span class="line">        arr[index1], arr[index2] = arr[index2], arr[index1]</span><br></pre></td></tr></table></figure>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Algo/" rel="tag"><i class="fa fa-tag"></i> Algo</a>
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/algo_newbie/" rel="next" title="algo_newbie">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    algo_newbie
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/some_script_tool/" rel="prev" title="一些脚本小工具">
+                <p class="post-nav-pre-next-title">
+                    一些脚本小工具
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法白话总结"><span class="nav-text">算法白话总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本文完整参考代码"><span class="nav-text">本文完整参考代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实战练习-pending-fini"><span class="nav-text">实战练习 pending_fini</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#finished"><span class="nav-text">finished</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#智力题"><span class="nav-text">智力题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#misc"><span class="nav-text">misc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找第K大"><span class="nav-text">寻找第K大</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#leetcode"><span class="nav-text">leetcode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lc41-缺失的第一个正数"><span class="nav-text">lc41-缺失的第一个正数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

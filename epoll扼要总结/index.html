@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'epoll扼要总结' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Linux,noodle,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="epoll 编程接口epoll API是Linux系统专有的，在2.6版中新增。 epoll API的核心数据结构称作epoll实例，它和一个打开的文件描述符相关联。这个文件描述符不是用来做I/O操作的，相反，它是内核数据结构的句柄，这些内核数据结构实现了两个目的。  记录了在进程中声明过的感兴趣的文件描述符列表-interest list（兴趣列表）。 维护了处于I/O就绪态的文件描述符列表-r">
+<meta name="keywords" content="Linux,noodle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="epoll扼要总结">
+<meta property="og:url" content="https://hulinhong.com/epoll扼要总结/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="epoll 编程接口epoll API是Linux系统专有的，在2.6版中新增。 epoll API的核心数据结构称作epoll实例，它和一个打开的文件描述符相关联。这个文件描述符不是用来做I/O操作的，相反，它是内核数据结构的句柄，这些内核数据结构实现了两个目的。  记录了在进程中声明过的感兴趣的文件描述符列表-interest list（兴趣列表）。 维护了处于I/O就绪态的文件描述符列表-r">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.647Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="epoll扼要总结">
+<meta name="twitter:description" content="epoll 编程接口epoll API是Linux系统专有的，在2.6版中新增。 epoll API的核心数据结构称作epoll实例，它和一个打开的文件描述符相关联。这个文件描述符不是用来做I/O操作的，相反，它是内核数据结构的句柄，这些内核数据结构实现了两个目的。  记录了在进程中声明过的感兴趣的文件描述符列表-interest list（兴趣列表）。 维护了处于I/O就绪态的文件描述符列表-r">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>epoll扼要总结 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/epoll扼要总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">epoll扼要总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-22T21:56:12+00:00">
+                06-22-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/top500_english_life_sentences/" rel="next" title="Top 500 English sentences for daily life">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Top 500 English sentences for daily life
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/socket可读可写条件与非阻塞connect或accept浅析/" rel="prev" title="socket可读可写条件与非阻塞connect或accept浅析">
+              <p class="post-nav-pre-next-title">
+                  socket可读可写条件与非阻塞connect或accept浅析
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="epoll-编程接口"><a href="#epoll-编程接口" class="headerlink" title="epoll 编程接口"></a>epoll 编程接口</h1><p>epoll API是Linux系统专有的，在2.6版中新增。</p>
+<p>epoll API的核心数据结构称作epoll实例，它和一个打开的文件描述符相关联。这个文件<br>描述符不是用来做I/O操作的，相反，它是内核数据结构的句柄，这些内核数据结构实现了两<br>个目的。</p>
+<ul>
+<li>记录了在进程中声明过的感兴趣的文件描述符列表-<strong>interest list（兴趣列表）</strong>。</li>
+<li>维护了处于I/O就绪态的文件描述符列表-<strong>ready list（就绪列表）</strong>。</li>
+</ul>
+<p>ready list中的成员是interest list的子集。</p>
+<p>对于由epoll检查的每一个文件描述符，我们可以指定一个位掩码来表示我们感兴趣的事<br>件。这些位掩码同poll()所使用的位掩码有着紧密的关联。</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h2 id="epoll概要"><a href="#epoll概要" class="headerlink" title="epoll概要"></a>epoll概要</h2><p>需要包含epoll.h头文件, 即 : <code>#include &lt;sys/epoll.h&gt;</code><br>epoll只有epoll_create, epoll_ctl, epoll_wait 3个系统调用 : </p>
+<ul>
+<li>系统调用<strong>epoll_create()</strong>创建一个epoll实例，返回代表该实例的文件描述符。</li>
+<li>系统调用<strong>epoll_ctl()</strong>操作同epoll实例相关联的兴趣列表。通过epoll_ctl()，我们可以增<br>加新的描述符到列表中，或者将已有的文件描述符从该列表中移除，也可以修改代表文件描述<br>符七事件类型的位掩码。</li>
+<li>系统调用<strong>epoll_wait()</strong>返回与epoll实例相关联的就绪列表中的成员。</li>
+</ul>
+<h2 id="epoll-create"><a href="#epoll-create" class="headerlink" title="epoll_create"></a>epoll_create</h2><p><code>int epoll_create(int size);</code><br>Returns file descriptor on success, or -1 on error.</p>
+<p>创建一个epoll的句柄。自从linux2.6.8之后，size参数是被忽略的。<br>函数返回代表新创建的 epoll 实例的文件描述符(一般用 epfd表示),<br> 这个文件描述符在其他几个 epoll 系统调用中用来表示 epoll 实例.<br>需要注意的是，当创建好epoll句柄后，它就是会占用一个fd值，在linux下如果查看/proc/进程id/fd/，是能够看到这个fd的，<br>所以在使用完epoll后，必须调用close()关闭，否则可能导致fd被耗尽。</p>
+<h2 id="epoll-ctl"><a href="#epoll-ctl" class="headerlink" title="epoll_ctl"></a>epoll_ctl</h2><p><code>int epoll_ctl(int epfd, int op, int fd, struct epoll_event *ev);</code><br>Returns 0 on success, or -1 on error.</p>
+<p>epoll的事件注册函数，它不同于select()是在监听事件时告诉内核要监听什么类型的事件，而是在这里先注册要监听的事件类型。</p>
+<ul>
+<li>第一个参数是epoll_create()的返回值, 也就是新创建的 epoll 实例的文件描述符。</li>
+<li>第二个参数表示动作，用三个宏来表示：<ul>
+<li>EPOLL_CTL_ADD：注册新的fd到epfd中的兴趣列表；</li>
+<li>EPOLL_CTL_MOD：修改已经注册的fd的设定事件；</li>
+<li>EPOLL_CTL_DEL：从epfd的兴趣列表中删除一个fd；</li>
+</ul>
+</li>
+<li>第三个参数指要修改兴趣列表中的哪一个文件描述符的设定。</li>
+<li><p>第四个参数是告诉内核需要监听什么事，参数ev是指向结构体epoll_event的指针,<br>  struct epoll_event结构如下：</p>
+  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> &#123;</span>  </span><br><span class="line">    <span class="keyword">__uint32_t</span> events; <span class="comment">/* Epoll events */</span>  </span><br><span class="line">    <span class="keyword">epoll_data_t</span> data; <span class="comment">/* User data variable */</span>  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>  结构体epoll_event中的data字段的类型为:</p>
+  <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> epoll_data &#123;  </span><br><span class="line">    <span class="keyword">void</span> *ptr;   <span class="comment">/* Pointer to user-defined data */</span></span><br><span class="line">    <span class="keyword">int</span> fd;  </span><br><span class="line">    <span class="keyword">__uint32_t</span> u32;  </span><br><span class="line">    <span class="keyword">__uint64_t</span> u64;  </span><br><span class="line">&#125; <span class="keyword">epoll_data_t</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>结构体epoll_event中的events字段是一个位掩码, 他指定了我们为待检查的描述符fd上所感兴趣的事件集合.<br>可以是以下几个宏的集合：</p>
+<ul>
+<li>EPOLLIN ：表示对应的文件描述符可以读（包括对端SOCKET正常关闭）；</li>
+<li>EPOLLOUT：表示对应的文件描述符可以写；</li>
+<li>EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；</li>
+<li>EPOLLERR：表示对应的文件描述符发生错误；</li>
+<li>EPOLLHUP：表示对应的文件描述符被挂断；</li>
+<li>EPOLLET： 将EPOLL设为边缘触发(Edge Triggered)模式，这是相对于水平触发(Level Triggered)来说的。(后文会说水平触发和边缘触发的区别)</li>
+<li>EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里</li>
+</ul>
+</li>
+<li><p>data 字段是一个联合体, 当描述符 fd 稍后成为就绪态时, 联合体的成员可用来指定传回给调用进程的信息</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用-epoll-create-和-epoll-ctl-的例子"><a href="#使用-epoll-create-和-epoll-ctl-的例子" class="headerlink" title="使用 epoll_create() 和 epoll_ctl()的例子"></a>使用 epoll_create() 和 epoll_ctl()的例子</h2><p>使用 epoll_create() 和 epoll_ctl()</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> epdf;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">ev</span>;</span></span><br><span class="line"></span><br><span class="line">epfd = epoll_create( <span class="number">5</span> );</span><br><span class="line"><span class="keyword">if</span> ( epfd == <span class="number">-1</span> )</span><br><span class="line">    errExit( <span class="string">"epoll_create"</span> );</span><br><span class="line"></span><br><span class="line">ev.data.fd = fd;</span><br><span class="line">ev.events = EPOLLIN;</span><br><span class="line"><span class="keyword">if</span> ( epoll_ctl( epofd, EPOLL_CTL_ADD, fd, ev ) == <span class="number">-1</span> )</span><br><span class="line">    errExit( <span class="string">"epoll_ctl"</span> );</span><br></pre></td></tr></table></figure>
+<h2 id="epoll-wait"><a href="#epoll-wait" class="headerlink" title="epoll_wait"></a>epoll_wait</h2><p><code>int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);</code><br>Returns number of ready file descriptors, 0 on timeout, or -1 on error.</p>
+<p>epoll_wait收集在epoll监控的事件中已经发送的事件。</p>
+<ul>
+<li>参数events是分配好的epoll_event结构体数组，epoll将会把发生的事件赋值到events数组中（events不可以是空指针，内核只负责把数据复制到这个events数组中，不会去帮助我们在用户态中分配内存）。</li>
+<li>maxevents告之内核这个events有多大，这个 maxevents的值不能大于创建epoll_create()时的size，</li>
+<li>参数timeout是超时时间, 用来确定 epoll_wait() 的阻塞行为, 有如下几种 : <ul>
+<li>如果 timeout 等于 -1, 调用将一直阻塞, 直到兴趣列表中的文件描述符有事件产生, 或者直到捕获到一个信号为止</li>
+<li>如果 timeout 等于 0, 执行一次非阻塞的检查, 立即返回, 看兴趣列表中的文件描述符上产生了哪个事件</li>
+<li>如果 timeout 大于 0, 调用将阻塞至多 timeout 毫秒, 知道文件描述符上有事件产生, 或者直到捕获到一个信号为止</li>
+</ul>
+</li>
+</ul>
+<h2 id="TLPI书上的例子"><a href="#TLPI书上的例子" class="headerlink" title="TLPI书上的例子"></a>TLPI书上的例子</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************\</span></span><br><span class="line"><span class="comment">*                  Copyright (C) Michael Kerrisk, 2017.                   *</span></span><br><span class="line"><span class="comment">*                                                                         *</span></span><br><span class="line"><span class="comment">* This program is free software. You may use, modify, and redistribute it *</span></span><br><span class="line"><span class="comment">* under the terms of the GNU General Public License as published by the   *</span></span><br><span class="line"><span class="comment">* Free Software Foundation, either version 3 or (at your option) any      *</span></span><br><span class="line"><span class="comment">* later version. This program is distributed without any warranty.  See   *</span></span><br><span class="line"><span class="comment">* the file COPYING.gpl-v3 for details.                                    *</span></span><br><span class="line"><span class="comment">\*************************************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Listing 63-5 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* epoll_input.c</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   Example of the use of the Linux epoll API.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   Usage: epoll_input file...</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   This program opens all of the files named in its command-line arguments</span></span><br><span class="line"><span class="comment">   and monitors the resulting file descriptors for input events.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   This program is Linux (2.6 and later) specific.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tlpi_hdr.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_BUF     1000        <span class="comment">/* Maximum bytes fetched by a single read() */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_EVENTS     5        <span class="comment">/* Maximum number of events to be returned from</span></span></span><br><span class="line"><span class="meta"><span class="comment">                                   a single epoll_wait() call */</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> epfd, ready, fd, s, j, numOpenFds;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">ev</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">evlist</span>[<span class="title">MAX_EVENTS</span>];</span></span><br><span class="line">    <span class="keyword">char</span> buf[MAX_BUF];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc &lt; <span class="number">2</span> || <span class="built_in">strcmp</span>(argv[<span class="number">1</span>], <span class="string">"--help"</span>) == <span class="number">0</span>)</span><br><span class="line">        usageErr(<span class="string">"%s file...\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    epfd = epoll_create(argc - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (epfd == <span class="number">-1</span>)</span><br><span class="line">        errExit(<span class="string">"epoll_create"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Open each file on command line, and add it to the "interest</span></span><br><span class="line"><span class="comment">       list" for the epoll instance */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">1</span>; j &lt; argc; j++) &#123;</span><br><span class="line">        fd = open(argv[j], O_RDONLY);</span><br><span class="line">        <span class="keyword">if</span> (fd == <span class="number">-1</span>)</span><br><span class="line">            errExit(<span class="string">"open"</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Opened \"%s\" on fd %d\n"</span>, argv[j], fd);</span><br><span class="line"></span><br><span class="line">        ev.events = EPOLLIN;            <span class="comment">/* Only interested in input events */</span></span><br><span class="line">        ev.data.fd = fd;</span><br><span class="line">        <span class="keyword">if</span> (epoll_ctl(epfd, EPOLL_CTL_ADD, fd, &amp;ev) == <span class="number">-1</span>)</span><br><span class="line">            errExit(<span class="string">"epoll_ctl"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    numOpenFds = argc - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (numOpenFds &gt; <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Fetch up to MAX_EVENTS items from the ready list of the</span></span><br><span class="line"><span class="comment">           epoll instance */</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"About to epoll_wait()\n"</span>);</span><br><span class="line">        ready = epoll_wait(epfd, evlist, MAX_EVENTS, <span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span> (ready == <span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (errno == EINTR)</span><br><span class="line">                <span class="keyword">continue</span>;               <span class="comment">/* Restart if interrupted by signal */</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                errExit(<span class="string">"epoll_wait"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Ready: %d\n"</span>, ready);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Deal with returned list of events */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; ready; j++) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"  fd=%d; events: %s%s%s\n"</span>, evlist[j].data.fd,</span><br><span class="line">                    (evlist[j].events &amp; EPOLLIN)  ? <span class="string">"EPOLLIN "</span>  : <span class="string">""</span>,</span><br><span class="line">                    (evlist[j].events &amp; EPOLLHUP) ? <span class="string">"EPOLLHUP "</span> : <span class="string">""</span>,</span><br><span class="line">                    (evlist[j].events &amp; EPOLLERR) ? <span class="string">"EPOLLERR "</span> : <span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (evlist[j].events &amp; EPOLLIN) &#123;</span><br><span class="line">                s = read(evlist[j].data.fd, buf, MAX_BUF);</span><br><span class="line">                <span class="keyword">if</span> (s == <span class="number">-1</span>)</span><br><span class="line">                    errExit(<span class="string">"read"</span>);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"    read %d bytes: %.*s\n"</span>, s, s, buf);</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (evlist[j].events &amp; (EPOLLHUP | EPOLLERR)) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="comment">/* After the epoll_wait(), EPOLLIN and EPOLLHUP may both have</span></span><br><span class="line"><span class="comment">                   been set. But we'll only get here, and thus close the file</span></span><br><span class="line"><span class="comment">                   descriptor, if EPOLLIN was not set. This ensures that all</span></span><br><span class="line"><span class="comment">                   outstanding input (possibly more than MAX_BUF bytes) is</span></span><br><span class="line"><span class="comment">                   consumed (by further loop iterations) before the file</span></span><br><span class="line"><span class="comment">                   descriptor is closed. */</span></span><br><span class="line"></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"    closing fd %d\n"</span>, evlist[j].data.fd);</span><br><span class="line">                <span class="comment">// 关闭一个文件描述符会自动的将其从所有的 epoll 实例的兴趣列表中移除</span></span><br><span class="line">                <span class="keyword">if</span> (close(evlist[j].data.fd) == <span class="number">-1</span>)</span><br><span class="line">                    errExit(<span class="string">"close"</span>);</span><br><span class="line">                numOpenFds--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"All file descriptors closed; bye\n"</span>);</span><br><span class="line">    <span class="built_in">exit</span>(EXIT_SUCCESS);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="水平触发与边缘触发"><a href="#水平触发与边缘触发" class="headerlink" title="水平触发与边缘触发"></a>水平触发与边缘触发</h1><p>在深入讨论多种可选的机制之前，我们需要先区分两种文件描述符准备就绪的通知模式。</p>
+<ul>
+<li><strong>水平触发</strong>通知(epoll默认的通知方式)：如果文件描述符上可以非阻塞地执行I/O系统调用，此时认为它已经<br>就绪。</li>
+<li><strong>边缘触发</strong>通知：如果文件描述符自上次状态检查以来有了新的I/O活动（比如新的输<br>入），此时需要触发通知。</li>
+</ul>
+<p>下图总结了I/O多路复用、信号驱动I/O以及epoll所采用的通知模型。epoll API同其<br>他两种I/O模型的区别在于它对水平触发（默认）和边缘触发都支持。</p>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/epoll扼要总结/epoll1.png" title="epoll">
+<h2 id="水平触发与边缘触发的区别"><a href="#水平触发与边缘触发的区别" class="headerlink" title="水平触发与边缘触发的区别"></a>水平触发与边缘触发的区别</h2><p><strong>默认情况下 epoll 提供的是水平触发通知</strong>.要使用边缘触发通知，我们在调用epoll_ctl()时在ev．events字段中指定EPOLLET标志.</p>
+<p>例如 : </p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">ev</span>;</span></span><br><span class="line">ev.data.fd = fd;</span><br><span class="line">ev.events = EPOLLIN | EPOLLET;</span><br><span class="line"><span class="keyword">if</span> (epoll_ctl(epfd, EPOLL_CTL_ADD, fd, ev) == <span class="number">-1</span>)</span><br><span class="line">    errExit(<span class="string">"epoll_ctl"</span>);</span><br></pre></td></tr></table></figure>
+<p>我们通过一个例子来说明epoll的水平触发和边缘触发通知之间的区别。<br>假设我们使用epoll来监视一个套接字上的输入（EPOLLIN），接下来会发生如下的事件。</p>
+<p>1．套接字上有输入到来。<br>2．我们调用一次epoll_wait()。无论我们采用的是水平触发还是边缘触发通知，该调用<br>都会告诉我们套接字已经处于就绪态了。<br>3．再次调用epoll_wait()。</p>
+<p>如果我们采用的是水平触发通知，那么第二个epoll_wait()调用将告诉我们套接字处于就<br>绪态。而如果我们采用边缘触发通知，那么第二个epoll_wait()调用将阻塞，因为自从上一次<br>调用epoll_wait()以来并没有新的输入到来。</p>
+<p>边缘触发通知通常和非阻塞的文件描述符结合使用。因而，采用epoll的边缘触发通知机制的程序基本框架如下:</p>
+<p>1．让所有待监视的文件描述符都成为非阻塞的。<br>2．通过epoll_ctl()构建epoll的兴趣列表。<br>3．通过如下的循环处理I/O事件 :<br>(a)通过epoll_wait()取得处于就绪态的描述符列表。<br>(b)针对每一个处于就绪态的文件描述符，不断进行I/O处理直到相关的系统调用( 例如read()、write()，recv()、send()或accept() )返回EAGAIN或EWOULDBLOCK错误。</p>
+<h3 id="水平触发需要处理的问题"><a href="#水平触发需要处理的问题" class="headerlink" title="水平触发需要处理的问题"></a>水平触发需要处理的问题</h3><p>使用linux epoll模型，水平触发模式（Level-Triggered）；当socket可写时，会不停的触发socket可写的事件，如何处理？</p>
+<ul>
+<li><p>第一种最普通的方式：  </p>
+<p>  当需要向socket写数据时，将该socket加入到epoll模型（epoll_ctl）；等待可写事件。<br>  接收到socket可写事件后，调用write()或send()发送数据。。。<br>  当数据全部写完后， 将socket描述符移出epoll模型。</p>
+<p>  这种方式的缺点是：  即使发送很少的数据，也要将socket加入、移出epoll模型。有一定的操作代价。</p>
+</li>
+<li><p>第二种方式，（是本人的改进方案， 叫做directly-write）</p>
+<p>  向socket写数据时，不将socket加入到epoll模型；而是直接调用send()发送；<br>  只有当或send()返回错误码EAGAIN（系统缓存满），才将socket加入到epoll模型，等待可写事件后(表明系统缓冲区有空间可以写了)，再发送数据。<br>  全部数据发送完毕，再移出epoll模型。</p>
+<p>  这种方案的优点：   当用户数据比较少时，不需要epool的事件处理。<br>  在高压力的情况下，性能怎么样呢？<br>  对一次性直接写成功、失败的次数进行统计。如果成功次数远大于失败的次数， 说明性能良好。（如果失败次数远大于成功的次数，则关闭这种直接写的操作，改用第一种方案。同时在日志里记录警告）<br>  在我自己的应用系统中，实验结果数据证明该方案的性能良好。</p>
+<p>  事实上，网络数据可分为两种到达/发送情况：<br>  一是分散的数据包， 例如每间隔40ms左右，发送/接收3-5个 MTU（或更小，这样就没超过默认的8K系统缓存）。<br>  二是连续的数据包， 例如每间隔1s左右，连续发送/接收 20个 MTU（或更多）。</p>
+</li>
+</ul>
+<ul>
+<li><p>第三种方式：  使用Edge-Triggered（边沿触发），这样socket有可写事件，只会触发一次。</p>
+<p>  可以在应用层做好标记。以避免频繁的调用 epoll_ctl( EPOLL_CTL_ADD, EPOLL_CTL_MOD)。  这种方式是epoll 的 man 手册里推荐的方式， 性能最高。但如果处理不当容易出错，事件驱动停止。</p>
+</li>
+</ul>
+<h1 id="epoll与select-poll的区别"><a href="#epoll与select-poll的区别" class="headerlink" title="epoll与select/poll的区别"></a>epoll与select/poll的区别</h1><p>select函数，必须得清楚select跟linux特有的epoll的区别， 有三点(遍内树)：</p>
+<ul>
+<li>遍历 ： 每次调用select都需要在内核遍历传递进来的所有fd，这个开销在fd很多时也很大；当我们执行epoll_ctl时，除了把socket放到epoll文件系统里file对象对应的红黑树上之外，还会给内核中断处理程序注册一个回调函数，告诉内核，如果这个句柄的中断到了，就把它放到准备就绪list链表里。所以，当一个socket上有数据到了，内核在把网卡上的数据copy到内核中后就来把socket插入到准备就绪链表里了。epoll_wait的工作实际上就是在这个就绪链表中查看有没有就绪的fd, 每次只需要简单的从列表里取出就行了</li>
+<li>内存拷贝 ： select，poll每次调用都要把fd集合从用户态往内核态拷贝一次; epoll的解决方案在epoll_ctl函数中。每次注册新的事件到epoll句柄中时（在epoll_ctl中指定EPOLL_CTL_ADD），会把所有的fd拷贝进内核，而不是在epoll_wait的时候重复拷贝。epoll保证了每个fd在整个过程中只会拷贝一次</li>
+<li>数量限制 ： select默认只支持1024个；epoll并没有最大数目限制</li>
+</ul>
+<p>总结：</p>
+<p>（1）select，poll实现需要自己不断轮询所有fd集合，直到设备就绪，期间可能要睡眠和唤醒多次交替。而epoll其实也需要调用epoll_wait不断轮询就绪链表，期间也可能多次睡眠和唤醒交替，但是它是设备就绪时，调用回调函数，把就绪fd放入就绪链表中，并唤醒在epoll_wait中进入睡眠的进程。虽然都要睡眠和交替，但是select和poll在“醒着”的时候要遍历整个fd集合，而epoll在“醒着”的时候只要判断一下就绪链表是否为空就行了，这节省了大量的CPU时间。这就是回调机制带来的性能提升。</p>
+<p>（2）select，poll每次调用都要把fd集合从用户态往内核态拷贝一次，并且要把current往设备等待队列中挂一次，而epoll只要一次拷贝，而且把current往等待队列上挂也只挂一次（在epoll_wait的开始，注意这里的等待队列并不是设备等待队列，只是一个epoll内部定义的等待队列）。这也能节省不少的开销。</p>
+<h1 id="常见的epoll编程模型"><a href="#常见的epoll编程模型" class="headerlink" title="常见的epoll编程模型"></a>常见的epoll编程模型</h1><p>见本博客的:</p>
+<ul>
+<li>关于服务器模型总结请转 <a href="/server_model_summary/" title="此文">此文</a></li>
+<li>关于reactor模型总结请转 <a href="/reactor_intro/" title="此文">此文</a></li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/top500_english_life_sentences/" rel="next" title="Top 500 English sentences for daily life">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Top 500 English sentences for daily life
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/socket可读可写条件与非阻塞connect或accept浅析/" rel="prev" title="socket可读可写条件与非阻塞connect或accept浅析">
+                <p class="post-nav-pre-next-title">
+                    socket可读可写条件与非阻塞connect或accept浅析
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#epoll-编程接口"><span class="nav-text">epoll 编程接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll概要"><span class="nav-text">epoll概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll-create"><span class="nav-text">epoll_create</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll-ctl"><span class="nav-text">epoll_ctl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-epoll-create-和-epoll-ctl-的例子"><span class="nav-text">使用 epoll_create() 和 epoll_ctl()的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll-wait"><span class="nav-text">epoll_wait</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TLPI书上的例子"><span class="nav-text">TLPI书上的例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#水平触发与边缘触发"><span class="nav-text">水平触发与边缘触发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#水平触发与边缘触发的区别"><span class="nav-text">水平触发与边缘触发的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#水平触发需要处理的问题"><span class="nav-text">水平触发需要处理的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#epoll与select-poll的区别"><span class="nav-text">epoll与select/poll的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的epoll编程模型"><span class="nav-text">常见的epoll编程模型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🚙">
+<meta property="og:url" content="https://hulinhong.com/page/36/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚙">
+<meta name="twitter:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>🚙 - 💨 💨 💨</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/advanced_linked_list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/advanced_linked_list/" itemprop="url">数据结构四之链表进阶</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-12-22T23:19:21+00:00">
+                12-22-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>只谈一下单链表, 链表实在是太重要, 是前面两篇说算法博客的基础, 了解了其应用和衍生, 再去了解其本身就有动力了</p>
+<h1 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">typedef struct Node</span><br><span class="line">&#123;</span><br><span class="line">	DataType data;</span><br><span class="line">	struct Node *next;</span><br><span class="line">&#125;Node, *Node_Ptr;</span><br></pre></td></tr></table></figure>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/advanced_linked_list/advanced_linked_list_1.png">
+<ul>
+<li>链表中第一个结点的存储位置叫做头指针</li>
+<li>头指针和头结点不同，头结点即第一个结点，头指针是指向第一个结点的指针。链表中可以没有头结点，但不能没有头指针。</li>
+<li>如果链表有头结点，那么头指针就是指向头结点数据域的指针。</li>
+<li>单链表也可以没有头结点</li>
+</ul>
+<p><strong>头结点的优点: </strong></p>
+<ul>
+<li>头结点是为了操作的统一与方便而设立的，放在第一个元素结点之前，其数据域一般无意义（当然有些情况下也可存放链表的长度、用做监视哨等等）。</li>
+<li>有了头结点后，对在第一个元素结点前插入结点和删除第一个结点，其操作与对其它结点的操作统一了。</li>
+</ul>
+<h2 id="有头结点和无头结点的建立链表方法头插法"><a href="#有头结点和无头结点的建立链表方法头插法" class="headerlink" title="有头结点和无头结点的建立链表方法头插法"></a>有头结点和无头结点的建立链表方法头插法</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">include &lt;stdio.h&gt;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Link</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span>  elem;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Link</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;link;</span><br><span class="line"><span class="comment">//无头结点链表的头插法实现函数</span></span><br><span class="line"><span class="function">link * <span class="title">creatLink</span><span class="params">(<span class="keyword">int</span> * arc, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">//最初状态下，头指针 H 没有任何结点，所以，插入第一个元素，就相当于是创建结点 H</span></span><br><span class="line">    link * H =(link*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(link));</span><br><span class="line">    H-&gt;elem = arc[<span class="number">0</span>];</span><br><span class="line">    H-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">//如果采用头插法插入超过 1 个元素，则可添加到第一个结点 H 之前</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i&lt;length; i++) &#123;</span><br><span class="line">        link * a = (link*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(link));</span><br><span class="line">        a-&gt;elem = arc[i];</span><br><span class="line">        <span class="comment">//插入元素时，首先将插入位置后的链表链接到新结点上</span></span><br><span class="line">        a-&gt;next = H;</span><br><span class="line">        <span class="comment">//然后再链接头指针 H</span></span><br><span class="line">        H = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> H;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//有头结点链表的头插法实现函数</span></span><br><span class="line"><span class="function">link * <span class="title">HcreatLink</span><span class="params">(<span class="keyword">int</span> * arc, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">//创建头结点 H，其链表的头指针也是 H</span></span><br><span class="line">    link * H = (link*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(link));</span><br><span class="line">    H-&gt;elem = <span class="number">0</span>;</span><br><span class="line">    H-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">//采用头插法创建链表</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;length; i++) &#123;</span><br><span class="line">        link * a = (link*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(link));</span><br><span class="line">        a-&gt;elem = arc[i];</span><br><span class="line">        <span class="comment">//首先将插入位置之后的链表链接到新结点 a 上</span></span><br><span class="line">        a-&gt;next = H-&gt;next;</span><br><span class="line">        <span class="comment">//将新结点 a 插入到头结点之后的位置</span></span><br><span class="line">        H-&gt;next = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> H;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//链表的输出函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">(link *p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (p) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, p-&gt;elem);</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">3</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;</span><br><span class="line">    <span class="comment">//采用头插法创建无头结点链表</span></span><br><span class="line">    link * H = creatLink(a, <span class="number">3</span>);</span><br><span class="line">    display(H);</span><br><span class="line">    <span class="comment">//采用头插法创建有头结点链表</span></span><br><span class="line">    link * head = HcreatLink(a, <span class="number">3</span>);</span><br><span class="line">    display(head);</span><br><span class="line">    <span class="comment">//使用完毕后，释放即可</span></span><br><span class="line">    <span class="built_in">free</span>(H);</span><br><span class="line">    <span class="built_in">free</span>(head);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">3 2 1</span><br><span class="line">0 3 2 1</span><br></pre></td></tr></table></figure></p>
+<p>提示：没有 0 的为无头结点的头插法输出结果，有 0 的为有头结点的头插法的输出结果</p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别/" itemprop="url">SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-12-13T10:12:15+00:00">
+                12-13-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>使用SVN在管理代码的时候免不了进行代码的合并和还原，特别是当前版本的修改发现有重大问题的时候，还原是避免不了的，那么究竟应该怎样操作呢？</p>
+<h1 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h1><p>使用SVN查看文件或目录的日志的时候，右键单击日志记录会弹出下面这个界面，今天我们来着重了解一下被红圈标记的三个选项——“Update item to this version”，“Revert to this version”，“Revert changes from this version”，这三个选项对于刚接触SVN的人确实不太好区分，一开始我也搞不懂，直到亲自试验一下才搞清楚这三个选项的用法。</p>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/SVN的UpdateItemToThisRevision和RevertToThisRevision和UpdateItemToRevision的区别/svn_1.jpg" title="svn">
+<p>在讲解这三个选项的作用之前，我们还是先来假定一个使用情景，假设我们的项目文件一共有8个版本，它版本号分别是1，2，3，4，5，6，7，8。</p>
+<h1 id="Update-item-to-this-version"><a href="#Update-item-to-this-version" class="headerlink" title="Update item to this version"></a>Update item to this version</h1><p>这个选项的作用是将文件版本更新到对应所选的版本（当然内容也修改到了相应的版本）。如果我们是在版本4这里点击“Update item to this version”，表示5~8版本所作的修改全部作废，这个文件的历史回退到了版本4那个时代，但是需要注意的是，此时文件的版本是4，并不是最新的。我们知道SVN工具中如果文件不是最新版本就无法上传，所以说这个功能只是用来暂时还原一下版本，来查询某个问题的，不能将还原后的文件上传。这个特别是当你服务器启动不了了, 把版本退回一个可以启动版本的情况</p>
+<h1 id="Revert-to-this-version"><a href="#Revert-to-this-version" class="headerlink" title="Revert to this version"></a>Revert to this version</h1><p>这个选项的作用是将文件的内容更新到对应的版本，版本号没有发生变化。如果我们是在版本4这里点击“Revert to this version”，表示5~8版本所作的修改全部被还原，此时svn里会有5-8被还原的文件改动可以提交, 此时文件和版本4的文件一模一样，但需要注意的是这项操作相当于我们把版本4这个文件拷贝了一份赋值给了当前目录下的文件，此时的文件版本还是8，并且是可以提交的，提交以后文件的版本变成了9，增加了一个新的版本，虽然这个版本和版本4的内容是一样的。</p>
+<h1 id="Revert-changes-from-this-version"><a href="#Revert-changes-from-this-version" class="headerlink" title="Revert changes from this version"></a>Revert changes from this version</h1><p>这个选项的作用是将对应版本的修改还原，文件的版本号不发生变化，相当于在当前本版本上剔除某些版本所作的改变。如果我们是在版本4这里点击“Revert changes from this version”，表示版本4所作的修改被抹杀了，只剩下除版本4以外的7个修改了，但是此时文件是可以上传的，并且会生成新的版本9，只是版本9只包括除版本4以外的7次修改。这个选项是可以选择多个版本的，如果我们选择4,5,6,7这四个版本点击“Revert changes from this revision”，那么这几次修改都会被抹杀。如果我们选择5,6,7,8这四个版本点击“Revert changes from this revision”，表示取消这几个版本的修改，实际上和在版本4这里点击“Revert to this version”的作用是一样的。</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/some_common_examination/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/some_common_examination/" itemprop="url">一些常见的笔试题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-29T02:11:22+00:00">
+                09-29-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="考察cpp的静态绑定"><a href="#考察cpp的静态绑定" class="headerlink" title="考察cpp的静态绑定"></a>考察cpp的静态绑定</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MMPA</span>&#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>-&gt;v_; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">tvalue</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span> v_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>&#123;</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">const</span> MMPA* p = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="comment">// 		std::cout &lt;&lt; p-&gt;v_ &lt;&lt; std::endl;</span></span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; p-&gt;tvalue() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; p-&gt;value() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		getchar(); <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>会打印什么?</p>
+<h2 id="答案以及分析"><a href="#答案以及分析" class="headerlink" title="答案以及分析"></a>答案以及分析</h2><p><strong>答案</strong>: 打印1之后崩溃</p>
+<p><strong>真正的原因是</strong>：</p>
+<p>因为对于非虚成员函数，Ｃ++这门语言是静态绑定的。这也是Ｃ++语言和其它语言Java, Python的一个显著区别。以此下面的语句为例：somenull-&gt;foo();这语句的意图是：调用对象somenull的foo成员函数。如果这句话在Java或Python等动态绑定的语言之中，编译器生成的代码大概是：找到somenull的foo成员函数，调用它。</p>
+<p>（注意，这里的找到是程序运行的时候才找的，这也是所谓动态绑定的含义：运行时才绑定这个函数名与其对应的实际代码。有些地方也称这种机制为迟绑定，晚绑定。）但是对于C++。为了保证程序的运行时效率，Ｃ++的设计者认为凡是编译时能确定的事情，就不要拖到运行时再查找了。</p>
+<p>所以C++的编译器看到这句话会这么干：</p>
+<ol>
+<li>查找somenull的类型，发现它有一个非虚的成员函数叫foo。（编译器干的）</li>
+<li>找到了，在这里生成一个函数调用，直接调B::foo(somenull)。</li>
+</ol>
+<p>所以到了运行时，由于foo()函数里面并没有任何需要解引用somenull指针的代码，所以真实情况下也不会引发segment fault。这里对成员函数的解析，和查找其对应的代码的工作都是在编译阶段完成而非运行时完成的，这就是所谓的静态绑定，也叫早绑定。正确理解C++的静态绑定可以理解一些特殊情况下C++的行为。</p>
+<h1 id="求最大公约数"><a href="#求最大公约数" class="headerlink" title="求最大公约数"></a>求最大公约数</h1><p>求 a 和 b 的最大公约数<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/some_common_examination/greatest_common_divisor.png" alt="辗转相除法"></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">measure</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> product = a * b;</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">0</span> || b == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (a &lt; b)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> temp = a;</span><br><span class="line">		a = b;</span><br><span class="line">		b = temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (<span class="keyword">int</span> mod = a % b)</span><br><span class="line">	&#123;</span><br><span class="line">		a = b;</span><br><span class="line">		b = mod;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//return b; // 最大公约数</span></span><br><span class="line">	<span class="keyword">return</span> product / b; <span class="comment">// 记住这个公式： a*b=最小公倍数*最大公约数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="棋盘-格子问题"><a href="#棋盘-格子问题" class="headerlink" title="棋盘/格子问题"></a>棋盘/格子问题</h1><p>在如下7*5的棋盘中，请计算从A移动到B一共有多少走法？要求每次只能向上或向右移动一格，并且不能经过P。(答案为492)</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/some_common_examination/SumWaysOfMoveOnChessBoard.jpg" alt></p>
+<p>给定一个M*N的格子或棋盘，从左下角走到右上角的走法总数（每次只能向右或向上移动一个方格边长的距离）   </p>
+<p>运用动态规划来解答 :<br>我们可以把棋盘的左下角看做二维坐标的原点(0,0)，把棋盘的右上角看做二维坐标(M,N)(坐标系的单位长度为小方格的变长)<br>用f(i,j)表示移动到坐标f(i,j)的走法总数，其中0=&lt;i,j&lt;=n，设f(m,n)代表从坐标（0,0）到坐标（m,n）的移动方法，则<br>    <code>f(m,n)=f(m-1,n)+f(m,n-1).</code><br>于是状态f(i,j)的状态转移方程为：   </p>
+<pre><code>f(i,j)=f(i-1,j)+f(i,j-1)   if i,j&gt;0
+f(i,j)=f(i,j-1)            if i=0
+f(i,j)=f(i-1,j)            if j=0
+</code></pre><p>初始情况就为：f(0,0)=0, f(0,1)=1, f(1,0)=1，这个问题可以在时间O(n^2)，空间O(n^2)内求解，非递归解.   </p>
+<p>所以答案为     492 =     </p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">SumWaysOfMoveOnChessBoard(<span class="number">7</span>, <span class="number">5</span>) - SumWaysOfMoveOnChessBoard(<span class="number">3</span>, <span class="number">3</span>) * SumWaysOfMoveOnChessBoard(<span class="number">7</span> - <span class="number">3</span>, <span class="number">5</span> - <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="递归解"><a href="#递归解" class="headerlink" title="递归解"></a>递归解</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SumWaysOfMoveOnChessBoard_Recursion</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (m == <span class="number">0</span> &amp;&amp; n == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (m==<span class="number">0</span> || n==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> SumWaysOfMoveOnChessBoard_Recursion(m, n - <span class="number">1</span>) + SumWaysOfMoveOnChessBoard_Recursion(m - <span class="number">1</span>, n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="非递归解"><a href="#非递归解" class="headerlink" title="非递归解"></a>非递归解</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SumWaysOfMoveOnChessBoard_NonRecursion_RawArray</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (m == <span class="number">0</span> || n == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span> (m == <span class="number">0</span> &amp;&amp; n == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> xSize = m + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> ySize = n + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>** arr = <span class="keyword">new</span> <span class="keyword">int</span>*[xSize];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; xSize; ++i)</span><br><span class="line">		arr[i] = <span class="keyword">new</span> <span class="keyword">int</span>[ySize];</span><br><span class="line"></span><br><span class="line">	arr[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; xSize; ++i) arr[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ySize; ++i) arr[<span class="number">0</span>][i] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; xSize; ++i)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; ySize; ++j)</span><br><span class="line">			arr[i][j] = arr[i - <span class="number">1</span>][j] + arr[i][j - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; xSize; ++i)</span><br><span class="line">		<span class="keyword">delete</span>[] arr[i];</span><br><span class="line">	<span class="keyword">delete</span>[] arr;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> arr[m][n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SumWaysOfMoveOnChessBoard_NonRecursion_STL</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (m == <span class="number">0</span> &amp;&amp; n == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> xSize = m + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> ySize = n + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt; <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ChessBoardArray(xSize, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(ySize));;</span><br><span class="line">	ChessBoardArray[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; xSize; ++i) ChessBoardArray[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; ySize; ++j) ChessBoardArray[<span class="number">0</span>][j] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; xSize; ++i)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; ySize; ++j)</span><br><span class="line">			ChessBoardArray[i][j] = ChessBoardArray[i][j - <span class="number">1</span>] + ChessBoardArray[i - <span class="number">1</span>][j];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> ChessBoardArray[m][n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="大数加法-乘法"><a href="#大数加法-乘法" class="headerlink" title="大数加法/乘法"></a>大数加法/乘法</h1><p><strong>大数加法思路</strong> :<br>模拟小学列竖式</p>
+<pre><code>        9  8
++       2  1
+-------------
+    (1)(1)(9)
+</code></pre><p><strong>大数乘法思路</strong> :</p>
+<p>模拟乘法累加 - 改进<br>简单来说，方法二就是先不算任何的进位，也就是说，将每一位相乘，相加的结果保存到同一个位置，到最后才计算进位。</p>
+<p>例如：计算98×21,步骤如下</p>
+<pre><code>        9  8
+×       2  1
+-------------
+       (9)(8)   &lt;---- 第1趟: 98×1的每一位结果 
+   (18)(16)     &lt;---- 第2趟: 98×2的每一位结果 
+-------------
+   (18)(25)(8)  &lt;---- 这里就是相对位的和，还没有累加进位
+</code></pre><p>这里唯一要注意的便是进位问题，我们可以先不考虑进位，当所有位对应相加，产生结果之后，再考虑。<br>从右向左依次累加，如果该位的数字大于10，那么我们用取余运算，在该位上只保留取余后的个位数，而将十位数进位（通过模运算得到）累加到高位便可，循环直到累加完毕。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BigIntAddition</span><span class="params">(<span class="keyword">char</span>* bigIntA, <span class="keyword">char</span>* bigIntB)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!bigIntA || !bigIntB)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">size_t</span> strlenA = <span class="built_in">strlen</span>(bigIntA);</span><br><span class="line">	<span class="keyword">size_t</span> strlenB = <span class="built_in">strlen</span>(bigIntB);</span><br><span class="line">	<span class="keyword">size_t</span> biggerStrlen = strlenA &gt; strlenB ? strlenA : strlenB;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>* reversedA = <span class="keyword">new</span> <span class="keyword">int</span>[biggerStrlen];</span><br><span class="line">	<span class="keyword">int</span>* reversedB = <span class="keyword">new</span> <span class="keyword">int</span>[biggerStrlen];</span><br><span class="line">	<span class="comment">// 先将例子中的 1234 和 98765 逆序存储, 不够的补零, 方便计算</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; biggerStrlen; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; int(strlenA - 1 - i) &lt;&lt; endl;</span></span><br><span class="line">		reversedA[i] = (<span class="keyword">int</span>(strlenA - <span class="number">1</span> - i) &gt;= <span class="number">0</span>) ? (bigIntA[strlenA - <span class="number">1</span> - i] - <span class="string">'0'</span>) : <span class="number">0</span>;</span><br><span class="line">		reversedB[i] = (<span class="keyword">int</span>(strlenB - <span class="number">1</span> - i) &gt;= <span class="number">0</span>) ? (bigIntB[strlenB - <span class="number">1</span> - i] - <span class="string">'0'</span>) : <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; biggerStrlen; ++i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; reversedA[i];</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// --&gt; 43210</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; biggerStrlen; ++i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; reversedB[i];</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// --&gt; 98765</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>* bigIntSum = <span class="keyword">new</span> <span class="keyword">int</span>[biggerStrlen + <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">0</span>; <span class="comment">// 进位</span></span><br><span class="line">						 <span class="comment">// 模拟小学的列竖式加法, 满10进1</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; biggerStrlen; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		bigIntSum[i] = reversedA[i] + reversedB[i] + x;</span><br><span class="line">		x = bigIntSum[i] / <span class="number">10</span>;</span><br><span class="line">		bigIntSum[i] %= <span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">size_t</span> printLen = biggerStrlen;</span><br><span class="line">	<span class="comment">// 查看最后一个进位是否 &gt; 0, 大于零则最高位为1</span></span><br><span class="line">	<span class="keyword">if</span> (x &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		bigIntSum[biggerStrlen] = x;</span><br><span class="line">		printLen = biggerStrlen + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; printLen; ++i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; bigIntSum[printLen - <span class="number">1</span> - i]; <span class="comment">// --&gt; 58023</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">delete</span>[] bigIntSum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BigIntMultiplication</span><span class="params">(<span class="keyword">char</span>* bigIntA, <span class="keyword">char</span>* bigIntB)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!bigIntA || !bigIntB)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> strlenA = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(<span class="built_in">strlen</span>(bigIntA));</span><br><span class="line">	<span class="keyword">int</span> strlenB = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(<span class="built_in">strlen</span>(bigIntB));</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; strlenA &lt;&lt; <span class="string">", "</span> &lt;&lt; strlenB &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">int</span> biggerStrlen = strlenA &gt; strlenB ? strlenA : strlenB;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>* reversedA = <span class="keyword">new</span> <span class="keyword">int</span>[biggerStrlen];</span><br><span class="line">	<span class="keyword">int</span>* reversedB = <span class="keyword">new</span> <span class="keyword">int</span>[biggerStrlen];</span><br><span class="line">	<span class="comment">// 先将例子中的 1234 和 98765 逆序存储, 不够的补零, 方便计算</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; biggerStrlen; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		reversedA[i] = (<span class="keyword">int</span>(strlenA - <span class="number">1</span> - i) &gt;= <span class="number">0</span>) ? (bigIntA[strlenA - <span class="number">1</span> - i] - <span class="string">'0'</span>) : <span class="number">0</span>;</span><br><span class="line">		reversedB[i] = (<span class="keyword">int</span>(strlenB - <span class="number">1</span> - i) &gt;= <span class="number">0</span>) ? (bigIntB[strlenB - <span class="number">1</span> - i] - <span class="string">'0'</span>) : <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; biggerStrlen; ++i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; reversedA[i];</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// --&gt; 43210</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; biggerStrlen; ++i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; reversedB[i];</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// --&gt; 98765</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 分配一个空间，用来存储运算的结果，num1长的数 * num2长的数，</span></span><br><span class="line">	<span class="comment">// 结果不会超过num1+num2长</span></span><br><span class="line">	<span class="keyword">int</span>* bigIntProduct = <span class="keyword">new</span> <span class="keyword">int</span>[strlenA + strlenB];</span><br><span class="line">	<span class="comment">// 比如防止下面执行 bigIntSum[i + j] += reversedA[i] * reversedB[j]; 这句的时候</span></span><br><span class="line">	<span class="comment">// i+j = 0 时 出错, 因为 bigIntSum[0] 为一个未初始化的值</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strlenA + strlenB; ++i)</span><br><span class="line">		bigIntProduct[i] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> carry = <span class="number">0</span>; <span class="comment">// 进位</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 先不考虑进位问题，根据竖式的乘法运算，</span></span><br><span class="line">	<span class="comment">// num1的第i位与num2的第j位相乘，结果应该存放在结果的第i+j位上</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strlenA; ++i)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; strlenB; ++j)</span><br><span class="line">			bigIntProduct[i + j] += reversedA[i] * reversedB[j];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strlenA + strlenB; ++i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; bigIntProduct[i] &lt;&lt; <span class="string">", "</span>; <span class="comment">// --&gt; 3659707060341650</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//单独处理进位</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strlenA + strlenB - <span class="number">1</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		bigIntProduct[i] += carry;</span><br><span class="line">		carry = bigIntProduct[i] / <span class="number">10</span>;</span><br><span class="line">		bigIntProduct[i] %= <span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strlenA + strlenB; ++i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; bigIntProduct[i] &lt;&lt; <span class="string">", "</span>; <span class="comment">// --&gt; 626770070</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> printLen = strlenA + strlenB - <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// 查看最后一个进位是否 &gt; 0, 大于零则最高位为1</span></span><br><span class="line">	<span class="keyword">if</span> (carry &gt; <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		bigIntProduct[strlenA + strlenB - <span class="number">1</span>] = carry;</span><br><span class="line">		printLen = strlenA + strlenB;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; printLen; ++i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; bigIntProduct[printLen - <span class="number">1</span> - i]; <span class="comment">// --&gt; 70077626</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">delete</span>[] bigIntProduct;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> *bigIntA = <span class="string">"1234"</span>;</span><br><span class="line">	<span class="keyword">char</span> *bigIntB = <span class="string">"56789"</span>;</span><br><span class="line">	BigIntAddition(bigIntA, bigIntB);</span><br><span class="line">	BigIntMultiplication(bigIntA, bigIntB);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="最长公共子串"><a href="#最长公共子串" class="headerlink" title="最长公共子串"></a>最长公共子串</h1><p>问题：有两个字符串str和str2，求出两个字符串中最长公共子串长度。</p>
+<p>比如：str=acbcbcef，str2=abcbced，则str和str2的最长公共子串为bcbce，最长公共子串长度为5。</p>
+<p>算法思路：</p>
+<p>1、把两个字符串分别以行和列组成一个二维矩阵。<br>2、比较二维矩阵中每个点对应行列字符中否相等，相等的话值设置为1，否则设置为0。<br>3、通过查找出值为1的最长对角线就能找到最长公共子串。</p>
+<p>针对于上面的两个字符串我们可以得到的二维矩阵如下：<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/some_common_examination/LongestCommonSubstring1.jpg" alt></p>
+<p>从上图可以看到，str和str2共有5个公共子串，但最长的公共子串长度为5。</p>
+<p>为了进一步优化算法的效率，我们可以再计算某个二维矩阵的值的时候顺便计算出来当前最长的公共子串的长度，<br>即某个二维矩阵元素的值由 <code>item[i][j]=1</code> 演变为 <code>item[i][j]=1 +item[i-1][j-1]</code> ，这样就避免了后续查找对角线长度的操作了。修改后的二维矩阵如下：<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/img/some_common_examination/LongestCommonSubstring2.jpg" alt></p>
+<p>故状态转移方程</p>
+<pre><code>X[i] == Y[j]，dp[i][j] = dp[i-1][j-1] + 1
+X[i] != Y[j]，dp[i][j] = 0
+</code></pre><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LongestCommonSubstring</span><span class="params">(<span class="keyword">char</span>* strA, <span class="keyword">char</span>* strB)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!strA || !strB)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> maxLen = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> strlenA = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(<span class="built_in">strlen</span>(strA));</span><br><span class="line">	<span class="keyword">int</span> strlenB = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(<span class="built_in">strlen</span>(strB));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> biggerStrlen = strlenA &gt; strlenB ? (strlenA + <span class="number">1</span>) : (strlenB + <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">char</span> * lcs = <span class="keyword">new</span> <span class="keyword">char</span>[biggerStrlen];</span><br><span class="line">	<span class="keyword">int</span> lcsMaxIndex = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>** temp = <span class="keyword">new</span> <span class="keyword">int</span>*[strlenA];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strlenA; ++i)</span><br><span class="line">		temp[i] = <span class="keyword">new</span> <span class="keyword">int</span>[strlenB];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strlenA; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; strlenB; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (strA[i] == strB[j])</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; j &gt; <span class="number">0</span>)</span><br><span class="line">					temp[i][j] = temp[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					temp[i][j] = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				temp[i][j] = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (temp[i][j] &gt; maxLen)</span><br><span class="line">			&#123;</span><br><span class="line">				maxLen = temp[i][j];</span><br><span class="line">				lcsMaxIndex = i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; maxLen; ++i)</span><br><span class="line">		*(lcs + maxLen - i - <span class="number">1</span>) = strA[lcsMaxIndex--];</span><br><span class="line">	*(lcs+maxLen) = <span class="string">'\0'</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; lcs &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strlenA; ++i)</span><br><span class="line">		<span class="keyword">delete</span>[] temp[i];</span><br><span class="line">	<span class="keyword">delete</span>[] temp;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">delete</span>[] lcs;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> maxLen;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"maxLen = "</span> &lt;&lt;</span><br><span class="line">		LongestCommonSubstring(<span class="string">"wwwadfabcdeasdf"</span>, <span class="string">"wwweoruqpeorqabcdezcvnz"</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/deque_queue_stack_comparison/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/deque_queue_stack_comparison/" itemprop="url">STL之队列和双端队列和栈的比较</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-25T19:11:22+00:00">
+                09-25-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="队列和双端队列的比较"><a href="#队列和双端队列的比较" class="headerlink" title="队列和双端队列的比较"></a>队列和双端队列的比较</h1><p><strong>队列</strong>(queue)是一种是相对于栈的一种数据结构，它是先进先出(First In First Out)。<br>它只可以在尾部添加元素。</p>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/deque_queue_stack_comparison/deque_queue_stack_comparison_1.png" title="队列">
+<p><strong>双端队列</strong>(deque double ended queue（双端队列）)是一种相对于队列的一种数据结构。它可以在尾部和头部插入、移除和获取。</p>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/deque_queue_stack_comparison/deque_queue_stack_comparison_2.png" title="双端队列">
+<h1 id="三者成员函数的比较"><a href="#三者成员函数的比较" class="headerlink" title="三者成员函数的比较"></a>三者成员函数的比较</h1><p>通过他们各自的成员函数我们能一目了然的看出区别</p>
+<h2 id="栈的成员函数"><a href="#栈的成员函数" class="headerlink" title="栈的成员函数"></a>栈的成员函数</h2><ul>
+<li><code>stack&lt;Type&gt; s</code> : 定义一个stack的变量 </li>
+<li>s.push(x) : 入栈，如例  </li>
+<li>s.pop() : 出栈，如例 . 注意，出栈操作只是删除栈顶元素，并不返回该元素。 </li>
+<li>s.top() : 访问栈顶，如例  </li>
+<li>s.empty() : 判断栈空，如例，当栈空时，返回true。  </li>
+<li>s.size() : 访问栈中的元素个数，如例  </li>
+</ul>
+<h2 id="队列的成员函数"><a href="#队列的成员函数" class="headerlink" title="队列的成员函数"></a>队列的成员函数</h2><ul>
+<li><code>queue&lt;Type&gt; M</code> : 定义一个queue的变量    </li>
+<li>M.empty()  : 查看是否为空范例     是的话返回1，不是返回0;   </li>
+<li>M.push() : 从已有元素后面增加元素 </li>
+<li>M.size() : 输出现有元素的个数    </li>
+<li>M.front() : 显示第一个元素       </li>
+<li>M.back() : 显示最后一个元素      </li>
+<li>M.pop() : 清除第一个元素      </li>
+</ul>
+<h2 id="双端队列的成员函数"><a href="#双端队列的成员函数" class="headerlink" title="双端队列的成员函数"></a>双端队列的成员函数</h2><ul>
+<li><code>deque&lt;Type&gt; c</code> :     定义一个deque的变量</li>
+<li>c.pop_back()    :    删除最后一个数据。</li>
+<li>c.pop_front()     :   删除头部数据。</li>
+<li>c.push_back(elem) :  在尾部加入一个数据。</li>
+<li>c.push_front(elem)  : 在头部插入一个数据。</li>
+<li>c.clear()       :     移除容器中所有数据。</li>
+<li>c.front()       :     传回地一个数据。</li>
+<li>c.back()       :     传回最后一个数据，不检查这个数据是否存在。</li>
+<li>c.size()       :      返回容器中实际数据的个数。</li>
+<li>c.empty()      :     判断容器是否为空。</li>
+</ul>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/binary_search_tree_insert_delete_search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/binary_search_tree_insert_delete_search/" itemprop="url">数据结构三之二叉搜索树的增删查</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-24T19:17:32+00:00">
+                09-24-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>有了二叉树的基础, 我们继续学习二叉搜索树.</p>
+<h1 id="二叉搜索树的定义"><a href="#二叉搜索树的定义" class="headerlink" title="二叉搜索树的定义"></a>二叉搜索树的定义</h1><p><strong>二叉查找树(Binary Search Tree, 简称”BST”), 又名”二叉搜索树”或”二叉排序树”:</strong><br>它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。</p>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/binary_search_tree_insert_delete_search/BinarySearchTree.png">
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/binary_tree_traverse_and_swap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/binary_tree_traverse_and_swap/" itemprop="url">数据结构二之二叉树的遍历和交换左右孩子</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-23T12:11:22+00:00">
+                09-23-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>二叉树的二叉链式存储方案的代码表示：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BinTreeNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	BinTreeNode( <span class="keyword">char</span> Data ) : data_( Data ), left_( <span class="literal">nullptr</span> ), right_( <span class="literal">nullptr</span> ) &#123;&#125;</span><br><span class="line">	<span class="keyword">char</span> data_;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">BinTreeNode</span> *<span class="title">left_</span>, *<span class="title">right_</span>;</span></span><br><span class="line">&#125;btn, *btnp;</span><br></pre></td></tr></table></figure>
+<h1 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h1><p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/binary_tree_create_and_destroy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/binary_tree_create_and_destroy/" itemprop="url">数据结构一之二叉树的创建和销毁</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-22T19:11:22+00:00">
+                09-22-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>接着上一篇， 上一篇主要说了各种排序算法， 但对几个常用的数据结构还未提及，所以这一篇主要讲二叉树, 二叉树已经包括很多链表的知识了。所有代码都是测试过的, 可以直接撸.</p>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a><strong>二叉树</strong></h1><p>这里不举太多数字方面的东西， 我们直接看图， 直观感性的认识满二叉树和完全二叉树：</p>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/binary_tree_create_and_destroy/binary_tree_create_and_destroy_1.png">
+<p><strong>有一点性质需要牢记：具有n个结点的完全二叉树的最大高度为log2n+1</strong></p>
+<h2 id="二叉树的二叉链式存储"><a href="#二叉树的二叉链式存储" class="headerlink" title="二叉树的二叉链式存储"></a>二叉树的二叉链式存储</h2><p>二叉树的二叉链式存储方案的代码表示：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BinaryTreeNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">void</span> *data;</span><br><span class="line">	BinaryTreeNode *LeftNode;</span><br><span class="line">	BinaryTreeNode *RightNode;</span><br><span class="line">&#125;BTN, *BTNP;</span><br></pre></td></tr></table></figure>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/binary_tree_create_and_destroy/binary_tree_create_and_destroy_2.png">
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/面向对象的四大特征以及五大原则/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/面向对象的四大特征以及五大原则/" itemprop="url">面向对象的四大特征以及五大原则</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-09-12T10:05:48+00:00">
+                09-12-2014
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="面向对象的四大特征"><a href="#面向对象的四大特征" class="headerlink" title="面向对象的四大特征"></a>面向对象的四大特征</h1><ul>
+<li><p>封装：<br>封装是把过程和数据包围起来，对数据的访问只能通过已定义的界面，面向对象计算始于这个基本概念，即现实世界可以被描绘成一系列完全自治，封装的对象，这些对象通过一个受保护的接口访问其他对象</p>
+</li>
+<li><p>继承：<br>继承是一种联结类的层次模型，并且允许和鼓励类的重用，它提供了一种明确表达共性的方法，对象的一个新类可以从现在的类中派生，这个过程成为继承，新类继承了原始类的特性，新类成为原始类的派生类，而原始类称为新类的基类，派生类可以从他的基类那里继承方法和实例变量，并且类可以修改或增加新的方法使之更加适合特殊的需求</p>
+</li>
+<li><p>抽象：<br>抽象就是忽略一个主题中与当前目标无关的那些方面，以便充分的注意与当前目标有关的方面，抽象包括两个方面，一个是过程抽象，二是数据抽象</p>
+</li>
+<li><p>多态性：<br>多态性是指允许不同类的对象对同一消息作出响应，多态性包括参数化多态性和包含多态性，多态性语言具有灵活，抽象，行为共享，代码共享的优势，很好的解决了应用程序函数同名的问题</p>
+</li>
+</ul>
+<h1 id="面向对象的五大原则"><a href="#面向对象的五大原则" class="headerlink" title="面向对象的五大原则"></a>面向对象的五大原则</h1><p>记忆口诀 : 替开依(“凯隐”, 一个英雄联盟英雄名字)接单</p>
+<ul>
+<li><p><strong>单一职责原则（Single-Resposibility Principle）</strong><br>其核心思想为：一个类，最好只做一件事，只有一个引起它的变化。单一职责原则可以看做是低耦合、高内聚在面向对象原则上的引申，将职责定义为引起变化的原因，以提高内聚性来减少引起变化的原因。职责过多，可能引起它变化的原因就越多，这将导致职责依赖，相互之间就产生影响，从而大大损伤其内聚性和耦合度。通常意义下的单一职责，就是指只有一种单一功能，不要为类实现过多的功能点，以保证实体只有一个引起它变化的原因。<br>专注，是一个人优良的品质；同样的，单一也是一个类的优良设计。交杂不清的职责将使得代码看起来特别别扭牵一发而动全身，有失美感和必然导致丑陋的系统错误风险。</p>
+</li>
+<li><p><strong>开放封闭原则（Open-Closed principle）</strong><br>其核心思想是：软件实体应该是可扩展的，而不可修改的。也就是，对扩展开放，对修改封闭的。开放封闭原则主要体现在两个方面1、对扩展开放，意味着有新的需求或变化时，可以对现有代码进行扩展，以适应新的情况。2、对修改封闭，意味着类一旦设计完成，就可以独立完成其工作，而不要对其进行任何尝试的修改。<br>实现开开放封闭原则的核心思想就是对抽象编程，而不对具体编程，因为抽象相对稳定。让类依赖于固定的抽象，所以修改就是封闭的；而通过面向对象的继承和多态机制，又可以实现对抽象类的继承，通过覆写其方法来改变固有行为，实现新的拓展方法，所以就是开放的。<br>“需求总是变化”没有不变的软件，所以就需要用封闭开放原则来封闭变化满足需求，同时还能保持软件内部的封装体系稳定，不被需求的变化影响。</p>
+</li>
+<li><p><strong>替换原则（Liskov-Substituion Principle）</strong><br>其核心思想是：子类必须能够替换其基类。这一思想体现为对继承机制的约束规范，只有子类能够替换基类时，才能保证系统在运行期内识别子类，这是保证继承复用的基础。在父类和子类的具体行为中，必须严格把握继承层次中的关系和特征，将基类替换为子类，程序的行为不会发生任何变化。同时，这一约束反过来则是不成立的，子类可以替换基类，但是基类不一定能替换子类。<br>Liskov替换原则，主要着眼于对抽象和多态建立在继承的基础上，因此只有遵循了Liskov替换原则，才能保证继承复用是可靠地。实现的方法是面向接口编程：将公共部分抽象为基类接口或抽象类，通过Extract Abstract Class，在子类中通过覆写父类的方法实现新的方式支持同样的职责。<br>Liskov替换原则是关于继承机制的设计原则，违反了Liskov替换原则就必然导致违反开放封闭原则。<br>Liskov替换原则能够保证系统具有良好的拓展性，同时实现基于多态的抽象机制，能够减少代码冗余，避免运行期的类型判别。</p>
+</li>
+<li><p><strong>依赖倒置原则（Dependecy-Inversion Principle）</strong><br>其核心思想是：依赖于抽象。具体而言就是高层模块不依赖于底层模块，二者都同依赖于抽象；抽象不依赖于具体，具体依赖于抽象。<br>我们知道，依赖一定会存在于类与类、模块与模块之间。当两个模块之间存在紧密的耦合关系时，最好的方法就是分离接口和实现：在依赖之间定义一个抽象的接口使得高层模块调用接口，而底层模块实现接口的定义，以此来有效控制耦合关系，达到依赖于抽象的设计目标。<br>抽象的稳定性决定了系统的稳定性，因为抽象是不变的，依赖于抽象是面向对象设计的精髓，也是依赖倒置原则的核心。<br>依赖于抽象是一个通用的原则，而某些时候依赖于细节则是在所难免的，必须权衡在抽象和具体之间的取舍，方法不是一层不变的。依赖于抽象，就是对接口编程，不要对实现编程。</p>
+</li>
+<li><p><strong>接口隔离原则（Interface-Segregation Principle）</strong><br>其核心思想是：使用多个小的专门的接口，而不要使用一个大的总接口。<br>具体而言，接口隔离原则体现在：接口应该是内聚的，应该避免“胖”接口。一个类对另外一个类的依赖应该建立在最小的接口上，不要强迫依赖不用的方法，这是一种接口污染。<br>接口有效地将细节和抽象隔离，体现了对抽象编程的一切好处，接口隔离强调接口的单一性。而胖接口存在明显的弊端，会导致实现的类型必须完全实现接口的所有方法、属性等；而某些时候，实现类型并非需要所有的接口定义，在设计上这是“浪费”，而且在实施上这会带来潜在的问题，对胖接口的修改将导致一连串的客户端程序需要修改，有时候这是一种灾难。在这种情况下，将胖接口分解为多个特点的定制化方法，使得客户端仅仅依赖于它们的实际调用的方法，从而解除了客户端不会依赖于它们不用的方法。<br>分离的手段主要有以下两种：1、委托分离，通过增加一个新的类型来委托客户的请求，隔离客户和接口的直接依赖，但是会增加系统的开销。2、多重继承分离，通过接口多继承来实现客户的需求，这种方式是较好的。</p>
+</li>
+</ul>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/35/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><span class="page-number current">36</span><a class="page-number" href="/page/37/">37</a><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/37/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

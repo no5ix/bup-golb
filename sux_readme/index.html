@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'An alternative to Alfred+Wox+Listary+OneQuick+CapslockPlus' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GitHub,AutoHotKey,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="sux   Zhihu link Download link  sux is a powerful productivity tool with a size of only 2M+. It also has the following features:  Translation History Clipboard Everything Search Toolbar Screenshot &amp;">
+<meta name="keywords" content="GitHub,AutoHotKey">
+<meta property="og:type" content="article">
+<meta property="og:title" content="An alternative to Alfred+Wox+Listary+OneQuick+CapslockPlus">
+<meta property="og:url" content="https://hulinhong.com/sux_readme/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="sux   Zhihu link Download link  sux is a powerful productivity tool with a size of only 2M+. It also has the following features:  Translation History Clipboard Everything Search Toolbar Screenshot &amp;">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="An alternative to Alfred+Wox+Listary+OneQuick+CapslockPlus">
+<meta name="twitter:description" content="sux   Zhihu link Download link  sux is a powerful productivity tool with a size of only 2M+. It also has the following features:  Translation History Clipboard Everything Search Toolbar Screenshot &amp;">
+<meta name="twitter:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>An alternative to Alfred+Wox+Listary+OneQuick+CapslockPlus | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/sux_readme/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">An alternative to Alfred+Wox+Listary+OneQuick+CapslockPlus</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-09T22:09:39+00:00">
+                01-09-2020
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/GitHub/" rel="tag"><i class="fa fa-tag"></i> GitHub</a>
+              
+                <a href="/tags/AutoHotKey/" rel="tag"><i class="fa fa-tag"></i> AutoHotKey</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/win10_home_disable_auto_update/" rel="next" title="Win10禁止自动更新踩坑">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Win10禁止自动更新踩坑
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/http_4_way_post_data/" rel="prev" title="总结四种常见的 POST 提交数据方式">
+              <p class="post-nav-pre-next-title">
+                  总结四种常见的 POST 提交数据方式
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <!-- [<i class="fa fa-fw fa-github fa-2x"></i>nox](https://github.com/no5ix/sux) 
+
+An alternative to **Alfred**/**Wox**/**Listary**/**Capslock+** .
+
+Inspired by Alfred/Wox/Listary/Capslock+/utools, thank u.
+
+<video width="100%" controls="controls">
+<source src="/img/sux/sux_intro.mp4" type="video/mp4" />
+</video> -->
+<!-- ![sux](https://raw.githubusercontent.com/no5ix/no5ix.github.io/71f651a204bdf460b4b4330de8ac185794ee7b59/source/img/sux/sux.svg) -->
+<p><a href="https://github.com/no5ix/sux" target="_blank" rel="noopener"><i class="fa fa-fw fa-github fa-2x"></i>sux</a> </p>
+<ul>
+<li><a href="https://www.zhihu.com/question/310110592/answer/1909948496" target="_blank" rel="noopener">Zhihu link</a></li>
+<li><a href="https://github.com/no5ix/sux/releases" target="_blank" rel="noopener">Download link</a></li>
+</ul>
+<p><code>sux</code> is a powerful productivity tool with a size of only 2M+. It also has the following features:</p>
+<ul>
+<li>Translation</li>
+<li>History Clipboard</li>
+<li>Everything Search Toolbar</li>
+<li>Screenshot &amp; Pinning</li>
+<li>Quick Search Similar to listary/alfred/wox</li>
+<li>Hot Corners Similar to macOS</li>
+<li>Hot Edge Triggers</li>
+<li>Fully Customizable Global Shortcuts for Various Operations</li>
+<li>Text Replacer</li>
+<li>Text Transformer</li>
+<li>Tray Menu</li>
+<li>CMD Commands</li>
+<li>Customizable JSON Configuration</li>
+<li>Custom Themes</li>
+<li>etc …</li>
+</ul>
+<p>An alternative to <strong>Alfred</strong>/<strong>Wox</strong>/<strong>Listary</strong>/<strong>Capslock+</strong>/<strong>OneQuick</strong> .</p>
+<p>Inspired by Alfred/Wox/Listary/Capslock+/utools/OneQuick, thank u.</p>
+<!-- [![](https://github.com/no5ix/no5ix.github.io/blob/source/source//sux/sux/web_search.gif)](https://hulinhong.com/2020/01/09/sux_readme/)
+点击图片来看完整视频.click img to see full video. -->
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="重要"><a href="#重要" class="headerlink" title="重要"></a>重要</h1><ul>
+<li>请以管理员身份运行sux</li>
+<li>防止杀毒软件误杀处理 :<ul>
+<li>打开win10托盘的<code>Windows安全中心</code>-<code>病毒和威胁防护</code>-<code>病毒和威胁防护设置的管理设置</code>-<code>排除项的添加或删除排除项</code>-<code>添加排除项</code>-<code>文件夹</code>, 然后选中sux所在文件夹即可</li>
+<li>如果被其他杀毒软件报杀则将sux列入白名单</li>
+<li>如果是windows安全中心杀了的话则在它的<code>病毒和威胁保护</code>-<code>保护历史记录</code>-找到删除sux的历史记录-<code>还原</code></li>
+</ul>
+</li>
+<li>Please run sux as administrator.</li>
+</ul>
+<p>Just download <a href="https://github.com/no5ix/sux/releases" target="_blank" rel="noopener"><i class="fa fa-download fa-2x fa-fw"></i>sux.zip</a> and unzip it then run sux.exe as admin !</p>
+<h1 id="快捷搜索search-plus"><a href="#快捷搜索search-plus" class="headerlink" title="快捷搜索search-plus"></a>快捷搜索search-plus</h1><p>大多数时候其实都是 <code>shift+空格</code>或者双击<code>Capslock</code> 然后空格搜东西, 如果要取消菜单则按<code>alt</code>或者<code>esc</code>, 所有的菜单都是可以选中某段文字然后直接查询的, 右边这一排<code>q/w/e/r</code>啥的都是快捷键<br><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/search_plus.gif" alt></p>
+<p>也可以先选中某段文字然后<code>shift+空格</code>或者双击<code>Capslock</code>然后直接查询的.</p>
+<p>所有的默认快捷键都是可以改的, 在<code>conf.user.json</code>里找到<code>ShowSuxMenu</code>改, 改成<code>capslock_q</code>或者<code>alt_space</code>或者<code>doublehit_ctrl</code> (双击ctrl) 或者<code>triplehit_shift</code> (三击shift) 或者其他的任何你喜欢的快捷键都行, 不过不建议<code>doublehit_alt</code> (双击alt), 因为<code>alt</code>会丢失焦点.</p>
+<p><em>为什么<code>shift+空格</code> 出来的不是搜索框?</em></p>
+<p>原来是那样的, 后来我给一些用户(比如运营岗用户)用, 发现他们记不住key.<br>比如百度是<code>bd</code>, 谷歌是<code>gg</code>这种对吧?<br>后来我就做了个这种快捷菜单, 用过几次熟悉快捷键之后也十分迅捷方便, 省去了每次都要输入什么<code>gg</code>/<code>bd</code>的烦恼</p>
+<h1 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h1><p>选中文字然后 <code>capslock+t</code></p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/translate_text.gif" alt></p>
+<p>亮点:  </p>
+<ul>
+<li>可以整句翻译,</li>
+<li>也可以直接翻译带下划线的或者大小写无空格的都可以直接选中后翻译,  </li>
+<li>甚至可以直接翻译形如 <code>TransformText_Detail_Menu-click, stand up</code> 的复杂句子, 会自动解析为 <code>transform text detail menu click, stand up</code> 然后再翻译.</li>
+</ul>
+<h1 id="历史剪切板clipboard-plus"><a href="#历史剪切板clipboard-plus" class="headerlink" title="历史剪切板clipboard-plus"></a>历史剪切板clipboard-plus</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/clipboard_plus.gif" alt></p>
+<p><code>shift+空格</code> 弹出菜单之后, 按<code>v</code><br>这个历史粘贴板支持:  </p>
+<ul>
+<li>图片内容(在sux剪切板里会以<code>[图片]</code>标识, sux支持从浏览器或者任何地方直接复制的图片)</li>
+<li>支持其他的二进制文件, 如图片文件, txt文件等等, 会以 <code>[文件]</code>或 <code>[多文件]</code> 标识</li>
+<li>支持文件夹, 会以 <code>[文件夹]</code>标识</li>
+<li>支持一键粘贴所有历史剪切板记录和清空所有,  有时候需要去各种地方去一次性复制很多东西, 然后一次性粘贴, 那这时就可以先清空历史然后一键粘贴所有了</li>
+</ul>
+<h1 id="Everything搜索工具栏"><a href="#Everything搜索工具栏" class="headerlink" title="Everything搜索工具栏"></a>Everything搜索工具栏</h1><p>使用演示: </p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/search_toolbar_demo.gif" alt></p>
+<p>如何设置才能有这个功能呢? 请按照下面两张图与以下步骤设置: </p>
+<ol>
+<li>进入Everything的设置, 勾上下图中这三个选项</li>
+</ol>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/everything_conf.gif" alt></p>
+<ol>
+<li>检查 <code>.NET Framework</code> 是否 大于等于 <code>4.7</code> (<code>Win+r</code>然后输入<code>cmd</code>回车, 然后输入<code>reg query &quot;HKLM\SOFTWARE\Microsoft\Net Framework Setup\NDP\v4&quot; /s</code>查看<code>Version REG_SZ</code>那一行是否大于等于 <code>4.7</code>)</li>
+<li>参考下图, 先通过任务栏的上下文菜单来开启 EverythingToolbar, 注意你需要打开这个菜单两次, 第一次它不显示的</li>
+<li>右键任务栏, 解锁任务栏, 然后调整工具栏的大小和位置</li>
+<li>设置完毕之后, 可以使用 <code>capslock+f</code> 来激活, 若已经选中文字的话, 则会自动输入该文字并搜索</li>
+</ol>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/search_toolbar_help.gif" alt></p>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><kbd>&#8593;</kbd> <kbd>&#8595;</kbd></td>
+<td>Navigate search results</td>
+</tr>
+<tr>
+<td><kbd>Return</kbd></td>
+<td>Open</td>
+</tr>
+<tr>
+<td><kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Click</kbd></td>
+<td>Open path</td>
+</tr>
+<tr>
+<td><kbd>Shift</kbd>+<kbd>Return</kbd>/<kbd>Click</kbd></td>
+<td>Open in Everything</td>
+</tr>
+<tr>
+<td><kbd>Alt</kbd>+<kbd>Return</kbd>/<kbd>Click</kbd></td>
+<td>File properties</td>
+</tr>
+<tr>
+<td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd></td>
+<td>Run as admin</td>
+</tr>
+<tr>
+<td>(<kbd>Shift</kbd>+)<kbd>Tab</kbd></td>
+<td>Cycle through filters</td>
+</tr>
+<tr>
+<td><kbd>Ctrl</kbd>+<kbd>0-9</kbd></td>
+<td>Select filter</td>
+</tr>
+<tr>
+<td><kbd>Ctrl</kbd>+<kbd>Space</kbd></td>
+<td>Preview file in <a href="https://github.com/QL-Win/QuickLook" target="_blank" rel="noopener">QuickLook</a></td>
+</tr>
+<tr>
+<td><kbd>Win</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd></td>
+<td>Focus search box (customizable)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="截图和贴图"><a href="#截图和贴图" class="headerlink" title="截图和贴图"></a>截图和贴图</h1><!-- `shift+空格` 弹出菜单之后: 
+- 按`tab`是截图
+- 按`s`是贴图, 贴图窗口出来之后, 点击一下贴图图片则可以让他变得半透明, 贴图还是比较有用的, 对于有时候需要对照着贴图写代码或者对照画图等的需求的用户 -->
+<ul>
+<li>按<code>capslock_q</code>是截图</li>
+<li>按<code>capslock_alt_q</code>是贴图, 贴图窗口出来之后, 点击一下贴图图片则可以让他变得半透明, 贴图还是比较有用的, 对于有时候需要对照着贴图写代码或者对照画图等的需求的用户</li>
+</ul>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/snip_plus.gif" alt></p>
+<h1 id="类似macos的触发角hot-corner"><a href="#类似macos的触发角hot-corner" class="headerlink" title="类似macos的触发角hot-corner"></a>类似macos的触发角hot-corner</h1><p>若要用的话, 需要去sux托盘菜单里开启触发角功能</p>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/hot_corner.gif" alt></p>
+<p>当开启之后, 鼠标移动到屏幕左上/左下/右上右下都会触发不同的动作:</p>
+<table>
+<thead>
+<tr>
+<th>触发角</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>左上</td>
+<td>跳到浏览器前一个标签页</td>
+</tr>
+<tr>
+<td>右上</td>
+<td>跳到浏览器后一个标签页</td>
+</tr>
+<tr>
+<td>左下</td>
+<td>模拟按下<code>win</code>键</td>
+</tr>
+<tr>
+<td>右下</td>
+<td>模拟按下<code>alt+tab</code></td>
+</tr>
+</tbody>
+</table>
+<p>这些是默认动作, 你都可以改动自定义配置<code>conf.user.json</code>来更改<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">"hot-corner": &#123;</span><br><span class="line">  "action": &#123;</span><br><span class="line">    "LeftTopCorner": &#123;</span><br><span class="line">      "hover": "JumpToPrevTab"</span><br><span class="line">    &#125;,</span><br><span class="line">    "RightTopCorner": &#123;</span><br><span class="line">      "hover": "JumpToNextTab"</span><br><span class="line">    &#125;,</span><br><span class="line">    "LeftBottomCorner": &#123;</span><br><span class="line">      "hover": "win"</span><br><span class="line">    &#125;,</span><br><span class="line">    "RightBottomCorner": &#123;</span><br><span class="line">      "hover": "GotoPreApp"</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<h1 id="屏幕边缘触发器hot-edge"><a href="#屏幕边缘触发器hot-edge" class="headerlink" title="屏幕边缘触发器hot-edge"></a>屏幕边缘触发器hot-edge</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/hot_edge.gif" alt></p>
+<p>比如你把鼠标放到屏幕左边缘, 然后滚轮, 你会发现可以调节音量  </p>
+<p>下面是预设的边缘触发表:  </p>
+<table>
+<thead>
+<tr>
+<th>边缘</th>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>左边缘</td>
+<td>滚轮</td>
+<td>调节音量</td>
+</tr>
+<tr>
+<td>左边缘上半部分</td>
+<td>鼠标中键</td>
+<td>把当前窗口移到屏幕左边</td>
+</tr>
+<tr>
+<td>左边缘下半部分</td>
+<td>鼠标中键</td>
+<td>把当前窗口移到鼠标当前所在屏幕</td>
+</tr>
+<tr>
+<td>右边缘</td>
+<td>滚轮</td>
+<td>向上翻页 / 向下翻页</td>
+</tr>
+<tr>
+<td>右边缘上半部分</td>
+<td>鼠标中键</td>
+<td>把当前窗口移到屏幕右边</td>
+</tr>
+<tr>
+<td>右边缘下半部分</td>
+<td>鼠标中键</td>
+<td>把当前窗口移到鼠标当前所在屏幕</td>
+</tr>
+<tr>
+<td>上边缘左半部分</td>
+<td>滚轮</td>
+<td>回到页面顶部 / 去页面底部</td>
+</tr>
+<tr>
+<td>上边缘右半部分</td>
+<td>滚轮</td>
+<td>向上翻页 / 向下翻页</td>
+</tr>
+<tr>
+<td>上边缘左半部分</td>
+<td>鼠标中键</td>
+<td>最小化</td>
+</tr>
+<tr>
+<td>上边缘右半部分</td>
+<td>鼠标中键</td>
+<td>最大化</td>
+</tr>
+<tr>
+<td>下边缘</td>
+<td>滚轮</td>
+<td>切换桌面</td>
+</tr>
+<tr>
+<td>下边缘</td>
+<td>鼠标中键</td>
+<td>显示桌面管理器</td>
+</tr>
+</tbody>
+</table>
+<h1 id="文字替换器replace-text"><a href="#文字替换器replace-text" class="headerlink" title="文字替换器replace-text"></a>文字替换器replace-text</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/replace_text.gif" alt></p>
+<p><code>capslock+r</code></p>
+<p>填写电子邮箱的时候经常要敲很多字或者填写密码的时候总是需要重复输入一长串, 对于经常重复需要输入的文本, 这个时候就可以用文字替换器来,<br>比如密码是<code>abcd12349087234bghyymll</code>这么长的密码就可以定义为<code>abc::</code>, 或者比如把<code>h/</code>替换为<code>http://</code>之类的,<br>配置可以自由定义, 已经选中文字则是只替换选中文字, 否则替换整行,  </p>
+<p>默认配置如下:  </p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">  "replace-text": &#123;</span><br><span class="line">    "enable": 1,</span><br><span class="line">    "buildin": &#123;</span><br><span class="line">      "h/": "http://",</span><br><span class="line">      "hs/": "https://",</span><br><span class="line">      "qc@": "@qq.com",</span><br><span class="line">      "gc@": "@gmail.com",</span><br><span class="line">      "16@": "@163.com"</span><br><span class="line">    &#125;,</span><br><span class="line">    "custom": &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 文本变换器</span><br><span class="line"></span><br><span class="line">`shift+空格` 弹出菜单之后, 按`t`  </span><br><span class="line"></span><br><span class="line">经常写代码的朋友应该经常会有把驼峰命名的文本 转换为 蛇形命名文本之类的需求, 或者把小写的文本转为大写的需求</span><br><span class="line"></span><br><span class="line">![](https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/transform_text.gif)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># CMDs指令</span><br><span class="line"></span><br><span class="line">`shift+空格` 弹出菜单之后, 按`c`  </span><br><span class="line"></span><br><span class="line">* `cmd` : open a command prompt window on the current explorer path, 打开命令行窗口, 如果当前在文件管理器则打开后会立即进入当前文件管理器路径</span><br><span class="line">* `sux` : sux official site, sux官网</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 托盘菜单</span><br><span class="line"></span><br><span class="line">![](https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/tray_menu.gif)</span><br><span class="line"></span><br><span class="line">直接鼠标点击sux托盘图标可以快速禁用sux</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 禁用win10系统的自动更新</span><br><span class="line"></span><br><span class="line">win10的自动更新经常会搞得电脑蓝屏或者各种崩溃或者长时间占用电脑, 十分恼人. win10的自动更新用win10本身自带的机制是无法禁止的, 即使关闭了win10的 `Windows Update`服务, 他隔一段时间后也会自动开启.  </span><br><span class="line">sux的这个功能就彻底解决了这个问题, 不再烦恼.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 窗口移动器-永远保持新窗口在鼠标所在的显示器打开</span><br><span class="line"></span><br><span class="line">对于多显示器的用户来说, 在2显示器上双击了某程序准备打开它, 很可能它这个程序窗口却会在1显示器上打开, sux的窗口移动器就是解决这个问题的</span><br><span class="line"></span><br><span class="line">注: 当检测到用户只有一个显示器的时候, 此选项会自动禁用(灰掉)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 快捷键完全自定义</span><br><span class="line"></span><br><span class="line">这个工具其实很重磅的功能是 `hotkey`</span><br><span class="line">- 实现文本输入增强, 你可以通过 Capslock 键配合以下辅助按键实现大部分文本操作需求，不再需要在鼠标和键盘间来回切换, 可以类似vim一样的, 各种光标移动都十分方便 </span><br><span class="line">- 也可以自定义各种快捷键来触发各种动作, 比如配合触摸板达到快速大小化窗口, 三指拖动的效果</span><br><span class="line"></span><br><span class="line">预设快捷按键:  </span><br><span class="line"></span><br><span class="line">| 快捷键 | 操作 |</span><br><span class="line">| ----   | --- |</span><br><span class="line">|`caps+g` | 是`Ctrl`+`Y` |</span><br><span class="line">| `ctrl+8` |  模拟鼠标按下不放的操作. (建议笔记本的触摸板的`三指点击`设定为快捷键`ctrl+8`, 然后就可以模拟鼠标按下不放的操作了, 达到类似mac的`三指拖动`的效果) |</span><br><span class="line">| `ctrl+shift+alt+m` |   最大化/最小化窗口. (建议笔记本的触摸板的`四指点击`设定为`ctrl+shift+alt+m`, 这样就可以快速最大/最小化窗口了) |</span><br><span class="line">|`caps+h/j/k/l` | 也可以来上下左右的, 比如`caps+alt+h`就是往左选中哈, 以下相同 |</span><br><span class="line">|`caps+s` | 是左, 比如`caps+alt+s`就是往左选中哈, 以下相同, 加`alt`就是选中, 不加就是移动 |</span><br><span class="line">|`caps+e` | 是上, 加`alt`就是选中 |</span><br><span class="line">|`caps+d` | 是下, 加`alt`就是选中 |</span><br><span class="line">|`caps+f` | 是右, 加`alt`就是选中 |</span><br><span class="line">|`caps+逗号` | 是光标移动到最左边, 加`alt`就是选中 |</span><br><span class="line">|`caps+句号` | 是光标移动到最右边, 加`alt`就是选中 |</span><br><span class="line">|`caps+i` | 就是往左跳一个单词 |</span><br><span class="line">|`caps+alt+i` | 就是往左选中一个单词 | </span><br><span class="line">|`caps+o` | 就是往右跳一个单词 |</span><br><span class="line">|`caps+alt+o` | 就是往右选中一个单词 | </span><br><span class="line">|`caps+n` | 就是往左删一个单词 |</span><br><span class="line">|`caps+alt+n` | 就是往左删除到行首 | </span><br><span class="line">|`caps+m` | 就是往右删一个单词 |</span><br><span class="line">|`caps+alt+m` | 就是往右删除到行末 | </span><br><span class="line">|`caps+w` | 是选择当前单词 | </span><br><span class="line">|`caps+alt+w` | 是选择当前行 | </span><br><span class="line">|`caps+c` | 是模拟`ctrl+c`  | </span><br><span class="line">|`caps+alt+c` | 也是模拟复制, 但是当复制文件的时候会直接返回文件的路径  | </span><br><span class="line">|`caps+r` | 是模拟`ctrl+y`  | </span><br><span class="line">|`caps+v` | 是模拟`shift+insert`(终端爱好者的福音)  | </span><br><span class="line">|`caps+tab` | 就是整行缩进, 不管光标在当前行的任何地方  | </span><br><span class="line">|`caps+backspace`  | 删除光标所在行所有文字  | </span><br><span class="line">|`capslock+enter`  | 无论光标是否在行末都能新起一个换行而不截断原句子  | </span><br><span class="line">|`capslock+alt+enter` | 无论光标是否在行末都能在上面新起一行而不截断原句子  | </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">其他的待用户尝试, 也可以自行配置, 我自己用的配置是`conf.no5ix.json`也在项目中的`app_data/conf_bak`文件夹里, 你也可以参考</span><br><span class="line"></span><br><span class="line">默认配置概览:  </span><br><span class="line">``` json</span><br><span class="line">    "capslock_q": "ScreenShot",</span><br><span class="line">    "capslock_alt_q": "ScreenShotAndSuspend",</span><br><span class="line">    "shift_space": "ShowSuxMenu",</span><br><span class="line">    "doublehit_capslock": "ShowSuxMenu",</span><br><span class="line">    "capslock_t": "QuickEntry_Translation_Menu_Click",</span><br><span class="line">    "capslock_c": "ctrl_c",</span><br><span class="line">    "capslock_e": "up",</span><br><span class="line">    "capslock_alt_e": "shift_up",</span><br><span class="line">    "capslock_s": "left",</span><br><span class="line">    "capslock_alt_s": "shift_left",</span><br><span class="line">    "capslock_f": "right",</span><br><span class="line">    "capslock_alt_f": "shift_right",</span><br><span class="line">    "capslock_d": "down",</span><br><span class="line">    "capslock_alt_d": "shift_down",</span><br><span class="line">    "ctrl_8": "SimulateClickDown",</span><br><span class="line">    "ctrl_shift_alt_m": "MaxMinWindow",</span><br><span class="line">    "capslock_alt_c": "SaveSelectedFilePathToClipboard",</span><br><span class="line">    "capslock_w": ["ctrl_left", "ctrl_shift_right", "ctrl_c"],</span><br><span class="line">    "capslock_shift_w": ["home", "shift_end", "ctrl_c"],</span><br><span class="line">    "capslock_`": "SwitchCapsState",</span><br><span class="line">    "capslock_tab": ["home", "tab"],</span><br><span class="line">    "capslock_v": "shift_ins",</span><br><span class="line">    "capslock_shift_v": "shift_6",</span><br><span class="line">    "capslock_g": "ctrl_y",</span><br><span class="line">    "capslock_r": "QuickEntry_ReplaceText_Menu_Click",</span><br><span class="line">    "capslock_enter": "InsertLineBelow",</span><br><span class="line">    "capslock_shift_enter": "InsertLineAbove",</span><br><span class="line">    "capslock_backspace": ["home", "shift_end", "backspace"],</span><br><span class="line">    "capslock_y": "shift_8",</span><br><span class="line">    "capslock_alt_y": "shift_5",</span><br><span class="line">    "capslock_u": "shift_1",</span><br><span class="line">    "capslock_alt_u": "shift_2",</span><br><span class="line">    "capslock_h": "left",</span><br><span class="line">    "capslock_alt_h": "shift_left",</span><br><span class="line">    "capslock_j": "down",</span><br><span class="line">    "capslock_alt_j": "shift_down",</span><br><span class="line">    "capslock_k": "up",</span><br><span class="line">    "capslock_alt_k": "shift_up",</span><br><span class="line">    "capslock_l": "right",</span><br><span class="line">    "capslock_alt_l": "shift_right",</span><br><span class="line">    "capslock_p": "shift_7",</span><br><span class="line">    "capslock_alt_p": "shift_3",</span><br><span class="line">    "capslock_i": "ctrl_left",</span><br><span class="line">    "capslock_alt_i": "shift_ctrl_left",</span><br><span class="line">    "capslock_o": "ctrl_right",</span><br><span class="line">    "capslock_alt_o": "shift_ctrl_right",</span><br><span class="line">    "capslock_9": "[",</span><br><span class="line">    "capslock_alt_9": "&#123;",</span><br><span class="line">    "capslock_0": "]",</span><br><span class="line">    "capslock_alt_0": "&#125;",</span><br><span class="line">    "capslock_n": "ctrl_bs",</span><br><span class="line">    "capslock_alt_n": "shift_home_del",</span><br><span class="line">    "capslock_m": "ctrl_del",</span><br><span class="line">    "capslock_alt_m": "shift_end_del",</span><br><span class="line">    "capslock_,": "home",</span><br><span class="line">    "capslock_alt_,": "shift_home",</span><br><span class="line">    "capslock_.": "end",</span><br><span class="line">    "capslock_alt_.": "shift_end",</span><br><span class="line">    "capslock_;": "_",</span><br><span class="line">    "capslock_alt_;": "-",</span><br><span class="line">    "capslock_'": "=",</span><br><span class="line">    "capslock_alt_'": "shift_=",</span><br><span class="line">    "capslock_/": "\\",</span><br><span class="line">    "capslock_alt_/": "shift_\\"</span><br></pre></td></tr></table></figure>
+<h1 id="自定义配置"><a href="#自定义配置" class="headerlink" title="自定义配置"></a>自定义配置</h1><p>可以在托盘菜单里找到”编辑配置文件”的菜单的, 改了配置记得重启sux哈</p>
+<p>配置编写规则: </p>
+<ul>
+<li>让一个键按了之后啥也不做是配一个<code>nil</code>, 比如 <code>&quot;capslock&quot;: &quot;nil&quot;</code> 就是让capslock按了之后不做任何事</li>
+<li>action类型: 直接从下方的所有action里选即可<ul>
+<li><code>ShowSuxMenu</code></li>
+<li><code>StartSuxAhkWithWin</code></li>
+<li><code>MoveWindowToLeftSide</code></li>
+<li><code>MoveWindowToRightSide</code></li>
+<li><code>OpenFileExplorer</code></li>
+<li><code>OpenActionCenter</code></li>
+<li><code>CloseCurrentWindow</code></li>
+<li><code>GoTop</code></li>
+<li><code>GoBottom</code></li>
+<li><code>GoBack</code></li>
+<li><code>GoForward</code></li>
+<li><code>LockPc</code></li>
+<li><code>OpenTaskView</code></li>
+<li><code>VolumeMute</code></li>
+<li><code>VolumeUp</code></li>
+<li><code>VolumeDown</code></li>
+<li><code>GotoNextDesktop</code></li>
+<li><code>GotoPreDesktop</code></li>
+<li><code>RefreshTab</code></li>
+<li><code>ReopenLastTab</code></li>
+<li><code>GotoPreApp</code></li>
+<li><code>JumpToPrevTab</code></li>
+<li><code>JumpToNextTab</code></li>
+<li><code>SwitchCapsState</code></li>
+<li><code>SwitchInputMethodAndDeleteLeft</code></li>
+<li><code>MaxMinWindow</code></li>
+<li><code>MaxWindow</code></li>
+<li><code>MinWindow</code></li>
+<li><code>ReloadSux</code></li>
+<li><code>SelectCurrentWordAndCopy</code></li>
+<li><code>SelectCurrentLineAndCopy</code></li>
+<li><code>InsertLineBelow</code></li>
+<li><code>InsertLineAbove</code></li>
+<li><code>DeleteCurrentLine</code></li>
+<li><code>IndentCurrentLine</code></li>
+<li><code>SimulateClickDown</code></li>
+</ul>
+</li>
+<li>发送的单个键盘操作: 比如要发送<code>shift+下</code> 就是<code>shift_down</code></li>
+<li>发送一段键盘操作序列, 比如要实现<code>caps
++w</code>选中当前单词, 首先得移动到词的左边, 然后往右选中单词, 则配置为: <code>&quot;capslock_w&quot;: [&quot;ctrl_left&quot;, &quot;ctrl_shift_right&quot;]</code></li>
+<li>一些特殊的热键定义对照表:<ul>
+<li><code>lbutton:  左键单击</code></li>
+<li><code>rbutton:  右键单击</code></li>
+<li><code>mbutton: 中键单击</code></li>
+<li><code>wheelup: 滚轮上滑</code></li>
+<li><code>wheeldown: 滚轮下滑</code></li>
+<li><code>hover: 悬停</code>, 只能用在触发角的配置里</li>
+<li><code>doublehit_: 双击</code>, 比如<code>doublehit_alt</code>表示双击<code>alt</code></li>
+<li><code>triplehit_: 三击</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="捐赠"><a href="#捐赠" class="headerlink" title="捐赠"></a>捐赠</h1><p>捐赠! 让作者更有动力给sux加新功能! ^_^</p>
+<ul>
+<li>微信<ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/donate_wechat.png" alt="微信"></li>
+</ul>
+</li>
+<li>支付宝<ul>
+<li><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://github.com/no5ix/no5ix.github.io/blob/source/source/img/sux/donate_alipay.png" alt="支付宝"></li>
+</ul>
+</li>
+</ul>
+<h1 id="如何发布"><a href="#如何发布" class="headerlink" title="如何发布"></a>如何发布</h1><ol>
+<li>改 <code>ver.ini</code>, 然后提交</li>
+<li>打 git tag</li>
+<li>打包<ol>
+<li>建立 <code>build</code> 文件夹</li>
+<li>compile <code>sux.ahk</code> 成为 <code>sux.exe</code>, 放到 <code>build</code> 里</li>
+<li>拷贝 <code>app_data</code> 文件夹到 <code>build</code> 里</li>
+<li>删除 <code>build</code> 里的<code>app_data</code> 里的 <code>temp_dir</code> 文件夹</li>
+<li>删除 <code>build</code> 里的<code>app_data</code> 里的 <code>ev_sup</code> 里的 <code>Everything.db</code> 和 <code>Run History.csv</code></li>
+<li>使用 7zip 压缩 <code>build</code>文件夹, 压缩参数如下: <ul>
+<li>压缩格式: 7z / zip</li>
+<li>压缩等级: 极限压缩</li>
+<li>压缩方法: <code>LZMA2</code> / <code>LZMA</code></li>
+<li>字典大小: 256MB</li>
+<li>单词大小: 256</li>
+<li>固实数据大小: 4GB</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="TODO-List"><a href="#TODO-List" class="headerlink" title="TODO List"></a>TODO List</h1><!-- - readme里添加贴图的作用, 文字替换的作用填密码email啥的 -->
+<!-- - 在第一屏的右下角打开网易云音乐, 窗口移动器移动不过来  -->
+<!-- - 用sux打开git之后, 就打不开sux的快捷菜单了 -->
+<!-- - translate把不用的去掉 -->
+<!-- - 关于里加上"去知乎点赞"  -->
+<!-- - "去github点亮小星星" -->
+<!-- - 新手引导之前就要选语言 -->
+<ul>
+<li>auto update</li>
+<li>add more action</li>
+<li>点击tray menu 不消失menu</li>
+<li>ext ahk</li>
+<li>search_plus失焦则销毁</li>
+<li>smart selection 双引号, 括号内, 单引号内</li>
+<li>translation gui change color to gray/ dpi / voice audio / soundmark encoding<!-- - refractor HandleMouseOnEdges -->
+<!-- - ini -->
+<!-- - clipboard history -->
+<!-- - 处理不要caps plus的逻辑 -->
+<!-- - 托盘暂停 -->
+<!-- - auto install ahk -->
+<!-- - custom tray menu -->
+<!-- - rshift issue -->
+<!-- - git cmd not goto desktop -->
+<!-- - check update -->
+<!-- - add about sux version -->
+<!-- - add donate page -->
+<!-- - add icon -->
+<!-- - hover tray icon display sux -->
+<!-- - 短语替换 -->
+<!-- - 同时搜两个 -->
+<!-- - bug: 双屏tophalfleft -->
+<!-- - caps + alt -->
+<!-- - add ver to code -->
+<!-- - limit mode notify in full screen app -->
+<!-- - hot corner bug -->
+<!-- - rshift bug -->
+<!-- - theme dark/light tray menu -->
+<!-- - search/replace conf key modify -->
+<!-- - 最小化 -->
+<!-- - TEST double rshift/single rshift exist together -->
+<!-- - 点击了菜单之后双击alt没反应, 还得点击一下其他地方才有反应 -->
+<!-- - 暗模式的其他gui的阴影不正常 -->
+<!-- - add donate gui pic -->
+<!-- - caps+f一键搜索并弹出菜单可选yd/gg等 -->
+<!-- - 删除记录, 把多条复制记录一次性粘贴到目标窗口 -->
+<!-- - clip_plus support img, 考虑把路径变成文件, 把其他more_click menu也完善 -->
+<!-- - copy file path shortcut -->
+<!-- - 清空clipboard有bug -->
+<!-- - 单显示器 window mover 的menu没有disable -->
+<!-- - conf 排列组合, 如 `["https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm", "Win"]` 或者 `["ctrl_9", "sleep", "ctrl_8"]` , 或者自动加上sleep -->
+<!-- - 把conf里的`!`和`+`等的做一个转为`{alt}`的解析器, 方便新手配置 -->
+<!-- - bug: 下划线出不来 -->
+<!-- - 有空格的时候变换文本有bug, 还有比如 INI_SetCheckUpdatesOnStartup 变成AA_BB, 也有问题 -->
+<!-- - select sth tips on menu top -->
+<!-- - add google translate to search plus -->
+<!-- - msgbox 标题改成sux -->
+<!-- - add newbie tutorial -->
+<!-- - hot corner/edge/capslock switcher to tray menu -->
+<!-- - update chinese readme, add some gif/mp4 -->
+<!-- - 出现在和鼠标同一个屏幕做成选项 -->
+&lt;!– - 报一个bug，caps+q，q，用百度查询时，弹窗出现在另一个屏幕，因为我有2个显示器，建议设置一下默认的弹窗。</li>
+<li>上述bug包括everything –&gt;<!-- - 独立贴图菜单 -->
+<!-- - casplock + tab 2 tab -->
+<!-- - 替换/历史剪切板也集成到菜单里 -->
+<!-- - 看还有哪些编辑器里常用的操作如转为大写这类的可以做, 做成菜单 -->
+<!-- - bug: 历史剪切板有些历史的开头莫名多出一个下划线 ; 经查是因为前面有空格或者tab -->
+<!-- - bug: 历史剪切板粘贴之后, 顺序乱了 -->
+<!-- - 默认配置的中键触发有问题, 各种win+left -->
+<!-- - 菜单顺序应该和yaml一致 -->
+<!-- - 重新整理conf -->
+&lt;!– - donate width</li>
+<li>Capslock + Backspace（删除光标所在行所有文字）</li>
+<li>Capslock + Enter（无论光标是否在行末都能新起一个换行而不截断原句子） –&gt;<!-- - 截图后弹出贴图菜单 -->
+<!-- - bug:截图后保存则再也无法贴图 -->
+<!-- - 翻译如果没选, 则弹出提示没选 -->
+<!-- - 弄个build看看拿得到ver么 -->
+<!-- - 中文翻译 -->
+<!-- - 弄个clip guard对象, 来处理 Send, {Blind}{Text}慢的问题 -->
+<!-- - 即时光标在单词中间也能复制此单词的快捷键 -->
+<!-- - unify all menu -->
+<!-- - after copy from clip_plus mess up the order -->
+<!-- - 支持command菜单 -->
+<!-- - 支持url直接书写 -->
+<!-- - 支持不输入任何东西则为官网 -->
+<!-- - 截图贴图menu -->
+<!-- - check update失败, 点击"取消"打开浏览器的时候有乱切换软件的bug -->
+<!-- - 限制menu宽度 -->
+<!-- - 看看caps+的词语替换如何做的 -->
+<!-- - 改default的上下左右快捷键 -->
+<!-- - 看怎么调用js -->
+<!-- - suspend img -->
+<!-- - 弄个有道翻译面板 -->
+<!-- - fix check update -->
+<!-- - click down 之后记得释放 -->
+<!-- - 浏览器中, click down之后双击就没选中了 -->
+<!-- - rshift双击和单击可以分开conf -->
+<!-- - fix bug: cant open conf.user.json with notepad -->
+<!-- - refactor tray menu code -->
+<!-- - fix lang logic: "Autorun" -> "Start with Windows" -->
+<!-- - modify default conf: disable win auto update -->
+<!-- - hot corner: check on same monitor  -->
+<!-- - occasional: fix web search gui window lost caret - make caret center -->
+<!-- - 第二个屏幕就显示sux在第二个屏幕上 -->
+<!-- - fix default lang -->
+</li>
+</ul>
+<!-- - 增加可供用户扩展的脚本, 方便用户配置各种自定义action -->
+<!-- - gitignore user conf -->
+<!-- - start with win -->
+<!-- - auto compile -->
+<!-- - fix 启动之后马上打开自动消失web-search窗口的bug: 已经找到, 是因为UpdateSuxImpl的锅 -->
+<!-- - internal Everything -->
+<!-- # 设置开机以管理员权限启动
+
+1. 对“A.exe”创建快捷方式, 然后将这个快捷方式改名为“A” (不用改名为A.lnk, 因为windows的快捷方式默认扩展名就是lnk)
+2. 右键这个快捷方式-> 高级，勾选用管理员身份运行； 
+3. 新建“A.bat”文件，将这个快捷方式的路径信息写入并保存，如：
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">start C:\Users\b\Desktop\A.lnk</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>因为直接运行 A.bat 会有个窗口一闪而过, 所以新建个 A.vbs 来运行这个bat来避免这个窗口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">createobject(&quot;wscript.shell&quot;).run &quot;D:\A.bat&quot;,0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开“运行”输入“shell:startup”然后回车，然后将“A.vbs”剪切到打开的目录中 –&gt;</p>
+</li>
+</ol>
+<!-- # Features
+
+* **personalized configuration** : u can modify `conf.user.json` to override all default configuration
+* **hot edges** : `Ctrl+8` on the edge (useful for touchpad user, set 3 fingers click to `Ctrl+8`), see `conf.user.json`-`hot-edge`
+* **hot corners** : just like mac hot cornes, see `conf.user.json`-`hot-corner`
+* **web search** : just like Wox/Listary/Alfred, see `conf.user.json`-`search-plus`
+* **enhanced capslock** : just like Capslock+, see `conf.user.json`-`capslock_plus`
+* **work with Everything**
+* **custom theme** : two default theme(dark/light), and u can add ur own theme, see `conf.user.json`-`theme`
+* **screen capture**
+* **disable win10 auto update**
+* **start sux with windows**
+* **custom command line**:  see `conf.user.json`-`command`
+* **custom hotkey**:  see `conf.user.json`-`hotkey`
+* **clipboard-plus**:  clipboard history -->
+<!-- * **auto selection copy** : just like linux terminal -->
+<!-- * **hot key to replace string** : copy this line (`my email is @@ “”  ‘’`) to address bar, then Capslock+Shift+F, now u know, see user_conf.ahk -->
+<!-- * **game mode** : double Alt then input `game` -->
+<!-- * **auto update when launch sux** : see `default_conf.ahk` : `auto_update_when_launch_sux` -->
+<!-- [<i class="fa fa-fw fa-github fa-2x"></i>nox](https://github.com/no5ix/sux) 
+
+An alternative to **Alfred**/**Wox**/**Listary**/**Capslock+** .
+
+Inspired by Alfred/Wox/Listary/Capslock+/utools, thank u.
+
+<video width="100%" controls="controls">
+<source src="/img/sux/sux_intro.mp4" type="video/mp4" />
+</video> -->
+<!-- 
+
+- [知乎链接](https://www.zhihu.com/question/310110592/answer/1909948496)
+- [下载链接](https://github.com/no5ix/sux/releases)
+
+
+`sux` 是一个只有500k+大小的强大效率工具同时拥有
+- [翻译](#翻译)
+- [历史剪切板](#历史剪切板clipboard-plus)
+- [截图 & 贴图](#截图和贴图)
+- [类似listary/alfred/wox的快捷搜索](#快捷搜索search-plus): `shift+空格`
+- [类似macos的触发角](#类似macos的触发角hot-corner)
+- [屏幕边缘触发器](#屏幕边缘触发器hot-edge)
+- [全局自定义快捷键实现各种操作](#快捷键完全自定义)
+- [文本替换器](#文字替换器replace-text)
+- [文本变换器](#文本变换器)
+- 自定义主题
+- [托盘菜单](#托盘菜单)
+- [快捷指令](#cmds指令)
+- [可自定义的json配置](#自定义配置)
+- blabla...
+
+An alternative to **Alfred**/**Wox**/**Listary**/**Capslock+**/**OneQuick** .
+
+Inspired by Alfred/Wox/Listary/Capslock+/utools/OneQuick, thank u.
+
+
+
+# 重要
+
+- 请以管理员身份运行sux
+- 防止杀毒软件误杀处理 :
+    - 打开win10托盘的`Windows安全中心`-`病毒和威胁防护`-`病毒和威胁防护设置的管理设置`-`排除项的添加或删除排除项`-`添加排除项`-`文件夹`, 然后选中sux所在文件夹即可
+    - 如果被其他杀毒软件报杀则将sux列入白名单
+    - 如果是windows安全中心杀了的话则在它的`病毒和威胁保护`-`保护历史记录`-找到删除sux的历史记录-`还原`
+- Please run sux as administrator.
+
+Just download [<i class="fa fa-download fa-2x fa-fw"></i>sux.zip](https://github.com/no5ix/sux/releases) and unzip it then run sux.exe as admin !
+
+
+# 快捷搜索search-plus
+
+大多数时候其实都是 `shift+空格` 然后空格搜东西, 如果要取消菜单则按`alt`或者`esc`, 所有的菜单都是可以选中某段文字然后直接查询的, 右边这一排`q/w/e/r`啥的都是快捷键
+![](https://pic2.zhimg.com/50/v2-417d7dca02be51c743e72f42b61459ce_b.gif)
+
+也可以先选中某段文字然后`shift+空格`然后直接查询的.
+
+所有的默认快捷键都是可以改的, 在`conf.user.json`里找到`ShowSuxMenu`改, 改成`capslock_q`或者`alt_space`或者`doublehit_ctrl` (双击ctrl) 或者`triplehit_shift` (三击shift) 或者其他的任何你喜欢的快捷键都行, 不过不建议`doublehit_alt` (双击alt), 因为`alt`会丢失焦点.
+
+*为什么`shift+空格` 出来的不是搜索框?*
+
+原来是那样的, 后来我给一些用户(比如运营岗用户)用, 发现他们记不住key.
+比如百度是`bd`, 谷歌是`gg`这种对吧?
+后来我就做了个这种快捷菜单, 用过几次熟悉快捷键之后也十分迅捷方便, 省去了每次都要输入什么`gg`/`bd`的烦恼
+
+
+# 翻译
+
+翻译集成在快捷菜单中了, 
+`shift+空格` 弹出菜单之后, 按`f`  
+
+![](https://pic3.zhimg.com/50/v2-55cc612c3b7dac869e841ed8cbfaee93_b.gif)
+
+
+# 历史剪切板clipboard-plus
+
+![](https://pic4.zhimg.com/50/v2-3291747a0a213916ab1cd4acf456d7bd_b.gif)
+
+
+`shift+空格` 弹出菜单之后, 按`v`  
+这个历史粘贴板支持:  
+
+- 图片内容(在sux剪切板里会以`[图片]`标识, sux支持从浏览器或者任何地方直接复制的图片)
+- 支持其他的二进制文件, 如图片文件, txt文件等等, 会以 `[文件]`或 `[多文件]` 标识
+- 支持文件夹, 会以 `[文件夹]`标识
+- 支持一键粘贴所有历史剪切板记录和清空所有,  有时候需要去各种地方去一次性复制很多东西, 然后一次性粘贴, 那这时就可以先清空历史然后一键粘贴所有了
+
+
+# 截图和贴图
+
+`shift+空格` 弹出菜单之后: 
+- 按`tab`是截图
+- 按`s`是贴图, 贴图窗口出来之后, 点击一下贴图图片则可以让他变得半透明, 贴图还是比较有用的, 对于有时候需要对照着贴图写代码或者对照画图等的需求的用户
+
+![](https://pic4.zhimg.com/50/v2-684e10d67bdcf19df7796dfdf1b92774_b.gif)
+
+
+# 类似macos的触发角hot-corner
+
+若要用的话, 需要去sux托盘菜单里开启触发角功能
+
+![](https://pic3.zhimg.com/50/v2-caa1aacd94b0784b6c0f6d5b926986c4_b.gif)
+
+
+
+当开启之后, 鼠标移动到屏幕左上/左下/右上右下都会触发不同的动作:
+
+| 触发角 | 操作 |
+| ----- | ---- |
+|左上 | 跳到浏览器前一个标签页 |
+|右上 | 跳到浏览器后一个标签页 |
+|左下 | 模拟按下`win`键 |
+|右下 | 模拟按下`alt+tab` |
+
+这些是默认动作, 你都可以改动自定义配置`conf.user.json`来更改
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"hot-corner": &#123;</span><br><span class="line">  "action": &#123;</span><br><span class="line">    "LeftTopCorner": &#123;</span><br><span class="line">      "hover": "JumpToPrevTab"</span><br><span class="line">    &#125;,</span><br><span class="line">    "RightTopCorner": &#123;</span><br><span class="line">      "hover": "JumpToNextTab"</span><br><span class="line">    &#125;,</span><br><span class="line">    "LeftBottomCorner": &#123;</span><br><span class="line">      "hover": "win"</span><br><span class="line">    &#125;,</span><br><span class="line">    "RightBottomCorner": &#123;</span><br><span class="line">      "hover": "GotoPreApp"</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h1 id="屏幕边缘触发器hot-edge-1"><a href="#屏幕边缘触发器hot-edge-1" class="headerlink" title="屏幕边缘触发器hot-edge"></a>屏幕边缘触发器hot-edge</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://pic2.zhimg.com/50/v2-0dc362a89a0515f8f4a0682fa7e1651b_b.gif" alt=""></p>
+<p>比如你把鼠标放到屏幕左边缘, 然后滚轮, 你会发现可以调节音量  </p>
+<p>下面是预设的边缘触发表:  </p>
+<table>
+<thead>
+<tr>
+<th>边缘</th>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>左边缘</td>
+<td>滚轮</td>
+<td>调节音量</td>
+</tr>
+<tr>
+<td>左边缘</td>
+<td>鼠标中键</td>
+<td>把当前窗口移到屏幕左边</td>
+</tr>
+<tr>
+<td>右边缘</td>
+<td>滚轮</td>
+<td>向上翻页 / 向下翻页</td>
+</tr>
+<tr>
+<td>右边缘</td>
+<td>鼠标中键</td>
+<td>把当前窗口移到屏幕右边</td>
+</tr>
+<tr>
+<td>上边缘左半部分</td>
+<td>滚轮</td>
+<td>回到页面顶部 / 去页面底部</td>
+</tr>
+<tr>
+<td>上边缘右半部分</td>
+<td>滚轮</td>
+<td>向上翻页 / 向下翻页</td>
+</tr>
+<tr>
+<td>上边缘左半部分</td>
+<td>鼠标中键</td>
+<td>最小化</td>
+</tr>
+<tr>
+<td>上边缘右半部分</td>
+<td>鼠标中键</td>
+<td>最大化</td>
+</tr>
+<tr>
+<td>下边缘</td>
+<td>滚轮</td>
+<td>切换桌面</td>
+</tr>
+<tr>
+<td>下边缘</td>
+<td>鼠标中键</td>
+<td>显示桌面管理器</td>
+</tr>
+</tbody>
+</table>
+<h1 id="文字替换器replace-text-1"><a href="#文字替换器replace-text-1" class="headerlink" title="文字替换器replace-text"></a>文字替换器replace-text</h1><p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="https://pic4.zhimg.com/50/v2-01c8c7230f5b7c440ea6f5c61182577b_b.gif" alt=""></p>
+<p><code>shift+空格</code> 弹出菜单之后, 按<code>r</code>  </p>
+<p>填写电子邮箱的时候经常要敲很多字或者填写密码的时候总是需要重复输入一长串, 对于经常重复需要输入的文本, 这个时候就可以用文字替换器来,<br>比如密码是<code>abcd12349087234bghyymll</code>这么长的密码就可以定义为<code>abc::</code>, 或者比如把<code>h/</code>替换为<code>http://</code>之类的,<br>配置可以自由定义, 已经选中文字则是只替换选中文字, 否则替换整行,  </p>
+<p>默认配置如下:  </p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">  "replace-text": &#123;</span><br><span class="line">    "enable": 1,</span><br><span class="line">    "buildin": &#123;</span><br><span class="line">      "h/": "http://",</span><br><span class="line">      "hs/": "https://",</span><br><span class="line">      "qc@": "@qq.com",</span><br><span class="line">      "gc@": "@gmail.com",</span><br><span class="line">      "16@": "@163.com"</span><br><span class="line">    &#125;,</span><br><span class="line">    "custom": &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 文本变换器</span><br><span class="line"></span><br><span class="line">`shift+空格` 弹出菜单之后, 按`g`  </span><br><span class="line"></span><br><span class="line">经常写代码的朋友应该经常会有把驼峰命名的文本 转换为 蛇形命名文本之类的需求, 或者把小写的文本转为大写的需求</span><br><span class="line"></span><br><span class="line">![](https://pic3.zhimg.com/50/v2-ee699d30fbbdc9633a7932b1e8880c75_b.gif)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># CMDs指令</span><br><span class="line"></span><br><span class="line">`shift+空格` 弹出菜单之后, 按`c`  </span><br><span class="line"></span><br><span class="line">* `cmd` : open a command prompt window on the current explorer path, 打开命令行窗口, 如果当前在文件管理器则打开后会立即进入当前文件管理器路径</span><br><span class="line">* `git` : open a git bash window on the current explorer path, 打开git窗口, 如果当前在文件管理器则打开后会立即进入当前文件管理器路径</span><br><span class="line">* `Everything` : 打开Everything, 如果已经选中了文字, 则直接用everything搜索此文字(如果你也用Everything的话, sux可以配合Everything使用, [点击此处查看推荐配置](#设置Everything始终以运行次数排序))</span><br><span class="line">* `sux` : sux official site, sux官网</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 托盘菜单</span><br><span class="line"></span><br><span class="line">![](https://pic1.zhimg.com/50/v2-8858843c14ea0c7d5c6b72fe33b5c73f_b.gif)</span><br><span class="line"></span><br><span class="line">直接鼠标点击sux托盘图标可以快速禁用sux</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 禁用win10系统的自动更新</span><br><span class="line"></span><br><span class="line">win10的自动更新经常会搞得电脑蓝屏或者各种崩溃或者长时间占用电脑, 十分恼人. win10的自动更新用win10本身自带的机制是无法禁止的, 即使关闭了win10的 `Windows Update`服务, 他隔一段时间后也会自动开启.  </span><br><span class="line">sux的这个功能就彻底解决了这个问题, 不再烦恼.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 窗口移动器-永远保持新窗口在鼠标所在的显示器打开</span><br><span class="line"></span><br><span class="line">对于多显示器的用户来说, 在2显示器上双击了某程序准备打开它, 很可能它这个程序窗口却会在1显示器上打开, sux的窗口移动器就是解决这个问题的</span><br><span class="line"></span><br><span class="line">注: 当检测到用户只有一个显示器的时候, 此选项会自动禁用(灰掉)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 快捷键完全自定义</span><br><span class="line"></span><br><span class="line">这个工具其实很重磅的功能是 `hotkey`</span><br><span class="line">- 实现文本输入增强, 你可以通过 Capslock 键配合以下辅助按键实现大部分文本操作需求，不再需要在鼠标和键盘间来回切换, 可以类似vim一样的, 各种光标移动都十分方便 </span><br><span class="line">- 也可以自定义各种快捷键来触发各种动作, 比如配合触摸板达到快速大小化窗口, 三指拖动的效果</span><br><span class="line"></span><br><span class="line">预设快捷按键:  </span><br><span class="line"></span><br><span class="line">| 快捷键 | 操作 |</span><br><span class="line">| ----   | --- |</span><br><span class="line">| `ctrl+8` |  模拟鼠标按下不放的操作. (建议笔记本的触摸板的`三指点击`设定为快捷键`ctrl+8`, 然后就可以模拟鼠标按下不放的操作了, 达到类似mac的`三指拖动`的效果) |</span><br><span class="line">| `ctrl+shift+alt+m` |   最大化/最小化窗口. (建议笔记本的触摸板的`四指点击`设定为`ctrl+shift+alt+m`, 这样就可以快速最大/最小化窗口了) |</span><br><span class="line">|`caps+h/j/k/l` | 也可以来上下左右的, 比如`caps+alt+h`就是往左选中哈, 以下相同 |</span><br><span class="line">|`caps+s` | 是左, 比如`caps+alt+s`就是往左选中哈, 以下相同, 加`alt`就是选中, 不加就是移动 |</span><br><span class="line">|`caps+e` | 是上, 加`alt`就是选中 |</span><br><span class="line">|`caps+d` | 是下, 加`alt`就是选中 |</span><br><span class="line">|`caps+f` | 是右, 加`alt`就是选中 |</span><br><span class="line">|`caps+逗号` | 是光标移动到最左边, 加`alt`就是选中 |</span><br><span class="line">|`caps+句号` | 是光标移动到最右边, 加`alt`就是选中 |</span><br><span class="line">|`caps+i` | 就是往左跳一个单词 |</span><br><span class="line">|`caps+alt+i` | 就是往左选中一个单词 | </span><br><span class="line">|`caps+o` | 就是往右跳一个单词 |</span><br><span class="line">|`caps+alt+o` | 就是往右选中一个单词 | </span><br><span class="line">|`caps+n` | 就是往左删一个单词 |</span><br><span class="line">|`caps+alt+n` | 就是往左删除到行首 | </span><br><span class="line">|`caps+m` | 就是往右删一个单词 |</span><br><span class="line">|`caps+alt+m` | 就是往右删除到行末 | </span><br><span class="line">|`caps+w` | 是选择当前单词 | </span><br><span class="line">|`caps+alt+w` | 是选择当前行 | </span><br><span class="line">|`caps+c` | 是模拟`ctrl+c`  | </span><br><span class="line">|`caps+alt+c` | 也是模拟复制, 但是当复制文件的时候会直接返回文件的路径  | </span><br><span class="line">|`caps+r` | 是模拟`ctrl+y`  | </span><br><span class="line">|`caps+v` | 是模拟`shift+insert`(终端爱好者的福音)  | </span><br><span class="line">|`caps+tab` | 就是整行缩进, 不管光标在当前行的任何地方  | </span><br><span class="line">|`caps+backspace`  | 删除光标所在行所有文字  | </span><br><span class="line">|`capslock+enter`  | 无论光标是否在行末都能新起一个换行而不截断原句子  | </span><br><span class="line">|`capslock+alt+enter` | 无论光标是否在行末都能在上面新起一行而不截断原句子  | </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">其他的待用户尝试, 也可以自行配置</span><br><span class="line"></span><br><span class="line">默认配置概览:  </span><br><span class="line">``` json</span><br><span class="line">  "hotkey": &#123;</span><br><span class="line">    "enable": 1,</span><br><span class="line">    "buildin": &#123;</span><br><span class="line">      "shift_space": "ShowSuxMenu",</span><br><span class="line">      "capslock_c": "ctrl_c",</span><br><span class="line">      "capslock_e": "up",</span><br><span class="line">      "capslock_alt_e": "shift_up",</span><br><span class="line">      "capslock_s": "left",</span><br><span class="line">      "capslock_alt_s": "shift_left",</span><br><span class="line">      "capslock_f": "right",</span><br><span class="line">      "capslock_alt_f": "shift_right",</span><br><span class="line">      "capslock_d": "down",</span><br><span class="line">      "capslock_alt_d": "shift_down",</span><br><span class="line">      "ctrl_8": "SimulateClickDown",</span><br><span class="line">      "ctrl_shift_alt_m": "MaxMinWindow",</span><br><span class="line">      "capslock_alt_c": "SaveSelectedFilePathToClipboard",</span><br><span class="line">      "capslock_w": ["ctrl_left", "ctrl_shift_right"],</span><br><span class="line">      "capslock_shift_w": ["home", "shift_end"],</span><br><span class="line">      "capslock_`": "SwitchCapsState",</span><br><span class="line">      "capslock_tab": ["home", "tab"],</span><br><span class="line">      "capslock_v": "shift_ins",</span><br><span class="line">      "capslock_shift_v": "shift_6",</span><br><span class="line">      "capslock_r": "ctrl_y",</span><br><span class="line">      "capslock_enter": "InsertLineBelow",</span><br><span class="line">      "capslock_shift_enter": "InsertLineAbove",</span><br><span class="line">      "capslock_backspace": ["home", "shift_end", "backspace"],</span><br><span class="line">      "capslock_y": "shift_8",</span><br><span class="line">      "capslock_alt_y": "shift_5",</span><br><span class="line">      "capslock_u": "shift_1",</span><br><span class="line">      "capslock_alt_u": "shift_2",</span><br><span class="line">      "capslock_h": "left",</span><br><span class="line">      "capslock_alt_h": "shift_left",</span><br><span class="line">      "capslock_j": "down",</span><br><span class="line">      "capslock_alt_j": "shift_down",</span><br><span class="line">      "capslock_k": "up",</span><br><span class="line">      "capslock_alt_k": "shift_up",</span><br><span class="line">      "capslock_l": "right",</span><br><span class="line">      "capslock_alt_l": "shift_right",</span><br><span class="line">      "capslock_p": "shift_7",</span><br><span class="line">      "capslock_alt_p": "shift_3",</span><br><span class="line">      "capslock_i": "ctrl_left",</span><br><span class="line">      "capslock_alt_i": "shift_ctrl_left",</span><br><span class="line">      "capslock_o": "ctrl_right",</span><br><span class="line">      "capslock_alt_o": "shift_ctrl_right",</span><br><span class="line">      "capslock_9": "[",</span><br><span class="line">      "capslock_alt_9": "&#123;",</span><br><span class="line">      "capslock_0": "]",</span><br><span class="line">      "capslock_alt_0": "&#125;",</span><br><span class="line">      "capslock_n": "ctrl_bs",</span><br><span class="line">      "capslock_alt_n": "shift_home_del",</span><br><span class="line">      "capslock_m": "ctrl_del",</span><br><span class="line">      "capslock_alt_m": "shift_end_del",</span><br><span class="line">      "capslock_,": "home",</span><br><span class="line">      "capslock_alt_,": "shift_home",</span><br><span class="line">      "capslock_.": "end",</span><br><span class="line">      "capslock_alt_.": "shift_end",</span><br><span class="line">      "capslock_;": "_",</span><br><span class="line">      "capslock_alt_;": "-",</span><br><span class="line">      "capslock_'": "=",</span><br><span class="line">      "capslock_alt_'": "shift_=",</span><br><span class="line">      "capslock_/": "\\",</span><br><span class="line">      "capslock_alt_/": "shift_\\"</span><br><span class="line">    &#125;,</span><br><span class="line">    "custom": &#123;&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="自定义配置-1"><a href="#自定义配置-1" class="headerlink" title="自定义配置"></a>自定义配置</h1><p>可以在托盘菜单里找到”编辑配置文件”的菜单的, 改了配置记得重启sux哈</p>
+<p>配置编写规则: </p>
+<ul>
+<li>action类型: 直接从下方的所有action里选即可<ul>
+<li><code>ShowSuxMenu</code></li>
+<li><code>StartSuxAhkWithWin</code></li>
+<li><code>MoveWindowToLeftSide</code></li>
+<li><code>MoveWindowToRightSide</code></li>
+<li><code>OpenFileExplorer</code></li>
+<li><code>OpenActionCenter</code></li>
+<li><code>CloseCurrentWindow</code></li>
+<li><code>GoTop</code></li>
+<li><code>GoBottom</code></li>
+<li><code>GoBack</code></li>
+<li><code>GoForward</code></li>
+<li><code>LockPc</code></li>
+<li><code>OpenTaskView</code></li>
+<li><code>VolumeMute</code></li>
+<li><code>VolumeUp</code></li>
+<li><code>VolumeDown</code></li>
+<li><code>GotoNextDesktop</code></li>
+<li><code>GotoPreDesktop</code></li>
+<li><code>RefreshTab</code></li>
+<li><code>ReopenLastTab</code></li>
+<li><code>GotoPreApp</code></li>
+<li><code>JumpToPrevTab</code></li>
+<li><code>JumpToNextTab</code></li>
+<li><code>SwitchCapsState</code></li>
+<li><code>SwitchInputMethodAndDeleteLeft</code></li>
+<li><code>MaxMinWindow</code></li>
+<li><code>MaxWindow</code></li>
+<li><code>MinWindow</code></li>
+<li><code>ReloadSux</code></li>
+<li><code>SelectCurrentWordAndCopy</code></li>
+<li><code>SelectCurrentLineAndCopy</code></li>
+<li><code>InsertLineBelow</code></li>
+<li><code>InsertLineAbove</code></li>
+<li><code>DeleteCurrentLine</code></li>
+<li><code>IndentCurrentLine</code></li>
+<li><code>SimulateClickDown</code></li>
+</ul>
+</li>
+<li>发送的单个键盘操作: 比如要发送<code>shift+下</code> 就是<code>shift_down</code></li>
+<li>发送一段键盘操作序列, 比如要实现<code>caps
++w</code>选中当前单词, 首先得移动到词的左边, 然后往右选中单词, 则配置为: <code>&quot;capslock_w&quot;: [&quot;ctrl_left&quot;, &quot;ctrl_shift_right&quot;]</code></li>
+<li>一些特殊的热键定义对照表:<ul>
+<li><code>lbutton:  左键单击</code></li>
+<li><code>rbutton:  右键单击</code></li>
+<li><code>mbutton: 中键单击</code></li>
+<li><code>wheelup: 滚轮上滑</code></li>
+<li><code>wheeldown: 滚轮下滑</code></li>
+<li><code>hover: 悬停</code>, 只能用在触发角的配置里</li>
+<li><code>doublehit_: 双击</code>, 比如<code>doublehit_alt</code>表示双击<code>alt</code></li>
+<li><code>triplehit_: 三击</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="备注-设置Everything始终以运行次数排序"><a href="#备注-设置Everything始终以运行次数排序" class="headerlink" title="备注-设置Everything始终以运行次数排序"></a>备注-设置Everything始终以运行次数排序</h1><p>如果你也用Everything的话, sux可以配合Everything使用, 下面是推荐配置</p>
+<ol>
+<li>Everything设置如下:  <ul>
+<li style="list-style: none"><input type="checkbox"></input> 保存设置和数据到%APPDATA%\Everything目录  </li>
+<li style="list-style: none"><input type="checkbox" checked></input> 随系统自启动  </li>
+<li style="list-style: none"><input type="checkbox" checked></input> 以管理员身份运行  </li>
+<li style="list-style: none"><input type="checkbox" checked></input> Everything服务  </li>
+</ul>
+</li>
+<li>退出Everything</li>
+<li><p>找到其配置文件 Everything.ini , 并在其文件末尾添加</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sort=Run Count</span><br><span class="line">sort_ascending=0</span><br><span class="line">always_keep_sort=1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行Everything</p>
+</li>
+</ol>
+<h1 id="TODO-List-1"><a href="#TODO-List-1" class="headerlink" title="TODO List"></a>TODO List</h1><ul>
+<li>auto update</li>
+<li>add more action</li>
+<li>点击tray menu 不消失menu</li>
+<li>ext ahk</li>
+<li>search_plus失焦则销毁</li>
+<li>smart selection 双引号, 括号内, 单引号内</li>
+<li>translation gui change color to gray/ dpi / voice audio / soundmark encoding<br>–&gt;</li>
+</ul>
+<!-- sux 是一个只有500k+大小的免费开源的强大效率工具同时拥有翻译, 历史剪切板, 截图贴图, 类似wox的快捷搜索, 类似macos的触发角, 屏幕边缘触发器, 全局自定义快捷键, 文本替换器, -->
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/GitHub/" rel="tag"><i class="fa fa-tag"></i> GitHub</a>
+            
+              <a href="/tags/AutoHotKey/" rel="tag"><i class="fa fa-tag"></i> AutoHotKey</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/win10_home_disable_auto_update/" rel="next" title="Win10禁止自动更新踩坑">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Win10禁止自动更新踩坑
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/http_4_way_post_data/" rel="prev" title="总结四种常见的 POST 提交数据方式">
+                <p class="post-nav-pre-next-title">
+                    总结四种常见的 POST 提交数据方式
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#重要"><span class="nav-text">重要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快捷搜索search-plus"><span class="nav-text">快捷搜索search-plus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#翻译"><span class="nav-text">翻译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#历史剪切板clipboard-plus"><span class="nav-text">历史剪切板clipboard-plus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Everything搜索工具栏"><span class="nav-text">Everything搜索工具栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#截图和贴图"><span class="nav-text">截图和贴图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类似macos的触发角hot-corner"><span class="nav-text">类似macos的触发角hot-corner</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#屏幕边缘触发器hot-edge"><span class="nav-text">屏幕边缘触发器hot-edge</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文字替换器replace-text"><span class="nav-text">文字替换器replace-text</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义配置"><span class="nav-text">自定义配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#捐赠"><span class="nav-text">捐赠</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何发布"><span class="nav-text">如何发布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TODO-List"><span class="nav-text">TODO List</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

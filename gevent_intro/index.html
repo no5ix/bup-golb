@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'gevent总结' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Python,GEvent,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content=". . .">
+<meta name="keywords" content="Python,GEvent">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gevent总结">
+<meta property="og:url" content="https://hulinhong.com/gevent_intro/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content=". . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.648Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gevent总结">
+<meta name="twitter:description" content=". . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>gevent总结 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/gevent_intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">gevent总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-09T23:31:26+00:00">
+                07-09-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              
+                <a href="/tags/GEvent/" rel="tag"><i class="fa fa-tag"></i> GEvent</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/python_with/" rel="next" title="python的with与__enter__以及__exit__关系">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  python的with与__enter__以及__exit__关系
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/etcd_api_note/" rel="prev" title="etcd的restful接口">
+              <p class="post-nav-pre-next-title">
+                  etcd的restful接口
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p><strong>. . .</strong><a id="more"></a></p>
+<p>gevent，它是一个并发网络库。它的协程是基于 <a href="http://www.bjhee.com/greenlet.html" target="_blank" rel="noopener">greenlet</a> 的，并基于 libev 实现快速事件循环（Linux 上是 epoll，FreeBSD 上是 kqueue，Mac OS X 上是 select）。有了 gevent，协程的使用将无比简单，你根本无须像 greenlet 一样显式的切换，每当一个协程阻塞时，程序将自动调度，gevent 处理了所有的底层细节。让我们看个例子来感受下吧。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="number">12</span></span><br><span class="line">    gevent.sleep(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="number">34</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test2</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="number">56</span></span><br><span class="line">    gevent.sleep(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="number">78</span></span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">    gevent.spawn(test1),</span><br><span class="line">    gevent.spawn(test2),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p>解释下，<code>gevent.spawn()</code>方法会创建一个新的 greenlet 协程对象，并运行它。<code>gevent.joinall()</code>方法会等待所有传入的 greenlet 协程运行结束后再退出，这个方法可以接受一个<code>timeout</code>参数来设置超时时间，单位是秒。运行上面的程序，执行顺序如下：</p>
+<ol>
+<li>先进入协程 test1，打印 12</li>
+<li>遇到<code>gevent.sleep(0)</code>时，test1 被阻塞，自动切换到协程 test2，打印 56</li>
+<li>之后 test2 被阻塞，这时 test1 阻塞已结束，自动切换回 test1，打印 34</li>
+<li>当 test1 运行完毕返回后，此时 test2 阻塞已结束，再自动切换回 test2，打印 78</li>
+<li>所有协程执行完毕，程序退出</li>
+</ol>
+<p>所以，程序运行下来的输出就是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">12</span><br><span class="line">56</span><br><span class="line">34</span><br><span class="line">78</span><br></pre></td></tr></table></figure>
+<p>注意，这里与<a href="http://www.bjhee.com/greenlet.html" target="_blank" rel="noopener">上一篇 greenlet</a> 中第一个例子运行的结果不一样，greenlet 一个协程运行完后，必须显式切换，不然会返回其父协程。而在 gevent 中，一个协程运行完后，它会自动调度那些未完成的协程。</p>
+<p>我们换一个更有意义的例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">urls = [<span class="string">'www.baidu.com'</span>, <span class="string">'www.gevent.org'</span>, <span class="string">'www.python.org'</span>]</span><br><span class="line">jobs = [gevent.spawn(socket.gethostbyname, url) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">gevent.joinall(jobs, timeout=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> [job.value <span class="keyword">for</span> job <span class="keyword">in</span> jobs]</span><br></pre></td></tr></table></figure>
+<p>我们通过协程分别获取三个网站的 IP 地址，由于打开远程地址会引起 IO 阻塞，所以 gevent 会自动调度不同的协程。另外，我们可以通过协程对象的”value” 属性，来获取协程函数的返回值。</p>
+<h1 id="猴子补丁MonkeyPatching"><a href="#猴子补丁MonkeyPatching" class="headerlink" title="猴子补丁MonkeyPatching"></a>猴子补丁MonkeyPatching</h1><p>细心的朋友们在运行上面例子时会发现，其实程序运行的时间同不用协程是一样的，是三个网站打开时间的总和。可是理论上协程是非阻塞的，那运行时间应该等于最长的那个网站打开时间呀？其实这是因为 Python 标准库里的 socket 是阻塞式的，DNS 解析无法并发，包括像 urllib 库也一样，所以这种情况下用协程完全没意义。那怎么办？</p>
+<p>一种方法是使用 gevent 下的 socket 模块，我们可以通过<code>from gevent import socket</code>来导入。不过更常用的方法是使用猴子布丁（Monkey patching）:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> gevent <span class="keyword">import</span> monkey; monkey.patch_socket()</span><br><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">urls = [<span class="string">'www.baidu.com'</span>, <span class="string">'www.gevent.org'</span>, <span class="string">'www.python.org'</span>]</span><br><span class="line">jobs = [gevent.spawn(socket.gethostbyname, url) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">gevent.joinall(jobs, timeout=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> [job.value <span class="keyword">for</span> job <span class="keyword">in</span> jobs]</span><br></pre></td></tr></table></figure>
+<p>上述代码的第一行就是对 socket 标准库打上猴子补丁，此后 socket 标准库中的类和方法都会被替换成非阻塞式的，所有其他的代码都不用修改，这样协程的效率就真正体现出来了。Python 中其它标准库也存在阻塞的情况，gevent 提供了<code>monkey.patch_all()</code>方法将所有标准库都替换。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> gevent <span class="keyword">import</span> monkey; monkey.patch_all()</span><br></pre></td></tr></table></figure>
+<p>使用猴子补丁褒贬不一，但是官网上还是建议使用<code>patch_all()</code>，而且在程序的第一行就执行。</p>
+<h1 id="gevent原理"><a href="#gevent原理" class="headerlink" title="gevent原理"></a>gevent原理</h1><h1 id="获取协程状态"><a href="#获取协程状态" class="headerlink" title="获取协程状态"></a>获取协程状态</h1><p>协程状态有已启动和已停止，分别可以用协程对象的<code>started</code>属性和<code>ready()</code>方法来判断。对于已停止的协程，可以用<code>successful()</code>方法来判断其是否成功运行且没抛异常。如果协程执行完有返回值，可以通过<code>value</code>属性来获取。另外，greenlet 协程运行过程中发生的异常是不会被抛出到协程外的，因此需要用协程对象的<code>exception</code>属性来获取协程中的异常。下面的例子很好的演示了各种方法和属性的使用。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">win</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'You win!'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fail</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">'You failed!'</span>)</span><br><span class="line"></span><br><span class="line">winner = gevent.spawn(win)</span><br><span class="line">loser = gevent.spawn(fail)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> winner.started </span><br><span class="line"><span class="keyword">print</span> loser.started  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    gevent.joinall([winner, loser])</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">print</span> <span class="string">'This will never be reached'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> winner.ready() </span><br><span class="line"><span class="keyword">print</span> loser.ready()  </span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> winner.value </span><br><span class="line"><span class="keyword">print</span> loser.value  </span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> winner.successful() </span><br><span class="line"><span class="keyword">print</span> loser.successful()  </span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> loser.exception</span><br></pre></td></tr></table></figure>
+<h1 id="协程运行超时"><a href="#协程运行超时" class="headerlink" title="协程运行超时"></a>协程运行超时</h1><p>之前我们讲过在<code>gevent.joinall()</code>方法中可以传入<code>timeout</code>参数来设置超时，我们也可以在全局范围内设置超时时间：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">from</span> gevent <span class="keyword">import</span> Timeout</span><br><span class="line"></span><br><span class="line">timeout = Timeout(<span class="number">2</span>)  </span><br><span class="line">timeout.start()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wait</span><span class="params">()</span>:</span></span><br><span class="line">    gevent.sleep(<span class="number">10</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    gevent.spawn(wait).join()</span><br><span class="line"><span class="keyword">except</span> Timeout:</span><br><span class="line">    print(<span class="string">'Could not complete'</span>)</span><br></pre></td></tr></table></figure>
+<p>上例中，我们将超时设为 2 秒，此后所有协程的运行，如果超过两秒就会抛出<code>Timeout</code>异常。我们也可以将超时设置在 with 语句内，这样该设置只在 with 语句块中有效：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> Timeout(<span class="number">1</span>):</span><br><span class="line">    gevent.sleep(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>此外，我们可以指定超时所抛出的异常，来替换默认的<code>Timeout</code>异常。比如下例中超时就会抛出我们自定义的<code>TooLong</code>异常。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TooLong</span><span class="params">(Exception)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> Timeout(<span class="number">1</span>, TooLong):</span><br><span class="line">    gevent.sleep(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="协程间通讯"><a href="#协程间通讯" class="headerlink" title="协程间通讯"></a>协程间通讯</h1><p>greenlet 协程间的异步通讯可以使用事件（Event）对象。该对象的<code>wait()</code>方法可以阻塞当前协程，而<code>set()</code>方法可以唤醒之前阻塞的协程。在下面的例子中，5 个 waiter 协程都会等待事件 evt，当 setter 协程在 3 秒后设置 evt 事件，所有的 waiter 协程即被唤醒。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">from</span> gevent.event <span class="keyword">import</span> Event</span><br><span class="line"></span><br><span class="line">evt = Event()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setter</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Wait for me'</span></span><br><span class="line">    gevent.sleep(<span class="number">3</span>)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Ok, I'm done"</span></span><br><span class="line">    evt.set()  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">waiter</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"I'll wait for you"</span></span><br><span class="line">    evt.wait()  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Finish waiting'</span></span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">    gevent.spawn(setter),</span><br><span class="line">    gevent.spawn(waiter),</span><br><span class="line">    gevent.spawn(waiter),</span><br><span class="line">    gevent.spawn(waiter),</span><br><span class="line">    gevent.spawn(waiter),</span><br><span class="line">    gevent.spawn(waiter)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p>除了 Event 事件外，gevent 还提供了<code>AsyncResult</code>事件，它可以在唤醒时传递消息。让我们将上例中的<code>setter</code>和<code>waiter</code>作如下改动:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> gevent.event <span class="keyword">import</span> AsyncResult</span><br><span class="line"></span><br><span class="line">aevt = AsyncResult()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setter</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Wait for me'</span></span><br><span class="line">    gevent.sleep(<span class="number">3</span>)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Ok, I'm done"</span></span><br><span class="line">    aevt.set(<span class="string">'Hello!'</span>)  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">waiter</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"I'll wait for you"</span>)</span><br><span class="line">    message = aevt.get()  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">'Got wake up message: %s'</span> % message</span><br></pre></td></tr></table></figure>
+<h1 id="队列Queue"><a href="#队列Queue" class="headerlink" title="队列Queue"></a>队列Queue</h1><p>队列 Queue 的概念相信大家都知道，我们可以用它的<code>put</code>和<code>get</code>方法来存取队列中的元素。gevent 的队列对象可以让 greenlet 协程之间安全的访问。运行下面的程序，你会看到 3 个消费者会分别消费队列中的产品，且消费过的产品不会被另一个消费者再取到：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">from</span> gevent.queue <span class="keyword">import</span> Queue</span><br><span class="line"></span><br><span class="line">products = Queue()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">consumer</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> products.empty():</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'%s got product %s'</span> % (name, products.get())</span><br><span class="line">        gevent.sleep(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'%s Quit'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">producer</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">        products.put(i)</span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">    gevent.spawn(producer),</span><br><span class="line">    gevent.spawn(consumer, <span class="string">'steve'</span>),</span><br><span class="line">    gevent.spawn(consumer, <span class="string">'john'</span>),</span><br><span class="line">    gevent.spawn(consumer, <span class="string">'nancy'</span>),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p><code>put</code>和<code>get</code>方法都是阻塞式的，它们都有非阻塞的版本：<code>put_nowait</code>和<code>get_nowait</code>。如果调用<code>get</code>方法时队列为空，则抛出<code>gevent.queue.Empty</code>异常。</p>
+<h1 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h1><p>信号量可以用来限制协程并发的个数。它有两个方法，<code>acquire</code>和<code>release</code>。顾名思义，<code>acquire</code>就是获取信号量，而<code>release</code>就是释放。当所有信号量都已被获取，那剩余的协程就只能等待任一协程释放信号量后才能得以运行：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">from</span> gevent.coros <span class="keyword">import</span> BoundedSemaphore</span><br><span class="line"></span><br><span class="line">sem = BoundedSemaphore(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">worker</span><span class="params">(n)</span>:</span></span><br><span class="line">    sem.acquire()</span><br><span class="line">    print(<span class="string">'Worker %i acquired semaphore'</span> % n)</span><br><span class="line">    gevent.sleep(<span class="number">0</span>)</span><br><span class="line">    sem.release()</span><br><span class="line">    print(<span class="string">'Worker %i released semaphore'</span> % n)</span><br><span class="line"></span><br><span class="line">gevent.joinall([gevent.spawn(worker, i) <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>, <span class="number">6</span>)])</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，我们初始化了<code>BoundedSemaphore</code>信号量，并将其个数定为<code>2</code>。所以同一个时间，只能有两个 worker 协程被调度。程序运行后的结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Worker 0 acquired semaphore</span><br><span class="line">Worker 1 acquired semaphore</span><br><span class="line">Worker 0 released semaphore</span><br><span class="line">Worker 1 released semaphore</span><br><span class="line">Worker 2 acquired semaphore</span><br><span class="line">Worker 3 acquired semaphore</span><br><span class="line">Worker 2 released semaphore</span><br><span class="line">Worker 3 released semaphore</span><br><span class="line">Worker 4 acquired semaphore</span><br><span class="line">Worker 4 released semaphore</span><br><span class="line">Worker 5 acquired semaphore</span><br><span class="line">Worker 5 released semaphore</span><br></pre></td></tr></table></figure>
+<p>如果信号量个数为 1，那就等同于同步锁。</p>
+<h1 id="协程本地变量"><a href="#协程本地变量" class="headerlink" title="协程本地变量"></a>协程本地变量</h1><p>同线程类似，协程也有本地变量，也就是只在当前协程内可被访问的变量：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">from</span> gevent.local <span class="keyword">import</span> local</span><br><span class="line"></span><br><span class="line">data = local()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    data.x = <span class="number">1</span></span><br><span class="line">    <span class="keyword">print</span> data.x</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> data.x</span><br><span class="line">    <span class="keyword">except</span> AttributeError:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'x is not visible'</span></span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">    gevent.spawn(f1),</span><br><span class="line">    gevent.spawn(f2)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p>通过将变量存放在<code>local</code>对象中，即可将其的作用域限制在当前协程内，当其他协程要访问该变量时，就会抛出异常。不同协程间可以有重名的本地变量，而且互相不影响。因为协程本地变量的实现，就是将其存放在以的<code>greenlet.getcurrent()</code>的返回为键值的私有的命名空间内。</p>
+<h1 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h1><p>讲到这里，大家肯定很想看一个 gevent 的实际应用吧，<a href="https://github.com/sdiehl/minichat" target="_blank" rel="noopener">这里有一个简单的聊天室程序</a>，基于 Flask 实现，大家可以参考下。</p>
+<h1 id="更多参考资料"><a href="#更多参考资料" class="headerlink" title="更多参考资料"></a>更多参考资料</h1><p><a href="http://www.gevent.org/contents.html" target="_blank" rel="noopener">gevent 的官方文档</a><br><a href="http://sdiehl.github.io/gevent-tutorial/" target="_blank" rel="noopener">gevent 社区提供的教程</a></p>
+<p>转自: <a href="http://www.bjhee.com/gevent.html" target="_blank" rel="noopener">http://www.bjhee.com/gevent.html</a></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+            
+              <a href="/tags/GEvent/" rel="tag"><i class="fa fa-tag"></i> GEvent</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/python_with/" rel="next" title="python的with与__enter__以及__exit__关系">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    python的with与__enter__以及__exit__关系
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/etcd_api_note/" rel="prev" title="etcd的restful接口">
+                <p class="post-nav-pre-next-title">
+                    etcd的restful接口
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#猴子补丁MonkeyPatching"><span class="nav-text">猴子补丁MonkeyPatching</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gevent原理"><span class="nav-text">gevent原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取协程状态"><span class="nav-text">获取协程状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协程运行超时"><span class="nav-text">协程运行超时</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协程间通讯"><span class="nav-text">协程间通讯</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#队列Queue"><span class="nav-text">队列Queue</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信号量"><span class="nav-text">信号量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协程本地变量"><span class="nav-text">协程本地变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际应用"><span class="nav-text">实际应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多参考资料"><span class="nav-text">更多参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

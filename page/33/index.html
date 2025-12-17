@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = '' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🚙">
+<meta property="og:url" content="https://hulinhong.com/page/33/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🚙">
+<meta name="twitter:description" content="🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, &quot;hexo-theme-neo&quot;, click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>🚙 - 💨 💨 💨</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/linux_gcc_atomic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux_gcc_atomic/" itemprop="url">GCC的原子操作函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-11T12:26:26+00:00">
+                04-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <p>linux支持的哪些操作是具有原子特性的？知道这些东西是理解和设计无锁化编程算法的基础。</p>
+<p>下面的东西整理自网络。先感谢大家的分享！</p>
+<h1 id="原子操作的api函数"><a href="#原子操作的api函数" class="headerlink" title="原子操作的api函数"></a>原子操作的api函数</h1><p>gcc从4.1.2以后提供了 <code>__sync_*</code> 系列的下面几类的内嵌函数，提供用于针对数字或布尔型变量的原子操作。</p>
+<h2 id="n-类"><a href="#n-类" class="headerlink" title="n++类"></a>n++类</h2><p>这组返回更新前的值</p>
+<pre><code>type __sync_fetch_and_add (type *ptr, type value, ...)
+type __sync_fetch_and_sub (type *ptr, type value, ...)
+type __sync_fetch_and_or (type *ptr, type value, ...)
+type __sync_fetch_and_and (type *ptr, type value, ...)
+type __sync_fetch_and_xor (type *ptr, type value, ...)
+type __sync_fetch_and_nand (type *ptr, type value, ...)
+</code></pre><h2 id="n类"><a href="#n类" class="headerlink" title="++n类"></a>++n类</h2><p>这组返回更新后的值</p>
+<pre><code>type __sync_add_and_fetch (type *ptr, type value, ...)
+type __sync_sub_and_fetch (type *ptr, type value, ...)
+type __sync_or_and_fetch (type *ptr, type value, ...)
+type __sync_and_and_fetch (type *ptr, type value, ...)
+type __sync_xor_and_fetch (type *ptr, type value, ...)
+type __sync_nand_and_fetch (type *ptr, type value, ...)
+</code></pre><p>type可以是1,2,4或8字节长度的int类型，即：</p>
+<pre><code>int8_t / uint8_t
+int16_t / uint16_t
+int32_t / uint32_t
+int64_t / uint64_t
+</code></pre><p>后面的可扩展参数(…)用来指出哪些变量需要memory barrier,因为目前gcc实现的是full barrier（类似于linux kernel 中的mb(),表示这个操作之前的所有内存操作不会被重排序到这个操作之后）,所以可以略掉这个参数。</p>
+<h2 id="CAS类"><a href="#CAS类" class="headerlink" title="CAS类"></a>CAS类</h2><p>CAS 即 compare-and-swap , </p>
+<p>下面这两个函数提供原子的比较和交换，如果 <code>*ptr == oldval</code>,就将 <code>newval</code> 写入 <code>*ptr</code> </p>
+<ul>
+<li><p>此函数在相等并写入的情况下返回 true</p>
+<pre><code>bool __sync_bool_compare_and_swap (type *ptr, type oldval, type newval, ...)
+/* 对应的伪代码 */
+{ if (*ptr == oldval) { *ptr = newval; return true; } else { return false; } }
+</code></pre></li>
+</ul>
+<ul>
+<li><p>此函数在返回 <code>oldval</code></p>
+<pre><code>type __sync_val_compare_and_swap (type *ptr, type oldval, type newval, ...)
+/* 对应的伪代码 */
+{ if (*ptr == oldval) { *ptr = newval; } return oldval; }
+</code></pre></li>
+</ul>
+<h2 id="其他原子操作"><a href="#其他原子操作" class="headerlink" title="其他原子操作"></a>其他原子操作</h2><pre><code>type __sync_lock_test_and_set (type *ptr, type value, ...)
+</code></pre><p>将  <code>*ptr</code> 设为value并返回 <code>*ptr</code> 操作之前的值。</p>
+<pre><code>void __sync_lock_release (type *ptr, ...)
+</code></pre><p>将 <code>*ptr</code> 置 0</p>
+<h1 id="内存栅障"><a href="#内存栅障" class="headerlink" title="内存栅障"></a>内存栅障</h1><p>内存栅障主要是处理不同cpu运作时（主要是执行不同线程代码时），一个cpu对内存的操作的原子性，也就保证其他cpu见到的内存单元数据的正确性。</p>
+<h2 id="内存栅障介绍"><a href="#内存栅障介绍" class="headerlink" title="内存栅障介绍"></a>内存栅障介绍</h2><p>如果有对某一变量上写锁， 就不能在不获得相应的锁时对其进行读取操作。<br>内存栅的作用在于保证内存操作的相对顺序， 但并不保证内存操作的严格时序。 </p>
+<p>内存栅并不保证 CPU 将本地快取缓存或存储缓冲的内容刷写回内存， 而是在锁释放时确保其所保护的数据， 对于能看到刚释放的那个锁的 CPU 或设备可见。<br>持有内存栅的 CPU 可以在其快取缓存或存储缓冲中将数据保持其所希望的、 任意长的时间， 但如果其它 CPU 在同一数据元上执行原子操作，<br>则第一个 CPU 必须保证， 其所更新的数据值， 以及内存栅所要求的任何其它操作， 对第二个 CPU 可见。</p>
+<pre><code>__sync_synchronize (...)
+</code></pre><p>发出一个full barrier.</p>
+<h2 id="内存栅障应用"><a href="#内存栅障应用" class="headerlink" title="内存栅障应用"></a>内存栅障应用</h2><p>对于执行一条指令，操作到4个寄存器时，如：</p>
+<pre><code>write1(dev.register_size,size);
+write1(dev.register_addr,addr);
+write1(dev.register_cmd,READ);
+write1(dev.register_control,GO);
+</code></pre><p>最后一个寄存器是控制寄存器，在所有的参数都设置好之后向其发出指令，设备开始读取参数.</p>
+<p>如果最后一条write1被换到了前几条语句之前，那么肯定不是我们所期望的，这时候我们可以在最后一条语句之前加入一个memory barrier,强制cpu执行完前面的写入以后再执行最后一条：</p>
+<pre><code>write1(dev.register_size,size);
+write1(dev.register_addr,addr);
+write1(dev.register_cmd,READ);
+__sync_synchronize();
+write1(dev.register_control,GO);
+</code></pre><p>memory barrier有几种类型：</p>
+<ul>
+<li>acquire barrier : 不允许将barrier之后的内存读取指令移到barrier之前（linux kernel中的wmb()）。</li>
+<li>release barrier : 不允许将barrier之前的内存读取指令移到barrier之后 (linux kernel中的rmb())。</li>
+<li>full barrier    : 以上两种barrier的合集(linux kernel中的mb())。</li>
+</ul>
+<h1 id="原子操作应用范围"><a href="#原子操作应用范围" class="headerlink" title="原子操作应用范围"></a>原子操作应用范围</h1><p>原子操作只允许一次更新或读一个内存单元。 需要原子地更新多个单元时， 就必须使用锁来代替它了。 </p>
+<p>例如， 如果需要更新两个相互关联的计数器时， 就必须使用锁， 而不是两次单独的原子操作了。</p>
+<h1 id="原子操作例子"><a href="#原子操作例子" class="headerlink" title="原子操作例子"></a>原子操作例子</h1><p>例子代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;  </span></span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">test_func</span><span class="params">(<span class="keyword">void</span> *arg)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">20000</span>;++i)&#123;  </span><br><span class="line">                __sync_fetch_and_add(&amp;count,<span class="number">1</span>);  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">        <span class="keyword">pthread_t</span> id[<span class="number">20</span>];  </span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">20</span>;++i)&#123;  </span><br><span class="line">                pthread_create(&amp;id[i],<span class="literal">NULL</span>,test_func,<span class="literal">NULL</span>);  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">20</span>;++i)&#123;  </span><br><span class="line">                pthread_join(id[i],<span class="literal">NULL</span>);  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,count);  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="原子操作封装使用"><a href="#原子操作封装使用" class="headerlink" title="原子操作封装使用"></a>原子操作封装使用</h1><p>根据常用的原子操作，封装一些实用的接口 :</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//原子操作  </span></span><br><span class="line"><span class="comment">//设置值  </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lock_set</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">int</span> &amp;a, <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    __sync_val_compare_and_swap(&amp;a, a, value);  </span><br><span class="line">    <span class="keyword">return</span> a;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//加1  </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lock_inc</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">int</span> &amp;n)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_add(&amp;n, <span class="number">1</span>);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//减1  </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lock_dec</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">int</span> &amp;n)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_sub(&amp;n, <span class="number">1</span>);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//加值value  </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lock_add</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">int</span> &amp;n, <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_add(&amp;n, value);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//减值value  </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lock_sub</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">int</span> &amp;n, <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_sub(&amp;n, value);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//位或value  </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lock_or</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">int</span> &amp;n, <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_or(&amp;n, value);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//位与value  </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lock_and</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">int</span> &amp;n, <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_and(&amp;n, value);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//异或value  </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lock_xor</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">int</span> &amp;n, <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_xor(&amp;n, value);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//无符号类型（函数重载）  </span></span><br><span class="line"><span class="comment">//设置值  </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">lock_set</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> &amp;a, <span class="keyword">unsigned</span> <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    __sync_val_compare_and_swap(&amp;a, a, value);  </span><br><span class="line">    <span class="keyword">return</span> a;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//加1  </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">lock_inc</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> &amp;n)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_add(&amp;n, <span class="number">1</span>);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//减1  </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">lock_dec</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> &amp;n)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_sub(&amp;n, <span class="number">1</span>);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//加值value  </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">lock_add</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> &amp;n, <span class="keyword">unsigned</span> <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_add((<span class="keyword">int</span>*)&amp;n, value);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//减值value  </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">lock_sub</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> &amp;n, <span class="keyword">unsigned</span> <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_sub((<span class="keyword">int</span>*)&amp;n, value);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//位或value  </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">lock_or</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> &amp;n, <span class="keyword">unsigned</span> <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_or((<span class="keyword">int</span>*)&amp;n, value);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//位与value  </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">lock_and</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> &amp;n, <span class="keyword">unsigned</span> <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_and((<span class="keyword">int</span>*)&amp;n, value);  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//异或value  </span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">lock_xor</span><span class="params">(<span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> &amp;n, <span class="keyword">unsigned</span> <span class="keyword">int</span> value)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> __sync_fetch_and_xor((<span class="keyword">int</span>*)&amp;n, value);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/linux_gcc_builtin_expect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux_gcc_builtin_expect/" itemprop="url">GCC的分支预测优化__builtin_expect</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-04-11T12:26:26+00:00">
+                04-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-为什么需要分支预测优化"><a href="#1-为什么需要分支预测优化" class="headerlink" title="1. 为什么需要分支预测优化"></a>1. 为什么需要分支预测优化</h1><p> 将流水线引入cpu，可以提高cpu的效率。更简单的说，让cpu可以预先取出下一条指令，可以提供cpu的效率。如下图所示：</p>
+<table>
+<thead>
+<tr>
+<th>取指令</th>
+<th>执行指令</th>
+<th>输出结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>取指令</td>
+<td>执行</td>
+</tr>
+</tbody>
+</table>
+<p>可见，cpu流水钱可以减少cpu等待取指令的耗时，从而提高cpu的效率。<br>如果存在跳转指令，那么预先取出的指令就无用了。cpu在执行当前指令时，从内存中取出了当前指令的下一条指令。执行完当前指令后，cpu发现不是要执行下一条指令,而是执行offset偏移处的指令。cpu只能重新从内存中取出offset偏移处的指令。因此，跳转指令会降低流水线的效率，也就是降低cpu的效率。</p>
+<p>综上，在写程序时应该尽量避免跳转语句。那么如何避免跳转语句呢？答案就是使用__builtin_expect。</p>
+<p>这个指令是gcc引入的，作用是”允许程序员将最有可能执行的分支告诉编译器”。</p>
+<p>这个指令的写法为：<strong>builtin_expect(EXP, N)。意思是：EXP==N的概率很大。一般的使用方法是将</strong>builtin_expect指令封装为LIKELY和UNLIKELY宏。这两个宏的写法如下。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIKELY(x) __builtin_expect(!!(x), 1) <span class="comment">//x很可能为真</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UNLIKELY(x) __builtin_expect(!!(x), 0) <span class="comment">//x很可能为假</span></span></span><br></pre></td></tr></table></figure>
+<p>在很多源码如Linux内核、Glib等,我们都能看到likely()和unlikely()这两个宏,通常这两个宏定义是下面这样的形式。<br>可以看出这2个宏都是使用函数 <strong>builtin_expect()实现的, </strong>builtin_expect()函数是GCC的一个内建函数(build-in function).</p>
+<h1 id="2-函数声明"><a href="#2-函数声明" class="headerlink" title="2. 函数声明"></a>2. 函数声明</h1><p>函数__builtin_expect()是GCC v2.96版本引入的, 其声明如下:</p>
+<p><code>long __builtin_expect(long exp, long c);</code></p>
+<h2 id="2-1-功能描述"><a href="#2-1-功能描述" class="headerlink" title="2.1. 功能描述"></a>2.1. 功能描述</h2><p>由于大部分程序员在分支预测方面做得很糟糕，所以GCC 提供了这个内建函数来帮助程序员处理分支预测.</p>
+<p>你期望 exp 表达式的值等于常量 c, 看 c 的值, 如果 c 的值为0(即期望的函数返回值), 那么 执行 if 分支的的可能性小, 否则执行 else 分支的可能性小(函数的返回值等于第一个参数 exp).</p>
+<p>GCC在编译过程中，会将可能性更大的代码紧跟着前面的代码，从而减少指令跳转带来的性能上的下降, 达到优化程序的目的.</p>
+<p>通常，你也许会更喜欢使用 gcc 的一个参数 ‘-fprofile-arcs’ 来收集程序运行的关于执行流程和分支走向的实际反馈信息,但是对于很多程序来说,数据是很难收集的。</p>
+<h2 id="2-2-参数详解"><a href="#2-2-参数详解" class="headerlink" title="2.2. 参数详解"></a>2.2. 参数详解</h2><ul>
+<li><p>exp<br>  exp 为一个整型表达式, 例如: (ptr != NULL)</p>
+</li>
+<li><p>c<br>  c 必须是一个编译期常量, 不能使用变量</p>
+</li>
+</ul>
+<h2 id="2-3-返回值"><a href="#2-3-返回值" class="headerlink" title="2.3. 返回值"></a>2.3. 返回值</h2><p>　　返回值等于 第一个参数 exp</p>
+<h2 id="2-4-使用方法"><a href="#2-4-使用方法" class="headerlink" title="2.4. 使用方法"></a>2.4. 使用方法</h2><p>与关键字if一起使用.首先要明确一点就是 if (value) 等价于 if (__builtin_expert(value, x)), 与x的值无关.</p>
+<p>例子如下:</p>
+<p>例子1 : 期望 x == 0, 所以执行func()的可能性小</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (__builtin_expect(x, <span class="number">0</span>))</span><br><span class="line">&#123;</span><br><span class="line">    func();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">　　<span class="comment">//do someting</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例子2 : 期望 ptr !=NULL这个条件成立(1), 所以执行func()的可能性小</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (__builtin_expect(ptr != <span class="literal">NULL</span>, <span class="number">1</span>))</span><br><span class="line">&#123;　　</span><br><span class="line">　　<span class="comment">//do something</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">　　func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例子3 : 引言中的likely()和unlikely()宏</p>
+<p>首先,看第一个参数!!(x), 他的作用是把(x)转变成”布尔值”, 无论(x)的值是多少 !(x)得到的是true或false, !!(x)就得到了原值的”布尔值”</p>
+<p>使用 likely() ，执行 if 后面的语句 的机会更大，使用 unlikely()，执行 else 后面的语句的机会更大。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> likely(x)    __builtin_expect(!!(x), 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> unlikely(x)  __builtin_expect(!!(x), 0)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">char</span> *argv[], <span class="keyword">int</span> argc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> a;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* Get the value from somewhere GCC can't optimize */</span></span><br><span class="line">   a = atoi (argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (unlikely (a == <span class="number">2</span>))</span><br><span class="line">　 &#123;</span><br><span class="line">      a++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">　 &#123;</span><br><span class="line">　　  a--;</span><br><span class="line">　 &#125;</span><br><span class="line">   <span class="built_in">printf</span> (<span class="string">"%d\n"</span>, a);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-RATIONALE-原理"><a href="#3-RATIONALE-原理" class="headerlink" title="3. RATIONALE(原理)"></a>3. RATIONALE(原理)</h1><p>if else 句型编译后, 一个分支的汇编代码紧随前面的代码,而另一个分支的汇编代码需要使用JMP指令才能访问到.</p>
+<p>很明显通过JMP访问需要更多的时间, 在复杂的程序中,有很多的if else句型,又或者是一个有if else句型的库函数,每秒钟被调用几万次,</p>
+<p>通常程序员在分支预测方面做得很糟糕, 编译器又不能精准的预测每一个分支,这时JMP产生的时间浪费就会很大,</p>
+<p>函数 <code>__builtin_expert()</code> 就是用来解决这个问题的.</p>
+
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/linux_directory_permission/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux_directory_permission/" itemprop="url">linux一些不要想当然的事(一)之目录权限</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-18T17:11:52+00:00">
+                03-18-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="目录的可读-可写-可执行权限"><a href="#目录的可读-可写-可执行权限" class="headerlink" title="目录的可读/可写/可执行权限"></a>目录的可读/可写/可执行权限</h1><p>不要把目录的这几个权限和档案的这几个权限混淆了, 不要想当然的以为是差不多的, 差很多!<br>记忆技巧 : <strong>档案的rwx是针对于档案的内容来设计的, 而目录的rwx是针对于目录的文件名列表来设计的</strong></p>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/linux_command_df_free_top/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux_command_df_free_top/" itemprop="url">Linux常用运维命令(df和free和top)笔记整理(三)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-11T12:16:56+00:00">
+                03-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="df"><a href="#df" class="headerlink" title="df"></a><strong>df</strong></h1><blockquote>
+<p>df命令用于显示磁盘分区上的可使用的磁盘空间。默认显示单位为KB。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。</p>
+</blockquote>
+<ul>
+<li>-a或–all：包含全部的文件系统；</li>
+<li>–block-size=&lt;区块大小&gt;：以指定的区块大小来显示区块数目；</li>
+<li>-h或–human-readable：以可读性较高的方式来显示信息；</li>
+<li>-H或–si：与-h参数相同，但在计算时是以1000 Bytes为换算单位而非1024 Bytes；</li>
+<li>-i或–inodes：显示inode的信息；</li>
+<li>-k或–kilobytes：指定区块大小为1024字节；</li>
+<li>-l或–local：仅显示本地端的文件系统；</li>
+<li>-m或–megabytes：指定区块大小为1048576字节；</li>
+<li>–no-sync：在取得磁盘使用信息前，不要执行sync指令，此为预设值；</li>
+<li>-P或–portability：使用POSIX的输出格式；</li>
+<li>–sync：在取得磁盘使用信息前，先执行sync指令；</li>
+<li>-t&lt;文件系统类型&gt;或–type=&lt;文件系统类型&gt;：仅显示指定文件系统类型的磁盘信息；</li>
+<li>-T或–print-type：显示文件系统的类型；</li>
+<li>-x&lt;文件系统类型&gt;或–exclude-type=&lt;文件系统类型&gt;：不要显示指定文件系统类型的磁盘信息；</li>
+<li>–help：显示帮助；</li>
+<li>–version：显示版本信息</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/linux_command_netstat_lsof/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux_command_netstat_lsof/" itemprop="url">Linux常用运维命令(netstat和lsof)笔记整理(二)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-09T23:16:16+00:00">
+                03-09-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h1><blockquote>
+<p>netstat命令用来打印Linux中网络系统的状态信息，可让你得知整个Linux系统的网络情况。</p>
+</blockquote>
+<ul>
+<li>-<strong>a或–all：显示所有连线中的Socket；</strong></li>
+<li>-A&lt;网络类型&gt;或–&lt;网络类型&gt;：列出该网络类型连线中的相关地址；</li>
+<li>-c或–continuous：持续列出网络状态；</li>
+<li>-C或–cache：显示路由器配置的快取信息；</li>
+<li>-e或–extend：显示网络其他相关信息；</li>
+<li>-F或–fib：显示FIB；</li>
+<li>-g或–groups：显示多重广播功能群组组员名单；</li>
+<li>-h或–help：在线帮助；</li>
+<li>-i或–interfaces：显示网络界面信息表单；</li>
+<li>-<strong>l或–listening：显示监控中的服务器的Socket；</strong></li>
+<li>-M或–masquerade：显示伪装的网络连线；</li>
+<li>-<strong>n或–numeric：直接使用ip地址，而不通过域名服务器；</strong></li>
+<li>-N或–netlink或–symbolic：显示网络硬件外围设备的符号连接名称；</li>
+<li>-o或–timers：显示计时器；</li>
+<li>-<strong>p或–programs：显示正在使用Socket的程序识别码和程序名称；</strong></li>
+<li>-r或–route：显示Routing Table；</li>
+<li>-s或–statistice：显示网络工作信息统计表；</li>
+<li>-t或–tcp：显示TCP传输协议的连线状况；</li>
+<li>-u或–udp：显示UDP传输协议的连线状况；</li>
+<li>-v或–verbose：显示指令执行过程；</li>
+<li>-V或–version：显示版本信息；</li>
+<li>-w或–raw：显示RAW传输协议的连线状况；</li>
+<li>-x或–unix：此参数的效果和指定”-A unix”参数相同；</li>
+<li>–ip或–inet：此参数的效果和指定”-A inet”参数相同。</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/linux_command_iostat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux_command_iostat/" itemprop="url">Linux常用运维命令(iostat)笔记整理(一)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-07T19:46:26+00:00">
+                03-07-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <p>在linux服务器开发过程中， 经常需要各种命令配合来查看各种状态，所以整理了一些老的笔记来备忘。</p>
+<h1 id="iostat"><a href="#iostat" class="headerlink" title="iostat"></a><strong>iostat</strong></h1><blockquote>
+<p>iostat主要用于监控系统设备的IO负载情况，iostat首次运行时显示自系统启动开始的各项统计信息，之后运行iostat将显示自上次运行该命令以后的统计信息。用户可以通过指定统计的次数和时间来获得所需的统计信息</p>
+</blockquote>
+<ul>
+<li>-c 仅显示CPU统计信息.与-d选项互斥.</li>
+<li>-d 仅显示磁盘统计信息.与-c选项互斥.</li>
+<li>-k 以K为单位显示每秒的磁盘请求数,默认单位块.</li>
+<li>-t  在输出数据时,打印搜集数据的时间.</li>
+<li>-V 打印版本号和帮助信息.</li>
+<li>-x  输出扩展信息.</li>
+</ul>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/python的struct模块/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/python的struct模块/" itemprop="url">python的struct模块</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-02T21:49:19+00:00">
+                03-02-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>struct, 这玩意c/c++也有, 顾名思义, 能联想到这玩意是啥了</p>
+</blockquote>
+<p>模块的主要作用就是对python基本类型值与</p>
+<p>用python字符串格式表示的C struct类型间</p>
+<p>的转化（This module performs conversions between Python values and C structs represented as Python strings.）</p>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">values = (<span class="number">1</span>, <span class="string">'abc'</span>, <span class="number">2.7</span>)</span><br><span class="line">s = struct.Struct(<span class="string">'I3sf'</span>)</span><br><span class="line">packed_data = s.pack(*values)</span><br><span class="line">unpacked_data = s.unpack(packed_data)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> <span class="string">'Original values:'</span>, values</span><br><span class="line"><span class="keyword">print</span> <span class="string">'Format string :'</span>, s.format</span><br><span class="line"><span class="keyword">print</span> <span class="string">'Uses :'</span>, s.size, <span class="string">'bytes'</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Packed Value :'</span>, binascii.hexlify(packed_data)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'Unpacked Type :'</span>, type(unpacked_data), <span class="string">' Value:'</span>, unpacked_data</span><br></pre></td></tr></table></figure>
+<p>输出为:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Original values: (1, &apos;abc&apos;, 2.7) </span><br><span class="line">Format string : I3sf </span><br><span class="line">Uses : 12 bytes </span><br><span class="line">Packed Value : 0100000061626300cdcc2c40 </span><br><span class="line">Unpacked Type : &lt;type &apos;tuple&apos;&gt;  Value: (1, &apos;abc&apos;, 2.700000047683716)</span><br></pre></td></tr></table></figure></p>
+<p>代码中，</p>
+<p>首先定义了一个元组数据，</p>
+<p>包含int、string、float三种数据类型，</p>
+<p>然后定义了struct对象，并制定了format‘I3sf’，</p>
+<ul>
+<li><p>I 表示int，</p>
+</li>
+<li><p>3s表示三个字符长度的字符串，</p>
+</li>
+<li><p>f 表示 float。最后通过struct的pack和unpack进行打包和解包。通过输出结果可以发现，</p>
+</li>
+</ul>
+<p>value被pack之后，</p>
+<p>转化为了一段二进制字节串，</p>
+<p>而unpack可以把该字节串再转换回一个元组，</p>
+<p>但是值得注意的是对于float的精度发生了改变，</p>
+<p>这是由一些比如操作系统等客观因素所决定的。打包之后的数据所占用的字节数与C语言中的struct十分相似。定义format可以参照官方api提供的对照表：</p>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/python的struct模块/py_struct1.png">
+<h2 id="字节序设置"><a href="#字节序设置" class="headerlink" title="字节序设置"></a>字节序设置</h2><p>另一方面，打包的后的字节顺序默认上是由操作系统的决定的，</p>
+<p>当然struct模块也提供了自定义字节顺序的功能，</p>
+<p>可以指定大端存储、小端存储等特定的字节顺序，</p>
+<p>对于底层通信的字节顺序是十分重要的，</p>
+<p>不同的字节顺序和存储方式也会导致字节大小的不同。在format字符串前面加上特定的符号即可以表示不同的字节顺序存储方式，</p>
+<p>例如采用小端存储 s = struct.Struct(‘&lt;I3sf’)就可以了。官方api library 也提供了相应的对照列表：</p>
+<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/python的struct模块/py_struct2.png">
+          
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+      
+        
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/MySQL入门二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/MySQL入门二/" itemprop="url">MySQL入门二之一些小注意点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-03-02T01:51:11+00:00">
+                03-02-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index">
+                    <span itemprop="name">DB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+
+      
+      
+
+      
+        
+          <h1 id="distinct关键字"><a href="#distinct关键字" class="headerlink" title="distinct关键字"></a>distinct关键字</h1><p>distinct是应用于所有列的, 而不是某一个列</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from test_table;</span><br><span class="line">+------+------+</span><br><span class="line">| one  | two  |</span><br><span class="line">+------+------+</span><br><span class="line">| 56   | 12   |</span><br><span class="line">| 52   | 10   |</span><br><span class="line">| 56   | 12   |</span><br><span class="line">| 56   | 13   |</span><br><span class="line">+------+------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select distinct one, two from test_table;</span><br><span class="line">+------+------+</span><br><span class="line">| one  | two  |</span><br><span class="line">+------+------+</span><br><span class="line">| 56   | 12   |</span><br><span class="line">| 52   | 10   |</span><br><span class="line">| 56   | 13   |</span><br><span class="line">+------+------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select distinct one from test_table;</span><br><span class="line">+------+</span><br><span class="line">| one  |</span><br><span class="line">+------+</span><br><span class="line">| 56   |</span><br><span class="line">| 52   |</span><br><span class="line">+------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p><strong>. . .</strong>
+          <!--noindex-->
+          
+          <!--/noindex-->
+        
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+      
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><a class="page-number" href="/page/38/">38</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

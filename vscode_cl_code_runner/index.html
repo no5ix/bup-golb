@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'vscode用cl来编译c++' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="VSCode,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="在 Windows 下，想要编译 C++ 程序有很多种实现方式，Clang+LLVM，GCC，MSVC 等。一般而言，要想使用微软的 MSVC 编译 C++ 程序，需要用到庞大的 IDE：Visual Studio。然而如果平常随便写个代码都要调用 Visual Studio，无疑造成很大的不便。安装 Visual Studio 后，其实可以用命令行编译 C++ 程序，这需要一些小小的配置： .">
+<meta name="keywords" content="VSCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vscode用cl来编译c++">
+<meta property="og:url" content="https://hulinhong.com/vscode_cl_code_runner/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="在 Windows 下，想要编译 C++ 程序有很多种实现方式，Clang+LLVM，GCC，MSVC 等。一般而言，要想使用微软的 MSVC 编译 C++ 程序，需要用到庞大的 IDE：Visual Studio。然而如果平常随便写个代码都要调用 Visual Studio，无疑造成很大的不便。安装 Visual Studio 后，其实可以用命令行编译 C++ 程序，这需要一些小小的配置： .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.684Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vscode用cl来编译c++">
+<meta name="twitter:description" content="在 Windows 下，想要编译 C++ 程序有很多种实现方式，Clang+LLVM，GCC，MSVC 等。一般而言，要想使用微软的 MSVC 编译 C++ 程序，需要用到庞大的 IDE：Visual Studio。然而如果平常随便写个代码都要调用 Visual Studio，无疑造成很大的不便。安装 Visual Studio 后，其实可以用命令行编译 C++ 程序，这需要一些小小的配置： .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>vscode用cl来编译c++ | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/vscode_cl_code_runner/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vscode用cl来编译c++</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-08T16:04:48+00:00">
+                12-08-2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/VSCode/" rel="tag"><i class="fa fa-tag"></i> VSCode</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/async_log_summary/" rel="next" title="异步日志小结">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  异步日志小结
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ssr_client/" rel="prev" title="SSR client">
+              <p class="post-nav-pre-next-title">
+                  SSR client
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p>在 Windows 下，想要编译 C++ 程序有很多种实现方式，Clang+LLVM，GCC，MSVC 等。一般而言，要想使用微软的 MSVC 编译 C++ 程序，需要用到庞大的 IDE：Visual Studio。然而如果平常随便写个代码都要调用 Visual Studio，无疑造成很大的不便。安装 Visual Studio 后，其实可以用命令行编译 C++ 程序，这需要一些小小的配置：</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p>微软的官方文档是最可靠的来源：<br><a href="https://docs.microsoft.com/zh-cn/cpp/build/reference/c-cpp-building-reference?view=vs-2017" target="_blank" rel="noopener">C++ 生成参考</a><br><a href="https://docs.microsoft.com/zh-cn/cpp/build/reference/compiler-options-listed-by-category?view=vs-2017" target="_blank" rel="noopener">按类别列出的编译器选项</a></p>
+<h1 id="装git的注意事项"><a href="#装git的注意事项" class="headerlink" title="装git的注意事项"></a>装git的注意事项</h1><p>装git的时候选的terminal客户端选cmd那个， 否则编译的时候会出错</p>
+<h1 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h1><p>为了方便之后的配置，可以设置两个辅助变量（当然，这不是必须的）</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSVC</td>
+<td><code>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023</code></td>
+</tr>
+<tr>
+<td>WK10</td>
+<td><code>C:\Program Files (x86)\Windows Kits\10</code></td>
+</tr>
+</tbody>
+</table>
+<p>此处路径仅作为参考。接下来配置 Path：在 Path 中添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%WK10%\bin\10.0.17763.0\x64;%MSVC%\bin\Hostx64\x64;C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE</span><br></pre></td></tr></table></figure>
+<p>新建两个变量：</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LIB</td>
+<td><code>%WK10%\Lib\10.0.17763.0\ucrt\x64;%WK10%\Lib\10.0.17763.0\um\x64;%MSVC%\lib\x64</code></td>
+</tr>
+<tr>
+<td>INCLUDE</td>
+<td><code>%WK10%\Include\10.0.17763.0\ucrt;%WK10%\Include\10.0.17763.0\um;%MSVC%\include;</code></td>
+</tr>
+</tbody>
+</table>
+<p>备注:<br><strong>如果编译不成功的话, 比如报错<code>include error</code>之类的, 应该检查一下环境变量是否错误, 是否真的包含了各种标准库文件啥的</strong></p>
+<h1 id="在-VS-code-内置命令行实现快捷编译"><a href="#在-VS-code-内置命令行实现快捷编译" class="headerlink" title="在 VS code 内置命令行实现快捷编译"></a>在 VS code 内置命令行实现快捷编译</h1><p>当然可以使用 Task.json 配置自定义生成任务，或者使用 Makefile 和 nmake.exe 来生成可执行文件。这里介绍通过扩展实现快捷编译的一种方法：</p>
+<p>到 Extension 下载扩展 Code Runner，在 User\settings.json 中用如下代码替换原代码的对应部分：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;code-runner.executorMap&quot;: &#123;</span><br><span class="line">  &quot;c&quot;: &quot;cd $dir &amp;&amp; cl $fileName /Fe$fileNameWithoutExt </span><br><span class="line">&amp;&amp; $dir$fileNameWithoutExt&quot;,</span><br><span class="line">  &quot;cpp&quot;: &quot;cd $dir &amp;&amp; cl /EHsc /nologo $fileName /Fe$fileNameWithoutExt </span><br><span class="line">&amp;&amp; $dir$fileNameWithoutExt&quot;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>右键然后点击“Run Code” 即可编译当前文件。</p>
+<h1 id="（备注）测试单文件编译"><a href="#（备注）测试单文件编译" class="headerlink" title="（备注）测试单文件编译"></a>（备注）测试单文件编译</h1><p>建立一个 C++ 文件 Hello.cpp</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  std::cout &lt;&lt; &quot;Hello World&quot; &lt;&lt; std::endl;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进入到文件所在的目录，打开命令行，输入编译命令：</p>
+<p>cl.exe 是 MSVC 编译器的编译命令。等编译完成（中间可能会报错，暂时不管它），目录生成 Hello.obj 和 Hello.exe，即可运行程序观察效果：</p>
+<p>编译过程中我们可以为编译器指定参数。详细的参数列表可以查询微软的官方文档。这里列出常用的几个：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/nologo</td>
+<td>不显示 “Microcoft 优化 C++ 编译器” 的字样。</td>
+</tr>
+<tr>
+<td>/std</td>
+<td>控制兼容的 C++ 版本。目前仅支持 / std:c++14、/std:c++17(/std:c++latest)</td>
+</tr>
+<tr>
+<td>/EH</td>
+<td>指定异常处理模型。一般使用 / EHsc；尽量不要使用 / EHa</td>
+</tr>
+<tr>
+<td>/Fe</td>
+<td>指定生成可执行文件的名称。</td>
+</tr>
+<tr>
+<td>/Fo</td>
+<td>指定生成中间输出文件的名称。</td>
+</tr>
+</tbody>
+</table>
+<p>与 GCC 不同，MSVC 编译选项后直接跟内容，不加空格。例如，上面的 Hello.cpp 我们可以这样编译：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cl /nologo /EHsc /FeHelloWorld /std:c++latest Hello.cpp</span><br></pre></td></tr></table></figure>
+<p>这样就会生成 HelloWorld.exe 文件而不是 Hello.exe。</p>
+<p><strong>如果编译不成功的话, 比如报错<code>include error</code>之类的, 应该检查一下环境变量是否错误, 是否真的包含了各种标准库文件啥的</strong></p>
+<h1 id="（备注）测试多文件编译"><a href="#（备注）测试多文件编译" class="headerlink" title="（备注）测试多文件编译"></a>（备注）测试多文件编译</h1><p>新建一个类 Class1，在目录下创建 Class1.h 和 Class1.cpp，调整 main() 函数调用 Class1 的成员函数输出 “Hello World”。尝试编译这个文件：</p>
+<p>MSVC 支持使用如下命令分离编译和链接的步骤：(大小写区分！)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cl /EHsc /c Hello.cpp Class1.cpp</span><br><span class="line">link Hello.obj Class1.obj /OUT:Hello.exe</span><br></pre></td></tr></table></figure>
+<p>link.exe 是 MSVC 的链接命令。/c 指令说明编译而不链接，/OUT:filename.exe 指示输出可执行文件的名称。这里. exe 后缀可以省略。</p>
+<p>然而，更简便的做法是让 cl.exe 自动调用 link.exe：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cl /nologo /EHsc /FeHello Hello.cpp Class1.cpp</span><br></pre></td></tr></table></figure>
+<p>这样也可以实现与先编译后链接相同的效果。</p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/VSCode/" rel="tag"><i class="fa fa-tag"></i> VSCode</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/async_log_summary/" rel="next" title="异步日志小结">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    异步日志小结
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ssr_client/" rel="prev" title="SSR client">
+                <p class="post-nav-pre-next-title">
+                    SSR client
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-text">参考文档</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装git的注意事项"><span class="nav-text">装git的注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置环境变量"><span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在-VS-code-内置命令行实现快捷编译"><span class="nav-text">在 VS code 内置命令行实现快捷编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#（备注）测试单文件编译"><span class="nav-text">（备注）测试单文件编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#（备注）测试多文件编译"><span class="nav-text">（备注）测试多文件编译</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'Mac Notes' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Mac,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="笔记介绍这是一份 mac 折腾配置以及各种改造的精华笔记, 可以帮你从头到尾打造一个极为顺手的 mac.  在Windows端配合sux 可以统一 win &amp;amp; mac 的使用体验. . . .">
+<meta name="keywords" content="Mac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac Notes">
+<meta property="og:url" content="https://hulinhong.com/mac_notes/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="笔记介绍这是一份 mac 折腾配置以及各种改造的精华笔记, 可以帮你从头到尾打造一个极为顺手的 mac.  在Windows端配合sux 可以统一 win &amp;amp; mac 的使用体验. . . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac Notes">
+<meta name="twitter:description" content="笔记介绍这是一份 mac 折腾配置以及各种改造的精华笔记, 可以帮你从头到尾打造一个极为顺手的 mac.  在Windows端配合sux 可以统一 win &amp;amp; mac 的使用体验. . . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>Mac Notes | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/mac_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mac Notes</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-05-07T03:02:22+00:00">
+                05-07-2022
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Misc/" itemprop="url" rel="index">
+                    <span itemprop="name">Misc</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Mac/" rel="tag"><i class="fa fa-tag"></i> Mac</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/w_restaurant_interview_notes/" rel="next" title="W Restaurant Interview Notes">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  W Restaurant Interview Notes
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/tab_to_find/" rel="prev" title="A shell plugin that provides interactive Tab search & completion for any path">
+              <p class="post-nav-pre-next-title">
+                  A shell plugin that provides interactive Tab search & completion for any path
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="笔记介绍"><a href="#笔记介绍" class="headerlink" title="笔记介绍"></a>笔记介绍</h1><p>这是一份 mac 折腾配置以及各种改造的精华笔记, 可以帮你从头到尾打造一个极为顺手的 mac. </p>
+<p>在Windows端配合<a href="https://github.com/no5ix/sux" target="_blank" rel="noopener"><i class="fa fa-fw fa-github fa-2x"></i>sux</a> 可以统一 win &amp; mac 的使用体验.</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="改键Karabiner-已经用hammerspoon完全替代"><a href="#改键Karabiner-已经用hammerspoon完全替代" class="headerlink" title="改键Karabiner(已经用hammerspoon完全替代)"></a>改键Karabiner(已经用hammerspoon完全替代)</h1><p>改键软件 Karabiner-Elements 的配置得直接覆盖他的配置文件 <code>karabiner.json</code> (它的配置文件路径在 app 里的 misc 里有),<br>弄完之后记得去mac的设置-Keyboard-Keyboard Shortcuts-Input Sources-Select next source in Input menu里更改快捷键为<code>ctrl+option+space</code></p>
+<p>参考: </p>
+<ul>
+<li><a href="https://github.com/pqrs-org/Karabiner-Elements/issues/2711" target="_blank" rel="noopener">https://github.com/pqrs-org/Karabiner-Elements/issues/2711</a></li>
+<li><a href="https://github.com/pqrs-org/Karabiner-Elements/issues/2949" target="_blank" rel="noopener">https://github.com/pqrs-org/Karabiner-Elements/issues/2949</a></li>
+<li><a href="https://github.com/pqrs-org/KE-complex_modifications/issues/697#issuecomment-678677912" target="_blank" rel="noopener">https://github.com/pqrs-org/KE-complex_modifications/issues/697#issuecomment-678677912</a></li>
+<li><a href="https://github.com/realliyifei/mac-karabiner-chinese-punctuations-to-halfwidth-forms" target="_blank" rel="noopener">https://github.com/realliyifei/mac-karabiner-chinese-punctuations-to-halfwidth-forms</a></li>
+</ul>
+<h1 id="Mac读写NTFS格式移动硬盘-使用NTFS-Disk-by-Omi也可以-但是buhoNTFS更好因为免费"><a href="#Mac读写NTFS格式移动硬盘-使用NTFS-Disk-by-Omi也可以-但是buhoNTFS更好因为免费" class="headerlink" title="Mac读写NTFS格式移动硬盘(使用NTFS Disk by Omi也可以, 但是buhoNTFS更好因为免费)"></a>Mac读写NTFS格式移动硬盘(使用NTFS Disk by Omi也可以, 但是buhoNTFS更好因为免费)</h1><p>打开mac自带的<code>Disk Utility</code>这个软件 , 右键选中你的 USB 磁盘，记住这个页面的表格中的右下角的<code>Device</code>是啥(这个就是你的 NTFS 磁盘标识符, 一般叫做类似于<code>disk2s1</code>的名字), 然后点击 “Unmount”, 打开 terminal , 然后在里面输入下面的命令 (记住要把里面的”disk2s1” 换成你的NTFS磁盘的标识符, ):</p>
+<ol>
+<li><code>Diskutil list</code></li>
+<li><code>Sudo mkdir /Volumes/disk2s1</code></li>
+<li><code>Sudo mount -t ntfs -o rw,auto,nobrowse /dev/disk2s1 /Volumes/disk2s1</code></li>
+<li><code>sudo ln -s /Volumes/disk2s1 ~/Desktop/disk2s1</code></li>
+</ol>
+<p>这是在桌面创建了一个软链接即快捷方式。但是这个软链接不管是否硬盘都会一直留在桌面，不介意的可以到此结束了。那么如何将这个桌面上的磁盘隐藏掉了呢？其实也不是隐藏，只是换了个存在的地方 —— 将快捷方式拖入 Finder 的侧边栏即可。</p>
+<h1 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h1><p>科学上网软件： ClashX<br>下载地址: <a href="https://itlanyan.com/trojan-clients-download/" target="_blank" rel="noopener">https://itlanyan.com/trojan-clients-download/</a></p>
+<p>步骤:  </p>
+<ol>
+<li>去 just my socks 拷贝那些服务节点的配置然后去google搜“ss配置转clash配置”的网站(但是似乎很有可能会泄露相关 ss 密码之类的)，比如 <a href="https://subconverter.speedupvpn.com" target="_blank" rel="noopener">https://subconverter.speedupvpn.com</a> ， 然后在线转换为clash的配置然后点击 ClashX 的菜单栏的图标， 然后 <code>Config</code>-<code>Remote Config</code>-<code>Manage</code>-<code>Add</code></li>
+<li>如果发现上不了网的话, 点击 ClashX 的图标, 然后 <code>Config</code>-<code>Open Config Folder</code> 查看生成的 config 文件是否和 本 github 项目的 <code>clashx</code>里的类似</li>
+<li>请不要打开 clashx 的”设置为系统代理”, 否则剪映等一些软件无法联网, <ol>
+<li>但此时 safari 也会翻不了墙 (以下教程参考 <a href="https://www.youtube.com/watch?v=pAY8pNou9Gk" target="_blank" rel="noopener">https://www.youtube.com/watch?v=pAY8pNou9Gk</a>)<ol>
+<li>此时需要先把 <code>safari_proxy</code> 文件夹中的 <code>proxy.pac</code>(这个是由 edge 的 SwitchyOmega插件里的配置生成的) 放到 <code>/Library/WebServer/Documents</code> 里</li>
+<li>然后在<code>设置</code>-<code>网络</code>-<code>高级</code>-<code>代理</code>的<code>Automatic proxy configuration</code> 里输入 <code>http://127.0.0.1/proxy.pac</code>, 然后点击 右下角的 <code>ok</code>, 点击完<code>ok</code>之后会退回上一层菜单, 然后再点击 <code>Apply</code></li>
+<li>然后在 terminal 里输入命令 <code>sudo apachectl start</code></li>
+<li>去 safari 的地址栏输入<code>http://127.0.0.1/proxy.pac</code> 测试一下是否能访问这个, 有内容说明成功了, 此时再看看是否能谷歌/油管</li>
+</ol>
+</li>
+<li>此时还有个问题就是:可能会因为其它软件给关掉，如 ClashX 设置为系统代理的时候会把这个 pac 给清除掉, 所以我们需要检查一下 <code>hammerspoon</code> 里的 <code>init.lua</code>是否有 <code>networksetup -setautoproxyurl</code> 相关的代码, 有的话就会自动在激活 safari 的时候自动设置一下 pac 设置(相关代码其实是参考了 <a href="https://nowtime.cc/macos/1753.html" target="_blank" rel="noopener">https://nowtime.cc/macos/1753.html</a> , <code>networksetup -setautoproxyurl &quot;Wi-Fi&quot; &quot;http://127.0.0.1/proxy.pac&quot;</code> , 这个 “Wi-Fi” 是通过命令 <code>networksetup -listallnetworkservices</code> 拿到的)</li>
+</ol>
+</li>
+</ol>
+<h1 id="触摸板增强"><a href="#触摸板增强" class="headerlink" title="触摸板增强"></a>触摸板增强</h1><p>软件： betterTouchTool<br>破解版的得把下面这几句加到clashx当前所用的config文件的rules里来屏蔽下面这些地址<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">DOMAIN-KEYWORD,folivora.ai,REJECT</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">DOMAIN-KEYWORD,www.folivora.ai,REJECT</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">DOMAIN-KEYWORD,updates.boastr.net,REJECT</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">DOMAIN-KEYWORD,updates.folivora.ai,REJECT</span></span><br></pre></td></tr></table></figure></p>
+<p>加完之后去浏览器测试一下是否能打开这几个网址， 打不开则为屏蔽成功，<br>然后再打开betterTouchTool。</p>
+<h1 id="jetbrain-crack"><a href="#jetbrain-crack" class="headerlink" title="jetbrain-crack"></a>jetbrain-crack</h1><p>用jetbrain_crack 文件夹里 的 ja-netfilter, 然后参考下方链接来破解即可, 适用于 jb2022.1 的全家桶</p>
+<ul>
+<li><a href="https://learnku.com/articles/67432" target="_blank" rel="noopener">https://learnku.com/articles/67432</a></li>
+<li><a href="https://segmentfault.com/a/1190000041769901" target="_blank" rel="noopener">https://segmentfault.com/a/1190000041769901</a></li>
+</ul>
+<p>clion使用的时候切记: 要把项目目录以及各种觉得要mark的目录右键<code>Mark directory as</code>一下, 然后再项目根目录<code>Reload Cmake Project</code></p>
+<h1 id="搜狗输入法皮肤"><a href="#搜狗输入法皮肤" class="headerlink" title="搜狗输入法皮肤"></a>搜狗输入法皮肤</h1><p>自己做了仨, 黑白灰</p>
+<p>另外的好东西高仿 mac风格: Rime 鼠须管输入法皮肤效果 <a href="https://ssnhd.com/2022/01/11/rime-skin/" target="_blank" rel="noopener">https://ssnhd.com/2022/01/11/rime-skin/</a></p>
+<h1 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a>Alfred</h1><ul>
+<li>配置: 把 <code>Alfred.alfredpreferences</code> 直接复制到 Alfred的配置文件夹(即 <code>Advance</code>-<code>Reveal in Finder</code> 出来的文件夹) 里覆盖即可</li>
+<li>皮肤: 自己做了俩, 对应黑夜白天</li>
+<li>配置中的 workflow 相关网址: <ul>
+<li><a href="https://github.com/zqzten/alfred-web-search-suggest" target="_blank" rel="noopener">https://github.com/zqzten/alfred-web-search-suggest</a></li>
+<li><a href="https://github.com/iamstevendao/alfred-open-with-vscode" target="_blank" rel="noopener">https://github.com/iamstevendao/alfred-open-with-vscode</a></li>
+<li><a href="https://github.com/LeEnno/alfred-terminalfinder" target="_blank" rel="noopener">https://github.com/LeEnno/alfred-terminalfinder</a></li>
+<li><a href="https://github.com/wensonsmith/YoudaoTranslator" target="_blank" rel="noopener">https://github.com/wensonsmith/YoudaoTranslator</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="hammerspoon"><a href="#hammerspoon" class="headerlink" title="hammerspoon"></a>hammerspoon</h1><p>装好 hammerspoon 之后, 把<code>~</code>下的<code>.hammerspoon</code>文件夹里的删除, 然后将本项目中的 hammerspoon 文件夹的内容放到 <code>~</code>下的<code>.hammerspoon</code>文件夹里</p>
+<h1 id="禁止cleanmymacx即使退出它的HealthMonitor还一直后台运行-App-Cleaner-amp-Uninstaller更好用"><a href="#禁止cleanmymacx即使退出它的HealthMonitor还一直后台运行-App-Cleaner-amp-Uninstaller更好用" class="headerlink" title="禁止cleanmymacx即使退出它的HealthMonitor还一直后台运行(App Cleaner &amp; Uninstaller更好用)"></a>禁止cleanmymacx即使退出它的HealthMonitor还一直后台运行(App Cleaner &amp; Uninstaller更好用)</h1><p>问题：虽然CleanMyMacX软件被吹嘘的很厉害，在用起来感觉也可以帮助更好的清理电脑，但是它一直后台运行，还终止不了，一直监控Mac的信息情况，个人觉得很是鸡肋，在使用的时候打开用就行了，平常没必要一直常驻，对于内存紧张的朋友来说太吃内存了。</p>
+<p>经过试验，可以修改权限解决，不需要删除文件，也不会出现system.log中的异常日志。</p>
+<p>解决办法：</p>
+<ol>
+<li>打开终端输入以下<ul>
+<li><code>chmod 400 &quot;/Applications/CleanMyMac X.app/Contents/Library/LoginItems/CleanMyMac X Menu.app/Contents/Library/LoginItems/CleanMyMac X HealthMonitor.app/Contents/MacOS/CleanMyMac X HealthMonitor&quot;</code></li>
+<li><code>chmod 400 &quot;/Applications/CleanMyMac X.app/Contents/Library/LoginItems/CleanMyMac X Menu.app/Contents/Library/LaunchServices/com.macpaw.CleanMyMac4.Agent&quot;</code></li>
+<li><code>chmod 400 &quot;/Applications/CleanMyMac X.app/Contents/Library/LaunchServices/com.macpaw.CleanMyMac4.Agent&quot;</code></li>
+</ul>
+</li>
+<li>然后去活动监视器终止CleanMyMacX所有进程即可。</li>
+</ol>
+<h1 id="启动台行列"><a href="#启动台行列" class="headerlink" title="启动台行列"></a>启动台行列</h1><p>【终端】输入或粘贴以下命令，修改后面的数字更改行列数。</p>
+<ul>
+<li>行数 <code>defaults write com.apple.dock springboard-rows -int 9</code></li>
+<li>列数 <code>defaults write com.apple.dock springboard-columns -int 10</code></li>
+</ul>
+<p>最后输入以下命令 <code>killall Dock</code></p>
+<h1 id="程序坞降低显示延迟"><a href="#程序坞降低显示延迟" class="headerlink" title="程序坞降低显示延迟"></a>程序坞降低显示延迟</h1><p>如果你习惯隐藏程序坞，鼠标放在屏幕底部，默认显示程序坞非常慢，你可以在【终端】输入或粘贴下面命令，将数值改为 0，这样，显示程序坞会变的很快。</p>
+<p><code>defaults write com.apple.dock autohide-delay -int 0</code></p>
+<p>最后输入以下命令 <code>killall Dock</code></p>
+<h1 id="允许任何来源"><a href="#允许任何来源" class="headerlink" title="允许任何来源"></a>允许任何来源</h1><p>安装非 App Store 里应用，可能会出现无法安装的情况，需要打开任何来源。【终端】输入或粘贴以下命令，按回车键。</p>
+<p><code>sudo spctl --master-disable</code></p>
+<h1 id="密码位数"><a href="#密码位数" class="headerlink" title="密码位数"></a>密码位数</h1><p>管理员默认密码至少为 4 位，【终端】输入或粘贴以下命令支持将密码改为 1 位。</p>
+<p><code>pwpolicy -clearaccountpolicies</code></p>
+<h1 id="深色主题显示浅色窗口"><a href="#深色主题显示浅色窗口" class="headerlink" title="深色主题显示浅色窗口"></a>深色主题显示浅色窗口</h1><p>程序坞和菜单栏深色，窗口是浅色。</p>
+<p>【终端】输入或粘贴以下命令，按回车键, 注销并重新登录 Mac, 系统偏好设置 - 通用 - 深色。<code>defaults write -g NSRequiresAquaSystemAppearance -bool Yes</code></p>
+<p>恢复原样: <code>defaults delete -g NSRequiresAquaSystemAppearance</code></p>
+<h1 id="Mac-删除原生-ABC-英文输入法-macos14-0实测已经失效"><a href="#Mac-删除原生-ABC-英文输入法-macos14-0实测已经失效" class="headerlink" title="Mac 删除原生 ABC 英文输入法(macos14.0实测已经失效)"></a>Mac 删除原生 ABC 英文输入法(macos14.0实测已经失效)</h1><p>删除系统英文 ABC，只保留一个输入法，这样搜狗输入法只需按 Shift 即可切换中英文。</p>
+<ol>
+<li>(这一步可以不做, 因为 sip 关闭之后 iOS 程序在 mac 就不能运行了, 所以先不做等发现删不掉 abc再来做吧, 关闭 sip 之后删除 abc 输入法再打开sip也可以 )先关闭 <code>系统完整性保护SIP</code>, 参考 <a href="#系统完整性保护SIP">系统完整性保护SIP</a></li>
+<li>前往自己home 目录下的 <code>~/Library/Preferences/</code> 文件夹，找到 <code>com.apple.HIToolbox.plist</code> 文件, 先备份 <code>cp com.apple.HIToolbox.plist com.apple.HIToolbox.plist.bak</code></li>
+<li><p>删除 <code>AppleEnabledInputSources</code> 下的</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>InputSourceKind<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>Keyboard Layout<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeyboardLayout ID<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">integer</span>&gt;</span>252<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeyboardLayout Name<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>ABC<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后保存</p>
+</li>
+<li>重启 Mac。</li>
+</ol>
+<p>恢复原样: 不必担心此操作给电脑带来异常，一切正常。还原打开系统偏好设置 → 键盘 → 输入法 → 添加 ABC 即可。</p>
+<h1 id="terminal相关"><a href="#terminal相关" class="headerlink" title="terminal相关"></a>terminal相关</h1><h2 id="install-oh-my-zsh"><a href="#install-oh-my-zsh" class="headerlink" title="install oh-my-zsh"></a>install oh-my-zsh</h2><p><code>sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</code></p>
+<h2 id="install-powerlevel10k主题-amp-路径颜色改色改成紫色"><a href="#install-powerlevel10k主题-amp-路径颜色改色改成紫色" class="headerlink" title="install powerlevel10k主题 &amp; 路径颜色改色改成紫色"></a>install powerlevel10k主题 &amp; 路径颜色改色改成紫色</h2><p>install p10k: <code>git clone --depth=1 https://github.com/romkatv/powerlevel10k.git &quot;${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k&quot;</code></p>
+<p>Open <code>~/.zshrc</code>, find the line that sets <code>ZSH_THEME</code>, and change its value to <code>&quot;powerlevel10k/powerlevel10k&quot;</code></p>
+<p>(optional)不改色的话, 默认是蓝色太亮看不清又伤眼</p>
+<ol>
+<li><code>vim ~/.p10k.zsh</code></li>
+<li>找到 <code>POWERLEVEL9K_DIR_BACKGROUND</code> 然后改成 <code>typeset -g POWERLEVEL9K_DIR_BACKGROUND=128</code></li>
+<li>保存</li>
+<li><code>source ~/.p10k.zsh</code></li>
+</ol>
+<h2 id="fzf安装与配置"><a href="#fzf安装与配置" class="headerlink" title="fzf安装与配置"></a>fzf安装与配置</h2><ol>
+<li>安装 <code>fd</code> (fd 使用 <code>brew install fd</code>命令来安装)</li>
+<li>用 brew 安装: <code>brew install fzf</code></li>
+<li><p><strong>不建议做</strong>:</p>
+<ol>
+<li>安装完了之后他会提示你安装他的快捷键绑定的命令, 复制他的这个命令安装好他的快捷键绑定)</li>
+<li><p><code>vim ~/.zshrc</code> </p>
+<ul>
+<li><p>如果只是希望 fzf 每次搜索指搜当前目录下的文件和目录则在最后添加</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export FZF_DEFAULT_COMMAND=&apos;fd -HI --exclude &quot;.git&quot;&apos;</span><br><span class="line">122 export FZF_CTRL_T_COMMAND=&apos;fd -HI --exclude &quot;.git&quot;&apos;</span><br><span class="line">123 export FZF_ALT_C_COMMAND=&quot;fd -HI --exclude &quot;.git&quot; -t d . &quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果希望 fzf 每次搜索指搜所有的文件和目录则在最后添加</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export FZF_DEFAULT_COMMAND=&apos;fd -HI --exclude &quot;.git&quot; . / &apos;</span><br><span class="line">export FZF_CTRL_T_COMMAND=&apos;fd -HI --exclude &quot;.git&quot; . / &apos;</span><br><span class="line">export FZF_ALT_C_COMMAND=&apos;fd -HI --exclude &quot;.git&quot; -t d . &apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>source ~/.zshrc</code></p>
+</li>
+<li>用 <code>fd</code> 找到 fzf 的 <code>key-bindings.zsh</code> (上次安装的时候是在<code>/opt/homebrew/Cellar/fzf/0.32.1/shell/key-bindings.zsh</code>), 然后在 68 行左右添加 <code>bindkey &#39;^F&#39; fzf-file-widget</code></li>
+<li>让他生效: <code>source /opt/homebrew/Cellar/fzf/0.32.1/shell/key-bindings.zsh</code></li>
+<li>现在可以先输入 cd 然后 敲击 ctrl+f 找到想要进入的目录然后回车进入目录了</li>
+<li>也可以先输入 vim 然后 敲击 ctrl+f 找到想要进入的文件然后回车进入编辑了</li>
+</ol>
+</li>
+</ol>
+<h2 id="tab-any-path安装与配置"><a href="#tab-any-path安装与配置" class="headerlink" title="tab-any-path安装与配置"></a>tab-any-path安装与配置</h2><p><a href="https://github.com/no5ix/tab-any-path" target="_blank" rel="noopener">tab-any-path</a></p>
+<h2 id="zsh-history-substring-search安装与配置"><a href="#zsh-history-substring-search安装与配置" class="headerlink" title="zsh-history-substring-search安装与配置"></a>zsh-history-substring-search安装与配置</h2><p>这款插件功能: 按上下键模糊搜索命令历史记录</p>
+<p>Clone this repository in oh-my-zsh’s plugins directory:</p>
+<p><code>git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search</code></p>
+<p>Activate the plugin in ~/.zshrc:</p>
+<p><code>plugins=( [plugins...] zsh-history-substring-search)</code></p>
+<p>add these two lines to the end of your <code>.zshrc</code>: </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">bindkey</span> <span class="string">"<span class="variable">$terminfo</span>[kcuu1]"</span> <span class="built_in">history</span>-substring-search-up</span><br><span class="line"><span class="built_in">bindkey</span> <span class="string">"<span class="variable">$terminfo</span>[kcud1]"</span> <span class="built_in">history</span>-substring-search-down</span><br></pre></td></tr></table></figure>
+<p>run <code>source ~/.zshrc</code> to activate it.</p>
+<h2 id="optional-autojump安装和tab不自动补全的办法"><a href="#optional-autojump安装和tab不自动补全的办法" class="headerlink" title="optional-autojump安装和tab不自动补全的办法"></a>optional-autojump安装和tab不自动补全的办法</h2><p>安装: <code>brew install autojump</code><br>安装完之后在 <code>.zshrc</code> 最后加上一行:<br><code>[ -f /opt/homebrew/etc/profile.d/autojump.sh ] &amp;&amp; . /opt/homebrew/etc/profile.d/autojump.sh</code></p>
+<p>tab不自动补全的办法: 在 <code>.zshrc</code> 最后加上一行 <code>autoload -U compinit &amp;&amp; compinit</code></p>
+<h2 id="optional-安装zsh-autosuggestions"><a href="#optional-安装zsh-autosuggestions" class="headerlink" title="optional-安装zsh-autosuggestions"></a>optional-安装zsh-autosuggestions</h2><p>安装: <code>brew install zsh-autosuggestions</code><br>安装完之后在 <code>.zshrc</code> 最后加上一行:<br><code>source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh</code></p>
+<h2 id="optional-命令行语法高亮"><a href="#optional-命令行语法高亮" class="headerlink" title="optional-命令行语法高亮"></a>optional-命令行语法高亮</h2><p>如果已经装好了 oh my zsh则按照下面的方法来安装: </p>
+<p>Clone this repository in oh-my-zsh’s plugins directory:</p>
+<p><code>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting</code></p>
+<p>Activate the plugin in ~/.zshrc:</p>
+<p><code>plugins=( [plugins...] zsh-syntax-highlighting)</code> 比如原来是 <code>plugins=(git)</code> 则改为 <code>plugins=(git zsh-syntax-highlighting)</code> </p>
+<p>Restart zsh (such as by opening a new instance of your terminal emulator).</p>
+<h2 id="terminal代理设置"><a href="#terminal代理设置" class="headerlink" title="terminal代理设置"></a>terminal代理设置</h2><p>在<code>~/.zshrc</code> 的末尾添加以下内容<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">on_proxy</span></span>() &#123;</span><br><span class="line">    <span class="built_in">export</span> no_proxy=<span class="string">"localhost,127.0.0.1,localaddress,.localdomain.com"</span></span><br><span class="line">    <span class="built_in">export</span> http_proxy=<span class="string">"http://127.0.0.1:7890"</span></span><br><span class="line">    <span class="built_in">export</span> https_proxy=<span class="variable">$http_proxy</span></span><br><span class="line">    <span class="built_in">export</span> all_proxy=socks5://127.0.0.1:7890</span><br><span class="line">    <span class="comment"># echo -e "\n"</span></span><br><span class="line">    <span class="comment"># echo -e "\033[32m代理已开启\033[0m"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">off_proxy</span></span>()&#123;</span><br><span class="line">    <span class="built_in">unset</span> http_proxy</span><br><span class="line">    <span class="built_in">unset</span> https_proxy</span><br><span class="line">    <span class="built_in">unset</span> all_proxy</span><br><span class="line">    <span class="comment"># echo -e "\033[31m代理已关闭\033[0m"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加上下面这个, 这样在 terminal 打开的时候就能自动开启代理</span></span><br><span class="line">on_proxy</span><br></pre></td></tr></table></figure></p>
+<p>注意： 我这里代理端口7890改成你自己的代理端口(比如我是用 ClashX 的, 默认端口就是 7890)。windows terminal + Git Bash + zsh 的话也可以这样设置。如果没有zsh，则可以将以上内容写到 <code>~/.bash_profile</code> 文件中。</p>
+<p>然后 <code>source ~/.zshrc</code>, 然后再输入 <code>on_proxy</code>, 再 <code>curl -vv https://www.google.com</code> 测试一哈, 如果返回200，看到use proxy则表示代理可以正常使用</p>
+<p>注意： 不要使用 <code>ping www.google.com</code> 来进行测试，因为ping命令使用的是ICMP协议，是不支持代理的。 然后你就可以愉快的在终端尝试用wget下载GitHub上的东西了。<br>包括你从GitHub拉取自己的代码或者推送代码，都会加快速度，再也不用去找网上的Chrome插件来加速本地拉取GitHub代码了。</p>
+<h1 id="safari-相关"><a href="#safari-相关" class="headerlink" title="safari 相关"></a>safari 相关</h1><h2 id="Safari调整标签页在哪儿打开的设置"><a href="#Safari调整标签页在哪儿打开的设置" class="headerlink" title="Safari调整标签页在哪儿打开的设置"></a>Safari调整标签页在哪儿打开的设置</h2><p>terminal 输入命令: <code>defaults write com.apple.Safari IncludeInternalDebugMenu 1</code></p>
+<p>重启 Safari 之后可以看到顶部菜单栏多出一个 <code>Debug</code> 菜单里有 <code>Tab Ordering</code> 的子菜单项</p>
+<h2 id="safari和edge书签双向同步"><a href="#safari和edge书签双向同步" class="headerlink" title="safari和edge书签双向同步"></a>safari和edge书签双向同步</h2><ol>
+<li>在 windows 的 store 里下载iCloud应用并登录自己的Apple ID</li>
+<li><p>新建TXT文件，填入内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe]</span><br><span class="line">@=&quot;C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe&quot;</span><br><span class="line">&quot;Path&quot;=&quot;C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改txt文件名为.reg格式，双击导入注册表</p>
+</li>
+<li>打开桌面版iCloud应用，勾选书签-&gt;Chrome, </li>
+<li>在Edge浏览器内安装 Apple 出品的“iCloud书签”插件</li>
+<li>在iCloud应用中打开书签同步选项, 记得点击“应用”！如果说要合并书签那就合并</li>
+<li>如果电脑上已经装了有chrome可能会弹出来要你安装iCloud插件, 不用管, 此时因为已经点击了”应用”了, 相关设置已经保存好, 直接重启一下电脑，会自动完成同步</li>
+</ol>
+<h2 id="safari实现类似edge的smart-toc自动生成目录大纲的插件"><a href="#safari实现类似edge的smart-toc自动生成目录大纲的插件" class="headerlink" title="safari实现类似edge的smart-toc自动生成目录大纲的插件"></a>safari实现类似edge的smart-toc自动生成目录大纲的插件</h2><p>先装上 <code>Macaque</code> 插件(类似油猴插件, 只是这个插件更加强大可以同时支持油猴脚本和 UserScript 脚本, 可以绕过网站 CSP, 把脚本注入到开了 CSP 的网站里, 如知乎/GitHub 等), 然后去<a href="https://github.com/no5ix/auto-toc" target="_blank" rel="noopener">这里</a> 装上 auto-toc 油猴脚本, 然后刷新页面即可</p>
+<ul>
+<li>参考: <a href="https://github.com/FallenMax/smart-toc" target="_blank" rel="noopener">Edge的smart-toc插件开源地址</a></li>
+</ul>
+<h1 id="系统完整性保护SIP"><a href="#系统完整性保护SIP" class="headerlink" title="系统完整性保护SIP"></a>系统完整性保护SIP</h1><p><strong>注意</strong>: sip 关闭之后 iOS 程序在 mac 就不能运行了</p>
+<p><strong>查看 SIP 状态:</strong>  【终端】输入 <code>csrutil status</code>，按回车键。</p>
+<p><strong>ARM M1 处理器关闭 SIP 步骤</strong>:  </p>
+<ol>
+<li>关机</li>
+<li>按住开机键不松手直到出现下图的画面，然后点击选项</li>
+<li>点击继续</li>
+<li>点击菜单栏的实用工具，再点击终端</li>
+<li>输入csrutil disable，然后按下回车也就是 return 键</li>
+<li>输入y，然后按下回车也就是 return 键</li>
+<li>输入您的电脑密码，然后按下回车也就是 return 键</li>
+<li>等待执行结果……</li>
+<li>出现 System Integrity Protection is off. 证明 SIP 已成功关闭。</li>
+<li>输入 reboot 然后按下回车也就是 return 键重启电脑即可。</li>
+<li>如果后期想再开启 SIP，只需要将上面第 5 步的 csrutil disable 换成 csrutil enable 即可。</li>
+</ol>
+<p><strong>开启 SIP</strong>: 同上，然后【终端】输入下面命令 <code>csrutil enable</code></p>
+<h1 id="各个软件单独控制音量"><a href="#各个软件单独控制音量" class="headerlink" title="各个软件单独控制音量"></a>各个软件单独控制音量</h1><p>可以看看开源项目 <code>background-music</code> , 不过经测试目前(2022.08.10)还不支持最新系统 <code>Monterey 12.5</code>, 可以 github 搜一下它看看最新版本他支持了没</p>
+<h1 id="lua-相关"><a href="#lua-相关" class="headerlink" title="lua 相关"></a>lua 相关</h1><h2 id="luajit在MacOS编译与安装"><a href="#luajit在MacOS编译与安装" class="headerlink" title="luajit在MacOS编译与安装"></a>luajit在MacOS编译与安装</h2><ol>
+<li>openresty-luajit 的 github官网下载他的 release,</li>
+<li>然后解压直接 <code>make</code>, </li>
+<li>如果报错说要设置 <code>export MACOSX_DEPLOYMENT_TARGET=xx.yy</code> 的话, 那就设置一下, 比如我的 macOs 系统是 <code>12.5</code>, 那就 <code>export MACOSX_DEPLOYMENT_TARGET=12.5</code>, </li>
+<li>然后再 <code>make</code>, 再 <code>make install</code> (make install 很重要, 不然之后的东西能编译过, 但是会提示找不到 <code>dyld[56827]: Library not loaded: &#39;/usr/local/lib/libluajit-5.1.2.dylib&#39;</code>)</li>
+</ol>
+<h2 id="不建议安装了-luajit-openresty安装后设置成默认lua"><a href="#不建议安装了-luajit-openresty安装后设置成默认lua" class="headerlink" title="(不建议安装了)luajit-openresty安装后设置成默认lua"></a>(不建议安装了)luajit-openresty安装后设置成默认lua</h2><p>先安装: <code>brew install luajit-openresty</code><br>然后:</p>
+<ol>
+<li><code>cd /opt/homebrew/opt/luajit-openresty/bin</code></li>
+<li><code>ln -s luajit-blabla lua</code> (这里的 <code>luajit-blabla</code> 替换成当前文件夹的那个 luajit 执行文件的名字)</li>
+<li><code>echo &#39;export PATH=&quot;/opt/homebrew/opt/luajit-openresty/bin:$PATH&quot;&#39; &gt;&gt; ~/.zshrc</code></li>
+<li><code>sourch ~/.zshrc</code></li>
+</ol>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Mac/" rel="tag"><i class="fa fa-tag"></i> Mac</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/w_restaurant_interview_notes/" rel="next" title="W Restaurant Interview Notes">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    W Restaurant Interview Notes
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/tab_to_find/" rel="prev" title="A shell plugin that provides interactive Tab search & completion for any path">
+                <p class="post-nav-pre-next-title">
+                    A shell plugin that provides interactive Tab search & completion for any path
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记介绍"><span class="nav-text">笔记介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#改键Karabiner-已经用hammerspoon完全替代"><span class="nav-text">改键Karabiner(已经用hammerspoon完全替代)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mac读写NTFS格式移动硬盘-使用NTFS-Disk-by-Omi也可以-但是buhoNTFS更好因为免费"><span class="nav-text">Mac读写NTFS格式移动硬盘(使用NTFS Disk by Omi也可以, 但是buhoNTFS更好因为免费)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#科学上网"><span class="nav-text">科学上网</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#触摸板增强"><span class="nav-text">触摸板增强</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jetbrain-crack"><span class="nav-text">jetbrain-crack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搜狗输入法皮肤"><span class="nav-text">搜狗输入法皮肤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Alfred"><span class="nav-text">Alfred</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hammerspoon"><span class="nav-text">hammerspoon</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#禁止cleanmymacx即使退出它的HealthMonitor还一直后台运行-App-Cleaner-amp-Uninstaller更好用"><span class="nav-text">禁止cleanmymacx即使退出它的HealthMonitor还一直后台运行(App Cleaner &amp; Uninstaller更好用)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动台行列"><span class="nav-text">启动台行列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序坞降低显示延迟"><span class="nav-text">程序坞降低显示延迟</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#允许任何来源"><span class="nav-text">允许任何来源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#密码位数"><span class="nav-text">密码位数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深色主题显示浅色窗口"><span class="nav-text">深色主题显示浅色窗口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mac-删除原生-ABC-英文输入法-macos14-0实测已经失效"><span class="nav-text">Mac 删除原生 ABC 英文输入法(macos14.0实测已经失效)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#terminal相关"><span class="nav-text">terminal相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#install-oh-my-zsh"><span class="nav-text">install oh-my-zsh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install-powerlevel10k主题-amp-路径颜色改色改成紫色"><span class="nav-text">install powerlevel10k主题 &amp; 路径颜色改色改成紫色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fzf安装与配置"><span class="nav-text">fzf安装与配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tab-any-path安装与配置"><span class="nav-text">tab-any-path安装与配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zsh-history-substring-search安装与配置"><span class="nav-text">zsh-history-substring-search安装与配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optional-autojump安装和tab不自动补全的办法"><span class="nav-text">optional-autojump安装和tab不自动补全的办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optional-安装zsh-autosuggestions"><span class="nav-text">optional-安装zsh-autosuggestions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optional-命令行语法高亮"><span class="nav-text">optional-命令行语法高亮</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#terminal代理设置"><span class="nav-text">terminal代理设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#safari-相关"><span class="nav-text">safari 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Safari调整标签页在哪儿打开的设置"><span class="nav-text">Safari调整标签页在哪儿打开的设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#safari和edge书签双向同步"><span class="nav-text">safari和edge书签双向同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#safari实现类似edge的smart-toc自动生成目录大纲的插件"><span class="nav-text">safari实现类似edge的smart-toc自动生成目录大纲的插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#系统完整性保护SIP"><span class="nav-text">系统完整性保护SIP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#各个软件单独控制音量"><span class="nav-text">各个软件单独控制音量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lua-相关"><span class="nav-text">lua 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#luajit在MacOS编译与安装"><span class="nav-text">luajit在MacOS编译与安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不建议安装了-luajit-openresty安装后设置成默认lua"><span class="nav-text">(不建议安装了)luajit-openresty安装后设置成默认lua</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'muduo详解之网络编程难点解读' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="noodle,muduo,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="时间有限, 有空待续… . . .">
+<meta name="keywords" content="noodle,muduo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="muduo详解之网络编程难点解读">
+<meta property="og:url" content="https://hulinhong.com/muduo_qa/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="时间有限, 有空待续… . . .">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="muduo详解之网络编程难点解读">
+<meta name="twitter:description" content="时间有限, 有空待续… . . .">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>muduo详解之网络编程难点解读 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/muduo_qa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">muduo详解之网络编程难点解读</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-24T00:22:06+00:00">
+                09-24-2020
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NP/" itemprop="url" rel="index">
+                    <span itemprop="name">NP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+              
+                <a href="/tags/muduo/" rel="tag"><i class="fa fa-tag"></i> muduo</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/algo_na_tricks/" rel="next" title="Algo Tricks">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  Algo Tricks
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/self_cultivation_linux_file_system/" rel="prev" title="服务器开发自我修养专栏-Linux文件系统">
+              <p class="post-nav-pre-next-title">
+                  服务器开发自我修养专栏-Linux文件系统
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <p>时间有限, 有空待续…</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h1 id="网络编程难点"><a href="#网络编程难点" class="headerlink" title="网络编程难点"></a>网络编程难点</h1><p>TCP 网络编程这其中有很多难点，也有很多细节需要注意，比方说：</p>
+<ul>
+<li>如果要主动关闭连接，如何保证对方已经收到全部数据？如果应用层有缓冲（这在非阻塞网络编程中是必须的，见下文），那么如何保证先发送完缓冲区中的数据，然后再断开连接。直接调用 close(2) 恐怕是不行的。<ul>
+<li>走shutdown的<code>SHUT_WR</code>, 称为半关闭half-close, 当前留在套接字发送缓冲区的数据会被发送掉, 后跟正常的tcp连接终止序列, 不管套接字描述符的引用计数是否为0, 写半部关闭照样执行.</li>
+</ul>
+</li>
+<li>如果主动发起连接，但是对方主动拒绝，如何定期 (带 back-off) 重试？<ul>
+<li>重试的间隔应该逐渐延长，例如0.5s、1s、2s、4s，直至30s。这就是所谓的back-off</li>
+</ul>
+</li>
+<li>非阻塞网络编程该用边沿触发(edge trigger)还是电平触发(level trigger)？（这两个中文术语有其他译法，我选择了一个电子工程师熟悉的说法。）如果是电平触发，那么什么时候关注 EPOLLOUT 事件？会不会造成 busy-loop？如果是边沿触发，如何防止漏读造成的饥饿？epoll 一定比 poll 快吗？</li>
+<li>在非阻塞网络编程中，为什么要使用应用层缓冲区？假如一次读到的数据不够一个完整的数据包，那么这些已经读到的数据是不是应该先暂存在某个地方，等剩余的数据收到之后再一并处理？假如数据是一个字节一个字节地到达，间隔 10ms，每个字节触发一次文件描述符可读 (readable) 事件，程序是否还能正常工作？lighttpd 在这个问题上出过安全漏洞。<ul>
+<li>pass待续</li>
+</ul>
+</li>
+<li>在非阻塞网络编程中，如何设计并使用缓冲区？一方面我们希望减少系统调用，一次读的数据越多越划算，那么似乎应该准备一个大的缓冲区。另一方面，我们系统减少内存占用。如果有 10k 个连接，每个连接一建立就分配 64k 的读缓冲的话，将占用 640M 内存，而大多数时候这些缓冲区的使用率很低。muduo 用 readv 结合栈上空间巧妙地解决了这个问题。<ul>
+<li><a href="#buffer设计要点">buffer设计要点</a></li>
+</ul>
+</li>
+<li><p>如果使用发送缓冲区，万一接收方处理缓慢，数据会不会一直堆积在发送方，造成内存暴涨？如何做应用层的流量控制？</p>
+<ul>
+<li>做了一个高水位的回调, 让应用层处理</li>
+<li><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">assert(remaining &lt;= len);</span><br><span class="line"><span class="keyword">if</span> (!faultError &amp;&amp; remaining &gt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">size_t</span> oldLen = outputBuffer_.readableBytes();</span><br><span class="line">  <span class="keyword">if</span> (oldLen + remaining &gt;= highWaterMark_</span><br><span class="line">      &amp;&amp; oldLen &lt; highWaterMark_</span><br><span class="line">      &amp;&amp; highWaterMarkCallback_)</span><br><span class="line">  &#123;</span><br><span class="line">    loop_-&gt;queueInLoop(<span class="built_in">std</span>::bind(highWaterMarkCallback_, shared_from_this(), oldLen + remaining));</span><br><span class="line">  &#125;</span><br><span class="line">  outputBuffer_.append(<span class="keyword">static_cast</span>&lt;<span class="keyword">const</span> <span class="keyword">char</span>*&gt;(data)+nwrote, remaining);</span><br><span class="line">  <span class="keyword">if</span> (!channel_-&gt;isWriting())</span><br><span class="line">  &#123;</span><br><span class="line">    channel_-&gt;enableWriting();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>如何设计并实现定时器？并使之与网络 IO 共用一个线程，以避免锁。</p>
+<ul>
+<li>不用锁的话就走<code>runInLoop</code></li>
+</ul>
+</li>
+</ul>
+<p>这些问题在 muduo 的代码中可以找到答案。</p>
+<h1 id="buffer设计要点"><a href="#buffer设计要点" class="headerlink" title="buffer设计要点"></a>buffer设计要点</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ssize_t</span> Buffer::readFd(<span class="keyword">int</span> fd, <span class="keyword">int</span>* savedErrno)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// saved an ioctl()/FIONREAD call to tell how much to read</span></span><br><span class="line">  <span class="keyword">char</span> extrabuf[<span class="number">65536</span>];</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">vec</span>[2];</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">size_t</span> writable = writableBytes();</span><br><span class="line">  vec[<span class="number">0</span>].iov_base = begin()+writerIndex_;</span><br><span class="line">  vec[<span class="number">0</span>].iov_len = writable;</span><br><span class="line">  vec[<span class="number">1</span>].iov_base = extrabuf;</span><br><span class="line">  vec[<span class="number">1</span>].iov_len = <span class="keyword">sizeof</span> extrabuf;</span><br><span class="line">  <span class="comment">// when there is enough space in this buffer, don't read into extrabuf.</span></span><br><span class="line">  <span class="comment">// when extrabuf is used, we read 128k-1 bytes at most.</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">int</span> iovcnt = (writable &lt; <span class="keyword">sizeof</span> extrabuf) ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">ssize_t</span> n = sockets::readv(fd, vec, iovcnt);</span><br><span class="line">  <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    *savedErrno = errno;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (implicit_cast&lt;<span class="keyword">size_t</span>&gt;(n) &lt;= writable)</span><br><span class="line">  &#123;</span><br><span class="line">    writerIndex_ += n;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    writerIndex_ = buffer_.size();</span><br><span class="line">    append(extrabuf, n - writable);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// if (n == writable + sizeof extrabuf)</span></span><br><span class="line">  <span class="comment">// &#123;</span></span><br><span class="line">  <span class="comment">//   goto line_30;</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>备注: </p>
+<p>readv则将从fd读入的数据按同样的顺序散布到各缓冲区中，readv总是先填满一个缓冲区，然后再填下一个<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"><span class="keyword">ssize_t</span> readv(<span class="keyword">int</span> fd, <span class="keyword">const</span> struct iovec *iov, <span class="keyword">int</span> iovcnt);</span><br><span class="line"><span class="keyword">ssize_t</span> writev(<span class="keyword">int</span> fd, <span class="keyword">const</span> struct iovec *iov, <span class="keyword">int</span> iovcnt);</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> &#123;</span></span><br><span class="line">    <span class="keyword">void</span>  *iov_base;    <span class="comment">/* Starting address */</span></span><br><span class="line">    <span class="keyword">size_t</span> iov_len;     <span class="comment">/* Number of bytes to transfer */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>buffer数据结构如下:<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/// A buffer class modeled after org.jboss.netty.buffer.ChannelBuffer</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// @code</span></span><br><span class="line"><span class="comment">/// +-------------------+------------------+------------------+</span></span><br><span class="line"><span class="comment">/// | prependable bytes |  readable bytes  |  writable bytes  |</span></span><br><span class="line"><span class="comment">/// |                   |     (CONTENT)    |                  |</span></span><br><span class="line"><span class="comment">/// +-------------------+------------------+------------------+</span></span><br><span class="line"><span class="comment">/// |                   |                  |                  |</span></span><br><span class="line"><span class="comment">/// 0      &lt;=      readerIndex   &lt;=   writerIndex    &lt;=     size</span></span><br><span class="line"><span class="comment">/// @endcode</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>在非阻塞网络编程中，如何设计并使用缓冲区？<br>  一方面希望减少系统调用，一次读取的数据越多越划算；另一方面希望减少内存的占用。这两方面似乎是矛盾的，假设C10K ，每个连接一建立就分配50KB 的内存的话，那么将占用1GB 内存，但是大多数的连接并不需要这么多内存。muduo 巧妙的使用了readv() 结合栈上空间巧妙的解决了这个问题。<br>  在栈上准备一个65535 字节(<strong>64k</strong>)的extrabuf , 然后利用readv() 来读取数据，iovec有两块，第一块是指向muduo Buffer （为每个连接准备1024字节的buf）中的<code>writeable</code> 字节，另一块是指向extrabuf。这样如果读入的数据不多，直接读到内置的buf；如果长度超过内置buf 的大小，就会读到栈上的extrabuf 中，然后程序再把extrabuf 里的数据append() 到 buf 中。<br>  由于muduo采用level trigger, 因此<code>readFd</code>函数不会反复调用<code>read()</code>直到其返回EAGAIN, 从而节省系统调用次数, 降低延迟</p>
+</li>
+<li><p>为啥是<strong>64k</strong>?</p>
+<ul>
+<li>因为平时一般都阻塞在poll上, 来了数据马上就处理的话也就几k而已, 即使是千兆网卡100MB/s, 500微秒也就是500/1000000秒也就是0.5毫秒, <code>100MB/s * (500/1000000) = 50000B</code>, 也就是说0.5毫秒就是50000字节的数据, 64k已经足够容纳千兆网在0.5毫秒全速收到的数据了.   </li>
+<li>一般来说, 一次readv就能读完这次过来的数据了, 如果用完了writeable和extrabuf还是不够, 那就再readv一次嘛</li>
+</ul>
+</li>
+</ul>
+<h1 id="异步日志双缓冲技术"><a href="#异步日志双缓冲技术" class="headerlink" title="异步日志双缓冲技术"></a>异步日志双缓冲技术</h1><p>muduo日志库采用的是双缓冲技术，基本思路是准备两块缓冲：A与B，前端负责往buffer A中填数据（日志消息），后端负责将buffer B中的数据写入文件。当buffer A写满之后，交换A与B，让后端将buffer A中的数据写入文件，而前端负责往buffer B中填入新的日志文件。如此往复。</p>
+<p>用两个buffer的好处是在新建日志消息的时候不必等待磁盘文件操作，也避免每条消息都触发（唤醒）了后端日志线程。换言之，前端不是将一条条消息分别传送给后端，而是将多个日志消息拼成一个大的buffer传送给后端，相当于批处理，减少了线程唤醒的频率，降低了开销。另外，为了及时将消息写入文件，即使前端的buffer A未写满，日志库也会每三秒执行一次上述交换写入操作。</p>
+<h1 id="connector编程难点"><a href="#connector编程难点" class="headerlink" title="connector编程难点"></a>connector编程难点</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> Connector::handleWrite()</span><br><span class="line">&#123;</span><br><span class="line">  LOG_TRACE &lt;&lt; <span class="string">"Connector::handleWrite "</span> &lt;&lt; state_;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (state_ == kConnecting)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd = removeAndResetChannel();</span><br><span class="line">    <span class="keyword">int</span> err = sockets::getSocketError(sockfd);</span><br><span class="line">    <span class="keyword">if</span> (err)</span><br><span class="line">    &#123;</span><br><span class="line">      LOG_WARN &lt;&lt; <span class="string">"Connector::handleWrite - SO_ERROR = "</span></span><br><span class="line">               &lt;&lt; err &lt;&lt; <span class="string">" "</span> &lt;&lt; strerror_tl(err);</span><br><span class="line">      retry(sockfd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (sockets::isSelfConnect(sockfd))</span><br><span class="line">    &#123;</span><br><span class="line">      LOG_WARN &lt;&lt; <span class="string">"Connector::handleWrite - Self connect"</span>;</span><br><span class="line">      retry(sockfd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      setState(kConnected);</span><br><span class="line">      <span class="keyword">if</span> (connect_)</span><br><span class="line">      &#123;</span><br><span class="line">        newConnectionCallback_(sockfd);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        sockets::close(sockfd);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// what happened?</span></span><br><span class="line">    assert(state_ == kDisconnected);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Connector::handleError()</span><br><span class="line">&#123;</span><br><span class="line">  LOG_ERROR &lt;&lt; <span class="string">"Connector::handleError state="</span> &lt;&lt; state_;</span><br><span class="line">  <span class="keyword">if</span> (state_ == kConnecting)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd = removeAndResetChannel();</span><br><span class="line">    <span class="keyword">int</span> err = sockets::getSocketError(sockfd);</span><br><span class="line">    LOG_TRACE &lt;&lt; <span class="string">"SO_ERROR = "</span> &lt;&lt; err &lt;&lt; <span class="string">" "</span> &lt;&lt; strerror_tl(err);</span><br><span class="line">    retry(sockfd);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Connector::retry(<span class="keyword">int</span> sockfd)</span><br><span class="line">&#123;</span><br><span class="line">  sockets::close(sockfd);</span><br><span class="line">  setState(kDisconnected);</span><br><span class="line">  <span class="keyword">if</span> (connect_)</span><br><span class="line">  &#123;</span><br><span class="line">    LOG_INFO &lt;&lt; <span class="string">"Connector::retry - Retry connecting to "</span> &lt;&lt; serverAddr_.toIpPort()</span><br><span class="line">             &lt;&lt; <span class="string">" in "</span> &lt;&lt; retryDelayMs_ &lt;&lt; <span class="string">" milliseconds. "</span>;</span><br><span class="line">    loop_-&gt;runAfter(retryDelayMs_/<span class="number">1000.0</span>,</span><br><span class="line">                    <span class="built_in">std</span>::bind(&amp;Connector::startInLoop, shared_from_this()));</span><br><span class="line">    retryDelayMs_ = <span class="built_in">std</span>::min(retryDelayMs_ * <span class="number">2</span>, kMaxRetryDelayMs);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    LOG_DEBUG &lt;&lt; <span class="string">"do not connect"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过上述代码能看出:  </p>
+<ul>
+<li>用于建立连接的socket是一次性的，一旦出错，就无法恢复，只能关闭重来。但Connector是可以反复使用的，因此每次尝试连接都要使用新的socket和新的channel。</li>
+<li>错误代码与accept不同，EAGAIN是真的错误，表明本机的临时端口号暂时用完，要关闭socket再延期重试。</li>
+<li>即便出现socket可写，也不一定意味着连接已成功建立，还需要用getsockopt(…, SO_ERROR)再次确认一下。</li>
+<li>重试的间隔应该逐渐延长，例如0.5s、1s、2s、4s，直至30s。这就是所谓的back-off</li>
+<li>要处理<strong>自连接</strong>，处理的办法是断开连接再重试<ul>
+<li>首先，要认命，目前在linux网络协议栈开发者眼中，TCP自连接行为不被认为是TCP协议实现的bug。。。。为什么会出现自连接？当对一个TCP socket调用connect函数时，如果这个socket没有bind指定的端口号，操作系统会为它选择一个当前未被使用的端口号，这个端口号被称为ephemeral port, 范围可以在<code>/proc/sys/net/ipv4/ip_local_port_range</code>里查看。假设32769这个端口被选为ephemeral port，当connect函数被调用时，tcp向目标地址发起三次握手过程，发送SYN分节到对端，由于源端口和目标端口相同都是32769，32769端口是被打开的，这样32769端口能收到SYN分节，返回的是SYN＋ACK，而不会返回RST，最后源地址再返回ACK，三次握手流程完毕，完成了一个TCP自连接。如何避免自连接？可以加上一段判断保护代码，对描述符分别调用getsockname和getpeername，然后检查返回的地址结构是否相等，如果相等，说明是自连接，close描述符取消该连接。</li>
+<li>Linux给没有bind过的socket自动分配一个端口号，默认是32768-61000。你或者把服务端listen监听的端口号改到这个范围以外，比如30008；或者改自动分配的范围：<code>echo &quot;40001 61000&quot; &gt; /proc/sys/net/ipv4/ip_local_port_range</code> 就不会出这个问题了。</li>
+</ul>
+</li>
+</ul>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/noodle/" rel="tag"><i class="fa fa-tag"></i> noodle</a>
+            
+              <a href="/tags/muduo/" rel="tag"><i class="fa fa-tag"></i> muduo</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/algo_na_tricks/" rel="next" title="Algo Tricks">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    Algo Tricks
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/self_cultivation_linux_file_system/" rel="prev" title="服务器开发自我修养专栏-Linux文件系统">
+                <p class="post-nav-pre-next-title">
+                    服务器开发自我修养专栏-Linux文件系统
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络编程难点"><span class="nav-text">网络编程难点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#buffer设计要点"><span class="nav-text">buffer设计要点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步日志双缓冲技术"><span class="nav-text">异步日志双缓冲技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#connector编程难点"><span class="nav-text">connector编程难点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>

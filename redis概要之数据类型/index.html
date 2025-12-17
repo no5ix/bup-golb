@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+
+<script>
+    (function(){
+        if(''){
+            let localStoragePasswdKey = 'redis概要之数据类型' + '_last_passwd';
+            let tryCnt = 0;
+            function checkPassword(password) {
+                password = password == null ? null : password.trim();
+                if (password !== '') {
+                    if (password != null) {
+                        // 如果用户点击了确认而且密码错误的时候, 因为当password == null的时候说明用户点了取消
+                        alert('Error!');
+                        if (++tryCnt < 3) {
+                            password = prompt('Open Sesame');
+                            checkPassword(password);
+                            return;
+                        }
+                    }
+
+                    // if (history.length > 1) {
+                    //     alert('back!');
+                    //     history.back();
+                    // } else {
+                        // alert('blankkkk!');
+                    //     window.location.href = "about:blank";
+                    // }
+                    if (document.referrer) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = "about:blank";; // fallback if no referrer
+                    }
+
+                } else {
+                    localStorage.setItem(localStoragePasswdKey, password);
+                }
+            }
+
+            var password_verify_on_local = false;
+            const hostname = window.location.hostname;
+            if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                if (lspk !== '') {
+                    var password = prompt('Open Sesame');
+                    checkPassword(password);
+                }
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Redis,NoSQL,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="Redis简介要义 Redis运行在内存中但是可以持久化到磁盘, 重启的时候可以再次加载进行使用  Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行  Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作  Redis支持数据的备份，即master-slave模式的数据备份   Redis">
+<meta name="keywords" content="Redis,NoSQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis概要之数据类型">
+<meta property="og:url" content="https://hulinhong.com/redis概要之数据类型/index.html">
+<meta property="og:site_name" content="🚙">
+<meta property="og:description" content="Redis简介要义 Redis运行在内存中但是可以持久化到磁盘, 重启的时候可以再次加载进行使用  Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行  Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作  Redis支持数据的备份，即master-slave模式的数据备份   Redis">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2025-12-17T18:31:29.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis概要之数据类型">
+<meta name="twitter:description" content="Redis简介要义 Redis运行在内存中但是可以持久化到磁盘, 重启的时候可以再次加载进行使用  Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行  Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作  Redis支持数据的备份，即master-slave模式的数据备份   Redis">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"scrollpercent":true,"onmobile":true,"dimmer":true,"body_content_height":0,"display_duration":150},
+    local_search: {"enable":true,"trigger":"auto","top_n_per_article":1},
+    fancybox: false,
+    mediumzoom: true,
+    darkmode_js: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"duration":188,"transition":{"header":"fadeIn","menu":"fadeIn","logo":"fadeIn","post_block_else":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","footer":"fadeIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+
+
+
+
+  <title>redis概要之数据类型 | 🚙</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">🚙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">💨 💨 💨</p>
+      
+  </div>
+
+  <div class="menu-item sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="menu-item site-search">
+    
+  
+  <div class="site-search-div">
+    <button class="search-icon" id="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+    <input type="text" id="local-search-input" class="st-search-input">
+    <i id="local-search-close">×</i>
+  </div>
+
+
+<script type="text/javascript" id="local.search.active">
+    {/* var inputArea       = document.querySelector("#local-search-input");
+    inputArea.onclick   = function(){ getSearchFile(); this.focus(); }
+    inputArea.onkeydown = function(){ if(event.keyCode == 13) return false } */}
+</script>
+
+
+
+  </div>
+  <div id="local-search-result-pc" class="local-search-result-cls"></div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+       
+    </ul>
+  
+
+  
+    
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <div id="local-search-result-mobile" class="local-search-result-cls"></div>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hulinhong.com/redis概要之数据类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="🚙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redis概要之数据类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-11T09:29:22+00:00">
+                07-11-2015
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index">
+                    <span itemprop="name">DB</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <div class="post-tags">
+              
+                <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+              
+                <a href="/tags/NoSQL/" rel="tag"><i class="fa fa-tag"></i> NoSQL</a>
+              
+            </div>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+      
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/socket可读可写条件与非阻塞connect或accept浅析/" rel="next" title="socket可读可写条件与非阻塞connect或accept浅析">
+                <i class="fa fa-chevron-left"></i> 
+                <p class="post-nav-pre-next-title">
+                  socket可读可写条件与非阻塞connect或accept浅析
+                </p> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/redis_hiredis_install_tutorial/" rel="prev" title="redis和hiredis安装教程">
+              <p class="post-nav-pre-next-title">
+                  redis和hiredis安装教程
+              </p> 
+              <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+
+      
+      
+
+      
+        <h1 id="Redis简介要义"><a href="#Redis简介要义" class="headerlink" title="Redis简介要义"></a>Redis简介要义</h1><ul>
+<li><p>Redis运行在内存中但是可以持久化到磁盘, 重启的时候可以再次加载进行使用</p>
+</li>
+<li><p>Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行</p>
+</li>
+<li><p>Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作</p>
+</li>
+<li><p>Redis支持数据的备份，即master-slave模式的数据备份</p>
+</li>
+</ul>
+<h1 id="Redis数据类型"><a href="#Redis数据类型" class="headerlink" title="Redis数据类型"></a>Redis数据类型</h1><p>Redis的数据类型很重要, 这是他做很多事情的基础, 不理解的话很难用好</p>
+<p><strong>. . .</strong><a id="more"></a></p>
+<h2 id="String-字符串"><a href="#String-字符串" class="headerlink" title="String(字符串)"></a>String(字符串)</h2><p>string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，</p>
+<p>一个key对应一个value。</p>
+<p>string类型是二进制安全的。</p>
+<p>二进制安全的意思是redis的string可以包含任何数据。</p>
+<p>比如jpg图片或者序列化的对象 。</p>
+<p>string类型是Redis最基本的数据类型，一个键最大能存储512MB。</p>
+<p>实例 : </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; SET name &quot;runoob&quot;</span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; GET name</span><br><span class="line">&quot;runoob&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="Hash（哈希表）"><a href="#Hash（哈希表）" class="headerlink" title="Hash（哈希表）"></a>Hash（哈希表）</h2><p>Redis hash 是一个键名对集合。<br>Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。</p>
+<p>实例 :<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis&gt; HSET people jack &quot;Jack Sparrow&quot;</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">redis&gt; HSET people gump &quot;Forrest Gump&quot;</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">redis&gt; HGETALL people</span><br><span class="line">1) &quot;jack&quot;          # 域</span><br><span class="line">2) &quot;Jack Sparrow&quot;  # 值</span><br><span class="line">3) &quot;gump&quot;</span><br><span class="line">4) &quot;Forrest Gump&quot;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis&gt; HMSET pet dog &quot;doudou&quot; cat &quot;nounou&quot;    # 一次设置多个域</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">redis&gt; HMGET pet dog cat fake_pet             # 返回值的顺序和传入参数的顺序一样</span><br><span class="line">1) &quot;doudou&quot;</span><br><span class="line">2) &quot;nounou&quot;</span><br><span class="line">3) (nil)                                      # 不存在的域返回nil值</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis&gt; HMSET website google www.google.com yahoo www.yahoo.com</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">redis&gt; HGET website google</span><br><span class="line">&quot;www.google.com&quot;</span><br><span class="line"></span><br><span class="line">redis&gt; HGET website yahoo</span><br><span class="line">&quot;www.yahoo.com&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis&gt; HSET website google &quot;www.g.cn&quot;       # 设置一个新域</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">redis&gt; HSET website google &quot;www.google.com&quot; # 覆盖一个旧域</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 域存在</span><br><span class="line"></span><br><span class="line">redis&gt; HSET site redis redis.com</span><br><span class="line">(integer) 1</span><br><span class="line"></span><br><span class="line">redis&gt; HGET site redis</span><br><span class="line">&quot;redis.com&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 域不存在</span><br><span class="line"></span><br><span class="line">redis&gt; HGET site mysql</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+<p>以上实例中 hash 数据类型存储了包含用户脚本信息的用户对象。<br>每个 hash 可以存储 232 -1 键值对（40多亿）。</p>
+<h2 id="List（列表）"><a href="#List（列表）" class="headerlink" title="List（列表）"></a>List（列表）</h2><p>Redis 列表是简单的字符串列表，按照插入顺序排序。</p>
+<p>你可以添加一个元素到列表的头部（左边lpush）或者尾部（右边rpush）。</p>
+<p>实例 :<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; lpush runoob redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; rpush runoob mongodb</span><br><span class="line">(integer) 2</span><br><span class="line">redis 127.0.0.1:6379&gt; lpush runoob rabitmq</span><br><span class="line">(integer) 3</span><br><span class="line">redis 127.0.0.1:6379&gt; lrange runoob 0 10</span><br><span class="line">1) &quot;rabitmq&quot;</span><br><span class="line">2) &quot;redis&quot;</span><br><span class="line">3) &quot;mongodb&quot;</span><br><span class="line">redis 127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure></p>
+<p>列表最多可存储 232 - 1 元素 (4294967295, 每个列表可存储40多亿)。</p>
+<h2 id="Set（集合）"><a href="#Set（集合）" class="headerlink" title="Set（集合）"></a>Set（集合）</h2><p>Redis的Set是string类型的无序集合。</p>
+<p>集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)。</p>
+<h3 id="sadd-命令"><a href="#sadd-命令" class="headerlink" title="sadd 命令"></a>sadd 命令</h3><p>添加一个string元素到,key对应的set集合中，成功返回1,</p>
+<p>如果元素已经在集合中返回0,key对应的set不存在返回错误。</p>
+<p><code>sadd key member</code></p>
+<p>实例 :<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; sadd runoob redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; sadd runoob mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; sadd runoob rabitmq</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; sadd runoob rabitmq</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; smembers runoob</span><br><span class="line"></span><br><span class="line">1) &quot;rabitmq&quot;</span><br><span class="line">2) &quot;mongodb&quot;</span><br><span class="line">3) &quot;redis&quot;</span><br></pre></td></tr></table></figure></p>
+<p>注意：以上实例中 rabitmq 添加了两次，</p>
+<p>但根据集合内元素的唯一性，第二次插入的元素将被忽略。</p>
+<p>集合中最大的成员数为 232 - 1(4294967295, 每个集合可存储40多亿个成员)。</p>
+<h2 id="zset-sorted-set：有序集合"><a href="#zset-sorted-set：有序集合" class="headerlink" title="zset(sorted set：有序集合)"></a>zset(sorted set：有序集合)</h2><p>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。</p>
+<p>不同的是每个元素都会关联一个double类型的分数。<br>redis正是通过分数来为集合中的成员进行从小到大的排序。</p>
+<p>zset的成员是唯一的,但分数(score)却可以重复。</p>
+<h3 id="zadd-命令"><a href="#zadd-命令" class="headerlink" title="zadd 命令"></a>zadd 命令</h3><p>添加元素到集合，元素在集合中存在则更新对应score<br><code>zadd key score member</code><br>实例 :<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 1 redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 3 mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 4 rabitmq</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; zadd runoob 7 rabitmq</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; ZRANGEBYSCORE runoob 0 1000</span><br><span class="line"></span><br><span class="line">1) &quot;redis&quot;</span><br><span class="line">2) &quot;mongodb&quot;</span><br><span class="line">3) &quot;rabitmq&quot;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+
+      
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+            
+              <a href="/tags/NoSQL/" rel="tag"><i class="fa fa-tag"></i> NoSQL</a>
+            
+          </div>
+        
+
+        
+        
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/socket可读可写条件与非阻塞connect或accept浅析/" rel="next" title="socket可读可写条件与非阻塞connect或accept浅析">
+                  <i class="fa fa-chevron-left"></i> 
+                  <p class="post-nav-pre-next-title">
+                    socket可读可写条件与非阻塞connect或accept浅析
+                  </p> 
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/redis_hiredis_install_tutorial/" rel="prev" title="redis和hiredis安装教程">
+                <p class="post-nav-pre-next-title">
+                    redis和hiredis安装教程
+                </p> 
+                <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </footer>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  
+
+  <aside id="sidebar" class="sidebar">
+
+    
+      
+        <div id="sidebar-dimmer"></div>
+      
+    
+
+    <div class="sidebar-inner">
+    
+      <div class="sidebar-toggle-inside motion-element">
+        <div class="sidebar-toggle-line-wrap">
+          <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+          <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+        </div>
+      </div>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="site-author-image" rel="start" style="border:none">
+            <img class="site-author-image" itemprop="image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0zNSAyNUg0NVYzNUgzNVYyNVoiIGZpbGw9IiNEREREREQiLz4KPC9zdmc+" data-src="/uploads/avatar.png" alt="Mike">
+          </a>
+          <p class="site-author-name" itemprop="name">Mike</p>
+           
+              <p class="site-description motion-element" itemprop="description">🚙 🚗 💨 💨 If you want to create a blog like this, just follow my open-source project, "hexo-theme-neo", click the GitHub button below and check it out ^_^ . It is recommended to use Chrome, Safari, or Edge to read this blog since this blog was developed on Edge (Chromium kernel version) and tested on Safari.</p>
+          
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">298</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">111</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+          <div class="site-state-item site-state-about">
+            <a href="/about/">
+              <span class="site-state-item-about fa fa-fw fa-user"></span>
+              <span class="site-state-item-name">about</span>
+            </a>
+          </div>
+          
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/no5ix" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://open.spotify.com/user/313duq77ekebrfyak3xijqewzss4?si=e7653b829a9747bf" target="_blank" title="Spotify">
+                  
+                    <i class="fa fa-fw fa-spotify"></i>
+                  
+                    
+                      Spotify
+                    
+                </a>
+              </span>
+            
+          
+          
+          <!-- 网易云音乐 -->
+            <!-- <div class="netease-cloud-music"> -->
+              <!-- <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=992743594&auto=0&height=90"></iframe> -->
+            <!-- </div> -->
+          <!-- 网易云音乐 -->
+
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis简介要义"><span class="nav-text">Redis简介要义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据类型"><span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String-字符串"><span class="nav-text">String(字符串)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash（哈希表）"><span class="nav-text">Hash（哈希表）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List（列表）"><span class="nav-text">List（列表）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set（集合）"><span class="nav-text">Set（集合）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sadd-命令"><span class="nav-text">sadd 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zset-sorted-set：有序集合"><span class="nav-text">zset(sorted set：有序集合)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#zadd-命令"><span class="nav-text">zadd 命令</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <!--
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+      
+        <span id="scrollpercent"><span>0</span>%</span>
+      
+    </div>
+    -->
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/mediumzoom/medium-zoom.js?v=1.1.0"></script>
+
+
+
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+    <script src="/js/src/local-search.js"></script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/lib/wobble_window/wobblewindow.js"> </script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<script type="text/javascript" src="/js/src/headroom.js"></script>
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/code-highlight-modification.js"></script>
+
+<!-- Flashcards Script -->
+<script type="text/javascript" src="/js/src/flashcards.js"></script>
