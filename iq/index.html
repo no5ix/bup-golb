@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-9VTQL50TZB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-9VTQL50TZB');
+    </script> -->
+    
+    <script>
+      (function(){
+          let pagePasswd = "ees";
+          if(pagePasswd){
+              let localStoragePasswdKey = 'iq_last_passwd';
+              function checkPassword(password) {
+                  password = password == null ? null : password.trim();
+                  if (password !== pagePasswd) {
+                      if (password != null) {
+                          alert('Error!');
+                      }
+                      if (history.length > 1) {
+                          history.back();
+                      } else {
+                          window.location.href = "about:blank";
+                      }
+                  } else {
+                      localStorage.setItem(localStoragePasswdKey, password);
+                  }
+              }
+  
+              var password_verify_on_local = true;
+              const hostname = window.location.hostname;
+              if (password_verify_on_local || (!(hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.startsWith("192")))) {
+                  const lspk = localStorage.getItem(localStoragePasswdKey) || "";
+                  if (lspk !== pagePasswd) {
+                      var password = prompt('Open Sesame');
+                      checkPassword(password);
+                  }
+              }
+          }
+      })();
+    </script>
+
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview Questions</title>
+    <script type="module" crossorigin src="./assets/index-Cny2rGWx.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CYstBSOa.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
